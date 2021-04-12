@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:c4d/consts/urls.dart';
-import 'package:c4d/generated/l10n.dart';
-import 'package:c4d/module_upload/service/image_upload/image_upload_service.dart';
+import 'package:yessoft/consts/urls.dart';
+import 'package:yessoft/generated/l10n.dart';
+import 'package:yessoft/module_upload/service/image_upload/image_upload_service.dart';
 
 class ChatWriterWidget extends StatefulWidget {
   final Function(String) onMessageSend;

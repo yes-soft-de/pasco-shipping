@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:inject/inject.dart';
-import 'package:c4d/consts/urls.dart';
-import 'package:c4d/module_upload/response/imgbb/imgbb_response.dart';
-import 'package:c4d/utils/logger/logger.dart';
+import 'package:yessoft/consts/urls.dart';
+import 'package:yessoft/module_upload/response/imgbb/imgbb_response.dart';
+import 'package:yessoft/utils/logger/logger.dart';
 
 @provide
 class UploadRepository {

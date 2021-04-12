@@ -1,9 +1,11 @@
-import 'package:c4d/consts/urls.dart';
-import 'package:c4d/module_auth/request/login_request/login_request.dart';
-import 'package:c4d/module_auth/request/register_request/register_request.dart';
-import 'package:c4d/module_auth/response/login_response/login_response.dart';
-import 'package:c4d/module_network/http_client/http_client.dart';
 import 'package:inject/inject.dart';
+
+import 'package:yessoft/consts/urls.dart';
+import 'package:yessoft/module_network/http_client/http_client.dart';
+
+import '../../request/login_request/login_request.dart';
+import '../../request/register_request/register_request.dart';
+import '../../response/login_response/login_response.dart';
 
 @provide
 class AuthRepository {

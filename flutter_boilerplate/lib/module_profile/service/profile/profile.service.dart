@@ -1,6 +1,6 @@
-import 'package:c4d/module_profile/manager/profile/profile.manager.dart';
-import 'package:c4d/module_profile/request/branch/create_branch_request.dart';
-import 'package:c4d/module_profile/request/profile/profile_request.dart';
+import 'package:yessoft/module_profile/manager/profile/profile.manager.dart';
+import 'package:yessoft/module_profile/request/branch/create_branch_request.dart';
+import 'package:yessoft/module_profile/request/profile/profile_request.dart';
 import 'package:inject/inject.dart';
 
 @provide

@@ -1,6 +1,6 @@
-import 'package:c4d/abstracts/module/yes_module.dart';
-import 'package:c4d/module_settings/setting_routes.dart';
-import 'package:c4d/module_settings/ui/settings_page/settings_page.dart';
+import 'package:yessoft/abstracts/module/yes_module.dart';
+import 'package:yessoft/module_settings/setting_routes.dart';
+import 'package:yessoft/module_settings/ui/settings_page/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
 

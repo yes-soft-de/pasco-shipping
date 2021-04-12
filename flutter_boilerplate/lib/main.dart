@@ -1,6 +1,6 @@
-import 'package:c4d/module_chat/chat_module.dart';
-import 'package:c4d/module_localization/service/localization_service/localization_service.dart';
-import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
+import 'package:yessoft/module_chat/chat_module.dart';
+import 'package:yessoft/module_localization/service/localization_service/localization_service.dart';
+import 'package:yessoft/module_theme/service/theme_service/theme_service.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,6 +13,7 @@ import 'package:inject/inject.dart';
 import 'di/components/app.component.dart';
 import 'generated/l10n.dart';
 import 'module_auth/authoriazation_module.dart';
+import 'module_auth/authorization_routes.dart';
 import 'module_settings/settings_module.dart';
 
 void main() async {
@@ -116,10 +117,11 @@ class _MyAppState extends State<MyApp> {
       ],
       theme: theme,
       supportedLocales: S.delegate.supportedLocales,
-      title: 'C4D Client',
+      // TODO: Change this!
+      title: 'Yes Soft Boilerplate',
       routes: fullRoutesList,
       // TODO: Plug Home Page Here
-      // initialRoute: OrdersRoutes.OWNER_ORDERS_SCREEN,
+      initialRoute: AuthorizationRoutes.AUTH_SCREEN,
     );
   }
 }
