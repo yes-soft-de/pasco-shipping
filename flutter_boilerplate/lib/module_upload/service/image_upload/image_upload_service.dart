@@ -1,6 +1,6 @@
 import 'package:inject/inject.dart';
-import 'package:c4d/module_upload/manager/upload_manager/upload_manager.dart';
-import 'package:c4d/module_upload/response/imgbb/imgbb_response.dart';
+import 'package:yessoft/module_upload/manager/upload_manager/upload_manager.dart';
+import 'package:yessoft/module_upload/response/imgbb/imgbb_response.dart';
 
 @provide
 class ImageUploadService {

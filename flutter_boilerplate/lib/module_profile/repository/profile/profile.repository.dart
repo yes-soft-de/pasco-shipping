@@ -1,8 +1,8 @@
-import 'package:c4d/consts/urls.dart';
-import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
-import 'package:c4d/module_network/http_client/http_client.dart';
-import 'package:c4d/module_profile/request/branch/create_branch_request.dart';
-import 'package:c4d/module_profile/request/profile/profile_request.dart';
+import 'package:yessoft/consts/urls.dart';
+import 'package:yessoft/module_auth/service/auth_service/auth_service.dart';
+import 'package:yessoft/module_network/http_client/http_client.dart';
+import 'package:yessoft/module_profile/request/branch/create_branch_request.dart';
+import 'package:yessoft/module_profile/request/profile/profile_request.dart';
 import 'package:inject/inject.dart';
 
 @provide
@@ -16,11 +16,11 @@ class ProfileRepository {
   );
 
   Future<bool> createProfile(ProfileRequest profileRequest) async {
-    var token = await _authService.getAuthHeaderMap();
+    var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
       Urls.PROFILE,
       profileRequest.toJson(),
-      headers: token,
+      headers: {'Authorization': 'Bearer $token'},
     );
 
     if (response['status_code'] == '201') return true;
@@ -29,11 +29,11 @@ class ProfileRepository {
   }
 
   Future<bool> createBranch(CreateBranchRequest createBranch) async {
-    var token = await _authService.getAuthHeaderMap();
+    var token = await _authService.getToken();
     dynamic response = await _apiClient.post(
       Urls.BRANCH,
       createBranch.toJson(),
-      headers: token,
+      headers: {'Authorization': 'Bearer $token'},
     );
 
     if (response['status_code'] == '201') return true;

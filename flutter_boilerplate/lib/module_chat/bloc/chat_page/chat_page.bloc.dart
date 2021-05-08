@@ -1,7 +1,7 @@
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:c4d/module_chat/model/chat/chat_model.dart';
+import 'package:yessoft/module_chat/model/chat/chat_model.dart';
 
 import '../../service/chat/char_service.dart';
 

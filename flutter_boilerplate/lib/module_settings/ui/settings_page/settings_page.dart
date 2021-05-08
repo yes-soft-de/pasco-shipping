@@ -1,10 +1,10 @@
-import 'package:c4d/module_auth/authorization_routes.dart';
+import 'package:yessoft/module_auth/authorization_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:inject/inject.dart';
-import 'package:c4d/generated/l10n.dart';
-import 'package:c4d/module_auth/service/auth_service/auth_service.dart';
-import 'package:c4d/module_localization/service/localization_service/localization_service.dart';
-import 'package:c4d/module_theme/service/theme_service/theme_service.dart';
+import 'package:yessoft/generated/l10n.dart';
+import 'package:yessoft/module_auth/service/auth_service/auth_service.dart';
+import 'package:yessoft/module_localization/service/localization_service/localization_service.dart';
+import 'package:yessoft/module_theme/service/theme_service/theme_service.dart';
 
 @provide
 class SettingsScreen extends StatefulWidget {
@@ -107,13 +107,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: FutureBuilder(
-                  future: widget._authService.isLoggedIn,
-                  initialData: false,
-                  builder:
-                      (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                    if (snapshot.data) {
-                      return Flex(
+                child: widget._authService.isLoggedIn
+                    ? Flex(
                         direction: Axis.horizontal,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -124,14 +119,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 widget._authService.logout().then((value) {
                                   Navigator.pushNamedAndRemoveUntil(
                                       context,
-                                      AuthorizationRoutes.LOGIN_SCREEN,
+                                      AuthorizationRoutes.AUTH_SCREEN,
                                       (route) => false);
                                 });
                               })
                         ],
-                      );
-                    } else {
-                      return Flex(
+                      )
+                    : Flex(
                         direction: Axis.horizontal,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -139,14 +133,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           IconButton(
                               icon: Icon(Icons.login),
                               onPressed: () {
-                                Navigator.of(context).pushNamed(
-                                    AuthorizationRoutes.LOGIN_SCREEN);
+                                Navigator.of(context)
+                                    .pushNamed(AuthorizationRoutes.AUTH_SCREEN);
                               })
                         ],
-                      );
-                    }
-                  },
-                ),
+                      ),
               ),
             ),
           ),

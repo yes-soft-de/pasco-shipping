@@ -1,6 +1,6 @@
 import 'package:inject/inject.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:c4d/module_localization/presistance/localization_preferences_helper/localization_preferences_helper.dart';
+import 'package:yessoft/module_localization/presistance/localization_preferences_helper/localization_preferences_helper.dart';
 
 @provide
 @singleton

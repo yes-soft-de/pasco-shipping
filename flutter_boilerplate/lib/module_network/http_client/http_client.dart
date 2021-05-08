@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:inject/inject.dart';
-import 'package:c4d/utils/logger/logger.dart';
+import 'package:yessoft/utils/logger/logger.dart';
 
 @provide
 class ApiClient {
@@ -38,7 +38,7 @@ class ApiClient {
       );
       return _processResponse(response);
     } catch (e) {
-      _logger.error(tag, e.toString() + ' ' + url);
+      _logger.error(tag, e.toString() + ' ' + url, StackTrace.current);
       return null;
     }
   }
@@ -71,7 +71,7 @@ class ApiClient {
       );
       return _processResponse(response);
     } catch (e) {
-      _logger.error(tag, e.toString() + url);
+      _logger.error(tag, e.toString() + url, StackTrace.current);
       return null;
     }
   }
@@ -97,7 +97,7 @@ class ApiClient {
       );
       return _processResponse(response);
     } catch (e) {
-      _logger.error(tag, e.toString() + url);
+      _logger.error(tag, e.toString() + url, StackTrace.current);
       return null;
     }
   }
@@ -128,7 +128,7 @@ class ApiClient {
       );
       return _processResponse(response);
     } catch (e) {
-      _logger.error(tag, e.toString() + ' ' + url);
+      _logger.error(tag, e.toString() + ' ' + url, StackTrace.current);
       return null;
     }
   }
@@ -138,7 +138,7 @@ class ApiClient {
       _logger.info(tag, response.data.toString());
       return response.data;
     } else {
-      _logger.error(tag, response.statusCode.toString());
+      _logger.error(tag, response.statusCode.toString(), StackTrace.current);
       return null;
     }
   }

@@ -5,13 +5,12 @@ import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:inject/inject.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:c4d/consts/urls.dart';
-import 'package:c4d/module_network/http_client/http_client.dart';
-import 'package:c4d/utils/logger/logger.dart';
+import 'package:yessoft/consts/urls.dart';
+import 'package:yessoft/module_network/http_client/http_client.dart';
+import 'package:yessoft/utils/logger/logger.dart';
 
 @provide
 class FireNotificationService {
-
   static final PublishSubject<String> _onNotificationRecieved =
       PublishSubject();
   static Stream get onNotificationStream => _onNotificationRecieved.stream;
@@ -31,7 +30,6 @@ class FireNotificationService {
     var token = await _fcm.getToken();
     print('Token: $token');
     if (token != null && userAuthToken != null) {
-
       // And Subscribe to the changes
       this._fcm.configure(
         onMessage: (Map<String, dynamic> message) async {

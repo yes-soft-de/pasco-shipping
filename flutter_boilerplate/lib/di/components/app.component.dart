@@ -1,8 +1,7 @@
 import 'package:inject/inject.dart';
-import 'package:c4d/main.dart';
+import 'package:yessoft/main.dart';
 
 import 'app.component.inject.dart' as g;
-
 
 // Split this to multiple Components
 @Injector()
@@ -11,7 +10,6 @@ abstract class AppComponent {
   MyApp get app;
 
   static Future<AppComponent> create() async {
-    return await g.AppComponent$Injector.create(
-    );
+    return await g.AppComponent$Injector.create();
   }
 }

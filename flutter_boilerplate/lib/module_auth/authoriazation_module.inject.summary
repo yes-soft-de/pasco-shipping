@@ -1,5 +1,5 @@
 {
-  "asset": "asset:c4d/lib/module_auth/authoriazation_module.dart",
+  "asset": "asset:yessoft/lib/module_auth/authoriazation_module.dart",
   "summary": {
     "injector": [],
     "module": [],
@@ -11,7 +11,7 @@
           "kind": "constructor",
           "injectedType": {
             "lookupKey": {
-              "root": "asset:c4d/lib/module_auth/authoriazation_module.dart#AuthorizationModule",
+              "root": "asset:yessoft/lib/module_auth/authoriazation_module.dart#AuthorizationModule",
               "qualifier": null
             },
             "isProvider": false
@@ -21,14 +21,7 @@
           "dependencies": [
             {
               "lookupKey": {
-                "root": "asset:c4d/lib/module_auth/ui/screen/login_screen/login_screen.dart#LoginScreen",
-                "qualifier": null
-              },
-              "isProvider": false
-            },
-            {
-              "lookupKey": {
-                "root": "asset:c4d/lib/module_auth/ui/screen/register_screen/register_screen.dart#RegisterScreen",
+                "root": "asset:yessoft/lib/module_auth/ui/screen/login_screen/auth_screen.dart#AuthScreen",
                 "qualifier": null
               },
               "isProvider": false
