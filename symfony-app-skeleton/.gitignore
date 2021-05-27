@@ -15,6 +15,7 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+/migrations/
 
 # jetbrain
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
@@ -25,6 +26,9 @@
 .idea/**/tasks.xml
 .idea/dictionaries
 .idea/
+.env.prod
+migrations
+debug.log
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
@@ -38,7 +42,6 @@
 
 .env
 .env.test
-/.env
 upload/
 # Gradle:
 .idea/**/gradle.xml
@@ -90,3 +93,17 @@ config/jwt
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###

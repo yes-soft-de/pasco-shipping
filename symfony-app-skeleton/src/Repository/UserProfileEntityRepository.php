@@ -23,7 +23,7 @@ class UserProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('profile')
 
-            ->select('profile.userName', 'profile.image', 'profile.story', 'profile.location')
+            ->addSelect('profile.userName', 'profile.image', 'profile.story', 'profile.city', 'profile.city', 'profile.date', 'profile.dateAndTime')
             ->andWhere('profile.userID=:userID')
             ->setParameter('userID', $userID)
 
@@ -40,5 +40,12 @@ class UserProfileEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function getAllProfiles()
+    {
+        return $this->createQueryBuilder('profile')
+            ->getQuery()
+            ->getResult();
     }
 }

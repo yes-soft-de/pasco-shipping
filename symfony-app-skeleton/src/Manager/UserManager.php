@@ -35,38 +35,83 @@ class UserManager
 
     public function userRegister(UserRegisterRequest $request)
     {
-        $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
+        // First, create the user
 
-        $user = new UserEntity($request->getUserID());
+        $userResult = $this->getUserByUserID($request->getUserID());
 
-        if ($request->getPassword())
+        if ($userResult == null) 
         {
-            $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
-        }
+            $userRegister = $this->autoMapping->map(UserRegisterRequest::class, UserEntity::class, $request);
 
-        if ($request->getRoles() == null)
+            $user = new UserEntity($request->getUserID());
+
+            if ($request->getPassword())
+            {
+                $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
+            }
+
+            if ($request->getRoles() == null)
+            {
+                $request->setRoles(['user']);
+            }
+
+            $userRegister->setRoles($request->getRoles());
+
+            $this->entityManager->persist($userRegister);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            // Second, create the user's profile
+
+            $userProfile = $this->getProfileByUserID($request->getUserID());
+
+            if ($userProfile == null) 
+            {
+                $userProfile = $this->autoMapping->map(UserRegisterRequest::class, UserProfileEntity::class, $request);
+
+                $this->entityManager->persist($userProfile);
+                $this->entityManager->flush();
+                $this->entityManager->clear();
+            }
+
+            return $userRegister;
+
+        }
+        else
         {
-            $request->setRoles(['user']);
+            $userProfile = $this->getProfileByUserID($request->getUserID());
+
+            if ($userProfile == null) 
+            {
+                $userProfile = $this->autoMapping->map(UserRegisterRequest::class, UserProfileEntity::class, $request);
+
+                $this->entityManager->persist($userProfile);
+                $this->entityManager->flush();
+                $this->entityManager->clear();
+            }
+
+            return true;
         }
-        $userRegister->setRoles($request->getRoles());
+        
 
-        $this->entityManager->persist($userRegister);
-        $this->entityManager->flush();
-        $this->entityManager->clear();
-
-        return $userRegister;
     }
 
-    public function userProfileCreate(UserProfileCreateRequest $request)
-    {
-        $userProfile = $this->autoMapping->map(UserProfileCreateRequest::class, UserProfileEntity::class, $request);
+    // public function userProfileCreate(UserProfileCreateRequest $request)
+    // {
+    //    $userProfile = $this->getProfileByUserID($request->getUserID());
+    //    if ($userProfile == null) {
+    //         $userProfile = $this->autoMapping->map(UserProfileCreateRequest::class, UserProfileEntity::class, $request);
 
-        $this->entityManager->persist($userProfile);
-        $this->entityManager->flush();
-        $this->entityManager->clear();
+    //         $this->entityManager->persist($userProfile);
+    //         $this->entityManager->flush();
+    //         $this->entityManager->clear();
 
-        return $userProfile;
-    }
+    //         return $userProfile;
+    // }
+    //     else {
+    //         return true;
+    //    }
+    // }
 
     public function userProfileUpdate(UserProfileUpdateRequest $request)
     {
@@ -76,6 +121,9 @@ class UserManager
         {
             $item = $this->autoMapping->mapToObject(UserProfileUpdateRequest::class,
                 UserProfileEntity::class, $request, $item);
+
+            $item->setDate($request->getDate());
+            $item->setDateAndTime($request->getDateAndTime());
 
             $this->entityManager->flush();
             $this->entityManager->clear();
@@ -87,5 +135,20 @@ class UserManager
     public function getProfileByUserID($userID)
     {
         return $this->userProfileEntityRepository->getProfileByUSerID($userID);
+    }
+
+    public function getUserByUserID($userID)
+    {
+        return $this->userRepository->getUserByUserID($userID);
+    }
+
+    public function getUserByEmail($email)
+    {
+        return $this->userRepository->getUserByEmail($email);
+    }
+
+    public function getAllProfiles()
+    {
+        return $this->userProfileEntityRepository->getAllProfiles();
     }
 }

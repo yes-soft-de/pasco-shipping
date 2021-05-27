@@ -6,15 +6,22 @@ namespace App\Request;
 
 class UserProfileUpdateRequest
 {
+    private $id;
+    
     private $userID;
 
     private $userName;
 
-    private $location;
+    private $city;
 
     private $story;
 
     private $image;
+
+    private $date;
+
+    private $dateAndTime;
+
 
     /**
      * @return mixed
@@ -51,17 +58,17 @@ class UserProfileUpdateRequest
     /**
      * @return mixed
      */
-    public function getLocation()
+    public function getCity()
     {
-        return $this->location;
+        return $this->city;
     }
 
     /**
-     * @param mixed $location
+     * @param mixed $city
      */
-    public function setLocation($location): void
+    public function setCity($city): void
     {
-        $this->location = $location;
+        $this->city = $city;
     }
 
     /**
@@ -96,5 +103,13 @@ class UserProfileUpdateRequest
         $this->image = $image;
     }
 
+    public function getDate()
+    {
+        return $this->date;
+    }
 
+    public function getDateAndTime()
+    {
+        return $this->dateAndTime;
+    }
 }

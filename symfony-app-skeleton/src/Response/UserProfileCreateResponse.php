@@ -8,7 +8,7 @@ class UserProfileCreateResponse
 {
     public $userName;
 
-    public $location;
+    public $city;
 
     public $story;
 

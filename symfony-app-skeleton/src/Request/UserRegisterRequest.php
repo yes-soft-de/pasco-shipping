@@ -12,6 +12,10 @@ class UserRegisterRequest
 
     private $password;
 
+    private $email;
+
+    private $userName;
+
     /**
      * @return mixed
      */
@@ -60,5 +64,21 @@ class UserRegisterRequest
         $this->password = $password;
     }
 
+     /**
+     * @return mixed
+     */ 
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
+   /**
+     * @param mixed $email
+     */ 
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
 }
