@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\OrderShipmentEntity;
+use App\Entity\UserProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +21,27 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, OrderShipmentEntity::class);
     }
 
-    // /**
-    //  * @return OrderShipmentEntity[] Returns an array of OrderShipmentEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getShipmentsOrdersByStatus($status)
     {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('shipmentOrder')
+            ->select("shipmentOrder.id", "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", 
+            "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", 
+            "shipmentOrder.weight", "shipmentOrder.QRcode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "userProfile.userName as username", "userProfile.image as userImage")
 
-    /*
-    public function findOneBySomeField($value): ?OrderShipmentEntity
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('shipmentOrder.status = :state')
+            ->setParameter('state', $status)
+
+            ->leftJoin(
+                UserProfileEntity::class,
+                'userProfile',
+                Join::WITH,
+                'userProfile.userID = shipmentOrder.clientUserID'
+            )
+
+            ->orderBy('shipmentOrder.id', 'ASC')
+            
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
 }
