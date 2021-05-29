@@ -2,8 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\OrderShipmentEntity;
 use App\Entity\ShipmentStatusEntity;
+use App\Entity\UserProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +22,38 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, ShipmentStatusEntity::class);
     }
 
-    // /**
-    //  * @return ShipmentStatusEntity[] Returns an array of ShipmentStatusEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getUnPackedShipments()
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('shipment')
+            ->select("shipment.id", "shipment.shipmentID", "shipment.shipmentStatus", "shipment.trackNumber", "shipment.statusDetails", "shipment.isInOneHolder", "shipment.packed", 
+            "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", 
+            "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", 
+            "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.QRcode", 
+            "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "userProfile.userName as username", 
+            "userProfile.image as userImage")
+
+            ->andWhere('shipment.packed = :packed')
+            ->setParameter('packed', 0)
+
+            ->leftJoin(
+                OrderShipmentEntity::class,
+                'shipmentOrder',
+                Join::WITH,
+                'shipmentOrder.id = shipment.shipmentID'
+            )
+
+            ->leftJoin(
+                UserProfileEntity::class,
+                'userProfile',
+                Join::WITH,
+                'userProfile.userID = shipmentOrder.clientUserID'
+            )
+
+            ->orderBy('shipment.id', 'ASC')
+            
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?ShipmentStatusEntity
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+    
 }
