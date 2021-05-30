@@ -27,6 +27,9 @@ class ShipmentStatusManager
     {
         $shipmentStatusEntity = $this->autoMapping->map(ShipmentStatusCreateRequest::class, ShipmentStatusEntity::class, $request);
         
+        $shipmentStatusEntity->setTrackNumber($this->getRandomCode());
+        $shipmentStatusEntity->setShipmentStatus("accepted");
+        
         $this->entityManager->persist($shipmentStatusEntity);
         $this->entityManager->flush();
         $this->entityManager->clear();
@@ -58,6 +61,15 @@ class ShipmentStatusManager
             return $shipmentStatusEntity;
     
         }
+    }
+
+    public function getRandomCode()
+    {
+        // Get 5-digits random number
+
+        $data = random_int(0, 9) . random_int(0, 9) . random_int(0, 9) . random_int(0, 9) . random_int(0, 9);
+
+        return  vsprintf('%s%s%s%s%s', str_split(($data)));
     }    
 
 }

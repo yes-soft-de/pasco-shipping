@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\ShipmentStatusCreateRequest;
 use App\Service\ShipmentStatusService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,6 +26,33 @@ class ShipmentStatusController extends BaseController
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
         $this->shipmentStatusService = $shipmentStatusService;
+    }
+
+    /**
+     * @Route("shipmentstatus", name="createShipmentStatus", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function create(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ShipmentStatusCreateRequest::class, (object)$data);
+
+        $request->setCreatedBy($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->shipmentStatusService->create($request);
+
+        return $this->response($result, self::CREATE);
     }
 
     /**

@@ -71,8 +71,6 @@ class ShipmentOrderManager
                 $shipmentStatusRequest = $this->autoMapping->map(ShipmentOrderStatusUpdateRequest::class, ShipmentStatusCreateRequest::class, $request);
 
                 $shipmentStatusRequest->setShipmentID($request->getId());
-                $shipmentStatusRequest->setTrackNumber($this->getRandomCode());
-                $shipmentStatusRequest->setShipmentStatus("accepted");
                 $shipmentStatusRequest->setIsInOneHolder(false);
                 $shipmentStatusRequest->setPacked(false);
 
@@ -83,15 +81,6 @@ class ShipmentOrderManager
             return $shipmentOrderEntity;
     
         }
-    }
-
-    public function getRandomCode()
-    {
-        // Get 5-digits random number
-
-        $data = random_int(0, 9) . random_int(0, 9) . random_int(0, 9) . random_int(0, 9) . random_int(0, 9);
-
-        return  vsprintf('%s%s%s%s%s', str_split(($data)));
     }
     
 }

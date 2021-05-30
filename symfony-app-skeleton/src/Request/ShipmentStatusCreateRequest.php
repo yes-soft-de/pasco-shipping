@@ -16,6 +16,13 @@ class ShipmentStatusCreateRequest
 
     private $packed;
 
+    private $createdBy;
+
+    //the following properties are used when the shipment is stored in second container for different travel
+    private $holderType;
+
+    private $holderID;
+
     public function setShipmentID($shipmentID)
     {
         $this->shipmentID = $shipmentID;
@@ -39,6 +46,26 @@ class ShipmentStatusCreateRequest
     public function setPacked($packed)
     {
         $this->packed = $packed;
+    }
+
+    public function getHolderID()
+    {
+        return $this->holderID;
+    }
+
+    public function getHolderType()
+    {
+        return $this->holderID;
+    }
+
+    public function setCreatedBy($userID)
+    {
+        $this->createdBy = $userID;
+    }
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
     }
 
 }

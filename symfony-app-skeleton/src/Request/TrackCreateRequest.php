@@ -49,4 +49,9 @@ class TrackCreateRequest
         return $this->holderID;
     }
 
+    public function setHolderID($holderID)
+    {
+        $this->holderID = $holderID;
+    }
+
 }
