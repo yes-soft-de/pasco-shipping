@@ -19,32 +19,19 @@ class TrackEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, TrackEntity::class);
     }
 
-    // /**
-    //  * @return TrackEntity[] Returns an array of TrackEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getByHolderIdAndTrackNumber($holderID, $trackNumber): ?TrackEntity
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('track')
 
-    /*
-    public function findOneBySomeField($value): ?TrackEntity
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('track.holderID = :holderID')
+            ->setParameter('holderID', $holderID)
+
+            ->andWhere('track.trackNumber = :trackNumber')
+            ->setParameter('trackNumber', $trackNumber)
+
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+    
 }

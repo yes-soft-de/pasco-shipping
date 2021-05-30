@@ -7,6 +7,7 @@ use App\Entity\TrackEntity;
 use App\Repository\TrackEntityRepository;
 use App\Request\ShipmentStatusUpdateRequest;
 use App\Request\TrackCreateRequest;
+use App\Request\TrackUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class TrackManager
@@ -50,6 +51,25 @@ class TrackManager
         $this->shipmentStatusManager->updateShipmentStatusByShipmentIdAndTrackNumber($shipmentStatusRequest);
 
         return $trackEntity;
+    }
+
+    public function updateByHolderIdAndTrackNumber(TrackUpdateRequest $request)
+    {
+        $trackEntity = $this->trackEntityRepository->getByHolderIdAndTrackNumber($request->getHolderID(), $request->getTrackNumber());
+
+        if(!$trackEntity)
+        {
+            return null;
+        }
+        else
+        {
+            $trackEntity = $this->autoMapping->mapToObject(TrackUpdateRequest::class, TrackEntity::class, $request, $trackEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $trackEntity;
+        }
     }
 
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\TrackCreateRequest;
+use App\Request\TrackUpdateRequest;
 use App\Service\TrackService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -53,6 +54,33 @@ class TrackController extends BaseController
         $result = $this->trackService->create($request);
 
         return $this->response($result, self::CREATE);
+    }
+
+    /**
+     * @Route("track", name="updateTrack", methods={"PUT"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function update(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, TrackUpdateRequest::class, (object)$data);
+
+        $request->setUpdatedBy($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->trackService->updateByHolderIdAndTrackNumber($request);
+
+        return $this->response($result, self::UPDATE);
     }
 
 }

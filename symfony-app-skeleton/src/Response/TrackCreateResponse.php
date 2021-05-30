@@ -17,5 +17,7 @@ class TrackCreateResponse
     public $trackNumber;
 
     public $createdAt;
+
+    public $updatedAt;
     
 }
