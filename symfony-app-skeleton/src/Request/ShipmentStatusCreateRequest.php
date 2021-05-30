@@ -26,4 +26,19 @@ class ShipmentStatusCreateRequest
         $this->trackNumber = $trackNumber;
     }
 
+    public function setShipmentStatus($shipmentStatus)
+    {
+        $this->shipmentStatus = $shipmentStatus;
+    }
+
+    public function setIsInOneHolder($isInOneHolder)
+    {
+        $this->isInOneHolder = $isInOneHolder;
+    }
+
+    public function setPacked($packed)
+    {
+        $this->packed = $packed;
+    }
+
 }

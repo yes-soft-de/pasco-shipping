@@ -25,10 +25,6 @@ class ShipmentStatusManager
     public function create(ShipmentStatusCreateRequest $request)
     {
         $shipmentStatusEntity = $this->autoMapping->map(ShipmentStatusCreateRequest::class, ShipmentStatusEntity::class, $request);
-
-        $shipmentStatusEntity->setShipmentStatus("accepted");
-        $shipmentStatusEntity->setIsInOneHolder(false);
-        $shipmentStatusEntity->setPacked(false);
         
         $this->entityManager->persist($shipmentStatusEntity);
         $this->entityManager->flush();
