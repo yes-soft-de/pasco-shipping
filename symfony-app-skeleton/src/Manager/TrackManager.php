@@ -29,12 +29,6 @@ class TrackManager
     public function create(TrackCreateRequest $request)
     {
         // First, we insert new raw in the TrackEntity
-        // Check the holder type by counting the holder ID digits
-        
-        // if(count($request->getHolderID()) == 11)
-        // {
-        //     $request->setHolderType("container");
-        // }
 
         $trackEntity = $this->autoMapping->map(TrackCreateRequest::class, TrackEntity::class, $request);
         
@@ -46,8 +40,6 @@ class TrackManager
 
         $shipmentStatusRequest = $this->autoMapping->map(TrackCreateRequest::class, ShipmentStatusUpdateRequest::class, $request);
 
-        $shipmentStatusRequest->setPacked(true);
-
         $this->shipmentStatusManager->updateShipmentStatusByShipmentIdAndTrackNumber($shipmentStatusRequest);
 
         return $trackEntity;
@@ -55,6 +47,8 @@ class TrackManager
 
     public function updateByHolderIdAndTrackNumber(TrackUpdateRequest $request)
     {
+        //Firstly, we update the track record
+
         $trackEntity = $this->trackEntityRepository->getByHolderIdAndTrackNumber($request->getHolderID(), $request->getTrackNumber());
 
         if(!$trackEntity)
@@ -67,6 +61,12 @@ class TrackManager
 
             $this->entityManager->flush();
             $this->entityManager->clear();
+
+            // Secondly, update the status in the ShipmentStatusEntity
+
+            $shipmentStatusRequest = $this->autoMapping->map(TrackUpdateRequest::class, ShipmentStatusUpdateRequest::class, $request);
+
+            $this->shipmentStatusManager->updateShipmentStatusByShipmentIdAndTrackNumber($shipmentStatusRequest);
 
             return $trackEntity;
         }

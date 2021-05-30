@@ -16,6 +16,14 @@ class TrackCreateRequest
 
     private $trackNumber;
 
+    private $shipmentStatus;
+
+    private $statusDetails;
+
+    private $isInOneHolder;
+
+    private $packed;
+
     public function setShipmentID($shipmentID)
     {
         $this->shipmentID = $shipmentID;

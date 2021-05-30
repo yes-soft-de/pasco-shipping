@@ -6,6 +6,8 @@ class TrackUpdateRequest
 {
     private $id;
 
+    private $shipmentID;
+
     private $travelID;
 
     private $holderID;
@@ -13,6 +15,10 @@ class TrackUpdateRequest
     private $trackNumber;
 
     private $updatedBy;
+
+    private $shipmentStatus;
+
+    private $statusDetails;
 
     public function setTrackNumber($trackNumber)
     {
