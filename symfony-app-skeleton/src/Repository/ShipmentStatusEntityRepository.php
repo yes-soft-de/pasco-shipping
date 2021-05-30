@@ -55,5 +55,19 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function getByShipmentIdAndTrackNumber($shipmentID, $trackNumber): ?ShipmentStatusEntity
+    {
+        return $this->createQueryBuilder('track')
+
+            ->andWhere('track.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->andWhere('track.trackNumber = :trackNumber')
+            ->setParameter('trackNumber', $trackNumber)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
     
 }

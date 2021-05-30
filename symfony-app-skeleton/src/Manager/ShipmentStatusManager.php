@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\ShipmentStatusEntity;
 use App\Repository\ShipmentStatusEntityRepository;
 use App\Request\ShipmentStatusCreateRequest;
+use App\Request\ShipmentStatusUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ShipmentStatusManager
@@ -37,5 +38,26 @@ class ShipmentStatusManager
     {
         return $this->shipmentStatusEntityRepository->getUnPackedShipments();
     }
+
+    public function updateShipmentStatusByShipmentIdAndTrackNumber(ShipmentStatusUpdateRequest $request)
+    {
+        $shipmentStatusEntity = $this->shipmentStatusEntityRepository->getByShipmentIdAndTrackNumber($request->getShipmentID(), $request->getTrackNumber());
+        
+        if(!$shipmentStatusEntity)
+        {
+            return null;
+        }
+        else
+        {
+            $shipmentStatusEntity = $this->autoMapping->mapToObject(ShipmentStatusUpdateRequest::class, ShipmentStatusEntity::class, 
+            $request, $shipmentStatusEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $shipmentStatusEntity;
+    
+        }
+    }    
 
 }
