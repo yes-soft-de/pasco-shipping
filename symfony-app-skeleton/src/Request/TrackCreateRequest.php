@@ -34,6 +34,11 @@ class TrackCreateRequest
         $this->trackNumber = $trackNumber;
     }
 
+    public function setShipmentStatus($shipmentStatus)
+    {
+        $this->shipmentStatus = $shipmentStatus;
+    }
+
     public function setCreatedBy($userID)
     {
         $this->createdBy = $userID;

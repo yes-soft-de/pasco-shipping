@@ -87,7 +87,7 @@ class TrackController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, TrackCreateRequest::class, (object)$data);
 
-        $request->setCreatedBy($this->getUserId());
+        $request->setCreatedBy($this->getUser()->getId());
 
         $violations = $this->validator->validate($request);
 
@@ -157,7 +157,7 @@ class TrackController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, TrackUpdateRequest::class, (object)$data);
 
-        $request->setUpdatedBy($this->getUserId());
+        $request->setUpdatedBy($this->getUser()->getId());
 
         $violations = $this->validator->validate($request);
 

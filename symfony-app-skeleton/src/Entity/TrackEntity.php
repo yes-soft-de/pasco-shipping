@@ -61,7 +61,7 @@ class TrackEntity
     private $createdBy;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $trackNumber;
 

@@ -37,6 +37,7 @@ class ShipmentStatusService
 
             $trackCreateRequest->setHolderType($request->getHolderType());
             $trackCreateRequest->setHolderID($request->getHolderID());
+            $trackCreateRequest->setShipmentStatus($request->getShipmentStatus());
             $trackCreateRequest->setCreatedBy($request->getCreatedBy());
 
             $this->trackService->create($trackCreateRequest);

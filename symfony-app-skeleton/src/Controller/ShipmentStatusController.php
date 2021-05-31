@@ -90,10 +90,10 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="string", property="packetingBy"),
      *                  @OA\Property(type="integer", property="markID"),
      *                  @OA\Property(type="string", property="paymentTime"),
-     *                  @OA\Property(type="float", property="weight"),
+     *                  @OA\Property(type="number", property="weight"),
      *                  @OA\Property(type="string", property="QRcode"),
      *                  @OA\Property(type="string", property="guniQuantity"),
-     *                  @OA\Property(type="string", property="updatedBy"),
+     *                  @OA\Property(type="integer", property="updatedBy"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status")
@@ -109,7 +109,7 @@ class ShipmentStatusController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, ShipmentStatusCreateRequest::class, (object)$data);
 
-        $request->setCreatedBy($this->getUserId());
+        $request->setCreatedBy($this->getUser()->getId());
 
         $violations = $this->validator->validate($request);
 

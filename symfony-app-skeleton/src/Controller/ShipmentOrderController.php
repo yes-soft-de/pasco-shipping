@@ -99,7 +99,7 @@ class ShipmentOrderController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, OrderShipmentCreateRequest::class, (object)$data);
 
-        $request->setClientUserID($this->getUserId());
+        $request->setClientUserID($this->getUser()->getId());
 
         $violations = $this->validator->validate($request);
 
@@ -120,6 +120,13 @@ class ShipmentOrderController extends BaseController
      * @return JsonResponse
      * 
      * @OA\Tag(name="Shipment Order")
+     * 
+     * @OA\Parameter(
+     *      name="status",
+     *      in="path",
+     *      required="true",
+     *      description="the status of the shipment order"
+     * )
      * 
      * @OA\Response(
      *      response=200,
@@ -148,8 +155,8 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="packetingBy"),
      *                  @OA\Property(type="integer", property="markID"),
      *                  @OA\Property(type="string", property="paymentTime"),
-     *                  @OA\Property(type="float", property="weight"),
-     *                  @OA\Property(type="string", property="QRcode"),
+     *                  @OA\Property(type="number", format="float", property="weight"),
+     *                  @OA\Property(type="string", property="qrCode"),
      *                  @OA\Property(type="string", property="guniQuantity"),
      *                  @OA\Property(type="string", property="updatedBy"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
@@ -198,7 +205,7 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="string", property="clientUserID"),
+     *                  @OA\Property(type="integer", property="clientUserID"),
      *                  @OA\Property(type="string", property="transportationType"),
      *                  @OA\Property(type="string", property="target"),
      *                  @OA\Property(type="integer", property="supplierID"),
@@ -213,10 +220,10 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="unit"),
      *                  @OA\Property(type="string", property="receiverName"),
      *                  @OA\Property(type="string", property="receiverPhoneNumber"),
-     *                  @OA\Property(type="string", property="packetingBy"),
+     *                  @OA\Property(type="integer", property="packetingBy"),
      *                  @OA\Property(type="integer", property="markID"),
      *                  @OA\Property(type="string", property="paymentTime"),
-     *                  @OA\Property(type="float", property="weight"),
+     *                  @OA\Property(type="number", property="weight"),
      *                  @OA\Property(type="string", property="QRcode"),
      *                  @OA\Property(type="string", property="guniQuantity"),
      *                  @OA\Property(type="string", property="updatedBy"),
@@ -235,7 +242,7 @@ class ShipmentOrderController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, ShipmentOrderStatusUpdateRequest::class, (object)$data);
 
-        $request->setUpdatedBy($this->getUserId());
+        $request->setUpdatedBy($this->getUser()->getId());
 
         $violations = $this->validator->validate($request);
 

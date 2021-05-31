@@ -55,7 +55,7 @@ class ShipmentStatusCreateRequest
 
     public function getHolderType()
     {
-        return $this->holderID;
+        return $this->holderType;
     }
 
     public function setCreatedBy($userID)
@@ -66,6 +66,11 @@ class ShipmentStatusCreateRequest
     public function getCreatedBy()
     {
         return $this->createdBy;
+    }
+
+    public function getShipmentStatus()
+    {
+        return $this->shipmentStatus;
     }
 
 }
