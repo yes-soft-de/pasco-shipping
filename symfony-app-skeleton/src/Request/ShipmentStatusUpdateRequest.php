@@ -16,6 +16,8 @@ class ShipmentStatusUpdateRequest
 
     private $packed;
 
+    private $updatedBy;
+
     public function setShipmentID($shipmentID)
     {
         $this->shipmentID = $shipmentID;
@@ -49,6 +51,11 @@ class ShipmentStatusUpdateRequest
     public function setPacked($packed)
     {
         $this->packed = $packed;
+    }
+
+    public function setUpdatedBy($userID)
+    {
+        $this->updatedBy = $userID;
     }
 
 }

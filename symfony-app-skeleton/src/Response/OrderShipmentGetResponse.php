@@ -44,7 +44,7 @@ class OrderShipmentGetResponse
 
     public $weight;
 
-    public $QRcode;
+    public $qrCode;
 
     public $guniQuantity;
 
@@ -55,4 +55,7 @@ class OrderShipmentGetResponse
     public $extraSpecification;
 
     public $status;
+
+    public $userName;
+
 }

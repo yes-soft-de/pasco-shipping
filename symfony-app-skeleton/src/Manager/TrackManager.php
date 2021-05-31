@@ -29,7 +29,6 @@ class TrackManager
     public function create(TrackCreateRequest $request)
     {
         // First, we insert new raw in the TrackEntity
-
         $trackEntity = $this->autoMapping->map(TrackCreateRequest::class, TrackEntity::class, $request);
         
         $this->entityManager->persist($trackEntity);
@@ -37,8 +36,9 @@ class TrackManager
         $this->entityManager->clear();
 
         // Then, we update the record related to the shipment in the ShipmentStatusEntity
-
         $shipmentStatusRequest = $this->autoMapping->map(TrackCreateRequest::class, ShipmentStatusUpdateRequest::class, $request);
+
+        $shipmentStatusRequest->setUpdatedBy($request->getCreatedBy());
 
         $this->shipmentStatusManager->updateShipmentStatusByShipmentIdAndTrackNumber($shipmentStatusRequest);
 
@@ -48,12 +48,11 @@ class TrackManager
     public function updateByHolderIdAndTrackNumber(TrackUpdateRequest $request)
     {
         //Firstly, we update the track record
-
         $trackEntity = $this->trackEntityRepository->getByHolderIdAndTrackNumber($request->getHolderID(), $request->getTrackNumber());
 
         if(!$trackEntity)
         {
-            return null;
+            return $trackEntity;
         }
         else
         {
@@ -62,11 +61,16 @@ class TrackManager
             $this->entityManager->flush();
             $this->entityManager->clear();
 
-            // Secondly, update the status in the ShipmentStatusEntity
+            if($trackEntity)
+            {
+                // Secondly, update the status in the ShipmentStatusEntity
+                $shipmentStatusRequest = $this->autoMapping->map(TrackUpdateRequest::class, ShipmentStatusUpdateRequest::class, $request);
 
-            $shipmentStatusRequest = $this->autoMapping->map(TrackUpdateRequest::class, ShipmentStatusUpdateRequest::class, $request);
+                $shipmentStatusRequest->setShipmentID($trackEntity->getShipmentID());
+                $shipmentStatusRequest->setUpdatedBy($request->getUpdatedBy());
 
-            $this->shipmentStatusManager->updateShipmentStatusByShipmentIdAndTrackNumber($shipmentStatusRequest);
+                $this->shipmentStatusManager->updateShipmentStatusByShipmentIdAndTrackNumber($shipmentStatusRequest);
+            }
 
             return $trackEntity;
         }

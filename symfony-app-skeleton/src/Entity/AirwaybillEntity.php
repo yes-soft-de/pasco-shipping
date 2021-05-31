@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AirwaybillEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=AirwaybillEntityRepository::class)
@@ -31,6 +32,28 @@ class AirwaybillEntity
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $status;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $createdBy;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $updatedBy;
 
     public function getId(): ?int
     {
@@ -69,6 +92,54 @@ class AirwaybillEntity
     public function setStatus(?string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?string
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(string $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getUpdatedBy(): ?string
+    {
+        return $this->updatedBy;
+    }
+
+    public function setUpdatedBy(?string $updatedBy): self
+    {
+        $this->updatedBy = $updatedBy;
 
         return $this;
     }

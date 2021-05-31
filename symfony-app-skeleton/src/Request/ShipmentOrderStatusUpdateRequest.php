@@ -25,4 +25,9 @@ class ShipmentOrderStatusUpdateRequest
         $this->updatedBy = $userID;
     }
     
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+    
 }

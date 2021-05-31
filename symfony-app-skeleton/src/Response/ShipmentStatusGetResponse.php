@@ -65,5 +65,7 @@ class ShipmentStatusGetResponse
     public $extraSpecification;
 
     public $status;
-    
+
+    public $userName;
+
 }

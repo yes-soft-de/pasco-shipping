@@ -48,7 +48,7 @@ class ShipmentStatusManager
         
         if(!$shipmentStatusEntity)
         {
-            return null;
+            return $shipmentStatusEntity;
         }
         else
         {
@@ -59,14 +59,12 @@ class ShipmentStatusManager
             $this->entityManager->clear();
 
             return $shipmentStatusEntity;
-    
         }
     }
 
     public function getRandomCode()
     {
         // Get 5-digits random number
-
         $data = random_int(0, 9) . random_int(0, 9) . random_int(0, 9) . random_int(0, 9) . random_int(0, 9);
 
         return  vsprintf('%s%s%s%s%s', str_split(($data)));

@@ -19,7 +19,7 @@ class OrderShipmentEntity
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $clientUserID;
 
@@ -118,7 +118,7 @@ class OrderShipmentEntity
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $QRcode;
+    private $qrCode;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -126,7 +126,7 @@ class OrderShipmentEntity
     private $guniQuantity;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $updatedBy;
 
@@ -144,6 +144,11 @@ class OrderShipmentEntity
      * @ORM\Column(type="string", length=255)
      */
     private $status;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $createdBy;
 
     public function getId(): ?int
     {
@@ -378,14 +383,14 @@ class OrderShipmentEntity
         return $this;
     }
 
-    public function getQRcode(): ?string
+    public function getQrCode(): ?string
     {
-        return $this->QRcode;
+        return $this->qrCode;
     }
 
-    public function setQRcode(?string $QRcode): self
+    public function setQrCode(?string $qrCode): self
     {
-        $this->QRcode = $QRcode;
+        $this->qrCode = $qrCode;
 
         return $this;
     }
@@ -446,6 +451,18 @@ class OrderShipmentEntity
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?int
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?int $createdBy): self
+    {
+        $this->createdBy = $createdBy;
 
         return $this;
     }

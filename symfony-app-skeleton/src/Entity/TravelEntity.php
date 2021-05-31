@@ -36,7 +36,7 @@ class TravelEntity
     /**
      * @ORM\Column(type="datetime")
      */
-    private $lauchDate;
+    private $launchDate;
 
     /**
      * @ORM\Column(type="datetime")
@@ -64,6 +64,16 @@ class TravelEntity
      * @ORM\Column(type="integer")
      */
     private $shipperID;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $createdBy;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $updatedBy;
 
     public function getId(): ?int
     {
@@ -106,14 +116,14 @@ class TravelEntity
         return $this;
     }
 
-    public function getLauchDate(): ?\DateTimeInterface
+    public function getLaunchDate(): ?\DateTimeInterface
     {
-        return $this->lauchDate;
+        return $this->launchDate;
     }
 
-    public function setLauchDate(\DateTimeInterface $lauchDate): self
+    public function setLaunchDate(\DateTimeInterface $launchDate): self
     {
-        $this->lauchDate = $lauchDate;
+        $this->launchDate = $launchDate;
 
         return $this;
     }
@@ -174,6 +184,30 @@ class TravelEntity
     public function setShipperID(int $shipperID): self
     {
         $this->shipperID = $shipperID;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?string
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(string $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getUpdatedBy(): ?string
+    {
+        return $this->updatedBy;
+    }
+
+    public function setUpdatedBy(?string $updatedBy): self
+    {
+        $this->updatedBy = $updatedBy;
 
         return $this;
     }

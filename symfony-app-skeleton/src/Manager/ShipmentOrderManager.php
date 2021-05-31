@@ -12,6 +12,8 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ShipmentOrderManager
 {
+    const ACCEPTED_SHIPMENT_STATUS = "accepted";
+
     private $autoMapping;
     private $entityManager;
     private $orderShipmentEntityRepository;
@@ -45,12 +47,11 @@ class ShipmentOrderManager
     public function updateShipmentOrderStatus(ShipmentOrderStatusUpdateRequest $request)
     {
         // First, we update the status of the order
-
         $shipmentOrderEntity = $this->orderShipmentEntityRepository->find($request->getId());
         
         if(!$shipmentOrderEntity)
         {
-            return null;
+            return  $shipmentOrderEntity;
         }
         else
         {
@@ -63,23 +64,19 @@ class ShipmentOrderManager
             /**
              * Second, we check the new status
              * if it is 'accepted' then we have to insert a new row with the shipmentID in the ShipmentStatusEntity
-             * otherwise, we just continue 
+             * otherwise, we just continue without inserting a new row in the ShipmentStatusEntity
              */
-
-            if($request->getStatus() == "accepted")
+            if($request->getStatus() == $this::ACCEPTED_SHIPMENT_STATUS)
             {
-                $shipmentStatusRequest = $this->autoMapping->map(ShipmentOrderStatusUpdateRequest::class, ShipmentStatusCreateRequest::class, $request);
+                $shipmentStatusRequest = new ShipmentStatusCreateRequest();
 
                 $shipmentStatusRequest->setShipmentID($request->getId());
-                $shipmentStatusRequest->setIsInOneHolder(false);
-                $shipmentStatusRequest->setPacked(false);
+                $shipmentStatusRequest->setCreatedBy($request->getUpdatedBy());
 
                 $shipmentStatusResult = $this->shipmentStatusManager->create($shipmentStatusRequest);
-
             }
             
             return $shipmentOrderEntity;
-    
         }
     }
     

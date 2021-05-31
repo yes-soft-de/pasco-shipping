@@ -6,8 +6,6 @@ class TrackUpdateRequest
 {
     private $id;
 
-    private $shipmentID;
-
     private $travelID;
 
     private $holderID;
@@ -33,6 +31,11 @@ class TrackUpdateRequest
     public function setUpdatedBy($userID)
     {
         $this->updatedBy = $userID;
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
     }
 
     public function getHolderID()

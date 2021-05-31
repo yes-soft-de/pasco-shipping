@@ -35,4 +35,5 @@ class OrderShipmentCreateResponse
     public $extraSpecification;
 
     public $status;
+
 }

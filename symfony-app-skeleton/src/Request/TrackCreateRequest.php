@@ -39,6 +39,11 @@ class TrackCreateRequest
         $this->createdBy = $userID;
     }
 
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
     public function setHolderType($holderType)
     {
         $this->holderType = $holderType;

@@ -36,9 +36,16 @@ class OrderShipmentCreateRequest
 
     private $status = "waiting";
 
+    private $createdBy;
+
     public function setClientUserID($clientUserID)
     {
         $this->clientUserID = $clientUserID;
+    }
+
+    public function setCreatedBy($userID)
+    {
+        $this->createdBy = $userID;
     }
 
 }
