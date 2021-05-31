@@ -109,7 +109,7 @@ class ShipmentStatusController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, ShipmentStatusCreateRequest::class, (object)$data);
 
-        $request->setCreatedBy($this->getUser()->getId());
+        $request->setCreatedBy($this->getUserId());
 
         $violations = $this->validator->validate($request);
 

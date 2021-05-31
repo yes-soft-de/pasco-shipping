@@ -99,7 +99,7 @@ class ShipmentOrderController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, OrderShipmentCreateRequest::class, (object)$data);
 
-        $request->setClientUserID($this->getUser()->getId());
+        $request->setClientUserID($this->getUserId());
 
         $violations = $this->validator->validate($request);
 
@@ -242,7 +242,7 @@ class ShipmentOrderController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, ShipmentOrderStatusUpdateRequest::class, (object)$data);
 
-        $request->setUpdatedBy($this->getUser()->getId());
+        $request->setUpdatedBy($this->getUserId());
 
         $violations = $this->validator->validate($request);
 
