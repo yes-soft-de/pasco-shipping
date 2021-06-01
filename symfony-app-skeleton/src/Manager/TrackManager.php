@@ -76,4 +76,9 @@ class TrackManager
         }
     }
 
+    public function getShipmentByTrackNumber($trackNumber)
+    {
+        return $this->trackEntityRepository->getShipmentByTrackNumber($trackNumber);
+    }
+
 }

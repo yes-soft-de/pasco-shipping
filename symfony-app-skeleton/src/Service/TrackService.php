@@ -7,6 +7,7 @@ use App\Entity\TrackEntity;
 use App\Manager\TrackManager;
 use App\Request\TrackCreateRequest;
 use App\Request\TrackUpdateRequest;
+use App\Response\ShipmentByTrackNumberGetResponse;
 use App\Response\TrackCreateResponse;
 
 class TrackService
@@ -32,6 +33,20 @@ class TrackService
         $trackResult = $this->trackManager->updateByHolderIdAndTrackNumber($request);
 
         return $this->autoMapping->map(TrackEntity::class, TrackCreateResponse::class, $trackResult);
+    }
+
+    public function getShipmentByTrackNumber($trackNumber)
+    {
+        $shipmentResponse = [];
+
+        $shipment = $this->trackManager->getShipmentByTrackNumber($trackNumber);
+        
+        foreach($shipment as $row)
+        {
+            $shipmentResponse = $this->autoMapping->map('array', ShipmentByTrackNumberGetResponse::class, $row);
+        }
+
+        return $shipmentResponse;
     }
 
 }

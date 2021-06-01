@@ -52,8 +52,40 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             ->orderBy('shipment.id', 'ASC')
             
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
+    }
+
+    public function getShipmentsByTransportationType($transportationType)
+    {
+        return $this->createQueryBuilder('shipment')
+            ->select("shipment.id", "shipment.shipmentID", "shipment.shipmentStatus", "shipment.trackNumber", "shipment.statusDetails", "shipment.isInOneHolder", "shipment.packed", 
+            "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", 
+            "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", 
+            "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", 
+            "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "userProfile.userName as username", 
+            "userProfile.image as userImage")
+
+            ->leftJoin(
+                OrderShipmentEntity::class,
+                'shipmentOrder',
+                Join::WITH,
+                'shipmentOrder.id = shipment.shipmentID'
+            )
+
+            ->andWhere('shipmentOrder.transportationType = :transportationType')
+            ->setParameter('transportationType', $transportationType)
+
+            ->leftJoin(
+                UserProfileEntity::class,
+                'userProfile',
+                Join::WITH,
+                'userProfile.id = shipmentOrder.clientUserID'
+            )
+
+            ->orderBy('shipment.id', 'ASC')
+            
+            ->getQuery()
+            ->getResult();
     }
 
     public function getByShipmentIdAndTrackNumber($shipmentID, $trackNumber): ?ShipmentStatusEntity

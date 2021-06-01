@@ -35,7 +35,32 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
                 UserProfileEntity::class,
                 'userProfile',
                 Join::WITH,
-                'userProfile.userID = shipmentOrder.clientUserID'
+                'userProfile.id = shipmentOrder.clientUserID'
+            )
+
+            ->orderBy('shipmentOrder.id', 'ASC')
+            
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getWitingShipmentsOrdersByTransportationType($transportationType)
+    {
+        return $this->createQueryBuilder('shipmentOrder')
+            ->select("shipmentOrder.id", "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", 
+            "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", 
+            "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "userProfile.userName as username", "userProfile.image as userImage")
+
+            ->andWhere("shipmentOrder.status = 'waiting'")
+
+            ->andWhere('shipmentOrder.transportationType = :transportationType')
+            ->setParameter('transportationType', $transportationType)
+
+            ->leftJoin(
+                UserProfileEntity::class,
+                'userProfile',
+                Join::WITH,
+                'userProfile.id = shipmentOrder.clientUserID'
             )
 
             ->orderBy('shipmentOrder.id', 'ASC')

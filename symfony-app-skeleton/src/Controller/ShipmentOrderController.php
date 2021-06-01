@@ -258,4 +258,75 @@ class ShipmentOrderController extends BaseController
         return $this->response($result, self::UPDATE);
     }
 
+    /**
+     * @Route("shipments/{transportationType}/{status}", name="getShipmentsByTransportationTypeAndStatus", methods={"GET"})
+     * @return JsonResponse
+     * 
+     * @OA\Tag(name="Shipment Order")
+     * 
+     * @OA\Parameter(
+     *      name="transportationType",
+     *      in="path",
+     *      description="the type of the shipping",
+     *      required=true 
+     * )
+     * 
+     * @OA\Parameter(
+     *      name="status",
+     *      in="path",
+     *      description="the status of the shipment order",
+     *      required=true 
+     * )
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the shipments as an array of objects",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="shipmentID"),
+     *                  @OA\Property(type="integer", property="shipmentStatus"),
+     *                  @OA\Property(type="integer", property="statusDetails"),
+     *                  @OA\Property(type="integer", property="isInOneHolder"),
+     *                  @OA\Property(type="string", property="packed"),
+     *                  @OA\Property(type="string", property="target"),
+     *                  @OA\Property(type="integer", property="supplierID"),
+     *                  @OA\Property(type="integer", property="distributorID"),
+     *                  @OA\Property(type="integer", property="exportWarehouseID"),
+     *                  @OA\Property(type="integer", property="importWarehouseID"),
+     *                  @OA\Property(type="string", property="quantity"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="productCategoryID"),
+     *                  @OA\Property(type="string", property="unit"),
+     *                  @OA\Property(type="string", property="receiverName"),
+     *                  @OA\Property(type="string", property="receiverPhoneNumber"),
+     *                  @OA\Property(type="integer", property="packetingBy"),
+     *                  @OA\Property(type="integer", property="markID"),
+     *                  @OA\Property(type="string", property="paymentTime"),
+     *                  @OA\Property(type="number", property="weight"),
+     *                  @OA\Property(type="string", property="QRcode"),
+     *                  @OA\Property(type="string", property="guniQuantity"),
+     *                  @OA\Property(type="string", property="updatedBy"),
+     *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
+     *                  @OA\Property(type="string", property="extraSpecification"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="username")
+     *              )
+     *          )
+     *      )
+     * )
+     * 
+     */
+    public function getShipmentsByTransportationTypeAndStatus($transportationType, $status)
+    {
+        $result = $this->shipmentOrderService->getShipmentsByTransportationTypeAndStatus($transportationType, $status);
+
+        return $this->response($result, self::FETCH);
+    }
+
 }

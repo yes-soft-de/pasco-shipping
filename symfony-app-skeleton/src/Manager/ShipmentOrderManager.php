@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ShipmentOrderManager
 {
+    const WAITING_SHIPMENT_STATUS = "waiting";
     const ACCEPTED_SHIPMENT_STATUS = "accepted";
 
     private $autoMapping;
@@ -77,6 +78,22 @@ class ShipmentOrderManager
             }
             
             return $shipmentOrderEntity;
+        }
+    }
+
+    public function getShipmentsByTransportationTypeAndStatus($transportationType, $status)
+    {
+        if($status == $this::WAITING_SHIPMENT_STATUS)
+        {
+            // get shipments from OrderShipmentEntity
+            
+            return $this->orderShipmentEntityRepository->getWitingShipmentsOrdersByTransportationType($transportationType);
+        }
+        elseif($status == $this::ACCEPTED_SHIPMENT_STATUS)
+        {
+            // get shipments from ShipmentStatusEntity
+
+            return $this->shipmentStatusManager->getShipmentsByTransportationType($transportationType);
         }
     }
     

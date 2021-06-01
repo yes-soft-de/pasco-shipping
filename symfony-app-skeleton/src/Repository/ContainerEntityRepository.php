@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\ContainerEntity;
+use App\Entity\UserProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +21,33 @@ class ContainerEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, ContainerEntity::class);
     }
 
-    // /**
-    //  * @return ContainerEntity[] Returns an array of ContainerEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getByStatus($status)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('container')
+            ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy',
+             'userProfile1.userName as createdByUser', 'userProfile1.image as createdByUserImage', 'userProfile2.userName as updatedByUser', 'userProfile2.userName as updatedByUserImage')
 
-    /*
-    public function findOneBySomeField($value): ?ContainerEntity
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('container.status = :status')
+            ->setParameter('status', $status)
+
+            ->leftJoin(
+                UserProfileEntity::class,
+                'userProfile1',
+                Join::WITH,
+                'userProfile1.id = container.createdBy'
+            )
+
+            ->leftJoin(
+                UserProfileEntity::class,
+                'userProfile2',
+                Join::WITH,
+                'userProfile2.id = container.updatedBy'
+            )
+
+            ->orderBy('container.id', 'DESC')
+            
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
 }

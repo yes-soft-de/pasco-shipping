@@ -62,6 +62,11 @@ class ShipmentStatusManager
         }
     }
 
+    public function getShipmentsByTransportationType($transportationType)
+    {
+        return $this->shipmentStatusEntityRepository->getShipmentsByTransportationType($transportationType);
+    }
+
     public function getRandomCode()
     {
         // Get 5-digits random number

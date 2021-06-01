@@ -9,6 +9,7 @@ use App\Request\OrderShipmentCreateRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
 use App\Response\OrderShipmentCreateResponse;
 use App\Response\OrderShipmentGetResponse;
+use App\Response\ShipmentsGetResponse;
 
 class ShipmentOrderService
 {
@@ -47,6 +48,20 @@ class ShipmentOrderService
         $orderShipmentResult = $this->shipmentOrderManager->updateShipmentOrderStatus($request);
 
         return $this->autoMapping->map(OrderShipmentEntity::class, OrderShipmentGetResponse::class, $orderShipmentResult);
+    }
+
+    public function getShipmentsByTransportationTypeAndStatus($transportationType, $status)
+    {
+        $shipmentsResponse = [];
+
+        $shipments = $this->shipmentOrderManager->getShipmentsByTransportationTypeAndStatus($transportationType, $status);
+        
+        foreach ($shipments as $shipment)
+        {
+            $shipmentsResponse[] = $this->autoMapping->map('array', ShipmentsGetResponse::class, $shipment);
+        }
+
+        return $shipmentsResponse;
     }
 
 }
