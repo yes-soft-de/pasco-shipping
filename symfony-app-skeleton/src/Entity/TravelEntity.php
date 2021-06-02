@@ -75,6 +75,11 @@ class TravelEntity
      */
     private $updatedBy;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $status;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -116,26 +121,26 @@ class TravelEntity
         return $this;
     }
 
-    public function getLaunchDate(): ?\DateTimeInterface
+    public function getLaunchDate()
     {
         return $this->launchDate;
     }
 
-    public function setLaunchDate(\DateTimeInterface $launchDate): self
+    public function setLaunchDate($launchDate): self
     {
-        $this->launchDate = $launchDate;
+        $this->launchDate = new \DateTime($launchDate);
 
         return $this;
     }
 
-    public function getArrivalDate(): ?\DateTimeInterface
+    public function getArrivalDate()
     {
         return $this->arrivalDate;
     }
 
-    public function setArrivalDate(\DateTimeInterface $arrivalDate): self
+    public function setArrivalDate($arrivalDate): self
     {
-        $this->arrivalDate = $arrivalDate;
+        $this->arrivalDate = new \DateTime($arrivalDate);
 
         return $this;
     }
@@ -208,6 +213,18 @@ class TravelEntity
     public function setUpdatedBy(?string $updatedBy): self
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
