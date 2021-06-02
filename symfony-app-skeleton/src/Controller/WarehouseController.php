@@ -149,5 +149,4 @@ class WarehouseController extends BaseController
         return $this->response($result, self::UPDATE);
     }
 
-
 }

@@ -54,11 +54,7 @@ class TravelController extends BaseController
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
-     *                  @OA\Property(type="integer", property="specificationID"),
-     *                  @OA\Property(type="string", property="containerNumber"),
-     *                  @OA\Property(type="string", property="status"),
-     *                  @OA\Property(type="object", property="createdAt"),
-     *                  @OA\Property(type="object", property="updatedAt")
+     *                  @OA\Property(type="object", property="createdAt")
      *          )
      *      )
      * )
@@ -209,4 +205,5 @@ class TravelController extends BaseController
 
         return $this->response($result, self::FETCH);
     }
+
 }

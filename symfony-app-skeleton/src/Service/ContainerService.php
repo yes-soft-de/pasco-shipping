@@ -35,7 +35,7 @@ class ContainerService
 
         foreach($containers as $container)
         {
-            $containersResponse = $this->autoMapping->map('array', ContainerGetResponse::class, $container);
+            $containersResponse[] = $this->autoMapping->map('array', ContainerGetResponse::class, $container);
         }
 
         return $containersResponse;
