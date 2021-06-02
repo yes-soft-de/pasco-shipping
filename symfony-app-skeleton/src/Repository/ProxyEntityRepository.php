@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\ProxyEntity;
+use App\Entity\UserProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +21,30 @@ class ProxyEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, ProxyEntity::class);
     }
 
-    // /**
-    //  * @return ProxyEntity[] Returns an array of ProxyEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getAllProxies()
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('proxy')
+            ->select('proxy.id', 'proxy.fullName', 'proxy.phone', 'proxy.address', 'proxy.createdAt', 'proxy.updatedAt', 'proxy.createdBy', 'proxy.updatedBy',
+            'userProfile1.userName as createdByUser', 'userProfile1.image as createdByUserImage', 'userProfile2.userName as updatedByUser', 'userProfile2.image as updatedByUserImage')
 
-    /*
-    public function findOneBySomeField($value): ?ProxyEntity
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->leftJoin(
+                UserProfileEntity::class,
+                'userProfile1',
+                Join::WITH,
+                'userProfile1.id = proxy.createdBy'
+            )
+
+            ->leftJoin(
+                UserProfileEntity::class,
+                'userProfile2',
+                Join::WITH,
+                'userProfile2.id = proxy.updatedBy'
+            )
+
+            ->orderBy('proxy.id', 'DESC')
+
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
 }
