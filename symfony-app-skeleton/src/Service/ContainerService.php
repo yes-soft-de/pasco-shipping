@@ -8,16 +8,19 @@ use App\Manager\ContainerManager;
 use App\Request\ContainerCreateRequest;
 use App\Response\ContainerCreateResponse;
 use App\Response\ContainerGetResponse;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ContainerService
 {
     private $autoMapping;
     private $containerManager;
+    private $params;
 
-    public function __construct(AutoMapping $autoMapping, ContainerManager $containerManager)
+    public function __construct(AutoMapping $autoMapping, ContainerManager $containerManager, ParameterBagInterface $params)
     {
         $this->autoMapping = $autoMapping;
         $this->containerManager = $containerManager;
+        $this->params = $params->get('upload_base_url') . '/';
     }
 
     public function create(ContainerCreateRequest $request)
@@ -35,6 +38,10 @@ class ContainerService
 
         foreach($containers as $container)
         {
+            $container['createdByUserImage'] = $this->params . $container['createdByUserImage'];
+
+            $container['updatedByUserImage'] = $this->params . $container['updatedByUserImage'];
+
             $containersResponse[] = $this->autoMapping->map('array', ContainerGetResponse::class, $container);
         }
 

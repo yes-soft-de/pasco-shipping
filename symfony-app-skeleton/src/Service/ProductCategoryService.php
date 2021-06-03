@@ -9,16 +9,19 @@ use App\Request\ProductCategoryCreateRequest;
 use App\Request\ProductCategoryUpdateRequest;
 use App\Response\ProductCategoryCreateResponse;
 use App\Response\ProductCategoryGetResponse;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ProductCategoryService
 {
     private $autoMapping;
     private $productCategoryManager;
+    private $params;
 
-    public function __construct(AutoMapping $autoMapping, ProductCategoryManager $productCategoryManager)
+    public function __construct(AutoMapping $autoMapping, ProductCategoryManager $productCategoryManager, ParameterBagInterface $params)
     {
         $this->autoMapping = $autoMapping;
         $this->productCategoryManager = $productCategoryManager;
+        $this->params = $params->get('upload_base_url') . '/';
     }
 
     public function create(ProductCategoryCreateRequest $request)
@@ -43,6 +46,10 @@ class ProductCategoryService
 
         foreach($productCategories as $productCategory)
         {
+            $productCategory['createdByUserImage'] = $this->params . $productCategory['createdByUserImage'];
+
+            $productCategory['updatedByUserImage'] = $this->params . $productCategory['updatedByUserImage'];
+
             $productCategoryResponse[] = $this->autoMapping->map('array', ProductCategoryGetResponse::class, $productCategory);
         }
 

@@ -9,16 +9,19 @@ use App\Request\TravelCreateRequest;
 use App\Request\TravelStatusUpdateRequest;
 use App\Response\TravelCreateResponse;
 use App\Response\TravelGetResponse;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class TravelService
 {
     private $autoMapping;
     private $travelManager;
+    private $params;
 
-    public function __construct(AutoMapping $autoMapping,TravelManager $travelManager)
+    public function __construct(AutoMapping $autoMapping,TravelManager $travelManager, ParameterBagInterface $params)
     {
         $this->autoMapping = $autoMapping;
         $this->travelManager = $travelManager;
+        $this->params = $params->get('upload_base_url') . '/';
     }
 
     public function create(TravelCreateRequest $request)
@@ -42,7 +45,11 @@ class TravelService
         $travels = $this->travelManager->getTravelsByStatus($status);
         
         foreach($travels as $row)
-        {
+        {   
+            $row['createdByUserImage'] = $this->params . $row['createdByUserImage'];
+
+            $row['updatedByUserImage'] = $this->params . $row['updatedByUserImage'];
+
             $travelsResponse[] = $this->autoMapping->map('array', TravelGetResponse::class, $row);
         }
 
