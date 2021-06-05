@@ -8,18 +8,21 @@ use App\Manager\ShipmentStatusManager;
 use App\Request\ShipmentStatusCreateRequest;
 use App\Request\TrackCreateRequest;
 use App\Response\ShipmentStatusGetResponse;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ShipmentStatusService
 {
     private $autoMapping;
     private $shipmentStatusManager;
     private $trackService;
+    private $params;
 
-    public function __construct(AutoMapping $autoMapping, ShipmentStatusManager $shipmentStatusManager, TrackService $trackService)
+    public function __construct(AutoMapping $autoMapping, ShipmentStatusManager $shipmentStatusManager, TrackService $trackService, ParameterBagInterface $params)
     {
         $this->autoMapping = $autoMapping;
         $this->shipmentStatusManager = $shipmentStatusManager;
         $this->trackService = $trackService;
+        $this->params = $params->get('upload_base_url') . '/';
     }
 
     public function create(ShipmentStatusCreateRequest $request)
@@ -54,6 +57,8 @@ class ShipmentStatusService
 
         foreach($shipmentResults as $shipmentResult)
         {
+            $shipmentResult['image'] = $this->params . $shipmentResult['image'];
+
             $shipmentsResponse[] = $this->autoMapping->map('array', ShipmentStatusGetResponse::class, $shipmentResult);
         }
 

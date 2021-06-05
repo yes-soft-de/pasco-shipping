@@ -10,16 +10,19 @@ use App\Request\ShipmentOrderStatusUpdateRequest;
 use App\Response\OrderShipmentCreateResponse;
 use App\Response\OrderShipmentGetResponse;
 use App\Response\ShipmentsGetResponse;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ShipmentOrderService
 {
     private $autoMapping;
     private $shipmentOrderManager;
+    private $params;
 
-    public function __construct(AutoMapping $autoMapping, ShipmentOrderManager $shipmentOrderManager)
+    public function __construct(AutoMapping $autoMapping, ShipmentOrderManager $shipmentOrderManager, ParameterBagInterface $params)
     {
         $this->autoMapping = $autoMapping;
         $this->shipmentOrderManager = $shipmentOrderManager;
+        $this->params = $params->get('upload_base_url') . '/';
     }
 
     public function createShipmentOrder(OrderShipmentCreateRequest $request)
@@ -37,6 +40,8 @@ class ShipmentOrderService
         
         foreach ($orders as $order)
         {
+            $order['image'] = $this->params . $order['image'];
+
             $ordersResponse[] = $this->autoMapping->map('array', OrderShipmentGetResponse::class, $order);
         }
 
@@ -58,6 +63,8 @@ class ShipmentOrderService
         
         foreach ($shipments as $shipment)
         {
+            $shipment['image'] = $this->params . $shipment['image'];
+
             $shipmentsResponse[] = $this->autoMapping->map('array', ShipmentsGetResponse::class, $shipment);
         }
 
