@@ -46,9 +46,15 @@ class ProductCategoryService
 
         foreach($productCategories as $productCategory)
         {
-            $productCategory['createdByUserImage'] = $this->params . $productCategory['createdByUserImage'];
+            if($productCategory['createdByUserImage'])
+            {
+                $productCategory['createdByUserImage'] = $this->params . $productCategory['createdByUserImage'];
+            }
 
-            $productCategory['updatedByUserImage'] = $this->params . $productCategory['updatedByUserImage'];
+            if($productCategory['updatedByUserImage'])
+            {
+                $productCategory['updatedByUserImage'] = $this->params . $productCategory['updatedByUserImage'];
+            }
 
             $productCategoryResponse[] = $this->autoMapping->map('array', ProductCategoryGetResponse::class, $productCategory);
         }

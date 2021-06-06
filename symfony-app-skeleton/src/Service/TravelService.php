@@ -46,9 +46,15 @@ class TravelService
         
         foreach($travels as $row)
         {   
-            $row['createdByUserImage'] = $this->params . $row['createdByUserImage'];
+            if($row['createdByUserImage'])
+            {
+                $row['createdByUserImage'] = $this->params . $row['createdByUserImage'];
+            }
 
-            $row['updatedByUserImage'] = $this->params . $row['updatedByUserImage'];
+            if($row['updatedByUserImage'])
+            {
+                $row['updatedByUserImage'] = $this->params . $row['updatedByUserImage'];
+            }
 
             $travelsResponse[] = $this->autoMapping->map('array', TravelGetResponse::class, $row);
         }

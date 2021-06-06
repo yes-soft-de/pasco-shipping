@@ -57,7 +57,20 @@ class ShipmentStatusService
 
         foreach($shipmentResults as $shipmentResult)
         {
-            $shipmentResult['image'] = $this->params . $shipmentResult['image'];
+            if($shipmentResult['image'])
+            {
+                $shipmentResult['image'] = $this->params . $shipmentResult['image'];
+            }
+
+            if($shipmentResult['userImage'])
+            {
+                $shipmentResult['userImage'] = $this->params . $shipmentResult['userImage'];
+            }
+
+            if($shipmentResult['updatedByUserImage'])
+            {
+                $shipmentResult['updatedByUserImage'] = $this->params . $shipmentResult['updatedByUserImage'];
+            }
 
             $shipmentsResponse[] = $this->autoMapping->map('array', ShipmentStatusGetResponse::class, $shipmentResult);
         }

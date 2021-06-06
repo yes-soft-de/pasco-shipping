@@ -46,9 +46,15 @@ class TrackService
         
         foreach($shipment as $row)
         {
-            $row['image'] = $this->params . $row['image'];
+            if($row['image'])
+            {
+                $row['image'] = $this->params . $row['image'];
+            }
 
-            $row['userImage'] = $this->params . $row['userImage'];
+            if($row['clientUserImage'])
+            {
+                $row['clientUserImage'] = $this->params . $row['clientUserImage'];
+            }
 
             $shipmentResponse = $this->autoMapping->map('array', ShipmentByTrackNumberGetResponse::class, $row);
         }

@@ -40,7 +40,20 @@ class ShipmentOrderService
         
         foreach ($orders as $order)
         {
-            $order['image'] = $this->params . $order['image'];
+            if($order['image'])
+            {
+                $order['image'] = $this->params . $order['image'];
+            }
+
+            if($order['clientUserImage'])
+            {
+                $order['clientUserImage'] = $this->params . $order['clientUserImage'];
+            }
+
+            if($order['orderUpdatedByUserImage'])
+            {
+                $order['orderUpdatedByUserImage'] = $this->params . $order['orderUpdatedByUserImage'];
+            }
 
             $ordersResponse[] = $this->autoMapping->map('array', OrderShipmentGetResponse::class, $order);
         }
@@ -63,7 +76,20 @@ class ShipmentOrderService
         
         foreach ($shipments as $shipment)
         {
-            $shipment['image'] = $this->params . $shipment['image'];
+            if($shipment['image'])
+            {
+                $shipment['image'] = $this->params . $shipment['image'];
+            }
+
+            if($shipment['clientUserImage'])
+            {
+                $shipment['clientUserImage'] = $this->params . $shipment['clientUserImage'];
+            }
+
+            if($shipment['orderUpdatedByUserImage'])
+            {
+                $shipment['orderUpdatedByUserImage'] = $this->params . $shipment['orderUpdatedByUserImage'];
+            }
 
             $shipmentsResponse[] = $this->autoMapping->map('array', ShipmentsGetResponse::class, $shipment);
         }
