@@ -66,16 +66,24 @@ class ShipmentByTrackNumberGetResponse
 
     public $guniQuantity;
 
-    public $updatedBy;
-
     public $vehicleIdentificationNumber;
 
     public $extraSpecification;
 
     public $status;
 
-    public $username;
+    public $clientUsername;
 
-    public $userImage;
+    public $clientUserImage;
+
+    public $trackCreatedByUser;
+
+    public $trackUpdatedByUser;
+
+    public $orderCreatedByUser;
+
+    public $shipmentStatusCreatedBy;
+
+    public $shipmentStatusUpdatedByBy;
 
 }

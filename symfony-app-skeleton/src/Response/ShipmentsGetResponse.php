@@ -54,14 +54,22 @@ class ShipmentsGetResponse
 
     public $guniQuantity;
 
-    public $updatedBy;
-
     public $vehicleIdentificationNumber;
 
     public $extraSpecification;
 
     public $status;
 
-    public $username;
+    public $clientUsername;
+
+    public $clientUserImage;
+    
+    public $orderUpdatedByUser;
+
+    public $orderUpdatedByUserImage;
+    
+    public $shipmentStatusCreatedByUser;
+
+    public $shipmentStatusUpdatedByUser;
 
 }

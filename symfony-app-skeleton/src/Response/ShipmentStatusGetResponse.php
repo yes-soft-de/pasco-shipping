@@ -16,8 +16,6 @@ class ShipmentStatusGetResponse
 
     public $packed;
 
-    public $clientUserID;
-
     public $transportationType;
 
     public $target;
@@ -54,11 +52,9 @@ class ShipmentStatusGetResponse
 
     public $weight;
 
-    public $QRcode;
+    public $qrCode;
 
     public $guniQuantity;
-
-    public $updatedBy;
 
     public $vehicleIdentificationNumber;
 
@@ -66,6 +62,12 @@ class ShipmentStatusGetResponse
 
     public $status;
 
-    public $userName;
+    public $username;
+
+    public $userImage;
+
+    public $updatedByUser;
+
+    public $updatedByUserImage;
 
 }

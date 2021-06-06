@@ -6,7 +6,9 @@ class OrderShipmentGetResponse
 {
     public $id;
 
-    public $clientUserID;
+    public $clientUsername;
+
+    public $clientUserImage;
 
     public $transportationType;
 
@@ -48,14 +50,14 @@ class OrderShipmentGetResponse
 
     public $guniQuantity;
 
-    public $updatedBy;
-
     public $vehicleIdentificationNumber;
 
     public $extraSpecification;
 
     public $status;
 
-    public $userName;
+    public $orderUpdatedByUser;
+
+    public $orderUpdatedByUserImage;
 
 }

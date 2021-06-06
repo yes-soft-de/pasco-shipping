@@ -28,9 +28,9 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             ->select("shipment.id", "shipment.shipmentID", "shipment.shipmentStatus", "shipment.trackNumber", "shipment.statusDetails", "shipment.isInOneHolder", "shipment.packed", 
             "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", 
             "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", 
-            "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.QRcode", 
-            "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "userProfile.userName as username", 
-            "userProfile.image as userImage")
+            "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", 
+            "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "userProfile1.userName as username", 
+            "userProfile1.image as userImage", "userProfile2.userName as updatedByUser", "userProfile2.image as updatedByUserImage")
 
             ->andWhere('shipment.packed = :packed')
             ->setParameter('packed', 0)
@@ -44,12 +44,19 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
 
             ->leftJoin(
                 UserProfileEntity::class,
-                'userProfile',
+                'userProfile1',
                 Join::WITH,
-                'userProfile.userID = shipmentOrder.clientUserID'
+                'userProfile1.userID = shipmentOrder.clientUserID'
             )
 
-            ->orderBy('shipment.id', 'ASC')
+            ->leftJoin(
+                UserProfileEntity::class,
+                'userProfile2',
+                Join::WITH,
+                'userProfile2.userID = shipmentOrder.updatedBy'
+            )
+
+            ->orderBy('shipment.id', 'DESC')
             
             ->getQuery()
             ->getResult();
@@ -58,12 +65,12 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
     public function getShipmentsByTransportationType($transportationType)
     {
         return $this->createQueryBuilder('shipment')
-            ->select("shipment.id", "shipment.shipmentID", "shipment.shipmentStatus", "shipment.trackNumber", "shipment.statusDetails", "shipment.isInOneHolder", "shipment.packed", 
+            ->select("shipment.id", "shipment.shipmentID", "shipment.shipmentStatus", "shipment.trackNumber", "shipment.statusDetails", "shipment.isInOneHolder", "shipment.packed", "shipment.createdBy", "shipment.updatedBy",
             "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", 
             "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", 
             "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", 
-            "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "userProfile.userName as username", 
-            "userProfile.image as userImage")
+            "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "userProfile1.userName as shipmentStatusCreatedByUser", 
+            "userProfile2.userName as shipmentStatusUpdatedByUser", "userProfile3.userName as clientUsername", "userProfile3.image as clientUserImage", "userProfile4.userName as orderUpdatedByUser", "userProfile4.image as orderUpdatedByUserImage")
 
             ->leftJoin(
                 OrderShipmentEntity::class,
@@ -77,12 +84,33 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
 
             ->leftJoin(
                 UserProfileEntity::class,
-                'userProfile',
+                'userProfile1',
                 Join::WITH,
-                'userProfile.id = shipmentOrder.clientUserID'
+                'userProfile1.id = shipment.createdBy'
             )
 
-            ->orderBy('shipment.id', 'ASC')
+            ->leftJoin(
+                UserProfileEntity::class,
+                'userProfile2',
+                Join::WITH,
+                'userProfile2.id = shipment.updatedBy'
+            )
+
+            ->leftJoin(
+                UserProfileEntity::class,
+                'userProfile3',
+                Join::WITH,
+                'userProfile3.id = shipmentOrder.clientUserID'
+            )
+
+            ->leftJoin(
+                UserProfileEntity::class,
+                'userProfile4',
+                Join::WITH,
+                'userProfile4.id = shipmentOrder.updatedBy'
+            )
+
+            ->orderBy('shipment.id', 'DESC')
             
             ->getQuery()
             ->getResult();
