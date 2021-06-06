@@ -82,14 +82,14 @@ class MarkController extends BaseController
     }
 
     /**
-     * @Route("mymarks", name="getAllMarksOfUser", methods={"GET"})
+     * @Route("mymarks", name="getAllMarksOfSignedInUser", methods={"GET"})
      * @return JsonResponse
      *
      * @OA\Tag(name="Mark")
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns array of objects which each one represents the mark info",
+     *      description="Returns array of objects which each one represents the mark info of the signed-in user",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -104,9 +104,40 @@ class MarkController extends BaseController
      *
      * @Security(name="Bearer")
      */
-    public function getAllMarksByUser()
+    public function getMyMarks()
     {
         $result = $this->markService->getAllMarksByUser($this->getUserId());
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("marks/{userID}", name="getAllMarksOfUser", methods={"GET"})
+     * @param $userID
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Mark")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of objects which each one represents the mark info of a specific user",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="markNumber"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt")
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getAllMarksByUser($userID)
+    {
+        $result = $this->markService->getAllMarksByUser($userID);
 
         return $this->response($result, self::FETCH);
     }
