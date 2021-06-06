@@ -1,8 +1,0 @@
-{
-  "asset": "asset:skeleton_null_safety2/lib/module_auth/request/register_request/register_request.dart",
-  "summary": {
-    "injector": [],
-    "module": [],
-    "injectable": []
-  }
-}
