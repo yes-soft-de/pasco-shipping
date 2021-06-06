@@ -1,3 +1,4 @@
 class AuthorizationRoutes{
-  static const AUTH_SCREEN = '/login_screen';
+  static const LOGIN_SCREEN = '/login_screen';
+  static const REGISTER_SCREEN  = '/register_screen';
 }

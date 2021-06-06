@@ -1,8 +1,8 @@
-import 'package:yessoft/generated/l10n.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class EmailPasswordRegisterForm extends StatefulWidget {
-  final Function(String, String, String) onRegisterRequest;
+  final Function(String, String, String)? onRegisterRequest;
 
   EmailPasswordRegisterForm({
     this.onRegisterRequest,
@@ -48,51 +48,52 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
             Flex(
               direction: Axis.vertical,
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.black
-                            : Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 2.0,
-                            spreadRadius: 2.0,
-                            offset: Offset(
-                              5.0, // horizontal, move right 10
-                              5.0, // vertical, move down 10
-                            ),
-                          )
-                        ]),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: TextFormField(
-                        controller: _registerNameController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          labelText: 'Name',
-                        ),
-                        textInputAction: TextInputAction.next,
-                        onEditingComplete: () => node.nextFocus(),
-                        // Move focus to next
-                        validator: (result) {
-                          if (result.isEmpty) {
-                            return 'Name is required';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                //   child: Container(
+                //     decoration: BoxDecoration(
+                //         color: Theme.of(context).brightness == Brightness.dark
+                //             ? Colors.black
+                //             : Colors.white,
+                //         borderRadius: BorderRadius.circular(15),
+                //         boxShadow: [
+                //           BoxShadow(
+                //             color: Colors.black26,
+                //             blurRadius: 2.0,
+                //             spreadRadius: 2.0,
+                //             offset: Offset(
+                //               5.0, // horizontal, move right 10
+                //               5.0, // vertical, move down 10
+                //             ),
+                //           )
+                //         ]),
+                //     child: Container(
+                //       decoration: BoxDecoration(
+                //         borderRadius: BorderRadius.circular(15),
+                //       ),
+                //       child: TextFormField(
+                //         controller: _registerNameController,
+                //         decoration: InputDecoration(
+                //           border: OutlineInputBorder(
+                //             borderSide: BorderSide.none,
+                //             borderRadius: BorderRadius.circular(20),
+                //           ),
+                //           labelText: S.of(context).name,
+                //         ),
+                //         textInputAction: TextInputAction.next,
+                //         onEditingComplete: () => node.nextFocus(),
+                //         // Move focus to next
+                //         validator: (result) {
+                //           if (result.isEmpty) {
+                //             return S.of(context).nameIsRequired;
+                //           }
+                //           return null;
+                //         },
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                   child: Container(
@@ -125,13 +126,13 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          labelText: 'Email',
+                          labelText: S.of(context).email,
                         ),
                         textInputAction: TextInputAction.next,
                         onEditingComplete: () => node.nextFocus(),
                         // Move focus to next
                         validator: (result) {
-                          if (result.isEmpty) {
+                          if (result!.isEmpty) {
                             return S.of(context).emailAddressIsRequired;
                           }
                           return null;
@@ -172,10 +173,10 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          labelText: 'Password',
+                          labelText: S.of(context).password,
                         ),
                         validator: (result) {
-                          if (result.length < 5) {
+                          if (result!.length < 5) {
                             return '';
                           }
                           return null;
@@ -192,9 +193,9 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
             ),
             CheckboxListTile(
                 value: agreed,
-                title: Text('I Agree to the terms of service'),
+                title: Text(S.of(context).iAgreeToTheTermsOfServicePrivacyPolicy),
                 onChanged: (v) {
-                  agreed = v;
+                  agreed = v!;
                   if (mounted) setState(() {});
                 }),
             loading == true
@@ -225,22 +226,19 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16)),
                           color: Theme.of(context).primaryColor,
-                          onPressed: (!agreed)
-                              ? null
-                              : () {
-                                  if (_registerFormKey.currentState
-                                      .validate()) {
-                                    loading = true;
-                                    setState(() {});
-                                    widget.onRegisterRequest(
-                                      _registerEmailController.text.trim(),
-                                      _registerPasswordController.text.trim(),
-                                      _registerNameController.text.trim(),
-                                    );
-                                  }
-                                },
+                          onPressed: (!agreed) ? null : () {
+                            if (_registerFormKey.currentState!.validate()) {
+                              loading = true;
+                              setState(() {});
+                              widget.onRegisterRequest!(
+                                _registerEmailController.text.trim(),
+                                _registerPasswordController.text.trim(),
+                                _registerNameController.text.trim(),
+                              );
+                            }
+                          },
                           child: Text(
-                            'Next',
+                            S.of(context).next,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
