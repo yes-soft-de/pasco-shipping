@@ -130,14 +130,13 @@ class ShipmentOrderController extends BaseController
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns array of object which each one represent the info of the order",
+     *      description="Returns array of objects which each one represent the info of the order",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="string", property="clientUserID"),
      *                  @OA\Property(type="string", property="transportationType"),
      *                  @OA\Property(type="string", property="target"),
      *                  @OA\Property(type="integer", property="supplierID"),
@@ -158,10 +157,13 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="number", format="float", property="weight"),
      *                  @OA\Property(type="string", property="qrCode"),
      *                  @OA\Property(type="string", property="guniQuantity"),
-     *                  @OA\Property(type="string", property="updatedBy"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
-     *                  @OA\Property(type="string", property="status")
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="clientUsername"),
+     *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUser"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUserImage"),
      *              )
      *          )
      *      )
@@ -224,7 +226,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="integer", property="markID"),
      *                  @OA\Property(type="string", property="paymentTime"),
      *                  @OA\Property(type="number", property="weight"),
-     *                  @OA\Property(type="string", property="QRcode"),
+     *                  @OA\Property(type="string", property="qrCode"),
      *                  @OA\Property(type="string", property="guniQuantity"),
      *                  @OA\Property(type="string", property="updatedBy"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
@@ -280,7 +282,7 @@ class ShipmentOrderController extends BaseController
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns the info of the shipments as an array of objects",
+     *      description="Returns array of objects which each one represent the info of the shipment",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -309,13 +311,17 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="integer", property="markID"),
      *                  @OA\Property(type="string", property="paymentTime"),
      *                  @OA\Property(type="number", property="weight"),
-     *                  @OA\Property(type="string", property="QRcode"),
+     *                  @OA\Property(type="string", property="qrCode"),
      *                  @OA\Property(type="string", property="guniQuantity"),
-     *                  @OA\Property(type="string", property="updatedBy"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
-     *                  @OA\Property(type="string", property="username")
+     *                  @OA\Property(type="string", property="clientUsername"),
+     *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUser"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUserImage"),
+     *                  @OA\Property(type="string", property="shipmentStatusCreatedByUser"),
+     *                  @OA\Property(type="string", property="shipmentStatusUpdatedByUser")
      *              )
      *          )
      *      )

@@ -91,7 +91,7 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="integer", property="markID"),
      *                  @OA\Property(type="string", property="paymentTime"),
      *                  @OA\Property(type="number", property="weight"),
-     *                  @OA\Property(type="string", property="QRcode"),
+     *                  @OA\Property(type="string", property="qrCode"),
      *                  @OA\Property(type="string", property="guniQuantity"),
      *                  @OA\Property(type="integer", property="updatedBy"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
@@ -146,7 +146,6 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="string", property="statusDetails"),
      *                  @OA\Property(type="boolean", property="isInOneHolder"),
      *                  @OA\Property(type="boolean", property="packed"),
-     *                  @OA\Property(type="string", property="clientUserID"),
      *                  @OA\Property(type="string", property="transportationType"),
      *                  @OA\Property(type="string", property="target"),
      *                  @OA\Property(type="integer", property="supplierID"),
@@ -165,12 +164,15 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="integer", property="markID"),
      *                  @OA\Property(type="string", property="paymentTime"),
      *                  @OA\Property(type="float", property="weight"),
-     *                  @OA\Property(type="string", property="QRcode"),
+     *                  @OA\Property(type="string", property="qrCode"),
      *                  @OA\Property(type="string", property="guniQuantity"),
-     *                  @OA\Property(type="string", property="updatedBy"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
-     *                  @OA\Property(type="string", property="status")
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="username"),
+     *                  @OA\Property(type="string", property="userImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage")
      *              )
      *          )
      *      )
