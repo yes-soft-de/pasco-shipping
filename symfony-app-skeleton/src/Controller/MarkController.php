@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\DeleteRequest;
 use App\Request\MarkCreateRequest;
 use App\Service\MarkService;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -108,6 +109,20 @@ class MarkController extends BaseController
         $result = $this->markService->getAllMarksByUser($this->getUserId());
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("mark/{id}", name="deleteMark", methods={"DELETE"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function deleteMarkById(Request $request)
+    {
+        $request = new DeleteRequest($request->get('id'));
+
+        $result = $this->markService->deleteMarkById($request);
+
+        return $this->response($result, self::DELETE);
     }
 
 }

@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Entity\MarkEntity;
 use App\Repository\MarkEntityRepository;
+use App\Request\DeleteRequest;
 use App\Request\MarkCreateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -52,6 +53,23 @@ class MarkManager
     public function getAllMarksByUser($userID)
     {
         return $this->markEntityRepository->getAllMarksByUser($userID);
+    }
+
+    public function deleteMarkById(DeleteRequest $request)
+    {
+        $item = $this->markEntityRepository->find($request->getId());
+
+        if(!$item)
+        {
+
+        }
+        else
+        {
+            $this->entityManager->remove($item);
+            $this->entityManager->flush();
+        }
+
+        return $item;
     }
 
 }

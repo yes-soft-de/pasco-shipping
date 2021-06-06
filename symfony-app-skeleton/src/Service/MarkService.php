@@ -51,4 +51,11 @@ class MarkService
         return $marksResponse;
     }
 
+    public function deleteMarkById($request)
+    {
+        $result = $this->markManager->deleteMarkById($request);
+
+        return $this->autoMapping->map(MarkEntity::class, MarkGetResponse::class, $result);
+    }
+
 }
