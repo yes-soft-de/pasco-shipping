@@ -1,99 +1,106 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
-
-import 'package:yessoft/module_auth/enums/auth_source.dart';
-import 'package:yessoft/module_auth/enums/auth_status.dart';
-import 'package:yessoft/module_auth/enums/user_type.dart';
-import 'package:yessoft/module_auth/exceptions/auth_exception.dart';
-import 'package:yessoft/module_auth/manager/auth_manager/auth_manager.dart';
-import 'package:yessoft/module_auth/model/app_user.dart';
-import 'package:yessoft/module_auth/preferences/auth_pereferences.dart';
-import 'package:yessoft/module_auth/request/login_request/login_request.dart';
-import 'package:yessoft/module_auth/request/register_request/register_request.dart';
-import 'package:yessoft/module_auth/response/login_response/login_response.dart';
-import 'package:yessoft/utils/logger/logger.dart';
+import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/module_auth/enums/auth_source.dart';
+import 'package:pasco_shipping/module_auth/enums/auth_status.dart';
+import 'package:pasco_shipping/module_auth/enums/user_type.dart';
+import 'package:pasco_shipping/module_auth/exceptions/auth_exception.dart';
+import 'package:pasco_shipping/module_auth/manager/auth_manager/auth_manager.dart';
+import 'package:pasco_shipping/module_auth/model/app_user.dart';
+import 'package:pasco_shipping/module_auth/presistance/auth_prefs_helper.dart';
+import 'package:pasco_shipping/module_auth/request/login_request/login_request.dart';
+import 'package:pasco_shipping/module_auth/request/register_request/register_request.dart';
+import 'package:pasco_shipping/module_auth/response/login_response/login_response.dart';
+import 'package:pasco_shipping/utils/logger/logger.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:inject/inject.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:uuid/uuid.dart';
 
-@provide
+@injectable
 class AuthService {
+  final AuthPrefsHelper _prefsHelper;
   final AuthManager _authManager;
-  final AuthPreferences _prefsHelper;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final PublishSubject<AuthStatus> _authSubject = PublishSubject<AuthStatus>();
 
-  final _auth = FirebaseAuth.instance;
-  final store = FirebaseFirestore.instance;
+  late String _verificationCode;
 
-  String _verificationCode;
-
-  AuthService(this._authManager, this._prefsHelper);
+  AuthService(
+    this._prefsHelper,
+    this._authManager,
+  );
 
   // Delegates
-  bool get isLoggedIn => _auth.currentUser != null;
+  Future<bool> get isLoggedIn => _prefsHelper.isSignedIn();
 
-  String get userID => _auth.currentUser.uid;
+  Future<String?> get userID => _prefsHelper.getUserId();
 
-  Future<UserRole> get userRole => _prefsHelper.getUserRole();
+  Future<UserRole> get userRole => _prefsHelper.getCurrentRole();
 
   Stream<AuthStatus> get authListener => _authSubject.stream;
 
-  /// This is a generator for Yes Soft API Token
-  /// If this function is invoked without registering first,
-  /// it will throw a LoginException
-  ///
-  /// @throws LoginException when password is not generated in Firebase
-  /// @throws UnauthorizedException when password in Firebase Doesn't match API Password
   Future<void> _loginApiUser(UserRole role, AuthSource source) async {
+    Logger().error('AuthError', 'login api user', StackTrace.current);
+    var store = FirebaseFirestore.instance;
     var user = _auth.currentUser;
-    String password;
-
-    try {
-      password = await _getUserPassword();
-    } catch (e) {
-      Logger().error('Authorization Error',
-          'Login is requested without a password', StackTrace.empty);
-      throw UnauthorizedException('Error: Logging in before registering!');
+    var existingProfile =
+        await store.collection('users').doc(user?.uid).get().catchError((e) {
+      _authSubject.addError('Error logging in, firebase account not found');
+    });
+    if (existingProfile.data() == null) {
+      _authSubject.addError('Error logging in, firebase account not found');
+      return;
     }
 
+    String password = existingProfile.data()?['password'];
+
     // Change This
-    LoginResponse loginResult = await _authManager.login(LoginRequest(
-      username: user.email ?? user.uid,
+    LoginResponse? loginResult = await _authManager.login(LoginRequest(
+      username: user?.email ?? user?.uid,
       password: password,
     ));
 
     if (loginResult == null) {
-      _authSubject.addError('Error getting the authorization from the API');
+      _authSubject.addError('Error getting the token from the API');
       await logout();
-      throw UnauthorizedException(
-          'Error getting the authorization from the API');
+      throw UnauthorizedException('Error getting the token from the API');
+    }
+// setInited if there is about screen in the begaining of the application
+    if (user != null) {
+      await Future.wait([
+        _prefsHelper.setUserId(user.uid),
+        _prefsHelper.setEmail(user.email ?? user.uid),
+        //     _aboutService.setInited(),
+        _prefsHelper.setPassword(password),
+        _prefsHelper.setAuthSource(source),
+        _prefsHelper.setToken(loginResult.token),
+        _prefsHelper.setCurrentRole(role),
+      ]);
     }
 
-    await _prefsHelper.setToken(loginResult.token);
     _authSubject.add(AuthStatus.AUTHORIZED);
   }
 
   Future<void> _registerApiNewUser(AppUser user) async {
+    Logger().error('AuthError', 'register New User', StackTrace.current);
+    var store = FirebaseFirestore.instance;
+    var existingProfile =
+        await store.collection('users').doc(user.credential?.uid).get();
     String password;
 
-    try {
-      // If this works, the user already have a password
-      password = await _getUserPassword();
-    } catch (e) {
-      // if this is indicated, generate new password and register new account with it
-
+    // This means that this guy is not registered
+    if (existingProfile.data() == null) {
       // Create the profile password
       password = Uuid().v1();
 
       // Create the profile in our database
       await _authManager.register(RegisterRequest(
-        userID: user.credential.email ?? user.credential.uid,
+        userID: user.credential?.email ?? user.credential?.uid,
         password: password,
         // This should change from the API side
         roles: [user.userRole.toString().split('.')[1]],
@@ -102,28 +109,43 @@ class AuthService {
       // Save the profile password in his account
       await store
           .collection('users')
-          .doc(user.credential.uid)
+          .doc(user.credential?.uid)
           .set({'password': password});
+    } else {
+      password = await existingProfile.data()?['password'];
     }
 
     await _loginApiUser(user.userRole, user.authSource);
   }
 
-  void verifyWithPhone(String phone, UserRole role) {
+  void verifyWithPhone(bool isRegister, String phone, UserRole role) {
     var user = _auth.currentUser;
     if (user == null) {
+      Logger().error('AuthError', phone, StackTrace.current);
       _auth.verifyPhoneNumber(
           phoneNumber: phone,
           verificationCompleted: (authCredentials) {
-            _auth.signInWithCredential(authCredentials).then((credential) {
-              _registerApiNewUser(
-                  AppUser(credential.user, AuthSource.PHONE, role));
+            _auth
+                .signInWithCredential(authCredentials)
+                .then((UserCredential? credential) {
+              if (credential != null) {
+                if (isRegister) {
+                  _registerApiNewUser(
+                      AppUser(credential.user, AuthSource.PHONE, role));
+                } else {
+                  _loginApiUser(role, AuthSource.PHONE);
+                }
+              }
             });
           },
           verificationFailed: (FirebaseAuthException err) {
-            _authSubject.addError(err.message);
+            Logger().error(
+                'AuthError',
+                err.message ?? 'there is an error with verification code',
+                StackTrace.current);
+            _authSubject.addError(err);
           },
-          codeSent: (String verificationId, int forceResendingToken) {
+          codeSent: (String verificationId, int? forceResendingToken) {
             _verificationCode = verificationId;
             _authSubject.add(AuthStatus.CODE_SENT);
           },
@@ -131,14 +153,18 @@ class AuthService {
             _authSubject.add(AuthStatus.CODE_TIMEOUT);
           });
     } else {
-      _registerApiNewUser(AppUser(user, AuthSource.PHONE, role));
+      if (isRegister) {
+        _registerApiNewUser(AppUser(user, AuthSource.PHONE, role));
+      } else {
+        _loginApiUser(role, AuthSource.PHONE);
+      }
     }
   }
 
-  Future<void> verifyWithGoogle(UserRole role) async {
+  Future<void> verifyWithGoogle(UserRole role, bool isRegister) async {
     // Trigger the authentication flow
     try {
-      final GoogleSignInAccount googleUser = await GoogleSignIn(
+      final GoogleSignInAccount? googleUser = await GoogleSignIn(
         scopes: [
           'email',
           'https://www.googleapis.com/auth/contacts.readonly',
@@ -146,41 +172,47 @@ class AuthService {
       ).signIn();
       Logger().info('AuthStateManager', 'Got Google User');
       // Obtain the auth details from the request
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-
-      // Create a new credential
-      final GoogleAuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+      if (googleAuth != null) {
+        // Create a new credential
+        final OAuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        var userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        if (isRegister) {
+          await _registerApiNewUser(
+              AppUser(userCredential.user, AuthSource.PHONE, role));
+        } else {
+          await _loginApiUser(role, AuthSource.GOOGLE);
+        }
+      }
       // Once signed in, return the UserCredential
-      var userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-
-      await _registerApiNewUser(
-          AppUser(userCredential.user, AuthSource.PHONE, role));
     } catch (e) {
-      Logger().error('AuthService', e.toString(), StackTrace.current);
+      Logger().error('AuthStateManager', e.toString(), StackTrace.current);
     }
   }
 
-  Future<void> verifyWithApple(UserRole role) async {
+  Future<void> verifyWithApple(UserRole role, bool isRegister) async {
     var oauthCred = await _createAppleOAuthCred();
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(oauthCred);
 
-    await _registerApiNewUser(
-        AppUser(userCredential.user, AuthSource.APPLE, role));
+    if (isRegister) {
+      await _registerApiNewUser(
+          AppUser(userCredential.user, AuthSource.APPLE, role));
+    } else {
+      await _loginApiUser(role, AuthSource.APPLE);
+    }
   }
 
-  /// login to Firebase Authentication with an Email and Password
-  /// If success, Continue to login to the API
   Future<void> signInWithEmailAndPassword(
     String email,
     String password,
     UserRole role,
+    bool isRegister,
   ) async {
     try {
       var creds = await _auth.signInWithEmailAndPassword(
@@ -188,12 +220,16 @@ class AuthService {
         password: password,
       );
 
-      await _registerApiNewUser(AppUser(creds.user, AuthSource.EMAIL, role));
+      if (isRegister) {
+        await _registerApiNewUser(AppUser(creds.user, AuthSource.EMAIL, role));
+      } else {
+        await _loginApiUser(role, AuthSource.EMAIL);
+      }
     } catch (e) {
       if (e is FirebaseAuthException) {
         FirebaseAuthException x = e;
         Logger().info('AuthService', 'Got Authorization Error: ${x.message}');
-        _authSubject.addError(x.message);
+        _authSubject.addError(x.message??'Got Authorization Error with unknown cause');
       } else {
         _authSubject.addError(e.toString());
       }
@@ -208,12 +244,12 @@ class AuthService {
     _auth
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
-      signInWithEmailAndPassword(email, password, role);
+      signInWithEmailAndPassword(email, password, role, true);
     }).catchError((err) {
       if (err is FirebaseAuthException) {
         FirebaseAuthException x = err;
         Logger().info('AuthService', 'Got Authorization Error: ${x.message}');
-        _authSubject.addError(UnauthorizedException(x.message));
+        _authSubject.addError(UnauthorizedException(x.message??'Got Authorization Error with unknown cause'));
       } else {
         logout().then((value) {
           _authSubject
@@ -225,18 +261,22 @@ class AuthService {
 
   /// This confirms Phone Number
   /// @return void
-  void confirmWithCode(String code, UserRole role) {
+  void confirmWithCode(String code, UserRole role, bool isRegister) {
     AuthCredential authCredential = PhoneAuthProvider.credential(
       verificationId: _verificationCode,
       smsCode: code,
     );
 
     _auth.signInWithCredential(authCredential).then((credential) {
-      _registerApiNewUser(AppUser(credential.user, AuthSource.PHONE, role));
+      if (isRegister) {
+        _registerApiNewUser(AppUser(credential.user, AuthSource.PHONE, role));
+      } else {
+        _loginApiUser(role, AuthSource.PHONE);
+      }
     }).catchError((err) {
       if (err is FirebaseAuthException) {
         FirebaseAuthException x = err;
-        throw UnauthorizedException(x.message);
+        throw UnauthorizedException(x.message??'Got Authorization Error with unknown cause');
       } else {
         logout().then((_) {
           throw UnauthorizedException('Error Registering with Auth Provider');
@@ -248,27 +288,35 @@ class AuthService {
   /// @return cached token
   /// @throw UnauthorizedException
   /// @throw TokenExpiredException
-  Future<String> getToken() async {
-    var token = await this._prefsHelper.getToken();
-    if (token == null) {
-      throw UnauthorizedException('Token was not generated');
+  Future<String?> getToken() async {
+    try {
+      var tokenDate = await this._prefsHelper.getTokenDate();
+      var diff = DateTime.now().difference(tokenDate).inMinutes;
+      if (diff.abs() > 55) {
+        throw TokenExpiredException('Token is created ${diff} minutes ago');
+      }
+      return this._prefsHelper.getToken();
+    } on UnauthorizedException {
+      await _prefsHelper.deleteToken();
+      return null;
+    } catch (e) {
+      return null;
     }
-
-    return token;
   }
 
   /// refresh API token, this is done using Firebase Token Refresh
-  /// @throws
-  Future<String> refreshToken() async {
-    String uid = _auth.currentUser.uid;
-    String password = await _getUserPassword();
-
-    LoginResponse loginResponse = await _authManager.login(LoginRequest(
-      username: uid,
+  Future<String?> refreshToken() async {
+    String? uid = await _prefsHelper.getUserId();
+    String? password = await _prefsHelper.getPassword();
+    String? email = await _prefsHelper.getEmail();
+    LoginResponse? loginResponse = await _authManager.login(LoginRequest(
+      username: email ?? uid,
       password: password,
     ));
-    await _prefsHelper.setToken(loginResponse.token);
-    return loginResponse.token;
+
+    await _prefsHelper.setToken(loginResponse?.token);
+
+    return loginResponse?.token;
   }
 
   /// apple specific function
@@ -311,7 +359,7 @@ class AuthService {
   String _createNonce(int length) {
     final random = Random();
     final charCodes = List<int>.generate(length, (_) {
-      int codeUnit;
+      late int codeUnit;
 
       switch (random.nextInt(3)) {
         case 0:
@@ -331,35 +379,9 @@ class AuthService {
     return String.fromCharCodes(charCodes);
   }
 
-  /// Log users out
   Future<void> logout() async {
     await _auth.signOut();
     await _prefsHelper.deleteToken();
-  }
-
-  /// Get User Password from FirebaseFirestore
-  /// @throws LoginException when no password is found
-  Future<String> _getUserPassword() async {
-    var existingProfile = await store
-        .collection('users')
-        .doc(_auth.currentUser.uid)
-        .get()
-        .catchError((e) {
-      throw LoginException('Error Logging in, can\'t find access token');
-    });
-    if (existingProfile.data() == null) {
-      _authSubject.addError('Error logging in, firebase account not found');
-      throw LoginException('Error Logging in, can\'t find access token');
-    }
-
-    String password = existingProfile.data()['password'];
-    if (password == null) {
-      throw LoginException('Error Logging in, can\'t generate access token');
-    }
-    if (password.isEmpty) {
-      throw LoginException('Error Logging in, can\'t generate access token');
-    }
-
-    return password;
+    await _prefsHelper.cleanAll();
   }
 }

@@ -1,12 +1,11 @@
-import 'package:yessoft/generated/l10n.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_auth/authorization_routes.dart';
 import 'package:flutter/material.dart';
 
-import '../../../authorization_routes.dart';
-
 class EmailPasswordForm extends StatefulWidget {
-  final Function(String, String) onLoginRequest;
-  final String email;
-  final String password;
+  final Function(String, String)? onLoginRequest;
+  final String? email;
+  final String? password;
 
   EmailPasswordForm({
     this.onLoginRequest,
@@ -24,23 +23,24 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
   final TextEditingController _loginPasswordController =
       TextEditingController();
 
+  bool loading = false;
+
   @override
   void initState() {
     super.initState();
+    _loginEmailController.text = widget.email ?? '';
+    _loginPasswordController.text = widget.password ?? '';
   }
 
   @override
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
-    _loginEmailController.text = widget.email;
-    _loginPasswordController.text = widget.password;
-
     return Form(
       key: _loginFormKey,
       autovalidateMode: AutovalidateMode.always,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(16.0, 8, 16, 8),
@@ -51,28 +51,49 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                   padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.black
-                          : Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 2.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(
+                            5.0,
+                            5.0,
+                          ),
+                        )
+                      ],
                     ),
-                    child: TextFormField(
-                      controller: _loginEmailController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        labelText: 'Email',
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.black
+                            : Colors.white,
                       ),
-                      textInputAction: TextInputAction.next,
-                      onEditingComplete: () => node.nextFocus(),
-                      // Move focus to next
-                      validator: (result) {
-                        if (result.isEmpty) {
-                          return S.of(context).emailAddressIsRequired;
-                        }
-                        return null;
-                      },
+                      child: TextFormField(
+                        controller: _loginEmailController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          labelText: S.of(context).email,
+                        ),
+                        textInputAction: TextInputAction.next,
+                        onEditingComplete: () => node.nextFocus(),
+                        // Move focus to next
+                        validator: (result) {
+                          if (result == null) {
+                            return S.of(context).emailAddressIsRequired;
+                          } else {
+                            if (result.isEmpty) {
+                              return S.of(context).emailAddressIsRequired;
+                            }
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                   ),
                 ),
@@ -80,25 +101,53 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                   padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.black
-                          : Colors.white,
-                    ),
-                    child: TextFormField(
-                      controller: _loginPasswordController,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 2.0,
+                            // has the effect of softening the shadow
+                            spreadRadius: 2.0,
+                            // has the effect of extending the shadow
+                            offset: Offset(
+                              5.0, // horizontal, move right 10
+                              5.0, // vertical, move down 10
+                            ),
+                          )
+                        ]),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.black
+                            : Colors.white,
                       ),
-                      validator: (result) {
-                        if (result.length < 5) {
-                          return 'Password is too short';
-                        }
-                        return null;
-                      },
-                      obscureText: true,
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (_) =>
-                          node.unfocus(), // Submit and hide keyboard
+                      child: TextFormField(
+                        controller: _loginPasswordController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          labelText: S.of(context).password,
+                        ),
+                        validator: (result) {
+                          if (result == null) {
+                            return S.of(context).passwordIsTooShort;
+                          } else {
+                            if (result.isEmpty) {
+                              if (result.length < 5) {
+                                return S.of(context).passwordIsTooShort;
+                              }
+                            }
+                          }
+                          return null;
+                        },
+                        obscureText: true,
+                        textInputAction: TextInputAction.done,
+                        onFieldSubmitted: (_) =>
+                            node.unfocus(), // Submit and hide keyboard
+                      ),
                     ),
                   ),
                 ),
@@ -116,10 +165,12 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                   child: GestureDetector(
                     onTap: () {
                       Navigator.of(context)
-                          .pushNamed(AuthorizationRoutes.AUTH_SCREEN);
+                          .pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
                     },
                     child: Text(
-                      'Register',
+                      loading == true
+                          ? S.of(context).loading
+                          : S.of(context).register,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -129,20 +180,25 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                 ),
                 Container(
                   child: FlatButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                     color: Theme.of(context).primaryColor,
-                    onPressed: () {
-                      if (_loginFormKey.currentState.validate()) {
-                        setState(() {});
-                        widget.onLoginRequest(
-                          _loginEmailController.text,
-                          _loginPasswordController.text,
-                        );
-                      }
-                    },
+                    onPressed: loading == true
+                        ? null
+                        : () {
+                            if (_loginFormKey.currentState!.validate()) {
+                              loading = true;
+                              setState(() {});
+                              widget.onLoginRequest!(
+                                _loginEmailController.text,
+                                _loginPasswordController.text,
+                              );
+                            }
+                          },
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
-                        'Next',
+                        S.of(context).next,
                         style: TextStyle(
                           color: Colors.white,
                         ),

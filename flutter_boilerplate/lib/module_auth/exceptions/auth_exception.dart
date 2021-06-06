@@ -17,12 +17,3 @@ class UnauthorizedException implements Exception {
   @override
   String toString() => msg;
 }
-
-class LoginException implements Exception {
-  final String msg;
-
-  const LoginException(this.msg);
-
-  @override
-  String toString() => msg;
-}

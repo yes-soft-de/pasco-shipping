@@ -1,10 +1,9 @@
+import 'package:pasco_shipping/module_auth/enums/auth_source.dart';
+import 'package:pasco_shipping/module_auth/enums/user_type.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../enums/auth_source.dart';
-import '../enums/user_type.dart';
-
 class AppUser {
-  User credential;
+  User? credential;
   AuthSource authSource;
   UserRole userRole;
 

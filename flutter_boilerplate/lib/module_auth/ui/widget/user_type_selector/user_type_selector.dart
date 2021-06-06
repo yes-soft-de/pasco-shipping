@@ -1,5 +1,5 @@
-import 'package:yessoft/generated/l10n.dart';
-import 'package:yessoft/module_auth/enums/user_type.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_auth/enums/user_type.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -8,8 +8,8 @@ class UserTypeSelector extends StatelessWidget {
   final UserRole currentUserType;
 
   UserTypeSelector({
-    @required this.onUserChange,
-    @required this.currentUserType,
+    required this.onUserChange,
+    required this.currentUserType,
   });
 
   @override
@@ -57,9 +57,7 @@ class UserTypeSelector extends StatelessWidget {
                         style: TextStyle(
                           color: currentUserType == UserRole.ROLE_CAPTAIN
                               ? Colors.white
-                              : Theme.of(context).brightness == Brightness.dark
-                                  ? Colors.white
-                                  : Colors.black87,
+                              : Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black87,
                         ),
                       ),
                     ),
@@ -72,7 +70,8 @@ class UserTypeSelector extends StatelessWidget {
                       },
                       child: Text(
                         S.of(context).storeOwner,
-                        style: TextStyle(),
+                        style: TextStyle(
+                        ),
                       ),
                     ),
                   ),
