@@ -39,7 +39,7 @@ class SubcontractManager
 
         if(!$subcontractEntity)
         {
-
+            return $subcontractEntity;
         }
         else
         {

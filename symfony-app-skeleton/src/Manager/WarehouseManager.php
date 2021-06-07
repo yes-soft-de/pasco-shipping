@@ -39,7 +39,7 @@ class WarehouseManager
 
         if(!$warehouseEntity)
         {
-
+            return $warehouseEntity;
         }
         else
         {

@@ -45,7 +45,7 @@ class TravelManager
 
         if(!$travelEntity)
         {
-
+            return $travelEntity;
         }
         else
         {

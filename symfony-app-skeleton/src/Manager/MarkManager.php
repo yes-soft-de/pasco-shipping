@@ -61,7 +61,7 @@ class MarkManager
 
         if(!$item)
         {
-
+            return $item;
         }
         else
         {

@@ -88,13 +88,11 @@ class ShipmentOrderManager
         if($status == $this::WAITING_SHIPMENT_STATUS)
         {
             // get shipments from OrderShipmentEntity
-            
             return $this->orderShipmentEntityRepository->getWitingShipmentsOrdersByTransportationType($transportationType);
         }
         elseif($status == $this::ACCEPTED_SHIPMENT_STATUS)
         {
             // get shipments from ShipmentStatusEntity
-
             return $this->shipmentStatusManager->getShipmentsByTransportationType($transportationType);
         }
     }
