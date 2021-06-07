@@ -65,7 +65,6 @@ class BaseController extends AbstractController
      *
      * @return JsonResponse
      */
-
     public function respond($data, $headers = [])
     {
         return new JsonResponse($data, self::STATE_OK, $headers);
@@ -112,9 +111,11 @@ class BaseController extends AbstractController
 
         return new JsonResponse($data, $this->getStatusCode());
     }
+
     public function response($result, $status) :jsonResponse
     {
-        if($result!=null) {
+        if($result!=null)
+        {
             $encoders = [new JsonEncoder()];
             $normalizers = [new ObjectNormalizer()];
             $this->serializer = new Serializer($normalizers, $encoders);
@@ -134,7 +135,7 @@ class BaseController extends AbstractController
         {
             $response = new JsonResponse(["status_code"=>"404",
                  "msg"=>"Data not found!"],
-             Response::HTTP_NOT_FOUND);
+             Response::HTTP_OK);
 
             return $response;
         }
