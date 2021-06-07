@@ -32,7 +32,9 @@ class ShipmentOrderManager
     public function createShipmentOrder(OrderShipmentCreateRequest $request)
     {
         $orderShipmentEntity = $this->autoMapping->map(OrderShipmentCreateRequest::class, OrderShipmentEntity::class, $request);
-        
+
+        $orderShipmentEntity->setStatus($this::WAITING_SHIPMENT_STATUS);
+
         $this->entityManager->persist($orderShipmentEntity);
         $this->entityManager->flush();
         $this->entityManager->clear();

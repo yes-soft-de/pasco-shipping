@@ -20,6 +20,8 @@ class ShipmentsGetResponse
 
     public $supplierID;
 
+    public $supplierName;
+
     public $distributorID;
 
     public $exportWarehouseID;

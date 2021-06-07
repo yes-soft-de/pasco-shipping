@@ -35,8 +35,7 @@ class ShipmentOrderController extends BaseController
      * @Route("ordershipment", name="createShipmentOrder", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
-     * 
-     * 
+     *
      * @OA\Tag(name="Shipment Order")
      * 
      * @OA\Parameter(
@@ -75,7 +74,7 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="string", property="transportationType"),
      *                  @OA\Property(type="string", property="target"),
-     *                  @OA\Property(type="integer", property="supplierID"),
+     *                  @OA\Property(type="integer", property="supplierName"),
      *                  @OA\Property(type="integer", property="distributorID"),
      *                  @OA\Property(type="string", property="exportWarehouseID"),
      *                  @OA\Property(type="string", property="quantity"),
@@ -139,7 +138,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="transportationType"),
      *                  @OA\Property(type="string", property="target"),
-     *                  @OA\Property(type="integer", property="supplierID"),
+     *                  @OA\Property(type="integer", property="supplierName"),
      *                  @OA\Property(type="integer", property="distributorID"),
      *                  @OA\Property(type="integer", property="exportWarehouseID"),
      *                  @OA\Property(type="integer", property="importWarehouseID"),
@@ -295,7 +294,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="integer", property="isInOneHolder"),
      *                  @OA\Property(type="string", property="packed"),
      *                  @OA\Property(type="string", property="target"),
-     *                  @OA\Property(type="integer", property="supplierID"),
+     *                  @OA\Property(type="integer", property="supplierName"),
      *                  @OA\Property(type="integer", property="distributorID"),
      *                  @OA\Property(type="integer", property="exportWarehouseID"),
      *                  @OA\Property(type="integer", property="importWarehouseID"),

@@ -12,6 +12,8 @@ class OrderShipmentCreateRequest
 
     private $supplierID;
 
+    private $supplierName;
+
     private $distributorID;
 
     private $exportWarehouseID;
@@ -34,7 +36,7 @@ class OrderShipmentCreateRequest
 
     private $extraSpecification;
 
-    private $status = "waiting";
+    private $status;
 
     private $createdBy;
 
