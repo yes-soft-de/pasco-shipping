@@ -8,7 +8,7 @@ class ContainerCreateRequest
 
     private $containerNumber;
 
-    private $status = "waiting";
+    private $status;
 
     private $createdBy;
 

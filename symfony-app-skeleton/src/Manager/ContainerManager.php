@@ -10,6 +10,8 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ContainerManager
 {
+    const NOTFULL_CONTAINER_STATUS = "notfull";
+
     private $autoMapping;
     private $entityManager;
     private $containerEntityRepository;
@@ -24,7 +26,9 @@ class ContainerManager
     public function create(ContainerCreateRequest $request)
     {
         $containerEntity = $this->autoMapping->map(ContainerCreateRequest::class, ContainerEntity::class, $request);
-        
+
+        $containerEntity->setStatus($this::NOTFULL_CONTAINER_STATUS);
+
         $this->entityManager->persist($containerEntity);
         $this->entityManager->flush();
         $this->entityManager->clear();
