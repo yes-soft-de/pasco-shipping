@@ -9,3 +9,15 @@ App\Request\UserProfileCreateRequest:
   properties:
     userName:
       - NotBlank: ~
+
+App\Request\SupplierCreateRequest:
+  properties:
+    fullName:
+      - NotBlank: ~
+
+App\Request\SupplierUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    fullName:
+      - NotBlank: ~

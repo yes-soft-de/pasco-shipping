@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\SupplierEntity;
+use App\Entity\UserProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +21,31 @@ class SupplierEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, SupplierEntity::class);
     }
 
-    // /**
-    //  * @return SupplierEntity[] Returns an array of SupplierEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getAllSuppliers()
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('supplier')
+            ->select('supplier.id', 'supplier.fullName', 'supplier.phone', 'supplier.address', 'supplier.createdAt', 'supplier.updatedAt',
+                'supplier.createdBy', 'supplier.updatedBy', 'userProfile1.userName as createdByUser', 'userProfile1.image as createdByUserImage',
+                'userProfile2.userName as updatedByUser', 'userProfile2.image as updatedByUserImage')
 
-    /*
-    public function findOneBySomeField($value): ?SupplierEntity
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
+            ->leftJoin(
+                UserProfileEntity::class,
+                'userProfile1',
+                Join::WITH,
+                'userProfile1.id = supplier.createdBy'
+            )
+
+            ->leftJoin(
+                UserProfileEntity::class,
+                'userProfile2',
+                Join::WITH,
+                'userProfile2.id = supplier.updatedBy'
+            )
+
+            ->orderBy('supplier.id', 'DESC')
+
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
 }
