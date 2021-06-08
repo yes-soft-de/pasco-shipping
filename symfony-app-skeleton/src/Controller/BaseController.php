@@ -133,7 +133,7 @@ class BaseController extends AbstractController
         }
         else
         {
-            $response = new JsonResponse(["status_code"=>"404",
+            $response = new JsonResponse(["status_code"=>"200",
                  "msg"=>"Data not found!"],
              Response::HTTP_OK);
 
