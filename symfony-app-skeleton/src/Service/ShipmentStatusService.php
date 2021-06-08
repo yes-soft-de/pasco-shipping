@@ -30,21 +30,22 @@ class ShipmentStatusService
         $shipmentStatusResult = $this->shipmentStatusManager->create($request);
 
         /**
-         * If the shipment is stored in second container and in different travel
+         * The shipment is stored in second container and in different travel
          * then, we have an extra step which is inserting a new record in the TackEntity
          * with the shipment new info like the trackNumber and new container ID
          */
+        $trackCreateRequest = $this->autoMapping->map(ShipmentStatusEntity::class, TrackCreateRequest::class, $shipmentStatusResult);
+
         if($request->getHolderID())
         {
-            $trackCreateRequest = $this->autoMapping->map(ShipmentStatusEntity::class, TrackCreateRequest::class, $shipmentStatusResult);
-
             $trackCreateRequest->setHolderType($request->getHolderType());
             $trackCreateRequest->setHolderID($request->getHolderID());
-            $trackCreateRequest->setShipmentStatus($request->getShipmentStatus());
-            $trackCreateRequest->setCreatedBy($request->getCreatedBy());
-
-            $this->trackService->create($trackCreateRequest);
         }
+
+        $trackCreateRequest->setShipmentStatus($request->getShipmentStatus());
+        $trackCreateRequest->setCreatedBy($request->getCreatedBy());
+
+        $this->trackService->create($trackCreateRequest);
 
         return $this->autoMapping->map(ShipmentStatusEntity::class, ShipmentStatusGetResponse::class, $shipmentStatusResult);
     }

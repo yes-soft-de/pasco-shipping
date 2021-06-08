@@ -11,6 +11,8 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ShipmentStatusManager
 {
+    const ACCEPTED_SHIPMENT_STATUS = "accepted";
+
     private $autoMapping;
     private $entityManager;
     private $shipmentStatusEntityRepository;
@@ -28,7 +30,7 @@ class ShipmentStatusManager
         $shipmentStatusEntity = $this->autoMapping->map(ShipmentStatusCreateRequest::class, ShipmentStatusEntity::class, $request);
         
         $shipmentStatusEntity->setTrackNumber($this->getRandomCode());
-        $shipmentStatusEntity->setShipmentStatus("accepted");
+        $shipmentStatusEntity->setShipmentStatus($this::ACCEPTED_SHIPMENT_STATUS);
         
         $this->entityManager->persist($shipmentStatusEntity);
         $this->entityManager->flush();

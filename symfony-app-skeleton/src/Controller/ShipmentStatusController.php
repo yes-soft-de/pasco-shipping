@@ -102,6 +102,10 @@ class ShipmentStatusController extends BaseController
      * )
      * 
      * @Security(name="Bearer")
+     *
+     * Note: We call this function exclusively when the part of the shipment inserted into
+     * another container/airwaybill in different travel
+     *
      */
     public function create(Request $request)
     {
