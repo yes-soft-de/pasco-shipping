@@ -96,5 +96,10 @@ class ShipmentOrderManager
             return $this->shipmentStatusManager->getShipmentsByTransportationType($transportationType);
         }
     }
+
+    public function getWaitingShipmentsOrderByUserID($userID)
+    {
+        return $this->orderShipmentEntityRepository->getWaitingShipmentsOrderByUserID($userID);
+    }
     
 }

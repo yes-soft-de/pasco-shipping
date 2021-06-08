@@ -85,4 +85,37 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getWaitingShipmentsOrderByUserID($userID)
+    {
+        return $this->createQueryBuilder('shipmentOrder')
+            ->select("shipmentOrder.id", "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.supplierName", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity",
+                "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime",
+                "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "userProfile1.userName as clientUsername", "userProfile1.image as clientUserImage",
+                "userProfile2.userName as orderUpdatedByUser", "userProfile2.image as orderUpdatedByUserImage")
+
+            ->andWhere('shipmentOrder.clientUserID = :userID')
+            ->setParameter('userID', $userID)
+
+            ->andWhere("shipmentOrder.status = 'waiting'")
+
+            ->leftJoin(
+                UserProfileEntity::class,
+                'userProfile1',
+                Join::WITH,
+                'userProfile1.id = shipmentOrder.clientUserID'
+            )
+
+            ->leftJoin(
+                UserProfileEntity::class,
+                'userProfile2',
+                Join::WITH,
+                'userProfile2.id = shipmentOrder.updatedBy'
+            )
+
+            ->orderBy('shipmentOrder.id', 'DESC')
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }

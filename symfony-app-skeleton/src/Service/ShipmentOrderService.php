@@ -7,6 +7,7 @@ use App\Entity\OrderShipmentEntity;
 use App\Manager\ShipmentOrderManager;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
+use App\Response\OrderShipmentByUserGetResponse;
 use App\Response\OrderShipmentCreateResponse;
 use App\Response\OrderShipmentGetResponse;
 use App\Response\ShipmentsGetResponse;
@@ -95,6 +96,35 @@ class ShipmentOrderService
         }
 
         return $shipmentsResponse;
+    }
+
+    public function getWaitingShipmentsOrderByUserID($userID)
+    {
+        $shipmentsOrdersResponse = [];
+
+        $shipmentsOrders = $this->shipmentOrderManager->getWaitingShipmentsOrderByUserID($userID);
+
+        foreach ($shipmentsOrders as $shipmentsOrder)
+        {
+            if($shipmentsOrder['image'])
+            {
+                $shipmentsOrder['image'] = $this->params . $shipmentsOrder['image'];
+            }
+
+            if($shipmentsOrder['clientUserImage'])
+            {
+                $shipmentsOrder['clientUserImage'] = $this->params . $shipmentsOrder['clientUserImage'];
+            }
+
+            if($shipmentsOrder['orderUpdatedByUserImage'])
+            {
+                $shipmentsOrder['orderUpdatedByUserImage'] = $this->params . $shipmentsOrder['orderUpdatedByUserImage'];
+            }
+
+            $shipmentsOrdersResponse[] = $this->autoMapping->map('array', OrderShipmentByUserGetResponse::class, $shipmentsOrder);
+        }
+
+        return $shipmentsOrdersResponse;
     }
 
 }
