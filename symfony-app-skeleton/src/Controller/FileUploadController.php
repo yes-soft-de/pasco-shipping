@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Request\UploadImageRequest;
 use App\Service\UploadFileService;
+use OpenApi\Annotations as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,6 +33,28 @@ class FileUploadController extends AbstractController
      * @Route("/uploadfile", name="imageUpload", methods={"POST"})
      * @param Request $request
      * @return jsonResponse
+     *
+     * @OA\Tag(name="File Upload")
+     *
+     * @OA\RequestBody(
+     *      description="Upload an image",
+     *     @OA\MediaType(
+     *          mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 type="object",
+     *                   @OA\Property(
+     *                     property="image",
+     *                     type="image/png"
+     *                 )
+     *             )
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the path of the image on the host server"
+     * )
+     *
      */
     public function imageUpload(Request $request)
     {

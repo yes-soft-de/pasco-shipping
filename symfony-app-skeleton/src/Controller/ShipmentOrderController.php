@@ -340,13 +340,6 @@ class ShipmentOrderController extends BaseController
      *
      * @OA\Tag(name="Shipment Order")
      *
-     * @OA\Parameter(
-     *      name="status",
-     *      in="path",
-     *      required="true",
-     *      description="the status of the shipment order"
-     * )
-     *
      * @OA\Response(
      *      response=200,
      *      description="Returns array of objects which each one represent the info of the order",

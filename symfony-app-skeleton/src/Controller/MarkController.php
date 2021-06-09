@@ -146,6 +146,25 @@ class MarkController extends BaseController
      * @Route("mark/{id}", name="deleteMark", methods={"DELETE"})
      * @param Request $request
      * @return JsonResponse
+     *
+     * @OA\Tag(name="Mark")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the deleted mark",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="markNumber"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt")
+     *              )
+     *          )
+     *      )
+     * )
      */
     public function deleteMarkById(Request $request)
     {
