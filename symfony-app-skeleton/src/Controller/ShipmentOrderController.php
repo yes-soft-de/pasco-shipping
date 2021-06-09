@@ -260,7 +260,7 @@ class ShipmentOrderController extends BaseController
     }
 
     /**
-     * @Route("shipments/{transportationType}/{status}", name="getShipmentsByTransportationTypeAndStatus", methods={"GET"})
+     * @Route("waitingshipmentsorders/{transportationType}", name="getWaitingShipmentsOrdersByTransportationType", methods={"GET"})
      * @return JsonResponse
      * 
      * @OA\Tag(name="Shipment Order")
@@ -269,14 +269,7 @@ class ShipmentOrderController extends BaseController
      *      name="transportationType",
      *      in="path",
      *      description="the type of the shipping",
-     *      required=true 
-     * )
-     * 
-     * @OA\Parameter(
-     *      name="status",
-     *      in="path",
-     *      description="the status of the shipment order",
-     *      required=true 
+     *      required=true
      * )
      * 
      * @OA\Response(
@@ -288,21 +281,16 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="integer", property="shipmentID"),
-     *                  @OA\Property(type="integer", property="shipmentStatus"),
-     *                  @OA\Property(type="integer", property="statusDetails"),
-     *                  @OA\Property(type="integer", property="isInOneHolder"),
-     *                  @OA\Property(type="string", property="packed"),
      *                  @OA\Property(type="string", property="target"),
      *                  @OA\Property(type="integer", property="supplierName"),
-     *                  @OA\Property(type="integer", property="distributorID"),
+     *                  @OA\Property(type="string", property="distributorName"),
      *                  @OA\Property(type="integer", property="exportWarehouseID"),
      *                  @OA\Property(type="integer", property="importWarehouseID"),
      *                  @OA\Property(type="string", property="quantity"),
      *                  @OA\Property(type="string", property="image"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
-     *                  @OA\Property(type="string", property="productCategoryID"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
      *                  @OA\Property(type="string", property="unit"),
      *                  @OA\Property(type="string", property="receiverName"),
      *                  @OA\Property(type="string", property="receiverPhoneNumber"),
@@ -327,9 +315,9 @@ class ShipmentOrderController extends BaseController
      * )
      * 
      */
-    public function getShipmentsByTransportationTypeAndStatus($transportationType, $status)
+    public function getWaitingShipmentsOrdersByTransportationType($transportationType)
     {
-        $result = $this->shipmentOrderService->getShipmentsByTransportationTypeAndStatus($transportationType, $status);
+        $result = $this->shipmentOrderService->getWaitingShipmentsOrdersByTransportationType($transportationType);
 
         return $this->response($result, self::FETCH);
     }

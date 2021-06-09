@@ -83,18 +83,9 @@ class ShipmentOrderManager
         }
     }
 
-    public function getShipmentsByTransportationTypeAndStatus($transportationType, $status)
+    public function getWaitingShipmentsOrdersByTransportationType($transportationType)
     {
-        if($status == $this::WAITING_SHIPMENT_STATUS)
-        {
-            // get shipments from OrderShipmentEntity
-            return $this->orderShipmentEntityRepository->getWitingShipmentsOrdersByTransportationType($transportationType);
-        }
-        elseif($status == $this::ACCEPTED_SHIPMENT_STATUS)
-        {
-            // get shipments from ShipmentStatusEntity
-            return $this->shipmentStatusManager->getShipmentsByTransportationType($transportationType);
-        }
+          return $this->orderShipmentEntityRepository->getShipmentsOrdersByTransportationTypeAndStatus($transportationType, $this::WAITING_SHIPMENT_STATUS);
     }
 
     public function getWaitingShipmentsOrderByUserID($userID)

@@ -6,23 +6,13 @@ class ShipmentsGetResponse
 {
     public $id;
 
-    public $shipmentID;
-
-    public $shipmentStatus;
-
-    public $statusDetails;
-
-    public $isInOneHolder;
-
-    public $packed;
-
     public $target;
 
     public $supplierID;
 
     public $supplierName;
 
-    public $distributorID;
+    public $distributorName;
 
     public $exportWarehouseID;
 
@@ -36,7 +26,7 @@ class ShipmentsGetResponse
 
     public $updatedAt;
 
-    public $productCategoryID;
+    public $productCategoryName;
 
     public $unit;
 

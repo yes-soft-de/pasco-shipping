@@ -69,11 +69,11 @@ class ShipmentOrderService
         return $this->autoMapping->map(OrderShipmentEntity::class, OrderShipmentGetResponse::class, $orderShipmentResult);
     }
 
-    public function getShipmentsByTransportationTypeAndStatus($transportationType, $status)
+    public function getWaitingShipmentsOrdersByTransportationType($transportationType)
     {
         $shipmentsResponse = [];
 
-        $shipments = $this->shipmentOrderManager->getShipmentsByTransportationTypeAndStatus($transportationType, $status);
+        $shipments = $this->shipmentOrderManager->getWaitingShipmentsOrdersByTransportationType($transportationType);
         
         foreach ($shipments as $shipment)
         {
