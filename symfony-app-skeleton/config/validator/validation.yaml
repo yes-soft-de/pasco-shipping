@@ -206,3 +206,10 @@ App\Request\SupplierUpdateRequest:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
+
+App\Request\CountryCreateRequest:
+  properties:
+    name:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
