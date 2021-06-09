@@ -62,4 +62,11 @@ class ProductCategoryService
         return $productCategoryResponse;
     }
 
+    public function deleteProductCategoryById($request)
+    {
+        $result = $this->productCategoryManager->deleteProductCategoryById($request);
+
+        return $this->autoMapping->map(ProductCategoryEntity::class, ProductCategoryGetResponse::class, $result);
+    }
+
 }

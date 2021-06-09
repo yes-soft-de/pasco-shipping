@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\DeleteRequest;
 use App\Request\ProductCategoryCreateRequest;
 use App\Request\ProductCategoryUpdateRequest;
 use App\Service\ProductCategoryService;
@@ -183,6 +184,42 @@ class ProductCategoryController extends BaseController
         $result = $this->productCategoryService->getAllProductCategories();
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("productcategory/{id}", name="deleteProductCategory", methods={"DELETE"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Product Category")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the deleted Product Category",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="name"),
+     *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage")
+     *          )
+     *      )
+     * )
+     */
+    public function deleteProductCategoryById(Request $request)
+    {
+        $request = new DeleteRequest($request->get('id'));
+
+        $result = $this->productCategoryService->deleteProductCategoryById($request);
+
+        return $this->response($result, self::DELETE);
     }
 
 }
