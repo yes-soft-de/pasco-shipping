@@ -7,6 +7,7 @@ use App\Entity\ShipmentStatusEntity;
 use App\Manager\ShipmentStatusManager;
 use App\Request\ShipmentStatusCreateRequest;
 use App\Request\TrackCreateRequest;
+use App\Response\ShipmentStatusByUserGetResponse;
 use App\Response\ShipmentStatusGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -74,6 +75,35 @@ class ShipmentStatusService
             }
 
             $shipmentsResponse[] = $this->autoMapping->map('array', ShipmentStatusGetResponse::class, $shipmentResult);
+        }
+
+        return $shipmentsResponse;
+    }
+
+    public function getAcceptedShipmentsByUserID($userID)
+    {
+        $shipmentsResponse = [];
+
+        $shipments = $this->shipmentStatusManager->getAcceptedShipmentsByUserID($userID);
+
+        foreach ($shipments as $shipment)
+        {
+            if ($shipment['image'])
+            {
+                $shipment['image'] = $this->params . $shipment['image'];
+            }
+
+            if ($shipment['clientUserImage'])
+            {
+                $shipment['clientUserImage'] = $this->params . $shipment['clientUserImage'];
+            }
+
+            if ($shipment['orderUpdatedByUserImage'])
+            {
+                $shipment['orderUpdatedByUserImage'] = $this->params . $shipment['orderUpdatedByUserImage'];
+            }
+
+            $shipmentsResponse[] = $this->autoMapping->map('array', ShipmentStatusByUserGetResponse::class, $shipment);
         }
 
         return $shipmentsResponse;

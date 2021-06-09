@@ -69,6 +69,11 @@ class ShipmentStatusManager
         return $this->shipmentStatusEntityRepository->getShipmentsByTransportationType($transportationType);
     }
 
+    public function getAcceptedShipmentsByUserID($userID)
+    {
+        return $this->shipmentStatusEntityRepository->getAcceptedShipmentsByUserID($userID);
+    }
+
     public function getRandomCode()
     {
         // Get 5-digits random number
