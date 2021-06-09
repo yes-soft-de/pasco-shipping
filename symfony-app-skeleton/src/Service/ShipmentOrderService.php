@@ -33,11 +33,11 @@ class ShipmentOrderService
         return $this->autoMapping->map(OrderShipmentEntity::class, OrderShipmentCreateResponse::class, $orderShipmentResult);
     }
 
-    public function getShipmentsOrdersByStatus($status)
+    public function getWaitingShipmentsOrders()
     {
         $ordersResponse = [];
 
-        $orders = $this->shipmentOrderManager->getShipmentsOrdersByStatus($status);
+        $orders = $this->shipmentOrderManager->getWaitingShipmentsOrders();
         
         foreach ($orders as $order)
         {

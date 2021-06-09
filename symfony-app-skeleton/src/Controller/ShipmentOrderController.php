@@ -115,7 +115,7 @@ class ShipmentOrderController extends BaseController
     }
 
     /**
-     * @Route("shipmentsorders/{status}", name="getShipmentsOrdersByStatus", methods={"GET"})
+     * @Route("waitingshipmentsorders", name="getWaitingShipmentsOrders", methods={"GET"})
      * @return JsonResponse
      * 
      * @OA\Tag(name="Shipment Order")
@@ -139,14 +139,14 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="transportationType"),
      *                  @OA\Property(type="string", property="target"),
      *                  @OA\Property(type="integer", property="supplierName"),
-     *                  @OA\Property(type="integer", property="distributorID"),
+     *                  @OA\Property(type="string", property="distributorName"),
      *                  @OA\Property(type="integer", property="exportWarehouseID"),
      *                  @OA\Property(type="integer", property="importWarehouseID"),
      *                  @OA\Property(type="string", property="quantity"),
      *                  @OA\Property(type="string", property="image"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
-     *                  @OA\Property(type="string", property="productCategoryID"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
      *                  @OA\Property(type="string", property="unit"),
      *                  @OA\Property(type="string", property="receiverName"),
      *                  @OA\Property(type="string", property="receiverPhoneNumber"),
@@ -169,9 +169,9 @@ class ShipmentOrderController extends BaseController
      * )
      * 
      */
-    public function getShipmentsOrdersByStatus($status)
+    public function getWaitingShipmentsOrders()
     {
-        $result = $this->shipmentOrderService->getShipmentsOrdersByStatus($status);
+        $result = $this->shipmentOrderService->getWaitingShipmentsOrders();
 
         return $this->response($result, self::FETCH);
     }

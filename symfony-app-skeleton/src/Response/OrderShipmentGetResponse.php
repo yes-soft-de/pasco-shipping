@@ -18,7 +18,7 @@ class OrderShipmentGetResponse
 
     public $supplierName;
 
-    public $distributorID;
+    public $distributorName;
 
     public $exportWarehouseID;
 
@@ -32,7 +32,7 @@ class OrderShipmentGetResponse
 
     public $updatedAt;
 
-    public $productCategoryID;
+    public $productCategoryName;
 
     public $unit;
 
