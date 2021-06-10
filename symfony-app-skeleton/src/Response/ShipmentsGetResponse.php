@@ -14,9 +14,9 @@ class ShipmentsGetResponse
 
     public $distributorName;
 
-    public $exportWarehouseID;
+    public $exportWarehouseCity;
 
-    public $importWarehouseID;
+    public $importWarehouseCity;
 
     public $quantity;
 
