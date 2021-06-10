@@ -24,9 +24,9 @@ class ShipmentStatusGetResponse
 
     public $distributorName;
 
-    public $exportWarehouseID;
+    public $exportWarehouseName;
 
-    public $importWarehouseID;
+    public $importWarehouseName;
 
     public $quantity;
 
@@ -62,12 +62,16 @@ class ShipmentStatusGetResponse
 
     public $status;
 
-    public $username;
+    public $clientUsername;
 
-    public $userImage;
+    public $clientUserImage;
 
-    public $updatedByUser;
+    public $orderUpdatedByUser;
 
-    public $updatedByUserImage;
+    public $orderUpdatedByUserImage;
+
+    public $shipmentStatusCreatedByUser;
+
+    public $shipmentStatusUpdatedByUser;
 
 }

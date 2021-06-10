@@ -74,6 +74,11 @@ class ShipmentStatusManager
         return $this->shipmentStatusEntityRepository->getAcceptedShipmentsByUserID($userID);
     }
 
+    public function getAllShipments()
+    {
+        return $this->shipmentStatusEntityRepository->getAllShipments();
+    }
+
     public function getRandomCode()
     {
         // Get 5-digits random number
