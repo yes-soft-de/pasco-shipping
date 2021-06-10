@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\OrderShipmentEntity;
 use App\Manager\ShipmentOrderManager;
 use App\Request\OrderShipmentCreateRequest;
+use App\Request\OrderShipmentUpdateRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
 use App\Response\OrderShipmentByUserGetResponse;
 use App\Response\OrderShipmentCreateResponse;
@@ -68,6 +69,14 @@ class ShipmentOrderService
 
         return $this->autoMapping->map(OrderShipmentEntity::class, OrderShipmentGetResponse::class, $orderShipmentResult);
     }
+
+    public function updateShipmentOrder(OrderShipmentUpdateRequest $request)
+    {
+        $orderShipmentResult = $this->shipmentOrderManager->updateShipmentOrder($request);
+
+        return $this->autoMapping->map(OrderShipmentEntity::class, OrderShipmentGetResponse::class, $orderShipmentResult);
+    }
+
 
     public function getWaitingShipmentsOrdersByTransportationType($transportationType)
     {

@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\OrderShipmentEntity;
 use App\Repository\OrderShipmentEntityRepository;
 use App\Request\OrderShipmentCreateRequest;
+use App\Request\OrderShipmentUpdateRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
 use App\Request\ShipmentStatusCreateRequest;
 use Doctrine\ORM\EntityManagerInterface;
@@ -79,6 +80,26 @@ class ShipmentOrderManager
                 $shipmentStatusResult = $this->shipmentStatusManager->create($shipmentStatusRequest);
             }
             
+            return $shipmentOrderEntity;
+        }
+    }
+
+    public function updateShipmentOrder(OrderShipmentUpdateRequest $request)
+    {
+        $shipmentOrderEntity = $this->orderShipmentEntityRepository->find($request->getId());
+
+        if(!$shipmentOrderEntity)
+        {
+            return  $shipmentOrderEntity;
+        }
+        else
+        {
+            $shipmentOrderEntity = $this->autoMapping->mapToObject(OrderShipmentUpdateRequest::class, OrderShipmentEntity::class,
+                $request, $shipmentOrderEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
             return $shipmentOrderEntity;
         }
     }
