@@ -22,7 +22,7 @@ class ShipmentStatusGetResponse
 
     public $supplierID;
 
-    public $distributorID;
+    public $distributorName;
 
     public $exportWarehouseID;
 
@@ -36,7 +36,7 @@ class ShipmentStatusGetResponse
 
     public $updatedAt;
 
-    public $productCategoryID;
+    public $productCategoryName;
 
     public $unit;
 

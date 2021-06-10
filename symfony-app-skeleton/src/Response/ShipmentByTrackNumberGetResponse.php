@@ -32,11 +32,11 @@ class ShipmentByTrackNumberGetResponse
 
     public $supplierID;
 
-    public $distributorID;
+    public $distributorName;
 
-    public $exportWarehouseID;
+    public $exportWarehouseCity;
 
-    public $importWarehouseID;
+    public $importWarehouseCity;
 
     public $quantity;
 
@@ -46,7 +46,7 @@ class ShipmentByTrackNumberGetResponse
 
     public $orderUpdatingDate;
 
-    public $productCategoryID;
+    public $productCategoryName;
 
     public $unit;
 
@@ -79,8 +79,6 @@ class ShipmentByTrackNumberGetResponse
     public $trackCreatedByUser;
 
     public $trackUpdatedByUser;
-
-    public $orderCreatedByUser;
 
     public $shipmentStatusCreatedBy;
 

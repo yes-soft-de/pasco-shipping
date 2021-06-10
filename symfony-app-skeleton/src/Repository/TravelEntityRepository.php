@@ -2,8 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\AdminProfileEntity;
 use App\Entity\TravelEntity;
-use App\Entity\UserProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -25,23 +25,23 @@ class TravelEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('travel')
             ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
-             'travel.status', 'userProfile1.userName as createdByUser', 'userProfile1.image as createdByUserImage', 'userProfile2.userName as updatedByUser', 'userProfile2.image as updatedByUserImage')
+             'travel.status', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
             ->andWhere('travel.status = :status')
             ->setParameter('status', $status)
 
             ->leftJoin(
-                UserProfileEntity::class,
-                'userProfile1',
+                AdminProfileEntity::class,
+                'adminProfile1',
                 Join::WITH,
-                'userProfile1.id = travel.createdBy'
+                'adminProfile1.userID = travel.createdBy'
             )
 
             ->leftJoin(
-                UserProfileEntity::class,
-                'userProfile2',
+                AdminProfileEntity::class,
+                'adminProfile2',
                 Join::WITH,
-                'userProfile2.id = travel.updatedBy'
+                'adminProfile2.userID = travel.updatedBy'
             )
 
             ->orderBy('travel.id', 'DESC')

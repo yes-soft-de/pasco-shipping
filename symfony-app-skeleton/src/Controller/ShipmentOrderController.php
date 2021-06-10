@@ -120,13 +120,6 @@ class ShipmentOrderController extends BaseController
      * 
      * @OA\Tag(name="Shipment Order")
      * 
-     * @OA\Parameter(
-     *      name="status",
-     *      in="path",
-     *      required="true",
-     *      description="the status of the shipment order"
-     * )
-     * 
      * @OA\Response(
      *      response=200,
      *      description="Returns array of objects which each one represent the info of the order",
@@ -162,7 +155,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
-     *                  @OA\Property(type="string", property="orderUpdatedByUserImage"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUserImage")
      *              )
      *          )
      *      )
@@ -323,7 +316,7 @@ class ShipmentOrderController extends BaseController
     }
 
     /**
-     * @Route("myshipmentsorders", name="getShipmentsOrdersBySignedInUser", methods={"GET"})
+     * @Route("mywitingshipmentsorders", name="getWaitingShipmentsOrdersBySignedInUser", methods={"GET"})
      * @return JsonResponse
      *
      * @OA\Tag(name="Shipment Order")

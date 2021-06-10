@@ -34,7 +34,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", 
             "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", 
             "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "userProfile1.userName as username", 
-            "userProfile1.image as userImage", "userProfile2.userName as updatedByUser", "userProfile2.image as updatedByUserImage")
+            "userProfile1.image as userImage", "adminProfile.userName as updatedByUser", "adminProfile.image as updatedByUserImage", "distributor.fullName as distributorName", "productCategory.name as productCategoryName")
 
             ->andWhere('shipment.packed = :packed')
             ->setParameter('packed', 0)
@@ -54,10 +54,24 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
-                UserProfileEntity::class,
-                'userProfile2',
+                AdminProfileEntity::class,
+                'adminProfile',
                 Join::WITH,
-                'userProfile2.userID = shipmentOrder.updatedBy'
+                'adminProfile.userID = shipmentOrder.updatedBy'
+            )
+
+            ->leftJoin(
+                DistributorEntity::class,
+                'distributor',
+                Join::WITH,
+                'distributor.id = shipmentOrder.distributorID'
+            )
+
+            ->leftJoin(
+                ProductCategoryEntity::class,
+                'productCategory',
+                Join::WITH,
+                'productCategory.id = shipmentOrder.productCategoryID'
             )
 
             ->orderBy('shipment.id', 'DESC')
