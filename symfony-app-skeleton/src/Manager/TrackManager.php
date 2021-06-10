@@ -81,4 +81,9 @@ class TrackManager
         return $this->trackEntityRepository->getShipmentByTrackNumber($trackNumber);
     }
 
+    public function getShipmentByTrackNumberAndUserID($trackNumber, $userID)
+    {
+        return $this->trackEntityRepository->getShipmentByTrackNumberAndUserID($trackNumber, $userID);
+    }
+
 }

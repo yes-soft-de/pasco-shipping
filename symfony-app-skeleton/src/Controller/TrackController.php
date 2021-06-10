@@ -188,7 +188,7 @@ class TrackController extends BaseController
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns the info of the new track",
+     *      description="Returns all the info of the shipment",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -205,14 +205,14 @@ class TrackController extends BaseController
      *                  @OA\Property(type="boolean", property="packed"),
      *                  @OA\Property(type="string", property="target"),
      *                  @OA\Property(type="integer", property="supplierID"),
-     *                  @OA\Property(type="integer", property="distributorID"),
-     *                  @OA\Property(type="integer", property="exportWarehouseID"),
-     *                  @OA\Property(type="integer", property="importWarehouseID"),
+     *                  @OA\Property(type="string", property="distributorName"),
+     *                  @OA\Property(type="string", property="exportWarehouseCity"),
+     *                  @OA\Property(type="string", property="importWarehouseCity"),
      *                  @OA\Property(type="integer", property="quantity"),
      *                  @OA\Property(type="string", property="image"),
      *                  @OA\Property(type="object", property="orderCreationDate"),
      *                  @OA\Property(type="object", property="orderUpdatingDate"),
-     *                  @OA\Property(type="object", property="productCategoryID"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
      *                  @OA\Property(type="integer", property="unit"),
      *                  @OA\Property(type="string", property="receiverName"),
      *                  @OA\Property(type="string", property="receiverPhoneNumber"),
@@ -226,8 +226,10 @@ class TrackController extends BaseController
      *                  @OA\Property(type="object", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
-     *                  @OA\Property(type="string", property="username"),
-     *                  @OA\Property(type="string", property="userImage")
+     *                  @OA\Property(type="string", property="trackCreatedByUser"),
+     *                  @OA\Property(type="string", property="trackUpdatedByUser"),
+     *                  @OA\Property(type="string", property="shipmentStatusCreatedBy"),
+     *                  @OA\Property(type="string", property="shipmentStatusUpdatedByBy")
      *          )
      *      )
      * )
@@ -236,6 +238,74 @@ class TrackController extends BaseController
     public function getShipmentByTrackNumber($trackNumber)
     {
         $result = $this->trackService->getShipmentByTrackNumber($trackNumber);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("trackmyshipment/{trackNumber}", name="getMyShipmentByTrackNumber", methods={"GET"})
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Track")
+     *
+     * @OA\Parameter(
+     *      name="trackNumber",
+     *      in="header",
+     *      description="pass trackNumber of the shipment",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns all the info of the shipment",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="shipmentID"),
+     *                  @OA\Property(type="string", property="trackNumber"),
+     *                  @OA\Property(type="string", property="holderType"),
+     *                  @OA\Property(type="integer", property="holderID"),
+     *                  @OA\Property(type="integer", property="travelID"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="boolean", property="isInOneHolder"),
+     *                  @OA\Property(type="boolean", property="packed"),
+     *                  @OA\Property(type="string", property="target"),
+     *                  @OA\Property(type="integer", property="supplierID"),
+     *                  @OA\Property(type="string", property="distributorName"),
+     *                  @OA\Property(type="string", property="exportWarehouseCity"),
+     *                  @OA\Property(type="string", property="importWarehouseCity"),
+     *                  @OA\Property(type="integer", property="quantity"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="object", property="orderCreationDate"),
+     *                  @OA\Property(type="object", property="orderUpdatingDate"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="integer", property="unit"),
+     *                  @OA\Property(type="string", property="receiverName"),
+     *                  @OA\Property(type="string", property="receiverPhoneNumber"),
+     *                  @OA\Property(type="string", property="markID"),
+     *                  @OA\Property(type="string", property="packetingBy"),
+     *                  @OA\Property(type="string", property="paymentTime"),
+     *                  @OA\Property(type="number", property="weight"),
+     *                  @OA\Property(type="string", property="qrCode"),
+     *                  @OA\Property(type="object", property="guniQuantity"),
+     *                  @OA\Property(type="string", property="updatedBy"),
+     *                  @OA\Property(type="object", property="vehicleIdentificationNumber"),
+     *                  @OA\Property(type="string", property="extraSpecification"),
+     *                  @OA\Property(type="string", property="trackCreatedByUser"),
+     *                  @OA\Property(type="string", property="trackUpdatedByUser"),
+     *                  @OA\Property(type="string", property="shipmentStatusCreatedBy"),
+     *                  @OA\Property(type="string", property="shipmentStatusUpdatedByBy")
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function getMyShipmentByTrackNumber($trackNumber)
+    {
+        $result = $this->trackService->getShipmentByTrackNumberAndUserID($trackNumber, $this->getUserId());
 
         return $this->response($result, self::FETCH);
     }

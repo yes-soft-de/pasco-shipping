@@ -7,6 +7,7 @@ use App\Entity\TrackEntity;
 use App\Manager\TrackManager;
 use App\Request\TrackCreateRequest;
 use App\Request\TrackUpdateRequest;
+use App\Response\ShipmentByTrackNumberAndSignedInUserGetResponse;
 use App\Response\ShipmentByTrackNumberGetResponse;
 use App\Response\TrackCreateResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -57,6 +58,30 @@ class TrackService
             }
 
             $shipmentResponse = $this->autoMapping->map('array', ShipmentByTrackNumberGetResponse::class, $row);
+        }
+
+        return $shipmentResponse;
+    }
+
+    public function getShipmentByTrackNumberAndUserID($trackNumber, $userID)
+    {
+        $shipmentResponse = [];
+
+        $shipment = $this->trackManager->getShipmentByTrackNumberAndUserID($trackNumber, $userID);
+
+        foreach($shipment as $row)
+        {
+            if($row['image'])
+            {
+                $row['image'] = $this->params . $row['image'];
+            }
+
+            if($row['clientUserImage'])
+            {
+                $row['clientUserImage'] = $this->params . $row['clientUserImage'];
+            }
+
+            $shipmentResponse = $this->autoMapping->map('array', ShipmentByTrackNumberAndSignedInUserGetResponse::class, $row);
         }
 
         return $shipmentResponse;
