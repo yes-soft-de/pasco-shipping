@@ -2,8 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\AdminProfileEntity;
 use App\Entity\ProxyEntity;
-use App\Entity\UserProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -25,20 +25,20 @@ class ProxyEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('proxy')
             ->select('proxy.id', 'proxy.fullName', 'proxy.phone', 'proxy.address', 'proxy.createdAt', 'proxy.updatedAt', 'proxy.createdBy', 'proxy.updatedBy',
-            'userProfile1.userName as createdByUser', 'userProfile1.image as createdByUserImage', 'userProfile2.userName as updatedByUser', 'userProfile2.image as updatedByUserImage')
+            'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
             ->leftJoin(
-                UserProfileEntity::class,
-                'userProfile1',
+                AdminProfileEntity::class,
+                'adminProfile1',
                 Join::WITH,
-                'userProfile1.id = proxy.createdBy'
+                'adminProfile1.userID = proxy.createdBy'
             )
 
             ->leftJoin(
-                UserProfileEntity::class,
-                'userProfile2',
+                AdminProfileEntity::class,
+                'adminProfile2',
                 Join::WITH,
-                'userProfile2.id = proxy.updatedBy'
+                'adminProfile2.userID = proxy.updatedBy'
             )
 
             ->orderBy('proxy.id', 'DESC')

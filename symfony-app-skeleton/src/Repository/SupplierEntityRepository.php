@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\AdminProfileEntity;
 use App\Entity\SupplierEntity;
 use App\Entity\UserProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -25,21 +26,21 @@ class SupplierEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('supplier')
             ->select('supplier.id', 'supplier.fullName', 'supplier.phone', 'supplier.address', 'supplier.createdAt', 'supplier.updatedAt',
-                'supplier.createdBy', 'supplier.updatedBy', 'userProfile1.userName as createdByUser', 'userProfile1.image as createdByUserImage',
-                'userProfile2.userName as updatedByUser', 'userProfile2.image as updatedByUserImage')
+                'supplier.createdBy', 'supplier.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage',
+                'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
             ->leftJoin(
-                UserProfileEntity::class,
-                'userProfile1',
+                AdminProfileEntity::class,
+                'adminProfile1',
                 Join::WITH,
-                'userProfile1.id = supplier.createdBy'
+                'adminProfile1.userID = supplier.createdBy'
             )
 
             ->leftJoin(
-                UserProfileEntity::class,
-                'userProfile2',
+                AdminProfileEntity::class,
+                'adminProfile2',
                 Join::WITH,
-                'userProfile2.id = supplier.updatedBy'
+                'adminProfile2.userID = supplier.updatedBy'
             )
 
             ->orderBy('supplier.id', 'DESC')

@@ -2,8 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\AdminProfileEntity;
 use App\Entity\DistributorEntity;
-use App\Entity\UserProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -25,21 +25,21 @@ class DistributorEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('distributor')
             ->select('distributor.id', 'distributor.fullName', 'distributor.phone', 'distributor.address', 'distributor.createdAt', 'distributor.updatedAt',
-             'distributor.createdBy', 'distributor.updatedBy', 'userProfile1.userName as createdByUser', 'userProfile1.image as createdByUserImage',
-                'userProfile2.userName as updatedByUser', 'userProfile2.image as updatedByUserImage')
+             'distributor.createdBy', 'distributor.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage',
+                'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
             ->leftJoin(
-                UserProfileEntity::class,
-                'userProfile1',
+                AdminProfileEntity::class,
+                'adminProfile1',
                 Join::WITH,
-                'userProfile1.id = distributor.createdBy'
+                'adminProfile1.userID = distributor.createdBy'
             )
 
             ->leftJoin(
-                UserProfileEntity::class,
-                'userProfile2',
+                AdminProfileEntity::class,
+                'adminProfile2',
                 Join::WITH,
-                'userProfile2.id = distributor.updatedBy'
+                'adminProfile2.userID = distributor.updatedBy'
             )
 
             ->orderBy('distributor.id', 'DESC')

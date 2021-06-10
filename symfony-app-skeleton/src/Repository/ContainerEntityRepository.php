@@ -2,8 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\AdminProfileEntity;
 use App\Entity\ContainerEntity;
-use App\Entity\UserProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -25,23 +25,23 @@ class ContainerEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy',
-             'userProfile1.userName as createdByUser', 'userProfile1.image as createdByUserImage', 'userProfile2.userName as updatedByUser', 'userProfile2.userName as updatedByUserImage')
+             'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage')
 
             ->andWhere('container.status = :status')
             ->setParameter('status', $status)
 
             ->leftJoin(
-                UserProfileEntity::class,
-                'userProfile1',
+                AdminProfileEntity::class,
+                'adminProfile1',
                 Join::WITH,
-                'userProfile1.id = container.createdBy'
+                'adminProfile1.userID = container.createdBy'
             )
 
             ->leftJoin(
-                UserProfileEntity::class,
-                'userProfile2',
+                AdminProfileEntity::class,
+                'adminProfile2',
                 Join::WITH,
-                'userProfile2.id = container.updatedBy'
+                'adminProfile2.userID = container.updatedBy'
             )
 
             ->orderBy('container.id', 'DESC')
