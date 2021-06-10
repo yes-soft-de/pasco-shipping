@@ -92,5 +92,10 @@ class ShipmentOrderManager
     {
         return $this->orderShipmentEntityRepository->getWaitingShipmentsOrderByUserID($userID);
     }
+
+    public function getShipmentOrderById($id)
+    {
+        return $this->orderShipmentEntityRepository->getShipmentOrderById($id);
+    }
     
 }

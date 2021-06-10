@@ -133,8 +133,8 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="target"),
      *                  @OA\Property(type="integer", property="supplierName"),
      *                  @OA\Property(type="string", property="distributorName"),
-     *                  @OA\Property(type="integer", property="exportWarehouseID"),
-     *                  @OA\Property(type="integer", property="importWarehouseID"),
+     *                  @OA\Property(type="string", property="exportWarehouseCity"),
+     *                  @OA\Property(type="string", property="importWarehouseCity"),
      *                  @OA\Property(type="string", property="quantity"),
      *                  @OA\Property(type="string", property="image"),
      *                  @OA\Property(type="object", property="createdAt"),
@@ -277,8 +277,8 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="target"),
      *                  @OA\Property(type="integer", property="supplierName"),
      *                  @OA\Property(type="string", property="distributorName"),
-     *                  @OA\Property(type="integer", property="exportWarehouseID"),
-     *                  @OA\Property(type="integer", property="importWarehouseID"),
+     *                  @OA\Property(type="string", property="exportWarehouseCity"),
+     *                  @OA\Property(type="string", property="importWarehouseCity"),
      *                  @OA\Property(type="string", property="quantity"),
      *                  @OA\Property(type="string", property="image"),
      *                  @OA\Property(type="object", property="createdAt"),
@@ -334,8 +334,8 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="target"),
      *                  @OA\Property(type="integer", property="supplierName"),
      *                  @OA\Property(type="integer", property="distributorID"),
-     *                  @OA\Property(type="integer", property="exportWarehouseID"),
-     *                  @OA\Property(type="integer", property="importWarehouseID"),
+     *                  @OA\Property(type="string", property="exportWarehouseCity"),
+     *                  @OA\Property(type="string", property="importWarehouseCity"),
      *                  @OA\Property(type="string", property="quantity"),
      *                  @OA\Property(type="string", property="image"),
      *                  @OA\Property(type="object", property="createdAt"),
@@ -366,6 +366,68 @@ class ShipmentOrderController extends BaseController
     public function getMyWaitingShipmentsOrderByUserID()
     {
         $result = $this->shipmentOrderService->getWaitingShipmentsOrderByUserID($this->getUserId());
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("shipmentorder/{id}", name="getShipmentOrderById", methods={"GET"})
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Shipment Order")
+     *
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      description="the id of the order",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of objects which each one represent the info of the order",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="transportationType"),
+     *                  @OA\Property(type="string", property="target"),
+     *                  @OA\Property(type="integer", property="supplierName"),
+     *                  @OA\Property(type="integer", property="distributorID"),
+     *                  @OA\Property(type="string", property="exportWarehouseCity"),
+     *                  @OA\Property(type="string", property="importWarehouseCity"),
+     *                  @OA\Property(type="string", property="quantity"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="string", property="unit"),
+     *                  @OA\Property(type="string", property="receiverName"),
+     *                  @OA\Property(type="string", property="receiverPhoneNumber"),
+     *                  @OA\Property(type="string", property="packetingBy"),
+     *                  @OA\Property(type="integer", property="markID"),
+     *                  @OA\Property(type="string", property="paymentTime"),
+     *                  @OA\Property(type="number", format="float", property="weight"),
+     *                  @OA\Property(type="string", property="qrCode"),
+     *                  @OA\Property(type="string", property="guniQuantity"),
+     *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
+     *                  @OA\Property(type="string", property="extraSpecification"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="clientUsername"),
+     *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUser"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUserImage"),
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function getShipmentOrderById($id)
+    {
+        $result = $this->shipmentOrderService->getShipmentOrderById($id);
 
         return $this->response($result, self::FETCH);
     }

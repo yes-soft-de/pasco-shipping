@@ -127,4 +127,33 @@ class ShipmentOrderService
         return $shipmentsOrdersResponse;
     }
 
+    public function getShipmentOrderById($id)
+    {
+        $shipmentsOrdersResponse = [];
+
+        $shipmentsOrders = $this->shipmentOrderManager->getShipmentOrderById($id);
+
+        foreach ($shipmentsOrders as $shipmentsOrder)
+        {
+            if($shipmentsOrder['image'])
+            {
+                $shipmentsOrder['image'] = $this->params . $shipmentsOrder['image'];
+            }
+
+            if($shipmentsOrder['clientUserImage'])
+            {
+                $shipmentsOrder['clientUserImage'] = $this->params . $shipmentsOrder['clientUserImage'];
+            }
+
+            if($shipmentsOrder['orderUpdatedByUserImage'])
+            {
+                $shipmentsOrder['orderUpdatedByUserImage'] = $this->params . $shipmentsOrder['orderUpdatedByUserImage'];
+            }
+
+            $shipmentsOrdersResponse[] = $this->autoMapping->map('array', OrderShipmentGetResponse::class, $shipmentsOrder);
+        }
+
+        return $shipmentsOrdersResponse;
+    }
+
 }
