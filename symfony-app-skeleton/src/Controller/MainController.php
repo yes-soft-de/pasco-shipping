@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\UserUpdateRequest;
 use App\Service\MainService;
-use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,6 +27,46 @@ class MainController extends BaseController
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
         $this->mainService = $mainService;
+    }
+
+    /**
+     * @Route("statistics", name="getStatistics", methods={"GET"})
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Main")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of objects which each one holds statistics info",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="object", property="orders",
+     *                      @OA\Property(type="number", property="total"),
+     *                      @OA\Property(type="number", property="waitingOrders"),
+     *                      @OA\Property(type="number", property="acceptedOrders"),
+     *                  ),
+     *                  @OA\Property(type="object", property="travels",
+     *                      @OA\Property(type="number", property="total"),
+     *                      @OA\Property(type="number", property="flight"),
+     *                      @OA\Property(type="number", property="cruise")
+     *                  ),
+     *                  @OA\Property(type="object", property="users",
+     *                      @OA\Property(type="number", property="total"),
+     *                      @OA\Property(type="number", property="customers"),
+     *                      @OA\Property(type="number", property="employees"),
+     *                  )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function getStatistics()
+    {
+        $result = $this->mainService->getStatistics();
+
+        return $this->response($result, self::FETCH);
     }
 
     /**
@@ -57,7 +96,6 @@ class MainController extends BaseController
 
     /**
      * @Route("allusers", name="getAllUsers", methods={"GET"})
-     * @param Request $request
      * @return JsonResponse
      */
     public function findAll()

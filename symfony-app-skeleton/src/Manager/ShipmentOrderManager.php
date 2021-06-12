@@ -118,5 +118,15 @@ class ShipmentOrderManager
     {
         return $this->orderShipmentEntityRepository->getShipmentOrderById($id);
     }
+
+    public function getCountOfShipmentsOrdersByStatus($status)
+    {
+        return count($this->orderShipmentEntityRepository->findBy(["status"=>$status]));
+    }
+
+    public function getCountOfAllShipmentsOrders()
+    {
+        return count($this->orderShipmentEntityRepository->findAll());
+    }
     
 }

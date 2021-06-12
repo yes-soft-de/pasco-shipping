@@ -151,4 +151,9 @@ class UserManager
     {
         return $this->userProfileEntityRepository->getAllProfiles();
     }
+
+    public function getCountOfAllProfiles()
+    {
+        return count($this->userProfileEntityRepository->findAll());
+    }
 }
