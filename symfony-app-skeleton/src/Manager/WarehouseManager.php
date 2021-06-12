@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Entity\WarehouseEntity;
 use App\Repository\WarehouseEntityRepository;
+use App\Request\DeleteRequest;
 use App\Request\WarehouseCreateRequest;
 use App\Request\WarehouseUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
@@ -50,6 +51,28 @@ class WarehouseManager
 
             return $warehouseEntity;
         }
+    }
+
+    public function getAllWarehouses()
+    {
+        return $this->warehouseEntityRepository->getAllWarehouses();
+    }
+
+    public function deleteWarehouseById(DeleteRequest $request)
+    {
+        $item = $this->warehouseEntityRepository->find($request->getId());
+
+        if(!$item)
+        {
+            return $item;
+        }
+        else
+        {
+            $this->entityManager->remove($item);
+            $this->entityManager->flush();
+        }
+
+        return $item;
     }
 
 }

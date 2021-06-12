@@ -2,8 +2,12 @@
 
 namespace App\Repository;
 
+use App\Entity\AdminProfileEntity;
+use App\Entity\CountryEntity;
+use App\Entity\ProxyEntity;
 use App\Entity\WarehouseEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +23,46 @@ class WarehouseEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, WarehouseEntity::class);
     }
 
-    // /**
-    //  * @return WarehouseEntity[] Returns an array of WarehouseEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getAllWarehouses()
     {
-        return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('w.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('warehouse')
+            ->select('warehouse.id', 'warehouse.city', 'warehouse.countryID', 'warehouse.location', 'warehouse.proxyID', 'warehouse.rentingFee',
+             'warehouse.type', 'warehouse.createdAt', 'warehouse.updatedAt', 'warehouse.createdBy', 'warehouse.updatedBy', 'country.name as countryName',
+                'proxy.fullName as proxyName', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage',
+                'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
-    /*
-    public function findOneBySomeField($value): ?WarehouseEntity
-    {
-        return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
-            ->setParameter('val', $value)
+            ->leftJoin(
+                CountryEntity::class,
+                'country',
+                Join::WITH,
+                'country.id = warehouse.countryID'
+            )
+
+            ->leftJoin(
+                ProxyEntity::class,
+                'proxy',
+                Join::WITH,
+                'proxy.id = warehouse.proxyID'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = warehouse.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = warehouse.updatedBy'
+            )
+
+            ->orderBy('warehouse.id', 'DESC')
+
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
 }

@@ -8,19 +8,23 @@ class WarehouseGetResponse
 
     public $type;
 
-    public $countryID;
+    public $countryName;
 
     public $city;
 
     public $location;
 
-    public $createdBy;
+    public $createdByUser;
 
-    public $updatedBy;
+    public $createdByUserImage;
+
+    public $updatedByUser;
+
+    public $updatedByUserImage;
 
     public $rentingFee;
 
-    public $proxyID;
+    public $proxyName;
 
     public $createdAt;
 
