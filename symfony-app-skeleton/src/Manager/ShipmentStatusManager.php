@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Entity\ShipmentStatusEntity;
 use App\Repository\ShipmentStatusEntityRepository;
+use App\Request\ShipmentLogCreateRequest;
 use App\Request\ShipmentStatusCreateRequest;
 use App\Request\ShipmentStatusUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,12 +16,15 @@ class ShipmentStatusManager
 
     private $autoMapping;
     private $entityManager;
+    private $shipmentLogManager;
     private $shipmentStatusEntityRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ShipmentStatusEntityRepository $shipmentStatusEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ShipmentStatusEntityRepository $shipmentStatusEntityRepository,
+     ShipmentLogManager $shipmentLogManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
+        $this->shipmentLogManager = $shipmentLogManager;
         $this->shipmentStatusEntityRepository = $shipmentStatusEntityRepository;
     }
 
@@ -35,6 +39,15 @@ class ShipmentStatusManager
         $this->entityManager->persist($shipmentStatusEntity);
         $this->entityManager->flush();
         $this->entityManager->clear();
+
+        //Now, we insert a new log raw
+        $shipmentLogRequest = new ShipmentLogCreateRequest();
+
+        $shipmentLogRequest->setShipmentID($shipmentStatusEntity->getShipmentID());
+        $shipmentLogRequest->setShipmentStatus($shipmentStatusEntity->getShipmentStatus());
+        $shipmentLogRequest->setTrackNumber($shipmentStatusEntity->getTrackNumber());
+
+        $this->shipmentLogManager->create($shipmentLogRequest);
 
         return $shipmentStatusEntity;
     }
@@ -59,6 +72,15 @@ class ShipmentStatusManager
 
             $this->entityManager->flush();
             $this->entityManager->clear();
+
+            //Now, we insert a new log raw
+            $shipmentLogRequest = new ShipmentLogCreateRequest();
+
+            $shipmentLogRequest->setShipmentID($shipmentStatusEntity->getShipmentID());
+            $shipmentLogRequest->setShipmentStatus($shipmentStatusEntity->getShipmentStatus());
+            $shipmentLogRequest->setTrackNumber($shipmentStatusEntity->getTrackNumber());
+
+            $this->shipmentLogManager->create($shipmentLogRequest);
 
             return $shipmentStatusEntity;
         }

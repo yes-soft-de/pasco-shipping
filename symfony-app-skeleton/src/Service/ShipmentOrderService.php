@@ -7,6 +7,7 @@ use App\Entity\OrderShipmentEntity;
 use App\Manager\ShipmentOrderManager;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateRequest;
+use App\Request\ShipmentLogCreateRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
 use App\Response\OrderShipmentByUserGetResponse;
 use App\Response\OrderShipmentCreateResponse;
@@ -19,17 +20,31 @@ class ShipmentOrderService
     private $autoMapping;
     private $shipmentOrderManager;
     private $params;
+    private $shipmentLogService;
 
-    public function __construct(AutoMapping $autoMapping, ShipmentOrderManager $shipmentOrderManager, ParameterBagInterface $params)
+    public function __construct(AutoMapping $autoMapping, ShipmentOrderManager $shipmentOrderManager, ParameterBagInterface $params,
+     ShipmentLogService $shipmentLogService)
     {
         $this->autoMapping = $autoMapping;
         $this->shipmentOrderManager = $shipmentOrderManager;
+        $this->shipmentLogService = $shipmentLogService;
         $this->params = $params->get('upload_base_url') . '/';
     }
 
     public function createShipmentOrder(OrderShipmentCreateRequest $request)
     {
         $orderShipmentResult = $this->shipmentOrderManager->createShipmentOrder($request);
+
+        //Now, we insert a new log raw
+        if($orderShipmentResult instanceof OrderShipmentEntity)
+        {
+            $shipmentLogRequest = new ShipmentLogCreateRequest();
+
+            $shipmentLogRequest->setShipmentID($orderShipmentResult->getId());
+            $shipmentLogRequest->setShipmentStatus($orderShipmentResult->getStatus());
+
+            $this->shipmentLogService->create($shipmentLogRequest);
+        }
 
         return $this->autoMapping->map(OrderShipmentEntity::class, OrderShipmentCreateResponse::class, $orderShipmentResult);
     }
@@ -76,7 +91,6 @@ class ShipmentOrderService
 
         return $this->autoMapping->map(OrderShipmentEntity::class, OrderShipmentGetResponse::class, $orderShipmentResult);
     }
-
 
     public function getWaitingShipmentsOrdersByTransportationType($transportationType)
     {
