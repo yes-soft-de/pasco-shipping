@@ -10,6 +10,8 @@ class ShipmentStatusGetResponse
 
     public $shipmentStatus;
 
+    public $trackNumber;
+
     public $statusDetails;
 
     public $isInOneHolder;

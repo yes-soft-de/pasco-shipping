@@ -141,7 +141,7 @@ class TrackEntityRepository extends ServiceEntityRepository
             )
 
             ->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
 
     public function getShipmentByTrackNumberAndUserID($trackNumber, $userID)

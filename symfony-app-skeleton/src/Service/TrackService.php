@@ -41,26 +41,19 @@ class TrackService
 
     public function getShipmentByTrackNumber($trackNumber)
     {
-        $shipmentResponse = [];
-
         $shipment = $this->trackManager->getShipmentByTrackNumber($trackNumber);
-        
-        foreach($shipment as $row)
+
+        if($shipment['image'])
         {
-            if($row['image'])
-            {
-                $row['image'] = $this->params . $row['image'];
-            }
-
-            if($row['clientUserImage'])
-            {
-                $row['clientUserImage'] = $this->params . $row['clientUserImage'];
-            }
-
-            $shipmentResponse = $this->autoMapping->map('array', ShipmentByTrackNumberGetResponse::class, $row);
+            $shipment['image'] = $this->params . $shipment['image'];
         }
 
-        return $shipmentResponse;
+        if($shipment['clientUserImage'])
+        {
+            $shipment['clientUserImage'] = $this->params . $shipment['clientUserImage'];
+        }
+
+        return $this->autoMapping->map('array', ShipmentByTrackNumberGetResponse::class, $shipment);
     }
 
     public function getShipmentByTrackNumberAndUserID($trackNumber, $userID)
