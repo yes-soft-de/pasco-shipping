@@ -16,6 +16,8 @@ class ShipmentByTrackNumberGetResponse
 
     public $holderID;
 
+    public $holderInfo;
+
     public $createdAt;
 
     public $updatedAt;

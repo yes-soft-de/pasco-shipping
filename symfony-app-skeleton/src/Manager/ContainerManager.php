@@ -41,4 +41,9 @@ class ContainerManager
         return $this->containerEntityRepository->getByStatus($status);
     }
 
+    public function getContainerById($id)
+    {
+        return $this->containerEntityRepository->getContainerById($id);
+    }
+
 }

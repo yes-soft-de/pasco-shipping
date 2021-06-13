@@ -50,4 +50,31 @@ class ContainerEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getContainerById($id)
+    {
+        return $this->createQueryBuilder('container')
+            ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy',
+                'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage')
+
+            ->andWhere('container.id = :id')
+            ->setParameter('id', $id)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = container.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = container.updatedBy'
+            )
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }
