@@ -213,3 +213,23 @@ App\Request\CountryCreateRequest:
       - NotBlank: ~
     createdBy:
       - NotBlank: ~
+
+App\Request\AirwaybillCreateRequest:
+  properties:
+    specificationID:
+      - NotBlank: ~
+    airwaybillNumber:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\AirwaybillUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    specificationID:
+      - NotBlank: ~
+    airwaybillNumber:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
