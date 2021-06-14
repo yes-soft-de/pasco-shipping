@@ -138,4 +138,33 @@ class ShipmentStatusService
         return $shipmentsResponse;
     }
 
+    public function filterShipments($request)
+    {
+        $shipmentsResponse = [];
+
+        $shipments = $this->shipmentStatusManager->filterShipments($request);
+
+        foreach ($shipments as $shipment)
+        {
+            if ($shipment['image'])
+            {
+                $shipment['image'] = $this->params . $shipment['image'];
+            }
+
+            if ($shipment['clientUserImage'])
+            {
+                $shipment['clientUserImage'] = $this->params . $shipment['clientUserImage'];
+            }
+
+            if ($shipment['orderUpdatedByUserImage'])
+            {
+                $shipment['orderUpdatedByUserImage'] = $this->params . $shipment['orderUpdatedByUserImage'];
+            }
+
+            $shipmentsResponse[] = $this->autoMapping->map('array', ShipmentStatusGetResponse::class, $shipment);
+        }
+
+        return $shipmentsResponse;
+    }
+
 }

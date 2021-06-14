@@ -233,3 +233,12 @@ App\Request\AirwaybillUpdateRequest:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
+
+App\Request\ShipmentFilterRequest:
+  properties:
+    status:
+      - NotBlank: ~
+    transportationType:
+      - NotBlank: ~
+    paymentTime:
+      - NotBlank: ~

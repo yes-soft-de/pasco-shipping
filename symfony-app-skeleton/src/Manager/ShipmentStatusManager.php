@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Entity\ShipmentStatusEntity;
 use App\Repository\ShipmentStatusEntityRepository;
+use App\Request\ShipmentFilterRequest;
 use App\Request\ShipmentLogCreateRequest;
 use App\Request\ShipmentStatusCreateRequest;
 use App\Request\ShipmentStatusUpdateRequest;
@@ -99,6 +100,28 @@ class ShipmentStatusManager
     public function getAllShipments()
     {
         return $this->shipmentStatusEntityRepository->getAllShipments();
+    }
+
+    public function filterShipments(ShipmentFilterRequest $request)
+    {
+        $status = $request->getStatus();
+        $paymentTime = $request->getPaymentTime();
+        $transportationType = $request->getTransportationType();
+        $createdAt = $request->getCreatedAt();
+        $finishedAt = $request->getFinishedAt();
+        $launchCountry = $request->getLaunchCountry();
+        $targetCountry = $request->getTargetCountry();
+
+        if($status != null && $paymentTime != null && $transportationType != null && $launchCountry == null && $targetCountry == null
+            && $createdAt == null && $finishedAt == null)
+        {
+            return $this->shipmentStatusEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationType($status, $paymentTime, $transportationType);
+        }
+        elseif($status != null && $paymentTime != null && $transportationType != null && $launchCountry == null && $targetCountry == null
+            && $createdAt != null && $finishedAt == null)
+        {
+            return $this->shipmentStatusEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndCreationDate($status, $paymentTime, $transportationType, $createdAt);
+        }
     }
 
     public function getRandomCode()

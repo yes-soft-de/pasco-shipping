@@ -7,6 +7,7 @@ use App\Entity\OrderShipmentEntity;
 use App\Repository\OrderShipmentEntityRepository;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateRequest;
+use App\Request\ShipmentFilterRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
 use App\Request\ShipmentStatusCreateRequest;
 use Doctrine\ORM\EntityManagerInterface;
@@ -127,6 +128,25 @@ class ShipmentOrderManager
     public function getCountOfAllShipmentsOrders()
     {
         return count($this->orderShipmentEntityRepository->findAll());
+    }
+
+    public function filterShipments(ShipmentFilterRequest $request)
+    {
+        $status = $request->getStatus();
+        $paymentTime = $request->getPaymentTime();
+        $transportationType = $request->getTransportationType();
+        $createdAt = $request->getCreatedAt();
+        $launchCountry = $request->getLaunchCountry();
+        $targetCountry = $request->getTargetCountry();
+
+        if($status != null && $paymentTime != null && $transportationType != null && $launchCountry == null && $targetCountry == null && $createdAt == null)
+        {
+            return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationType($status, $paymentTime, $transportationType);
+        }
+        elseif($status != null && $paymentTime != null && $transportationType != null && $launchCountry == null && $targetCountry == null && $createdAt != null)
+        {
+            return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndCreationDate($status, $paymentTime, $transportationType, $createdAt);
+        }
     }
     
 }
