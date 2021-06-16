@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
 use App\Entity\SupplierEntity;
-use App\Entity\UserProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;

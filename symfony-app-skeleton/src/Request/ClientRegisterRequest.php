@@ -1,10 +1,8 @@
 <?php
 
-
 namespace App\Request;
 
-
-class UserRegisterRequest
+class ClientRegisterRequest
 {
     private $userID;
 

@@ -53,6 +53,31 @@ class TrackService
             $shipment['clientUserImage'] = $this->params . $shipment['clientUserImage'];
         }
 
+        if ($shipment['trackCreatedByUserImage'])
+        {
+            $shipment['trackCreatedByUserImage'] = $this->params . $shipment['trackCreatedByUserImage'];
+        }
+
+        if ($shipment['trackUpdatedByUserImage'])
+        {
+            $shipment['trackUpdatedByUserImage'] = $this->params . $shipment['trackUpdatedByUserImage'];
+        }
+
+        if ($shipment['orderUpdatedByUserImage'])
+        {
+            $shipment['orderUpdatedByUserImage'] = $this->params . $shipment['orderUpdatedByUserImage'];
+        }
+
+        if($shipment['shipmentStatusCreatedByUserImage'])
+        {
+            $shipment['shipmentStatusCreatedByUserImage'] = $this->params . $shipment['shipmentStatusCreatedByUserImage'];
+        }
+
+        if($shipment['shipmentStatusUpdatedByUserImage'])
+        {
+            $shipment['shipmentStatusUpdatedByUserImage'] = $this->params . $shipment['shipmentStatusUpdatedByUserImage'];
+        }
+
         return $this->autoMapping->map('array', ShipmentByTrackNumberGetResponse::class, $shipment);
     }
 

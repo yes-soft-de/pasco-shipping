@@ -27,7 +27,7 @@ class MainManager
     private $adminManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder, UserEntityRepository $userEntityRepository,
-    ShipmentOrderManager $shipmentOrderManager, TravelManager $travelManager, UserManager $userManager, AdminManager $adminManager)
+                                ShipmentOrderManager $shipmentOrderManager, TravelManager $travelManager, ClientManager $userManager, AdminManager $adminManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -78,7 +78,7 @@ class MainManager
         $statisticsResponse["travels"]["flight"] = $this->travelManager->getCountOfTravelsByType($this::FLIGHT_TRAVEL_TYPE);
         $statisticsResponse["travels"]["cruise"] = $this->travelManager->getCountOfTravelsByType($this::CRUISE_TRAVEL_TYPE);
 
-        $statisticsResponse["users"]["customers"] = $this->userManager->getCountOfAllProfiles();
+        $statisticsResponse["users"]["customers"] = $this->userManager->getCountOfAllClientsProfiles();
         $statisticsResponse["users"]["employees"] = $this->adminManager->getCountOfAllAdmins();
         $statisticsResponse["users"]["totals"] = $statisticsResponse["users"]["customers"] + $statisticsResponse["users"]["employees"];
 

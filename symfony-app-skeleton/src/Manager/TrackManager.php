@@ -94,16 +94,22 @@ class TrackManager
             // Get container info
             $container = $this->containerManager->getContainerById($shipment["holderID"]);
 
-            $shipment["holderInfo"]["IdentificationNumber"] = $container["containerNumber"];
-            $shipment["holderInfo"]["status"] = $container["status"];
+            if($container)
+            {
+                $shipment["holderInfo"]["IdentificationNumber"] = $container["containerNumber"];
+                $shipment["holderInfo"]["status"] = $container["status"];
+            }
         }
         elseif($shipment["holderType"] != null && $shipment["holderType"] == $this::AIRWAYBILL_HOLDER_TYPE)
         {
             // Get airwaybill info
             $airwaybill = $this->airwaybillManager->getAirwaybillById($shipment["holderID"]);
 
-            $shipment["holderInfo"]["IdentificationNumber"] = $airwaybill["airwaybillNumber"];
-            $shipment["holderInfo"]["status"] = $airwaybill["status"];
+            if($airwaybill)
+            {
+                $shipment["holderInfo"]["IdentificationNumber"] = $airwaybill["airwaybillNumber"];
+                $shipment["holderInfo"]["status"] = $airwaybill["status"];
+            }
         }
 
         return $shipment;

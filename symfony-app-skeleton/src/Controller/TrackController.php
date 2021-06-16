@@ -196,8 +196,14 @@ class TrackController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="integer", property="shipmentID"),
      *                  @OA\Property(type="string", property="trackNumber"),
-     *                  @OA\Property(type="integer", property="holderType"),
+     *                  @OA\Property(type="string", property="holderType"),
      *                  @OA\Property(type="integer", property="holderID"),
+     *                  @OA\Property(type="array", property="holderInfo",
+     *                      @OA\Items(
+     *                          @OA\Property(type="string", property="identificationNumber"),
+     *                          @OA\Property(type="string", property="status")
+     *                      )
+     *                  ),
      *                  @OA\Property(type="integer", property="travelID"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
@@ -217,19 +223,24 @@ class TrackController extends BaseController
      *                  @OA\Property(type="string", property="receiverName"),
      *                  @OA\Property(type="string", property="receiverPhoneNumber"),
      *                  @OA\Property(type="string", property="markID"),
-     *                  @OA\Property(type="string", property="packetingBy"),
+     *                  @OA\Property(type="integer", property="packetingBy"),
      *                  @OA\Property(type="string", property="paymentTime"),
      *                  @OA\Property(type="number", property="weight"),
      *                  @OA\Property(type="string", property="qrCode"),
-     *                  @OA\Property(type="object", property="guniQuantity"),
-     *                  @OA\Property(type="string", property="updatedBy"),
-     *                  @OA\Property(type="object", property="vehicleIdentificationNumber"),
+     *                  @OA\Property(type="integer", property="guniQuantity"),
+     *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="clientUsername"),
+     *                  @OA\Property(type="string", property="clientUserImage"),
      *                  @OA\Property(type="string", property="trackCreatedByUser"),
+     *                  @OA\Property(type="string", property="trackCreatedByUserImage"),
      *                  @OA\Property(type="string", property="trackUpdatedByUser"),
-     *                  @OA\Property(type="string", property="shipmentStatusCreatedBy"),
-     *                  @OA\Property(type="string", property="shipmentStatusUpdatedByBy")
+     *                  @OA\Property(type="string", property="trackUpdatedByUserImage"),
+     *                  @OA\Property(type="string", property="shipmentStatusCreatedByUser"),
+     *                  @OA\Property(type="string", property="shipmentStatusCreatedByUserImage"),
+     *                  @OA\Property(type="string", property="shipmentStatusUpdatedByUser"),
+     *                  @OA\Property(type="string", property="shipmentStatusUpdatedByUserImage")
      *          )
      *      )
      * )

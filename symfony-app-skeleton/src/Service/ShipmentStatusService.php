@@ -64,14 +64,53 @@ class ShipmentStatusService
                 $shipmentResult['image'] = $this->params . $shipmentResult['image'];
             }
 
-            if($shipmentResult['userImage'])
+            if($shipmentResult['clientUserImage'])
             {
-                $shipmentResult['userImage'] = $this->params . $shipmentResult['userImage'];
+                $shipmentResult['clientUserImage'] = $this->params . $shipmentResult['clientUserImage'];
             }
 
-            if($shipmentResult['updatedByUserImage'])
+            if($shipmentResult['orderUpdatedByUserImage'])
             {
-                $shipmentResult['updatedByUserImage'] = $this->params . $shipmentResult['updatedByUserImage'];
+                $shipmentResult['orderUpdatedByUserImage'] = $this->params . $shipmentResult['orderUpdatedByUserImage'];
+            }
+
+            if($shipmentResult['shipmentStatusCreatedByUserImage'])
+            {
+                $shipmentResult['shipmentStatusCreatedByUserImage'] = $this->params . $shipmentResult['shipmentStatusCreatedByUserImage'];
+            }
+
+            $shipmentsResponse[] = $this->autoMapping->map('array', ShipmentStatusGetResponse::class, $shipmentResult);
+        }
+
+        return $shipmentsResponse;
+    }
+
+    public function getShipmentsByTransportationType($transportationType)
+    {
+        $shipmentsResponse = [];
+
+        $shipmentResults = $this->shipmentStatusManager->getShipmentsByTransportationType($transportationType);
+
+        foreach($shipmentResults as $shipmentResult)
+        {
+            if($shipmentResult['image'])
+            {
+                $shipmentResult['image'] = $this->params . $shipmentResult['image'];
+            }
+
+            if($shipmentResult['clientUserImage'])
+            {
+                $shipmentResult['clientUserImage'] = $this->params . $shipmentResult['clientUserImage'];
+            }
+
+            if($shipmentResult['orderUpdatedByUserImage'])
+            {
+                $shipmentResult['orderUpdatedByUserImage'] = $this->params . $shipmentResult['orderUpdatedByUserImage'];
+            }
+
+            if($shipmentResult['shipmentStatusCreatedByUserImage'])
+            {
+                $shipmentResult['shipmentStatusCreatedByUserImage'] = $this->params . $shipmentResult['shipmentStatusCreatedByUserImage'];
             }
 
             $shipmentsResponse[] = $this->autoMapping->map('array', ShipmentStatusGetResponse::class, $shipmentResult);
@@ -132,6 +171,16 @@ class ShipmentStatusService
                 $shipment['orderUpdatedByUserImage'] = $this->params . $shipment['orderUpdatedByUserImage'];
             }
 
+            if($shipment['shipmentStatusCreatedByUserImage'])
+            {
+                $shipment['shipmentStatusCreatedByUserImage'] = $this->params . $shipment['shipmentStatusCreatedByUserImage'];
+            }
+
+            if($shipment['shipmentStatusUpdatedByUserImage'])
+            {
+                $shipment['shipmentStatusUpdatedByUserImage'] = $this->params . $shipment['shipmentStatusUpdatedByUserImage'];
+            }
+
             $shipmentsResponse[] = $this->autoMapping->map('array', ShipmentStatusGetResponse::class, $shipment);
         }
 
@@ -159,6 +208,16 @@ class ShipmentStatusService
             if ($shipment['orderUpdatedByUserImage'])
             {
                 $shipment['orderUpdatedByUserImage'] = $this->params . $shipment['orderUpdatedByUserImage'];
+            }
+
+            if($shipment['shipmentStatusCreatedByUserImage'])
+            {
+                $shipment['shipmentStatusCreatedByUserImage'] = $this->params . $shipment['shipmentStatusCreatedByUserImage'];
+            }
+
+            if($shipment['shipmentStatusUpdatedByUserImage'])
+            {
+                $shipment['shipmentStatusUpdatedByUserImage'] = $this->params . $shipment['shipmentStatusUpdatedByUserImage'];
             }
 
             $shipmentsResponse[] = $this->autoMapping->map('array', ShipmentStatusGetResponse::class, $shipment);

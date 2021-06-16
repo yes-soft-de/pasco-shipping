@@ -406,7 +406,7 @@ class ShipmentOrderController extends BaseController
     }
 
     /**
-     * @Route("mywitingshipmentsorders", name="getWaitingShipmentsOrdersBySignedInUser", methods={"GET"})
+     * @Route("mywaitingshipmentsorders", name="getWaitingShipmentsOrdersBySignedInUser", methods={"GET"})
      * @return JsonResponse
      *
      * @OA\Tag(name="Shipment Order")

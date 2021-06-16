@@ -80,10 +80,18 @@ class ShipmentByTrackNumberGetResponse
 
     public $trackCreatedByUser;
 
+    public $trackCreatedByUserImage;
+
     public $trackUpdatedByUser;
 
-    public $shipmentStatusCreatedBy;
+    public $trackUpdatedByUserImage;
 
-    public $shipmentStatusUpdatedByBy;
+    public $shipmentStatusCreatedByUser;
+
+    public $shipmentStatusCreatedByUserImage;
+
+    public $shipmentStatusUpdatedByUser;
+
+    public $shipmentStatusUpdatedByUserImage;
 
 }

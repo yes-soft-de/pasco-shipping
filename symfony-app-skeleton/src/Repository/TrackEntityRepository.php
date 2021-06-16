@@ -8,7 +8,7 @@ use App\Entity\OrderShipmentEntity;
 use App\Entity\ProductCategoryEntity;
 use App\Entity\ShipmentStatusEntity;
 use App\Entity\TrackEntity;
-use App\Entity\UserProfileEntity;
+use App\Entity\ClientProfileEntity;
 use App\Entity\WarehouseEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
@@ -49,8 +49,9 @@ class TrackEntityRepository extends ServiceEntityRepository
                 "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt as orderCreationDate", 
                 "shipmentOrder.updatedAt as orderUpdatingDate", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", 
                 "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "shipmentStatus.shipmentStatus", "shipmentStatus.trackNumber", 
-                "shipmentStatus.statusDetails", "shipmentStatus.isInOneHolder", "shipmentStatus.packed", "shipmentStatus.createdBy", "shipmentStatus.updatedBy", "adminProfile1.userName as trackCreatedByUser", "adminProfile2.userName as trackUpdatedByUser", "userProfile.userName as clientUsername",
-                "userProfile.image as clientUserImage", "adminProfile3.userName as orderCreatedByUser", "adminProfile4.userName as shipmentStatusCreatedBy", "adminProfile5.userName as shipmentStatusUpdatedByBy", "distributor.fullName as distributorName", "exportWarehouse.city as exportWarehouseCity",
+                "shipmentStatus.statusDetails", "shipmentStatus.isInOneHolder", "shipmentStatus.packed", "shipmentStatus.createdBy", "shipmentStatus.updatedBy", "adminProfile1.userName as trackCreatedByUser", "adminProfile1.image as trackCreatedByUserImage", "adminProfile2.userName as trackUpdatedByUser", 
+                "adminProfile2.image as trackUpdatedByUserImage", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage", "adminProfile4.userName as shipmentStatusCreatedByUser", 
+                "adminProfile4.image as shipmentStatusCreatedByUserImage", "adminProfile5.userName as shipmentStatusUpdatedByUser", "adminProfile5.image as shipmentStatusUpdatedByUserImage", "distributor.fullName as distributorName", "exportWarehouse.city as exportWarehouseCity",
                 "importWarehouse.city as importWarehouseCity", "productCategory.name as productCategoryName")
 
             ->andWhere('track.trackNumber = :trackNumber')
@@ -71,6 +72,13 @@ class TrackEntityRepository extends ServiceEntityRepository
             )
             
             ->leftJoin(
+                ClientProfileEntity::class,
+                'clientProfile',
+                Join::WITH,
+                'clientProfile.userID = shipmentOrder.clientUserID'
+            )
+            
+            ->leftJoin(
                 AdminProfileEntity::class,
                 'adminProfile1',
                 Join::WITH,
@@ -82,13 +90,6 @@ class TrackEntityRepository extends ServiceEntityRepository
                 'adminProfile2',
                 Join::WITH,
                 'adminProfile2.userID = track.updatedBy'
-            )
-            
-            ->leftJoin(
-                UserProfileEntity::class,
-                'userProfile',
-                Join::WITH,
-                'userProfile.userID = shipmentOrder.clientUserID'
             )
             
             ->leftJoin(
@@ -151,8 +152,8 @@ class TrackEntityRepository extends ServiceEntityRepository
                 "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt as orderCreationDate",
                 "shipmentOrder.updatedAt as orderUpdatingDate", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime",
                 "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "shipmentStatus.shipmentStatus", "shipmentStatus.trackNumber",
-                "shipmentStatus.statusDetails", "shipmentStatus.isInOneHolder", "shipmentStatus.packed", "shipmentStatus.createdBy", "shipmentStatus.updatedBy", "adminProfile1.userName as trackCreatedByUser", "adminProfile2.userName as trackUpdatedByUser", "userProfile.userName as clientUsername",
-                "userProfile.image as clientUserImage", "adminProfile3.userName as orderCreatedByUser", "adminProfile4.userName as shipmentStatusCreatedBy", "adminProfile5.userName as shipmentStatusUpdatedByBy", "distributor.fullName as distributorName", "exportWarehouse.city as exportWarehouseCity",
+                "shipmentStatus.statusDetails", "shipmentStatus.isInOneHolder", "shipmentStatus.packed", "shipmentStatus.createdBy", "shipmentStatus.updatedBy", "adminProfile1.userName as trackCreatedByUser", "adminProfile2.userName as trackUpdatedByUser", "clientProfile.userName as clientUsername",
+                "clientProfile.image as clientUserImage", "adminProfile3.userName as orderCreatedByUser", "adminProfile4.userName as shipmentStatusCreatedBy", "adminProfile5.userName as shipmentStatusUpdatedByBy", "distributor.fullName as distributorName", "exportWarehouse.city as exportWarehouseCity",
                 "importWarehouse.city as importWarehouseCity", "productCategory.name as productCategoryName")
 
             ->andWhere('track.trackNumber = :trackNumber')
@@ -190,10 +191,10 @@ class TrackEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
-                UserProfileEntity::class,
-                'userProfile',
+                ClientProfileEntity::class,
+                'clientProfile',
                 Join::WITH,
-                'userProfile.userID = shipmentOrder.clientUserID'
+                'clientProfile.userID = shipmentOrder.clientUserID'
             )
 
             ->leftJoin(
