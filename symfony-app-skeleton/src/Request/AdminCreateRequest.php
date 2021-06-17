@@ -1,12 +1,12 @@
 <?php
 
-
 namespace App\Request;
-
 
 class AdminCreateRequest
 {
     private $userID;
+
+    private $userName;
 
     private $email;
 
@@ -77,4 +77,5 @@ class AdminCreateRequest
     {
         $this->userID = $userID;
     }
+    
 }

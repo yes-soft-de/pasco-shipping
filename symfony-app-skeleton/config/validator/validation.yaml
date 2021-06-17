@@ -13,6 +13,13 @@ App\Request\UserRegisterRequest:
     password:
       - NotBlank: ~
 
+App\Request\AdminCreateRequest:
+  properties:
+    userID:
+      - NotBlank: ~
+    password:
+      - NotBlank: ~
+
 App\Request\UserProfileCreateRequest:
   properties:
     userName:

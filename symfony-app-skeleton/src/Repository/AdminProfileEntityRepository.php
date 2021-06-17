@@ -19,32 +19,17 @@ class AdminProfileEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, AdminProfileEntity::class);
     }
 
-    // /**
-    //  * @return AdminProfileEntity[] Returns an array of AdminProfileEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getProfileByUserID($userID)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('profile')
 
-    /*
-    public function findOneBySomeField($value): ?AdminProfileEntity
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
+            ->addSelect('profile.userName', 'profile.image', 'profile.phone')
+
+            ->andWhere('profile.userID = :userID')
+            ->setParameter('userID', $userID)
+
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
+
 }
