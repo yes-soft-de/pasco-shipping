@@ -8,6 +8,7 @@ use App\Entity\UserEntity;
 use App\Repository\AdminProfileEntityRepository;
 use App\Repository\UserEntityRepository;
 use App\Request\AdminCreateRequest;
+use App\Request\DeleteRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -106,4 +107,47 @@ class AdminManager
     {
         return count($this->adminProfileEntityRepository->findAll());
     }
+
+    public function getAllEmployees()
+    {
+        return $this->adminProfileEntityRepository->getAllEmployees();
+    }
+
+    public function getAllAdministrators()
+    {
+        return $this->adminProfileEntityRepository->getAllAdministrators();
+    }
+
+    // This function for delete admin and employee
+    public function deleteAdminById(DeleteRequest $request)
+    {
+        // First, delete its profile if exists
+        $clientProfile = $this->adminProfileEntityRepository->findOneBy(["userID"=>$request->getId()]);
+
+        if(!$clientProfile)
+        {
+
+        }
+        else
+        {
+            $this->entityManager->remove($clientProfile);
+            $this->entityManager->flush();
+        }
+
+        // Then delete its record from the User table
+        $userEntity = $this->userRepository->find($request->getId());
+
+        if(!$userEntity)
+        {
+
+        }
+        else
+        {
+            $this->entityManager->remove($userEntity);
+            $this->entityManager->flush();
+
+            return $userEntity;
+        }
+    }
+    
 }

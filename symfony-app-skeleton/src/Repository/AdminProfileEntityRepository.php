@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
+use App\Entity\UserEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -30,6 +32,50 @@ class AdminProfileEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function getAllEmployees()
+    {
+        return $this->createQueryBuilder('profile')
+
+        ->addSelect('profile.id', 'profile.userID', 'profile.userName', 'profile.image', 'profile.phone')
+
+        ->leftJoin(
+            UserEntity::class,
+            'userEntity',
+            Join::WITH,
+            'userEntity.id = profile.userID'
+        )
+
+        ->andWhere('userEntity.roles LIKE :role')
+        ->setParameter('role', '%'."ROLE_EMPLOYEE".'%')
+
+        ->orderBy('profile.id', 'DESC')
+
+        ->getQuery()
+        ->getResult();
+    }
+
+    public function getAllAdministrators()
+    {
+        return $this->createQueryBuilder('profile')
+
+        ->addSelect('profile.id', 'profile.userID', 'profile.userName', 'profile.image', 'profile.phone')
+
+        ->leftJoin(
+            UserEntity::class,
+            'userEntity',
+            Join::WITH,
+            'userEntity.id = profile.userID'
+        )
+
+        ->andWhere('userEntity.roles LIKE :role')
+        ->setParameter('role', '%'."ROLE_ADMIN".'%')
+
+        ->orderBy('profile.id', 'DESC')
+
+        ->getQuery()
+        ->getResult();
     }
 
 }
