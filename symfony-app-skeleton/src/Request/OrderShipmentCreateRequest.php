@@ -16,6 +16,10 @@ class OrderShipmentCreateRequest
 
     private $distributorID;
 
+    private $importWarehouseID;
+
+    private $markID;
+
     private $exportWarehouseID;
 
     private $quantity;
