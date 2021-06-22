@@ -69,7 +69,7 @@ class MarkManager
         else
         {
             //Check if the mark isn't being used yet
-            $result = $this->shipmentOrderManager->getShipmentOrderByMarkID($request->getId());
+            $result = $this->getShipmentOrdersByMarkID($request->getId());
             
             if(!$result)
             {
@@ -84,6 +84,11 @@ class MarkManager
         }
 
         return $item;
+    }
+
+    public function getShipmentOrdersByMarkID($markID)
+    {
+        return $this->shipmentOrderManager->getShipmentOrderByMarkID($markID);
     }
 
 }
