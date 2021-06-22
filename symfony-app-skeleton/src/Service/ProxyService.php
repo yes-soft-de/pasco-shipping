@@ -38,9 +38,15 @@ class ProxyService
 
         foreach($proxies as $proxy)
         {
-            $proxy['createdByUserImage'] = $this->params . $proxy['createdByUserImage'];
+            if($proxy['createdByUserImage'])
+            {
+                $proxy['createdByUserImage'] = $this->params . $proxy['createdByUserImage'];
+            }
 
-            $proxy['updatedByUserImage'] = $this->params . $proxy['updatedByUserImage'];
+            if($proxy['updatedByUserImage'])
+            {
+                $proxy['updatedByUserImage'] = $this->params . $proxy['updatedByUserImage'];
+            }
 
             $proxiesResponse[] = $this->autoMapping->map('array', ProxyGetResponse::class, $proxy);
         }

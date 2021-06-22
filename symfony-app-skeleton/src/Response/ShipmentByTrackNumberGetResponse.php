@@ -16,6 +16,8 @@ class ShipmentByTrackNumberGetResponse
 
     public $holderID;
 
+    public $holderInfo;
+
     public $createdAt;
 
     public $updatedAt;
@@ -32,11 +34,11 @@ class ShipmentByTrackNumberGetResponse
 
     public $supplierID;
 
-    public $distributorID;
+    public $distributorName;
 
-    public $exportWarehouseID;
+    public $exportWarehouseCity;
 
-    public $importWarehouseID;
+    public $importWarehouseCity;
 
     public $quantity;
 
@@ -46,7 +48,7 @@ class ShipmentByTrackNumberGetResponse
 
     public $orderUpdatingDate;
 
-    public $productCategoryID;
+    public $productCategoryName;
 
     public $unit;
 
@@ -66,16 +68,30 @@ class ShipmentByTrackNumberGetResponse
 
     public $guniQuantity;
 
-    public $updatedBy;
-
     public $vehicleIdentificationNumber;
 
     public $extraSpecification;
 
     public $status;
 
-    public $username;
+    public $clientUsername;
 
-    public $userImage;
+    public $clientUserImage;
+
+    public $trackCreatedByUser;
+
+    public $trackCreatedByUserImage;
+
+    public $trackUpdatedByUser;
+
+    public $trackUpdatedByUserImage;
+
+    public $shipmentStatusCreatedByUser;
+
+    public $shipmentStatusCreatedByUserImage;
+
+    public $shipmentStatusUpdatedByUser;
+
+    public $shipmentStatusUpdatedByUserImage;
 
 }

@@ -73,4 +73,9 @@ class ShipmentStatusCreateRequest
         return $this->shipmentStatus;
     }
 
+    public function getShipmentID()
+    {
+        return $this->shipmentID;
+    }
+
 }

@@ -12,6 +12,8 @@ class OrderShipmentCreateResponse
 
     public $supplierID;
 
+    public $supplierName;
+
     public $distributorID;
 
     public $exportWarehouseID;

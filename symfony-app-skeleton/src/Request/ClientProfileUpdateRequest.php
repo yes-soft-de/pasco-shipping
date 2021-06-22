@@ -1,10 +1,8 @@
 <?php
 
-
 namespace App\Request;
 
-
-class UserProfileUpdateRequest
+class ClientProfileUpdateRequest
 {
     private $id;
     
@@ -14,14 +12,13 @@ class UserProfileUpdateRequest
 
     private $city;
 
-    private $story;
+    private $phone;
 
     private $image;
 
-    private $date;
+    private $country;
 
-    private $dateAndTime;
-
+    private $location;
 
     /**
      * @return mixed
@@ -74,22 +71,6 @@ class UserProfileUpdateRequest
     /**
      * @return mixed
      */
-    public function getStory()
-    {
-        return $this->story;
-    }
-
-    /**
-     * @param mixed $story
-     */
-    public function setStory($story): void
-    {
-        $this->story = $story;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getImage()
     {
         return $this->image;
@@ -103,13 +84,4 @@ class UserProfileUpdateRequest
         $this->image = $image;
     }
 
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    public function getDateAndTime()
-    {
-        return $this->dateAndTime;
-    }
 }

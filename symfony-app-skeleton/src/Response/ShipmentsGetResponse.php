@@ -6,25 +6,17 @@ class ShipmentsGetResponse
 {
     public $id;
 
-    public $shipmentID;
-
-    public $shipmentStatus;
-
-    public $statusDetails;
-
-    public $isInOneHolder;
-
-    public $packed;
-
     public $target;
 
     public $supplierID;
 
-    public $distributorID;
+    public $supplierName;
 
-    public $exportWarehouseID;
+    public $distributorName;
 
-    public $importWarehouseID;
+    public $exportWarehouseCity;
+
+    public $importWarehouseCity;
 
     public $quantity;
 
@@ -34,7 +26,7 @@ class ShipmentsGetResponse
 
     public $updatedAt;
 
-    public $productCategoryID;
+    public $productCategoryName;
 
     public $unit;
 
@@ -54,14 +46,22 @@ class ShipmentsGetResponse
 
     public $guniQuantity;
 
-    public $updatedBy;
-
     public $vehicleIdentificationNumber;
 
     public $extraSpecification;
 
     public $status;
 
-    public $username;
+    public $clientUsername;
+
+    public $clientUserImage;
+    
+    public $orderUpdatedByUser;
+
+    public $orderUpdatedByUserImage;
+    
+    public $shipmentStatusCreatedByUser;
+
+    public $shipmentStatusUpdatedByUser;
 
 }

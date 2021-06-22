@@ -34,7 +34,7 @@ class OrderShipmentEntity
     private $target;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $supplierID;
 
@@ -149,6 +149,11 @@ class OrderShipmentEntity
      * @ORM\Column(type="integer", nullable=true)
      */
     private $createdBy;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $supplierName;
 
     public function getId(): ?int
     {
@@ -463,6 +468,18 @@ class OrderShipmentEntity
     public function setCreatedBy(?int $createdBy): self
     {
         $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getSupplierName(): ?string
+    {
+        return $this->supplierName;
+    }
+
+    public function setSupplierName(?string $supplierName): self
+    {
+        $this->supplierName = $supplierName;
 
         return $this;
     }

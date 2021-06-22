@@ -10,13 +10,13 @@ class ShipmentStatusGetResponse
 
     public $shipmentStatus;
 
+    public $trackNumber;
+
     public $statusDetails;
 
     public $isInOneHolder;
 
     public $packed;
-
-    public $clientUserID;
 
     public $transportationType;
 
@@ -24,11 +24,11 @@ class ShipmentStatusGetResponse
 
     public $supplierID;
 
-    public $distributorID;
+    public $distributorName;
 
-    public $exportWarehouseID;
+    public $exportWarehouseCity;
 
-    public $importWarehouseID;
+    public $importWarehouseCity;
 
     public $quantity;
 
@@ -38,7 +38,7 @@ class ShipmentStatusGetResponse
 
     public $updatedAt;
 
-    public $productCategoryID;
+    public $productCategoryName;
 
     public $unit;
 
@@ -54,11 +54,9 @@ class ShipmentStatusGetResponse
 
     public $weight;
 
-    public $QRcode;
+    public $qrCode;
 
     public $guniQuantity;
-
-    public $updatedBy;
 
     public $vehicleIdentificationNumber;
 
@@ -66,6 +64,20 @@ class ShipmentStatusGetResponse
 
     public $status;
 
-    public $userName;
+    public $clientUsername;
+
+    public $clientUserImage;
+
+    public $orderUpdatedByUser;
+
+    public $orderUpdatedByUserImage;
+
+    public $shipmentStatusCreatedByUser;
+
+    public $shipmentStatusCreatedByUserImage;
+
+    public $shipmentStatusUpdatedByUser;
+
+    public $shipmentStatusUpdatedByUserImage;
 
 }

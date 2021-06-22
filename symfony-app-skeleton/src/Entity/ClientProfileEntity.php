@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\UserProfileEntityRepository;
+use App\Repository\ClientProfileEntityRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=UserProfileEntityRepository::class)
+ * @ORM\Entity(repositoryClass=ClientProfileEntityRepository::class)
  */
-class UserProfileEntity
+class ClientProfileEntity
 {
     /**
      * @ORM\Id()
@@ -34,24 +34,24 @@ class UserProfileEntity
     private $city;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $story;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private $date;
+    private $country;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $dateAndTime;
+    private $location;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $phone;
 
 
     public function getId(): ?int
@@ -95,18 +95,6 @@ class UserProfileEntity
         return $this;
     }
 
-    public function getStory(): ?string
-    {
-        return $this->story;
-    }
-
-    public function setStory(?string $story): self
-    {
-        $this->story = $story;
-
-        return $this;
-    }
-
     public function getImage(): ?string
     {
         return $this->image;
@@ -119,26 +107,38 @@ class UserProfileEntity
         return $this;
     }
 
-    public function getDate()
+    public function getCountry(): ?string
     {
-        return $this->date;
+        return $this->country;
     }
 
-    public function setDate($date): self
+    public function setCountry(?string $country): self
     {
-        $this->date = new \DateTime($date);
+        $this->country = $country;
 
         return $this;
     }
 
-    public function getDateAndTime()
+    public function getLocation(): ?string
     {
-        return $this->dateAndTime;
+        return $this->location;
     }
 
-    public function setDateAndTime($dateAndTime): self
+    public function setLocation(?string $location): self
     {
-        $this->dateAndTime = new \DateTime($dateAndTime);
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }

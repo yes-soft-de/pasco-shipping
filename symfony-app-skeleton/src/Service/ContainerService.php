@@ -38,9 +38,15 @@ class ContainerService
 
         foreach($containers as $container)
         {
-            $container['createdByUserImage'] = $this->params . $container['createdByUserImage'];
+            if($container['createdByUserImage'])
+            {
+                $container['createdByUserImage'] = $this->params . $container['createdByUserImage'];
+            }
 
-            $container['updatedByUserImage'] = $this->params . $container['updatedByUserImage'];
+            if($container['updatedByUserImage'])
+            {
+                $container['updatedByUserImage'] = $this->params . $container['updatedByUserImage'];
+            }
 
             $containersResponse[] = $this->autoMapping->map('array', ContainerGetResponse::class, $container);
         }

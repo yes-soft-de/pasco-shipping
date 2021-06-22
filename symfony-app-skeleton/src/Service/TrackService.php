@@ -7,6 +7,7 @@ use App\Entity\TrackEntity;
 use App\Manager\TrackManager;
 use App\Request\TrackCreateRequest;
 use App\Request\TrackUpdateRequest;
+use App\Response\ShipmentByTrackNumberAndSignedInUserGetResponse;
 use App\Response\ShipmentByTrackNumberGetResponse;
 use App\Response\TrackCreateResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -40,17 +41,65 @@ class TrackService
 
     public function getShipmentByTrackNumber($trackNumber)
     {
+        $shipment = $this->trackManager->getShipmentByTrackNumber($trackNumber);
+
+        if($shipment['image'])
+        {
+            $shipment['image'] = $this->params . $shipment['image'];
+        }
+
+        if($shipment['clientUserImage'])
+        {
+            $shipment['clientUserImage'] = $this->params . $shipment['clientUserImage'];
+        }
+
+        if ($shipment['trackCreatedByUserImage'])
+        {
+            $shipment['trackCreatedByUserImage'] = $this->params . $shipment['trackCreatedByUserImage'];
+        }
+
+        if ($shipment['trackUpdatedByUserImage'])
+        {
+            $shipment['trackUpdatedByUserImage'] = $this->params . $shipment['trackUpdatedByUserImage'];
+        }
+
+        if ($shipment['orderUpdatedByUserImage'])
+        {
+            $shipment['orderUpdatedByUserImage'] = $this->params . $shipment['orderUpdatedByUserImage'];
+        }
+
+        if($shipment['shipmentStatusCreatedByUserImage'])
+        {
+            $shipment['shipmentStatusCreatedByUserImage'] = $this->params . $shipment['shipmentStatusCreatedByUserImage'];
+        }
+
+        if($shipment['shipmentStatusUpdatedByUserImage'])
+        {
+            $shipment['shipmentStatusUpdatedByUserImage'] = $this->params . $shipment['shipmentStatusUpdatedByUserImage'];
+        }
+
+        return $this->autoMapping->map('array', ShipmentByTrackNumberGetResponse::class, $shipment);
+    }
+
+    public function getShipmentByTrackNumberAndUserID($trackNumber, $userID)
+    {
         $shipmentResponse = [];
 
-        $shipment = $this->trackManager->getShipmentByTrackNumber($trackNumber);
-        
+        $shipment = $this->trackManager->getShipmentByTrackNumberAndUserID($trackNumber, $userID);
+
         foreach($shipment as $row)
         {
-            $row['image'] = $this->params . $row['image'];
+            if($row['image'])
+            {
+                $row['image'] = $this->params . $row['image'];
+            }
 
-            $row['userImage'] = $this->params . $row['userImage'];
+            if($row['clientUserImage'])
+            {
+                $row['clientUserImage'] = $this->params . $row['clientUserImage'];
+            }
 
-            $shipmentResponse = $this->autoMapping->map('array', ShipmentByTrackNumberGetResponse::class, $row);
+            $shipmentResponse = $this->autoMapping->map('array', ShipmentByTrackNumberAndSignedInUserGetResponse::class, $row);
         }
 
         return $shipmentResponse;

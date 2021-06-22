@@ -6,7 +6,9 @@ class OrderShipmentGetResponse
 {
     public $id;
 
-    public $clientUserID;
+    public $clientUsername;
+
+    public $clientUserImage;
 
     public $transportationType;
 
@@ -14,11 +16,13 @@ class OrderShipmentGetResponse
 
     public $supplierID;
 
-    public $distributorID;
+    public $supplierName;
 
-    public $exportWarehouseID;
+    public $distributorName;
 
-    public $importWarehouseID;
+    public $exportWarehouseCity;
+
+    public $importWarehouseCity;
 
     public $quantity;
 
@@ -28,7 +32,7 @@ class OrderShipmentGetResponse
 
     public $updatedAt;
 
-    public $productCategoryID;
+    public $productCategoryName;
 
     public $unit;
 
@@ -48,14 +52,14 @@ class OrderShipmentGetResponse
 
     public $guniQuantity;
 
-    public $updatedBy;
-
     public $vehicleIdentificationNumber;
 
     public $extraSpecification;
 
     public $status;
 
-    public $userName;
+    public $orderUpdatedByUser;
+
+    public $orderUpdatedByUserImage;
 
 }

@@ -45,7 +45,7 @@ class TravelManager
 
         if(!$travelEntity)
         {
-
+            return $travelEntity;
         }
         else
         {
@@ -61,6 +61,16 @@ class TravelManager
     public function getTravelsByStatus($status)
     {
         return $this->travelEntityRepository->getTravelsByStatus($status);
+    }
+
+    public function getCountOfTravelsByType($type)
+    {
+        return count($this->travelEntityRepository->findBy(["type"=>$type]));
+    }
+
+    public function getCountOfAllTravels()
+    {
+        return count($this->travelEntityRepository->findAll());
     }
 
 }

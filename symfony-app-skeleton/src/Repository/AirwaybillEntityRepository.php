@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\AdminProfileEntity;
 use App\Entity\AirwaybillEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +21,62 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, AirwaybillEntity::class);
     }
 
-    // /**
-    //  * @return AirwaybillEntity[] Returns an array of AirwaybillEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getAirwaybillsByStatus($status)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('airwaybill')
+            ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt',
+                'airwaybill.createdBy', 'airwaybill.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
+                'adminProfile2.userName as updatedByUserImage')
 
-    /*
-    public function findOneBySomeField($value): ?AirwaybillEntity
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('airwaybill.status = :status')
+            ->setParameter('status', $status)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = airwaybill.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = airwaybill.updatedBy'
+            )
+
+            ->orderBy('airwaybill.id', 'DESC')
+
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
+    public function getAirwaybillById($id)
+    {
+        return $this->createQueryBuilder('airwaybill')
+            ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt',
+             'airwaybill.createdBy', 'airwaybill.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
+                'adminProfile2.userName as updatedByUserImage')
+
+            ->andWhere('airwaybill.id = :id')
+            ->setParameter('id', $id)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = airwaybill.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = airwaybill.updatedBy'
+            )
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

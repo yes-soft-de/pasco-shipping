@@ -91,7 +91,7 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="integer", property="markID"),
      *                  @OA\Property(type="string", property="paymentTime"),
      *                  @OA\Property(type="number", property="weight"),
-     *                  @OA\Property(type="string", property="QRcode"),
+     *                  @OA\Property(type="string", property="qrCode"),
      *                  @OA\Property(type="string", property="guniQuantity"),
      *                  @OA\Property(type="integer", property="updatedBy"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
@@ -102,6 +102,10 @@ class ShipmentStatusController extends BaseController
      * )
      * 
      * @Security(name="Bearer")
+     *
+     * Note: We call this function exclusively when the part of the shipment inserted into
+     * another container/airwaybill in different travel
+     *
      */
     public function create(Request $request)
     {
@@ -146,18 +150,17 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="string", property="statusDetails"),
      *                  @OA\Property(type="boolean", property="isInOneHolder"),
      *                  @OA\Property(type="boolean", property="packed"),
-     *                  @OA\Property(type="string", property="clientUserID"),
      *                  @OA\Property(type="string", property="transportationType"),
      *                  @OA\Property(type="string", property="target"),
      *                  @OA\Property(type="integer", property="supplierID"),
-     *                  @OA\Property(type="integer", property="distributorID"),
+     *                  @OA\Property(type="string", property="distributorName"),
      *                  @OA\Property(type="integer", property="exportWarehouseID"),
      *                  @OA\Property(type="integer", property="importWarehouseID"),
      *                  @OA\Property(type="string", property="quantity"),
      *                  @OA\Property(type="string", property="image"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
-     *                  @OA\Property(type="string", property="productCategoryID"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
      *                  @OA\Property(type="string", property="unit"),
      *                  @OA\Property(type="string", property="receiverName"),
      *                  @OA\Property(type="string", property="receiverPhoneNumber"),
@@ -165,12 +168,17 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="integer", property="markID"),
      *                  @OA\Property(type="string", property="paymentTime"),
      *                  @OA\Property(type="float", property="weight"),
-     *                  @OA\Property(type="string", property="QRcode"),
+     *                  @OA\Property(type="string", property="qrCode"),
      *                  @OA\Property(type="string", property="guniQuantity"),
-     *                  @OA\Property(type="string", property="updatedBy"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
-     *                  @OA\Property(type="string", property="status")
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="clientUsername"),
+     *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUser"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUserImage"),
+     *                  @OA\Property(type="string", property="shipmentStatusCreatedByUser"),
+     *                  @OA\Property(type="string", property="shipmentStatusUpdatedByUser")
      *              )
      *          )
      *      )
@@ -180,6 +188,217 @@ class ShipmentStatusController extends BaseController
     public function getUnPackedShipments()
     {
         $result = $this->shipmentStatusService->getUnPackedShipments();
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("myshipments", name="getShipmentsBySignedInUser", methods={"GET"})
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Shipment Status")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Return array of shipments for signed-in user",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="shipmentID"),
+     *                  @OA\Property(type="string", property="trackNumber"),
+     *                  @OA\Property(type="string", property="shipmentStatus"),
+     *                  @OA\Property(type="string", property="statusDetails"),
+     *                  @OA\Property(type="boolean", property="isInOneHolder"),
+     *                  @OA\Property(type="boolean", property="packed"),
+     *                  @OA\Property(type="string", property="transportationType"),
+     *                  @OA\Property(type="string", property="target"),
+     *                  @OA\Property(type="integer", property="supplierID"),
+     *                  @OA\Property(type="string", property="distributorName"),
+     *                  @OA\Property(type="string", property="exportWarehouseCity"),
+     *                  @OA\Property(type="string", property="importWarehouseCity"),
+     *                  @OA\Property(type="string", property="quantity"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="string", property="unit"),
+     *                  @OA\Property(type="string", property="receiverName"),
+     *                  @OA\Property(type="string", property="receiverPhoneNumber"),
+     *                  @OA\Property(type="string", property="packetingBy"),
+     *                  @OA\Property(type="integer", property="markID"),
+     *                  @OA\Property(type="string", property="paymentTime"),
+     *                  @OA\Property(type="float", property="weight"),
+     *                  @OA\Property(type="string", property="qrCode"),
+     *                  @OA\Property(type="string", property="guniQuantity"),
+     *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
+     *                  @OA\Property(type="string", property="extraSpecification"),
+     *                  @OA\Property(type="string", property="clientUsername"),
+     *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUser"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUserImage"),
+     *                  @OA\Property(type="string", property="shipmentStatusCreatedByUser"),
+     *                  @OA\Property(type="string", property="shipmentStatusUpdatedByUser")
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getMyShipments()
+    {
+        $result = $this->shipmentStatusService->getAcceptedShipmentsByUserID($this->getUserId());
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("shipments", name="getAllShipments", methods={"GET"})
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Shipment Status")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Return array of shipments",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="shipmentID"),
+     *                  @OA\Property(type="string", property="trackNumber"),
+     *                  @OA\Property(type="string", property="shipmentStatus"),
+     *                  @OA\Property(type="string", property="statusDetails"),
+     *                  @OA\Property(type="boolean", property="isInOneHolder"),
+     *                  @OA\Property(type="boolean", property="packed"),
+     *                  @OA\Property(type="string", property="transportationType"),
+     *                  @OA\Property(type="string", property="target"),
+     *                  @OA\Property(type="integer", property="supplierID"),
+     *                  @OA\Property(type="string", property="distributorName"),
+     *                  @OA\Property(type="string", property="exportWarehouseCity"),
+     *                  @OA\Property(type="string", property="importWarehouseCity"),
+     *                  @OA\Property(type="string", property="quantity"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="string", property="unit"),
+     *                  @OA\Property(type="string", property="receiverName"),
+     *                  @OA\Property(type="string", property="receiverPhoneNumber"),
+     *                  @OA\Property(type="string", property="packetingBy"),
+     *                  @OA\Property(type="integer", property="markID"),
+     *                  @OA\Property(type="string", property="paymentTime"),
+     *                  @OA\Property(type="float", property="weight"),
+     *                  @OA\Property(type="string", property="qrCode"),
+     *                  @OA\Property(type="string", property="guniQuantity"),
+     *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
+     *                  @OA\Property(type="string", property="extraSpecification"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="clientUsername"),
+     *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUser"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUserImage"),
+     *                  @OA\Property(type="string", property="shipmentStatusCreatedByUser"),
+     *                  @OA\Property(type="string", property="shipmentStatusUpdatedByUser")
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getAllShipments()
+    {
+        $result = $this->shipmentStatusService->getAllShipments();
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("acceptedshipments/{transportationType}", name="getAcceptedShipmentsByTransportationType", methods={"GET"})
+     * @return JsonResponse
+     * 
+     * @OA\Tag(name="Shipment Status")
+     * 
+     * @OA\Parameter(
+     *      name="transportationType",
+     *      in="path",
+     *      description="the type of the shipping",
+     *      required=true
+     * )
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of objects which each one represent the info of the shipment",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="shipmentID"),
+     *                  @OA\Property(type="string", property="trackNumber"),
+     *                  @OA\Property(type="string", property="shipmentStatus"),
+     *                  @OA\Property(type="string", property="statusDetails"),
+     *                  @OA\Property(type="boolean", property="isInOneHolder"),
+     *                  @OA\Property(type="boolean", property="packed"),
+     *                  @OA\Property(type="string", property="transportationType"),
+     *                  @OA\Property(type="string", property="target"),
+     *                  @OA\Property(type="integer", property="supplierID"),
+     *                  @OA\Property(type="string", property="distributorName"),
+     *                  @OA\Property(type="string", property="exportWarehouseCity"),
+     *                  @OA\Property(type="string", property="importWarehouseCity"),
+     *                  @OA\Property(type="string", property="quantity"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="string", property="unit"),
+     *                  @OA\Property(type="string", property="receiverName"),
+     *                  @OA\Property(type="string", property="receiverPhoneNumber"),
+     *                  @OA\Property(type="string", property="packetingBy"),
+     *                  @OA\Property(type="integer", property="markID"),
+     *                  @OA\Property(type="string", property="paymentTime"),
+     *                  @OA\Property(type="float", property="weight"),
+     *                  @OA\Property(type="string", property="qrCode"),
+     *                  @OA\Property(type="string", property="guniQuantity"),
+     *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
+     *                  @OA\Property(type="string", property="extraSpecification"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="clientUsername"),
+     *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUser"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUserImage"),
+     *                  @OA\Property(type="string", property="shipmentStatusCreatedByUser"),
+     *                  @OA\Property(type="string", property="shipmentStatusUpdatedByUser")
+     *              )
+     *          )
+     *      )
+     * )
+     * 
+     */
+    public function getShipmentsByTransportationType($transportationType)
+    {
+        $result = $this->shipmentStatusService->getShipmentsByTransportationType($transportationType);
 
         return $this->response($result, self::FETCH);
     }

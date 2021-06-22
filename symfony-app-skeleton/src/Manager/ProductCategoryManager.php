@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Entity\ProductCategoryEntity;
 use App\Repository\ProductCategoryEntityRepository;
+use App\Request\DeleteRequest;
 use App\Request\ProductCategoryCreateRequest;
 use App\Request\ProductCategoryUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
@@ -56,6 +57,23 @@ class ProductCategoryManager
     public function getAllProductCategories()
     {
         return $this->productCategoryEntityRepository->getAllProductCategories();
+    }
+
+    public function deleteProductCategoryById(DeleteRequest $request)
+    {
+        $item = $this->productCategoryEntityRepository->find($request->getId());
+
+        if(!$item)
+        {
+            return $item;
+        }
+        else
+        {
+            $this->entityManager->remove($item);
+            $this->entityManager->flush();
+        }
+
+        return $item;
     }
 
 }

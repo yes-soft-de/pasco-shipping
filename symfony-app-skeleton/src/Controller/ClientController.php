@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\AutoMapping;
-use App\Request\UserProfileCreateRequest;
-use App\Request\UserProfileUpdateRequest;
-use App\Request\UserRegisterRequest;
-use App\Service\UserService;
+use App\Request\ClientProfileUpdateRequest;
+use App\Request\ClientRegisterRequest;
+use App\Request\DeleteRequest;
+use App\Service\ClientService;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use stdClass;
@@ -17,25 +17,27 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class UserController extends BaseController
+class ClientController extends BaseController
 {
     private $autoMapping;
     private $validator;
-    private $userService;
+    private $clientService;
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, UserService $userService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, ClientService $clientService)
     {
         parent::__construct($serializer);
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
-        $this->userService = $userService;
+        $this->clientService = $clientService;
     }
 
     /**
-     * @Route("/user", name="userRegister", methods={"POST"})
-     * 
+     * @Route("/client", name="clientRegister", methods={"POST"})
+     *
+     * @OA\Tag(name="Client")
+     *
      * @OA\RequestBody(
-     *      description="Creates user and profile at the same time",
+     *      description="Creates client and profile at the same time",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="userID"),
      *          @OA\Property(type="string", property="password"),
@@ -46,7 +48,7 @@ class UserController extends BaseController
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns the new user's role",
+     *      description="Returns the new client's role",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -57,23 +59,23 @@ class UserController extends BaseController
      *          )
      *      )
      * )
-     * 
-     * @OA\Tag(name="User")
+     *
      */
-    public function userRegister(Request $request)
+    public function clientRegister(Request $request)
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class,UserRegisterRequest::class,(object)$data);
+        $request = $this->autoMapping->map(stdClass::class,ClientRegisterRequest::class,(object)$data);
 
         $violations = $this->validator->validate($request);
-        if (\count($violations) > 0) {
+        if (\count($violations) > 0)
+        {
             $violationsString = (string) $violations;
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $response = $this->userService->userRegister($request);
+        $response = $this->clientService->clientRegister($request);
 
         return $this->response($response, self::CREATE);
     }
@@ -104,9 +106,9 @@ class UserController extends BaseController
     // }
 
     /**
-     * @Route("userprofile", name="updateUserProfile", methods={"PUT"})
+     * @Route("clientprofile", name="updateClientProfile", methods={"PUT"})
      * 
-     * @OA\Tag(name="User")
+     * @OA\Tag(name="Client")
      * 
      * @OA\Parameter(
      *      name="token",
@@ -118,10 +120,14 @@ class UserController extends BaseController
      * @OA\RequestBody(
      *      description="Updates the profile of the signed-in user",
      *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="id"),
+     *          @OA\Property(type="string", property="userID"),
      *          @OA\Property(type="string", property="userName"),
+     *          @OA\Property(type="string", property="image"),
      *          @OA\Property(type="string", property="city"),
-     *          @OA\Property(type="string", property="story"),
-     *          @OA\Property(type="string", property="image")
+     *          @OA\Property(type="string", property="country"),
+     *          @OA\Property(type="string", property="location"),
+     *          @OA\Property(type="string", property="phone")
      *      )
      * )
      * 
@@ -133,34 +139,34 @@ class UserController extends BaseController
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="string", property="userName"),
-     *                  @OA\Property(type="string", property="city"),
-     *                  @OA\Property(type="string", property="story"),
      *                  @OA\Property(type="string", property="image"),
-     *                  @OA\Property(type="object", property="date"),
-     *                  @OA\Property(type="object", property="dateAndTime")
+     *                  @OA\Property(type="string", property="city"),
+     *                  @OA\Property(type="string", property="country"),
+     *                  @OA\Property(type="string", property="location"),
+     *                  @OA\Property(type="string", property="phone")
      *          )
      *      )
      * )
      * 
      * @Security(name="Bearer")
      */
-    public function updateUserProfile(Request $request)
+    public function updateClientProfile(Request $request)
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, UserProfileUpdateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, ClientProfileUpdateRequest::class, (object)$data);
         
         $request->setUserID($this->getUserId());
 
-        $response = $this->userService->userProfileUpdate($request);
+        $response = $this->clientService->clientProfileUpdate($request);
 
         return $this->response($response, self::UPDATE);
     }
 
     /**
-     * @Route("userprofile", name="getUserProfileByID",methods={"GET"})
+     * @Route("clientprofile", name="getClientProfileByID",methods={"GET"})
      * 
-     * @OA\Tag(name="User")
+     * @OA\Tag(name="Client")
      * 
      * @OA\Parameter(
      *      name="token",
@@ -171,59 +177,74 @@ class UserController extends BaseController
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns the profile of the signed-in user",
+     *      description="Returns the profile of the signed-in client",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="string", property="userName"),
-     *                  @OA\Property(type="string", property="city"),
-     *                  @OA\Property(type="string", property="story"),
      *                  @OA\Property(type="string", property="image"),
-     *                  @OA\Property(type="object", property="date"),
-     *                  @OA\Property(type="object", property="dateAndTime")
+     *                  @OA\Property(type="string", property="city"),
+     *                  @OA\Property(type="string", property="country"),
+     *                  @OA\Property(type="string", property="location"),
+     *                  @OA\Property(type="string", property="phone")
      *          )
      *      )
      * )
      * 
      * @Security(name="Bearer")
      */
-    public function getUserProfileByID()
+    public function getClientProfileByID()
     {
-        $response = $this->userService->getUserProfileByUserID($this->getUserId());
+        $response = $this->clientService->getClientProfileByUserID($this->getUserId());
 
         return $this->response($response,self::FETCH);
     }
 
     /**
-     * @Route("userprofileall", name="userProfileAll", methods={"GET"})
-     * 
+     * @Route("clientprofileall", name="clientProfileAll", methods={"GET"})
+     *
+     * @OA\Tag(name="Client")
+     *
      * @OA\Response(
      *      response=200,
-     *      description="Returns array of all profiles",
+     *      description="Returns array of all clients profiles",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
      *                  @OA\Property(type="string", property="userName"),
-     *                  @OA\Property(type="string", property="city"),
-     *                  @OA\Property(type="string", property="story"),
      *                  @OA\Property(type="string", property="image"),
-     *                  @OA\Property(type="object", property="date"),
-     *                  @OA\Property(type="object", property="dateAndTime")
+     *                  @OA\Property(type="string", property="city"),
+     *                  @OA\Property(type="string", property="country"),
+     *                  @OA\Property(type="string", property="location"),
+     *                  @OA\Property(type="string", property="phone")
      *              )
      *          )
      *      )
      * )
-     * 
-     * @OA\Tag(name="User")
-     * 
+     *
      */
-    public function userProfileAll()
+    public function clientProfilesAll()
     {
-        $response = $this->userService->getAllProfiles();
+        $response = $this->clientService->getAllClientProfiles();
 
         return $this->response($response,self::FETCH);
     }
+
+    /**
+     * @Route("client/{id}", name="deleteClient", methods={"DELETE"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function deleteClientById(Request $request)
+    {
+        $request = new DeleteRequest($request->get('id'));
+
+        $result = $this->clientService->deleteClientById($request);
+
+        return $this->response($result, self::DELETE);
+    }
+
 }

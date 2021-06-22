@@ -1,20 +1,19 @@
 <?php
 
-
 namespace App\Response;
 
-
-class UserProfileResponse
+class ClientProfileResponse
 {
     public $userName;
 
     public $city;
 
-    public $story;
+    public $country;
 
     public $image;
 
-    public $date;
+    public $location;
 
-    public $dateAndTime;
+    public $phone;
+
 }
