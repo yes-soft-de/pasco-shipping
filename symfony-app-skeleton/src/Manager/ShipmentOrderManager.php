@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\OrderShipmentEntity;
 use App\Repository\OrderShipmentEntityRepository;
 use App\Request\OrderShipmentCreateRequest;
+use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
 use App\Request\ShipmentFilterRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
@@ -114,6 +115,26 @@ class ShipmentOrderManager
                 
                 $this->shipmentStatusManager->updateShipmentStatusByShipmentIdAndTrackNumber($shipmentStatusRequest);
             }
+
+            return $shipmentOrderEntity;
+        }
+    }
+
+    public function updateShipmentOrderByClient(OrderShipmentUpdateByClientRequest $request)
+    {
+        $shipmentOrderEntity = $this->orderShipmentEntityRepository->find($request->getId());
+
+        if(!$shipmentOrderEntity)
+        {
+            return  $shipmentOrderEntity;
+        }
+        else
+        {
+            $shipmentOrderEntity = $this->autoMapping->mapToObject(OrderShipmentUpdateByClientRequest::class, OrderShipmentEntity::class,
+                $request, $shipmentOrderEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
 
             return $shipmentOrderEntity;
         }
