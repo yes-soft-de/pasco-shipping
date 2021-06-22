@@ -10,12 +10,15 @@ use App\Request\OrderShipmentUpdateRequest;
 use App\Request\ShipmentFilterRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
 use App\Request\ShipmentStatusCreateRequest;
+use App\Request\ShipmentStatusUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ShipmentOrderManager
 {
     const WAITING_SHIPMENT_STATUS = "waiting";
     const ACCEPTED_SHIPMENT_STATUS = "accepted";
+    const REFUSED_SHIPMENT_STATUS = "refused";
+    const MEASURED_SHIPMENT_STATUS = "measured";
 
     private $autoMapping;
     private $entityManager;
@@ -100,6 +103,17 @@ class ShipmentOrderManager
 
             $this->entityManager->flush();
             $this->entityManager->clear();
+
+            /**
+             * Shipment order update occurs when shipment is measured and pocketed,
+             * as a result, we have to update the shipmentStatus in Shipment Status Entity
+             */
+            if($request->getShipmentStatus() == $this::MEASURED_SHIPMENT_STATUS)
+            {
+                $shipmentStatusRequest = $this->autoMapping->map(OrderShipmentUpdateRequest::class, ShipmentStatusUpdateRequest::class, $request);
+                
+                $this->shipmentStatusManager->updateShipmentStatusByShipmentIdAndTrackNumber($shipmentStatusRequest);
+            }
 
             return $shipmentOrderEntity;
         }
