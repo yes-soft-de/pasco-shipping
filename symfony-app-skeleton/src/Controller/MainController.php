@@ -3,6 +3,26 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Entity\AdminProfileEntity;
+use App\Entity\AirwaybillEntity;
+use App\Entity\AirwaybillSpecificationEntity;
+use App\Entity\ClientProfileEntity;
+use App\Entity\ContainerEntity;
+use App\Entity\CountryEntity;
+use App\Entity\DistributorEntity;
+use App\Entity\MarkEntity;
+use App\Entity\OrderShipmentEntity;
+use App\Entity\ProductCategoryEntity;
+use App\Entity\ProxyEntity;
+use App\Entity\ResetPasswordRequestEntity;
+use App\Entity\ShipmentLogEntity;
+use App\Entity\ShipmentStatusEntity;
+use App\Entity\SubcontractEntity;
+use App\Entity\SupplierEntity;
+use App\Entity\TrackEntity;
+use App\Entity\TravelEntity;
+use App\Entity\UserEntity;
+use App\Entity\WarehouseEntity;
 use App\Request\ShipmentFilterRequest;
 use App\Request\UserUpdateRequest;
 use App\Service\MainService;
@@ -150,6 +170,129 @@ class MainController extends BaseController
         $result = $this->mainService->findAll();
 
         return $this->response($result, self::UPDATE);
+    }
+
+    /**
+     * @Route("eraseall", name="deleteAllData", methods={"DELETE"})
+     */
+    public function eraseAllData()
+    {
+        try
+        {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->getRepository(AdminProfileEntity::class)->createQueryBuilder('adminProfileEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(AirwaybillEntity::class)->createQueryBuilder('airwaybillEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(AirwaybillSpecificationEntity::class)->createQueryBuilder('airwaybillSpecificationEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(ClientProfileEntity::class)->createQueryBuilder('clientProfileEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(ContainerEntity::class)->createQueryBuilder('containerEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(CountryEntity::class)->createQueryBuilder('countryEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(DistributorEntity::class)->createQueryBuilder('distributorEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(MarkEntity::class)->createQueryBuilder('markEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(SettingEntity::class)->createQueryBuilder('settingEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(OrderShipmentEntity::class)->createQueryBuilder('orderShipmentEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(ProductCategoryEntity::class)->createQueryBuilder('productCategoryEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(ProxyEntity::class)->createQueryBuilder('proxyEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(ShipmentLogEntity::class)->createQueryBuilder('shipmentLogEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(ShipmentStatusEntity::class)->createQueryBuilder('shipmentStatusEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(SubcontractEntity::class)->createQueryBuilder('subcontractEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(SupplierEntity::class)->createQueryBuilder('supplierEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(TrackEntity::class)->createQueryBuilder('trackEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(TravelEntity::class)->createQueryBuilder('travelEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(UserEntity::class)->createQueryBuilder('userEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(WarehouseEntity::class)->createQueryBuilder('warehouseEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(ResetPasswordRequestEntity::class)->createQueryBuilder('resetPasswordRequestEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+            
+        }
+        catch (\Exception $ex)
+        {
+            return $this->json($ex);
+        }
+
+        return new Response("All Database information were being deleted");
     }
 
 }
