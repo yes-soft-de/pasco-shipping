@@ -183,5 +183,10 @@ class ShipmentOrderManager
             return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndCreationDate($status, $paymentTime, $transportationType, $createdAt);
         }
     }
+
+    public function getShipmentOrderByMarkID($markID)
+    {
+        return $this->orderShipmentEntityRepository->getShipmentOrderByMarkID($markID);
+    }
     
 }

@@ -55,7 +55,14 @@ class MarkService
     {
         $result = $this->markManager->deleteMarkById($request);
 
-        return $this->autoMapping->map(MarkEntity::class, MarkGetResponse::class, $result);
+        if($result instanceof MarkEntity)
+        {
+            return $this->autoMapping->map(MarkEntity::class, MarkGetResponse::class, $result);
+        }
+        else
+        {
+            return $result;
+        }
     }
 
 }
