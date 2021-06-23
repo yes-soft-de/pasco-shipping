@@ -39,7 +39,7 @@ class ContainerSpecificationController extends BaseController
      * @OA\Tag(name="Container Specification")
      * 
      * @OA\RequestBody(
-     *      description="Create new container",
+     *      description="Create new container specification",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="type"),
      *          @OA\Property(type="integer", property="providedBy"),
@@ -95,7 +95,7 @@ class ContainerSpecificationController extends BaseController
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns the creation date of the new specifications",
+     *      description="Returns all container specifications",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -140,8 +140,7 @@ class ContainerSpecificationController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="array", property="Data",
-     *              @OA\Items(
+     *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="type"),
      *                  @OA\Property(type="number", property="subcontractName"),
