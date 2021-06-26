@@ -110,13 +110,11 @@ App\Request\TravelStatusUpdateRequest:
 
 App\Request\WarehouseCreateRequest:
   properties:
-    type:
+    name:
       - NotBlank: ~
     countryID:
       - NotBlank: ~
     city:
-      - NotBlank: ~
-    proxyID:
       - NotBlank: ~
     createdBy:
       - NotBlank: ~
@@ -125,13 +123,11 @@ App\Request\WarehouseUpdateRequest:
   properties:
     id:
       - NotBlank: ~
-    type:
+    name:
       - NotBlank: ~
     countryID:
       - NotBlank: ~
     city:
-      - NotBlank: ~
-    proxyID:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
