@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class ShipmentStatusManager
 {
     const ACCEPTED_SHIPMENT_STATUS = "accepted";
+    const UNDEFINED_SHIPMENT_STATUS = "undefined";
 
     private $autoMapping;
     private $entityManager;
@@ -92,9 +93,16 @@ class ShipmentStatusManager
         return $this->shipmentStatusEntityRepository->getShipmentsByTransportationType($transportationType);
     }
 
-    public function getAcceptedShipmentsByUserID($userID)
+    public function getShipmentsByStatusAndUserID($status, $userID)
     {
-        return $this->shipmentStatusEntityRepository->getAcceptedShipmentsByUserID($userID);
+        if($status != null && $status != $this::UNDEFINED_SHIPMENT_STATUS)
+        {
+            return $this->shipmentStatusEntityRepository->getShipmentsByStatusAndUserID($status, $userID);
+        }
+        elseif ($status == $this::UNDEFINED_SHIPMENT_STATUS)
+        {
+            return $this->shipmentStatusEntityRepository->getShipmentsByUserID($userID);
+        }
     }
 
     public function getAllShipments()

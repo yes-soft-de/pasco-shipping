@@ -127,11 +127,11 @@ class ShipmentStatusService
         return $shipmentsResponse;
     }
 
-    public function getAcceptedShipmentsByUserID($userID)
+    public function getShipmentsByStatusAndUserID($status, $userID)
     {
         $shipmentsResponse = [];
 
-        $shipments = $this->shipmentStatusManager->getAcceptedShipmentsByUserID($userID);
+        $shipments = $this->shipmentStatusManager->getShipmentsByStatusAndUserID($status, $userID);
 
         foreach ($shipments as $shipment)
         {
