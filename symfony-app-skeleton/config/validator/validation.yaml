@@ -1,3 +1,11 @@
+App\Request\UploadImageRequest:
+  properties:
+    uploadedFile:
+      - Image:
+          #mimeTypesMessage: "this id not message"
+          maxSize: 20m
+          maxSizeMessage: "Image size over 20M"
+
 App\Request\UserRegisterRequest:
   properties:
     userID:
@@ -8,4 +16,229 @@ App\Request\UserRegisterRequest:
 App\Request\UserProfileCreateRequest:
   properties:
     userName:
+      - NotBlank: ~
+
+App\Request\OrderShipmentCreateRequest:
+  properties:
+    clientUserID:
+      - NotBlank: ~
+    transportationType:
+      - NotBlank: ~
+    target:
+      - NotBlank: ~
+    quantity:
+      - NotBlank: ~
+    productCategoryID:
+      - NotBlank: ~
+    unit:
+      - NotBlank: ~
+    receiverName:
+      - NotBlank: ~
+    receiverPhoneNumber:
+      - NotBlank: ~
+    paymentTime:
+      - NotBlank: ~
+
+App\Request\ShipmentOrderStatusUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+
+App\Request\TrackCreateRequest:
+  properties:
+    shipmentID:
+      - NotBlank: ~
+    holderType:
+      - NotBlank: ~
+    holderID:
+      - NotBlank: ~
+    trackNumber:
+      - NotBlank: ~
+    shipmentStatus:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\TrackUpdateRequest:
+  properties:
+    holderID:
+      - NotBlank: ~
+    travelID:
+      - NotBlank: ~
+    trackNumber:
+      - NotBlank: ~
+    shipmentStatus:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
+App\Request\SubcontractCreateRequest:
+  properties:
+    fullName:
+      - NotBlank: ~
+    serviceType:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\SubcontractUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    fullName:
+      - NotBlank: ~
+    serviceType:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
+App\Request\TravelCreateRequest:
+  properties:
+    createdBy:
+      - NotBlank: ~
+
+App\Request\TravelStatusUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+
+App\Request\WarehouseCreateRequest:
+  properties:
+    type:
+      - NotBlank: ~
+    countryID:
+      - NotBlank: ~
+    city:
+      - NotBlank: ~
+    proxyID:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\WarehouseUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    type:
+      - NotBlank: ~
+    countryID:
+      - NotBlank: ~
+    city:
+      - NotBlank: ~
+    proxyID:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
+App\Request\ContainerCreateRequest:
+  properties:
+    specificationID:
+      - NotBlank: ~
+    containerNumber:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\DistributorCreateRequest:
+  properties:
+    fullName:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\DistributorUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    fullName:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
+App\Request\MarkCreateRequest:
+  properties:
+    clientUserID:
+      - NotBlank: ~
+    markNumber:
+      - NotBlank: ~
+
+App\Request\ProductCategoryCreateRequest:
+  properties:
+    name:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\ProductCategoryUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    name:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
+App\Request\ProxyCreateRequest:
+  properties:
+    fullName:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\SupplierCreateRequest:
+  properties:
+    fullName:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\SupplierUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    fullName:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
+App\Request\CountryCreateRequest:
+  properties:
+    name:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\AirwaybillCreateRequest:
+  properties:
+    specificationID:
+      - NotBlank: ~
+    airwaybillNumber:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\AirwaybillUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    specificationID:
+      - NotBlank: ~
+    airwaybillNumber:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
+App\Request\ShipmentFilterRequest:
+  properties:
+    status:
+      - NotBlank: ~
+    transportationType:
+      - NotBlank: ~
+    paymentTime:
       - NotBlank: ~

@@ -18,8 +18,8 @@ class ResetPasswordManager
     private $encoder;
     private $userManager;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder, 
-    UserManager $userManager, ResetPasswordRequestEntityRepository $resetPasswordRequestEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder,
+                                ClientManager $userManager, ResetPasswordRequestEntityRepository $resetPasswordRequestEntityRepository)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;

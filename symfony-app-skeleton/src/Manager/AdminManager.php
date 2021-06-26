@@ -6,6 +6,7 @@ namespace App\Manager;
 
 use App\AutoMapping;
 use App\Entity\UserEntity;
+use App\Repository\AdminProfileEntityRepository;
 use App\Repository\UserEntityRepository;
 use App\Request\AdminCreateRequest;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,14 +18,16 @@ class AdminManager
     private $entityManager;
     private $encoder;
     private $userRepository;
+    private $adminProfileEntityRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager,
-                                UserPasswordEncoderInterface $encoder, UserEntityRepository $userRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder,
+                                UserEntityRepository $userRepository, AdminProfileEntityRepository $adminProfileEntityRepository)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->encoder = $encoder;
         $this->userRepository = $userRepository;
+        $this->adminProfileEntityRepository = $adminProfileEntityRepository;
     }
 
     public function adminCreate(AdminCreateRequest $request)
@@ -61,5 +64,10 @@ class AdminManager
     public function getAdminByUserID($userID)
     {
         return $this->userRepository->getUserByUserID($userID);
+    }
+
+    public function getCountOfAllAdmins()
+    {
+        return count($this->adminProfileEntityRepository->findAll());
     }
 }
