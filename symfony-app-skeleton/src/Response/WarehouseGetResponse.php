@@ -6,7 +6,9 @@ class WarehouseGetResponse
 {
     public $id;
 
-    public $type;
+    public $name;
+
+    public $subcontractName;
 
     public $countryName;
 

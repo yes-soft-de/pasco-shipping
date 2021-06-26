@@ -42,12 +42,13 @@ class WarehouseController extends BaseController
      * @OA\RequestBody(
      *      description="Create new warehouse",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="type"),
+     *          @OA\Property(type="string", property="name"),
      *          @OA\Property(type="integer", property="countryID"),
      *          @OA\Property(type="string", property="city"),
      *          @OA\Property(type="string", property="location"),
      *          @OA\Property(type="number", property="rentingFee"),
-     *          @OA\Property(type="integer", property="proxyID")
+     *          @OA\Property(type="integer", property="proxyID"),
+     *          @OA\Property(type="integer", property="subcontractID")
      *      )
      * )
      * 
@@ -99,10 +100,11 @@ class WarehouseController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="string", property="type"),
-     *          @OA\Property(type="string", property="countryID"),
+     *          @OA\Property(type="integer", property="countryID"),
      *          @OA\Property(type="string", property="city"),
-     *          @OA\Property(type="string", property="rentingFee"),
-     *          @OA\Property(type="string", property="proxyID")
+     *          @OA\Property(type="number", property="rentingFee"),
+     *          @OA\Property(type="integer", property="proxyID"),
+     *          @OA\Property(type="integer", property="subcontractID")
      *      )
      * )
      * 
@@ -169,7 +171,8 @@ class WarehouseController extends BaseController
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="name"),
+     *                  @OA\Property(type="string", property="subcontractName"),
      *                  @OA\Property(type="string", property="countryName"),
      *                  @OA\Property(type="string", property="city"),
      *                  @OA\Property(type="string", property="location"),
