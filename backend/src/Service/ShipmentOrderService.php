@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\OrderShipmentEntity;
 use App\Manager\ShipmentOrderManager;
 use App\Request\OrderShipmentCreateRequest;
+use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
 use App\Request\ShipmentLogCreateRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
@@ -88,6 +89,13 @@ class ShipmentOrderService
     public function updateShipmentOrder(OrderShipmentUpdateRequest $request)
     {
         $orderShipmentResult = $this->shipmentOrderManager->updateShipmentOrder($request);
+
+        return $this->autoMapping->map(OrderShipmentEntity::class, OrderShipmentGetResponse::class, $orderShipmentResult);
+    }
+
+    public function updateShipmentOrderByClient(OrderShipmentUpdateByClientRequest $request)
+    {
+        $orderShipmentResult = $this->shipmentOrderManager->updateShipmentOrderByClient($request);
 
         return $this->autoMapping->map(OrderShipmentEntity::class, OrderShipmentGetResponse::class, $orderShipmentResult);
     }
