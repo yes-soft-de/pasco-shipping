@@ -2,19 +2,19 @@
 
 namespace App\Response;
 
-class WarehouseGetResponse
+class AirwaybillSpecificationGetResponse
 {
     public $id;
 
-    public $name;
+    public $type;
 
     public $subcontractName;
 
-    public $countryName;
+    public $weight;
 
-    public $city;
+    public $createdAt;
 
-    public $location;
+    public $updatedAt;
 
     public $createdByUser;
 
@@ -23,13 +23,5 @@ class WarehouseGetResponse
     public $updatedByUser;
 
     public $updatedByUserImage;
-
-    public $rentingFee;
-
-    public $proxyName;
-
-    public $createdAt;
-
-    public $updatedAt;
 
 }

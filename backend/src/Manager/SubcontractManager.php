@@ -52,4 +52,9 @@ class SubcontractManager
         }
     }
 
+    public function getAllSubcontracts()
+    {
+        return $this->subcontractEntityRepository->getAllSubcontracts();
+    }
+
 }

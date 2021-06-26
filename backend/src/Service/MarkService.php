@@ -45,6 +45,15 @@ class MarkService
 
         foreach ($marks as $mark)
         {
+            if($this->markManager->getShipmentOrdersByMarkID($mark['id']))
+            {
+                $mark['used'] = true;
+            }
+            else
+            {
+                $mark['used'] = false;
+            }
+
             $marksResponse[] = $this->autoMapping->map('array', MarkGetResponse::class, $mark);
         }
 
@@ -55,7 +64,14 @@ class MarkService
     {
         $result = $this->markManager->deleteMarkById($request);
 
-        return $this->autoMapping->map(MarkEntity::class, MarkGetResponse::class, $result);
+        if($result instanceof MarkEntity)
+        {
+            return $this->autoMapping->map(MarkEntity::class, MarkGetResponse::class, $result);
+        }
+        else
+        {
+            return $result;
+        }
     }
 
 }

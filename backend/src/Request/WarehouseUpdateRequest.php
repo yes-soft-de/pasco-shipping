@@ -6,7 +6,9 @@ class WarehouseUpdateRequest
 {
     private $id;
 
-    private $type;
+    private $name;
+
+    private $subcontractID;
 
     private $countryID;
 

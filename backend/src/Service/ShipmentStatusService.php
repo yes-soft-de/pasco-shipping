@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\ShipmentStatusEntity;
 use App\Manager\ShipmentStatusManager;
 use App\Request\ShipmentStatusCreateRequest;
+use App\Request\ShipmentStatusUpdateRequest;
 use App\Request\TrackCreateRequest;
 use App\Response\ShipmentStatusByUserGetResponse;
 use App\Response\ShipmentStatusGetResponse;
@@ -49,6 +50,13 @@ class ShipmentStatusService
         $this->trackService->create($trackCreateRequest);
 
         return $this->autoMapping->map(ShipmentStatusEntity::class, ShipmentStatusGetResponse::class, $shipmentStatusResult);
+    }
+
+    public function updateShipmentStatusByShipmentIdAndTrackNumber(ShipmentStatusUpdateRequest $request)
+    {
+        $shipmentStatusEntity = $this->shipmentStatusManager->updateShipmentStatusByShipmentIdAndTrackNumber($request);
+        
+        return $this->autoMapping->map(ShipmentStatusEntity::class, ShipmentStatusGetResponse::class, $shipmentStatusEntity);
     }
 
     public function getUnPackedShipments()

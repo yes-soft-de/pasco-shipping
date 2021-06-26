@@ -40,6 +40,8 @@ class OrderShipmentUpdateRequest
 
     private $packetingBy;
 
+    private $markID;
+
     private $weight;
 
     private $qrCode;
@@ -47,6 +49,17 @@ class OrderShipmentUpdateRequest
     private $guniQuantity;
 
     private $updatedBy;
+
+    /**
+     * Following fields are for Shipment Status entity
+     */
+    private $shipmentID;
+
+    private $trackNumber;
+
+    private $shipmentStatus;
+
+    private $statusDetails;
 
     public function getId()
     {
@@ -56,6 +69,21 @@ class OrderShipmentUpdateRequest
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    public function setShipmentStatus($status)
+    {
+        $this->shipmentStatus = $status;
+    }
+
+    public function getShipmentStatus()
+    {
+        return $this->shipmentStatus;
     }
 
 }

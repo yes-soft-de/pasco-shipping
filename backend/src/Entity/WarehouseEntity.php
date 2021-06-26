@@ -19,9 +19,9 @@ class WarehouseEntity
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=100)
      */
-    private $type;
+    private $name;
 
     /**
      * @ORM\Column(type="integer")
@@ -44,7 +44,7 @@ class WarehouseEntity
     private $rentingFee;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $proxyID;
 
@@ -70,19 +70,24 @@ class WarehouseEntity
      */
     private $updatedBy;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $subcontractID;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getType(): ?string
+    public function getName(): ?string
     {
-        return $this->type;
+        return $this->name;
     }
 
-    public function setType(string $type): self
+    public function setName(string $name): self
     {
-        $this->type = $type;
+        $this->name = $name;
 
         return $this;
     }
@@ -191,6 +196,18 @@ class WarehouseEntity
     public function setUpdatedBy(?int $updatedBy): self
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getSubcontractID(): ?int
+    {
+        return $this->subcontractID;
+    }
+
+    public function setSubcontractID(?int $subcontractID): self
+    {
+        $this->subcontractID = $subcontractID;
 
         return $this;
     }

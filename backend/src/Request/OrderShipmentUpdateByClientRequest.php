@@ -2,9 +2,9 @@
 
 namespace App\Request;
 
-class OrderShipmentCreateRequest
+class OrderShipmentUpdateByClientRequest
 {
-    private $clientUserID;
+    private $id;
 
     private $transportationType;
 
@@ -13,10 +13,6 @@ class OrderShipmentCreateRequest
     private $supplierID;
 
     private $supplierName;
-
-    private $distributorID;
-
-    private $importWarehouseID;
 
     private $markID;
 
@@ -40,18 +36,16 @@ class OrderShipmentCreateRequest
 
     private $extraSpecification;
 
-    private $status;
+    private $updatedBy;
 
-    private $createdBy;
-
-    public function setClientUserID($clientUserID)
+    public function getId()
     {
-        $this->clientUserID = $clientUserID;
+        return $this->id;
     }
 
-    public function setCreatedBy($userID)
+    public function setUpdatedBy($updatedBy)
     {
-        $this->createdBy = $userID;
+        $this->updatedBy = $updatedBy;
     }
 
 }

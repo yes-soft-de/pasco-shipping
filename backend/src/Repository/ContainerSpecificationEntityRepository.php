@@ -2,8 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\AdminProfileEntity;
 use App\Entity\ContainerSpecificationEntity;
+use App\Entity\SubcontractEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +22,39 @@ class ContainerSpecificationEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, ContainerSpecificationEntity::class);
     }
 
-    // /**
-    //  * @return ContainerSpecificationEntity[] Returns an array of ContainerSpecificationEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getAllContainerSpecifications()
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('containerSpecification')
+            ->select('containerSpecification.id', 'containerSpecification.type', 'containerSpecification.providedBy', 'containerSpecification.capacityCPM', 'containerSpecification.widthInMeter',
+            'containerSpecification.hightInMeter', 'containerSpecification.lengthInMeter', 'containerSpecification.createdAt', 'containerSpecification.updatedAt', 'containerSpecification.createdBy',
+            'containerSpecification.updatedBy', 'subcontract.fullName as subcontractName', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 
+            'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
-    /*
-    public function findOneBySomeField($value): ?ContainerSpecificationEntity
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontract',
+                Join::WITH,
+                'subcontract.id = containerSpecification.providedBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = containerSpecification.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = containerSpecification.updatedBy'
+            )
+
+            ->orderBy('containerSpecification.id', 'DESC')
+
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
 }
