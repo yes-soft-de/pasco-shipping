@@ -2,8 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\AdminProfileEntity;
 use App\Entity\AirwaybillSpecificationEntity;
+use App\Entity\SubcontractEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +22,38 @@ class AirwaybillSpecificationEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, AirwaybillSpecificationEntity::class);
     }
 
-    // /**
-    //  * @return AirwaybillSpecificationEntity[] Returns an array of AirwaybillSpecificationEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getAllAirwaybillSpecifications()
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('airwaybillSpecification')
+            ->select('airwaybillSpecification.id', 'airwaybillSpecification.type', 'airwaybillSpecification.weight', 'airwaybillSpecification.providedBy', 'airwaybillSpecification.createdBy',
+            'airwaybillSpecification.createdAt', 'airwaybillSpecification.updatedBy', 'airwaybillSpecification.updatedAt', 'subContract.fullName as subcontractName', 'adminProfile1.userName as createdByUser', 
+            'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
-    /*
-    public function findOneBySomeField($value): ?AirwaybillSpecificationEntity
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subContract',
+                Join::WITH,
+                'subContract.id = airwaybillSpecification.providedBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = airwaybillSpecification.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = airwaybillSpecification.updatedBy'
+            )
+
+            ->orderBy('airwaybillSpecification.id', 'DESC')
+
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
 }
