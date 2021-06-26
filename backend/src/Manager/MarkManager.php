@@ -13,12 +13,15 @@ class MarkManager
 {
     private $autoMapping;
     private $entityManager;
+    private $shipmentOrderManager;
     private $markEntityRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, MarkEntityRepository $markEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, MarkEntityRepository $markEntityRepository,
+     ShipmentOrderManager $shipmentOrderManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
+        $this->shipmentOrderManager = $shipmentOrderManager;
         $this->markEntityRepository = $markEntityRepository;
     }
 
@@ -65,11 +68,27 @@ class MarkManager
         }
         else
         {
-            $this->entityManager->remove($item);
-            $this->entityManager->flush();
+            //Check if the mark isn't being used yet
+            $result = $this->getShipmentOrdersByMarkID($request->getId());
+            
+            if(!$result)
+            {
+                //its safe to delete the mark
+                $this->entityManager->remove($item);
+                $this->entityManager->flush();
+            }
+            else
+            {
+                return "The mark is being used. We can not delete it!";
+            }
         }
 
         return $item;
+    }
+
+    public function getShipmentOrdersByMarkID($markID)
+    {
+        return $this->shipmentOrderManager->getShipmentOrderByMarkID($markID);
     }
 
 }

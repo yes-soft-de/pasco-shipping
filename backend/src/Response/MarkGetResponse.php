@@ -12,4 +12,6 @@ class MarkGetResponse
 
     public $updatedAt;
 
+    public $used;
+
 }
