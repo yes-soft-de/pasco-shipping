@@ -145,4 +145,41 @@ class SubcontractController extends BaseController
         return $this->response($result, self::UPDATE);
     }
 
+    /**
+     * @Route("subcontracts", name="getAllSubcontracts", methods={"GET"})
+     * @return JsonResponse
+     * 
+     * @OA\Tag(name="Subcontract")
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns all subcontracts",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="fullName"),
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="serviceType"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="integer", property="createdByUser"),
+     *                  @OA\Property(type="integer", property="createdByUserImage"),
+     *                  @OA\Property(type="integer", property="updatedByUser"),
+     *                  @OA\Property(type="integer", property="updatedByUserImage")
+     *              )
+     *          )
+     *      )
+     * )
+     * 
+     */
+    public function getAllSubcontracts()
+    {
+        $result = $this->subcontractService->getAllSubcontracts();
+
+        return $this->response($result, self::FETCH);
+    }
+
 }

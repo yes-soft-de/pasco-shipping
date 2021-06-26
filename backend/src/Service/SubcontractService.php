@@ -35,18 +35,28 @@ class SubcontractService
         return $this->autoMapping->map(SubcontractEntity::class, SubcontractGetResponse::class, $subcontractResult);
     }
 
-    // public function getShipmentByTrackNumber($trackNumber)
-    // {
-    //     $shipmentResponse = [];
+    public function getAllSubcontracts()
+    {
+        $subcontractResponse = [];
 
-    //     $shipment = $this->subcontractManager->getShipmentByTrackNumber($trackNumber);
-        
-    //     foreach($shipment as $row)
-    //     {
-    //         $shipmentResponse = $this->autoMapping->map('array', ShipmentByTrackNumberGetResponse::class, $row);
-    //     }
+        $subcontracts = $this->subcontractManager->getAllSubcontracts();
 
-    //     return $shipmentResponse;
-    // }
+        foreach ($subcontracts as $subcontract)
+        {
+            if($subcontract['createdByUserImage'])
+            {
+                $subcontract['createdByUserImage'] = $this->params . $subcontract['createdByUserImage'];
+            }
+
+            if($subcontract['updatedByUserImage'])
+            {
+                $subcontract['updatedByUserImage'] = $this->params . $subcontract['updatedByUserImage'];
+            }
+
+            $subcontractResponse[] = $this->autoMapping->map('array', SubcontractGetResponse::class, $subcontract);
+        }
+
+        return $subcontractResponse;
+    }
 
 }

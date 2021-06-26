@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\AdminProfileEntity;
 use App\Entity\SubcontractEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +21,31 @@ class SubcontractEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, SubcontractEntity::class);
     }
 
-    // /**
-    //  * @return SubcontractEntity[] Returns an array of SubcontractEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getAllSubcontracts()
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('subcontract')
+            ->select('subcontract.id', 'subcontract.fullName', 'subcontract.phone', 'subcontract.serviceType', 'subcontract.createdAt', 'subcontract.updatedAt',
+            'subcontract.createdBy', 'subcontract.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 
+            'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
-    /*
-    public function findOneBySomeField($value): ?SubcontractEntity
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = subcontract.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = subcontract.updatedBy'
+            )
+
+            ->orderBy('subcontract.id', 'DESC')
+
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
 }
