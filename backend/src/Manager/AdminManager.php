@@ -1,14 +1,14 @@
 <?php
 
-
 namespace App\Manager;
 
-
 use App\AutoMapping;
+use App\Entity\AdminProfileEntity;
 use App\Entity\UserEntity;
 use App\Repository\AdminProfileEntityRepository;
 use App\Repository\UserEntityRepository;
 use App\Request\AdminCreateRequest;
+use App\Request\DeleteRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -32,9 +32,10 @@ class AdminManager
 
     public function adminCreate(AdminCreateRequest $request)
     {
-        $userProfile = $this->getAdminByUserID($request->getUserID());
+        $adminEntity = $this->getAdminByUserID($request->getUserID());
         
-        if ($userProfile == null) {
+        if ($adminEntity == null) 
+        {
             $adminCreate = $this->autoMapping->map(AdminCreateRequest::class, UserEntity::class, $request);
 
             $user = new UserEntity($request->getUserID());
@@ -46,17 +47,48 @@ class AdminManager
 
             if ($request->getRoles() == null)
             {
-                $request->setRoles(['admin']);
+                $request->setRoles(['ROLE_ADMIN']);
             }
+
             $adminCreate->setRoles($request->getRoles());
 
             $this->entityManager->persist($adminCreate);
             $this->entityManager->flush();
             $this->entityManager->clear();
 
+            // Second, we check if there is a profile with the same userID
+            // If not, we will create a one
+            $adminProfile = $this->getProfileByUserID($request->getUserID());
+
+            if($adminProfile == null)
+            {
+                $adminProfile = $this->autoMapping->map(AdminCreateRequest::class, AdminProfileEntity::class, $request);
+
+                $adminProfile->setUserID($adminCreate->getId());
+
+                $this->entityManager->persist($adminProfile);
+                $this->entityManager->flush();
+                $this->entityManager->clear();
+            }
+
             return $adminCreate;
         }
-        else {
+        else 
+        {
+            // admin exists, so we have also to check if the profile is exist too
+            $adminProfile = $this->getProfileByUserID($adminEntity['id']);
+
+            if ($adminProfile == null) 
+            {
+                $adminProfile = $this->autoMapping->map(AdminCreateRequest::class, AdminProfileEntity::class, $request);
+
+                $adminProfile->setUserID($adminEntity['id']);
+
+                $this->entityManager->persist($adminProfile);
+                $this->entityManager->flush();
+                $this->entityManager->clear();
+            }
+
             return true;
         }
     }
@@ -66,8 +98,56 @@ class AdminManager
         return $this->userRepository->getUserByUserID($userID);
     }
 
+    public function getProfileByUserID($userID)
+    {
+        return $this->adminProfileEntityRepository->getProfileByUserID($userID);
+    }
+
     public function getCountOfAllAdmins()
     {
         return count($this->adminProfileEntityRepository->findAll());
     }
+
+    public function getAllEmployees()
+    {
+        return $this->adminProfileEntityRepository->getAllEmployees();
+    }
+
+    public function getAllAdministrators()
+    {
+        return $this->adminProfileEntityRepository->getAllAdministrators();
+    }
+
+    // This function for delete admin and employee
+    public function deleteAdminById(DeleteRequest $request)
+    {
+        // First, delete its profile if exists
+        $clientProfile = $this->adminProfileEntityRepository->findOneBy(["userID"=>$request->getId()]);
+
+        if(!$clientProfile)
+        {
+
+        }
+        else
+        {
+            $this->entityManager->remove($clientProfile);
+            $this->entityManager->flush();
+        }
+
+        // Then delete its record from the User table
+        $userEntity = $this->userRepository->find($request->getId());
+
+        if(!$userEntity)
+        {
+
+        }
+        else
+        {
+            $this->entityManager->remove($userEntity);
+            $this->entityManager->flush();
+
+            return $userEntity;
+        }
+    }
+    
 }

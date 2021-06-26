@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\AdminCreateRequest;
+use App\Request\DeleteRequest;
 use App\Service\AdminService;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,7 +29,7 @@ class AdminController extends BaseController
     }
 
     /**
-     * @Route("/createadmin", name="adminCreate", methods={"POST"})
+     * @Route("createadmin", name="adminCreate", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      */
@@ -36,10 +37,11 @@ class AdminController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class,AdminCreateRequest::class,(object)$data);
+        $request = $this->autoMapping->map(stdClass::class, AdminCreateRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
-        if (\count($violations) > 0) {
+        if (\count($violations) > 0) 
+        {
             $violationsString = (string) $violations;
 
             return new JsonResponse($violationsString, Response::HTTP_OK);
@@ -49,4 +51,41 @@ class AdminController extends BaseController
 
         return $this->response($response, self::CREATE);
     }
+
+    /**
+     * @Route("employees", name="getAllEmployees", methods={"GET"})
+     * @return JsonResponse
+     */
+    public function getAllEmployees()
+    {
+        $response = $this->adminService->getAllEmployees();
+
+        return $this->response($response, self::FETCH);
+    }
+
+    /**
+     * @Route("administrators", name="getAllAdministrators", methods={"GET"})
+     * @return JsonResponse
+     */
+    public function getAllAdministrators()
+    {
+        $response = $this->adminService->getAllAdministrators();
+
+        return $this->response($response, self::FETCH);
+    }
+
+    /**
+     * @Route("admin/{id}", name="deleteAdmin", methods={"DELETE"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function deleteAdminById(Request $request)
+    {
+        $request = new DeleteRequest($request->get('id'));
+
+        $result = $this->adminService->deleteAdminById($request);
+
+        return $this->response($result, self::DELETE);
+    }
+
 }
