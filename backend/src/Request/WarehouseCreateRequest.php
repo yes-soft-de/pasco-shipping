@@ -4,7 +4,9 @@ namespace App\Request;
 
 class WarehouseCreateRequest
 {
-    private $type;
+    private $name;
+
+    private $subcontractID;
 
     private $countryID;
 

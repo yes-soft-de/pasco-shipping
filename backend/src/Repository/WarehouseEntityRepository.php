@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\AdminProfileEntity;
 use App\Entity\CountryEntity;
 use App\Entity\ProxyEntity;
+use App\Entity\SubcontractEntity;
 use App\Entity\WarehouseEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
@@ -27,9 +28,9 @@ class WarehouseEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('warehouse')
             ->select('warehouse.id', 'warehouse.city', 'warehouse.countryID', 'warehouse.location', 'warehouse.proxyID', 'warehouse.rentingFee',
-             'warehouse.type', 'warehouse.createdAt', 'warehouse.updatedAt', 'warehouse.createdBy', 'warehouse.updatedBy', 'country.name as countryName',
-                'proxy.fullName as proxyName', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage',
-                'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
+             'warehouse.name', 'warehouse.createdAt', 'warehouse.updatedAt', 'warehouse.createdBy', 'warehouse.updatedBy', 'country.name as countryName',
+                'proxy.fullName as proxyName', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'warehouse.subcontractID',
+                'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage', 'subcontract.fullName as subcontractName')
 
             ->leftJoin(
                 CountryEntity::class,
@@ -57,6 +58,13 @@ class WarehouseEntityRepository extends ServiceEntityRepository
                 'adminProfile2',
                 Join::WITH,
                 'adminProfile2.userID = warehouse.updatedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontract',
+                Join::WITH,
+                'subcontract.id = warehouse.subcontractID'
             )
 
             ->orderBy('warehouse.id', 'DESC')
