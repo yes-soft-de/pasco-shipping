@@ -12,25 +12,18 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class TrackManager
 {
-    const CONTAINER_HOLDER_TYPE = "container";
-    const AIRWAYBILL_HOLDER_TYPE = "airwaybill";
-
     private $autoMapping;
     private $entityManager;
     private $trackEntityRepository;
     private $shipmentStatusManager;
-    private $containerManager;
-    private $airwaybillManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, TrackEntityRepository $trackEntityRepository,
-     ShipmentStatusManager $shipmentStatusManager, ContainerManager $containerManager, AirwaybillManager $airwaybillManager)
+     ShipmentStatusManager $shipmentStatusManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->trackEntityRepository = $trackEntityRepository;
-        $this->containerManager = $containerManager;
         $this->shipmentStatusManager = $shipmentStatusManager;
-        $this->airwaybillManager = $airwaybillManager;
     }
 
     public function create(TrackCreateRequest $request)
@@ -81,43 +74,6 @@ class TrackManager
 
             return $trackEntity;
         }
-    }
-
-    public function getShipmentByTrackNumber($trackNumber)
-    {
-        $shipment = $this->trackEntityRepository->getShipmentByTrackNumber($trackNumber);
-
-        // Get holder info
-        // But, first, we have to check the holder type
-        if($shipment["holderType"] != null && $shipment["holderType"] == $this::CONTAINER_HOLDER_TYPE)
-        {
-            // Get container info
-            $container = $this->containerManager->getContainerById($shipment["holderID"]);
-
-            if($container)
-            {
-                $shipment["holderInfo"]["IdentificationNumber"] = $container["containerNumber"];
-                $shipment["holderInfo"]["status"] = $container["status"];
-            }
-        }
-        elseif($shipment["holderType"] != null && $shipment["holderType"] == $this::AIRWAYBILL_HOLDER_TYPE)
-        {
-            // Get airwaybill info
-            $airwaybill = $this->airwaybillManager->getAirwaybillById($shipment["holderID"]);
-
-            if($airwaybill)
-            {
-                $shipment["holderInfo"]["IdentificationNumber"] = $airwaybill["airwaybillNumber"];
-                $shipment["holderInfo"]["status"] = $airwaybill["status"];
-            }
-        }
-
-        return $shipment;
-    }
-
-    public function getShipmentByTrackNumberAndUserID($trackNumber, $userID)
-    {
-        return $this->trackEntityRepository->getShipmentByTrackNumberAndUserID($trackNumber, $userID);
     }
 
 }

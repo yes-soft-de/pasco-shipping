@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\ContainerStatusConstant;
 use App\Entity\ContainerEntity;
 use App\Repository\ContainerEntityRepository;
 use App\Request\ContainerCreateRequest;
@@ -10,8 +11,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ContainerManager
 {
-    const NOTFULL_CONTAINER_STATUS = "notfull";
-
     private $autoMapping;
     private $entityManager;
     private $containerEntityRepository;
@@ -27,7 +26,7 @@ class ContainerManager
     {
         $containerEntity = $this->autoMapping->map(ContainerCreateRequest::class, ContainerEntity::class, $request);
 
-        $containerEntity->setStatus($this::NOTFULL_CONTAINER_STATUS);
+        $containerEntity->setStatus(ContainerStatusConstant::$NOTFULL_CONTAINER_STATUS);
 
         $this->entityManager->persist($containerEntity);
         $this->entityManager->flush();

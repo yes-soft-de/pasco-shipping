@@ -3,6 +3,8 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\ShipmentOrderStatusConstant;
+use App\Constant\TravelTypeConstant;
 use App\Entity\UserEntity;
 use App\Repository\UserEntityRepository;
 use App\Request\UserUpdateRequest;
@@ -11,12 +13,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class MainManager
 {
-    const WAITING_SHIPMENT_STATUS = "waiting";
-    const ACCEPTED_SHIPMENT_STATUS = "accepted";
-
-    const FLIGHT_TRAVEL_TYPE = "flight";
-    const CRUISE_TRAVEL_TYPE = "cruise";
-
     private $autoMapping;
     private $entityManager;
     private $userEntityRepository;
@@ -71,12 +67,12 @@ class MainManager
         $statisticsResponse = [];
 
         $statisticsResponse["orders"]["total"] = $this->shipmentOrderManager->getCountOfAllShipmentsOrders();
-        $statisticsResponse["orders"]["waitingOrders"] = $this->shipmentOrderManager->getCountOfShipmentsOrdersByStatus($this::WAITING_SHIPMENT_STATUS);
-        $statisticsResponse["orders"]["acceptedOrders"] = $this->shipmentOrderManager->getCountOfShipmentsOrdersByStatus($this::ACCEPTED_SHIPMENT_STATUS);
+        $statisticsResponse["orders"]["waitingOrders"] = $this->shipmentOrderManager->getCountOfShipmentsOrdersByStatus(ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS);
+        $statisticsResponse["orders"]["acceptedOrders"] = $this->shipmentOrderManager->getCountOfShipmentsOrdersByStatus(ShipmentOrderStatusConstant::$ACCEPTED_SHIPMENT_STATUS);
 
         $statisticsResponse["travels"]["total"] = $this->travelManager->getCountOfAllTravels();
-        $statisticsResponse["travels"]["flight"] = $this->travelManager->getCountOfTravelsByType($this::FLIGHT_TRAVEL_TYPE);
-        $statisticsResponse["travels"]["cruise"] = $this->travelManager->getCountOfTravelsByType($this::CRUISE_TRAVEL_TYPE);
+        $statisticsResponse["travels"]["flight"] = $this->travelManager->getCountOfTravelsByType(TravelTypeConstant::$FLIGHT_TRAVEL_TYPE);
+        $statisticsResponse["travels"]["cruise"] = $this->travelManager->getCountOfTravelsByType(TravelTypeConstant::$CRUISE_TRAVEL_TYPE);
 
         $statisticsResponse["users"]["customers"] = $this->userManager->getCountOfAllClientsProfiles();
         $statisticsResponse["users"]["employees"] = $this->adminManager->getCountOfAllAdmins();

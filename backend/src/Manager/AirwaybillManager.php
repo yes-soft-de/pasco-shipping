@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\AirwaybillStatusConstant;
 use App\Entity\AirwaybillEntity;
 use App\Repository\AirwaybillEntityRepository;
 use App\Request\AirwaybillCreateRequest;
@@ -11,8 +12,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class AirwaybillManager
 {
-    const NOTFULL_AIRWAYBILL_STATUS = "notfull";
-
     private $autoMapping;
     private $entityManager;
     private $airwaybillEntityRepository;
@@ -28,7 +27,7 @@ class AirwaybillManager
     {
         $airwaybillEntity = $this->autoMapping->map(AirwaybillCreateRequest::class, AirwaybillEntity::class, $request);
 
-        $airwaybillEntity->setStatus($this::NOTFULL_AIRWAYBILL_STATUS);
+        $airwaybillEntity->setStatus(AirwaybillStatusConstant::$NOTFULL_AIRWAYBILL_STATUS);
 
         $this->entityManager->persist($airwaybillEntity);
         $this->entityManager->flush();

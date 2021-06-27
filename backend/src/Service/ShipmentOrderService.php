@@ -216,4 +216,16 @@ class ShipmentOrderService
         return $ordersResponse;
     }
 
+    public function deleteShipmentOrder($request)
+    {
+        $result = $this->shipmentOrderManager->deleteShipmentOrder($request);
+
+        if($result instanceof  OrderShipmentEntity)
+        {
+            return $this->autoMapping->map(OrderShipmentEntity::class, OrderShipmentGetResponse::class, $result);
+        }
+
+        return $result;
+    }
+
 }

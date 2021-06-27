@@ -3,6 +3,8 @@
 namespace App\Service;
 
 use App\AutoMapping;
+use App\Constant\ShipmentOrderStatusConstant;
+use App\Constant\ShipmentStatusConstant;
 use App\Entity\UserEntity;
 use App\Manager\MainManager;
 use App\Request\ShipmentFilterRequest;
@@ -12,9 +14,6 @@ use App\Response\UserRegisterResponse;
 
 class MainService
 {
-    const WAITING_SHIPMENT_STATUS = "waiting";
-    const ACCEPTED_SHIPMENT_STATUS = "accepted";
-
     private $autoMapping;
     private $mainManager;
     private $shipmentOrderService;
@@ -50,12 +49,12 @@ class MainService
     public function filterShipments(ShipmentFilterRequest $request)
     {
         // if the status of the shipments is waiting, then look up in the Order Shipment table
-        if($request->getStatus() != null && $request->getStatus() == $this::WAITING_SHIPMENT_STATUS)
+        if($request->getStatus() != null && $request->getStatus() == ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS)
         {
             return $this->shipmentOrderService->filterShipments($request);
         }
         // else if the status of the shipments is accepted, then look up in the Shipment Status table
-        elseif($request->getStatus() != null && $request->getStatus() == $this::ACCEPTED_SHIPMENT_STATUS)
+        elseif($request->getStatus() != null && $request->getStatus() == ShipmentStatusConstant::$ACCEPTED_SHIPMENT_STATUS)
         {
             return $this->shipmentStatusService->filterShipments($request);
         }

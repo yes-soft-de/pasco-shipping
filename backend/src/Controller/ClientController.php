@@ -237,6 +237,23 @@ class ClientController extends BaseController
      * @Route("client/{id}", name="deleteClient", methods={"DELETE"})
      * @param Request $request
      * @return JsonResponse
+     *
+     * @OA\Tag(name="Client")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the deleted client",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="array", property="roles",
+     *                      @OA\Items(example="user")),
+     *                  @OA\Property(type="object", property="createdAt")
+     *          )
+     *      )
+     * )
+     *
      */
     public function deleteClientById(Request $request)
     {

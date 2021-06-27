@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\TravelStatusConstant;
 use App\Entity\TravelEntity;
 use App\Repository\TravelEntityRepository;
 use App\Request\TravelCreateRequest;
@@ -11,8 +12,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class TravelManager
 {
-    const CURRENT_TRAVEL_STATUS = "current";
-
     private $autoMapping;
     private $entityManager;
     private $travelEntityRepository;
@@ -30,7 +29,7 @@ class TravelManager
 
         $travelEntity->setLaunchDate($travelEntity->getLaunchDate());
         $travelEntity->setArrivalDate($travelEntity->getArrivalDate());
-        $travelEntity->setStatus($this::CURRENT_TRAVEL_STATUS);
+        $travelEntity->setStatus(TravelStatusConstant::$CURRENT_TRAVEL_STATUS);
         
         $this->entityManager->persist($travelEntity);
         $this->entityManager->flush();

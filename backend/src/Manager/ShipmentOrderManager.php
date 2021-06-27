@@ -3,8 +3,11 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\ShipmentOrderStatusConstant;
+use App\Constant\ShipmentStatusConstant;
 use App\Entity\OrderShipmentEntity;
 use App\Repository\OrderShipmentEntityRepository;
+use App\Request\DeleteRequest;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
@@ -16,11 +19,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ShipmentOrderManager
 {
-    const WAITING_SHIPMENT_STATUS = "waiting";
-    const ACCEPTED_SHIPMENT_STATUS = "accepted";
-    const REFUSED_SHIPMENT_STATUS = "refused";
-    const MEASURED_SHIPMENT_STATUS = "measured";
-
     private $autoMapping;
     private $entityManager;
     private $orderShipmentEntityRepository;
@@ -39,7 +37,7 @@ class ShipmentOrderManager
     {
         $orderShipmentEntity = $this->autoMapping->map(OrderShipmentCreateRequest::class, OrderShipmentEntity::class, $request);
 
-        $orderShipmentEntity->setStatus($this::WAITING_SHIPMENT_STATUS);
+        $orderShipmentEntity->setStatus(ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS);
 
         $this->entityManager->persist($orderShipmentEntity);
         $this->entityManager->flush();
@@ -50,7 +48,7 @@ class ShipmentOrderManager
 
     public function getWaitingShipmentsOrders()
     {
-        return $this->orderShipmentEntityRepository->getShipmentsOrdersByStatus($this::WAITING_SHIPMENT_STATUS);
+        return $this->orderShipmentEntityRepository->getShipmentsOrdersByStatus(ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS);
     }
 
     public function updateShipmentOrderStatus(ShipmentOrderStatusUpdateRequest $request)
@@ -75,14 +73,14 @@ class ShipmentOrderManager
              * if it is 'accepted' then we have to insert a new row with the shipmentID in the ShipmentStatusEntity
              * otherwise, we just continue without inserting a new row in the ShipmentStatusEntity
              */
-            if($request->getStatus() == $this::ACCEPTED_SHIPMENT_STATUS)
+            if($request->getStatus() == ShipmentOrderStatusConstant::$ACCEPTED_SHIPMENT_STATUS)
             {
                 $shipmentStatusRequest = new ShipmentStatusCreateRequest();
 
                 $shipmentStatusRequest->setShipmentID($request->getId());
                 $shipmentStatusRequest->setCreatedBy($request->getUpdatedBy());
 
-                $shipmentStatusResult = $this->shipmentStatusManager->create($shipmentStatusRequest);
+                $this->shipmentStatusManager->create($shipmentStatusRequest);
             }
             
             return $shipmentOrderEntity;
@@ -109,7 +107,7 @@ class ShipmentOrderManager
              * Shipment order update occurs when shipment is measured and pocketed,
              * as a result, we have to update the shipmentStatus in Shipment Status Entity
              */
-            if($request->getShipmentStatus() == $this::MEASURED_SHIPMENT_STATUS)
+            if($request->getShipmentStatus() == ShipmentStatusConstant::$MEASURED_SHIPMENT_STATUS)
             {
                 $shipmentStatusRequest = $this->autoMapping->map(OrderShipmentUpdateRequest::class, ShipmentStatusUpdateRequest::class, $request);
                 
@@ -187,6 +185,33 @@ class ShipmentOrderManager
     public function getShipmentOrderByMarkID($markID)
     {
         return $this->orderShipmentEntityRepository->getShipmentOrderByMarkID($markID);
+    }
+
+    public function deleteShipmentOrder(DeleteRequest $request)
+    {
+        $item = $this->orderShipmentEntityRepository->find($request->getId());
+
+        if(!$item)
+        {
+            return $item;
+        }
+        else
+        {
+            // First, check if it is still waiting and does not have other records in other tables
+            $result = $this->shipmentStatusManager->getShipmentByShipmentID($item->getId());
+
+            if(!$result)
+            {
+                $this->entityManager->remove($item);
+                $this->entityManager->flush();
+
+                return $item;
+            }
+            else
+            {
+                return "The order is being entered the shipping procedure";
+            }
+        }
     }
     
 }

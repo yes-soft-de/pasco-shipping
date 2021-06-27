@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\ShipmentStatusConstant;
 use App\Entity\ShipmentStatusEntity;
 use App\Repository\ShipmentStatusEntityRepository;
 use App\Request\ShipmentFilterRequest;
@@ -13,21 +14,22 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ShipmentStatusManager
 {
-    const ACCEPTED_SHIPMENT_STATUS = "accepted";
-    const UNDEFINED_SHIPMENT_STATUS = "undefined";
-
     private $autoMapping;
     private $entityManager;
     private $shipmentLogManager;
+    private $containerManager;
+    private $airwaybillManager;
     private $shipmentStatusEntityRepository;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ShipmentStatusEntityRepository $shipmentStatusEntityRepository,
-     ShipmentLogManager $shipmentLogManager)
+     ShipmentLogManager $shipmentLogManager, ContainerManager $containerManager, AirwaybillManager $airwaybillManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->shipmentLogManager = $shipmentLogManager;
         $this->shipmentStatusEntityRepository = $shipmentStatusEntityRepository;
+        $this->containerManager = $containerManager;
+        $this->airwaybillManager = $airwaybillManager;
     }
 
     // Create newly accepted shipment raw in ShipmentStatusEntity
@@ -36,7 +38,7 @@ class ShipmentStatusManager
         $shipmentStatusEntity = $this->autoMapping->map(ShipmentStatusCreateRequest::class, ShipmentStatusEntity::class, $request);
         
         $shipmentStatusEntity->setTrackNumber($this->getRandomCode());
-        $shipmentStatusEntity->setShipmentStatus($this::ACCEPTED_SHIPMENT_STATUS);
+        $shipmentStatusEntity->setShipmentStatus(ShipmentStatusConstant::$ACCEPTED_SHIPMENT_STATUS);
         
         $this->entityManager->persist($shipmentStatusEntity);
         $this->entityManager->flush();
@@ -95,11 +97,11 @@ class ShipmentStatusManager
 
     public function getShipmentsByStatusAndUserID($status, $userID)
     {
-        if($status != null && $status != $this::UNDEFINED_SHIPMENT_STATUS)
+        if($status != null && $status != ShipmentStatusConstant::$UNDEFINED_SHIPMENT_STATUS)
         {
             return $this->shipmentStatusEntityRepository->getShipmentsByStatusAndUserID($status, $userID);
         }
-        elseif ($status == $this::UNDEFINED_SHIPMENT_STATUS)
+        elseif ($status ==  ShipmentStatusConstant::$UNDEFINED_SHIPMENT_STATUS)
         {
             return $this->shipmentStatusEntityRepository->getShipmentsByUserID($userID);
         }
@@ -108,6 +110,16 @@ class ShipmentStatusManager
     public function getAllShipments()
     {
         return $this->shipmentStatusEntityRepository->getAllShipments();
+    }
+
+    public function getShipmentByTrackNumberAndUserID($trackNumber, $userID)
+    {
+        return $this->shipmentStatusEntityRepository->getShipmentByTrackNumberAndUserID($trackNumber, $userID);
+    }
+
+    public function getShipmentByTrackNumber($trackNumber)
+    {
+        return $this->shipmentStatusEntityRepository->getShipmentByTrackNumber($trackNumber);
     }
 
     public function filterShipments(ShipmentFilterRequest $request)
@@ -130,6 +142,21 @@ class ShipmentStatusManager
         {
             return $this->shipmentStatusEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndCreationDate($status, $paymentTime, $transportationType, $createdAt);
         }
+    }
+
+    public function getContainerById($id)
+    {
+        return $this->containerManager->getContainerById($id);
+    }
+
+    public function getAirwaybillById($id)
+    {
+        return $this->airwaybillManager->getAirwaybillById($id);
+    }
+
+    public function getShipmentByShipmentID($shipmentID)
+    {
+        return $this->shipmentStatusEntityRepository->findBy(["shipmentID"=>$shipmentID]);
     }
 
     public function getRandomCode()
