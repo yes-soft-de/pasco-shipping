@@ -38,6 +38,13 @@ class CountryService
 
         foreach ($countries as $country)
         {
+            $warehouses = $this->countryManager->getWarehousesByCountryID($country['id']);
+
+            if($warehouses)
+            {
+                $country['warehouses'] = $warehouses;
+            }
+
             if($country['createdByUserImage'])
             {
                 $country['createdByUserImage'] = $this->params . $country['createdByUserImage'];

@@ -58,6 +58,11 @@ class WarehouseManager
         return $this->warehouseEntityRepository->getAllWarehouses();
     }
 
+    public function getWarehousesByCountryID($countryID)
+    {
+        return $this->warehouseEntityRepository->getWarehousesByCountryID($countryID);
+    }
+
     public function deleteWarehouseById(DeleteRequest $request)
     {
         $item = $this->warehouseEntityRepository->find($request->getId());

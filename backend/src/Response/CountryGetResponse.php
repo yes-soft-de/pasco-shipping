@@ -10,6 +10,8 @@ class CountryGetResponse
 
     public $createdAt;
 
+    public $warehouses;
+
     public $updatedAt;
 
     public $createdByUser;

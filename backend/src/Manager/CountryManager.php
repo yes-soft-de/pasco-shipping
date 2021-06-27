@@ -14,12 +14,15 @@ class CountryManager
     private $autoMapping;
     private $entityManager;
     private $countryEntityRepository;
+    private $warehouseManager;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, CountryEntityRepository $countryEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, CountryEntityRepository $countryEntityRepository,
+     WarehouseManager $warehouseManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->countryEntityRepository = $countryEntityRepository;
+        $this->warehouseManager = $warehouseManager;
     }
 
     public function create(CountryCreateRequest $request)
@@ -36,6 +39,11 @@ class CountryManager
     public function getAllCountries()
     {
         return $this->countryEntityRepository->getAllCountries();
+    }
+
+    public function getWarehousesByCountryID($countryID)
+    {
+        return $this->warehouseManager->getWarehousesByCountryID($countryID);
     }
 
     public function deleteCountryById(DeleteRequest $request)
