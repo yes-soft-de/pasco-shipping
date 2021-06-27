@@ -272,16 +272,6 @@ class ShipmentStatusService
                 }
             }
 
-            if($shipment['image'])
-            {
-                $shipment['image'] = $this->params . $shipment['image'];
-            }
-
-            if($shipment['clientUserImage'])
-            {
-                $shipment['clientUserImage'] = $this->params . $shipment['clientUserImage'];
-            }
-
             $shipmentResponse[] = $this->autoMapping->map('array', ShipmentByTrackNumberAndSignedInUserGetResponse::class, $shipment);
         }
 
