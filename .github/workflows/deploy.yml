@@ -4,8 +4,10 @@ on:
     branches: [ dev-backend ]
   pull_request:
     branches: [ dev-backend ]
+    types: [closed]
 jobs:
   deploy:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Deploy backend app
@@ -20,6 +22,7 @@ jobs:
             cd ..
             cd var/www/pasco 
             git pull https://github.com/yes-soft-de/pasco-shipping dev-backend
+            cd backend
             docker-compose run --rm php74-service php bin/console make:migration
             docker-compose run --rm php74-service php bin/console doctrine:migrations:migrate
   # container:
