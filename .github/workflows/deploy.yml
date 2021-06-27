@@ -18,6 +18,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }} # User of the server you want to ssh into
      
           script: |
+            echo let us start work!
             cd ..
             cd ..
             cd var/www/pasco 
@@ -25,6 +26,7 @@ jobs:
             cd backend
             docker-compose run --rm php74-service php bin/console make:migration
             docker-compose run --rm php74-service php bin/console doctrine:migrations:migrate
+            echo every thing done like rocket!
   # container:
   #   runs-on: ubuntu-latest
   #   container:
