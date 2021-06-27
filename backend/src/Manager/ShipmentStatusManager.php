@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\ShipmentStatusConstant;
 use App\Entity\ShipmentStatusEntity;
 use App\Repository\ShipmentStatusEntityRepository;
 use App\Request\ShipmentFilterRequest;
@@ -13,12 +14,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ShipmentStatusManager
 {
-//    const CONTAINER_HOLDER_TYPE = "container";
-//    const AIRWAYBILL_HOLDER_TYPE = "airwaybill";
-
-    const ACCEPTED_SHIPMENT_STATUS = "accepted";
-    const UNDEFINED_SHIPMENT_STATUS = "undefined";
-
     private $autoMapping;
     private $entityManager;
     private $shipmentLogManager;
@@ -43,7 +38,7 @@ class ShipmentStatusManager
         $shipmentStatusEntity = $this->autoMapping->map(ShipmentStatusCreateRequest::class, ShipmentStatusEntity::class, $request);
         
         $shipmentStatusEntity->setTrackNumber($this->getRandomCode());
-        $shipmentStatusEntity->setShipmentStatus($this::ACCEPTED_SHIPMENT_STATUS);
+        $shipmentStatusEntity->setShipmentStatus(ShipmentStatusConstant::$ACCEPTED_SHIPMENT_STATUS);
         
         $this->entityManager->persist($shipmentStatusEntity);
         $this->entityManager->flush();
@@ -102,11 +97,11 @@ class ShipmentStatusManager
 
     public function getShipmentsByStatusAndUserID($status, $userID)
     {
-        if($status != null && $status != $this::UNDEFINED_SHIPMENT_STATUS)
+        if($status != null && $status != ShipmentStatusConstant::$UNDEFINED_SHIPMENT_STATUS)
         {
             return $this->shipmentStatusEntityRepository->getShipmentsByStatusAndUserID($status, $userID);
         }
-        elseif ($status == $this::UNDEFINED_SHIPMENT_STATUS)
+        elseif ($status ==  ShipmentStatusConstant::$UNDEFINED_SHIPMENT_STATUS)
         {
             return $this->shipmentStatusEntityRepository->getShipmentsByUserID($userID);
         }
@@ -156,7 +151,7 @@ class ShipmentStatusManager
 
     public function getAirwaybillById($id)
     {
-        return $this->containerManager->getAirwaybillById($id);
+        return $this->airwaybillManager->getAirwaybillById($id);
     }
 
     public function getShipmentByShipmentID($shipmentID)

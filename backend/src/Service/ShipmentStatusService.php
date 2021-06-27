@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\AutoMapping;
+use App\Constant\HolderTypeConstant;
 use App\Entity\ShipmentStatusEntity;
 use App\Manager\ShipmentStatusManager;
 use App\Request\ShipmentStatusCreateRequest;
@@ -16,9 +17,6 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ShipmentStatusService
 {
-    const CONTAINER_HOLDER_TYPE = "container";
-    const AIRWAYBILL_HOLDER_TYPE = "airwaybill";
-
     private $autoMapping;
     private $shipmentStatusManager;
     private $trackService;
@@ -249,7 +247,7 @@ class ShipmentStatusService
         {
             if($shipment["holderType"] != null)
             {
-                if($shipment["holderType"] == $this::CONTAINER_HOLDER_TYPE)
+                if($shipment["holderType"] == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
                 {
                     // Get container info
                     $container = $this->shipmentStatusManager->getContainerById($shipment["holderID"]);
@@ -261,7 +259,7 @@ class ShipmentStatusService
                     }
                 }
 
-                if($shipment["holderType"] == $this::AIRWAYBILL_HOLDER_TYPE)
+                if($shipment["holderType"] == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
                 {
                     // Get airwaybill info
                     $airwaybill = $this->shipmentStatusManager->getAirwaybillById($shipment["holderID"]);
@@ -300,7 +298,7 @@ class ShipmentStatusService
         {
             if($shipment["holderType"] != null)
             {
-                if($shipment["holderType"] == $this::CONTAINER_HOLDER_TYPE)
+                if($shipment["holderType"] == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
                 {
                     // Get container info
                     $container = $this->shipmentStatusManager->getContainerById($shipment["holderID"]);
@@ -312,7 +310,7 @@ class ShipmentStatusService
                     }
                 }
 
-                if($shipment["holderType"] == $this::AIRWAYBILL_HOLDER_TYPE)
+                if($shipment["holderType"] == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
                 {
                     // Get airwaybill info
                     $airwaybill = $this->shipmentStatusManager->getAirwaybillById($shipment["holderID"]);
