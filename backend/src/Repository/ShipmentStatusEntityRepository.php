@@ -637,14 +637,9 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('shipmentStatus')
             ->select("shipmentStatus.id", "shipmentStatus.shipmentID", "shipmentStatus.shipmentStatus", "shipmentStatus.statusDetails", "shipmentStatus.trackNumber", "shipmentStatus.isInOneHolder", "shipmentStatus.packed",
-                "shipmentStatus.createdAt", "shipmentStatus.updatedAt", "shipmentStatus.createdBy", "shipmentStatus.updatedBy", "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierName",
-                "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt as orderCreationDate",
-                "shipmentOrder.updatedAt as orderUpdatingDate", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy",
-                "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification",
-                "shipmentOrder.status", "track.id", "track.shipmentID", "track.trackNumber", "track.travelID", "track.holderType", "track.holderID", "track.createdAt", "track.updatedAt", "track.createdBy", "track.updatedBy",
-                "adminProfile4.userName as trackCreatedByUser", "adminProfile5.userName as trackUpdatedByUser", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser",
-                "adminProfile1.userName as shipmentStatusCreatedBy", "adminProfile2.userName as shipmentStatusUpdatedBy", "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName",
-                "productCategory.name as productCategoryName")
+                "shipmentOrder.clientUserID", "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.createdAt as orderCreationDate",
+                "shipmentOrder.updatedAt as orderUpdatingDate", "shipmentOrder.productCategoryID", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity",
+                "track.shipmentID", "track.trackNumber", "track.travelID", "track.holderType", "track.holderID", "distributor.fullName as distributorName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName")
 
             ->andWhere('shipmentStatus.trackNumber = :trackNumber')
             ->setParameter('trackNumber', $trackNumber)
@@ -664,48 +659,6 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 'track',
                 Join::WITH,
                 'track.shipmentID = shipmentStatus.shipmentID AND track.trackNumber = shipmentStatus.trackNumber'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile1',
-                Join::WITH,
-                'adminProfile1.userID = shipmentStatus.createdBy'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile2',
-                Join::WITH,
-                'adminProfile2.userID = shipmentStatus.updatedBy'
-            )
-
-            ->leftJoin(
-                ClientProfileEntity::class,
-                'clientProfile',
-                Join::WITH,
-                'clientProfile.userID = shipmentOrder.clientUserID'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile3',
-                Join::WITH,
-                'adminProfile3.userID = shipmentOrder.updatedBy'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile4',
-                Join::WITH,
-                'adminProfile4.userID = track.createdBy'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile5',
-                Join::WITH,
-                'adminProfile5.userID = track.updatedBy'
             )
 
             ->leftJoin(
