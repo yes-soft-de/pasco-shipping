@@ -52,7 +52,7 @@ class ShipmentOrderController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="transportationType"),
      *          @OA\Property(type="string", property="target"),
-     *          @OA\Property(type="integer", property="supplierID"),
+     *          @OA\Property(type="string", property="supplierName"),
      *          @OA\Property(type="integer", property="distributorID"),
      *          @OA\Property(type="string", property="exportWarehouseID"),
      *          @OA\Property(type="string", property="quantity"),

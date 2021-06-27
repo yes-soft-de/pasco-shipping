@@ -294,7 +294,7 @@ class ShipmentStatusController extends BaseController
     }
 
     /**
-     * @Route("myshipments", name="getShipmentsBySignedInUser", methods={"GET"})
+     * @Route("myshipments/{status}", name="getShipmentsBySignedInUser", methods={"GET"})
      * @return JsonResponse
      *
      * @OA\Tag(name="Shipment Status")
@@ -303,6 +303,13 @@ class ShipmentStatusController extends BaseController
      *      name="token",
      *      in="header",
      *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\Parameter(
+     *      name="status",
+     *      in="path",
+     *      description="the status of the accepted shipments",
      *      required=true
      * )
      *
@@ -356,9 +363,9 @@ class ShipmentStatusController extends BaseController
      *
      * @Security(name="Bearer")
      */
-    public function getMyShipments()
+    public function getMyShipments($status)
     {
-        $result = $this->shipmentStatusService->getAcceptedShipmentsByUserID($this->getUserId());
+        $result = $this->shipmentStatusService->getShipmentsByStatusAndUserID($status, $this->getUserId());
 
         return $this->response($result, self::FETCH);
     }
