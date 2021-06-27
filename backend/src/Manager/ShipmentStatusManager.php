@@ -13,21 +13,28 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ShipmentStatusManager
 {
+//    const CONTAINER_HOLDER_TYPE = "container";
+//    const AIRWAYBILL_HOLDER_TYPE = "airwaybill";
+
     const ACCEPTED_SHIPMENT_STATUS = "accepted";
     const UNDEFINED_SHIPMENT_STATUS = "undefined";
 
     private $autoMapping;
     private $entityManager;
     private $shipmentLogManager;
+    private $containerManager;
+    private $airwaybillManager;
     private $shipmentStatusEntityRepository;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ShipmentStatusEntityRepository $shipmentStatusEntityRepository,
-     ShipmentLogManager $shipmentLogManager)
+     ShipmentLogManager $shipmentLogManager, ContainerManager $containerManager, AirwaybillManager $airwaybillManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->shipmentLogManager = $shipmentLogManager;
         $this->shipmentStatusEntityRepository = $shipmentStatusEntityRepository;
+        $this->containerManager = $containerManager;
+        $this->airwaybillManager = $airwaybillManager;
     }
 
     // Create newly accepted shipment raw in ShipmentStatusEntity
@@ -110,6 +117,16 @@ class ShipmentStatusManager
         return $this->shipmentStatusEntityRepository->getAllShipments();
     }
 
+    public function getShipmentByTrackNumberAndUserID($trackNumber, $userID)
+    {
+        return $this->shipmentStatusEntityRepository->getShipmentByTrackNumberAndUserID($trackNumber, $userID);
+    }
+
+    public function getShipmentByTrackNumber($trackNumber)
+    {
+        return $this->shipmentStatusEntityRepository->getShipmentByTrackNumber($trackNumber);
+    }
+
     public function filterShipments(ShipmentFilterRequest $request)
     {
         $status = $request->getStatus();
@@ -130,6 +147,16 @@ class ShipmentStatusManager
         {
             return $this->shipmentStatusEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndCreationDate($status, $paymentTime, $transportationType, $createdAt);
         }
+    }
+
+    public function getContainerById($id)
+    {
+        return $this->containerManager->getContainerById($id);
+    }
+
+    public function getAirwaybillById($id)
+    {
+        return $this->containerManager->getAirwaybillById($id);
     }
 
     public function getRandomCode()

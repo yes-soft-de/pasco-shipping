@@ -8,12 +8,17 @@ use App\Manager\ShipmentStatusManager;
 use App\Request\ShipmentStatusCreateRequest;
 use App\Request\ShipmentStatusUpdateRequest;
 use App\Request\TrackCreateRequest;
+use App\Response\ShipmentByTrackNumberAndSignedInUserGetResponse;
+use App\Response\ShipmentByTrackNumberGetResponse;
 use App\Response\ShipmentStatusByUserGetResponse;
 use App\Response\ShipmentStatusGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ShipmentStatusService
 {
+    const CONTAINER_HOLDER_TYPE = "container";
+    const AIRWAYBILL_HOLDER_TYPE = "airwaybill";
+
     private $autoMapping;
     private $shipmentStatusManager;
     private $trackService;
@@ -232,6 +237,133 @@ class ShipmentStatusService
         }
 
         return $shipmentsResponse;
+    }
+
+    public function getShipmentByTrackNumberAndUserID($trackNumber, $userID)
+    {
+        $shipmentResponse = [];
+
+        $shipments = $this->shipmentStatusManager->getShipmentByTrackNumberAndUserID($trackNumber, $userID);
+
+        foreach($shipments as $shipment)
+        {
+            if($shipment["holderType"] != null)
+            {
+                if($shipment["holderType"] == $this::CONTAINER_HOLDER_TYPE)
+                {
+                    // Get container info
+                    $container = $this->shipmentStatusManager->getContainerById($shipment["holderID"]);
+
+                    if ($container)
+                    {
+                        $shipment["holderInfo"]["IdentificationNumber"] = $container["containerNumber"];
+                        $shipment["holderInfo"]["status"] = $container["status"];
+                    }
+                }
+
+                if($shipment["holderType"] == $this::AIRWAYBILL_HOLDER_TYPE)
+                {
+                    // Get airwaybill info
+                    $airwaybill = $this->shipmentStatusManager->getAirwaybillById($shipment["holderID"]);
+
+                    if ($airwaybill)
+                    {
+                        $shipment["holderInfo"]["IdentificationNumber"] = $airwaybill["containerNumber"];
+                        $shipment["holderInfo"]["status"] = $airwaybill["status"];
+                    }
+                }
+            }
+
+            if($shipment['image'])
+            {
+                $shipment['image'] = $this->params . $shipment['image'];
+            }
+
+            if($shipment['clientUserImage'])
+            {
+                $shipment['clientUserImage'] = $this->params . $shipment['clientUserImage'];
+            }
+
+            $shipmentResponse[] = $this->autoMapping->map('array', ShipmentByTrackNumberAndSignedInUserGetResponse::class, $shipment);
+        }
+
+        return $shipmentResponse;
+    }
+
+    public function getShipmentByTrackNumber($trackNumber)
+    {
+        $shipmentResponse = [];
+
+        $shipments = $this->shipmentStatusManager->getShipmentByTrackNumber($trackNumber);
+
+        foreach($shipments as $shipment)
+        {
+            if($shipment["holderType"] != null)
+            {
+                if($shipment["holderType"] == $this::CONTAINER_HOLDER_TYPE)
+                {
+                    // Get container info
+                    $container = $this->shipmentStatusManager->getContainerById($shipment["holderID"]);
+
+                    if ($container)
+                    {
+                        $shipment["holderInfo"]["IdentificationNumber"] = $container["containerNumber"];
+                        $shipment["holderInfo"]["status"] = $container["status"];
+                    }
+                }
+
+                if($shipment["holderType"] == $this::AIRWAYBILL_HOLDER_TYPE)
+                {
+                    // Get airwaybill info
+                    $airwaybill = $this->shipmentStatusManager->getAirwaybillById($shipment["holderID"]);
+
+                    if ($airwaybill)
+                    {
+                        $shipment["holderInfo"]["IdentificationNumber"] = $airwaybill["containerNumber"];
+                        $shipment["holderInfo"]["status"] = $airwaybill["status"];
+                    }
+                }
+            }
+
+            if($shipment['image'])
+            {
+                $shipment['image'] = $this->params . $shipment['image'];
+            }
+
+            if($shipment['clientUserImage'])
+            {
+                $shipment['clientUserImage'] = $this->params . $shipment['clientUserImage'];
+            }
+
+            if ($shipment['trackCreatedByUserImage'])
+            {
+                $shipment['trackCreatedByUserImage'] = $this->params . $shipment['trackCreatedByUserImage'];
+            }
+
+            if ($shipment['trackUpdatedByUserImage'])
+            {
+                $shipment['trackUpdatedByUserImage'] = $this->params . $shipment['trackUpdatedByUserImage'];
+            }
+
+            if ($shipment['orderUpdatedByUserImage'])
+            {
+                $shipment['orderUpdatedByUserImage'] = $this->params . $shipment['orderUpdatedByUserImage'];
+            }
+
+            if($shipment['shipmentStatusCreatedByUserImage'])
+            {
+                $shipment['shipmentStatusCreatedByUserImage'] = $this->params . $shipment['shipmentStatusCreatedByUserImage'];
+            }
+
+            if($shipment['shipmentStatusUpdatedByUserImage'])
+            {
+                $shipment['shipmentStatusUpdatedByUserImage'] = $this->params . $shipment['shipmentStatusUpdatedByUserImage'];
+            }
+
+            $shipmentResponse[] = $this->autoMapping->map('array', ShipmentByTrackNumberGetResponse::class, $shipment);
+        }
+
+        return $shipmentResponse;
     }
 
 }

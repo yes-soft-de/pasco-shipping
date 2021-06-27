@@ -14,6 +14,8 @@ class ShipmentByTrackNumberAndSignedInUserGetResponse
 
     public $holderType;
 
+    public $holderInfo;
+
     public $holderID;
 
     public $createdAt;
@@ -32,11 +34,13 @@ class ShipmentByTrackNumberAndSignedInUserGetResponse
 
     public $supplierID;
 
+    public $supplierName;
+
     public $distributorName;
 
-    public $exportWarehouseCity;
+    public $exportWarehouseName;
 
-    public $importWarehouseCity;
+    public $importWarehouseName;
 
     public $quantity;
 
