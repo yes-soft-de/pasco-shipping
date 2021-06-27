@@ -159,6 +159,11 @@ class ShipmentStatusManager
         return $this->containerManager->getAirwaybillById($id);
     }
 
+    public function getShipmentByShipmentID($shipmentID)
+    {
+        return $this->shipmentStatusEntityRepository->findBy(["shipmentID"=>$shipmentID]);
+    }
+
     public function getRandomCode()
     {
         // Get 5-digits random number

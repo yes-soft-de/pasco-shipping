@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Entity\OrderShipmentEntity;
 use App\Repository\OrderShipmentEntityRepository;
+use App\Request\DeleteRequest;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
@@ -187,6 +188,33 @@ class ShipmentOrderManager
     public function getShipmentOrderByMarkID($markID)
     {
         return $this->orderShipmentEntityRepository->getShipmentOrderByMarkID($markID);
+    }
+
+    public function deleteShipmentOrder(DeleteRequest $request)
+    {
+        $item = $this->orderShipmentEntityRepository->find($request->getId());
+
+        if(!$item)
+        {
+            return $item;
+        }
+        else
+        {
+            // First, check if it is still waiting and does not have other records in other tables
+            $result = $this->shipmentStatusManager->getShipmentByShipmentID($item->getId());
+
+            if(!$result)
+            {
+                $this->entityManager->remove($item);
+                $this->entityManager->flush();
+
+                return $item;
+            }
+            else
+            {
+                return "The order is being entered the shipping procedure";
+            }
+        }
     }
     
 }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\DeleteRequest;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
@@ -608,7 +609,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
-     *                  @OA\Property(type="string", property="orderUpdatedByUserImage"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUserImage")
      *              )
      *          )
      *      )
@@ -620,6 +621,63 @@ class ShipmentOrderController extends BaseController
         $result = $this->shipmentOrderService->getShipmentOrderById($id);
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("shipmentorder/{id}", name="deleteShipmnetOrder", methods={"DELETE"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Shipment Order")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the deleted Shipment Order",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="transportationType"),
+     *                  @OA\Property(type="string", property="target"),
+     *                  @OA\Property(type="integer", property="supplierName"),
+     *                  @OA\Property(type="integer", property="distributorID"),
+     *                  @OA\Property(type="string", property="exportWarehouseCity"),
+     *                  @OA\Property(type="string", property="importWarehouseCity"),
+     *                  @OA\Property(type="string", property="quantity"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="string", property="unit"),
+     *                  @OA\Property(type="string", property="receiverName"),
+     *                  @OA\Property(type="string", property="receiverPhoneNumber"),
+     *                  @OA\Property(type="string", property="packetingBy"),
+     *                  @OA\Property(type="integer", property="markID"),
+     *                  @OA\Property(type="string", property="paymentTime"),
+     *                  @OA\Property(type="number", format="float", property="weight"),
+     *                  @OA\Property(type="string", property="qrCode"),
+     *                  @OA\Property(type="string", property="guniQuantity"),
+     *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
+     *                  @OA\Property(type="string", property="extraSpecification"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="clientUsername"),
+     *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUser"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUserImage")
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function deleteShipmentOrder(Request $request)
+    {
+        $request = new DeleteRequest($request->get('id'));
+
+        $result = $this->shipmentOrderService->deleteShipmentOrder($request);
+
+        return $this->response($result, self::DELETE);
     }
 
 }
