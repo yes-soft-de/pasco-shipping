@@ -53,6 +53,16 @@ class AdminController extends BaseController
     }
 
     /**
+     * @Route("adminprofile", name="getAdminProfileByUserID", methods={"GET"})
+     */
+    public function getProfileByUserID()
+    {
+        $response = $this->adminService->getProfileByUserID($this->getUserId());
+
+        return $this->response($response,self::FETCH);
+    }
+
+    /**
      * @Route("employees", name="getAllEmployees", methods={"GET"})
      * @return JsonResponse
      */

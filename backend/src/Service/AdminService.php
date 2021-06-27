@@ -81,6 +81,18 @@ class AdminService implements AdminServiceInterface
         return $adminsResponse;
     }
 
+    public function getProfileByUserID($userID)
+    {
+        $item = $this->adminManager->getProfileByUserID($userID);
+
+        if($item['image'])
+        {
+            $item['image'] = $this->params . $item['image'];
+        }
+
+        return $this->autoMapping->map('array', AdminGetResponse::class, $item);
+    }
+
     public function deleteAdminById($request)
     {
         $result = $this->adminManager->deleteAdminById($request);
