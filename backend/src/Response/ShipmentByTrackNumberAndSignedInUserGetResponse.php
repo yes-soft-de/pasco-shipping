@@ -4,8 +4,6 @@ namespace App\Response;
 
 class ShipmentByTrackNumberAndSignedInUserGetResponse
 {
-    public $trackNumber;
-
     public $holderType;
 
     public $holderInfo;
