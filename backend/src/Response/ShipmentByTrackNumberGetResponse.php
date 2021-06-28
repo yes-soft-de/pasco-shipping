@@ -36,9 +36,9 @@ class ShipmentByTrackNumberGetResponse
 
     public $distributorName;
 
-    public $exportWarehouseCity;
+    public $exportWarehouseName;
 
-    public $importWarehouseCity;
+    public $importWarehouseName;
 
     public $quantity;
 

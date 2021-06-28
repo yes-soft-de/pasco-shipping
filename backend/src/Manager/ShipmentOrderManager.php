@@ -140,7 +140,7 @@ class ShipmentOrderManager
 
     public function getWaitingShipmentsOrdersByTransportationType($transportationType)
     {
-          return $this->orderShipmentEntityRepository->getShipmentsOrdersByTransportationTypeAndStatus($transportationType, $this::WAITING_SHIPMENT_STATUS);
+          return $this->orderShipmentEntityRepository->getShipmentsOrdersByTransportationTypeAndStatus($transportationType, ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS);
     }
 
     public function getWaitingShipmentsOrderByUserID($userID)
