@@ -1,3 +1,4 @@
 class ChatRoutes {
-  static const chatRoute = '/chat';
+  static const chatsListRoute = '/chats_list';
+  static const chatRoute = '/chats';
 }
