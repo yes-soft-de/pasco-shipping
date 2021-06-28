@@ -1,4 +1,4 @@
-package de.yes_soft.c4d
+package de.yes_soft.pasco
 
 import io.flutter.embedding.android.FlutterActivity
 
