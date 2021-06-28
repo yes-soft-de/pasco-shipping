@@ -34,26 +34,26 @@ class FireNotificationService {
       badge: true,
       sound: true,
     );
-    var isActive = await _prefsHelper.getIsActive();
-    await refreshNotificationToken();
-    await setCaptainActive(isActive == true);
+    // var isActive = await _prefsHelper.getIsActive();
+    // await refreshNotificationToken();
+    // await setCaptainActive(isActive == true);
 
   }
 
-  Future<void> refreshNotificationToken() async {
-    var token = await _fcm.getToken();
-    if (token != null) {
-      // And Subscribe to the changes
-      try {
-        _notificationRepo.postToken(token);
-      } catch (e) {}
-      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-        Logger().info('FireNotificationService', 'onMessage: $message');
-        _onNotificationRecieved.add(message);
-      });
-      FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-    }
-  }
+  // Future<void> refreshNotificationToken() async {
+  //   var token = await _fcm.getToken();
+  //   if (token != null) {
+  //     // And Subscribe to the changes
+  //     try {
+  //       _notificationRepo.postToken(token);
+  //     } catch (e) {}
+  //     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //       Logger().info('FireNotificationService', 'onMessage: $message');
+  //       _onNotificationRecieved.add(message);
+  //     });
+  //     // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  //   }
+  // }
 
   Future<void> setCaptainActive(bool active) async {
     await _prefsHelper.setIsActive(active);
