@@ -22,11 +22,11 @@ class RegisterStateSuccess extends RegisterState {
           onPressed: () {
             screen.moveToNext();
           },
-          child: Text(
-            S.of(context).registerSuccessSetupMyProfile,
-            style: TextStyle(
-              color: Colors.white,
-            ),
+          child: Text(""
+            // S.of(context).registerSuccessSetupMyProfile,
+            // style: TextStyle(
+            //   color: Colors.white,
+            // ),
           ),
         ),
       ],

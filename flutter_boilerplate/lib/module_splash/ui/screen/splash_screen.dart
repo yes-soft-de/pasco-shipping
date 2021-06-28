@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
     @override
     _SplashScreenState createState() => _SplashScreenState();
   }
-  
+
   class _SplashScreenState extends State<SplashScreen> {
     @override
   void initState() {
@@ -32,7 +32,7 @@ import 'package:flutter/material.dart';
       ),
     );
     }
-    
+
   Future<String> _getNextRoute() async {
     try {
       //var isInited = await _aboutService.isInited();

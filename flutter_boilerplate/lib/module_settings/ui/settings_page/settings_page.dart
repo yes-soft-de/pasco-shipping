@@ -33,7 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          S.of(context).settings,
+          S.of(context).setting,
           style: TextStyle(
             color: Theme.of(context).brightness == Brightness.dark
                 ? Colors.white
@@ -134,7 +134,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           direction: Axis.horizontal,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(S.of(context).signOut),
+                            Text(S.of(context).logout),
                             IconButton(
                                 icon: Icon(Icons.logout),
                                 onPressed: () {
@@ -152,7 +152,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           direction: Axis.horizontal,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(S.of(context).login),
+                            Text(S.of(context).signIn),
                             IconButton(
                                 icon: Icon(Icons.login),
                                 onPressed: () {
