@@ -93,7 +93,7 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="string", property="paymentTime"),
      *                  @OA\Property(type="number", property="weight"),
      *                  @OA\Property(type="string", property="qrCode"),
-     *                  @OA\Property(type="string", property="guniQuantity"),
+     *                  @OA\Property(type="integer", property="guniQuantity"),
      *                  @OA\Property(type="integer", property="updatedBy"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
@@ -192,7 +192,7 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="string", property="paymentTime"),
      *                  @OA\Property(type="number", property="weight"),
      *                  @OA\Property(type="string", property="qrCode"),
-     *                  @OA\Property(type="string", property="guniQuantity"),
+     *                  @OA\Property(type="integer", property="guniQuantity"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
      *                  @OA\Property(type="string", property="orderUpdatedByUserImage"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
@@ -270,7 +270,7 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="string", property="paymentTime"),
      *                  @OA\Property(type="float", property="weight"),
      *                  @OA\Property(type="string", property="qrCode"),
-     *                  @OA\Property(type="string", property="guniQuantity"),
+     *                  @OA\Property(type="integer", property="guniQuantity"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
@@ -347,7 +347,7 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="string", property="paymentTime"),
      *                  @OA\Property(type="float", property="weight"),
      *                  @OA\Property(type="string", property="qrCode"),
-     *                  @OA\Property(type="string", property="guniQuantity"),
+     *                  @OA\Property(type="integer", property="guniQuantity"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="clientUsername"),
@@ -417,7 +417,7 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="string", property="paymentTime"),
      *                  @OA\Property(type="float", property="weight"),
      *                  @OA\Property(type="string", property="qrCode"),
-     *                  @OA\Property(type="string", property="guniQuantity"),
+     *                  @OA\Property(type="integer", property="guniQuantity"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
@@ -488,7 +488,7 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="string", property="paymentTime"),
      *                  @OA\Property(type="float", property="weight"),
      *                  @OA\Property(type="string", property="qrCode"),
-     *                  @OA\Property(type="string", property="guniQuantity"),
+     *                  @OA\Property(type="integer", property="guniQuantity"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
@@ -531,11 +531,23 @@ class ShipmentStatusController extends BaseController
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
-     *                  @OA\Property(type="string", property="holderType"),
-     *                  @OA\Property(type="array", property="holderInfo",
+     *                  @OA\Property(type="array", property="tracks",
      *                      @OA\Items(
-     *                          @OA\Property(type="string", property="identificationNumber"),
-     *                          @OA\Property(type="string", property="status")
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="integer", property="shipmentID"),
+     *                          @OA\Property(type="string", property="holderType"),
+     *                          @OA\Property(type="integer", property="travelID"),
+     *                          @OA\Property(type="array", property="holderInfo",
+     *                              @OA\Items(
+     *                                  @OA\Property(type="string", property="IdentificationNumber"),
+     *                                  @OA\Property(type="string", property="status")
+     *                              )
+     *                          ),
+     *                          @OA\Property(type="string", property="trackNumber"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="object", property="updatedAt"),
+     *                          @OA\Property(type="string", property="createdBy"),
+     *                          @OA\Property(type="string", property="updatedBy"),     
      *                      )
      *                  ),
      *                  @OA\Property(type="boolean", property="isInOneHolder"),
@@ -551,7 +563,7 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="string", property="packetingBy"),
      *                  @OA\Property(type="number", property="weight"),
      *                  @OA\Property(type="string", property="qrCode"),
-     *                  @OA\Property(type="object", property="guniQuantity")
+     *                  @OA\Property(type="integer", property="guniQuantity")
      *          )
      *      )
      * )

@@ -8,6 +8,7 @@ use App\Entity\OrderShipmentEntity;
 use App\Entity\ProductCategoryEntity;
 use App\Entity\ShipmentStatusEntity;
 use App\Entity\ClientProfileEntity;
+use App\Entity\SubcontractEntity;
 use App\Entity\TrackEntity;
 use App\Entity\WarehouseEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -638,8 +639,8 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('shipmentStatus')
             ->select("shipmentStatus.id", "shipmentStatus.shipmentID", "shipmentStatus.shipmentStatus", "shipmentStatus.statusDetails", "shipmentStatus.trackNumber", "shipmentStatus.isInOneHolder", "shipmentStatus.packed",
                 "shipmentOrder.clientUserID", "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.createdAt as orderCreationDate",
-                "shipmentOrder.updatedAt as orderUpdatingDate", "shipmentOrder.productCategoryID", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity",
-                "track.shipmentID", "track.trackNumber", "track.travelID", "track.holderType", "track.holderID", "distributor.fullName as distributorName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName")
+                "shipmentOrder.updatedAt as orderUpdatingDate", "shipmentOrder.productCategoryID", "shipmentOrder.markID", "shipmentOrder.packetingBy as packetedBy", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", 
+                "distributor.fullName as distributorName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName", "subcontract.fullName as packetingBy")
 
             ->andWhere('shipmentStatus.trackNumber = :trackNumber')
             ->setParameter('trackNumber', $trackNumber)
@@ -655,10 +656,10 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
-                TrackEntity::class,
-                'track',
+                SubcontractEntity::class,
+                'subcontract',
                 Join::WITH,
-                'track.shipmentID = shipmentStatus.shipmentID AND track.trackNumber = shipmentStatus.trackNumber'
+                'subcontract.id = shipmentOrder.packetingBy'
             )
 
             ->leftJoin(
@@ -690,7 +691,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             )
 
             ->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
 
     public function getShipmentByTrackNumber($trackNumber)

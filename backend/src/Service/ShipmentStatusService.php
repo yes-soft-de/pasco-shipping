@@ -239,43 +239,21 @@ class ShipmentStatusService
 
     public function getShipmentByTrackNumberAndUserID($trackNumber, $userID)
     {
-        $shipmentResponse = [];
-
-        $shipments = $this->shipmentStatusManager->getShipmentByTrackNumberAndUserID($trackNumber, $userID);
-
-        foreach($shipments as $shipment)
+        $shipment = $this->shipmentStatusManager->getShipmentByTrackNumberAndUserID($trackNumber, $userID);
+        
+        // Get the shipment info from TrackEntity too
+        $trackResults = $this->trackService->getByShipmentIdAndTrackNumber($shipment['shipmentID'], $shipment['trackNumber']);
+        
+        if($trackResults)
         {
-            if($shipment["holderType"] != null)
-            {
-                if($shipment["holderType"] == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
-                {
-                    // Get container info
-                    $container = $this->shipmentStatusManager->getContainerById($shipment["holderID"]);
-
-                    if ($container)
-                    {
-                        $shipment["holderInfo"]["IdentificationNumber"] = $container["containerNumber"];
-                        $shipment["holderInfo"]["status"] = $container["status"];
-                    }
-                }
-
-                if($shipment["holderType"] == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
-                {
-                    // Get airwaybill info
-                    $airwaybill = $this->shipmentStatusManager->getAirwaybillById($shipment["holderID"]);
-
-                    if ($airwaybill)
-                    {
-                        $shipment["holderInfo"]["IdentificationNumber"] = $airwaybill["containerNumber"];
-                        $shipment["holderInfo"]["status"] = $airwaybill["status"];
-                    }
-                }
-            }
-
-            $shipmentResponse[] = $this->autoMapping->map('array', ShipmentByTrackNumberAndSignedInUserGetResponse::class, $shipment);
+            $shipment['tracks'] = $trackResults;
+        }
+        else
+        {
+            $shipment['tracks'] = [];
         }
 
-        return $shipmentResponse;
+        return $this->autoMapping->map('array', ShipmentByTrackNumberAndSignedInUserGetResponse::class, $shipment);
     }
 
     public function getShipmentByTrackNumber($trackNumber)

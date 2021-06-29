@@ -9,6 +9,7 @@ use App\Entity\ProductCategoryEntity;
 use App\Entity\ShipmentStatusEntity;
 use App\Entity\TrackEntity;
 use App\Entity\ClientProfileEntity;
+use App\Entity\TravelEntity;
 use App\Entity\WarehouseEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
@@ -40,6 +41,31 @@ class TrackEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
+    }
+
+    public function getByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        return $this->createQueryBuilder('track')
+            ->select('track.id', 'track.shipmentID', 'track.trackNumber', 'track.travelID', 'track.holderType', 'track.holderID', 'track.createdAt', 'track.updatedAt', 'track.createdBy', 
+            'track.updatedBy', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate')
+
+            ->andWhere('track.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->andWhere('track.trackNumber = :trackNumber')
+            ->setParameter('trackNumber', $trackNumber)
+
+            ->leftJoin(
+                TravelEntity::class,
+                'travel',
+                Join::WITH,
+                'travel.id = track.travelID'
+            )
+
+            ->orderBy('track.id', 'DESC')
+
+            ->getQuery()
+            ->getResult();
     }
     
 }
