@@ -44,6 +44,10 @@ class CountryService
             {
                 $country['warehouses'] = $warehouses;
             }
+            else
+            {
+                $country['warehouses'] = [];
+            }
 
             if($country['createdByUserImage'])
             {
