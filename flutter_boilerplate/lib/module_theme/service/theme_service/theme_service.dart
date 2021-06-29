@@ -15,15 +15,15 @@ class AppThemeDataService {
   AppThemeDataService(this._preferencesHelper);
 
   static Color get PrimaryColor {
-    return Color(0xFF3ACCE1);
+    return Color(0xFF656565);
   }
 
   static Color get PrimaryDarker {
-    return Color(0xFF665EFF);
+    return Color(0xFF2D7DFF);
   }
 
   static Color get AccentColor {
-    return Color(0xFFBE1E2D);
+    return Color(0xFFF9AA05);
   }
 
   Future<ThemeData> getActiveTheme() async {
@@ -41,6 +41,7 @@ class AppThemeDataService {
           color: Colors.black,
           iconTheme: IconThemeData(color: Colors.white),
         ),
+        textSelectionTheme: TextSelectionThemeData(cursorColor: AccentColor ,selectionColor: AccentColor,selectionHandleColor: AccentColor),
       );
     }
     return ThemeData(
@@ -49,6 +50,7 @@ class AppThemeDataService {
       primaryColorDark: PrimaryDarker,
       accentColor: AccentColor,
       appBarTheme: AppBarTheme(centerTitle: true, color: Colors.white),
+        textSelectionTheme: TextSelectionThemeData(cursorColor: AccentColor ,selectionColor: AccentColor ,selectionHandleColor: AccentColor)
     );
   }
 

@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.yes_soft.c4d">
+    package="de.yes_soft.pasco">
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="c4d"
-        android:icon="@mipmap/launcher_icon">
+        android:label="Pasco"
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

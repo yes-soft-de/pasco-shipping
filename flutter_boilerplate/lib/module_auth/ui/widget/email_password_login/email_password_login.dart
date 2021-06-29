@@ -1,6 +1,10 @@
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_auth/authorization_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/module_intro/widget/roundedButton.dart';
+import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/utils/styles/static_images.dart';
+import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 class EmailPasswordForm extends StatefulWidget {
   final Function(String, String)? onLoginRequest;
@@ -48,89 +52,54 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
               direction: Axis.vertical,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                  padding: const EdgeInsets.all(20),
                   child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 2.0,
-                          spreadRadius: 2.0,
-                          offset: Offset(
-                            5.0,
-                            5.0,
-                          ),
-                        )
-                      ],
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.black
-                            : Colors.white,
-                      ),
-                      child: TextFormField(
-                        controller: _loginEmailController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
+                    child: TextFormField(
+                      cursorColor: AppThemeDataService.AccentColor,
+                      controller: _loginEmailController,
+                      decoration: InputDecoration(
+                          enabledBorder: new UnderlineInputBorder(
+                              borderSide:
+                                  new BorderSide(color: Colors.white)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: AppThemeDataService.AccentColor)),
                           labelText: S.of(context).email,
-                        ),
-                        textInputAction: TextInputAction.next,
-                        onEditingComplete: () => node.nextFocus(),
-                        // Move focus to next
-                        validator: (result) {
-                          if (result == null) {
-                            return S.of(context).emailAddressIsRequired;
-                          } else {
-                            if (result.isEmpty) {
-                              return S.of(context).emailAddressIsRequired;
-                            }
+                          labelStyle: white16text),
+                      style: white16text,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: () => node.nextFocus(),
+                      // Move focus to next
+                      validator: (result) {
+                        if (result == null) {
+                          return S.of(context).required;
+                        } else {
+                          if (result.isEmpty) {
+                            return S.of(context).required;
                           }
-                          return null;
-                        },
-                      ),
+                        }
+                        return null;
+                      },
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                  padding: const EdgeInsets.all(20),
                   child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 2.0,
-                            // has the effect of softening the shadow
-                            spreadRadius: 2.0,
-                            // has the effect of extending the shadow
-                            offset: Offset(
-                              5.0, // horizontal, move right 10
-                              5.0, // vertical, move down 10
-                            ),
-                          )
-                        ]),
                     child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.black
-                            : Colors.white,
-                      ),
                       child: TextFormField(
+                        cursorColor: AppThemeDataService.AccentColor,
                         controller: _loginPasswordController,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
+                          enabledBorder: new UnderlineInputBorder(
+                              borderSide: new BorderSide(color: Colors.white)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: AppThemeDataService.AccentColor)),
                           labelText: S.of(context).password,
+                          labelStyle: white16text,
                         ),
+                        style: white16text,
                         validator: (result) {
                           if (result == null) {
                             return S.of(context).passwordIsTooShort;
@@ -160,31 +129,16 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
               direction: Axis.vertical,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
-                    },
-                    child: Text(
-                      loading == true
-                          ? S.of(context).loading
-                          : S.of(context).register,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
+                SizedBox(height: 16,),
+
                 Container(
-                  child: FlatButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16)),
-                    color: Theme.of(context).primaryColor,
-                    onPressed: loading == true
-                        ? null
+                  child: RoundedButton(
+                    radius: 15,
+                    lable: S.of(context).signIn,
+                    icon: StaticImage.personRegister,
+                    color: Theme.of(context).accentColor,
+                    go: loading == true
+                        ? () {}
                         : () {
                             if (_loginFormKey.currentState!.validate()) {
                               loading = true;
@@ -195,13 +149,24 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                               );
                             }
                           },
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        S.of(context).next,
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
+                    style: mainHeaderBlackStyle,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
+                    },
+                    child: Text(
+                      loading == true
+                          ? S.of(context).loading
+                          : S.of(context).noAccount,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: AppThemeDataService.PrimaryDarker
                       ),
                     ),
                   ),

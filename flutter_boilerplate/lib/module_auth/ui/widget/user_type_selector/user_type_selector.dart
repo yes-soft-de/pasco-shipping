@@ -52,8 +52,8 @@ class UserTypeSelector extends StatelessWidget {
                       onPressed: () {
                         onUserChange(UserRole.ROLE_CAPTAIN);
                       },
-                      child: Text(
-                        S.of(context).captain,
+                      child: Text("",
+                        // S.of(context).captain,
                         style: TextStyle(
                           color: currentUserType == UserRole.ROLE_CAPTAIN
                               ? Colors.white
@@ -69,7 +69,7 @@ class UserTypeSelector extends StatelessWidget {
                         onUserChange(UserRole.ROLE_OWNER);
                       },
                       child: Text(
-                        S.of(context).storeOwner,
+                      "",  // S.of(context).storeOwner,
                         style: TextStyle(
                         ),
                       ),

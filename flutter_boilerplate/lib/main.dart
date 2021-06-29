@@ -6,11 +6,16 @@ import 'package:pasco_shipping/abstracts/module/yes_module.dart';
 import 'package:pasco_shipping/di/di_config.dart';
 import 'package:pasco_shipping/module_auth/authoriazation_module.dart';
 import 'package:pasco_shipping/module_chat/chat_module.dart';
+import 'package:pasco_shipping/module_home/home_module.dart';
+import 'package:pasco_shipping/module_intro/intro_module.dart';
+import 'package:pasco_shipping/module_intro/ui/intro_screen/intro_screen.dart';
 import 'package:pasco_shipping/module_localization/service/localization_service/localization_service.dart';
+import 'package:pasco_shipping/module_mark/mark_module.dart';
 import 'package:pasco_shipping/module_notifications/model/notification_model.dart';
+import 'package:pasco_shipping/module_notifications/notification_module.dart';
 import 'package:pasco_shipping/module_notifications/service/fire_notification_service/fire_notification_service.dart';
+import 'package:pasco_shipping/module_profile/profile_module.dart';
 import 'package:pasco_shipping/module_settings/settings_module.dart';
-import 'package:pasco_shipping/module_splash/splash_module.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/logger/logger.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -21,9 +26,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
+import 'module_intro/intro_routes.dart';
 import 'module_notifications/service/local_notification_service/local_notification_service.dart';
-import 'module_splash/splash_routes.dart';
+import 'module_shipment_previous/shipment_previous_module.dart';
 import 'package:timeago/timeago.dart' as timeago;
+
+import 'module_shipment_request/shipment_request_module.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,21 +66,34 @@ class MyApp extends StatefulWidget {
   final LocalizationService _localizationService;
   final FireNotificationService _fireNotificationService;
   final LocalNotificationService _localNotificationService;
-  final SplashModule _splashModule;
+  // final SplashModule _splashModule;
   final AuthorizationModule _authorizationModule;
   final SettingsModule _settingsModule;
   final ChatModule _chatModule;
+  final HomeModule _homeModule;
+  final IntroModule _introModule;
+  final PreviousShipmentsModule _previousShipmentsModule;
+  final ProfileModule _profileModule;
+  final MarkModule _markModule;
+  final NotificationModule _notificationModule;
+  final NewShipmentsModule _newShipmentsModule;
 
   MyApp(
-    this._themeDataService,
-    this._localizationService,
-    this._fireNotificationService,
-    this._localNotificationService,
-    this._splashModule,
-    this._authorizationModule,
-    this._chatModule,
-    this._settingsModule,
-  );
+      this._themeDataService,
+      this._localizationService,
+      this._fireNotificationService,
+      this._localNotificationService,
+      this._introModule,
+      this._authorizationModule,
+      this._chatModule,
+      this._settingsModule,
+      this._homeModule,
+      this._previousShipmentsModule,
+      this._profileModule,
+      this._markModule,
+      this._notificationModule,
+      this._newShipmentsModule
+      );
 
   @override
   State<StatefulWidget> createState() => _MyAppState();
@@ -110,6 +131,7 @@ class _MyAppState extends State<MyApp> {
       setState(() {});
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -142,7 +164,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: S.delegate.supportedLocales,
       title: 'pasco-shipping',
       routes: fullRoutesList,
-      initialRoute: SplashRoutes.SPLASH_SCREEN,
+      initialRoute: IntroRoutes.INTRO_SCREEN,
     );
   }
 }

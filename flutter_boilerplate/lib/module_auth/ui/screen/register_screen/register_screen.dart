@@ -4,6 +4,8 @@ import 'package:pasco_shipping/module_auth/state_manager/register_state_manager/
 import 'package:pasco_shipping/module_auth/ui/states/register_states/register_state.dart';
 import 'package:pasco_shipping/module_auth/ui/states/register_states/register_state_init.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/utils/styles/static_images.dart';
+import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 @injectable
 class RegisterScreen extends StatefulWidget {
@@ -37,8 +39,48 @@ class RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: _currentState.getUI(context),
+      backgroundColor: Colors.grey.withOpacity(0.3),
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(StaticImage.intro),
+              fit: BoxFit.cover,
+            )),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      color: Colors.grey.withOpacity(0.1),
+                      height: MediaQuery.of(context).size.height * 0.4,
+                    ),
+                    Positioned(
+                        bottom: 0,
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.only(start: 20),
+                          child: Text(
+                            "Sign Up",
+                            style: titleBlackStyle,
+                          ),
+                        )),
+                  ],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Image.asset(
+                  StaticImage.divider,
+                  width: MediaQuery.of(context).size.width,
+                ),
+                _currentState.getUI(context),
+              ],
+            ),
+          ),
+
+
+        ),
       ),
     );
   }

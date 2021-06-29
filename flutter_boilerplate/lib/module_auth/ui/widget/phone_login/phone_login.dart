@@ -77,17 +77,17 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
                     },
                     value: countryCode,
                     items: [
-                      DropdownMenuItem(
-                        value: '+966',
-                        child: Text(S.of(context).saudiArabia),
-                      ),
-                      DropdownMenuItem(
-                        value: '+961',
-                        child: Text(S.of(context).lebanon),
-                      ),
+                      // DropdownMenuItem(
+                      //   value: '+966',
+                      //   child: Text(S.of(context).saudiArabia),
+                      // ),
+                      // DropdownMenuItem(
+                      //   value: '+961',
+                      //   child: Text(S.of(context).lebanon),
+                      // ),
                       DropdownMenuItem(
                         value: '+963',
-                        child: Text(S.of(context).syria),
+                        child: Text(""),
                       ),
                     ],
                   ),
@@ -96,9 +96,9 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         controller: _phoneController,
-                        decoration: InputDecoration(
-                            labelText: S.of(context).phoneNumber,
-                            hintText: '$hint'),
+                        // decoration: InputDecoration(
+                        //     labelText: S.of(context).phoneNumber,
+                        //     hintText: '$hint'),
                         validator: (v) {
                           if (v!.isEmpty) {
                             return S.of(context).pleaseInputPhoneNumber;
@@ -121,13 +121,13 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(widget.isRegister
                     ? S.of(context).iHaveAnAccount
-                    : S.of(context).register),
+                    : S.of(context).signUp),
               ),
             ),
             if (widget.isRegister != false)
               CheckboxListTile(
                   value: agreed,
-                  title: Text(S.of(context).iAgreeToTheTermsOsService),
+                  title: Text("S.of(context).iAgreeToTheTermsOsService"),
                   onChanged: (v) {
                     agreed = v!;
                     if (mounted) setState(() {});
@@ -156,11 +156,11 @@ class _PhoneLoginWidgetState extends State<PhoneLoginWidget> {
                             },
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          S.of(context).sendMeCode,
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
+                        child: Text(""
+                          // S.of(context).sendMeCode,
+                          // style: TextStyle(
+                          //   color: Colors.white,
+                          // ),
                         ),
                       ),
                     ),

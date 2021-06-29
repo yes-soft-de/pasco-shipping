@@ -16,7 +16,7 @@ class ReportDialogWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              S.of(context).createNewReport,
+              "S.of(context).createNewReport",
               style: TextStyle(fontSize: 20),
             ),
           ),
@@ -28,17 +28,17 @@ class ReportDialogWidget extends StatelessWidget {
                 child: TextFormField(
                   validator: (reason) {
                     if (reason == null) {
-                      return S.of(context).reasonIsRequired;
+                      return S.of(context).required;
                     } else {
                       if (reason.isEmpty) {
-                        return S.of(context).reasonIsRequired;
+                        return S.of(context).required;
                       }
                     }
                     return null;
                   },
                   controller: _reasonController,
                   decoration: InputDecoration(
-                    hintText: S.of(context).reasonOfTheReport,
+                    hintText: "S.of(context).reasonOfTheReport",
                   ),
                   maxLines: 6,
                 ),
@@ -64,7 +64,7 @@ class ReportDialogWidget extends StatelessWidget {
                   Navigator.of(context).pop(_reasonController.text);
                 } else {
                   Scaffold.of(context).showSnackBar(SnackBar(
-                      content: Text(S.of(context).pleaseCompleteTheForm)));
+                      content: Text(S.of(context).fillAllField)));
                 }
               }),
         ],

@@ -1,46 +1,31 @@
 class Urls {
-  static const String DOMAIN = '';
-  static const String BASE_API = DOMAIN + '/html/public';
+  static const String DOMAIN = 'http://165.22.75.62/';
+  static const String BASE_API = 'http://165.22.75.62/';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
 
   static const SIGN_UP_API = BASE_API + '/user';
-  static const OWNER_PROFILE_API = BASE_API + '/userprofile';
-  static const CAPTAIN_PROFILE_API = BASE_API + '/captainprofile';
-  static const CREATE_BANK_ACCOUNT_API = BASE_API + '/captainprofile';
-  static const BRANCHES_API = BASE_API + '/branches';
+  // static const OWNER_PROFILE_API = BASE_API + '/userprofile';
   static const CREATE_TOKEN_API = BASE_API + '/login_check';
-  static const LOG_API = BASE_API + '/getRecords';
-  static const DELETE_ORDER = BASE_API + '/ordercancel/';
+
+//request shipment
+  static const PRODUCT_CATEGORY = BASE_API + 'productcategories';
+  static const WAREHOUSES = BASE_API + 'warehouses';
+
+///mark
+  static const MY_MARKS = BASE_API + 'mymarks';
+  static const MARK = BASE_API + 'mark';
+
+  //profile
+  static const MY_PROFILE="clientprofile";
 
   static const REPORT_API = BASE_API + '/report';
 
-  static const NEARBY_ORDERS_API = BASE_API + '/closestOrders';
-  static const OWNER_ORDERS_API = BASE_API + '/orders/';
-  static const CAPTAIN_ACCEPTED_ORDERS_API = BASE_API + '/getAcceptedOrder/';
-  static const NEW_ORDER_API = BASE_API + '/order';
-  static const CAPTAIN_ORDER_UPDATE_API = BASE_API + '/orderUpdateState';
-  static const ACCEPT_ORDER_API = BASE_API + '/acceptedOrder';
-  static const ORDER_STATUS_API = BASE_API + '/orderStatus/';
-  static const ORDER_STATUS_FOR_CAPTAIN_API =
-      BASE_API + '/getOrderStatusForCaptain/';
-
-  static const UPDATE_CAPTAIN_ORDER_API = '/orderUpdateState';
   static const UPLOAD_API = BASE_API + '/uploadfile';
 
-  static const PACKAGES_API = BASE_API + '/packages';
-  static const SUBSCRIPTION_API = BASE_API + '/subscription';
-  static const RENEW_SUBSCRIPTION_API = BASE_API + '/nextsubscription';
-
-  static const APPOINTMENT_API = BASE_API + '/dating';
   static const NOTIFICATION_API = BASE_API + '/notificationtoken';
-  static const COMPANYINFO_API = BASE_API + '/companyinfoforuser';
-  static const UPDATES_API = BASE_API + '/updateall';
-  static const ORDER_BY_ID = BASE_API + '/orderStatus/';
-  static const TERMS_CAPTAIN = BASE_API + '/termscaptain';
-  static const TERMS_OWNER = BASE_API + '/';
   static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchat';
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
-  static const CAPTAIN_ACTIVE_STATUS_API = BASE_API + '/captainisactive';
-  static const UPDATE_BRANCH_API = BASE_API + '/branches';
 
+
+  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjQ5MjE1NjQsImV4cCI6MTYyNDkyNTE2NCwicm9sZXMiOlsidXNlciJdLCJ1c2VybmFtZSI6InJhbWkxIn0.saIzAJs06IxKFhE4ElNnnEF0IT9ExRPP23WI1I2hthqImknLsbaHUfco9psp_uzZTAsbUZ95idW-kAhFqwS0lKUc5XKzMkT0zLw-T691DOoKF07BTkOCS9EfdBdzqmDmKtQjTuS27Qe72_08GQKGrz7M_RuiyjUbVpHB5tO4IPAFEkOu7a4ZHOZQc3fFApZw__LCmm59d3JBO2-_Rb9msFtz4iaLKwa681-2V1BghCFmFxUH0PJ_xADgltnFnsfXEBYcJHybTBstWDFZE8LcKazQ-g-oJkguRvteQKTALUkfebFfH_rGDAOaUC0ECkNkfgZa-gRUA92tW_r4RRskNA';
 }

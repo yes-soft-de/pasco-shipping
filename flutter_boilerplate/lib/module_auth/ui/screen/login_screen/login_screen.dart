@@ -5,6 +5,9 @@ import 'package:pasco_shipping/module_auth/state_manager/login_state_manager/log
 import 'package:pasco_shipping/module_auth/ui/states/login_states/login_state.dart';
 import 'package:pasco_shipping/module_auth/ui/states/login_states/login_state_init.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/module_auth/ui/states/login_states/login_state_success.dart';
+import 'package:pasco_shipping/utils/styles/static_images.dart';
+import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 @injectable
 class LoginScreen extends StatefulWidget {
@@ -53,8 +56,48 @@ class LoginScreenState extends State<LoginScreen> {
         }
       },
       child: Scaffold(
-        body: SafeArea(
-          child: _currentStates!.getUI(context),
+        backgroundColor: Colors.grey.withOpacity(0.3),
+        body: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(StaticImage.intro),
+                fit: BoxFit.cover,
+              )),
+          child: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Stack(
+                    children: [
+                      Container(
+                        color: Colors.grey.withOpacity(0.1),
+                        height: MediaQuery.of(context).size.height * 0.4,
+                      ),
+                      Positioned(
+                          bottom: 0,
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.only(start: 20),
+                            child: Text(
+                              "Sign In",
+                              style: titleBlackStyle,
+                            ),
+                          )),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Image.asset(
+                    StaticImage.divider,
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                  _currentStates!.getUI(context),
+                ],
+              ),
+            ),
+
+
+          ),
         ),
       ),
     );
@@ -66,17 +109,20 @@ class LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void moveToNext(bool inited) {
-    if (!inited) {
-     //move to init screen
-
-      return;
-    }
-    if (currentUserRole == UserRole.ROLE_OWNER) {
-    // move to this user Role based screen 
-    } else if (currentUserRole == UserRole.ROLE_CAPTAIN) {
-    //move to this user Role based screen  
-    }
+  void moveToNext() {
+    // if (!inited) {
+    //  //move to init screen
+    //
+    //   return;
+    // }
+    // if (currentUserRole == UserRole.ROLE_OWNER) {
+    // // move to this user Role based screen
+    // } else if (currentUserRole == UserRole.ROLE_CAPTAIN) {
+    // //move to this user Role based screen
+    // }
+    print("move");
+    _currentStates = LoginStateSuccess(this);
+    if (mounted) setState(() {});
   }
 
   void loginCaptain(String phoneNumber) {
