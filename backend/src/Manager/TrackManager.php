@@ -16,14 +16,18 @@ class TrackManager
     private $entityManager;
     private $trackEntityRepository;
     private $shipmentStatusManager;
+    private $containerManager;
+    private $airwaybillManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, TrackEntityRepository $trackEntityRepository,
-     ShipmentStatusManager $shipmentStatusManager)
+     ShipmentStatusManager $shipmentStatusManager, ContainerManager $containerManager, AirwaybillManager $airwaybillManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->trackEntityRepository = $trackEntityRepository;
         $this->shipmentStatusManager = $shipmentStatusManager;
+        $this->containerManager = $containerManager;
+        $this->airwaybillManager = $airwaybillManager;
     }
 
     public function create(TrackCreateRequest $request)
@@ -74,6 +78,21 @@ class TrackManager
 
             return $trackEntity;
         }
+    }
+
+    public function getByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        return $this->trackEntityRepository->getByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+    }
+
+    public function getContainerById($id)
+    {
+        return $this->containerManager->getContainerById($id);
+    }
+
+    public function getAirwaybillById($id)
+    {
+        return $this->airwaybillManager->getAirwaybillById($id);
     }
 
 }
