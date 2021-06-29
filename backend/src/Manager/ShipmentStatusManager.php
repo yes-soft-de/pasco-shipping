@@ -97,13 +97,17 @@ class ShipmentStatusManager
 
     public function getShipmentsByStatusAndUserID($status, $userID)
     {
-        if($status != null && $status != ShipmentStatusConstant::$UNDEFINED_SHIPMENT_STATUS)
+        if($status != null && $status == ShipmentStatusConstant::$UNDELIVERED_SHIPMENT_STATUS)
         {
-            return $this->shipmentStatusEntityRepository->getShipmentsByStatusAndUserID($status, $userID);
+            return $this->shipmentStatusEntityRepository->getUndeliveredShipmentsByUserID($userID);
         }
-        elseif ($status ==  ShipmentStatusConstant::$UNDEFINED_SHIPMENT_STATUS)
+        elseif ($status != null && $status ==  ShipmentStatusConstant::$ALL_SHIPMENT_STATUS)
         {
             return $this->shipmentStatusEntityRepository->getShipmentsByUserID($userID);
+        }
+        elseif ($status != null && $status !=  ShipmentStatusConstant::$ALL_SHIPMENT_STATUS && $status != ShipmentStatusConstant::$UNDELIVERED_SHIPMENT_STATUS)
+        {
+            return $this->shipmentStatusEntityRepository->getShipmentsByStatusAndUserID($status, $userID);
         }
     }
 
