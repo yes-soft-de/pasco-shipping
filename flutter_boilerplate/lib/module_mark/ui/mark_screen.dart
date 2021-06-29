@@ -30,10 +30,13 @@ class _MarkScreenState extends State<MarkScreen> {
   late MarkState currentState;
   late List<Mark> items;
   ScrollController controller = ScrollController();
+  final TextEditingController _markNumberController = TextEditingController();
+
 
 
   @override
   Widget build(BuildContext context) {
+    print("Screen rebuild");
     return Background(
       controller: controller,
       isHome: false,
@@ -64,21 +67,29 @@ class _MarkScreenState extends State<MarkScreen> {
           LoadingIndicator(AppThemeDataService.AccentColor),
         ],
       );
-    }else if (currentState is SuccessfullyFetchMarkState){
+    }
+    else if (currentState is SuccessfullyFetchMarkState){
       SuccessfullyFetchMarkState? state = currentState as SuccessfullyFetchMarkState?;
       items = state!.marks;
       return MarkSuccessfullyScreen(deleteMark: (id){
         widget._stateManager.deleteMark(id.toString());
-      }, items: items,);
+      }, items: items,
+        addMark: (request){
+        widget._stateManager.createMark(request);
+      },markNumberController: _markNumberController,
+      );
 
     }
     else if(currentState is SuccessfullyModifyMarkState){
       SuccessfullyModifyMarkState state = currentState as SuccessfullyModifyMarkState;
       items = state.marks;
-      Future.delayed(Duration.zero, () => _showDialog(context,state.response.message));
+      // Future.delayed(Duration.zero, () => _showDialog(context,state.response.message));
+      _markNumberController.clear();
       return MarkSuccessfullyScreen(deleteMark: (id){
         widget._stateManager.deleteMark(id.toString());
-      }, items: items,);
+      }, items: items, addMark: (request){
+        widget._stateManager.createMark(request);
+      },markNumberController: _markNumberController,);
     }
     else {
       return Column(

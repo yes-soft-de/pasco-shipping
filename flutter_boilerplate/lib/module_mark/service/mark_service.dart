@@ -10,8 +10,8 @@ class MarkService {
   final MarkManager _manager;
   MarkService(this._manager);
 
-  Future<ConfirmResponse?> createMark(String markNumber) {
-    return _manager.createMark(MarkRequest(markNumber));
+  Future<ConfirmResponse?> createMark(MarkRequest request) {
+    return _manager.createMark(request);
   }
   Future<ConfirmResponse?> deleteMark(String id) {
     return _manager.deleteMark(id);

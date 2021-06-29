@@ -7,10 +7,10 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 class MarkCard extends StatelessWidget {
   final Mark model;
-  final String IncrementNumber;
+  final String incrementNumber;
   final Function deleteMark;
   // final String name;
-  const MarkCard({required this.model, required this.IncrementNumber, required this.deleteMark});
+  const MarkCard({required this.model, required this.incrementNumber, required this.deleteMark});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class MarkCard extends StatelessWidget {
               color: black,
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: Center(child: Text(IncrementNumber, style: white16text,)),
+                child: Center(child: Text(incrementNumber, style: white16text,)),
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),

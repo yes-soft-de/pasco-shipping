@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_mark/request/mark_request.dart';
 import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/module_mark/widget/mark_card.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
@@ -10,10 +12,13 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 class MarkSuccessfullyScreen extends StatelessWidget {
  final List<Mark> items;
  final Function deleteMark;
-  const MarkSuccessfullyScreen({required this.items, required this.deleteMark});
+ final Function addMark;
+ final TextEditingController markNumberController;
+ MarkSuccessfullyScreen({required this.items, required this.deleteMark,required this.addMark, required this.markNumberController});
 
   @override
   Widget build(BuildContext context) {
+    print("SuccessfullyScreen rebuild");
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -71,7 +76,7 @@ class MarkSuccessfullyScreen extends StatelessWidget {
               itemCount: items.length,
               itemBuilder: (context, index) {
                 return MarkCard(model: items[index] ,
-                  IncrementNumber: (index+1).toString()
+                  incrementNumber: (index+1).toString()
                   ,deleteMark: (id){
                   deleteMark(id);
                 },);
@@ -94,6 +99,7 @@ class MarkSuccessfullyScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsetsDirectional.only(start: 5),
                         child: TextField(
+                          controller: markNumberController,
                           decoration: InputDecoration(
                             hintText:  S.of(context).enterMark,
                             hintStyle: white18text,
@@ -108,7 +114,17 @@ class MarkSuccessfullyScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 10,),
-                  Icon(Icons.add_circle_outline_sharp ,color: AppThemeDataService.AccentColor,size: 30,)
+                  InkWell(
+                      onTap: (){
+                        if(markNumberController.text.isEmpty) {
+                          Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                        }
+                      else {
+                        MarkRequest mark = MarkRequest(markNumberController.text);
+                          addMark(mark);
+                        }
+                      },
+                      child: Icon(Icons.add_circle_outline_sharp ,color: AppThemeDataService.AccentColor,size: 30,))
                 ],
               ),
             ),

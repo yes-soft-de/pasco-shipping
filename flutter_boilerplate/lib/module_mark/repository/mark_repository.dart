@@ -36,8 +36,13 @@ class MarkRepository{
 
     var response = await _apiClient.post(Urls.MARK, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
-    String? msg = MarkResponse.fromJson(response!).msg;
-    return ConfirmResponse(true , msg!);
+    String? statusCode = MarkResponse.fromJson(response!).statusCode;
+    String? msg = MarkResponse.fromJson(response).msg;
+    if(statusCode =='201'){
+      return ConfirmResponse(true, msg!);
+    }else {
+      return ConfirmResponse(false, msg!);
+    }
   }
 
   Future<ConfirmResponse?> deleteMark(String id) async {

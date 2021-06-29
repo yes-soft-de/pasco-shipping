@@ -1,5 +1,6 @@
 
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/module_mark/request/mark_request.dart';
 import 'package:pasco_shipping/module_mark/service/mark_service.dart';
 import 'package:pasco_shipping/module_mark/ui/state/mark_state.dart';
 import 'package:rxdart/rxdart.dart';
@@ -36,6 +37,30 @@ class MarkStateManager{
               _stateSubject.add(ErrorMarkState('error'));
             }
           });
+        }
+      }else {
+        _stateSubject.add(ErrorMarkState('error'));
+      }
+    });
+  }
+
+  void createMark(MarkRequest request){
+    _stateSubject.add(LoadingMarkState());
+    _markService.createMark(request).then((value) {
+      if(value != null){
+        if(value.isConfirmed){
+          print("confirmed");
+          _markService.getMyMarks().then((marks) {
+            if(marks != null) {
+              print("marks not null");
+              _stateSubject.add(SuccessfullyModifyMarkState(value ,marks));
+            }else {
+              _stateSubject.add(ErrorMarkState('error'));
+            }
+          });
+        }
+        else{
+
         }
       }else {
         _stateSubject.add(ErrorMarkState('error'));
