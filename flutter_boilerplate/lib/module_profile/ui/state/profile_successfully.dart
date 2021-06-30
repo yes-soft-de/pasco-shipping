@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
@@ -64,7 +66,7 @@ class _ProfileSuccessfullyScreenState extends State<ProfileSuccessfullyScreen> {
             margin: EdgeInsets.only(top: 20),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Image.asset(StaticImage.profile),
+              child:Image.network(widget.model.image ?? ''),
             )),
         Padding(
           padding:
@@ -204,7 +206,7 @@ class _ProfileSuccessfullyScreenState extends State<ProfileSuccessfullyScreen> {
                             ],
                           ),
                         ),
-                        TextEditLocation("Text...", 70)
+                        TextEditLocation(70,_locController)
                       ],
                     ),
                   ),
@@ -244,8 +246,10 @@ class _ProfileSuccessfullyScreenState extends State<ProfileSuccessfullyScreen> {
         _userNameController.text == widget.model.userName) {
       return false;
     } else {
+
       _profileRequest =
-          ProfileRequest(userName: _userNameController.text, city: _cityController.text, country: _countryController.text, image: widget.model.image!, location: _locController.text, phone:  _phoneController.text);
+          ProfileRequest(userName: _userNameController.text, city: _cityController.text, country: _countryController.text, image: widget.model.image!, location: _locController.text, phone:_phoneController.text);
+      print(json.encode(_profileRequest));
       return true;
     }
   }
