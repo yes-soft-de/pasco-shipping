@@ -20,9 +20,9 @@ class ShipmentStatusByUserGetResponse
 
     public $target;
 
-    public $supplierID;
-
     public $supplierName;
+
+    public $transportationType;
 
     public $distributorName;
 
@@ -46,7 +46,7 @@ class ShipmentStatusByUserGetResponse
 
     public $receiverPhoneNumber;
 
-    public $markID;
+    public $markNumber;
 
     public $packetingBy;
 

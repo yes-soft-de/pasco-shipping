@@ -8,6 +8,7 @@ use App\Entity\OrderShipmentEntity;
 use App\Entity\ProductCategoryEntity;
 use App\Entity\ShipmentStatusEntity;
 use App\Entity\ClientProfileEntity;
+use App\Entity\MarkEntity;
 use App\Entity\SubcontractEntity;
 use App\Entity\TrackEntity;
 use App\Entity\WarehouseEntity;
@@ -212,8 +213,8 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "shipmentOrder.receiverName",
                 "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy",
                 "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage", "adminProfile2.userName as shipmentStatusUpdatedByUser", 
-                "adminProfile2.image as shipmentStatusUpdatedByUserImage", "userProfile.userName as clientUsername", "userProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage", 
-                "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName")
+                "adminProfile2.image as shipmentStatusUpdatedByUserImage", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage", 
+                "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName", "markEntity.markNumber")
 
             ->andWhere('shipment.shipmentStatus = :status')
             ->setParameter('status', $status)
@@ -244,9 +245,9 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
 
             ->leftJoin(
                 ClientProfileEntity::class,
-                'userProfile',
+                'clientProfile',
                 Join::WITH,
-                'userProfile.userID = shipmentOrder.clientUserID'
+                'clientProfile.userID = shipmentOrder.clientUserID'
             )
 
             ->leftJoin(
@@ -284,6 +285,13 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 'productCategory.id = shipmentOrder.productCategoryID'
             )
 
+            ->leftJoin(
+                MarkEntity::class,
+                'markEntity',
+                Join::WITH,
+                'markEntity.id = shipmentOrder.markID'
+            )
+
             ->orderBy('shipment.id', 'DESC')
 
             ->getQuery()
@@ -298,8 +306,8 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "shipmentOrder.receiverName",
                 "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy",
                 "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage", "adminProfile2.userName as shipmentStatusUpdatedByUser", 
-                "adminProfile2.image as shipmentStatusUpdatedByUserImage", "userProfile.userName as clientUsername", "userProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage", 
-                "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName")
+                "adminProfile2.image as shipmentStatusUpdatedByUserImage", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage", 
+                "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName", "markEntity.markNumber")
 
             ->andWhere("shipment.shipmentStatus != 'delivered'")
 
@@ -329,9 +337,9 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
 
             ->leftJoin(
                 ClientProfileEntity::class,
-                'userProfile',
+                'clientProfile',
                 Join::WITH,
-                'userProfile.userID = shipmentOrder.clientUserID'
+                'clientProfile.userID = shipmentOrder.clientUserID'
             )
 
             ->leftJoin(
@@ -369,6 +377,13 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 'productCategory.id = shipmentOrder.productCategoryID'
             )
 
+            ->leftJoin(
+                MarkEntity::class,
+                'markEntity',
+                Join::WITH,
+                'markEntity.id = shipmentOrder.markID'
+            )
+
             ->orderBy('shipment.id', 'DESC')
 
             ->getQuery()
@@ -383,8 +398,8 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "shipmentOrder.receiverName",
                 "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy",
                 "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage", "adminProfile2.userName as shipmentStatusUpdatedByUser",
-                "adminProfile2.image as shipmentStatusUpdatedByUserImage", "userProfile.userName as clientUsername", "userProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage",
-                "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName")
+                "adminProfile2.image as shipmentStatusUpdatedByUserImage", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage",
+                "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName", "markEntity.markNumber")
 
             ->leftJoin(
                 OrderShipmentEntity::class,
@@ -412,9 +427,9 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
 
             ->leftJoin(
                 ClientProfileEntity::class,
-                'userProfile',
+                'clientProfile',
                 Join::WITH,
-                'userProfile.userID = shipmentOrder.clientUserID'
+                'clientProfile.userID = shipmentOrder.clientUserID'
             )
 
             ->leftJoin(
@@ -450,6 +465,13 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 'productCategory',
                 Join::WITH,
                 'productCategory.id = shipmentOrder.productCategoryID'
+            )
+
+            ->leftJoin(
+                MarkEntity::class,
+                'markEntity',
+                Join::WITH,
+                'markEntity.id = shipmentOrder.markID'
             )
 
             ->orderBy('shipment.id', 'DESC')
