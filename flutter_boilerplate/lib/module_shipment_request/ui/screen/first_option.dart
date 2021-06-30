@@ -12,6 +12,7 @@ import 'package:pasco_shipping/module_shipment_previous/model/product_type.dart'
 import 'package:pasco_shipping/module_shipment_previous/ui/widget/NumberInputWithIncrementDecrement.dart';
 import 'package:pasco_shipping/module_shipment_previous/ui/widget/choice_card.dart';
 import 'package:pasco_shipping/module_shipment_previous/ui/widget/select_drop_list.dart';
+import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_shipment_request/state_manager/request_shipment_state_manager/request_shipment_state_manager.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/states/first_option/fisrt_option_successfully.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/states/request_shipment_state.dart';
@@ -23,7 +24,8 @@ import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 @injectable
 class FirstOptions extends StatefulWidget {
   final RequestShipmentStateManger stateManger;
-  FirstOptions(this.stateManger);
+  final ShipmentRequest _shipmentRequest;
+  FirstOptions(this.stateManger, this._shipmentRequest);
 
   @override
   _FirstOptionsState createState() => _FirstOptionsState();
@@ -50,16 +52,27 @@ class _FirstOptionsState extends State<FirstOptions> {
   @override
   Widget build(BuildContext context) {
     if (currentState is LoadingState) {
-      return Center(child: LoadingIndicator(AppThemeDataService.AccentColor));
-    } else if (currentState is FirstOptionFetchingDataState) {
+      return Column(
+        children: [
+          SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
+          LoadingIndicator(AppThemeDataService.AccentColor),
+        ],
+      );    }
+    else if (currentState is FirstOptionFetchingDataState) {
       FirstOptionFetchingDataState? state =
           currentState as FirstOptionFetchingDataState?;
       return FirstOptionSuccessfully(
         categories: state!.categories,
-        warehouses: state.warehouses,
+        countries: state.warehouses,
+        shipmentRequest: widget._shipmentRequest,
       );
-    } else {
-      return Center(child: ErrorScreen(error: 'error', retry: () {}));
+    }  else {
+      return Column(
+        children: [
+          SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
+          ErrorScreen(retry: (){},error: 'error',),
+        ],
+      );
     }
   }
 }

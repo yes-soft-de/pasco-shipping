@@ -1,9 +1,11 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_shipment_request/state_manager/request_shipment_state_manager/request_shipment_state_manager.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/screen/first_option.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/screen/second_options.dart';
@@ -29,11 +31,14 @@ class _NewShipmentState extends State<NewShipment> {
   int activeStep = 0; // Initial step set to 0.
   late ScrollController _controller;
   var _optionsStreamController;
+ late ShipmentRequest _shipmentRequestModel;
 
 
   @override
   void initState() {
     super.initState();
+    _shipmentRequestModel =
+        ShipmentRequest('', '', '', 0, 0, '', '', 0, '', 0, 0, '', '12');
     _optionsStreamController = PublishSubject<int>();
         _controller = ScrollController();
 
@@ -77,11 +82,11 @@ class _NewShipmentState extends State<NewShipment> {
               stream: _optionsStreamController,
               builder: (context, snapshot){
                 if(snapshot.data ==0 ) {
-                  return Center(child: FirstOptions(widget._stateManger));
+                  return FirstOptions(widget._stateManger,_shipmentRequestModel);
                 } else if(snapshot.data == 1) {
-                  return SecondOption();
+                  return SecondOption(widget._stateManger,_shipmentRequestModel);
                 } else {
-                  return ThirdOptions();
+                  return ThirdOptions(_shipmentRequestModel);
                 }
               },
             ),
@@ -98,19 +103,32 @@ class _NewShipmentState extends State<NewShipment> {
                         alignment: AlignmentDirectional.bottomStart,
                         child: FloatingActionButton.extended(
                           onPressed: () {
+                            print("requetsModel" +_shipmentRequestModel.toString());
                             setState(() {
                               activeStep = activeStep - 1;
                               _optionsStreamController
                                   .add(activeStep);
-                              WidgetsBinding.instance!
-                                  .addPostFrameCallback((_) {
-                                _controller
-                                    .animateTo(
+
+                              SchedulerBinding.instance!.addPostFrameCallback((_) {
+                                if (_controller.hasClients) {
+                                  _controller.animateTo(
                                     0.0,
-                                    duration: Duration(microseconds: 1),
-                                    curve: Curves.easeOut);
+                                    curve: Curves.easeOut,
+                                    duration: const Duration(milliseconds: 0),
+                                  );
+                                }
                               });
-                            });
+
+                              // WidgetsBinding.instance!
+                              //     .addPostFrameCallback((_) {
+                              //   _controller
+                              //       .animateTo(
+                              //       0.0,
+                              //       duration: Duration(microseconds: 1),
+                              //       curve: Curves.easeOut);
+                              // });
+                            }
+                            );
                           },
                           label: Text('Back'),
                           icon: Icon(
@@ -123,18 +141,29 @@ class _NewShipmentState extends State<NewShipment> {
                         alignment: AlignmentDirectional.bottomEnd,
                         child: FloatingActionButton.extended(
                           onPressed: () {
+                            print("requetsModel" +_shipmentRequestModel.toString());
                             setState(() {
                               activeStep = activeStep + 1;
                               _optionsStreamController
                                   .add(activeStep);
-                              WidgetsBinding.instance!
-                                  .addPostFrameCallback((_) {
-                                _controller
-                                    .animateTo(
-                                    0.0,
-                                    duration: Duration(microseconds: 1),
-                                    curve: Curves.easeOut);
+                              SchedulerBinding.instance!.addPostFrameCallback((_) {
+                                if (_controller.hasClients) {
+                                  _controller.animateTo(
+                                   0.0,
+                                    curve: Curves.easeOut,
+                                    duration: const Duration(milliseconds: 0),
+                                  );
+                                }
                               });
+
+                              // WidgetsBinding.instance!
+                              //     .addPostFrameCallback((_) {
+                              //   _controller
+                              //       .animateTo(
+                              //       0.0,
+                              //       duration: Duration(microseconds: 1),
+                              //       curve: Curves.easeOut);
+                              // });
 
                             });
                           },
