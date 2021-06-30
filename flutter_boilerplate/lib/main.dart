@@ -16,6 +16,7 @@ import 'package:pasco_shipping/module_notifications/notification_module.dart';
 import 'package:pasco_shipping/module_notifications/service/fire_notification_service/fire_notification_service.dart';
 import 'package:pasco_shipping/module_profile/profile_module.dart';
 import 'package:pasco_shipping/module_settings/settings_module.dart';
+import 'package:pasco_shipping/module_shipment_track/tracking_module.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/logger/logger.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -77,6 +78,7 @@ class MyApp extends StatefulWidget {
   final MarkModule _markModule;
   final NotificationModule _notificationModule;
   final NewShipmentsModule _newShipmentsModule;
+  final TrackingModule _trackingModule;
 
   MyApp(
       this._themeDataService,
@@ -92,7 +94,8 @@ class MyApp extends StatefulWidget {
       this._profileModule,
       this._markModule,
       this._notificationModule,
-      this._newShipmentsModule
+      this._newShipmentsModule,
+      this._trackingModule
       );
 
   @override

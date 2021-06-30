@@ -9,5 +9,5 @@ class FirstOptionManager{
   FirstOptionManager(this._repository);
 
   Future<List<Category>?> getCategories() => _repository.getProductCategories();
-  Future<List<Warehouse>?> getWarehouses() => _repository.getWarehouses();
+  Future<List<Countries>?> getWarehouses() => _repository.getWarehouses();
 }

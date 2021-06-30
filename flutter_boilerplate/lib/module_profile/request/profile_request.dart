@@ -15,5 +15,6 @@ class ProfileRequest{
     "country": country,
     "image": image,
     "location": location,
+    "phone":phone
 };
 }

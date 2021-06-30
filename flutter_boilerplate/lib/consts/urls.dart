@@ -9,14 +9,16 @@ class Urls {
 
 //request shipment
   static const PRODUCT_CATEGORY = BASE_API + 'productcategories';
-  static const WAREHOUSES = BASE_API + 'warehouses';
+  static const Countries = BASE_API + 'countries';
 
 ///mark
   static const MY_MARKS = BASE_API + 'mymarks';
   static const MARK = BASE_API + 'mark';
 
   //profile
-  static const MY_PROFILE="clientprofile";
+  static const MY_PROFILE=BASE_API+"clientprofile";
+
+  static const TRACK_SHIPMENT=BASE_API+'trackmyshipment';
 
   static const REPORT_API = BASE_API + '/report';
 
@@ -27,5 +29,5 @@ class Urls {
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
 
 
-  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjQ5MjE1NjQsImV4cCI6MTYyNDkyNTE2NCwicm9sZXMiOlsidXNlciJdLCJ1c2VybmFtZSI6InJhbWkxIn0.saIzAJs06IxKFhE4ElNnnEF0IT9ExRPP23WI1I2hthqImknLsbaHUfco9psp_uzZTAsbUZ95idW-kAhFqwS0lKUc5XKzMkT0zLw-T691DOoKF07BTkOCS9EfdBdzqmDmKtQjTuS27Qe72_08GQKGrz7M_RuiyjUbVpHB5tO4IPAFEkOu7a4ZHOZQc3fFApZw__LCmm59d3JBO2-_Rb9msFtz4iaLKwa681-2V1BghCFmFxUH0PJ_xADgltnFnsfXEBYcJHybTBstWDFZE8LcKazQ-g-oJkguRvteQKTALUkfebFfH_rGDAOaUC0ECkNkfgZa-gRUA92tW_r4RRskNA';
+  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjUwMDU4NDEsImV4cCI6MTYyNTAwOTQ0MSwicm9sZXMiOlsidXNlciJdLCJ1c2VybmFtZSI6InJhbWkxIn0.Io8WbfcZFpKlkWApPN-lV9U7Q1-5SV4BXuT2WfUWoiMJKNGp1HV55WH33MdWX7UjB3x9QTbvdHdjOjuExoo-zwwa2kZ8kSW27PN39g5VnVaFCZjcJG8BF4d3l0O1m7eDQvbDPLwMNcruc7JcuqExlA1YBgLLiVMD6WapPR9PRJPpV2P6yu2yZ9DiIgkYA6F7qeUyB1G5-j_0D3fnnff4HS8S0xUZbn6KJ8a2i0v70KFg1-h7Y8QpBdk_JFHBjEwVYUEV1PhYLhCGGve3XctGZNOvnFedjHbnKIoup6ext74nyKYmk-9z5wfQE69ezGJpIqu_a3GczRtDAEaju80Gxw';
 }

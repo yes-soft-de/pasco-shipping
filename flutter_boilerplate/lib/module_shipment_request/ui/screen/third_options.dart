@@ -4,11 +4,13 @@ import 'package:pasco_shipping/module_intro/widget/roundedButton.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_previous/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_shipment_previous/ui/widget/text_edit.dart';
+import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 class ThirdOptions extends StatefulWidget {
-  const ThirdOptions();
+  final ShipmentRequest _shipmentRequest;
+  const ThirdOptions(this._shipmentRequest);
 
   @override
   _ThirdOptionsState createState() => _ThirdOptionsState();
@@ -16,7 +18,7 @@ class ThirdOptions extends StatefulWidget {
 
 class _ThirdOptionsState extends State<ThirdOptions> {
   DropListModel dropListModelTime = DropListModel(dataTime);
-  late Entry optionItemSelectedTim = Entry('choose', 1);
+  late Entry optionItemSelectedTim = Entry('choose', 1,[]);
 
 
   @override
@@ -44,7 +46,9 @@ class _ThirdOptionsState extends State<ThirdOptions> {
             'Vehicle identification number (if vehicle)',
             style: white18text,
           ),
-          TextEdit('123...', 50),
+          TextEdit('123...', 50,(number){
+            widget._shipmentRequest.vehicleIdentificationNumber =number ??"";
+          }),
           SizedBox(
             height: 20,
           ),
@@ -52,7 +56,9 @@ class _ThirdOptionsState extends State<ThirdOptions> {
             'Extra specifications',
             style: white18text,
           ),
-          TextEdit('TEXT....', 200),
+          TextEdit('TEXT....', 200,(extra){
+            widget._shipmentRequest.extraSpecification = extra;
+          }),
           Padding(
             padding:
             const EdgeInsetsDirectional.only(start: 25, end: 25),
@@ -80,6 +86,9 @@ class _ThirdOptionsState extends State<ThirdOptions> {
       type: CoolAlertType.success,
       backgroundColor: AppThemeDataService.PrimaryColor,
       confirmBtnColor: AppThemeDataService.AccentColor,
+      onConfirmBtnTap: (){
+
+      },
       text: 'Your request added successfully!',
     );
   }

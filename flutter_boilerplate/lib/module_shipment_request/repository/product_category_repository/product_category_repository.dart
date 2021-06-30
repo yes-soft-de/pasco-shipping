@@ -26,13 +26,13 @@ class FirstOptionRepository {
     }
   }
 
-  Future<List<Warehouse>?> getWarehouses() async {
+  Future<List<Countries>?> getWarehouses() async {
     // await _authService.refreshToken();
     var token = Urls.token; // await _authService.getToken();
     try {
       var response = await _apiClient
-          .get(Urls.WAREHOUSES, headers: {'Authorization': 'Bearer $token'});
-      List<Warehouse>? warehouses = WarehouseResponse.fromJson(response!).data;
+          .get(Urls.Countries, headers: {'Authorization': 'Bearer $token'});
+      List<Countries>? warehouses = WarehouseResponse.fromJson(response!).data;
       return warehouses;
     } catch (_) {
       return null;
