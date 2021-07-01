@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_shipment_track/model/shipment_status.dart';
 import 'package:pasco_shipping/module_shipment_track/response/tracking_response.dart';
+import 'package:pasco_shipping/module_shipment_track/ui/widget/holder_info_card.dart';
 import 'package:pasco_shipping/module_shipment_track/ui/widget/shipment_status_card.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
@@ -9,49 +11,45 @@ import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 
-class TrackingSuccessfullyScreen extends StatelessWidget {
+class TrackingSuccessfullyScreen extends StatefulWidget {
   final TrackModel model;
-   TrackingSuccessfullyScreen(this.model);
+  TrackingSuccessfullyScreen(this.model);
 
-  List<ShipmentStatus> items = [
-    ShipmentStatus(1,  "Requested", "20 min ago",true , false),
-    ShipmentStatus(1,  "Accepted", "20 min ago",true, false),
+  @override
+  _TrackingSuccessfullyScreenState createState() => _TrackingSuccessfullyScreenState();
+}
 
-    ShipmentStatus(1, "Received in the warehouse.", "20 min ago",false, false),
+class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen> {
 
-    ShipmentStatus(1,  "shipping started","1",false ,true),
-    ShipmentStatus(1, " Arrived at the target city", "20 min ago", false ,true),
-    ShipmentStatus(1,"Delivered", "20 min ago", false , true),
-  ];
+  late List<Track> tracks;
+  late List<ShipmentStatus> items;
+
   final ScrollController _controller = ScrollController();
+
+
+  @override
+  void initState() {
+    super.initState();
+    tracks = widget.model.tracks!;
+    items = [];
+    selectStatus();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Background(
+      goBack: (){
+        Navigator.pop(context);
+      },
       controller: _controller,
       isHome: false,
-      // bottomNavigationBar: Padding(
-      //   padding: const EdgeInsetsDirectional.only(start: 10 , end: 10),
-      //   child: Container(
-      //     height: 65,
-      //       width: MediaQuery.of(context).size.width,
-      //       decoration:BoxDecoration(
-      //         borderRadius: BorderRadius.circular(15),
-      //         color: black,
-      //       ),
-      //       child: Padding(
-      //         padding: const EdgeInsets.all(8.0),
-      //         child: Card(
-      //             color: black,
-      //             child: Text('The other part of the shipment will arrive on the next flight, please track it via the following number 4567.',style: TextStyle(color: Colors.red),)),
-      //       )),
-      // ),
       child: CustomScrollView(
         shrinkWrap: true,
         slivers: [
           SliverAppBar(
             automaticallyImplyLeading: false,
             backgroundColor: greyBlack,
-            collapsedHeight: 420,
+            collapsedHeight: 450,
             pinned: false,
             floating: true,
             flexibleSpace: Container(
@@ -74,7 +72,7 @@ class TrackingSuccessfullyScreen extends StatelessWidget {
                                 // _scaffoldKey.currentState!.openDrawer();
                               }),
                           Text(
-                            'Result tracking',
+                            S.of(context).resultTrack,
                             style: white18text,
                           ),
                         ],
@@ -87,12 +85,14 @@ class TrackingSuccessfullyScreen extends StatelessWidget {
                       StaticImage.divider,
                       width: MediaQuery.of(context).size.width,
                     ),
-
                     Padding(
-                      padding: const EdgeInsetsDirectional.only(top: 10 , bottom: 10),
-                      child: Text('Shipment Info' , style: basic14text,),
+                      padding:
+                          const EdgeInsetsDirectional.only(top: 10, bottom: 10),
+                      child: Text(
+                        S.of(context).shipmentInfo,
+                        style: basic14text,
+                      ),
                     ),
-
                     Card(
                       // margin: new EdgeInsets.symmetric(vertical: 20.0),
                       shape: RoundedRectangleBorder(
@@ -105,34 +105,22 @@ class TrackingSuccessfullyScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 5,),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.track_changes,
-                                  color: white,
-                                  size: 20,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  'Track number',
-                                  style: White14text,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  '123589',
-                                  style: basic14text,
-                                )
-                              ],
+                            SizedBox(
+                              height: 5,
                             ),
-                            SizedBox(height: 10,),
+                            Center(
+                                child: Text(
+                              widget.model.orderUpdatingDate
+                                  .toString()
+                                  .split(' ')
+                                  .first,
+                              style: White14text,
+                            )),
+                            SizedBox(
+                              height: 5,
+                            ),
                             Row(
                               children: [
-
                                 Icon(
                                   Icons.person,
                                   color: white,
@@ -142,11 +130,11 @@ class TrackingSuccessfullyScreen extends StatelessWidget {
                                   width: 5,
                                 ),
                                 Text(
-                                  'Distributor name: ',
+                                  S.of(context).distributorName,
                                   style: White14text,
                                 ),
                                 Text(
-                                  'Rami',
+                                  widget.model.distributorName ?? '',
                                   style: basic14text,
                                 ),
                               ],
@@ -164,9 +152,10 @@ class TrackingSuccessfullyScreen extends StatelessWidget {
                                 SizedBox(
                                   width: 5,
                                 ),
-                                Text('Import warehouse city: ',
+                                Text(S.of(context).importWarehouseCity,
                                     style: White14text),
-                                Text(' Sirte, LIBYA ', style: basic14text),
+                                Text(widget.model.importWarehouseName ?? '',
+                                    style: basic14text),
                               ],
                             ),
                             SizedBox(
@@ -183,46 +172,103 @@ class TrackingSuccessfullyScreen extends StatelessWidget {
                                   width: 5,
                                 ),
                                 Text(
-                                  "Is in one holder",
+                                  S.of(context).inHolder,
                                   style: White14text,
                                 ),
                                 SizedBox(
                                   width: 5,
                                 ),
-                                Icon(
-                                  Icons.check_circle_outline,
-                                  color: green,
-                                ),
+                                if (widget.model.isInOneHolder != null &&
+                                    widget.model.isInOneHolder!)
+                                  Icon(
+                                    Icons.check_circle_outline,
+                                    color: green,
+                                  )
+                                else
+                                  Icon(
+                                    Icons.close,
+                                    color: Colors.red,
+                                  ),
                               ],
                             ),
                             SizedBox(
                               height: 10,
                             ),
-
-                            Text('Important note',style: TextStyle(color: AppThemeDataService.AccentColor),),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.category,
+                                  color: white,
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(S.of(context).productType + ' ',
+                                    style: White14text),
+                                Text(widget.model.productCategoryName ?? '',
+                                    style: basic14text),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.business_center_outlined,
+                                  color: white,
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(S.of(context).quantity + ' ',
+                                    style: White14text),
+                                Text(widget.model.quantity.toString(),
+                                    style: basic14text),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  S.of(context).importantNote,
+                                  style: TextStyle(
+                                      color: AppThemeDataService.AccentColor),
+                                ),
+                                Spacer(),
+                                InkWell(
+                                    onTap: () {
+                                      showAlertDialog(context);
+                                    },
+                                    child: Text(
+                                      "show holder Info",
+                                      style: TextStyle(
+                                          color: AppThemeDataService
+                                              .PrimaryDarker),
+                                    )),
+                              ],
+                            ),
                             Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: Text('The other part of the shipment will arrive on the next flight, please track it via the following number 4567.',style: TextStyle(color: Colors.red),),
+                              child: Text(
+                                widget.model.statusDetails ?? '',
+                                style: TextStyle(color: Colors.red),
+                              ),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    // Container(
-                    //     height: 65,
-                    //     width: MediaQuery.of(context).size.width,
-                    //     decoration:BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(15),
-                    //       color: black,
-                    //     ),
-                    //     child: Padding(
-                    //       padding: const EdgeInsets.all(10.0),
-                    //       child: Text('The other part of the shipment will arrive on the next flight, please track it via the following number 4567.',style: TextStyle(color: Colors.red),),
-                    //     )),
-                    SizedBox(height: 15,),
+                    SizedBox(
+                      height: 15,
+                    ),
                     Center(
                       child: Text(
-                        'Tracking the shipment',
+                        S.of(context).trackShipment,
                         style: basic14text,
                       ),
                     ),
@@ -233,194 +279,90 @@ class TrackingSuccessfullyScreen extends StatelessWidget {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                // if(index == items.length ) {
-                //   return Padding(
-                //     padding: const EdgeInsets.all(8.0),
-                //     child: Card(
-                //         color: black,
-                //         child: Text('The other part of the shipment will arrive on the next flight, please track it via the following number 4567.',style: TextStyle(color: Colors.red),)),
-                //   );
-                // }
+              (BuildContext context, int index) {
                 return ShipmentStatusCard(model: items[index]);
-
               },
               childCount: items.length, // 1000 list items
             ),
           ),
-
-          // Card(
-          //   // margin: new EdgeInsets.symmetric(vertical: 20.0),
-          //   shape: RoundedRectangleBorder(
-          //     borderRadius: BorderRadius.circular(15.0),
-          //   ),
-          //   elevation: 5.0,
-          //   color: black,
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(20.0),
-          //     child: Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Row(
-          //           children: [
-          //             Icon(Icons.person ,color: white,size: 20,),
-          //             SizedBox(width: 5,),
-          //             Text(
-          //               'Distributor name: ',
-          //               style: White14text,
-          //             ),
-          //             Text(
-          //               'Rami',
-          //               style: basic14text,
-          //             ),
-          //           ],
-          //         ),
-          //         SizedBox(height: 10,),
-          //         Row(
-          //           children: [
-          //             Icon(Icons.location_on ,color: white,size: 20,),
-          //             SizedBox(width: 5,),
-          //             Text('Import warehouse city: ', style: White14text),
-          //             Text(' Sirte, LIBYA ', style: basic14text),
-          //           ],
-          //         ),
-          //         SizedBox(height: 10,),
-          //         Row(
-          //           children: [
-          //             Icon(Icons.info , color: white,size: 20,),
-          //             SizedBox(width: 5,),
-          //             Text(
-          //               "Is in one holder",
-          //               style: White14text,
-          //             ),
-          //             SizedBox(width: 5,),
-          //             Icon(Icons.check_circle_outline , color: green,),
-          //           ],
-          //         ),
-          //
-          //         SizedBox(height: 10,),
-          //         Row(
-          //           children: [
-          //             Icon(Icons.track_changes , color: white,size: 20,),
-          //             SizedBox(width: 5,),
-          //             Text(
-          //               'Holder Identification number: ',
-          //               style: White14text,
-          //             ),
-          //             SizedBox(width: 5,),
-          //             Text('123589' ,  style: basic14text,)
-          //           ],
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
-          // Text(
-          //   'Tracking the shipments',
-          //   style: basic14text,
-          // ),
         ],
-        // child: Column(
-        //   children: [
-        //     Padding(
-        //       padding: const EdgeInsets.all(20.0),
-        //       child: Column(
-        //         mainAxisSize: MainAxisSize.min,
-        //         crossAxisAlignment: CrossAxisAlignment.start,
-        //         children: [
-        //           Card(
-        //             // margin: new EdgeInsets.symmetric(vertical: 20.0),
-        //             shape: RoundedRectangleBorder(
-        //               borderRadius: BorderRadius.circular(15.0),
-        //             ),
-        //             elevation: 5.0,
-        //             color: black,
-        //             child: Padding(
-        //               padding: const EdgeInsets.all(20.0),
-        //               child: Column(
-        //                 crossAxisAlignment: CrossAxisAlignment.start,
-        //                 children: [
-        //                   Row(
-        //                     children: [
-        //                       Icon(Icons.person ,color: white,size: 20,),
-        //                       SizedBox(width: 5,),
-        //                       Text(
-        //                         'Distributor name: ',
-        //                         style: White14text,
-        //                       ),
-        //                       Text(
-        //                         'Rami',
-        //                         style: basic14text,
-        //                       ),
-        //                     ],
-        //                   ),
-        //                   SizedBox(height: 10,),
-        //                   Row(
-        //                     children: [
-        //                       Icon(Icons.location_on ,color: white,size: 20,),
-        //                       SizedBox(width: 5,),
-        //                       Text('Import warehouse city: ', style: White14text),
-        //                       Text(' Sirte, LIBYA ', style: basic14text),
-        //                     ],
-        //                   ),
-        //                   SizedBox(height: 10,),
-        //                   Row(
-        //                     children: [
-        //                       Icon(Icons.info , color: white,size: 20,),
-        //                       SizedBox(width: 5,),
-        //                       Text(
-        //                         "Is in one holder",
-        //                         style: White14text,
-        //                       ),
-        //                       SizedBox(width: 5,),
-        //                       Icon(Icons.check_circle_outline , color: green,),
-        //                     ],
-        //                   ),
-        //
-        //                   SizedBox(height: 10,),
-        //                   Row(
-        //                     children: [
-        //                       Icon(Icons.track_changes , color: white,size: 20,),
-        //                       SizedBox(width: 5,),
-        //                       Text(
-        //                         'Holder Identification number: ',
-        //                         style: White14text,
-        //                       ),
-        //                       SizedBox(width: 5,),
-        //                       Text('123589' ,  style: basic14text,)
-        //                     ],
-        //                   ),
-        //                 ],
-        //               ),
-        //             ),
-        //           ),
-        //           Text(
-        //             'Tracking the shipments',
-        //             style: basic14text,
-        //           ),
-        //           SizedBox(
-        //             height: 15,
-        //           ),
-        //           ListView.builder(
-        //             shrinkWrap: true,
-        //             scrollDirection: Axis.vertical,
-        //             physics: NeverScrollableScrollPhysics(),
-        //             itemBuilder: (context, index) {
-        //               return TrackingCard(model: items[index]);
-        //             },
-        //             itemCount: items.length,
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //
-        //   ],
-        // ),
       ),
       isResultScreen: true,
       currentIndex: -1,
-      title: 'Result tracking',
+      title: S.of(context).resultTrack,
     );
   }
 
+ void showAlertDialog(BuildContext context) {
+
+   Widget okButton = TextButton(
+     child: Text(S.of(context).ok),
+     onPressed:  () {
+       Navigator.pop(context);
+     },
+   );
+    AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0))
+      ),
+      title: Text('Holder Info'),
+      content: Container(
+        width: double.maxFinite,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: tracks.length,
+                itemBuilder: (context , index){
+              return HolderInfoCard(tracks[index]);
+            }),
+          ],
+        ),
+      ),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  void selectStatus(){
+    if(widget.model.shipmentStatus=='accepted'){
+      items = [
+        ShipmentStatus(1, 'Requested', '20 min ago', true, false),
+        ShipmentStatus(1, 'Accepted', '20 min ago', false, false),
+        ShipmentStatus(1, 'Received in the warehouse', '20 min ago', false, true),
+        ShipmentStatus(1, 'start shipping', "1", false, true),
+        ShipmentStatus(1, ' Arrived at the target city', '20 min ago', false, true),
+        ShipmentStatus(1, 'Delivered', '20 min ago', false, true),
+      ];
+    }else if(widget.model.shipmentStatus=='start shipping') {
+      items = [
+      ShipmentStatus(1, 'Requested', '20 min ago', true, false),
+      ShipmentStatus(1, 'Accepted', '20 min ago', true, false),
+      ShipmentStatus(1, 'Received in the warehouse', '20 min ago', true, false),
+      ShipmentStatus(1, 'start shipping', "1", false, false),
+      ShipmentStatus(1, ' Arrived at the target city', '20 min ago', false, true),
+      ShipmentStatus(1, 'Delivered', '20 min ago', false, true),
+    ];
+    }
+    else if(widget.model.shipmentStatus=='delivered') {
+      items = [
+        ShipmentStatus(1, 'Requested', '20 min ago', true, false),
+        ShipmentStatus(1, 'Accepted', '20 min ago', true, false),
+        ShipmentStatus(1, 'Received in the warehouse', '20 min ago', true, false),
+        ShipmentStatus(1, 'start shipping', "1", true, false),
+        ShipmentStatus(1, ' Arrived at the target city', '20 min ago', true, false),
+        ShipmentStatus(1, 'Delivered', '20 min ago', false, false),
+      ];
+    }
+  }
 }
