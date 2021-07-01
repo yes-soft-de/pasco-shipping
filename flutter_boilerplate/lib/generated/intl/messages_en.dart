@@ -21,8 +21,6 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "ImportWarehouseCity":
-            MessageLookupByLibrary.simpleMessage("Import warehouse city: "),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About Us"),
         "air": MessageLookupByLibrary.simpleMessage("Air"),
         "cancel": MessageLookupByLibrary.simpleMessage("cancel"),
@@ -36,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "deletePreviousMark": MessageLookupByLibrary.simpleMessage(
             "You cannot delete previously used marks"),
         "directSupport": MessageLookupByLibrary.simpleMessage("Direct support"),
+        "distributorName":
+            MessageLookupByLibrary.simpleMessage("Distributor Name: "),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "enterMark": MessageLookupByLibrary.simpleMessage("Enter new mark"),
         "enterShipmentNumber":
@@ -46,6 +46,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "iHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("I have an account"),
         "image": MessageLookupByLibrary.simpleMessage("Image:"),
+        "importWarehouseCity":
+            MessageLookupByLibrary.simpleMessage("Import warehouse city: "),
         "importantNote": MessageLookupByLibrary.simpleMessage("Important note"),
         "inHolder": MessageLookupByLibrary.simpleMessage("Is in one holder"),
         "language": MessageLookupByLibrary.simpleMessage("language"),
@@ -57,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "mark": MessageLookupByLibrary.simpleMessage("Marks"),
         "myPrevious": MessageLookupByLibrary.simpleMessage("My Previous"),
         "myShipment": MessageLookupByLibrary.simpleMessage("My\n Shipments"),
+        "nameHere": MessageLookupByLibrary.simpleMessage("name here"),
         "newShipmentRequest":
             MessageLookupByLibrary.simpleMessage("Request a new\n shipment"),
         "noAccount":
@@ -82,11 +85,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("this filed is required"),
         "resendCode": MessageLookupByLibrary.simpleMessage("resend code"),
         "resultTrack": MessageLookupByLibrary.simpleMessage("Result tracking"),
+        "reviewShipment":
+            MessageLookupByLibrary.simpleMessage("Review Shipment"),
         "save": MessageLookupByLibrary.simpleMessage("save"),
         "saveInfo": MessageLookupByLibrary.simpleMessage("Save Information"),
         "sea": MessageLookupByLibrary.simpleMessage("Sea"),
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "shipment": MessageLookupByLibrary.simpleMessage("Shipments"),
+        "shipmentInfo": MessageLookupByLibrary.simpleMessage("Shipment Info"),
         "shippingFrom": MessageLookupByLibrary.simpleMessage("Shipping from:"),
         "shippingTo": MessageLookupByLibrary.simpleMessage("Shipping to:"),
         "shippingType": MessageLookupByLibrary.simpleMessage("Shipping type:"),

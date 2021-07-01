@@ -6,7 +6,7 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_intro/widget/roundedButton.dart';
 import 'package:pasco_shipping/module_profile/request/profile_request.dart';
 import 'package:pasco_shipping/module_profile/response/profile_response.dart';
-import 'package:pasco_shipping/module_shipment_previous/ui/widget/text_edit.dart';
+import 'package:pasco_shipping/utils/widget/text_edit.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';

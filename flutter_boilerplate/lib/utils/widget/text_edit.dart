@@ -5,7 +5,8 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 class TextEdit extends StatelessWidget {
   final String title;
   final double height;
-  const TextEdit(this.title, this.height);
+  final Function onChange;
+  const TextEdit(this.title, this.height , this.onChange);
 
   @override
   Widget build(BuildContext context) {
@@ -19,22 +20,28 @@ class TextEdit extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsetsDirectional.only(start: 20),
-        child: TextField(decoration: InputDecoration(
+        child: TextField(
+          onChanged: (value){
+            onChange(value);
+          },
+          decoration: InputDecoration(
           hintText: title,
           hintStyle: white18text,
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,
           errorBorder: InputBorder.none,
           disabledBorder: InputBorder.none,
-        ), style: white16text,),
+        ),
+          style: white16text,),
       ),
     );
   }
 }
 class TextEditLocation extends StatelessWidget {
-  final String title;
+  // final String title;
   final double height;
-  const TextEditLocation(this.title, this.height);
+  final TextEditingController controller;
+  const TextEditLocation(this.height, this.controller);
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +59,10 @@ class TextEditLocation extends StatelessWidget {
           maxLines: 10,
           keyboardType: TextInputType.multiline,
           textInputAction: TextInputAction.newline,
+          controller: controller,
+
           decoration: InputDecoration(
-          hintText: title,
+          hintText: controller.text,
           hintStyle: white18text,
             filled: true,
           focusedBorder: InputBorder.none,

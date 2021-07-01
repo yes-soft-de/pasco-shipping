@@ -97,6 +97,9 @@ class _ChatScreenState extends State<ChatScreen> {
     // Timer(Duration(milliseconds: 150), () => _scrollController.jumpTo(_scrollController.position.maxScrollExtent));
 
     return Background(
+      goBack: (){
+        Navigator.pop(context);
+      },
         controller: _scrollController,
         isHome: true,
         isResultScreen: false,

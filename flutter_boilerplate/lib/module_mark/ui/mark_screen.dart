@@ -8,7 +8,7 @@ import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/module_mark/state_manager/mark_state_manager.dart';
 import 'package:pasco_shipping/module_mark/ui/state/mark_state.dart';
 import 'package:pasco_shipping/module_mark/widget/mark_card.dart';
-import 'package:pasco_shipping/module_shipment_previous/ui/widget/shipment_card.dart';
+import 'package:pasco_shipping/module_my_shipment/ui/widget/shipment_card.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
@@ -38,10 +38,15 @@ class _MarkScreenState extends State<MarkScreen> {
   Widget build(BuildContext context) {
     print("Screen rebuild");
     return Background(
+      goBack: (){
+        Navigator.pop(context , items);
+      },
       controller: controller,
       isHome: false,
         child: Screen(),
-        title: S.of(context).mark ,currentIndex: -1,isResultScreen: false,
+        title: S.of(context).mark
+      ,currentIndex: -1,
+      isResultScreen: false,
     );
   }
 

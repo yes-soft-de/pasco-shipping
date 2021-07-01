@@ -84,6 +84,9 @@ class ChatsListScreenState extends State<ChatsListScreen> {
 
   Widget _screenUi() {
     return Background(
+      goBack: (){
+        Navigator.pop(context);
+      },
       controller: controller,
       // key: _scaffoldKey,
       // appBar: TurkishAppBar.getTurkishAppBar(

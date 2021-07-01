@@ -53,6 +53,16 @@
   "location": "الموقع",
   "saveInfo": "حفظ المعلومات",
 
+  "resultTrack": "نتائج التعقب",
+  "trackShipment": "تعقب شحنة",
+  "importantNote": "ملاحظة مهمة",
+  "inHolder": "في حامل واحد: ",
+  "importWarehouseCity": "مدينة الإستلام: ",
+  "distributorName": "اسم الموزع: ",
+  "shipmentInfo": "معلومات الشحنة",
+  "reviewShipment": "مراجعة الشحنة",
+  "nameHere": "لأسم هنا",
+
   "startWriting": "أبدء بالكتابة",
   "language": "اللغة",
   "darkMode": "الوضع الليلي",
