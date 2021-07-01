@@ -9,9 +9,9 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/product_type.dart';
-import 'package:pasco_shipping/module_shipment_previous/ui/widget/NumberInputWithIncrementDecrement.dart';
-import 'package:pasco_shipping/module_shipment_previous/ui/widget/choice_card.dart';
-import 'package:pasco_shipping/module_shipment_previous/ui/widget/select_drop_list.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/NumberInputWithIncrementDecrement.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/choice_card.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_shipment_request/state_manager/request_shipment_state_manager/request_shipment_state_manager.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/states/first_option/fisrt_option_successfully.dart';
@@ -25,7 +25,8 @@ import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 class FirstOptions extends StatefulWidget {
   final RequestShipmentStateManger stateManger;
   final ShipmentRequest _shipmentRequest;
-  FirstOptions(this.stateManger, this._shipmentRequest);
+  final Function goToSecondStep;
+  FirstOptions(this.stateManger, this._shipmentRequest, this.goToSecondStep);
 
   @override
   _FirstOptionsState createState() => _FirstOptionsState();
@@ -65,6 +66,9 @@ class _FirstOptionsState extends State<FirstOptions> {
         categories: state!.categories,
         countries: state.warehouses,
         shipmentRequest: widget._shipmentRequest,
+        goToSecondStep:(){
+          widget.goToSecondStep();
+        }
       );
     }  else {
       return Column(
