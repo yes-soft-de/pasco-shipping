@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 
-import '../../previous_routes.dart';
+import '../../../module_shipment_previous/previous_routes.dart';
+import '../../tracking_routes.dart';
 
 class SearchCard extends StatelessWidget {
-  const SearchCard();
+  final Function onSearch;
+  SearchCard({required this.onSearch});
+
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController trackNumberController = TextEditingController();
     return Padding(
       padding: const EdgeInsets.all(30.0),
       child: Container(
@@ -25,8 +31,10 @@ class SearchCard extends StatelessWidget {
             children: [
               Expanded(
                 child: TextField(
+                  controller: trackNumberController,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    hintText: 'Enter the shipment number',
+                    hintText: S.of(context).enterShipmentNumber,
                     hintStyle: white18text,
                     focusedBorder: InputBorder.none,
                     enabledBorder: InputBorder.none,
@@ -42,8 +50,11 @@ class SearchCard extends StatelessWidget {
                   shape: CircleBorder(),
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context,
-                      PreviousShipmentsRoutes.RESULT_TRACKING_SHIPMENTS);
+                  if(trackNumberController.text.isEmpty) {
+                    Fluttertoast.showToast(msg: S.of(context).required);
+                  } else {
+                    onSearch(trackNumberController.text);
+                  }
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),

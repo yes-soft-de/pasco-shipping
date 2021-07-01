@@ -6,7 +6,7 @@ import 'package:pasco_shipping/module_intro/widget/roundedButton.dart';
 import 'package:pasco_shipping/module_profile/manager/profile_manager.dart';
 import 'package:pasco_shipping/module_profile/state_manager/profile_state_manager.dart';
 import 'package:pasco_shipping/module_profile/ui/state/profile_state.dart';
-import 'package:pasco_shipping/module_shipment_previous/ui/widget/text_edit.dart';
+import 'package:pasco_shipping/utils/widget/text_edit.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
@@ -34,6 +34,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
 
     return Background(
+      goBack: (){
+        Navigator.pop(context);
+      },
       controller: controller,
       isHome: false,
       child: Screen(),

@@ -3,13 +3,13 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 
-class historyCard extends StatelessWidget {
+class ShipmentTypeCard extends StatelessWidget {
   final String title;
   final String subTitle;
   final String image;
   final bool isActive;
   final Function onTap;
-  const historyCard(this.title, this.subTitle, this.image, this.isActive, this.onTap);
+  const ShipmentTypeCard(this.title, this.subTitle, this.image, this.isActive, this.onTap);
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +29,14 @@ class historyCard extends StatelessWidget {
                   Image.asset(image , color: isActive ?black  : white ,width: 18,height: 18,),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                      Text(title ,style: isActive? black14text:  White14text ),
-                      Text(subTitle , style:isActive? black14text :White14text )
-                    ],),
+                    child:                       Text(title ,style: isActive? black14text:  White14text ),
+
+                    // Column(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //   Text(title ,style: isActive? black14text:  White14text ),
+                    //   Text(subTitle , style:isActive? black14text :White14text )
+                    // ],),
                   )
 
                 ],

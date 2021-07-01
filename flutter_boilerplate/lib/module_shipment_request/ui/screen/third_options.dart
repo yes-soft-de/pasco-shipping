@@ -1,16 +1,19 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/module_home/home_routes.dart';
 import 'package:pasco_shipping/module_intro/widget/roundedButton.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
-import 'package:pasco_shipping/module_shipment_previous/ui/widget/select_drop_list.dart';
-import 'package:pasco_shipping/module_shipment_previous/ui/widget/text_edit.dart';
+import 'package:pasco_shipping/module_shipment_request/presistance/shipment_prefs_helper.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
+import 'package:pasco_shipping/utils/widget/text_edit.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 class ThirdOptions extends StatefulWidget {
   final ShipmentRequest _shipmentRequest;
-  const ThirdOptions(this._shipmentRequest);
+  final Function goBackStep;
+  const ThirdOptions(this._shipmentRequest, this.goBackStep);
 
   @override
   _ThirdOptionsState createState() => _ThirdOptionsState();
@@ -18,8 +21,31 @@ class ThirdOptions extends StatefulWidget {
 
 class _ThirdOptionsState extends State<ThirdOptions> {
   DropListModel dropListModelTime = DropListModel(dataTime);
-  late Entry optionItemSelectedTim = Entry('choose', 1,[]);
+  late String vehicle;
+  late String extra;
+  late Entry optionItemSelectedTim = Entry('choose', 1, []);
 
+  @override
+  void initState() {
+    super.initState();
+    if (widget._shipmentRequest.vehicleIdentificationNumber.isNotEmpty) {
+      vehicle = widget._shipmentRequest.vehicleIdentificationNumber;
+    } else {
+      vehicle = '123...';
+    }
+
+    if (widget._shipmentRequest.extraSpecification.isNotEmpty) {
+      extra = widget._shipmentRequest.extraSpecification;
+    } else {
+      extra = 'Text...';
+    }
+
+    if(widget._shipmentRequest.paymentTime.isNotEmpty){
+      optionItemSelectedTim = Entry(widget._shipmentRequest.paymentTime, 1, []);
+    }else {
+      optionItemSelectedTim = Entry('choose', 1, []);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +60,7 @@ class _ThirdOptionsState extends State<ThirdOptions> {
           SelectDropList(
             this.optionItemSelectedTim,
             this.dropListModelTime,
-                (optionItem) {
+            (optionItem) {
               optionItemSelectedTim = optionItem;
               setState(() {});
             },
@@ -46,8 +72,8 @@ class _ThirdOptionsState extends State<ThirdOptions> {
             'Vehicle identification number (if vehicle)',
             style: white18text,
           ),
-          TextEdit('123...', 50,(number){
-            widget._shipmentRequest.vehicleIdentificationNumber =number ??"";
+          TextEdit(vehicle, 50, (number) {
+            widget._shipmentRequest.vehicleIdentificationNumber = number ?? "";
           }),
           SizedBox(
             height: 20,
@@ -56,12 +82,11 @@ class _ThirdOptionsState extends State<ThirdOptions> {
             'Extra specifications',
             style: white18text,
           ),
-          TextEdit('TEXT....', 200,(extra){
+          TextEdit(extra, 200, (extra) {
             widget._shipmentRequest.extraSpecification = extra;
           }),
           Padding(
-            padding:
-            const EdgeInsetsDirectional.only(start: 25, end: 25),
+            padding: const EdgeInsetsDirectional.only(start: 25, end: 25),
             child: RoundedButton(
               radius: 15,
               lable: 'Request',
@@ -72,12 +97,33 @@ class _ThirdOptionsState extends State<ThirdOptions> {
               },
               style: mainHeaderBlackStyle,
             ),
-          )
+          ),
+          Align(
+            alignment: AlignmentDirectional.bottomEnd,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Align(
+                      alignment: AlignmentDirectional.bottomStart,
+                      child: FloatingActionButton.extended(
+                        onPressed: () {
+                          widget.goBackStep();
+                        },
+                        label: Text('Back'),
+                        icon: Icon(
+                          Icons.arrow_back,
+                        ),
+                      )),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
-
 
   void _showDialog(BuildContext context) {
     // flutter defined function
@@ -86,8 +132,10 @@ class _ThirdOptionsState extends State<ThirdOptions> {
       type: CoolAlertType.success,
       backgroundColor: AppThemeDataService.PrimaryColor,
       confirmBtnColor: AppThemeDataService.AccentColor,
-      onConfirmBtnTap: (){
-
+      onConfirmBtnTap: () async{
+        await setShipment(widget._shipmentRequest);
+        Navigator.pop(context);
+       Navigator.pushNamedAndRemoveUntil(context, HomeRoutes.Home, (route) => false);
       },
       text: 'Your request added successfully!',
     );

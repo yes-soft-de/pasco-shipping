@@ -17,7 +17,8 @@ class Background extends StatefulWidget {
   final bool isResultScreen;
   final bool isHome;
   ScrollController controller;
-  Background({required this.child,required this.title,  required this.currentIndex, required this.isResultScreen,required this.isHome ,required this.controller});
+  final Function goBack;
+  Background({required this.child,required this.title,  required this.currentIndex, required this.isResultScreen,required this.isHome ,required this.controller,required this.goBack});
 
   @override
   _BackgroundState createState() => _BackgroundState();
@@ -61,7 +62,7 @@ class _BackgroundState extends State<Background> {
                      ),
                      widget.isHome ?Container(): InkWell(
                          onTap: (){
-                           Navigator.pop(context);
+                          widget.goBack();
                          },
                          child: Icon(Icons.arrow_forward_ios , color: white,))
                    ],

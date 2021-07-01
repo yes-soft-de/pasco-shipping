@@ -12,10 +12,9 @@ import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
 @injectable
 class TrackingScreen extends StatefulWidget {
-  final String trackNumber;
   final TrackingStateManager _stateManager;
 
-  TrackingScreen(this._stateManager, this.trackNumber);
+  TrackingScreen(this._stateManager);
 
   @override
   _TrackingScreenState createState() => _TrackingScreenState();
@@ -34,17 +33,30 @@ class _TrackingScreenState extends State<TrackingScreen> {
     super.initState();
     currentState = LoadingTrackingState();
     widget._stateManager.stateStream.listen((event) {
-      print("newEvent"+event.toString());
+      print('newEvent'+event.toString());
       currentState = event;
       if (this.mounted) {
         setState(() {});
       }
     });
-    widget._stateManager.getTrackDetails(widget.trackNumber);
+
   }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    String trackNumber =arguments['trackNumber'];
+    print(trackNumber);
+    widget._stateManager.getTrackDetails(trackNumber);
+  }
+
   Widget Screen(){
-    if(currentState is LoadingProfileState){
+    if(currentState is LoadingTrackingState){
       return Background(
+        goBack: (){
+          Navigator.pop(context);
+        },
         title: S.of(context).trackShipment,
         currentIndex: -1,
         isResultScreen: false,
@@ -65,6 +77,9 @@ class _TrackingScreenState extends State<TrackingScreen> {
     else {
       ErrorTrackState? state = currentState as ErrorTrackState?;
       return Background(
+        goBack: (){
+          Navigator.pop(context);
+        },
         title: S.of(context).trackShipment,
         currentIndex: -1,
         isResultScreen: false,

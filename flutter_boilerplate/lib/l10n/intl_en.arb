@@ -56,7 +56,11 @@
   "trackShipment": "Tracking the shipment",
   "importantNote": "Important note",
   "inHolder": "Is in one holder",
-  "ImportWarehouseCity": "Import warehouse city: ",
+  "importWarehouseCity": "Import warehouse city: ",
+  "distributorName": "Distributor Name: ",
+  "shipmentInfo": "Shipment Info",
+  "reviewShipment": "Review Shipment",
+  "nameHere": "name here",
 
 
 

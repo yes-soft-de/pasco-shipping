@@ -11,6 +11,7 @@ import 'package:pasco_shipping/module_intro/intro_module.dart';
 import 'package:pasco_shipping/module_intro/ui/intro_screen/intro_screen.dart';
 import 'package:pasco_shipping/module_localization/service/localization_service/localization_service.dart';
 import 'package:pasco_shipping/module_mark/mark_module.dart';
+import 'package:pasco_shipping/module_my_shipment/my_shipment_module.dart';
 import 'package:pasco_shipping/module_notifications/model/notification_model.dart';
 import 'package:pasco_shipping/module_notifications/notification_module.dart';
 import 'package:pasco_shipping/module_notifications/service/fire_notification_service/fire_notification_service.dart';
@@ -73,12 +74,13 @@ class MyApp extends StatefulWidget {
   final ChatModule _chatModule;
   final HomeModule _homeModule;
   final IntroModule _introModule;
-  final PreviousShipmentsModule _previousShipmentsModule;
+  // final PreviousShipmentsModule _previousShipmentsModule;
   final ProfileModule _profileModule;
   final MarkModule _markModule;
   final NotificationModule _notificationModule;
   final NewShipmentsModule _newShipmentsModule;
   final TrackingModule _trackingModule;
+  final MyShipmentModule _myShipmentModule;
 
   MyApp(
       this._themeDataService,
@@ -90,12 +92,13 @@ class MyApp extends StatefulWidget {
       this._chatModule,
       this._settingsModule,
       this._homeModule,
-      this._previousShipmentsModule,
+      // this._previousShipmentsModule,
       this._profileModule,
       this._markModule,
       this._notificationModule,
       this._newShipmentsModule,
-      this._trackingModule
+      this._trackingModule,
+      this._myShipmentModule
       );
 
   @override

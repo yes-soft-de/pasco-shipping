@@ -4,6 +4,9 @@ import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 class NumberInputWithIncrementDecrement extends StatefulWidget {
+ final Function onTap;
+ final String initValue;
+  NumberInputWithIncrementDecrement( this.initValue,this.onTap);
   @override
   _NumberInputWithIncrementDecrementState createState() =>
       _NumberInputWithIncrementDecrementState();
@@ -16,7 +19,7 @@ class _NumberInputWithIncrementDecrementState
   @override
   void initState() {
     super.initState();
-    _controller.text = "0"; // Setting the initial value for the field.
+    _controller.text = widget.initValue; // Setting the initial value for the field.
   }
 
   @override
@@ -82,6 +85,7 @@ class _NumberInputWithIncrementDecrementState
                           _controller.text = (currentValue)
                               .toString(); // incrementing value
                         });
+                        widget.onTap(currentValue);
                       },
                     ),
                   ),
@@ -100,6 +104,7 @@ class _NumberInputWithIncrementDecrementState
                             (currentValue > 0 ? currentValue : 0)
                                 .toString(); // decrementing value
                       });
+                      widget.onTap(currentValue);
                     },
                   ),
                 ],

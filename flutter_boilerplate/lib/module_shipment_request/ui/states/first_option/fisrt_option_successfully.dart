@@ -4,9 +4,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/product_type.dart';
-import 'package:pasco_shipping/module_shipment_previous/ui/widget/NumberInputWithIncrementDecrement.dart';
-import 'package:pasco_shipping/module_shipment_previous/ui/widget/choice_card.dart';
-import 'package:pasco_shipping/module_shipment_previous/ui/widget/select_drop_list.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/NumberInputWithIncrementDecrement.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/choice_card.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_shipment_request/response/product_categories/product_categories_response.dart';
 import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
@@ -18,10 +18,11 @@ class FirstOptionSuccessfully extends StatefulWidget {
   final List<Countries> countries;
   final List<Category> categories;
   final ShipmentRequest shipmentRequest;
+  final Function goToSecondStep;
   FirstOptionSuccessfully(
       {required this.countries,
       required this.categories,
-      required this.shipmentRequest});
+      required this.shipmentRequest,required this.goToSecondStep});
 
   @override
   _FirstOptionSuccessfullyState createState() =>
@@ -29,15 +30,15 @@ class FirstOptionSuccessfully extends StatefulWidget {
 }
 
 class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
-  int selectedRadioGender = 1;
+ late int selectedRadioGender;
 
   late DropListModel dropListModelFrom;
 
   late DropListModel dropListModelTo;
 
-  late Entry optionItemSelectedF = Entry('choose', 1, []);
+  late Entry optionItemSelectedF;
 
-  late Entry optionItemSelectedT = Entry('choose', 1, []);
+  late Entry optionItemSelectedT ;
 
   final ImagePicker _imagePicker = ImagePicker();
 
@@ -45,12 +46,56 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
   late List<Entry> shippingTo;
  late TextEditingController controller;
   File? imageFile;
+  late String initQuantity;
 
   @override
   void initState() {
     super.initState();
    controller = TextEditingController();
+
    controller.text = '0';
+
+   if(widget.shipmentRequest.target.isEmpty){
+     optionItemSelectedT =  Entry('choose', 1, []);
+   }else {
+     optionItemSelectedT = Entry(widget.shipmentRequest.target, 1, []);
+   }
+   if(widget.shipmentRequest.transportationType =='sea'){
+     selectedRadioGender = 1;
+   }else {selectedRadioGender = 2;}
+
+   if(widget.shipmentRequest.quantity == 0){
+     initQuantity = '0';
+   }else {
+     initQuantity = widget.shipmentRequest.quantity.toString();
+   }
+   if(widget.shipmentRequest.imageFile != null){
+     imageFile = widget.shipmentRequest.imageFile;
+   }
+   if(widget.shipmentRequest.exportWarehouseID !=0){
+     for (Countries item in widget.countries) {
+       if (item.warehouses!.isNotEmpty) {
+         for (Warehouse warehouseItem in item.warehouses!) {
+           if(warehouseItem.id ==widget.shipmentRequest.exportWarehouseID) {
+             optionItemSelectedF = Entry(
+               warehouseItem.city! + "/" + warehouseItem.name!,
+               warehouseItem.id!, []);
+           }
+         }}}
+   }else{
+     optionItemSelectedF = Entry('choose', 1, []);
+   }
+
+   if(widget.shipmentRequest.productCategoryID !=0){
+     widget.categories.forEach((element) {
+       if(element.id == widget.shipmentRequest.productCategoryID) {
+         element.isSelected = true;
+       } else {
+         element.isSelected = false;
+       }
+     });
+
+   }
 
     shippingFrom = <Entry>[];
     shippingTo = <Entry>[];
@@ -61,7 +106,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
   void initShippingFrom() {
     List<Entry> children = <Entry>[];
     for (Countries item in widget.countries) {
-      if (item.warehouses != null) {
+      if (item.warehouses!.isNotEmpty) {
         Entry country = Entry(item.name!, item.id!, children);
         print(country.id);
         children = [];
@@ -82,7 +127,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
   void initShippingTo() {
     List<Entry> children = <Entry>[];
     for (Countries item in widget.countries) {
-      if (item.warehouses != null) {
+      if (item.warehouses!.isNotEmpty) {
         Entry country = Entry(item.name!, item.id!, children);
         print(country.id);
         children = [];
@@ -196,6 +241,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                     });
                     widget.categories[index].isSelected = true;
                     widget.shipmentRequest.productCategoryID = widget.categories[index].id;
+                    widget.shipmentRequest.productCategoryName = widget.categories[index].name;
                   },
                   child: ChoiceCard(item));
             }).toList(),
@@ -209,7 +255,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                 S.of(context).quantity,
                 style: white18text,
               ),
-              NumberInputWithIncrementDecrement((quantity){
+              NumberInputWithIncrementDecrement(initQuantity , (quantity ){
                 widget.shipmentRequest.quantity = quantity;
               }),
             ],
@@ -273,6 +319,18 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
               )
             ],
           ),
+          Align(
+              alignment: AlignmentDirectional.bottomEnd,
+              child: FloatingActionButton.extended(
+                onPressed: () {
+                 widget.goToSecondStep();
+                },
+                icon: Icon(
+                  Icons.arrow_forward_outlined,
+                  // color: bal,
+                ),
+                label: Text('Continue'),
+              ))
         ],
       ),
     );

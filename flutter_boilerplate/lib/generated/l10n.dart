@@ -531,10 +531,50 @@ class S {
   }
 
   /// `Import warehouse city: `
-  String get ImportWarehouseCity {
+  String get importWarehouseCity {
     return Intl.message(
       'Import warehouse city: ',
-      name: 'ImportWarehouseCity',
+      name: 'importWarehouseCity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Distributor Name: `
+  String get distributorName {
+    return Intl.message(
+      'Distributor Name: ',
+      name: 'distributorName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment Info`
+  String get shipmentInfo {
+    return Intl.message(
+      'Shipment Info',
+      name: 'shipmentInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Review Shipment`
+  String get reviewShipment {
+    return Intl.message(
+      'Review Shipment',
+      name: 'reviewShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `name here`
+  String get nameHere {
+    return Intl.message(
+      'name here',
+      name: 'nameHere',
       desc: '',
       args: [],
     );

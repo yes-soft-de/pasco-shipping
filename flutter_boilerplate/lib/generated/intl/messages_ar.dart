@@ -34,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deletePreviousMark": MessageLookupByLibrary.simpleMessage(
             "لا يمكنك حذف العلامات المستخدمة سابقا"),
         "directSupport": MessageLookupByLibrary.simpleMessage("دعم مباشر"),
+        "distributorName": MessageLookupByLibrary.simpleMessage("اسم الموزع: "),
         "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
         "enterMark": MessageLookupByLibrary.simpleMessage("أدخل علامة جديدة"),
         "enterShipmentNumber":
@@ -44,6 +45,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "iHaveAnAccount": MessageLookupByLibrary.simpleMessage("لدي حساب"),
         "image": MessageLookupByLibrary.simpleMessage("صورة:"),
+        "importWarehouseCity":
+            MessageLookupByLibrary.simpleMessage("مدينة الإستلام: "),
+        "importantNote": MessageLookupByLibrary.simpleMessage("ملاحظة مهمة"),
+        "inHolder": MessageLookupByLibrary.simpleMessage("في حامل واحد: "),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "loading": MessageLookupByLibrary.simpleMessage("جار التحميل"),
         "location": MessageLookupByLibrary.simpleMessage("الموقع"),
@@ -53,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "mark": MessageLookupByLibrary.simpleMessage("العلامات"),
         "myPrevious": MessageLookupByLibrary.simpleMessage("علاماتي السابقة"),
         "myShipment": MessageLookupByLibrary.simpleMessage("شحناتي"),
+        "nameHere": MessageLookupByLibrary.simpleMessage("لأسم هنا"),
         "newShipmentRequest":
             MessageLookupByLibrary.simpleMessage("طلب شحنة جديد"),
         "noAccount":
@@ -75,11 +81,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "quantity": MessageLookupByLibrary.simpleMessage("الكمية:"),
         "requestShipment": MessageLookupByLibrary.simpleMessage("طلب شحنة"),
         "required": MessageLookupByLibrary.simpleMessage("الحقل مطلوب"),
+        "resultTrack": MessageLookupByLibrary.simpleMessage("نتائج التعقب"),
+        "reviewShipment": MessageLookupByLibrary.simpleMessage("مراجعة الشحنة"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "saveInfo": MessageLookupByLibrary.simpleMessage("حفظ المعلومات"),
         "sea": MessageLookupByLibrary.simpleMessage("بحري"),
         "setting": MessageLookupByLibrary.simpleMessage("الإعدادات"),
         "shipment": MessageLookupByLibrary.simpleMessage("الشحنات"),
+        "shipmentInfo": MessageLookupByLibrary.simpleMessage("معلومات الشحنة"),
         "shippingFrom": MessageLookupByLibrary.simpleMessage("شحن من:"),
         "shippingTo": MessageLookupByLibrary.simpleMessage("شحن إلى:"),
         "shippingType": MessageLookupByLibrary.simpleMessage("نوع الشحن:"),
@@ -88,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "startWriting": MessageLookupByLibrary.simpleMessage("أبدء بالكتابة"),
         "success": MessageLookupByLibrary.simpleMessage("نجاح!!!"),
         "termOfService": MessageLookupByLibrary.simpleMessage("شروط الخدمة"),
+        "trackShipment": MessageLookupByLibrary.simpleMessage("تعقب شحنة"),
         "welcome": MessageLookupByLibrary.simpleMessage("أهلا")
       };
 }

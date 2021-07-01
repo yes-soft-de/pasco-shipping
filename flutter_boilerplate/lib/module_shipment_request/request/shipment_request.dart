@@ -1,52 +1,72 @@
-class ShipmentRequest{
- late  String _transportationType;
+import 'dart:io';
 
- late  String _target;
- late   String _supplierName;
- late  int _quantity;
- late  int _productCategoryID;
+class ShipmentRequest {
+  late String _transportationType;
 
- late  String _unit;
- late  String _receiverName;
- late  int _receiverPhoneNumber;
- late  String _paymentTime;
+  late String _target;
+  late String _supplierName;
+  late int _quantity;
+  late int _productCategoryID;
 
- late  int _exportWarehouseID;
- late   int _markId;
- late  String _vehicleIdentificationNumber;
- late  String _extraSpecification;
+  late String _productCategoryName;
 
- Map<String, dynamic> toJson() => {
-   "transportationType": transportationType,
+  late String _unit;
+  late String _receiverName;
+  late String _receiverPhoneNumber;
+  late String _paymentTime;
 
-   "target": target,
-   "supplierName": supplierName,
-   "quantity": quantity,
-   "productCategoryID": productCategoryID,
+  late int _exportWarehouseID;
+  late int _markId;
+  late String _vehicleIdentificationNumber;
+  late String _extraSpecification;
 
-   "unit": unit,
-   "receiverName": receiverName,
-   "receiverPhoneNumber": receiverPhoneNumber,
-   "paymentTime": paymentTime,
+  late File? imageFile;
 
-   "exportWarehouseID": exportWarehouseID,
-   "markId": markId,
-   "vehicleIdentificationNumber": vehicleIdentificationNumber,
-   "extraSpecification": extraSpecification,
 
- };
- // factory ShipmentRequest.fromJson(Map<String, dynamic> json) => ShipmentRequest(
- //   countryCode: json["country_code"],
- //   latitude: json["latitude"],
- //   longitude: json["longitude"],
- //   comments: json["comments"],
- // );
+  Map<String, dynamic> toJson() => {
+        "transportationType": transportationType,
+        "target": target,
+        "supplierName": supplierName,
+        "quantity": quantity,
+        "productCategoryID": productCategoryID,
+        'productCategoryName': productCategoryName,
+        "unit": unit,
+        "receiverName": receiverName,
+        "receiverPhoneNumber": receiverPhoneNumber,
+        "paymentTime": paymentTime,
+        "exportWarehouseID": exportWarehouseID,
+        "markId": markId,
+        "vehicleIdentificationNumber": vehicleIdentificationNumber,
+        "extraSpecification": extraSpecification,
+        'image': imageFile
+      };
+  factory ShipmentRequest.fromJson(Map<String, dynamic> json) =>
+      ShipmentRequest(
+          json['transportationType'],
+          json['target'],
+          json['supplierName'],
+          json['quantity'],
+
+          json['productCategoryID'],
+          json['productCategoryName'],
+
+          json['unit'],
+          json['receiverName'],
+          json['receiverPhoneNumber'],
+          json['paymentTime'],
+          json['exportWarehouseID'],
+          json['markId'],
+          json['vehicleIdentificationNumber'],
+          json['extraSpecification'],
+          json['image']);
   ShipmentRequest(
       this._transportationType,
       this._target,
       this._supplierName,
       this._quantity,
       this._productCategoryID,
+      this._productCategoryName,
+
       this._unit,
       this._receiverName,
       this._receiverPhoneNumber,
@@ -54,10 +74,10 @@ class ShipmentRequest{
       this._exportWarehouseID,
       this._markId,
       this._extraSpecification,
-      this._vehicleIdentificationNumber
-      );
+      this._vehicleIdentificationNumber,
+      this.imageFile);
 
- String get extraSpecification => _extraSpecification;
+  String get extraSpecification => _extraSpecification;
 
   set extraSpecification(String value) {
     _extraSpecification = value;
@@ -87,9 +107,9 @@ class ShipmentRequest{
     _paymentTime = value;
   }
 
-  int get receiverPhoneNumber => _receiverPhoneNumber;
+  String get receiverPhoneNumber => _receiverPhoneNumber;
 
-  set receiverPhoneNumber(int value) {
+  set receiverPhoneNumber(String value) {
     _receiverPhoneNumber = value;
   }
 
@@ -135,8 +155,13 @@ class ShipmentRequest{
     _transportationType = value;
   }
 
+  String get productCategoryName => _productCategoryName;
 
- @override
+  set productCategoryName(String value) {
+    _productCategoryName = value;
+  }
+
+  @override
   String toString() {
     return 'ShipmentRequest{_transportationType: $_transportationType, _target: $_target, _supplierName: $_supplierName, _quantity: $_quantity, _productCategoryID: $_productCategoryID, _unit: $_unit, _receiverName: $_receiverName, _receiverPhoneNumber: $_receiverPhoneNumber, _paymentTime: $_paymentTime, _exportWarehouseID: $_exportWarehouseID, _markId: $_markId, _vehicleIdentificationNumber: $_vehicleIdentificationNumber, _extraSpecification: $_extraSpecification}';
   }

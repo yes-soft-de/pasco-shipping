@@ -20,6 +20,9 @@ class Urls {
 
   static const TRACK_SHIPMENT=BASE_API+'trackmyshipment';
 
+  static const MY_SHIPMENT=BASE_API+'myshipments';
+
+
   static const REPORT_API = BASE_API + '/report';
 
   static const UPLOAD_API = BASE_API + '/uploadfile';
@@ -29,5 +32,5 @@ class Urls {
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
 
 
-  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjUwMDU4NDEsImV4cCI6MTYyNTAwOTQ0MSwicm9sZXMiOlsidXNlciJdLCJ1c2VybmFtZSI6InJhbWkxIn0.Io8WbfcZFpKlkWApPN-lV9U7Q1-5SV4BXuT2WfUWoiMJKNGp1HV55WH33MdWX7UjB3x9QTbvdHdjOjuExoo-zwwa2kZ8kSW27PN39g5VnVaFCZjcJG8BF4d3l0O1m7eDQvbDPLwMNcruc7JcuqExlA1YBgLLiVMD6WapPR9PRJPpV2P6yu2yZ9DiIgkYA6F7qeUyB1G5-j_0D3fnnff4HS8S0xUZbn6KJ8a2i0v70KFg1-h7Y8QpBdk_JFHBjEwVYUEV1PhYLhCGGve3XctGZNOvnFedjHbnKIoup6ext74nyKYmk-9z5wfQE69ezGJpIqu_a3GczRtDAEaju80Gxw';
+  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjUwOTk5MDQsImV4cCI6MTYyNTEwMzUwNCwicm9sZXMiOlsidXNlciJdLCJ1c2VybmFtZSI6InJhbWkxIn0.B26JDGjrXgTJsmD4vaWVTdPk9_MuX4mJ1sbTbP3zYbfay__cNPX1zc8ElpFGH-b5INTWkVMdhLliZ83F0IqYNqoyBV5i8qfAza1vtERC1CsIB3Jdcg2haA7Diyb3_HoUYTVsXEHPDD8zK6zQnuOKQYjbwRXPm_OCglEweRIXv32o00MEb2w-R3oTmlzuifhRsP9oYSSz16hClgdZd4pK68YqxdrY5ADx9L84wWABe-AXd5zARTc0R6j7xtU7KyAvPNcXDi8Pb0Tc3LBtT3-8ERy6NGvTb6wU9iGWr7W3NHAHSVIBSBOnnhy4AdTL7v5XqZ3UXKZVJcwXdt4fHeKECA';
 }

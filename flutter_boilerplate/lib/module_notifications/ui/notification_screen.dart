@@ -24,6 +24,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Background(
+      goBack: (){
+        Navigator.pop(context);
+      },
       controller: controller,
       isHome: true,
       child: Container(

@@ -12,7 +12,7 @@ class ShipmentStatusCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(10.0),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
@@ -37,7 +37,7 @@ class ShipmentStatusCard extends StatelessWidget {
         ),
         // color:model.isCurrent  ? AppThemeDataService.AccentColor : Colors.grey[900],
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
               Row(
@@ -50,7 +50,7 @@ class ShipmentStatusCard extends StatelessWidget {
                   Text(model.statusName , style: model.isPrevious ?  white18text :black18text ),
                 ],
               ),
-              model.isNext ? Container():Text('1 hour ago' ,style:!(model.isNext || model.isPrevious) ? black14text : greyWhite14text,),
+              // model.isNext ? Container():Text('1 hour ago' ,style:!(model.isNext || model.isPrevious) ? black14text : greyWhite14text,),
 
               // Row(
               //   children: [
