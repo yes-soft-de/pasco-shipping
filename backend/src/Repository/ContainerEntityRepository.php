@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
 use App\Entity\ContainerEntity;
+use App\Entity\ContainerSpecificationEntity;
+use App\Entity\SubcontractEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -25,7 +27,9 @@ class ContainerEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy',
-             'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage')
+             'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
+             'containerSpecification.type', 'containerSpecification.providedBy', 'containerSpecification.capacityCPM', 'containerSpecification.widthInMeter',
+             'containerSpecification.hightInMeter', 'containerSpecification.lengthInMeter', 'subcontractEntity.fullName as subcontractName')
 
             ->andWhere('container.status = :status')
             ->setParameter('status', $status)
@@ -42,6 +46,20 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 'adminProfile2',
                 Join::WITH,
                 'adminProfile2.userID = container.updatedBy'
+            )
+
+            ->leftJoin(
+                ContainerSpecificationEntity::class,
+                'containerSpecification',
+                Join::WITH,
+                'containerSpecification.id = container.specificationID'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = containerSpecification.providedBy'
             )
 
             ->orderBy('container.id', 'DESC')
