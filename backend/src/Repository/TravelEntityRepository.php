@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
+use App\Entity\SubcontractEntity;
 use App\Entity\TravelEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
@@ -25,7 +26,8 @@ class TravelEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('travel')
             ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
-             'travel.status', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
+             'travel.status', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
+             'travel.shipperID', 'subcontractEntity.fullName as subcontractName', 'travel.createdAt', 'travel.updatedAt')
 
             ->andWhere('travel.status = :status')
             ->setParameter('status', $status)
@@ -42,6 +44,13 @@ class TravelEntityRepository extends ServiceEntityRepository
                 'adminProfile2',
                 Join::WITH,
                 'adminProfile2.userID = travel.updatedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = travel.shipperID'
             )
 
             ->orderBy('travel.id', 'DESC')
