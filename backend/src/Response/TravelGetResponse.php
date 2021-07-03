@@ -22,7 +22,7 @@ class TravelGetResponse
 
     public $updatedAt;
 
-    public $shipperID;
+    public $subcontractName;
 
     public $createdByUser;
 

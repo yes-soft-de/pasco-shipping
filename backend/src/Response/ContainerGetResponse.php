@@ -6,8 +6,6 @@ class ContainerGetResponse
 {
     public $id;
 
-    public $specificationID;
-
     public $containerNumber;
 
     public $createdAt;
@@ -23,5 +21,17 @@ class ContainerGetResponse
     public $updatedByUser;
 
     public $updatedByUserImage;
+
+    public $type;
+
+    public $subcontractName;
+
+    public $capacityCPM;
+
+    public $widthInMeter;
+
+    public $hightInMeter;
+
+    public $lengthInMeter;
 
 }

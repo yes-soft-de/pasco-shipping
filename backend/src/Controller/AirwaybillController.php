@@ -42,8 +42,7 @@ class AirwaybillController extends BaseController
      *      description="Create new airwaybill",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="specificationID"),
-     *          @OA\Property(type="string", property="airwaybillNumber"),
-     *          @OA\Property(type="string", property="status")
+     *          @OA\Property(type="string", property="airwaybillNumber")
      *      )
      * )
      *
@@ -103,12 +102,13 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="integer", property="specificationID"),
      *          @OA\Property(type="string", property="airwaybillNumber"),
+     *          @OA\Property(type="string", property="status"),
      *      )
      * )
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns the info of the distributor",
+     *      description="Returns the info of the airwaybill",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -181,7 +181,10 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="createdByUser"),
      *                  @OA\Property(type="string", property="createdByUserImage"),
      *                  @OA\Property(type="string", property="updatedByUser"),
-     *                  @OA\Property(type="string", property="updatedByUserImage")
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="number", property="weight"),
      *              )
      *          )
      *      )

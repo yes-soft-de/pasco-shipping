@@ -7,6 +7,7 @@ use App\Constant\ContainerStatusConstant;
 use App\Entity\ContainerEntity;
 use App\Repository\ContainerEntityRepository;
 use App\Request\ContainerCreateRequest;
+use App\Request\ContainerUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ContainerManager
@@ -33,6 +34,26 @@ class ContainerManager
         $this->entityManager->clear();
 
         return $containerEntity;
+    }
+
+    public function update(ContainerUpdateRequest $request)
+    {
+        $containerEntity = $this->containerEntityRepository->find($request->getId());
+
+        if(!$containerEntity)
+        {
+            return  $containerEntity;
+        }
+        else
+        {
+            $containerEntity = $this->autoMapping->mapToObject(ContainerUpdateRequest::class, ContainerEntity::class,
+                $request, $containerEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $containerEntity;
+        }
     }
 
     public function getByStatus($status)

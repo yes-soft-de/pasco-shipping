@@ -113,10 +113,10 @@ class SubcontractController extends BaseController
      *                  @OA\Property(type="string", property="serviceType"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
-     *                  @OA\Property(type="integer", property="createdByUser"),
-     *                  @OA\Property(type="integer", property="createdByUserImage"),
-     *                  @OA\Property(type="integer", property="updatedByUser"),
-     *                  @OA\Property(type="integer", property="updatedByUserImage")
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage")
      *          )
      *      )
      * )
@@ -165,10 +165,10 @@ class SubcontractController extends BaseController
      *                  @OA\Property(type="string", property="serviceType"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
-     *                  @OA\Property(type="integer", property="createdByUser"),
-     *                  @OA\Property(type="integer", property="createdByUserImage"),
-     *                  @OA\Property(type="integer", property="updatedByUser"),
-     *                  @OA\Property(type="integer", property="updatedByUserImage")
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage")
      *              )
      *          )
      *      )
