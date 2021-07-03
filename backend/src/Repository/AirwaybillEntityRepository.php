@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
 use App\Entity\AirwaybillEntity;
+use App\Entity\AirwaybillSpecificationEntity;
+use App\Entity\SubcontractEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -26,7 +28,8 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('airwaybill')
             ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt',
                 'airwaybill.createdBy', 'airwaybill.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
-                'adminProfile2.userName as updatedByUserImage')
+                'adminProfile2.userName as updatedByUserImage', 'airwaybillSepcification.providedBy', 'airwaybillSepcification.type', 'airwaybillSepcification.weight',
+                'subcontractEntity.fullName as subcontractName')
 
             ->andWhere('airwaybill.status = :status')
             ->setParameter('status', $status)
@@ -43,6 +46,20 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
                 'adminProfile2',
                 Join::WITH,
                 'adminProfile2.userID = airwaybill.updatedBy'
+            )
+
+            ->leftJoin(
+                AirwaybillSpecificationEntity::class,
+                'airwaybillSepcification',
+                Join::WITH,
+                'airwaybillSepcification.id = airwaybill.specificationID'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = airwaybillSepcification.providedBy'
             )
 
             ->orderBy('airwaybill.id', 'DESC')

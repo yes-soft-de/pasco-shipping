@@ -6,8 +6,6 @@ class AirwaybillGetResponse
 {
     public $id;
 
-    public $specificationID;
-
     public $airwaybillNumber;
 
     public $createdAt;
@@ -23,5 +21,11 @@ class AirwaybillGetResponse
     public $updatedByUser;
 
     public $updatedByUserImage;
+
+    public $type;
+
+    public $weight;
+
+    public $subcontractName;
 
 }
