@@ -8,6 +8,7 @@ use App\Request\DeleteRequest;
 use App\Service\AdminService;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +32,7 @@ class AdminController extends BaseController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN", message="Access denied")
      * @Route("createadmin", name="adminCreate", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
@@ -60,7 +62,7 @@ class AdminController extends BaseController
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="array", property="roles",
-     *                      @OA\Items(example="user")),
+     *                      @OA\Items(example="ROLE_ADMIN")),
      *                  @OA\Property(type="object", property="createdAt")
      *          )
      *      )
@@ -137,6 +139,8 @@ class AdminController extends BaseController
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="userID"),
      *                  @OA\Property(type="string", property="userName"),
      *                  @OA\Property(type="string", property="image"),
      *                  @OA\Property(type="string", property="phone")
@@ -167,6 +171,8 @@ class AdminController extends BaseController
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="userID"),
      *                  @OA\Property(type="string", property="userName"),
      *                  @OA\Property(type="string", property="image"),
      *                  @OA\Property(type="string", property="phone")

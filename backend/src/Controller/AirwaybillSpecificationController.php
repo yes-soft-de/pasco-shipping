@@ -99,7 +99,7 @@ class AirwaybillSpecificationController extends BaseController
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="type"),
-     *                  @OA\Property(type="number", property="subcontractName"),
+     *                  @OA\Property(type="string", property="subcontractName"),
      *                  @OA\Property(type="number", property="weight"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
@@ -136,7 +136,7 @@ class AirwaybillSpecificationController extends BaseController
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="type"),
-     *                  @OA\Property(type="number", property="subcontractName"),
+     *                  @OA\Property(type="string", property="subcontractName"),
      *                  @OA\Property(type="number", property="weight"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),

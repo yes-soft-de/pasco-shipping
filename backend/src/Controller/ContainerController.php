@@ -98,13 +98,12 @@ class ContainerController extends BaseController
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns the info of the new container",
+     *      description="Returns the info of the containers according to the status",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="integer", property="specificationID"),
      *                  @OA\Property(type="string", property="containerNumber"),
      *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="object", property="createdAt"),
@@ -112,7 +111,13 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="createdByUser"),
      *                  @OA\Property(type="string", property="createdByUserImage"),
      *                  @OA\Property(type="string", property="updatedByUser"),
-     *                  @OA\Property(type="string", property="updatedByUserImage")
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="number", property="capacityCPM"),
+     *                  @OA\Property(type="number", property="widthInMeter"),
+     *                  @OA\Property(type="number", property="hightInMeter"),
+     *                  @OA\Property(type="number", property="lengthInMeter"),
      *          )
      *      )
      * )

@@ -41,15 +41,20 @@ class TravelController extends BaseController
      * @OA\RequestBody(
      *      description="Create new travel",
      *      @OA\JsonContent(
-     *          @OA\Property(type="integer", property="specificationID"),
-     *          @OA\Property(type="string", property="containerNumber"),
+     *          @OA\Property(type="string", property="type"),
+     *          @OA\Property(type="string", property="launchCountry"),
+     *          @OA\Property(type="string", property="destinationCountry"),
+     *          @OA\Property(type="string", property="launchDate"),
+     *          @OA\Property(type="string", property="arrivalDate"),
+     *          @OA\Property(type="string", property="travelNumber"),
+     *          @OA\Property(type="integer", property="shipperID"),
      *          @OA\Property(type="string", property="status")
      *      )
      * )
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns the info of the new container",
+     *      description="Returns the creation date of the new travel",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -114,10 +119,12 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="travelNumber"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
-     *                  @OA\Property(type="integer", property="createdBy"),
-     *                  @OA\Property(type="integer", property="updatedBy"),
-     *                  @OA\Property(type="integer", property="shipperID"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="subcontractName")
      *          )
      *      )
      * )
@@ -176,12 +183,12 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="travelNumber"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
-     *                  @OA\Property(type="string", property="productCategoryName"),
      *                  @OA\Property(type="string", property="createdByUser"),
      *                  @OA\Property(type="string", property="createdByUserImage"),
      *                  @OA\Property(type="string", property="updatedByUser"),
      *                  @OA\Property(type="string", property="updatedByUserImage"),
-     *                  @OA\Property(type="string", property="status")
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="subcontractName")
      *              )
      *          )
      *      )
