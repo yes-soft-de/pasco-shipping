@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\ContainerCreateRequest;
+use App\Request\ContainerUpdateRequest;
 use App\Service\ContainerService;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -41,8 +42,7 @@ class ContainerController extends BaseController
      *      description="Create new container",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="specificationID"),
-     *          @OA\Property(type="string", property="containerNumber"),
-     *          @OA\Property(type="string", property="status")
+     *          @OA\Property(type="string", property="containerNumber")
      *      )
      * )
      * 
@@ -81,6 +81,75 @@ class ContainerController extends BaseController
         $result = $this->containerService->create($request);
 
         return $this->response($result, self::CREATE);
+    }
+
+    /**
+     * @Route("container", name="updateContainer", methods={"PUT"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Container")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Update a specific container",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="integer", property="specificationID"),
+     *          @OA\Property(type="string", property="containerNumber"),
+     *          @OA\Property(type="string", property="status"),
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the container",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="specificationID"),
+     *                  @OA\Property(type="string", property="containerNumber"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage")
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function update(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ContainerUpdateRequest::class, (object)$data);
+
+        $request->setUpdatedBy($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->containerService->update($request);
+
+        return $this->response($result, self::UPDATE);
     }
 
     /**

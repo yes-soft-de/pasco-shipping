@@ -227,6 +227,8 @@ App\Request\AirwaybillUpdateRequest:
       - NotBlank: ~
     airwaybillNumber:
       - NotBlank: ~
+    status:
+      - NotBlank: ~
     updatedBy:
       - NotBlank: ~
 
@@ -237,4 +239,17 @@ App\Request\ShipmentFilterRequest:
     transportationType:
       - NotBlank: ~
     paymentTime:
+      - NotBlank: ~
+
+App\Request\ContainerUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    specificationID:
+      - NotBlank: ~
+    containerNumber:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+    updatedBy:
       - NotBlank: ~
