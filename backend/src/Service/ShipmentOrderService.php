@@ -3,16 +3,20 @@
 namespace App\Service;
 
 use App\AutoMapping;
+use App\Constant\ShipmentOrderStatusConstant;
+use App\Constant\ShipmentStatusConstant;
 use App\Entity\OrderShipmentEntity;
 use App\Manager\ShipmentOrderManager;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
+use App\Request\ShipmentFilterRequest;
 use App\Request\ShipmentLogCreateRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
 use App\Response\OrderShipmentByUserGetResponse;
 use App\Response\OrderShipmentCreateResponse;
 use App\Response\OrderShipmentGetResponse;
+use App\Response\ShipmentFilterResponse;
 use App\Response\ShipmentsGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -187,30 +191,58 @@ class ShipmentOrderService
         return $shipmentsOrdersResponse;
     }
 
-    public function filterShipments($request)
+    public function filterShipments(ShipmentFilterRequest $request)
     {
         $ordersResponse = [];
 
         $orders = $this->shipmentOrderManager->filterShipments($request);
 
-        foreach ($orders as $order)
+        if($orders)
         {
-            if($order['image'])
+            foreach ($orders as $order)
             {
-                $order['image'] = $this->params . $order['image'];
-            }
+                if($order['image'])
+                {
+                    $order['image'] = $this->params . $order['image'];
+                }
 
-            if($order['clientUserImage'])
-            {
-                $order['clientUserImage'] = $this->params . $order['clientUserImage'];
-            }
+                if($order['clientUserImage'])
+                {
+                    $order['clientUserImage'] = $this->params . $order['clientUserImage'];
+                }
 
-            if($order['orderUpdatedByUserImage'])
-            {
-                $order['orderUpdatedByUserImage'] = $this->params . $order['orderUpdatedByUserImage'];
-            }
+                if($order['orderUpdatedByUserImage'])
+                {
+                    $order['orderUpdatedByUserImage'] = $this->params . $order['orderUpdatedByUserImage'];
+                }
 
-            $ordersResponse[] = $this->autoMapping->map('array', OrderShipmentGetResponse::class, $order);
+                // If the shimpent order is accepted, then get the shipment info from the ShipmentStatusEntity
+                if($order['status'] == ShipmentStatusConstant::$ACCEPTED_SHIPMENT_STATUS && $request->getFinishedAt() == null)
+                {
+                    $order['shipmentStatusInfo'] = $this->shipmentOrderManager->getAcceptedShipmentByShipmentID($order['id']);
+
+                    // Also, get the shipment info from the TrackEntity
+                    if($order['shipmentStatusInfo'])
+                    {
+                        foreach ($order['shipmentStatusInfo'] as $shipmentStatusItem)
+                        {
+                            $order['shipmentTrackInfo'] = $this->shipmentOrderManager->getByShipmentIdAndTrackNumber($shipmentStatusItem['shipmentID'], $shipmentStatusItem['trackNumber']);
+                        }
+                    }
+                }
+
+                if($order['status'] == ShipmentStatusConstant::$ACCEPTED_SHIPMENT_STATUS && $request->getFinishedAt() != null)
+                {
+                    // If doesn't exist a shipment finished at the required date, then return from here a response
+                }
+
+                elseif($order['status'] == ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS)
+                {
+                    $order['shipmentStatusInfo'] = [];
+                }
+                
+                $ordersResponse[] = $this->autoMapping->map('array', ShipmentFilterResponse::class, $order);
+            }
         }
 
         return $ordersResponse;

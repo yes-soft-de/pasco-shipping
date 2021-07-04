@@ -560,187 +560,6 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function filterShipmentsByStatusAndPaymentTimeAndTransportationType($status, $paymentTime, $transportationType)
-    {
-        return $this->createQueryBuilder('shipment')
-            ->select("shipment.id", "shipment.shipmentID", "shipment.shipmentStatus", "shipment.trackNumber", "shipment.statusDetails", "shipment.isInOneHolder", "shipment.packed", "shipment.createdBy", "shipment.updatedBy",
-                "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.supplierName", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID",
-                "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "shipmentOrder.receiverName",
-                "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy",
-                "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage", "adminProfile2.userName as shipmentStatusUpdatedByUser", 
-                "adminProfile2.image as shipmentStatusUpdatedByUserImage", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage", "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName",
-                "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName")
-
-            ->leftJoin(
-                OrderShipmentEntity::class,
-                'shipmentOrder',
-                Join::WITH,
-                'shipmentOrder.id = shipment.shipmentID'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile1',
-                Join::WITH,
-                'adminProfile1.userID = shipment.createdBy'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile2',
-                Join::WITH,
-                'adminProfile2.userID = shipment.updatedBy'
-            )
-
-            ->leftJoin(
-                ClientProfileEntity::class,
-                'clientProfile',
-                Join::WITH,
-                'clientProfile.userID = shipmentOrder.clientUserID'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile3',
-                Join::WITH,
-                'adminProfile3.userID = shipmentOrder.updatedBy'
-            )
-
-            ->leftJoin(
-                DistributorEntity::class,
-                'distributor',
-                Join::WITH,
-                'distributor.id = shipmentOrder.distributorID'
-            )
-
-            ->leftJoin(
-                WarehouseEntity::class,
-                'exportWarehouse',
-                Join::WITH,
-                'exportWarehouse.id = shipmentOrder.exportWarehouseID'
-            )
-
-            ->leftJoin(
-                WarehouseEntity::class,
-                'importWarehouse',
-                Join::WITH,
-                'importWarehouse.id = shipmentOrder.importWarehouseID'
-            )
-
-            ->leftJoin(
-                ProductCategoryEntity::class,
-                'productCategory',
-                Join::WITH,
-                'productCategory.id = shipmentOrder.productCategoryID'
-            )
-
-            ->andWhere('shipment.shipmentStatus = :status')
-            ->setParameter('status', $status)
-
-            ->andWhere('shipmentOrder.paymentTime = :paymentTime')
-            ->setParameter('paymentTime', $paymentTime)
-
-            ->andWhere('shipmentOrder.transportationType = :transportationType')
-            ->setParameter('transportationType', $transportationType)
-
-            ->orderBy('shipment.id', 'DESC')
-
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndCreationDate($status, $paymentTime, $transportationType, $createdAt)
-    {
-        return $this->createQueryBuilder('shipment')
-            ->select("shipment.id", "shipment.shipmentID", "shipment.shipmentStatus", "shipment.trackNumber", "shipment.statusDetails", "shipment.isInOneHolder", "shipment.packed", "shipment.createdBy", "shipment.updatedBy",
-            "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.supplierName", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID",
-            "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "shipmentOrder.receiverName",
-            "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy",
-            "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage", "adminProfile2.userName as shipmentStatusUpdatedByUser", 
-            "adminProfile2.image as shipmentStatusUpdatedByUserImage", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage", "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName",
-            "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName")
-
-            ->leftJoin(
-                OrderShipmentEntity::class,
-                'shipmentOrder',
-                Join::WITH,
-                'shipmentOrder.id = shipment.shipmentID'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile1',
-                Join::WITH,
-                'adminProfile1.userID = shipment.createdBy'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile2',
-                Join::WITH,
-                'adminProfile2.userID = shipment.updatedBy'
-            )
-
-            ->leftJoin(
-                ClientProfileEntity::class,
-                'clientProfile',
-                Join::WITH,
-                'clientProfile.userID = shipmentOrder.clientUserID'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile3',
-                Join::WITH,
-                'adminProfile3.userID = shipmentOrder.updatedBy'
-            )
-
-            ->leftJoin(
-                DistributorEntity::class,
-                'distributor',
-                Join::WITH,
-                'distributor.id = shipmentOrder.distributorID'
-            )
-
-            ->leftJoin(
-                WarehouseEntity::class,
-                'exportWarehouse',
-                Join::WITH,
-                'exportWarehouse.id = shipmentOrder.exportWarehouseID'
-            )
-
-            ->leftJoin(
-                WarehouseEntity::class,
-                'importWarehouse',
-                Join::WITH,
-                'importWarehouse.id = shipmentOrder.importWarehouseID'
-            )
-
-            ->leftJoin(
-                ProductCategoryEntity::class,
-                'productCategory',
-                Join::WITH,
-                'productCategory.id = shipmentOrder.productCategoryID'
-            )
-
-            ->andWhere('shipment.shipmentStatus = :status')
-            ->setParameter('status', $status)
-
-            ->andWhere('shipmentOrder.paymentTime = :paymentTime')
-            ->setParameter('paymentTime', $paymentTime)
-
-            ->andWhere('shipmentOrder.transportationType = :transportationType')
-            ->setParameter('transportationType', $transportationType)
-
-            ->andWhere('shipmentOrder.createdAt >= :createdAt')
-            ->setParameter('createdAt', $createdAt)
-
-            ->orderBy('shipment.id', 'DESC')
-
-            ->getQuery()
-            ->getResult();
-    }
-
     public function getShipmentByTrackNumberAndUserID($trackNumber, $userID)
     {
         return $this->createQueryBuilder('shipmentStatus')
@@ -901,6 +720,36 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 Join::WITH,
                 'productCategory.id = shipmentOrder.productCategoryID'
             )
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getByShipmentID($shipmentID)
+    {
+        return $this->createQueryBuilder('shipmentStatus')
+            ->select("shipmentStatus.id", "shipmentStatus.shipmentID", "shipmentStatus.shipmentStatus", "shipmentStatus.statusDetails", "shipmentStatus.trackNumber", "shipmentStatus.isInOneHolder", "shipmentStatus.packed",
+                "shipmentStatus.createdAt", "shipmentStatus.updatedAt", "shipmentStatus.createdBy", "shipmentStatus.updatedBy", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage",
+                "adminProfile2.userName as shipmentStatusUpdatedByUser", "adminProfile2.image as shipmentStatusUpdatedByUserImage")
+
+            ->andWhere('shipmentStatus.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = shipmentStatus.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = shipmentStatus.updatedBy'
+            )
+
+            ->orderBy('shipmentStatus.id', 'DESC')
 
             ->getQuery()
             ->getResult();
