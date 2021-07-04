@@ -17,14 +17,12 @@ class MainService
     private $autoMapping;
     private $mainManager;
     private $shipmentOrderService;
-    private $shipmentStatusService;
 
-    public function __construct(AutoMapping $autoMapping, MainManager $mainManager, ShipmentOrderService $shipmentOrderService, ShipmentStatusService $shipmentStatusService)
+    public function __construct(AutoMapping $autoMapping, MainManager $mainManager, ShipmentOrderService $shipmentOrderService)
     {
         $this->autoMapping = $autoMapping;
         $this->mainManager = $mainManager;
         $this->shipmentOrderService = $shipmentOrderService;
-        $this->shipmentStatusService = $shipmentStatusService;
     }
 
     public function update(UserUpdateRequest $request)
@@ -48,16 +46,7 @@ class MainService
 
     public function filterShipments(ShipmentFilterRequest $request)
     {
-        // if the status of the shipments is waiting, then look up in the Order Shipment table
-        if($request->getStatus() != null && $request->getStatus() == ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS)
-        {
-            return $this->shipmentOrderService->filterShipments($request);
-        }
-        // else if the status of the shipments is accepted, then look up in the Shipment Status table
-        elseif($request->getStatus() != null && $request->getStatus() == ShipmentStatusConstant::$ACCEPTED_SHIPMENT_STATUS)
-        {
-            return $this->shipmentStatusService->filterShipments($request);
-        }
+        return $this->shipmentOrderService->filterShipments($request);
     }
 
 }

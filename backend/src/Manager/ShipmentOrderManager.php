@@ -23,14 +23,16 @@ class ShipmentOrderManager
     private $entityManager;
     private $orderShipmentEntityRepository;
     private $shipmentStatusManager;
+    private $trackManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, OrderShipmentEntityRepository $orderShipmentEntityRepository,
-     ShipmentStatusManager $shipmentStatusManager)
+     ShipmentStatusManager $shipmentStatusManager, TrackManager $trackManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->orderShipmentEntityRepository = $orderShipmentEntityRepository;
         $this->shipmentStatusManager = $shipmentStatusManager;
+        $this->trackManager = $trackManager;
     }
 
     public function createShipmentOrder(OrderShipmentCreateRequest $request)
@@ -165,21 +167,37 @@ class ShipmentOrderManager
 
     public function filterShipments(ShipmentFilterRequest $request)
     {
-        $status = $request->getStatus();
-        $paymentTime = $request->getPaymentTime();
-        $transportationType = $request->getTransportationType();
-        $createdAt = $request->getCreatedAt();
-        $launchCountry = $request->getLaunchCountry();
-        $targetCountry = $request->getTargetCountry();
+        if($request->getStatus() != null && $request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null)
+        {
+            return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationType($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType());
+        }
+        elseif($request->getStatus() != null && $request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() != null && $request->getTargetCountry() == null && $request->getCreatedAt() == null)
+        {
+            return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndLaunchCountry($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType(), $request->getLaunchCountry());
+        }
+        elseif($request->getStatus() != null && $request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() != null && $request->getTargetCountry() != null && $request->getCreatedAt() == null)
+        {
+            return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndLaunchCountryAndTargetCountry($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType(), $request->getLaunchCountry(),
+            $request->getTargetCountry());
+        }
+        elseif($request->getStatus() != null && $request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() != null)
+        {
+            return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndCreationDate($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType(), $request->getCreatedAt());
+        }
+    }
 
-        if($status != null && $paymentTime != null && $transportationType != null && $launchCountry == null && $targetCountry == null && $createdAt == null)
-        {
-            return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationType($status, $paymentTime, $transportationType);
-        }
-        elseif($status != null && $paymentTime != null && $transportationType != null && $launchCountry == null && $targetCountry == null && $createdAt != null)
-        {
-            return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndCreationDate($status, $paymentTime, $transportationType, $createdAt);
-        }
+    // For filtering.
+    // Get shimpment info from ShipmentStatuEntity
+    public function getAcceptedShipmentByShipmentID($shipmentID)
+    {
+        return $this->shipmentStatusManager->getByShipmentID($shipmentID);
+    }
+
+    // For filtering.
+    // Get shimpment info from TrackEntity
+    public function getByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        return $this->trackManager->getByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
     }
 
     public function getShipmentOrderByMarkID($markID)

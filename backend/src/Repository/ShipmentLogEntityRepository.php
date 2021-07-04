@@ -38,7 +38,7 @@ class ShipmentLogEntityRepository extends ServiceEntityRepository
             ->andWhere('shipmentLog.shipmentID = :shipmentID')
             ->setParameter('shipmentID', $shipmentID)
 
-            ->orderBy('shipmentLog.id', 'DESC')
+            ->orderBy('shipmentLog.id', 'ASC')
 
             ->getQuery()
             ->getResult();

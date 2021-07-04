@@ -133,7 +133,7 @@ class MainController extends BaseController
 
         $result = $this->mainService->filterShipments($request);
 
-        return $this->response($result, self::UPDATE);
+        return $this->response($result, self::FETCH);
     }
 
     /**

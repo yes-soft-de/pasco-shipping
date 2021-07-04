@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class OrderShipmentByUserGetResponse
+class ShipmentFilterResponse
 {
     public $id;
 
@@ -13,8 +13,6 @@ class OrderShipmentByUserGetResponse
     public $transportationType;
 
     public $target;
-
-    public $supplierID;
 
     public $supplierName;
 
@@ -40,7 +38,7 @@ class OrderShipmentByUserGetResponse
 
     public $receiverPhoneNumber;
 
-    public $markNumber;
+    public $markID;
 
     public $packetingBy;
 
@@ -61,5 +59,9 @@ class OrderShipmentByUserGetResponse
     public $orderUpdatedByUser;
 
     public $orderUpdatedByUserImage;
+
+    public $shipmentStatusInfo;
+
+    public $shipmentTrackInfo;
 
 }

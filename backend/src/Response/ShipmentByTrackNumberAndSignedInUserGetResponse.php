@@ -34,4 +34,6 @@ class ShipmentByTrackNumberAndSignedInUserGetResponse
 
     public $guniQuantity;
 
+    public $log;
+
 }
