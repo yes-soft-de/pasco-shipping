@@ -126,28 +126,6 @@ class ShipmentStatusManager
         return $this->shipmentStatusEntityRepository->getShipmentByTrackNumber($trackNumber);
     }
 
-    public function filterShipments(ShipmentFilterRequest $request)
-    {
-        $status = $request->getStatus();
-        $paymentTime = $request->getPaymentTime();
-        $transportationType = $request->getTransportationType();
-        $createdAt = $request->getCreatedAt();
-        $finishedAt = $request->getFinishedAt();
-        $launchCountry = $request->getLaunchCountry();
-        $targetCountry = $request->getTargetCountry();
-
-        if($status != null && $paymentTime != null && $transportationType != null && $launchCountry == null && $targetCountry == null
-            && $createdAt == null && $finishedAt == null)
-        {
-            return $this->shipmentStatusEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationType($status, $paymentTime, $transportationType);
-        }
-        elseif($status != null && $paymentTime != null && $transportationType != null && $launchCountry == null && $targetCountry == null
-            && $createdAt != null && $finishedAt == null)
-        {
-            return $this->shipmentStatusEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndCreationDate($status, $paymentTime, $transportationType, $createdAt);
-        }
-    }
-
     public function getContainerById($id)
     {
         return $this->containerManager->getContainerById($id);
@@ -161,6 +139,16 @@ class ShipmentStatusManager
     public function getShipmentByShipmentID($shipmentID)
     {
         return $this->shipmentStatusEntityRepository->findBy(["shipmentID"=>$shipmentID]);
+    }
+
+    public function getShipmentLogByShipmentID($shipmentID)
+    {
+        return $this->shipmentLogManager->getShipmentLogsByShipmentID($shipmentID);
+    }
+
+    public function getByShipmentID($shipmentID)
+    {
+        return $this->shipmentStatusEntityRepository->getByShipmentID($shipmentID);
     }
 
     public function getRandomCode()
