@@ -46,10 +46,7 @@ class AdminController extends BaseController
      *          @OA\Property(type="string", property="userID"),
      *          @OA\Property(type="string", property="password"),
      *          @OA\Property(type="string", property="userName"),
-     *          @OA\Property(type="string", property="email"),
-     *          @OA\Property(type="array", property="roles", description="set it when create employee",
-     *              @OA\Items(example="ROLE_EMPLOYEE"))
-     *              )
+     *          @OA\Property(type="string", property="email")
      *          )
      *      )
      * )
@@ -98,7 +95,7 @@ class AdminController extends BaseController
      * @OA\Tag(name="Admin")
      *
      * @OA\RequestBody(
-     *      description="Creates employee and profile at the same time",
+     *      description="Create employee and profile at the same time",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="userID"),
      *          @OA\Property(type="string", property="password"),
@@ -113,13 +110,13 @@ class AdminController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns the new admin's role",
+     *      description="Returns the new employee's role",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="array", property="roles",
-     *                      @OA\Items(example="ROLE_ADMIN")),
+     *                      @OA\Items(example="ROLE_EMPLOYEE")),
      *                  @OA\Property(type="object", property="createdAt")
      *          )
      *      )
