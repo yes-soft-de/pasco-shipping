@@ -32,7 +32,7 @@ class AdminController extends BaseController
     }
 
     /**
-     * @IsGranted("ROLE_ADMIN", message="Access denied")
+     * @IsGranted("ROLE_SUPER_ADMIN", message="Access denied")
      * @Route("createadmin", name="adminCreate", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
@@ -89,6 +89,64 @@ class AdminController extends BaseController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN", message="Access denied")
+     * @Route("employee", name="createEmployee", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     *
+     * @OA\Tag(name="Admin")
+     *
+     * @OA\RequestBody(
+     *      description="Creates employee and profile at the same time",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="userID"),
+     *          @OA\Property(type="string", property="password"),
+     *          @OA\Property(type="string", property="userName"),
+     *          @OA\Property(type="string", property="email"),
+     *          @OA\Property(type="array", property="roles", description="set it when create employee",
+     *              @OA\Items(example="ROLE_EMPLOYEE"))
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the new admin's role",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="array", property="roles",
+     *                      @OA\Items(example="ROLE_ADMIN")),
+     *                  @OA\Property(type="object", property="createdAt")
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function employeeCreate(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, AdminCreateRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+        if (\count($violations) > 0) 
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $response = $this->adminService->adminCreate($request);
+
+        return $this->response($response, self::CREATE);
+    }
+
+    /**
+     * @IsGranted("ROLE_EMPLOYEE", message="Access denied")
      * @Route("adminprofile", name="getAdminProfileByUserID", methods={"GET"})
      *
      *
@@ -126,6 +184,7 @@ class AdminController extends BaseController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN", message="Access denied")
      * @Route("employees", name="getAllEmployees", methods={"GET"})
      * @return JsonResponse
      *
@@ -158,6 +217,7 @@ class AdminController extends BaseController
     }
 
     /**
+     * @IsGranted("ROLE_SUPER_ADMIN", message="Access denied")
      * @Route("administrators", name="getAllAdministrators", methods={"GET"})
      * @return JsonResponse
      *
@@ -190,6 +250,7 @@ class AdminController extends BaseController
     }
 
     /**
+     * @IsGranted("ROLE_SUPER_ADMIN", message="Access denied")
      * @Route("admin/{id}", name="deleteAdmin", methods={"DELETE"})
      * @param Request $request
      * @return JsonResponse
