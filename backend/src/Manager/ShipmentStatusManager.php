@@ -6,7 +6,6 @@ use App\AutoMapping;
 use App\Constant\ShipmentStatusConstant;
 use App\Entity\ShipmentStatusEntity;
 use App\Repository\ShipmentStatusEntityRepository;
-use App\Request\ShipmentFilterRequest;
 use App\Request\ShipmentLogCreateRequest;
 use App\Request\ShipmentStatusCreateRequest;
 use App\Request\ShipmentStatusUpdateRequest;
@@ -146,11 +145,13 @@ class ShipmentStatusManager
         return $this->shipmentLogManager->getShipmentLogsByShipmentID($shipmentID);
     }
 
+    // For filter endpoint
     public function getByShipmentID($shipmentID)
     {
         return $this->shipmentStatusEntityRepository->getByShipmentID($shipmentID);
     }
 
+    // For Track Number
     public function getRandomCode()
     {
         // Get 5-digits random number
