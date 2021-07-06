@@ -3,11 +3,8 @@
 namespace App\Service;
 
 use App\AutoMapping;
-use App\Constant\ShipmentOrderStatusConstant;
-use App\Constant\ShipmentStatusConstant;
 use App\Entity\UserEntity;
 use App\Manager\MainManager;
-use App\Request\ShipmentFilterRequest;
 use App\Request\UserUpdateRequest;
 use App\Response\StatisticsGetResponse;
 use App\Response\UserRegisterResponse;
@@ -44,7 +41,7 @@ class MainService
         return $this->autoMapping->map('array', StatisticsGetResponse::class, $statistics);
     }
 
-    public function filterShipments(ShipmentFilterRequest $request)
+    public function filterShipments($request)
     {
         return $this->shipmentOrderService->filterShipments($request);
     }

@@ -198,45 +198,6 @@ class ShipmentStatusService
         return $shipmentsResponse;
     }
 
-    // public function filterShipments($request)
-    // {
-    //     $shipmentsResponse = [];
-
-    //     $shipments = $this->shipmentStatusManager->filterShipments($request);
-
-    //     foreach ($shipments as $shipment)
-    //     {
-    //         if ($shipment['image'])
-    //         {
-    //             $shipment['image'] = $this->params . $shipment['image'];
-    //         }
-
-    //         if ($shipment['clientUserImage'])
-    //         {
-    //             $shipment['clientUserImage'] = $this->params . $shipment['clientUserImage'];
-    //         }
-
-    //         if ($shipment['orderUpdatedByUserImage'])
-    //         {
-    //             $shipment['orderUpdatedByUserImage'] = $this->params . $shipment['orderUpdatedByUserImage'];
-    //         }
-
-    //         if($shipment['shipmentStatusCreatedByUserImage'])
-    //         {
-    //             $shipment['shipmentStatusCreatedByUserImage'] = $this->params . $shipment['shipmentStatusCreatedByUserImage'];
-    //         }
-
-    //         if($shipment['shipmentStatusUpdatedByUserImage'])
-    //         {
-    //             $shipment['shipmentStatusUpdatedByUserImage'] = $this->params . $shipment['shipmentStatusUpdatedByUserImage'];
-    //         }
-
-    //         $shipmentsResponse[] = $this->autoMapping->map('array', ShipmentStatusGetResponse::class, $shipment);
-    //     }
-
-    //     return $shipmentsResponse;
-    // }
-
     public function getShipmentByTrackNumberAndUserID($trackNumber, $userID)
     {
         $shipment = $this->shipmentStatusManager->getShipmentByTrackNumberAndUserID($trackNumber, $userID);

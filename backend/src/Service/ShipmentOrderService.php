@@ -217,7 +217,7 @@ class ShipmentOrderService
                 }
 
                 // If the shimpent order is accepted, then get the shipment info from the ShipmentStatusEntity
-                if($order['status'] == ShipmentStatusConstant::$ACCEPTED_SHIPMENT_STATUS && $request->getFinishedAt() == null)
+                if($order['status'] == ShipmentStatusConstant::$ACCEPTED_SHIPMENT_STATUS)
                 {
                     $order['shipmentStatusInfo'] = $this->shipmentOrderManager->getAcceptedShipmentByShipmentID($order['id']);
 
@@ -229,11 +229,6 @@ class ShipmentOrderService
                             $order['shipmentTrackInfo'] = $this->shipmentOrderManager->getByShipmentIdAndTrackNumber($shipmentStatusItem['shipmentID'], $shipmentStatusItem['trackNumber']);
                         }
                     }
-                }
-
-                if($order['status'] == ShipmentStatusConstant::$ACCEPTED_SHIPMENT_STATUS && $request->getFinishedAt() != null)
-                {
-                    // If doesn't exist a shipment finished at the required date, then return from here a response
                 }
 
                 elseif($order['status'] == ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS)
