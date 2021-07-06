@@ -24,7 +24,7 @@ class CountryEntityRepository extends ServiceEntityRepository
     public function getAllCountries()
     {
         return $this->createQueryBuilder('country')
-            ->select('country.id', 'country.name', 'country.createdAt', 'country.updatedAt', 'country.createdBy', 'country.updatedBy',
+            ->select('country.id', 'country.name', 'country.createdAt', 'country.updatedAt', 'country.createdBy', 'country.updatedBy', 'country.type',
                 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
             ->leftJoin(
