@@ -8,8 +8,6 @@ class ShipmentsGetResponse
 
     public $target;
 
-    public $supplierID;
-
     public $supplierName;
 
     public $distributorName;
@@ -34,7 +32,7 @@ class ShipmentsGetResponse
 
     public $receiverPhoneNumber;
 
-    public $markID;
+    public $markNumber;
 
     public $packetingBy;
 
