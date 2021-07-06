@@ -19,7 +19,7 @@ class MarkCard extends StatelessWidget {
       child: Container(
         child:Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          mainAxisSize: MainAxisSize.min,
+          // mainAxisSize: MainAxisSize.min,
           children: [
             Card(
               color: black,
@@ -32,12 +32,9 @@ class MarkCard extends StatelessWidget {
               ),
               elevation: 5.0,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(model.markNumber!,style: White14text,),
-              ],
-            ),
+            Container(
+                width: 100,
+                child: Text(model.markNumber!,style: White14text,)),
             InkWell(
                 onTap: (){
                   if(model.used!) {
