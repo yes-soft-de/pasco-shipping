@@ -44,6 +44,9 @@ class OrderShipmentCreateRequest
 
     private $createdBy;
 
+    // public | private
+    private $holderType;
+
     public function setClientUserID($clientUserID)
     {
         $this->clientUserID = $clientUserID;

@@ -64,7 +64,8 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="receiverPhoneNumber"),
      *          @OA\Property(type="string", property="paymentTime"),
      *          @OA\Property(type="string", property="vehicleIdentificationNumber"),
-     *          @OA\Property(type="string", property="extraSpecification")
+     *          @OA\Property(type="string", property="extraSpecification"),
+     *          @OA\Property(type="string", property="holderType", description="public or private container")
      *      )
      * )
      * 
@@ -88,7 +89,8 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="receiverPhoneNumber"),
      *                  @OA\Property(type="string", property="paymentTime"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
-     *                  @OA\Property(type="string", property="extraSpecification")
+     *                  @OA\Property(type="string", property="extraSpecification"),
+     *                  @OA\Property(type="string", property="holderType", description="public or private container")
      *          )
      *      )
      * )
@@ -392,7 +394,8 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="receiverPhoneNumber"),
      *          @OA\Property(type="string", property="paymentTime"),
      *          @OA\Property(type="string", property="vehicleIdentificationNumber"),
-     *          @OA\Property(type="string", property="extraSpecification")
+     *          @OA\Property(type="string", property="extraSpecification"),
+     *          @OA\Property(type="string", property="holderType", description="public or private container")
      *      )
      * )
      *
@@ -545,6 +548,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="exportWarehouseName"),
      *                  @OA\Property(type="string", property="importWarehouseName"),
      *                  @OA\Property(type="string", property="quantity"),
+     *                  @OA\Property(type="string", property="holderType", description="public or private container"),
      *                  @OA\Property(type="string", property="image"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
