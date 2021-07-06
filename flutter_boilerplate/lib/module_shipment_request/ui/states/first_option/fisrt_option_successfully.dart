@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,11 +16,12 @@ import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearh
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 import 'dart:io';
+import 'package:image/image.dart' as ImageProcess;
 
 class FirstOptionSuccessfully extends StatefulWidget {
   final List<Countries> countries;
   final List<Category> categories;
-  final ShipmentRequest shipmentRequest;
+  final ShipmentTempRequest shipmentRequest;
   final Function goToSecondStep;
   FirstOptionSuccessfully(
       {required this.countries,
@@ -45,7 +49,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
   late List<Entry> shippingFrom;
   late List<Entry> shippingTo;
  late TextEditingController controller;
-  File? imageFile;
+ File? imageFile;
   late String initQuantity;
 
   @override
@@ -62,15 +66,17 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
    }
    if(widget.shipmentRequest.transportationType =='sea'){
      selectedRadioGender = 1;
-   }else {selectedRadioGender = 2;}
+   }else {selectedRadioGender = 2;
+   widget.shipmentRequest.transportationType = 'air';
+   }
 
    if(widget.shipmentRequest.quantity == 0){
      initQuantity = '0';
    }else {
      initQuantity = widget.shipmentRequest.quantity.toString();
    }
-   if(widget.shipmentRequest.imageFile != null){
-     imageFile = widget.shipmentRequest.imageFile;
+   if(widget.shipmentRequest.imageFilePath != null){
+     imageFile = File(widget.shipmentRequest.imageFilePath!);
    }
    if(widget.shipmentRequest.exportWarehouseID !=0){
      for (Countries item in widget.countries) {
@@ -201,6 +207,8 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
             (optionItem) {
               optionItemSelectedF = optionItem;
               widget.shipmentRequest.exportWarehouseID =optionItem.id;
+              widget.shipmentRequest.exportWarehouseName =optionItem.title;
+              print("nameWear"  +  optionItem.title);
               setState(() {});
             },
           ),
@@ -311,7 +319,13 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                                         imageQuality: 70)
                                     .then((value) {
                                   imageFile = File(value!.path);
-                                  // setState(() {});
+                                  // final _imageFile = ImageProcess.decodeImage(
+                                  //   b.readAsBytesSync(),
+                                  // );
+                                  // String base64Image = base64Encode(ImageProcess.encodePng(_imageFile!));
+                                  // imageFile = Base64Decoder().convert(base64Image);
+                                  widget.shipmentRequest.imageFilePath =value.path;
+                                  setState(() {});
                                 });
                               },
                             ),
@@ -347,4 +361,8 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
       print(val);
     });
   }
+ String parseImage(File imageFile){
+   List<int> imageBytes = imageFile.readAsBytesSync();
+   return  base64.encode(imageBytes);
+ }
 }

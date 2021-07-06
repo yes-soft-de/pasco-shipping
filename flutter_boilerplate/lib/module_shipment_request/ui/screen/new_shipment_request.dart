@@ -31,7 +31,7 @@ class _NewShipmentState extends State<NewShipment> {
   int activeStep = 0; // Initial step set to 0.
   late ScrollController _controller;
   late PublishSubject<int> _optionsStreamController;
-  late ShipmentRequest _shipmentRequestModel;
+  late ShipmentTempRequest _shipmentRequestModel;
 
   @override
   void initState() {
@@ -43,7 +43,9 @@ class _NewShipmentState extends State<NewShipment> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if(ModalRoute.of(context)!.settings.arguments == null){
-      _shipmentRequestModel = ShipmentRequest('', '', '', 0, 0,'', '', '', '', '', 0, 0, '', '',null);
+      _shipmentRequestModel =
+          ShipmentTempRequest(
+              '', 0,'', '', 0, '',0, '', '', '', '', 0, '', '', '','',null);
     }else{
       final arguments = ModalRoute.of(context)!.settings.arguments as Map;
       _shipmentRequestModel = arguments['shipment'];

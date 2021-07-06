@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_my_shipment/state_manager/my_shipment_state_manger.dart';
 import 'package:pasco_shipping/module_my_shipment/ui/screen/my_shipment_history.dart';
 import 'package:pasco_shipping/module_my_shipment/ui/widget/history_card.dart';
@@ -53,7 +54,7 @@ class _ShipmentTrackingScreenState extends State<MyShipmentScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ShipmentTypeCard('Active', '', StaticImage.box, isActive,
+                MyShipmentTypeCard('Active', '', StaticImage.box, isActive,
                     () {
                   setState(() {
                     isWaiting = false;
@@ -62,14 +63,14 @@ class _ShipmentTrackingScreenState extends State<MyShipmentScreen> {
                     print(isWaiting);
                   });
                 }),
-                ShipmentTypeCard('Waiting', '1', StaticImage.waiting, isWaiting, () {
+                MyShipmentTypeCard('Confirm', '1', StaticImage.waiting, isWaiting, () {
                   setState(() {
                     isWaiting = true;
                     isActive = false;
                     isDone = false;
                   });
                 }),
-                ShipmentTypeCard('History', '', StaticImage.history, isDone,
+                MyShipmentTypeCard('History', '', StaticImage.history, isDone,
                     () {
                   setState(() {
                     isWaiting = false;
@@ -168,7 +169,7 @@ class _ShipmentTrackingScreenState extends State<MyShipmentScreen> {
           // ),
         ],
       ),
-      title: 'Shipments tracking',
+      title: S.of(context).trackShipment,
       currentIndex: -1,
       isResultScreen: false,
       isHome: false,
@@ -178,8 +179,8 @@ class _ShipmentTrackingScreenState extends State<MyShipmentScreen> {
   @override
   void initState() {
     super.initState();
-    isWaiting = false;
-    isActive = true;
+    isWaiting = true;
+    isActive = false;
     isDone = false;
     controller = ScrollController();
   }

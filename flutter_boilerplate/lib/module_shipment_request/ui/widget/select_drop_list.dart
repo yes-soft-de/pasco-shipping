@@ -7,7 +7,7 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 class SelectDropList extends StatefulWidget {
 
 final Entry itemSelected;
-  final DropListModel dropListModel;
+   DropListModel dropListModel;
   final Function(Entry optionItem) onOptionSelected;
 
   SelectDropList( this.itemSelected,this.dropListModel,this.onOptionSelected, );
@@ -19,7 +19,7 @@ final Entry itemSelected;
 class _SelectDropListState extends State<SelectDropList> with SingleTickerProviderStateMixin {
 
 late Entry optionItemSelected;
-final DropListModel dropListModel;
+ DropListModel dropListModel;
 
 late AnimationController expandController;
 late Animation<double> animation;

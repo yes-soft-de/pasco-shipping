@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_my_shipment/state_manager/my_shipment_state_manger.dart';
 import 'package:pasco_shipping/module_my_shipment/ui/state/my_shipment_history/my_shipment_history_successfully.dart';

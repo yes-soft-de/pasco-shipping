@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_my_shipment/response/my_history_shipment_response.dart';
@@ -57,10 +58,46 @@ class ReviewShipmentScreen extends StatelessWidget {
                 Expanded(child: ListTile(title: Text('Phone: ' , style: white18text,), subtitle: Text(shipment.receiverPhoneNumber??'' ,style: basic14text,))),
               ],
             ),
-            ListTile(title: Text('Unit: ' , style: white18text,), subtitle: Text(shipment.unit??'' ,style: basic14text,)),
-            ListTile(title: Text('Mark ' , style: white18text,), subtitle: Text(shipment.markNumber??'' ,style: basic14text,)),
-            ListTile(title: Text('Payment time ' , style: white18text,), subtitle: Text(shipment.paymentTime??'' ,style: basic14text,)),
-            ListTile(title: Text('Extra specification ' , style: white18text,), subtitle: Text(shipment.extraSpecification??'' ,style: basic14text,)),
+            Row(
+              children: [
+                Flexible(
+                  flex: 2,
+                  child: Column(children: [
+                    ListTile(title: Text('Unit: ' , style: white18text,), subtitle: Text(shipment.unit??'' ,style: basic14text,)),
+                    ListTile(title: Text('Mark ' , style: white18text,), subtitle: Text(shipment.markNumber??'' ,style: basic14text,)),
+                    ListTile(title: Text('Payment time ' , style: white18text,), subtitle: Text(shipment.paymentTime??'' ,style: basic14text,)),
+                    ListTile(title: Text('Extra specification ' , style: white18text,), subtitle: Text(shipment.extraSpecification??'' ,style: basic14text,)),
+                  ],),
+                ),
+                Flexible(
+                    flex: 1,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(6.0),
+                          boxShadow: [
+                            BoxShadow(color: AppThemeDataService.AccentColor)
+                          ]),
+                      child: shipment.imagePath != null
+                          ? Image.network(
+                        shipment.imagePath!,
+                        fit: BoxFit.cover,
+                        width: 100,
+                        height: 100,
+                      )
+                          : Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: IconButton(
+                          icon: Icon(Icons.camera_alt),
+                          iconSize: 50.0,
+                          onPressed: () {},
+                        ),
+                      ),
+                    ))
+              ],
+            ),
+
 
           ],
         ), title: S.of(context).reviewShipment,

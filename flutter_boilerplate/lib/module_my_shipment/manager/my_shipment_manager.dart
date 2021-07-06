@@ -10,5 +10,6 @@ class MyShipmentManager{
 
   Future<List<MyShipment>?> getMyActiveShipment() => _repository.getMyActiveShipment();
   Future<List<MyHistoryShipment>?> getMyDeliveredShipment() => _repository.getMyDeliveredShipment();
+  Future<List<MyHistoryShipment>?> getMyWaitingShipment() => _repository.getMyWaitingShipment();
 
 }

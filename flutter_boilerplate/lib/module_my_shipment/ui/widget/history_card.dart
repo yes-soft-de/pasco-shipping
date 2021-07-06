@@ -3,13 +3,13 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 
-class ShipmentTypeCard extends StatelessWidget {
+class MyShipmentTypeCard extends StatelessWidget {
   final String title;
   final String subTitle;
   final String image;
   final bool isActive;
   final Function onTap;
-  const ShipmentTypeCard(this.title, this.subTitle, this.image, this.isActive, this.onTap);
+  const MyShipmentTypeCard(this.title, this.subTitle, this.image, this.isActive, this.onTap);
 
   @override
   Widget build(BuildContext context) {

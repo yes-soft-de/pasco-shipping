@@ -1,26 +1,33 @@
 import 'dart:io';
 
-class ShipmentRequest {
+import 'dart:convert';
+class ShipmentTempRequest {
   late String _transportationType;
 
+  late int _exportWarehouseID;
+  late String _exportWarehouseName;
   late String _target;
-  late String _supplierName;
-  late int _quantity;
+
   late int _productCategoryID;
-
   late String _productCategoryName;
+  late int _quantity;
 
-  late String _unit;
+  late String _supplierName;
+
   late String _receiverName;
   late String _receiverPhoneNumber;
+
+  late String _unit;
+
+  late int _markId;
+  late String _markName;
+
   late String _paymentTime;
 
-  late int _exportWarehouseID;
-  late int _markId;
   late String _vehicleIdentificationNumber;
   late String _extraSpecification;
 
-  late File? imageFile;
+  late String? imageFilePath;
 
 
   Map<String, dynamic> toJson() => {
@@ -38,44 +45,61 @@ class ShipmentRequest {
         "markId": markId,
         "vehicleIdentificationNumber": vehicleIdentificationNumber,
         "extraSpecification": extraSpecification,
-        'image': imageFile
+        'image':imageFilePath == null ?'': imageFilePath!,
+    'exportWarehouseName':exportWarehouseName,
+    'markName':markName
+
       };
-  factory ShipmentRequest.fromJson(Map<String, dynamic> json) =>
-      ShipmentRequest(
-          json['transportationType'],
-          json['target'],
-          json['supplierName'],
-          json['quantity'],
+  factory ShipmentTempRequest.fromJson(Map<String, dynamic> json) =>
+      ShipmentTempRequest(
+          json['transportationType']??'',
+          json['exportWarehouseID']??0,
+          json['exportWarehouseName']??'',
+          json['target']??'',
 
-          json['productCategoryID'],
-          json['productCategoryName'],
+          json['productCategoryID']??0,
+          json['productCategoryName']??'',
+          json['quantity']??0,
 
-          json['unit'],
-          json['receiverName'],
-          json['receiverPhoneNumber'],
-          json['paymentTime'],
-          json['exportWarehouseID'],
-          json['markId'],
-          json['vehicleIdentificationNumber'],
-          json['extraSpecification'],
+          json['supplierName']??'',
+          json['receiverName']??'',
+          json['receiverPhoneNumber']??'',
+
+          json['unit']??'',
+          json['markId']??0,
+          json['markName'] ?? '',
+
+          json['paymentTime']??'',
+
+
+          json['vehicleIdentificationNumber']??'',
+          json['extraSpecification']??'',
           json['image']);
-  ShipmentRequest(
+  ShipmentTempRequest(
       this._transportationType,
+
+      this._exportWarehouseID,
+      this._exportWarehouseName,
       this._target,
-      this._supplierName,
-      this._quantity,
+
       this._productCategoryID,
       this._productCategoryName,
+      this._quantity,
 
-      this._unit,
+      this._supplierName,
+
       this._receiverName,
       this._receiverPhoneNumber,
-      this._paymentTime,
-      this._exportWarehouseID,
+
+      this._unit,
+
       this._markId,
+      this._markName,
+
+      this._paymentTime,
       this._extraSpecification,
       this._vehicleIdentificationNumber,
-      this.imageFile);
+      this.imageFilePath);
 
   String get extraSpecification => _extraSpecification;
 
@@ -161,8 +185,24 @@ class ShipmentRequest {
     _productCategoryName = value;
   }
 
+
+  String get markName => _markName;
+
+  set markName(String value) {
+    _markName = value;
+  }
+
+  String get exportWarehouseName => _exportWarehouseName;
+
+  set exportWarehouseName(String value) {
+    _exportWarehouseName = value;
+  }
+
   @override
   String toString() {
-    return 'ShipmentRequest{_transportationType: $_transportationType, _target: $_target, _supplierName: $_supplierName, _quantity: $_quantity, _productCategoryID: $_productCategoryID, _unit: $_unit, _receiverName: $_receiverName, _receiverPhoneNumber: $_receiverPhoneNumber, _paymentTime: $_paymentTime, _exportWarehouseID: $_exportWarehouseID, _markId: $_markId, _vehicleIdentificationNumber: $_vehicleIdentificationNumber, _extraSpecification: $_extraSpecification}';
+    return 'ShipmentRequest{_transportationType: $_transportationType, _exportWarehouseID: $_exportWarehouseID, _exportWarehouseName: $_exportWarehouseName, _target: $_target, _productCategoryID: $_productCategoryID, _productCategoryName: $_productCategoryName, _quantity: $_quantity, _supplierName: $_supplierName, _receiverName: $_receiverName, _receiverPhoneNumber: $_receiverPhoneNumber, _unit: $_unit, _markId: $_markId, _markName: $_markName, _paymentTime: $_paymentTime, _vehicleIdentificationNumber: $_vehicleIdentificationNumber, _extraSpecification: $_extraSpecification, imageFile: $imageFilePath}';
   }
+
+
+
 }
