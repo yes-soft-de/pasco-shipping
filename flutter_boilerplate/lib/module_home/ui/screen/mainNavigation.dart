@@ -5,10 +5,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_home/ui/screen/home_screen.dart';
 import 'package:pasco_shipping/module_notifications/ui/notification_screen.dart';
+import 'package:pasco_shipping/module_profile/service/profile_service.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 
 @injectable
 class MainNavigationScreen extends StatefulWidget {
+  final ProfileService _profileService;
+
+  MainNavigationScreen(this._profileService);
+
   @override
   _MainNavigationScreenState createState() => _MainNavigationScreenState();
 }
@@ -24,7 +29,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     super.initState();
     currentIndex = 0;
     _pages = [
-      HomeScreen(),
+      HomeScreen(widget._profileService),
       NotificationScreen()
     ];
 

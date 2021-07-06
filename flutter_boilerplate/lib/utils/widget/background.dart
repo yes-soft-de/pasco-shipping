@@ -6,6 +6,7 @@ import 'package:pasco_shipping/module_home/ui/screen/drawer_menu.dart';
 import 'package:pasco_shipping/module_home/ui/screen/home_screen.dart';
 import 'package:pasco_shipping/module_notifications/notification_module.dart';
 import 'package:pasco_shipping/module_notifications/notification_routes.dart';
+import 'package:pasco_shipping/module_profile/service/profile_service.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';

@@ -6,6 +6,7 @@ import 'package:pasco_shipping/abstracts/module/yes_module.dart';
 import 'package:pasco_shipping/di/di_config.dart';
 import 'package:pasco_shipping/module_auth/authoriazation_module.dart';
 import 'package:pasco_shipping/module_chat/chat_module.dart';
+import 'package:pasco_shipping/module_edit_shipment/edit_shipment_module.dart';
 import 'package:pasco_shipping/module_home/home_module.dart';
 import 'package:pasco_shipping/module_intro/intro_module.dart';
 import 'package:pasco_shipping/module_intro/ui/intro_screen/intro_screen.dart';
@@ -81,6 +82,7 @@ class MyApp extends StatefulWidget {
   final NewShipmentsModule _newShipmentsModule;
   final TrackingModule _trackingModule;
   final MyShipmentModule _myShipmentModule;
+  final EditShipmentModule _editShipmentModule;
 
   MyApp(
       this._themeDataService,
@@ -98,7 +100,8 @@ class MyApp extends StatefulWidget {
       this._notificationModule,
       this._newShipmentsModule,
       this._trackingModule,
-      this._myShipmentModule
+      this._myShipmentModule,
+      this._editShipmentModule
       );
 
   @override
