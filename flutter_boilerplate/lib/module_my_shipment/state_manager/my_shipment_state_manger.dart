@@ -18,7 +18,14 @@ class MyShipmentStateManger {
       if (shipments == null) {
         _stateSubject.add(ErrorFetchingDataState('error connection'));
       } else {
-        _stateSubject.add(SuccessfullyFetchActiveShipmentState(shipments));
+        _myShipmentService.getMyWaitingShipment().then((waiting) {
+          if(waiting == null){
+            _stateSubject.add(ErrorFetchingDataState('error connection'));
+          }
+          else{
+            _stateSubject.add(SuccessfullyFetchActiveShipmentState(waiting , shipments));
+          }
+        });
       }
     });
   }

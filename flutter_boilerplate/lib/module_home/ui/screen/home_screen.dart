@@ -3,10 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_home/presistance/profile_prefs_helper.dart';
 import 'package:pasco_shipping/module_home/ui/widget/chip_card.dart';
 import 'package:pasco_shipping/module_mark/mark_routes.dart';
 import 'package:pasco_shipping/module_my_shipment/my_shipment_routes.dart';
 import 'package:pasco_shipping/module_profile/profile_routes.dart';
+import 'package:pasco_shipping/module_profile/request/profile_request.dart';
+import 'package:pasco_shipping/module_profile/service/profile_service.dart';
 import 'package:pasco_shipping/module_shipment_previous/previous_routes.dart';
 import 'package:pasco_shipping/module_shipment_request/presistance/shipment_prefs_helper.dart';
 import 'package:pasco_shipping/module_shipment_track/tracking_routes.dart';
@@ -17,8 +20,15 @@ import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 
 @injectable
-class HomeScreen extends StatelessWidget {
-  const HomeScreen();
+class HomeScreen extends StatefulWidget {
+  final ProfileService _profileService;
+  const HomeScreen(this._profileService);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     ScrollController controller = ScrollController();
@@ -123,13 +133,30 @@ class HomeScreen extends StatelessWidget {
     // flutter defined function
     CoolAlert.show(
       context: context,
-      type: CoolAlertType.warning,
+      type: CoolAlertType.confirm,
+      title: 'One moment please',
       text: 'You have a shipment waiting for confirmation, please confirm it first and then order a new shipment',
       backgroundColor:AppThemeDataService.PrimaryColor,
       confirmBtnColor:AppThemeDataService.AccentColor,
+      cancelBtnText: 'maybe later',
+      confirmBtnText: 'confirm it',
       onConfirmBtnTap: (){
         Navigator.pop(context);
+        Navigator.pushNamed(context, MyShipmentRoutes.MY_SHIPMENT);
       },
+      onCancelBtnTap: (){
+        Navigator.pop(context);
+        Navigator.pushNamed(context, NewShipmentRoutes.NEW_SHIPMENTS);
+      }
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    widget._profileService.getMyProfile().then((value) {
+      ProfileRequest request = ProfileRequest(userName: value!.userName!, city: value.city!, country: value.country!, image: value.image!, location: value.location!, phone: value.phone!);
+      setProfile(request);
+    });
   }
 }

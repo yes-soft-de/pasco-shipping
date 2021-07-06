@@ -11,7 +11,7 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 class SecondOptionSuccessfully extends StatefulWidget {
   final List<Mark> marks;
-  final ShipmentRequest shipmentRequest;
+  final ShipmentTempRequest shipmentRequest;
   final Function goBackStep;
   final Function goNextPage;
   SecondOptionSuccessfully({required this.marks,required this.shipmentRequest,required this.goBackStep,required this.goNextPage});
@@ -24,7 +24,9 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   DropListModel dropListModelUnit = DropListModel(dataUnit);
 
   late DropListModel dropListModelMark;
+  late DropListModel dropListModelFromMark;
   late List<Entry> marksEntry;
+  late List<Entry> marksBackEntry;
 
   late Entry optionItemSelectedU;
   late Entry optionItemSelectedMar;
@@ -33,9 +35,12 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   late String receiverName;
   late String receiverPhone;
 
+  late bool isFromMarks;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    print('here');
     if(widget.shipmentRequest.markId !=0){
       for(Mark item in widget.marks){
         if(item.id == widget.shipmentRequest.markId) {
@@ -76,7 +81,9 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   @override
   void initState() {
     super.initState();
+    isFromMarks = false;
     marksEntry = <Entry>[];
+    marksBackEntry = <Entry>[];
     for(Mark item in widget.marks){
       Entry v = Entry(item.markNumber! ,item.id! ,[]);
       marksEntry.add(v);
@@ -86,6 +93,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
 
   @override
   Widget build(BuildContext context) {
+    print(dropListModelMark.listOptionItems.length);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -137,17 +145,31 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
             Expanded(
               child: SelectDropList(
                 this.optionItemSelectedMar,
-                this.dropListModelMark,
+               isFromMarks ? this.dropListModelFromMark : this.dropListModelMark,
                 (optionItem) {
                   optionItemSelectedMar = optionItem;
                   widget.shipmentRequest.markId = optionItem.id;
+                  widget.shipmentRequest.markName = optionItem.title;
+                  print(optionItem.title);
                   setState(() {});
                 },
               ),
             ),
             InkWell(
               onTap: () {
-                Navigator.pushNamed(context, MarkRoutes.mark);
+                Navigator.pushNamed(context, MarkRoutes.mark).then((value) {
+                  print('back');
+                 setState(() {
+                   List<Mark>  marks = value as List<Mark>;
+                   isFromMarks = true;
+                   marksEntry = <Entry>[];
+                   for(Mark item in marks){
+                     Entry v = Entry(item.markNumber! ,item.id! ,[]);
+                     marksEntry.add(v);
+                   }
+                   this.dropListModelFromMark = DropListModel(marksEntry);
+                 });
+                });
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -170,45 +192,45 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
 
           ],
         ),
-        Row(
-          children: [
-            Align(
-              alignment: AlignmentDirectional.bottomEnd,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Align(
-                        alignment: AlignmentDirectional.bottomStart,
-                        child: FloatingActionButton.extended(
-                          onPressed: () {
-                            widget.goBackStep();
-                          },
-                          label: Text('Back'),
-                          icon: Icon(
-                            Icons.arrow_back,
-                          ),
-                        )),
-
-                  ],
-                ),
-              ),
-            ),
-            Spacer(),
-            Align(
-                alignment: AlignmentDirectional.bottomEnd,
-                child: FloatingActionButton.extended(
-                  onPressed: () {
-                    widget.goNextPage();
-                  },
-                  icon: Icon(
-                    Icons.arrow_forward_outlined,
-                  ),
-                  label: Text('Continue'),
-                )),
-          ],
-        )
+        // Row(
+        //   children: [
+        //     Align(
+        //       alignment: AlignmentDirectional.bottomEnd,
+        //       child: Padding(
+        //         padding: const EdgeInsets.all(8.0),
+        //         child: Row(
+        //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //           children: [
+        //             Align(
+        //                 alignment: AlignmentDirectional.bottomStart,
+        //                 child: FloatingActionButton.extended(
+        //                   onPressed: () {
+        //                     widget.goBackStep();
+        //                   },
+        //                   label: Text('Back'),
+        //                   icon: Icon(
+        //                     Icons.arrow_back,
+        //                   ),
+        //                 )),
+        //
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //     Spacer(),
+        //     Align(
+        //         alignment: AlignmentDirectional.bottomEnd,
+        //         child: FloatingActionButton.extended(
+        //           onPressed: () {
+        //             widget.goNextPage();
+        //           },
+        //           icon: Icon(
+        //             Icons.arrow_forward_outlined,
+        //           ),
+        //           label: Text('Continue'),
+        //         )),
+        //   ],
+        // )
 
       ],
     );

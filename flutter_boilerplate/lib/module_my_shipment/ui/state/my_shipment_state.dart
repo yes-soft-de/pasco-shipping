@@ -8,9 +8,10 @@ class MyShipmentInitState extends MyShipmentState{}
 class LoadingMyShipmentState extends MyShipmentState{}
 
 class SuccessfullyFetchActiveShipmentState extends MyShipmentState{
-  List<MyShipment> shipments;
+  List<MyHistoryShipment> shipmentWaiting;
+  List<MyShipment> shipmentActive;
 
-  SuccessfullyFetchActiveShipmentState(this.shipments);
+  SuccessfullyFetchActiveShipmentState(this.shipmentWaiting ,this.shipmentActive);
 }
 class SuccessfullyFetchHistoryShipmentState extends MyShipmentState{
   List<MyHistoryShipment> shipments;

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_my_shipment/ui/widget/shipment_card.dart';
 import 'package:pasco_shipping/module_shipment_request/presistance/shipment_prefs_helper.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
@@ -13,7 +14,7 @@ class MyShipmentWaiting extends StatefulWidget {
 }
 
 class _MyShipmentWaitingState extends State<MyShipmentWaiting> {
- late ShipmentRequest shipmentRequest;
+ late ShipmentTempRequest shipmentRequest;
  late bool isEmptyData;
 
 
@@ -21,7 +22,8 @@ class _MyShipmentWaitingState extends State<MyShipmentWaiting> {
   void initState() {
    super.initState();
    isEmptyData= false;
-   shipmentRequest = ShipmentRequest('', '', '', 0, 0,'', '', '', '', '', 0, 0, '', '',null);
+   shipmentRequest = ShipmentTempRequest(
+       '', 0,'', '', 0, '',0, '', '', '', '', 0, '', '', '','',null);
   }
 
  @override
@@ -48,7 +50,7 @@ class _MyShipmentWaitingState extends State<MyShipmentWaiting> {
   }
   @override
   Widget build(BuildContext context) {
-    return  isEmptyData ?Center(child: Text('No Shipment waiting for confirmation'),):
+    return  isEmptyData ?Center(child: Text('No Shipment waiting for confirmation',style: greyWhite14text,),):
       Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +69,7 @@ class _MyShipmentWaitingState extends State<MyShipmentWaiting> {
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: 1,
                   itemBuilder: (context, index) {
-                    return waitingShipmentCard(StaticImage.car,shipmentRequest);
+                    return waitingShipmentCard(StaticImage.box,shipmentRequest);
                   }),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/module_edit_shipment/edit_shipment_routes.dart';
 import 'package:pasco_shipping/module_my_shipment/my_shipment_routes.dart';
 import 'package:pasco_shipping/module_my_shipment/response/my_active_shipment_response.dart';
 import 'package:pasco_shipping/module_my_shipment/response/my_history_shipment_response.dart';
@@ -23,7 +24,7 @@ class ShipmentActiveCard extends StatelessWidget {
     return InkWell(
       onTap: (){
         print('nice');
-        Navigator.pushNamed(context, TracingRoutes.TRACKING_SCREEN ,arguments: {'trackNumber': myShipment.trackNumber});
+     waiting ? {} :  Navigator.pushNamed(context, TracingRoutes.TRACKING_SCREEN ,arguments: {'trackNumber': myShipment.trackNumber});
       },
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -43,39 +44,45 @@ class ShipmentActiveCard extends StatelessWidget {
                 ),
                 elevation: 5.0,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    myShipment.productCategoryName!,
-                    style: White14text,
-                  ),
-                  Row(
-                    children: [
-                      waiting
-                          ? Icon(
-                              Icons.more_horiz,
-                              color: white,
-                              size: 20,
-                            )
-                          : Icon(
-                              Icons.check_circle_outline,
-                              color: green,
-                              size: 20,
-                            ),
-                      SizedBox(
-                        width: 2,
-                      ),
-                      waiting ?Text(
-                        myShipment.shipmentStatus!,
-                        style: greyWhite10text,
-                      ): Text(
-                        'Delivered 1 month ago',
-                        style: greyWhite10text,
-                      )
-                    ],
-                  ),
-                ],
+              Container(
+                width: 100,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      myShipment.productCategoryName!,
+                      style: White14text,
+                    ),
+                    Row(
+                      children: [
+                        // waiting
+                        //     ?
+                        Icon(
+                                Icons.more_horiz,
+                                color: white,
+                                size: 20,
+                              ),
+                            // : Icon(
+                            //     Icons.check_circle_outline,
+                            //     color: green,
+                            //     size: 20,
+                            //   ),
+                        SizedBox(
+                          width: 2,
+                        ),
+                        // waiting ?
+                        Text(
+                          myShipment.shipmentStatus!,
+                          style:waiting ? basic10text : greyWhite10text,
+                        ),
+                        //     : Text(
+                        //   'Delivered 1 month ago',
+                        //   style: greyWhite10text,
+                        // )
+                      ],
+                    ),
+                  ],
+                ),
               ),
               Icon(
                 Icons.info,
@@ -105,7 +112,7 @@ class ShipmentHistoryCard extends StatelessWidget {
         Navigator.pushNamed(context, MyShipmentRoutes.REVIEW_SHIPMENT ,arguments:
         {
           'myHistoryShipment' : myShipment,
-          'isWaiting':false
+          // 'isWaiting':false
         });
       },
       child: Padding(
@@ -126,36 +133,42 @@ class ShipmentHistoryCard extends StatelessWidget {
                 ),
                 elevation: 5.0,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    myShipment.productCategoryName!,
-                    style: White14text,
-                  ),
-                  Row(
-                    children: [
-                      waiting
-                          ? Icon(
-                        Icons.more_horiz,
-                        color: white,
-                        size: 20,
-                      )
-                          : Icon(
-                        Icons.check_circle_outline,
-                        color: green,
-                        size: 20,
-                      ),
-                      SizedBox(
-                        width: 2,
-                      ),
-                      Text(
-                        myShipment.updatedAt.toString().split(' ').first,
-                        style: greyWhite10text,
-                      )
-                    ],
-                  ),
-                ],
+              Container(
+                width: 100,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      myShipment.productCategoryName!,
+                      style: White14text,
+                    ),
+                    Row(
+                      children: [
+                        waiting
+                            ? Icon(
+                          Icons.more_horiz,
+                          color: white,
+                          size: 20,
+                        )
+                            : Icon(
+                          Icons.check_circle_outline,
+                          color: green,
+                          size: 20,
+                        ),
+                        SizedBox(
+                          width: 2,
+                        ),
+                       waiting ?   Text(
+                         'waiting',
+                         style: basic10text,
+                       ): Text(
+                          myShipment.updatedAt.toString().split(' ').first,
+                          style: greyWhite10text,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
               Icon(
                 Icons.info,
@@ -172,7 +185,7 @@ class ShipmentHistoryCard extends StatelessWidget {
 
 class waitingShipmentCard extends StatefulWidget {
   final String image;
-  final ShipmentRequest shipmentRequest;
+  final ShipmentTempRequest shipmentRequest;
 
   const waitingShipmentCard(this.image, this.shipmentRequest);
 
@@ -187,7 +200,7 @@ class _waitingShipmentCardState extends State<waitingShipmentCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.pushNamed(context, MyShipmentRoutes.REVIEW_EDITED_SHIPMENT, arguments:
+        Navigator.pushNamed(context, EditShipmentRoutes.REVIEW_EDITED_SHIPMENT, arguments:
         {'myWaitingShipment' : widget.shipmentRequest,
         },);
       },
@@ -209,27 +222,30 @@ class _waitingShipmentCardState extends State<waitingShipmentCard> {
                 ),
                 elevation: 5.0,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.shipmentRequest.productCategoryName,
-                    style: White14text,
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.more_horiz,
-                        color: white,
-                        size: 20,
-                      ),
-                      Text(
-                        'waiting',
-                        style: greyWhite10text,
-                      )
-                    ],
-                  ),
-                ],
+              Container(
+                width: 100,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.shipmentRequest.productCategoryName,
+                      style: White14text,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.more_horiz,
+                          color: white,
+                          size: 20,
+                        ),
+                        Text(
+                          'waiting',
+                          style: greyWhite10text,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
               ElevatedButton(onPressed: () {
                 _showDialog(context);

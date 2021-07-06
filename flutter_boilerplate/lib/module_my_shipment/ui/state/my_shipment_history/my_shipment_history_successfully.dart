@@ -29,7 +29,7 @@ class MyShipmentHistorySuccessfully extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: shipments.length,
                 itemBuilder: (context, index) {
-                  return ShipmentHistoryCard(StaticImage.car, false, shipments[index]);
+                  return ShipmentHistoryCard(StaticImage.box, false, shipments[index]);
                 }),
           ],
         ),

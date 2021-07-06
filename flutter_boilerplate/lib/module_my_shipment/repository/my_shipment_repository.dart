@@ -39,4 +39,19 @@ class MyShipmentRepository{
       return null;
     }
   }
+
+  Future<List<MyHistoryShipment>?> getMyWaitingShipment() async {
+    // await _authService.refreshToken();
+    var token = Urls.token; // await _authService.getToken();
+    try {
+      var response = await _apiClient.get(Urls.MY_WAITING_SHIPMENT,
+          headers: {'Authorization': 'Bearer $token'});
+      List<MyHistoryShipment>? myDeliveredShipments =
+          MyHistoryShipmentResponse.fromJson(response!).data;
+      return myDeliveredShipments;
+    } catch (_) {
+      return null;
+    }
+  }
+
 }

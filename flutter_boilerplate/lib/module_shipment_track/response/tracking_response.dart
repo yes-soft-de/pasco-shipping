@@ -37,7 +37,10 @@ class TrackModel {
       this.weight,
       this.qrCode,
       this.guniQuantity,
-      this.tracks});
+      this.tracks,
+        this.log
+
+      });
 
   String? shipmentStatus;
   String? statusDetails;
@@ -54,6 +57,7 @@ class TrackModel {
   String? qrCode;
   int? guniQuantity;
   List<Track>? tracks;
+  List<Log>? log;
 
   factory TrackModel.fromJson(Map<String, dynamic> json) => TrackModel(
         shipmentStatus: json["shipmentStatus"],
@@ -73,6 +77,7 @@ class TrackModel {
         qrCode: json["qrCode"],
         guniQuantity: json["guniQuantity"],
         tracks: List<Track>.from(json['tracks'].map((x) => Track.fromJson(x))),
+    log: List<Log>.from(json["log"].map((x) => Log.fromJson(x))),
       );
 }
 
@@ -126,4 +131,27 @@ class Track {
       holderInfo = HolderInfo.fromJson(json['holderInfo']);
     } catch (_) {}
   }
+}
+
+class Log {
+  Log({
+    this.id,
+    this.shipmentId,
+    this.shipmentStatus,
+    this.createdAt,
+  });
+
+  int? id;
+  int? shipmentId;
+  String? shipmentStatus;
+  DateTime? createdAt;
+
+  factory Log.fromJson(Map<String, dynamic> json) => Log(
+    id: json["id"],
+    shipmentId: json["shipmentID"],
+    shipmentStatus: json["shipmentStatus"],
+    createdAt: DateTime.fromMillisecondsSinceEpoch(
+        OrderDate.fromJson(json['createdAt']).timestamp! * 1000),
+  );
+
 }

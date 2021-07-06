@@ -11,7 +11,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 class ThirdOptions extends StatefulWidget {
-  final ShipmentRequest _shipmentRequest;
+  final ShipmentTempRequest _shipmentRequest;
   final Function goBackStep;
   const ThirdOptions(this._shipmentRequest, this.goBackStep);
 
@@ -62,19 +62,29 @@ class _ThirdOptionsState extends State<ThirdOptions> {
             this.dropListModelTime,
             (optionItem) {
               optionItemSelectedTim = optionItem;
+              widget._shipmentRequest.paymentTime = optionItem.title;
               setState(() {});
             },
           ),
           SizedBox(
             height: 20,
           ),
-          Text(
-            'Vehicle identification number (if vehicle)',
-            style: white18text,
+          Visibility(
+            visible: widget._shipmentRequest.productCategoryName=='Car' ? true :false,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Vehicle identification number (if vehicle)',
+                  style: white18text,
+                ),
+                TextEdit(vehicle, 50, (number) {
+                  widget._shipmentRequest.vehicleIdentificationNumber = number ?? "";
+                }),
+              ],
+            ),
           ),
-          TextEdit(vehicle, 50, (number) {
-            widget._shipmentRequest.vehicleIdentificationNumber = number ?? "";
-          }),
+
           SizedBox(
             height: 20,
           ),
@@ -133,9 +143,10 @@ class _ThirdOptionsState extends State<ThirdOptions> {
       backgroundColor: AppThemeDataService.PrimaryColor,
       confirmBtnColor: AppThemeDataService.AccentColor,
       onConfirmBtnTap: () async{
+        print("hereRahaf"+widget._shipmentRequest.toString());
         await setShipment(widget._shipmentRequest);
         Navigator.pop(context);
-       Navigator.pushNamedAndRemoveUntil(context, HomeRoutes.Home, (route) => false);
+       await Navigator.pushNamedAndRemoveUntil(context, HomeRoutes.Home, (route) => false);
       },
       text: 'Your request added successfully!',
     );

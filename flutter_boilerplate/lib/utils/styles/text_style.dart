@@ -27,6 +27,10 @@ TextStyle basic14text = TextStyle(
   fontSize: 14,
   color: AppThemeDataService.AccentColor,
 );
+TextStyle basic10text = TextStyle(
+  fontSize: 10,
+  color: AppThemeDataService.AccentColor,
+);
 TextStyle greyWhite10text = TextStyle(
   fontSize: 10,
   color: greyWhite,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_my_shipment/state_manager/my_shipment_state_manger.dart';
 import 'package:pasco_shipping/module_my_shipment/ui/state/my_shipment_active/myshipment_active_successfully.dart';
@@ -46,7 +47,7 @@ class _MyShipmentActiveScreenState extends State<MyShipmentActiveScreen> {
     } else if (currentState is SuccessfullyFetchActiveShipmentState) {
       SuccessfullyFetchActiveShipmentState? state =
           currentState as SuccessfullyFetchActiveShipmentState?;
-      return MyShipmentActiveSuccessfully(state!.shipments);
+      return MyShipmentActiveSuccessfully(state!.shipmentWaiting , state.shipmentActive);
     } else {
       return Column(
         children: [

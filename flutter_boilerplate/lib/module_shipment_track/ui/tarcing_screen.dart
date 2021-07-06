@@ -57,7 +57,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
         goBack: (){
           Navigator.pop(context);
         },
-        title: S.of(context).trackShipment,
+        title:  S.of(context).resultTrack,
         currentIndex: -1,
         isResultScreen: false,
         controller: controller,
@@ -80,7 +80,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
         goBack: (){
           Navigator.pop(context);
         },
-        title: S.of(context).trackShipment,
+        title:  S.of(context).resultTrack,
         currentIndex: -1,
         isResultScreen: false,
         controller: controller,

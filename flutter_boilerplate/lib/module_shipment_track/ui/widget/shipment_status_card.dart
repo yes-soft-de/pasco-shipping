@@ -50,7 +50,10 @@ class ShipmentStatusCard extends StatelessWidget {
                   Text(model.statusName , style: model.isPrevious ?  white18text :black18text ),
                 ],
               ),
-              // model.isNext ? Container():Text('1 hour ago' ,style:!(model.isNext || model.isPrevious) ? black14text : greyWhite14text,),
+              model.isNext ? Container():Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(model.time.split('.').first,style:!(model.isNext || model.isPrevious) ? black14text : greyWhite14text,),
+              ),
 
               // Row(
               //   children: [

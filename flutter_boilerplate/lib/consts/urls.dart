@@ -21,16 +21,19 @@ class Urls {
   static const TRACK_SHIPMENT=BASE_API+'trackmyshipment';
 
   static const MY_SHIPMENT=BASE_API+'myshipments';
+  static const MY_WAITING_SHIPMENT=BASE_API+'mywaitingshipmentsorders';
+  static const ADD_NEW_SHIPMENT=BASE_API+'ordershipment';
+
 
 
   static const REPORT_API = BASE_API + '/report';
 
-  static const UPLOAD_API = BASE_API + '/uploadfile';
+  static const UPLOAD_API = BASE_API + 'uploadfile';
 
   static const NOTIFICATION_API = BASE_API + '/notificationtoken';
   static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchat';
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
 
 
-  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjUwOTk5MDQsImV4cCI6MTYyNTEwMzUwNCwicm9sZXMiOlsidXNlciJdLCJ1c2VybmFtZSI6InJhbWkxIn0.B26JDGjrXgTJsmD4vaWVTdPk9_MuX4mJ1sbTbP3zYbfay__cNPX1zc8ElpFGH-b5INTWkVMdhLliZ83F0IqYNqoyBV5i8qfAza1vtERC1CsIB3Jdcg2haA7Diyb3_HoUYTVsXEHPDD8zK6zQnuOKQYjbwRXPm_OCglEweRIXv32o00MEb2w-R3oTmlzuifhRsP9oYSSz16hClgdZd4pK68YqxdrY5ADx9L84wWABe-AXd5zARTc0R6j7xtU7KyAvPNcXDi8Pb0Tc3LBtT3-8ERy6NGvTb6wU9iGWr7W3NHAHSVIBSBOnnhy4AdTL7v5XqZ3UXKZVJcwXdt4fHeKECA';
+  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjU1MTEwNzEsImV4cCI6MTYyNTUxNDY3MSwicm9sZXMiOlsidXNlciJdLCJ1c2VybmFtZSI6InJhbWkxIn0.vl6ZlrG_OaNaNr0y6iHCnt-H_LBajsq32mbrNR1YSuIbhK-wZKGbmN6ZWDtu5y9ToIZensdycj6C-7HtOf2amhmY8F-y90PgEP-9z1kBg7-vIXTKWTaLo53lvtmp1Fyi7rPuVkdpSjkwvYflHLFFkM-vlBcfSEfiJkvdNPUSYRHZmCyWRVsHfK7rkyk1X9HEQN2YtTikRtuKPQF8qhrq5pvz726f8R8_3XLZWdPDl8VYZXFdTxtN93pS9TiVHufImOasAYo_PNvDof6JfUUTus7li1Vs0meHoqq0OVC5BTizRyAl4t7xW_AfPW7DtFyZyHW5Sij0Nw07U4noRDRFXQ';
 }

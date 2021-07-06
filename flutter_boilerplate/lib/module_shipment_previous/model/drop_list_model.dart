@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DropListModel {
   DropListModel(this.listOptionItems);
 
-  final List<Entry> listOptionItems;
+  List<Entry> listOptionItems;
 }
 
 // class OptionItem {
@@ -13,8 +13,8 @@ class DropListModel {
 //   OptionItem({required this.id, required this.title});
 // }
 class Entry {
-  final int id;
-  final String title;
+   int id;
+   String title;
   late List<Entry> _children;
 
   Entry(this.title, this.id, this._children);

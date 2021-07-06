@@ -14,4 +14,7 @@ class MyShipmentService {
   Future<List<MyHistoryShipment>?> getMyDeliveredShipment() {
     return _manager.getMyDeliveredShipment();
   }
+  Future<List<MyHistoryShipment>?> getMyWaitingShipment() {
+    return _manager.getMyWaitingShipment();
+  }
 }

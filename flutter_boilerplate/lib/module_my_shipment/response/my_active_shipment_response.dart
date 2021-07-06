@@ -33,7 +33,7 @@ class MyShipment {
   factory MyShipment.fromJson(Map<String, dynamic> json) => MyShipment(
     id: json['id'],
     trackNumber: json['trackNumber'],
-    shipmentStatus: json['shipmentStatus'],
+    shipmentStatus: json['shipmentStatus'] ?? json['status'],
     productCategoryName: json['productCategoryName'],
   );
 

@@ -21,6 +21,8 @@ class UploadRepository {
       Logger().info('Got a Response', response.toString());
       return ImgBBResponse(url: response.data);
     } catch (e) {
+      print('catch error');
+      print(e);
       return null;
     }
   }
