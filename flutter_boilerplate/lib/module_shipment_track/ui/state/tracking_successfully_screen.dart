@@ -59,9 +59,9 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsetsDirectional.only(start: 20),
+                      padding: const EdgeInsetsDirectional.only(start: 20 ,end: 20),
                       child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IconButton(
                               icon: Icon(
@@ -72,9 +72,14 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
                                 // _scaffoldKey.currentState!.openDrawer();
                               }),
                           Text(
-                            S.of(context).resultTrack,
+                    S.of(context).resultTrack,
                             style: white18text,
                           ),
+                          InkWell(
+                              onTap: (){
+                                Navigator.pop(context);
+                              },
+                              child: Icon(Icons.arrow_forward_ios , color: white,))
                         ],
                       ),
                     ),
@@ -337,8 +342,8 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
   void selectStatus(){
     if(widget.model.shipmentStatus=='accepted'){
       items = [
-        ShipmentStatus(1, 'Requested', '20 min ago', true, false),
-        ShipmentStatus(1, 'Accepted', '20 min ago', false, false),
+        ShipmentStatus(1, 'Requested', widget.model.log![0].createdAt.toString(), true, false),
+        ShipmentStatus(1, 'Accepted', widget.model.log![1].createdAt.toString(), false, false),
         ShipmentStatus(1, 'Received in the warehouse', '20 min ago', false, true),
         ShipmentStatus(1, 'start shipping', "1", false, true),
         ShipmentStatus(1, ' Arrived at the target city', '20 min ago', false, true),
@@ -346,20 +351,20 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
       ];
     }else if(widget.model.shipmentStatus=='start shipping') {
       items = [
-      ShipmentStatus(1, 'Requested', '20 min ago', true, false),
-      ShipmentStatus(1, 'Accepted', '20 min ago', true, false),
-      ShipmentStatus(1, 'Received in the warehouse', '20 min ago', true, false),
-      ShipmentStatus(1, 'start shipping', "1", false, false),
+      ShipmentStatus(1, 'Requested', widget.model.log![0].createdAt.toString(), true, false),
+      ShipmentStatus(1, 'Accepted', widget.model.log![1].createdAt.toString(), true, false),
+      ShipmentStatus(1, 'Received in the warehouse', widget.model.log![2].createdAt.toString(), true, false),
+      ShipmentStatus(1, 'start shipping', widget.model.log![3].createdAt.toString(), false, false),
       ShipmentStatus(1, ' Arrived at the target city', '20 min ago', false, true),
       ShipmentStatus(1, 'Delivered', '20 min ago', false, true),
     ];
     }
     else if(widget.model.shipmentStatus=='delivered') {
       items = [
-        ShipmentStatus(1, 'Requested', '20 min ago', true, false),
-        ShipmentStatus(1, 'Accepted', '20 min ago', true, false),
-        ShipmentStatus(1, 'Received in the warehouse', '20 min ago', true, false),
-        ShipmentStatus(1, 'start shipping', "1", true, false),
+        ShipmentStatus(1, 'Requested', widget.model.log![0].createdAt.toString(), true, false),
+        ShipmentStatus(1, 'Accepted', widget.model.log![1].createdAt.toString(), true, false),
+        ShipmentStatus(1, 'Received in the warehouse', widget.model.log![2].createdAt.toString(), true, false),
+        ShipmentStatus(1, 'start shipping', widget.model.log![3].createdAt.toString(), true, false),
         ShipmentStatus(1, ' Arrived at the target city', '20 min ago', true, false),
         ShipmentStatus(1, 'Delivered', '20 min ago', false, false),
       ];
