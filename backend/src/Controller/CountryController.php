@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\CountryCreateRequest;
+use App\Request\CountryUpdateRequest;
 use App\Request\DeleteRequest;
 use App\Service\CountryService;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -41,7 +42,8 @@ class CountryController extends BaseController
      * @OA\RequestBody(
      *      description="Create new country",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="name")
+     *          @OA\Property(type="string", property="name"),
+     *          @OA\Property(type="string", property="type")
      *      )
      * )
      *
@@ -82,6 +84,96 @@ class CountryController extends BaseController
     }
 
     /**
+     * @Route("country", name="updateCountry", methods={"PUT"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Country")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Update a specific country",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="string", property="name"),
+     *          @OA\Property(type="string", property="type")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the country",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="name"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="array", property="warehouses",
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="string", property="city"),
+     *                          @OA\Property(type="integer", property="countryID"),
+     *                          @OA\Property(type="string", property="location"),
+     *                          @OA\Property(type="integer", property="proxyID"),
+     *                          @OA\Property(type="string", property="rentingFee"),
+     *                          @OA\Property(type="string", property="name"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="object", property="updatedAt"),
+     *                          @OA\Property(type="integer", property="createdBy"),
+     *                          @OA\Property(type="integer", property="updatedBy"),
+     *                          @OA\Property(type="string", property="countryName"),
+     *                          @OA\Property(type="string", property="proxyName"),
+     *                          @OA\Property(type="string", property="createdByUser"),
+     *                          @OA\Property(type="string", property="createdByUserImage"),
+     *                          @OA\Property(type="integer", property="subcontractID"),
+     *                          @OA\Property(type="string", property="subcontractName"),
+     *                          @OA\Property(type="string", property="updatedByUser"),
+     *                          @OA\Property(type="string", property="updatedByUserImage"),
+     *                      )
+     *                  ),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage")
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function update(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, CountryUpdateRequest::class, (object)$data);
+
+        $request->setUpdatedBy($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->countryService->update($request);
+
+        return $this->response($result, self::UPDATE);
+    }
+
+    /**
      * @Route("countries", name="getAllCountries", methods={"GET"})
      * @return JsonResponse
      *
@@ -97,6 +189,30 @@ class CountryController extends BaseController
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="name"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="array", property="warehouses",
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="string", property="city"),
+     *                          @OA\Property(type="integer", property="countryID"),
+     *                          @OA\Property(type="string", property="location"),
+     *                          @OA\Property(type="integer", property="proxyID"),
+     *                          @OA\Property(type="string", property="rentingFee"),
+     *                          @OA\Property(type="string", property="name"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="object", property="updatedAt"),
+     *                          @OA\Property(type="integer", property="createdBy"),
+     *                          @OA\Property(type="integer", property="updatedBy"),
+     *                          @OA\Property(type="string", property="countryName"),
+     *                          @OA\Property(type="string", property="proxyName"),
+     *                          @OA\Property(type="string", property="createdByUser"),
+     *                          @OA\Property(type="string", property="createdByUserImage"),
+     *                          @OA\Property(type="integer", property="subcontractID"),
+     *                          @OA\Property(type="string", property="subcontractName"),
+     *                          @OA\Property(type="string", property="updatedByUser"),
+     *                          @OA\Property(type="string", property="updatedByUserImage"),
+     *                      )
+     *                  ),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
      *                  @OA\Property(type="string", property="createdByUser"),
@@ -133,6 +249,30 @@ class CountryController extends BaseController
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="name"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="array", property="warehouses",
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="string", property="city"),
+     *                          @OA\Property(type="integer", property="countryID"),
+     *                          @OA\Property(type="string", property="location"),
+     *                          @OA\Property(type="integer", property="proxyID"),
+     *                          @OA\Property(type="string", property="rentingFee"),
+     *                          @OA\Property(type="string", property="name"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="object", property="updatedAt"),
+     *                          @OA\Property(type="integer", property="createdBy"),
+     *                          @OA\Property(type="integer", property="updatedBy"),
+     *                          @OA\Property(type="string", property="countryName"),
+     *                          @OA\Property(type="string", property="proxyName"),
+     *                          @OA\Property(type="string", property="createdByUser"),
+     *                          @OA\Property(type="string", property="createdByUserImage"),
+     *                          @OA\Property(type="integer", property="subcontractID"),
+     *                          @OA\Property(type="string", property="subcontractName"),
+     *                          @OA\Property(type="string", property="updatedByUser"),
+     *                          @OA\Property(type="string", property="updatedByUserImage"),
+     *                      )
+     *                  ),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
      *                  @OA\Property(type="string", property="createdByUser"),

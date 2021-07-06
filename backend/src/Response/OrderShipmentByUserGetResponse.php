@@ -62,4 +62,6 @@ class OrderShipmentByUserGetResponse
 
     public $orderUpdatedByUserImage;
 
+    public $holderType;
+
 }

@@ -8,6 +8,8 @@ class CountryGetResponse
 
     public $name;
 
+    public $type;
+
     public $createdAt;
 
     public $warehouses;

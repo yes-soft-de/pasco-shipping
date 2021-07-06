@@ -38,4 +38,6 @@ class OrderShipmentCreateResponse
 
     public $status;
 
+    public $holderType;
+
 }

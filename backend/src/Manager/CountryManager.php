@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\CountryEntity;
 use App\Repository\CountryEntityRepository;
 use App\Request\CountryCreateRequest;
+use App\Request\CountryUpdateRequest;
 use App\Request\DeleteRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -34,6 +35,26 @@ class CountryManager
         $this->entityManager->clear();
 
         return $countryEntity;
+    }
+
+    public function update(CountryUpdateRequest $request)
+    {
+        $countryEntity = $this->countryEntityRepository->find($request->getId());
+
+        if(!$countryEntity)
+        {
+            return  $countryEntity;
+        }
+        else
+        {
+            $countryEntity = $this->autoMapping->mapToObject(CountryUpdateRequest::class, CountryEntity::class,
+                $request, $countryEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $countryEntity;
+        }
     }
 
     public function getAllCountries()

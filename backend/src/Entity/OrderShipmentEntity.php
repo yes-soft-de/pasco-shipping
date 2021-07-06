@@ -155,6 +155,11 @@ class OrderShipmentEntity
      */
     private $supplierName;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $holderType;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -480,6 +485,18 @@ class OrderShipmentEntity
     public function setSupplierName(?string $supplierName): self
     {
         $this->supplierName = $supplierName;
+
+        return $this;
+    }
+
+    public function getHolderType(): ?string
+    {
+        return $this->holderType;
+    }
+
+    public function setHolderType(string $holderType): self
+    {
+        $this->holderType = $holderType;
 
         return $this;
     }

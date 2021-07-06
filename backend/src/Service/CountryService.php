@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\CountryEntity;
 use App\Manager\CountryManager;
 use App\Request\CountryCreateRequest;
+use App\Request\CountryUpdateRequest;
 use App\Response\CountryCreateResponse;
 use App\Response\CountryGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -28,6 +29,13 @@ class CountryService
         $countryResult = $this->countryManager->create($request);
 
         return $this->autoMapping->map(CountryEntity::class, CountryCreateResponse::class, $countryResult);
+    }
+
+    public function update(CountryUpdateRequest $request)
+    {
+        $countryResult = $this->countryManager->update($request);
+
+        return $this->autoMapping->map(CountryEntity::class, CountryGetResponse::class, $countryResult);
     }
 
     public function getAllCountries()

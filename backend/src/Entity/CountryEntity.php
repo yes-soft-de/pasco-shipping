@@ -45,6 +45,11 @@ class CountryEntity
      */
     private $updatedBy;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $type;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,6 +111,18 @@ class CountryEntity
     public function setUpdatedBy(?int $updatedBy): self
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

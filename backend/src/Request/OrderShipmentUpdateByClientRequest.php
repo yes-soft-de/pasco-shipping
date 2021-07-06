@@ -38,6 +38,9 @@ class OrderShipmentUpdateByClientRequest
 
     private $updatedBy;
 
+    // public | private
+    private $holderType;
+
     public function getId()
     {
         return $this->id;
