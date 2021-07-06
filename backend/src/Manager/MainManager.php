@@ -4,6 +4,7 @@ namespace App\Manager;
 
 use App\AutoMapping;
 use App\Constant\ShipmentOrderStatusConstant;
+use App\Constant\TravelStatusConstant;
 use App\Constant\TravelTypeConstant;
 use App\Entity\UserEntity;
 use App\Repository\UserEntityRepository;
@@ -71,11 +72,20 @@ class MainManager
         $statisticsResponse["orders"]["acceptedOrders"] = $this->shipmentOrderManager->getCountOfShipmentsOrdersByStatus(ShipmentOrderStatusConstant::$ACCEPTED_SHIPMENT_STATUS);
 
         $statisticsResponse["travels"]["total"] = $this->travelManager->getCountOfAllTravels();
-        $statisticsResponse["travels"]["flight"] = $this->travelManager->getCountOfTravelsByType(TravelTypeConstant::$FLIGHT_TRAVEL_TYPE);
-        $statisticsResponse["travels"]["cruise"] = $this->travelManager->getCountOfTravelsByType(TravelTypeConstant::$CRUISE_TRAVEL_TYPE);
+
+        $statisticsResponse["travels"]["flight"]["total"] = $this->travelManager->getCountOfTravelsByType(TravelTypeConstant::$FLIGHT_TRAVEL_TYPE);
+        $statisticsResponse["travels"]["flight"]["current"] = count($this->travelManager->getTravelsByTypeAndStatus(TravelTypeConstant::$FLIGHT_TRAVEL_TYPE, TravelStatusConstant::$CURRENT_TRAVEL_STATUS));
+        $statisticsResponse["travels"]["flight"]["started"] = count($this->travelManager->getTravelsByTypeAndStatus(TravelTypeConstant::$FLIGHT_TRAVEL_TYPE, TravelStatusConstant::$STARTED_TRAVEL_STATUS));
+        $statisticsResponse["travels"]["flight"]["arrived"] = count($this->travelManager->getTravelsByTypeAndStatus(TravelTypeConstant::$FLIGHT_TRAVEL_TYPE, TravelStatusConstant::$ARRIVED_TRAVEL_STATUS));
+        
+        $statisticsResponse["travels"]["cruise"]["total"] = $this->travelManager->getCountOfTravelsByType(TravelTypeConstant::$CRUISE_TRAVEL_TYPE);
+        $statisticsResponse["travels"]["cruise"]["current"] = count($this->travelManager->getTravelsByTypeAndStatus(TravelTypeConstant::$CRUISE_TRAVEL_TYPE, TravelStatusConstant::$CURRENT_TRAVEL_STATUS));
+        $statisticsResponse["travels"]["cruise"]["started"] = count($this->travelManager->getTravelsByTypeAndStatus(TravelTypeConstant::$CRUISE_TRAVEL_TYPE, TravelStatusConstant::$STARTED_TRAVEL_STATUS));
+        $statisticsResponse["travels"]["cruise"]["arrived"] = count($this->travelManager->getTravelsByTypeAndStatus(TravelTypeConstant::$CRUISE_TRAVEL_TYPE, TravelStatusConstant::$ARRIVED_TRAVEL_STATUS));
 
         $statisticsResponse["users"]["customers"] = $this->userManager->getCountOfAllClientsProfiles();
         $statisticsResponse["users"]["employees"] = $this->adminManager->getCountOfAllAdmins();
+
         $statisticsResponse["users"]["totals"] = $statisticsResponse["users"]["customers"] + $statisticsResponse["users"]["employees"];
 
         return $statisticsResponse;
