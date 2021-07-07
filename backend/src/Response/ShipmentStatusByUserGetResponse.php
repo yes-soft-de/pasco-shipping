@@ -18,6 +18,8 @@ class ShipmentStatusByUserGetResponse
 
     public $packed;
 
+    public $holderType;
+
     public $target;
 
     public $supplierName;
