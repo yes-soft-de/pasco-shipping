@@ -77,7 +77,12 @@ class CountryService
     {
         $result = $this->countryManager->deleteCountryById($request);
 
-        return $this->autoMapping->map(CountryEntity::class, CountryGetResponse::class, $result);
+        if($result instanceof CountryEntity)
+        {
+            return $this->autoMapping->map(CountryEntity::class, CountryGetResponse::class, $result);
+        }
+
+        return $result;
     }
 
 }
