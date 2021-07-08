@@ -226,6 +226,11 @@ class ShipmentOrderManager
         return $this->orderShipmentEntityRepository->getShipmentOrderByMarkID($markID);
     }
 
+    public function getShipmentOrderByUnitName($unitName)
+    {
+        return $this->orderShipmentEntityRepository->findBy(["unit"=>$unitName]);
+    }
+
     public function deleteShipmentOrder(DeleteRequest $request)
     {
         $item = $this->orderShipmentEntityRepository->find($request->getId());

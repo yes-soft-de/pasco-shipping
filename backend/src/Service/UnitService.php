@@ -66,7 +66,12 @@ class UnitService
     {
         $result = $this->unitManager->deleteUnitById($request);
 
-        return $this->autoMapping->map(UnitEntity::class, UnitGetResponse::class, $result);
+        if($result instanceof UnitEntity)
+        {
+            return $this->autoMapping->map(UnitEntity::class, UnitGetResponse::class, $result);
+        }
+
+        return $result;
     }
 
 }

@@ -15,12 +15,15 @@ class UnitManager
     private $autoMapping;
     private $entityManager;
     private $unitEntityRepository;
+    private $shipmentOrderManager;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UnitEntityRepository $unitEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UnitEntityRepository $unitEntityRepository,
+     ShipmentOrderManager $shipmentOrderManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->unitEntityRepository = $unitEntityRepository;
+        $this->shipmentOrderManager = $shipmentOrderManager;
     }
 
     public function create(UnitCreateRequest $request)
@@ -68,11 +71,21 @@ class UnitManager
         }
         else
         {
-            $this->entityManager->remove($item);
-            $this->entityManager->flush();
-        }
+            // Before deleting the unit, check if it is used in a shipment order
+            $shipmentOrder = $this->shipmentOrderManager->getShipmentOrderByUnitName($item->getName());
+            
+            if($shipmentOrder)
+            {
+                return "Can't delete the unit because it is used!";
+            }
+            else
+            {
+                $this->entityManager->remove($item);
+                $this->entityManager->flush();
+            }
 
-        return $item;
+            return $item;
+        }
     }
 
 }
