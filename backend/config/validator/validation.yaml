@@ -253,3 +253,19 @@ App\Request\ContainerUpdateRequest:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
+
+App\Request\UnitCreateRequest:
+  properties:
+    name:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\UnitUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    name:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
