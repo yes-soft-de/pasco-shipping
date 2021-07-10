@@ -79,7 +79,21 @@ class ClientService
 
     public function getAllClientProfiles()
     {
-        return $this->clientManager->getAllClientsProfiles();
+        $clientsResponse = [];
+
+        $clients = $this->clientManager->getAllClientsProfiles();
+
+        foreach($clients as $client)
+        {
+            if($client['image'])
+            {
+                $client['image'] = $this->params . $client['image'];
+            }
+
+            $clientsResponse[] = $this->autoMapping->map('array', ClientProfileResponse::class, $client);
+        }
+
+        return $clientsResponse;
     }
 
     public function deleteClientById($request)

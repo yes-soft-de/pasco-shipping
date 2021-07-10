@@ -65,7 +65,7 @@ class ClientController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class,ClientRegisterRequest::class,(object)$data);
+        $request = $this->autoMapping->map(stdClass::class, ClientRegisterRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
         if (\count($violations) > 0)
@@ -198,7 +198,7 @@ class ClientController extends BaseController
     {
         $response = $this->clientService->getClientProfileByUserID($this->getUserId());
 
-        return $this->response($response,self::FETCH);
+        return $this->response($response, self::FETCH);
     }
 
     /**
@@ -230,7 +230,7 @@ class ClientController extends BaseController
     {
         $response = $this->clientService->getAllClientProfiles();
 
-        return $this->response($response,self::FETCH);
+        return $this->response($response, self::FETCH);
     }
 
     /**

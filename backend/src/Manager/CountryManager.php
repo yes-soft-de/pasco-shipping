@@ -77,11 +77,21 @@ class CountryManager
         }
         else
         {
-            $this->entityManager->remove($item);
-            $this->entityManager->flush();
-        }
+            // Before deleting the country, check if it is used in a warehouse
+            $warehouses = $this->getWarehousesByCountryID($request->getId());
 
-        return $item;
+            if($warehouses)
+            {
+                return "Can't delete the country because it is used!";
+            }
+            else
+            {
+                $this->entityManager->remove($item);
+                $this->entityManager->flush();
+
+                return $item;
+            }
+        }
     }
 
 }
