@@ -45,7 +45,7 @@ class _NewShipmentState extends State<NewShipment> {
     if(ModalRoute.of(context)!.settings.arguments == null){
       _shipmentRequestModel =
           ShipmentTempRequest(
-              '', 0,'', '', 0, '',0, '', '', '', '', 0, '', '', '','',null);
+              '', 0,'', '', 0, '',0, '', '', '', '', 0, '', '', '','','',null);
     }else{
       final arguments = ModalRoute.of(context)!.settings.arguments as Map;
       _shipmentRequestModel = arguments['shipment'];

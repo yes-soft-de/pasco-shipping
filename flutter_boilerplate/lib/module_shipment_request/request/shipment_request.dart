@@ -27,6 +27,7 @@ class ShipmentTempRequest {
   late String _vehicleIdentificationNumber;
   late String _extraSpecification;
 
+  late String _holderType;
   late String? imageFilePath;
 
 
@@ -47,7 +48,8 @@ class ShipmentTempRequest {
         "extraSpecification": extraSpecification,
         'image':imageFilePath == null ?'': imageFilePath!,
     'exportWarehouseName':exportWarehouseName,
-    'markName':markName
+    'markName':markName,
+    'holderType':holderType
 
       };
   factory ShipmentTempRequest.fromJson(Map<String, dynamic> json) =>
@@ -74,6 +76,7 @@ class ShipmentTempRequest {
 
           json['vehicleIdentificationNumber']??'',
           json['extraSpecification']??'',
+          json['holderType']??'',
           json['image']);
   ShipmentTempRequest(
       this._transportationType,
@@ -99,6 +102,7 @@ class ShipmentTempRequest {
       this._paymentTime,
       this._extraSpecification,
       this._vehicleIdentificationNumber,
+      this._holderType,
       this.imageFilePath);
 
   String get extraSpecification => _extraSpecification;
@@ -196,6 +200,12 @@ class ShipmentTempRequest {
 
   set exportWarehouseName(String value) {
     _exportWarehouseName = value;
+  }
+
+  String get holderType => _holderType;
+
+  set holderType(String value) {
+    _holderType = value;
   }
 
   @override
