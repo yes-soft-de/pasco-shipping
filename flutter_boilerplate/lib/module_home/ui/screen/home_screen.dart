@@ -34,96 +34,100 @@ class _HomeScreenState extends State<HomeScreen> {
     ScrollController controller = ScrollController();
 
     return Background(
-      goBack: (){},
+      goBack: () {},
       controller: controller,
       isHome: true,
-        child: Column(
-          children: [
-            SearchCard(onSearch: (trackNumber){
-              Navigator.pushNamed(context,
-                TracingRoutes.TRACKING_SCREEN , arguments: {'trackNumber': trackNumber}, );
-            },),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                // ChipCard(
-                //   icon: StaticImage.box,
-                //   onPressed: () {
-                //     Navigator.pushNamed(context, PreviousShipmentsRoutes.PREVIOUS_SHIPMENTS);
-                //   },
-                //   label: 'Previously\nShipments',
-                // ),
-                ChipCard(
-                  icon: StaticImage.box,
-                  onPressed: () {
-                    Navigator.pushNamed(context, MyShipmentRoutes.MY_SHIPMENT);
-                  },
-                  label: S.of(context).myShipment,
-                ),
-                ChipCard(
-                  icon: StaticImage.newShipments,
-                  onPressed: () async {
-
-                      await getShipment().then((value) {
-                        if(value == null || value =='null'){
-                          Navigator.pushNamed(context, NewShipmentRoutes.NEW_SHIPMENTS);
-                          print('value null');
-                        }else {
-                          _showDialog(context);
-                        }
-                      });
-                  },
-                  label: S.of(context).newShipmentRequest,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.only(top: 10),
-                  child: Container(
-                    // margin: new EdgeInsets.symmetric(vertical: 100.0),
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(StaticImage.package),
-                        fit: BoxFit.contain,
-                        colorFilter: ColorFilter.mode(
-                            Colors.black.withOpacity(0.2), BlendMode.dstIn),
-                      ),
+      child: Column(
+        children: [
+          SearchCard(
+            onSearch: (trackNumber) {
+              Navigator.pushNamed(
+                context,
+                TracingRoutes.TRACKING_SCREEN,
+                arguments: {'trackNumber': trackNumber},
+              );
+            },
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              // ChipCard(
+              //   icon: StaticImage.box,
+              //   onPressed: () {
+              //     Navigator.pushNamed(context, PreviousShipmentsRoutes.PREVIOUS_SHIPMENTS);
+              //   },
+              //   label: 'Previously\nShipments',
+              // ),
+              ChipCard(
+                icon: StaticImage.box,
+                onPressed: () {
+                  Navigator.pushNamed(context, MyShipmentRoutes.MY_SHIPMENT);
+                },
+                label: S.of(context).myShipment,
+              ),
+              ChipCard(
+                icon: StaticImage.newShipments,
+                onPressed: () async {
+                  await getShipment().then((value) {
+                    if (value == null || value == 'null') {
+                      Navigator.pushNamed(
+                          context, NewShipmentRoutes.NEW_SHIPMENTS);
+                      print('value null');
+                    } else {
+                      _showDialog(context);
+                    }
+                  });
+                },
+                label: S.of(context).newShipmentRequest,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsetsDirectional.only(top: 10),
+                child: Container(
+                  // margin: new EdgeInsets.symmetric(vertical: 100.0),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(StaticImage.package),
+                      fit: BoxFit.contain,
+                      colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(0.2), BlendMode.dstIn),
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ChipCard(
-                      icon: StaticImage.profileI,
-                      onPressed: () {
-                        Navigator.pushNamed(context, ProfileRoutes.PROFILE_SCREEN);
-                      },
-                      label: S.of(context).profile,
-                    ),
-                    ChipCard(
-                      icon: StaticImage.detailsShipments,
-                      onPressed: ()
-                      {
-                        Navigator.pushNamed(context, MarkRoutes.mark);
-                      },
-                      label: S.of(context).mark,
-                    ),
-
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-        title: S.of(context).shipment,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ChipCard(
+                    icon: StaticImage.profileI,
+                    onPressed: () {
+                      Navigator.pushNamed(
+                          context, ProfileRoutes.PROFILE_SCREEN);
+                    },
+                    label: S.of(context).profile,
+                  ),
+                  ChipCard(
+                    icon: StaticImage.detailsShipments,
+                    onPressed: () {
+                      Navigator.pushNamed(context, MarkRoutes.mark);
+                    },
+                    label: S.of(context).mark,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+      title: S.of(context).shipment,
       currentIndex: 0,
       isResultScreen: false,
     );
@@ -132,30 +136,40 @@ class _HomeScreenState extends State<HomeScreen> {
   void _showDialog(BuildContext context) {
     // flutter defined function
     CoolAlert.show(
-      context: context,
-      type: CoolAlertType.confirm,
-      title: 'One moment please',
-      text: 'You have a shipment waiting for confirmation, please confirm it first and then order a new shipment',
-      backgroundColor:AppThemeDataService.PrimaryColor,
-      confirmBtnColor:AppThemeDataService.AccentColor,
-      cancelBtnText: 'maybe later',
-      confirmBtnText: 'confirm it',
-      onConfirmBtnTap: (){
-        Navigator.pop(context);
-        Navigator.pushNamed(context, MyShipmentRoutes.MY_SHIPMENT);
-      },
-      onCancelBtnTap: (){
-        Navigator.pop(context);
-        Navigator.pushNamed(context, NewShipmentRoutes.NEW_SHIPMENTS);
-      }
-    );
+        context: context,
+        type: CoolAlertType.confirm,
+        title: 'One moment please',
+        text:
+            'You have a shipment waiting for confirmation, please confirm it first and then order a new shipment',
+        backgroundColor: AppThemeDataService.PrimaryColor,
+        confirmBtnColor: AppThemeDataService.AccentColor,
+        cancelBtnText: 'maybe later',
+        confirmBtnText: 'confirm it',
+        onConfirmBtnTap: () {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, MyShipmentRoutes.MY_SHIPMENT);
+        },
+        onCancelBtnTap: () {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, NewShipmentRoutes.NEW_SHIPMENTS);
+        });
   }
 
   @override
   void initState() {
     super.initState();
-    widget._profileService.getMyProfile().then((value) {
-      ProfileRequest request = ProfileRequest(userName: value!.userName!, city: value.city!, country: value.country!, image: value.image!, location: value.location!, phone: value.phone!);
+    getPro();
+  }
+
+  void getPro() async {
+    await widget._profileService.getMyProfile().then((value) {
+      ProfileRequest request = ProfileRequest(
+          userName: value!.userName!,
+          city: value.city!,
+          country: value.country!,
+          image: value.image!,
+          location: value.location!,
+          phone: value.phone!);
       setProfile(request);
     });
   }

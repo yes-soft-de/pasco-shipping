@@ -21,6 +21,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
     late  ProfileModel model;
   @override
   Widget build(BuildContext context) {
+    // print('model' + model.userName!);
     return Drawer(
         child: Container(
         color: greyWhite,
@@ -38,11 +39,11 @@ class _DrawerMenuState extends State<DrawerMenu> {
              ),
              arrowColor: AppThemeDataService.AccentColor,
              accountName: Text(model.userName??''),
-             accountEmail:  Text(model.country??''),
-             // currentAccountPicture: CircleAvatar(
-             //   backgroundColor: white,
-             //   child: Image.network(model.image! , height: 58,),
-             // ),
+             accountEmail:  Text(model.phone??''),
+             currentAccountPicture: CircleAvatar(
+               backgroundColor: white,
+               child: Image.asset(StaticImage.userIcon2 , height: 58,),
+             ),
            ),
            ListTile(
              onTap: () {
@@ -116,12 +117,15 @@ class _DrawerMenuState extends State<DrawerMenu> {
   void initState() {
     super.initState();
     model = ProfileModel();
-    getPro();
   }
 
-  void getPro()async{
-   await getProfile().then((value){
-     model = value!;
+    @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    await getProfile().then((value){
+      model = value!;
+      setState(() {});
     });
+
   }
 }

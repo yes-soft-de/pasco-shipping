@@ -66,8 +66,9 @@ class _ProfileSuccessfullyScreenState extends State<ProfileSuccessfullyScreen> {
             margin: EdgeInsets.only(top: 20),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child:Image.network(widget.model.image ?? ''),
+              child:Image.asset(StaticImage.profile),
             )),
+        Text(widget.model.userName??'' , style: greyWhite14text,),
         Padding(
           padding:
               const EdgeInsetsDirectional.only(start: 30, end: 30, top: 15),
