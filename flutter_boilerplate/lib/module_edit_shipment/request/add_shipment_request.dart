@@ -24,6 +24,7 @@ class AddShipmentRequest {
    String vehicleIdentificationNumber;
    String extraSpecification;
 
+   String holderType;
    String? imageFile;
 
 
@@ -42,6 +43,7 @@ class AddShipmentRequest {
     "markId": markId,
     "vehicleIdentificationNumber": vehicleIdentificationNumber,
     "extraSpecification": extraSpecification,
+    'holderType':holderType,
     'image': imageFile,
   };
 
@@ -59,5 +61,6 @@ class AddShipmentRequest {
      required this.paymentTime,
      required this.vehicleIdentificationNumber,
      required  this.extraSpecification,
+     required this.holderType,
       this.imageFile});
 }

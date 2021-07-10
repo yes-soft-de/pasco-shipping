@@ -39,6 +39,7 @@ class MyHistoryShipment {
     this.extraSpecification,
     this.transportationType,
     this.markNumber,
+    this.holderType,
     this.imagePath
   });
 
@@ -67,6 +68,7 @@ class MyHistoryShipment {
   String? vehicleIdentificationNumber;
   String? extraSpecification;
 
+  String? holderType;
   String? imagePath;
 
   factory MyHistoryShipment.fromJson(Map<String, dynamic> json) =>
@@ -92,6 +94,7 @@ class MyHistoryShipment {
 
         transportationType : json['transportationType'],
         markNumber: json['markNumber'],
+        holderType: json['holderType'],
         imagePath:json['image'],
       );
 }

@@ -105,15 +105,32 @@ class ReviewShipmentEditedScreen extends StatelessWidget {
                     ))),
           ],
         ),
-        ListTile(
-            title: Text(
-              'Supplier Info: ',
-              style: white18text,
+        Row(
+          children: [
+            Expanded(
+              child: ListTile(
+                  title: Text(
+                    'Supplier Info: ',
+                    style: white18text,
+                  ),
+                  subtitle: Text(
+                    shipment.supplierName,
+                    style: basic14text,
+                  )),
             ),
-            subtitle: Text(
-              shipment.supplierName,
-              style: basic14text,
-            )),
+            Expanded(
+              child: ListTile(
+                  title: Text(
+                    'Holder type: ',
+                    style: white18text,
+                  ),
+                  subtitle: Text(
+                    shipment.holderType,
+                    style: basic14text,
+                  )),
+            ),
+          ],
+        ),
         Row(
           children: [
             Expanded(
@@ -200,7 +217,7 @@ class ReviewShipmentEditedScreen extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(color: AppThemeDataService.AccentColor)
                       ]),
-                  child: shipment.imageFilePath != null
+                  child: shipment.imageFilePath!.isNotEmpty
                       ? Image.file(
                           File(shipment.imageFilePath!),
                           fit: BoxFit.cover,
@@ -248,7 +265,8 @@ class ReviewShipmentEditedScreen extends StatelessWidget {
                     unit: shipment.unit, markId: shipment.markId,
                     paymentTime: shipment.paymentTime,
                     vehicleIdentificationNumber: shipment.vehicleIdentificationNumber,
-                    extraSpecification: shipment.extraSpecification
+                    extraSpecification: shipment.extraSpecification,
+                    holderType: shipment.holderType
                     ,imageFile: shipment.imageFilePath);
                 _showConfirmDialog(context ,request);
               },

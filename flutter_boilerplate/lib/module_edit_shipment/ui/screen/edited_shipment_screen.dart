@@ -8,6 +8,7 @@ import 'package:pasco_shipping/module_edit_shipment/state_manager/confirmed_stat
 import 'package:pasco_shipping/module_edit_shipment/ui/state/confirmedshipment_state.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_home/home_routes.dart';
+import 'package:pasco_shipping/module_shipment_request/presistance/shipment_prefs_helper.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
@@ -119,8 +120,8 @@ class _MarkScreenState extends State<EditedShipmentScreen> {
       backgroundColor:AppThemeDataService.PrimaryColor,
       confirmBtnColor:AppThemeDataService.AccentColor,
       onConfirmBtnTap: (){
+        deleteShipment();
         Navigator.pushNamedAndRemoveUntil(context, HomeRoutes.Home, (route) => false);
-        Navigator.pop(context);
       },
       text: 'Your Shipment Added Successfully',
     );
