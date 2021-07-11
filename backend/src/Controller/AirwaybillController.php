@@ -42,7 +42,9 @@ class AirwaybillController extends BaseController
      *      description="Create new airwaybill",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="specificationID"),
-     *          @OA\Property(type="string", property="airwaybillNumber")
+     *          @OA\Property(type="string", property="airwaybillNumber"),
+     *          @OA\Property(type="string", property="type"),
+     *          @OA\Property(type="integer", property="providedBy")
      *      )
      * )
      *
@@ -103,6 +105,8 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="integer", property="specificationID"),
      *          @OA\Property(type="string", property="airwaybillNumber"),
      *          @OA\Property(type="string", property="status"),
+     *          @OA\Property(type="string", property="type"),
+     *          @OA\Property(type="integer", property="providedBy")
      *      )
      * )
      *
@@ -152,7 +156,7 @@ class AirwaybillController extends BaseController
     }
 
     /**
-     * @Route("airwaybill/{status}", name="getAirwaybillsByStatus", methods={"GET"})
+     * @Route("airwaybills/{status}", name="getAirwaybillsByStatus", methods={"GET"})
      * @return JsonResponse
      *
      * @OA\Tag(name="Airwaybill")
@@ -195,6 +199,53 @@ class AirwaybillController extends BaseController
     public function getAirwaybillsByStatus($status)
     {
         $result = $this->airwaybillService->getAirwaybillsByStatus($status);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("airwaybill/{id}", name="getAirwaybillByID", methods={"GET"})
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Airwaybill")
+     *
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      required="true",
+     *      description="the id of the airwaybill"
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the airwaybill",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="specificationID"),
+     *                  @OA\Property(type="string", property="airwaybillNumber"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="number", property="weight"),
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getAirwaybillById($id)
+    {
+        $result = $this->airwaybillService->getAirwaybillById($id);
 
         return $this->response($result, self::FETCH);
     }

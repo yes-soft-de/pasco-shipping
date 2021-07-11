@@ -12,6 +12,10 @@ class AirwaybillUpdateRequest
 
     private $status;
 
+    private $type;
+
+    private $providedBy;
+
     private $updatedBy;
 
     public function getId()
