@@ -62,4 +62,28 @@ class TravelService
         return $travelsResponse;
     }
 
+    public function getTravelsByID($id)
+    {
+        $travelsResponse = [];
+
+        $travels = $this->travelManager->getTravelsByID($id);
+        
+        foreach($travels as $row)
+        {   
+            if($row['createdByUserImage'])
+            {
+                $row['createdByUserImage'] = $this->params . $row['createdByUserImage'];
+            }
+
+            if($row['updatedByUserImage'])
+            {
+                $row['updatedByUserImage'] = $this->params . $row['updatedByUserImage'];
+            }
+
+            $travelsResponse[] = $this->autoMapping->map('array', TravelGetResponse::class, $row);
+        }
+
+        return $travelsResponse;
+    }
+
 }

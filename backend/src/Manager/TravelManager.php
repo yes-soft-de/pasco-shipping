@@ -67,6 +67,11 @@ class TravelManager
         return $this->travelEntityRepository->getTravelsByTypeAndStatus($type, $status);
     }
 
+    public function getTravelsByID($id)
+    {
+        return $this->travelEntityRepository->getTravelsByID($id);
+    }
+
     public function getCountOfTravelsByType($type)
     {
         return count($this->travelEntityRepository->findBy(["type"=>$type]));
