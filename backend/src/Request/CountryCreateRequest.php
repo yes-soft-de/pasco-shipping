@@ -9,6 +9,8 @@ class CountryCreateRequest
     // import | export
     private $type;
 
+    private $callingCode;
+
     private $createdBy;
 
     public function setCreatedBy($createdBy)

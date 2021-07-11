@@ -43,7 +43,8 @@ class CountryController extends BaseController
      *      description="Create new country",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="name"),
-     *          @OA\Property(type="string", property="type")
+     *          @OA\Property(type="string", property="type"),
+     *          @OA\Property(type="string", property="callingCode")
      *      )
      * )
      *
@@ -190,6 +191,7 @@ class CountryController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="name"),
      *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="callingCode"),
      *                  @OA\Property(type="array", property="warehouses",
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),
@@ -250,6 +252,7 @@ class CountryController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="name"),
      *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="callingCode"),
      *                  @OA\Property(type="array", property="warehouses",
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),
