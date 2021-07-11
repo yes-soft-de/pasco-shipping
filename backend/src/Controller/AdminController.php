@@ -199,7 +199,8 @@ class AdminController extends BaseController
      *                  @OA\Property(type="string", property="userID"),
      *                  @OA\Property(type="string", property="userName"),
      *                  @OA\Property(type="string", property="image"),
-     *                  @OA\Property(type="string", property="phone")
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="email")
      *              )
      *          )
      *      )
@@ -232,7 +233,8 @@ class AdminController extends BaseController
      *                  @OA\Property(type="string", property="userID"),
      *                  @OA\Property(type="string", property="userName"),
      *                  @OA\Property(type="string", property="image"),
-     *                  @OA\Property(type="string", property="phone")
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="email")
      *              )
      *          )
      *      )
