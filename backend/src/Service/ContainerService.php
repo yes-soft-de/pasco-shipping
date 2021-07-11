@@ -62,4 +62,21 @@ class ContainerService
         return $containersResponse;
     }
 
+    public function getContainerById($id)
+    {
+        $container = $this->containerManager->getContainerById($id);
+
+        if($container['createdByUserImage'])
+        {
+            $container['createdByUserImage'] = $this->params . $container['createdByUserImage'];
+        }
+
+        if($container['updatedByUserImage'])
+        {
+            $container['updatedByUserImage'] = $this->params . $container['updatedByUserImage'];
+        }
+
+        return $this->autoMapping->map('array', ContainerGetResponse::class, $container);
+    }
+
 }
