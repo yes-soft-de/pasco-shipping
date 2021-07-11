@@ -72,7 +72,7 @@ class ShipmentActiveCard extends StatelessWidget {
                         ),
                         // waiting ?
                         Text(
-                          myShipment.shipmentStatus!,
+                          myShipment.shipmentStatus =='stored' ?'in warehouse' :myShipment.shipmentStatus!,
                           style:waiting ? basic10text : greyWhite10text,
                         ),
                         //     : Text(

@@ -75,8 +75,10 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
    }else {
      initQuantity = widget.shipmentRequest.quantity.toString();
    }
-   if(widget.shipmentRequest.imageFilePath != null){
+   if(widget.shipmentRequest.imageFilePath != null && widget.shipmentRequest.imageFilePath!.isNotEmpty){
      imageFile = File(widget.shipmentRequest.imageFilePath!);
+   }else{
+     imageFile = null;
    }
    if(widget.shipmentRequest.exportWarehouseID !=0){
      for (Countries item in widget.countries) {
@@ -112,7 +114,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
   void initShippingFrom() {
     List<Entry> children = <Entry>[];
     for (Countries item in widget.countries) {
-      if (item.warehouses!.isNotEmpty) {
+      if (item.warehouses!.isNotEmpty && item.type=='export') {
         Entry country = Entry(item.name!, item.id!, children);
         print(country.id);
         children = [];
@@ -133,7 +135,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
   void initShippingTo() {
     List<Entry> children = <Entry>[];
     for (Countries item in widget.countries) {
-      if (item.warehouses!.isNotEmpty) {
+      if (item.warehouses!.isNotEmpty && item.type=='import') {
         Entry country = Entry(item.name!, item.id!, children);
         print(country.id);
         children = [];

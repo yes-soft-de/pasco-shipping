@@ -49,7 +49,7 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
           SliverAppBar(
             automaticallyImplyLeading: false,
             backgroundColor: greyBlack,
-            collapsedHeight: 450,
+            collapsedHeight: 460,
             pinned: false,
             floating: true,
             flexibleSpace: Container(
@@ -113,14 +113,26 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
                             SizedBox(
                               height: 5,
                             ),
-                            Center(
-                                child: Text(
-                              widget.model.orderUpdatingDate
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.date_range,
+                                  color: white,
+                                  size: 20,
+                                ),
+                                Text(
+                                  'Created at: ',
+                                  style: White14text,
+                                ),
+                                Text(
+                              widget.model.orderCreationDate
                                   .toString()
                                   .split(' ')
                                   .first,
                               style: White14text,
-                            )),
+                            ),
+                              ],
+                            ),
                             SizedBox(
                               height: 5,
                             ),
@@ -272,9 +284,18 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
                       height: 15,
                     ),
                     Center(
-                      child: Text(
-                        S.of(context).trackShipment,
-                        style: basic14text,
+                      child: Column(
+                        children: [
+                          Text(
+                            S.of(context).trackShipment,
+                            style: basic14text,
+                          ),
+                          SizedBox(height: 2,),
+                          Text('Last Updated at :' +  widget.model.orderUpdatingDate .toString()
+                              .split(' ')
+                              .first,
+                            style: White14text,)
+                        ],
                       ),
                     ),
                   ],
@@ -349,7 +370,17 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
         ShipmentStatus(1, ' Arrived at the target city', '20 min ago', false, true),
         ShipmentStatus(1, 'Delivered', '20 min ago', false, true),
       ];
-    }else if(widget.model.shipmentStatus=='start shipping') {
+    }else if(widget.model.shipmentStatus=='stored') {
+      items = [
+        ShipmentStatus(1, 'Requested', widget.model.log![0].createdAt.toString(), true, false),
+        ShipmentStatus(1, 'Accepted', widget.model.log![1].createdAt.toString(), true, false),
+        ShipmentStatus(1, 'Received in the warehouse', widget.model.log![2].createdAt.toString(), false, false),
+        ShipmentStatus(1, 'start shipping', '', false, true),
+        ShipmentStatus(1, ' Arrived at the target city', '20 min ago', false, true),
+        ShipmentStatus(1, 'Delivered', '20 min ago', false, true),
+      ];
+    }
+    else if(widget.model.shipmentStatus=='started') {
       items = [
       ShipmentStatus(1, 'Requested', widget.model.log![0].createdAt.toString(), true, false),
       ShipmentStatus(1, 'Accepted', widget.model.log![1].createdAt.toString(), true, false),
@@ -358,6 +389,16 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
       ShipmentStatus(1, ' Arrived at the target city', '20 min ago', false, true),
       ShipmentStatus(1, 'Delivered', '20 min ago', false, true),
     ];
+    }
+    else if(widget.model.shipmentStatus=='arrived') {
+      items = [
+        ShipmentStatus(1, 'Requested', widget.model.log![0].createdAt.toString(), true, false),
+        ShipmentStatus(1, 'Accepted', widget.model.log![1].createdAt.toString(), true, false),
+        ShipmentStatus(1, 'Received in the warehouse', widget.model.log![2].createdAt.toString(), true, false),
+        ShipmentStatus(1, 'start shipping', widget.model.log![3].createdAt.toString(), true, false),
+        ShipmentStatus(1, 'Arrived at the target city',  widget.model.log![4].createdAt.toString(), false, false),
+        ShipmentStatus(1, 'Delivered', '20 min ago', false, true),
+      ];
     }
     else if(widget.model.shipmentStatus=='delivered') {
       items = [

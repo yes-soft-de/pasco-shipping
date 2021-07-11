@@ -21,9 +21,11 @@ class ThirdOptions extends StatefulWidget {
 
 class _ThirdOptionsState extends State<ThirdOptions> {
   DropListModel dropListModelTime = DropListModel(dataTime);
+  DropListModel dropListModelHolderType = DropListModel(holderType);
   late String vehicle;
   late String extra;
   late Entry optionItemSelectedTim = Entry('choose', 1, []);
+  late Entry optionItemSelectedType = Entry('choose', 1, []);
 
   @override
   void initState() {
@@ -45,6 +47,12 @@ class _ThirdOptionsState extends State<ThirdOptions> {
     }else {
       optionItemSelectedTim = Entry('choose', 1, []);
     }
+
+    if(widget._shipmentRequest.holderType.isNotEmpty){
+      optionItemSelectedType = Entry(widget._shipmentRequest.holderType, 1, []);
+    }else {
+      optionItemSelectedType = Entry('choose', 1, []);
+    }
   }
 
   @override
@@ -63,6 +71,22 @@ class _ThirdOptionsState extends State<ThirdOptions> {
             (optionItem) {
               optionItemSelectedTim = optionItem;
               widget._shipmentRequest.paymentTime = optionItem.title;
+              setState(() {});
+            },
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Text(
+            'Holder type : ',
+            style: white18text,
+          ),
+          SelectDropList(
+            this.optionItemSelectedType,
+            this.dropListModelHolderType,
+                (optionItem) {
+              optionItemSelectedType = optionItem;
+              widget._shipmentRequest.holderType = optionItem.title;
               setState(() {});
             },
           ),

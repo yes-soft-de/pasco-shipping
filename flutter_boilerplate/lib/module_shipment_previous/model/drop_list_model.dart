@@ -79,6 +79,14 @@ final List<Entry> dataTime = <Entry>[
     'When delivered', 1,[]
   ),
 ];
+final List<Entry> holderType = <Entry>[
+  Entry(
+      'Public', 1,[]
+  ),
+  Entry(
+      'Private', 1,[]
+  ),
+];
 final List<Entry> dataMark = <Entry>[
   Entry(
       'RONI SY312', 1,[]

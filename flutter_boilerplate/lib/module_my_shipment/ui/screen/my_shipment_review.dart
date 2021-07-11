@@ -79,14 +79,16 @@ class ReviewShipmentScreen extends StatelessWidget {
                           boxShadow: [
                             BoxShadow(color: AppThemeDataService.AccentColor)
                           ]),
-                      child: shipment.imagePath != null
-                          ? Image.network(
-                        shipment.imagePath!,
-                        fit: BoxFit.cover,
-                        width: 100,
-                        height: 100,
-                      )
-                          : Padding(
+                      child:
+                      // shipment.imagePath != null
+                      //     ? Image.network(
+                      //   shipment.imagePath!,
+                      //   fit: BoxFit.cover,
+                      //   width: 100,
+                      //   height: 100,
+                      // )
+                      //     :
+                      Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: IconButton(
                           icon: Icon(Icons.camera_alt),

@@ -192,45 +192,45 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
 
           ],
         ),
-        // Row(
-        //   children: [
-        //     Align(
-        //       alignment: AlignmentDirectional.bottomEnd,
-        //       child: Padding(
-        //         padding: const EdgeInsets.all(8.0),
-        //         child: Row(
-        //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //           children: [
-        //             Align(
-        //                 alignment: AlignmentDirectional.bottomStart,
-        //                 child: FloatingActionButton.extended(
-        //                   onPressed: () {
-        //                     widget.goBackStep();
-        //                   },
-        //                   label: Text('Back'),
-        //                   icon: Icon(
-        //                     Icons.arrow_back,
-        //                   ),
-        //                 )),
-        //
-        //           ],
-        //         ),
-        //       ),
-        //     ),
-        //     Spacer(),
-        //     Align(
-        //         alignment: AlignmentDirectional.bottomEnd,
-        //         child: FloatingActionButton.extended(
-        //           onPressed: () {
-        //             widget.goNextPage();
-        //           },
-        //           icon: Icon(
-        //             Icons.arrow_forward_outlined,
-        //           ),
-        //           label: Text('Continue'),
-        //         )),
-        //   ],
-        // )
+        Row(
+          children: [
+            Align(
+              alignment: AlignmentDirectional.bottomEnd,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Align(
+                        alignment: AlignmentDirectional.bottomStart,
+                        child: FloatingActionButton.extended(
+                          onPressed: () {
+                            widget.goBackStep();
+                          },
+                          label: Text('Back'),
+                          icon: Icon(
+                            Icons.arrow_back,
+                          ),
+                        )),
+
+                  ],
+                ),
+              ),
+            ),
+            Spacer(),
+            Align(
+                alignment: AlignmentDirectional.bottomEnd,
+                child: FloatingActionButton.extended(
+                  onPressed: () {
+                    widget.goNextPage();
+                  },
+                  icon: Icon(
+                    Icons.arrow_forward_outlined,
+                  ),
+                  label: Text('Continue'),
+                )),
+          ],
+        )
 
       ],
     );

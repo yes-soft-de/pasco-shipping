@@ -32,11 +32,13 @@ class Countries {
 
   int? id;
   String? name;
+  String? type;
   List<Warehouse>? warehouses;
 
   Countries.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    type= json['type'];
     if (json['warehouses'] != null) {
       warehouses = <Warehouse>[];
       try {
