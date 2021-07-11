@@ -6,10 +6,6 @@ class AirwaybillSpecificationGetResponse
 {
     public $id;
 
-    public $type;
-
-    public $subcontractName;
-
     public $weight;
 
     public $createdAt;

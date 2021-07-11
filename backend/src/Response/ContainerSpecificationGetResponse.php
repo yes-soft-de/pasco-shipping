@@ -6,10 +6,6 @@ class ContainerSpecificationGetResponse
 {
     public $id;
 
-    public $type;
-
-    public $subcontractName;
-
     public $capacityCPM;
 
     public $widthInMeter;

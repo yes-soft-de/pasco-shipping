@@ -19,16 +19,6 @@ class ContainerSpecificationEntity
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $type;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $providedBy;
-
-    /**
      * @ORM\Column(type="float")
      */
     private $capacityCPM;
@@ -73,30 +63,6 @@ class ContainerSpecificationEntity
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getProvidedBy(): ?int
-    {
-        return $this->providedBy;
-    }
-
-    public function setProvidedBy(int $providedBy): self
-    {
-        $this->providedBy = $providedBy;
-
-        return $this;
     }
 
     public function getCapacityCPM(): ?float

@@ -4,10 +4,6 @@ namespace App\Request;
 
 class ContainerSpecificationCreateRequest
 {
-    private $type;
-
-    private $providedBy;
-
     private $capacityCPM;
 
     private $widthInMeter;

@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
 use App\Entity\AirwaybillSpecificationEntity;
-use App\Entity\SubcontractEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -25,16 +24,8 @@ class AirwaybillSpecificationEntityRepository extends ServiceEntityRepository
     public function getAllAirwaybillSpecifications()
     {
         return $this->createQueryBuilder('airwaybillSpecification')
-            ->select('airwaybillSpecification.id', 'airwaybillSpecification.type', 'airwaybillSpecification.weight', 'airwaybillSpecification.providedBy', 'airwaybillSpecification.createdBy',
-            'airwaybillSpecification.createdAt', 'airwaybillSpecification.updatedBy', 'airwaybillSpecification.updatedAt', 'subContract.fullName as subcontractName', 'adminProfile1.userName as createdByUser', 
-            'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subContract',
-                Join::WITH,
-                'subContract.id = airwaybillSpecification.providedBy'
-            )
+            ->select('airwaybillSpecification.id', 'airwaybillSpecification.weight', 'airwaybillSpecification.createdBy', 'airwaybillSpecification.createdAt', 'airwaybillSpecification.updatedBy', 
+            'airwaybillSpecification.updatedAt', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
             ->leftJoin(
                 AdminProfileEntity::class,
