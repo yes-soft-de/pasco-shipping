@@ -62,4 +62,21 @@ class AirwaybillService
         return $airwaybillsResponse;
     }
 
+    public function getAirwaybillById($id)
+    {
+        $airwaybill = $this->airwaybillManager->getAirwaybillById($id);
+        
+        if($airwaybill['createdByUserImage'])
+        {
+            $airwaybill['createdByUserImage'] = $this->params . $airwaybill['createdByUserImage'];
+        }
+
+        if($airwaybill['updatedByUserImage'])
+        {
+            $airwaybill['updatedByUserImage'] = $this->params . $airwaybill['updatedByUserImage'];
+        }
+
+        return $this->autoMapping->map('array', AirwaybillGetResponse::class, $airwaybill);
+    }
+
 }

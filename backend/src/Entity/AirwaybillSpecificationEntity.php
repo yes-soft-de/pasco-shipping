@@ -19,19 +19,9 @@ class AirwaybillSpecificationEntity
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $type;
-
-    /**
      * @ORM\Column(type="float")
      */
     private $weight;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $providedBy;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -60,18 +50,6 @@ class AirwaybillSpecificationEntity
         return $this->id;
     }
 
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
     public function getWeight(): ?float
     {
         return $this->weight;
@@ -80,18 +58,6 @@ class AirwaybillSpecificationEntity
     public function setWeight(float $weight): self
     {
         $this->weight = $weight;
-
-        return $this;
-    }
-
-    public function getProvidedBy(): ?int
-    {
-        return $this->providedBy;
-    }
-
-    public function setProvidedBy(int $providedBy): self
-    {
-        $this->providedBy = $providedBy;
 
         return $this;
     }

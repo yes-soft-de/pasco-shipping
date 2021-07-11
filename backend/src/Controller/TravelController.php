@@ -168,7 +168,7 @@ class TravelController extends BaseController
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns array of object which each one represent the info of the order",
+     *      description="Returns array of object which each one represent the info of a travel",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -198,6 +198,53 @@ class TravelController extends BaseController
     public function getTravelsByStatus($status)
     {
         $result = $this->travelService->getTravelsByStatus($status);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("travel/{id}", name="getTravelByID", methods={"GET"})
+     * @return JsonResponse
+     * 
+     * @OA\Tag(name="Travel")
+     * 
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      required="true",
+     *      description="the id of the travel"
+     * )
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the travel",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="launchCountry"),
+     *                  @OA\Property(type="string", property="destinationCountry"),
+     *                  @OA\Property(type="object", property="launchDate"),
+     *                  @OA\Property(type="object", property="arrivalDate"),
+     *                  @OA\Property(type="string", property="travelNumber"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="subcontractName")
+     *          )
+     *      )
+     * )
+     * 
+     */
+    public function getTravelsByID($id)
+    {
+        $result = $this->travelService->getTravelsByID($id);
 
         return $this->response($result, self::FETCH);
     }

@@ -50,6 +50,11 @@ class CountryEntity
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $callingCode;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,6 +128,18 @@ class CountryEntity
     public function setType(?string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getCallingCode(): ?string
+    {
+        return $this->callingCode;
+    }
+
+    public function setCallingCode(?string $callingCode): self
+    {
+        $this->callingCode = $callingCode;
 
         return $this;
     }

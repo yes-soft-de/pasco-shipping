@@ -14,4 +14,6 @@ class AdminGetResponse
     
     public $image;
     
+    public $email;
+    
 }

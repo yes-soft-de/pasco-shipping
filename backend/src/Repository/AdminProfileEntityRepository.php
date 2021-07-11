@@ -38,7 +38,7 @@ class AdminProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('profile')
 
-        ->addSelect('profile.id', 'profile.userID', 'profile.userName', 'profile.image', 'profile.phone')
+        ->addSelect('profile.id', 'profile.userID', 'profile.userName', 'profile.image', 'profile.phone', 'userEntity.email')
 
         ->leftJoin(
             UserEntity::class,
@@ -60,7 +60,7 @@ class AdminProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('profile')
 
-        ->addSelect('profile.id', 'profile.userID', 'profile.userName', 'profile.image', 'profile.phone')
+        ->addSelect('profile.id', 'profile.userID', 'profile.userName', 'profile.image', 'profile.phone', 'userEntity.email')
 
         ->leftJoin(
             UserEntity::class,

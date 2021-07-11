@@ -10,6 +10,8 @@ class CountryGetResponse
 
     public $type;
 
+    public $callingCode;
+
     public $createdAt;
 
     public $warehouses;

@@ -27,9 +27,8 @@ class ContainerEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy',
-             'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
-             'containerSpecification.type', 'containerSpecification.providedBy', 'containerSpecification.capacityCPM', 'containerSpecification.widthInMeter',
-             'containerSpecification.hightInMeter', 'containerSpecification.lengthInMeter', 'subcontractEntity.fullName as subcontractName')
+            'container.type', 'container.providedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
+            'containerSpecification.capacityCPM', 'containerSpecification.widthInMeter', 'containerSpecification.hightInMeter', 'containerSpecification.lengthInMeter', 'subcontractEntity.fullName as subcontractName')
 
             ->andWhere('container.status = :status')
             ->setParameter('status', $status)
@@ -59,7 +58,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 SubcontractEntity::class,
                 'subcontractEntity',
                 Join::WITH,
-                'subcontractEntity.id = containerSpecification.providedBy'
+                'subcontractEntity.id = container.providedBy'
             )
 
             ->orderBy('container.id', 'DESC')
@@ -72,7 +71,8 @@ class ContainerEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy',
-                'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage')
+            'container.type', 'container.providedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
+            'containerSpecification.capacityCPM', 'containerSpecification.widthInMeter', 'containerSpecification.hightInMeter', 'containerSpecification.lengthInMeter', 'subcontractEntity.fullName as subcontractName')
 
             ->andWhere('container.id = :id')
             ->setParameter('id', $id)
@@ -89,6 +89,20 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 'adminProfile2',
                 Join::WITH,
                 'adminProfile2.userID = container.updatedBy'
+            )
+
+            ->leftJoin(
+                ContainerSpecificationEntity::class,
+                'containerSpecification',
+                Join::WITH,
+                'containerSpecification.id = container.specificationID'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = container.providedBy'
             )
 
             ->getQuery()

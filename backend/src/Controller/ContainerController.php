@@ -42,7 +42,9 @@ class ContainerController extends BaseController
      *      description="Create new container",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="specificationID"),
-     *          @OA\Property(type="string", property="containerNumber")
+     *          @OA\Property(type="string", property="containerNumber"),
+     *          @OA\Property(type="string", property="type"),
+     *          @OA\Property(type="integer", property="providedBy")
      *      )
      * )
      * 
@@ -104,6 +106,8 @@ class ContainerController extends BaseController
      *          @OA\Property(type="integer", property="specificationID"),
      *          @OA\Property(type="string", property="containerNumber"),
      *          @OA\Property(type="string", property="status"),
+     *          @OA\Property(type="string", property="type"),
+     *          @OA\Property(type="integer", property="providedBy")
      *      )
      * )
      *
@@ -196,6 +200,54 @@ class ContainerController extends BaseController
     public function getByStatus($status)
     {
         $result = $this->containerService->getByStatus($status);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("container/{id}", name="getContainerByID", methods={"GET"})
+     * @return JsonResponse
+     * 
+     * @OA\Tag(name="Container")
+     * 
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      required="true",
+     *      description="the id of the container"
+     * )
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the container according to the id",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="containerNumber"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="number", property="capacityCPM"),
+     *                  @OA\Property(type="number", property="widthInMeter"),
+     *                  @OA\Property(type="number", property="hightInMeter"),
+     *                  @OA\Property(type="number", property="lengthInMeter"),
+     *          )
+     *      )
+     * )
+     * 
+     * @Security(name="Bearer")
+     */
+    public function getContainerById($id)
+    {
+        $result = $this->containerService->getContainerById($id);
 
         return $this->response($result, self::FETCH);
     }

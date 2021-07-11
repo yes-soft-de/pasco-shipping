@@ -10,6 +10,10 @@ class ContainerCreateRequest
 
     private $status;
 
+    private $type;
+
+    private $providedBy;
+
     private $createdBy;
 
     public function setCreatedBy($userID)
