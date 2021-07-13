@@ -43,7 +43,7 @@ class SubcontractController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="fullName"),
      *          @OA\Property(type="string", property="phone"),
-     *          @OA\Property(type="string", property="serviceType")
+     *          @OA\Property(type="integer", property="serviceID")
      *      )
      * )
      * 
@@ -96,7 +96,7 @@ class SubcontractController extends BaseController
      *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="string", property="fullName"),
      *          @OA\Property(type="string", property="phone"),
-     *          @OA\Property(type="string", property="serviceType")
+     *          @OA\Property(type="integer", property="serviceID")
      *      )
      * )
      * 
@@ -162,7 +162,7 @@ class SubcontractController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="fullName"),
      *                  @OA\Property(type="string", property="phone"),
-     *                  @OA\Property(type="string", property="serviceType"),
+     *                  @OA\Property(type="string", property="serviceName"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
      *                  @OA\Property(type="string", property="createdByUser"),

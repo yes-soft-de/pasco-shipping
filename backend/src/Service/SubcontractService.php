@@ -9,16 +9,20 @@ use App\Request\SubcontractCreateRequest;
 use App\Request\SubcontractUpdateRequest;
 use App\Response\SubcontractCreateResponse;
 use App\Response\SubcontractGetResponse;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class SubcontractService
 {
     private $autoMapping;
     private $subcontractManager;
+    private $params;
 
-    public function __construct(AutoMapping $autoMapping, SubcontractManager $subcontractManager)
+    public function __construct(AutoMapping $autoMapping, SubcontractManager $subcontractManager, ParameterBagInterface $params)
     {
         $this->autoMapping = $autoMapping;
         $this->subcontractManager = $subcontractManager;
+        
+        $this->params = $params->get('upload_base_url') . '/';
     }
 
     public function create(SubcontractCreateRequest $request)
