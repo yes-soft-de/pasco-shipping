@@ -16,6 +16,10 @@ class ContainerUpdateRequest
 
     private $providedBy;
 
+    private $shipperID;
+
+    private $consigneeID;
+
     private $updatedBy;
 
     public function getId()

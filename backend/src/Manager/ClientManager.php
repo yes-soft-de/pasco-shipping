@@ -81,7 +81,7 @@ class ClientManager
             if ($clientProfile == null)
             {
                 $clientProfile = $this->autoMapping->map(ClientRegisterRequest::class, ClientProfileEntity::class, $request);
-                //dd($userResult['id']);
+                
                 $clientProfile->setUserID($userResult['id']);
 
                 $this->entityManager->persist($clientProfile);
@@ -113,11 +113,10 @@ class ClientManager
     public function clientProfileUpdate(ClientProfileUpdateRequest $request)
     {
         $item = $this->clientProfileEntityRepository->getClientProfile($request->getUserID());
-        //dd($request);
+        
         if ($item)
         {
-            $item = $this->autoMapping->mapToObject(ClientProfileUpdateRequest::class,
-                ClientProfileEntity::class, $request, $item);
+            $item = $this->autoMapping->mapToObject(ClientProfileUpdateRequest::class, ClientProfileEntity::class, $request, $item);
 
             $this->entityManager->flush();
             $this->entityManager->clear();

@@ -65,6 +65,16 @@ class AirwaybillEntity
      */
     private $providedBy;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $shipperID;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $consigneeID;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -174,6 +184,30 @@ class AirwaybillEntity
     public function setProvidedBy(int $providedBy): self
     {
         $this->providedBy = $providedBy;
+
+        return $this;
+    }
+
+    public function getShipperID(): ?int
+    {
+        return $this->shipperID;
+    }
+
+    public function setShipperID(?int $shipperID): self
+    {
+        $this->shipperID = $shipperID;
+
+        return $this;
+    }
+
+    public function getConsigneeID(): ?int
+    {
+        return $this->consigneeID;
+    }
+
+    public function setConsigneeID(?int $consigneeID): self
+    {
+        $this->consigneeID = $consigneeID;
 
         return $this;
     }

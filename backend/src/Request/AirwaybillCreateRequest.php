@@ -14,6 +14,10 @@ class AirwaybillCreateRequest
 
     private $providedBy;
 
+    private $shipperID;
+
+    private $consigneeID;
+
     private $createdBy;
 
     public function setCreatedBy($userID)
