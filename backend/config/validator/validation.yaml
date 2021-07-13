@@ -269,3 +269,20 @@ App\Request\UnitUpdateRequest:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
+
+App\Request\ServiceCreateRequest:
+  properties:
+    name:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\ServiceUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    name:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+      
