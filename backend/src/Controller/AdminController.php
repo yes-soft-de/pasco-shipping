@@ -32,7 +32,6 @@ class AdminController extends BaseController
     }
 
     /**
-     * @IsGranted("ROLE_SUPER_ADMIN", message="Access denied")
      * @Route("createadmin", name="adminCreate", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
@@ -86,7 +85,6 @@ class AdminController extends BaseController
     }
 
     /**
-     * @IsGranted("ROLE_ADMIN", message="Access denied")
      * @Route("employee", name="createEmployee", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
@@ -143,7 +141,6 @@ class AdminController extends BaseController
     }
 
     /**
-     * @IsGranted("ROLE_EMPLOYEE", message="Access denied")
      * @Route("adminprofile", name="getAdminProfileByUserID", methods={"GET"})
      *
      *
@@ -181,7 +178,6 @@ class AdminController extends BaseController
     }
 
     /**
-     * @IsGranted("ROLE_ADMIN", message="Access denied")
      * @Route("employees", name="getAllEmployees", methods={"GET"})
      * @return JsonResponse
      *
@@ -215,7 +211,6 @@ class AdminController extends BaseController
     }
 
     /**
-     * @IsGranted("ROLE_SUPER_ADMIN", message="Access denied")
      * @Route("administrators", name="getAllAdministrators", methods={"GET"})
      * @return JsonResponse
      *
@@ -249,7 +244,6 @@ class AdminController extends BaseController
     }
 
     /**
-     * @IsGranted("ROLE_SUPER_ADMIN", message="Access denied")
      * @Route("admin/{id}", name="deleteAdmin", methods={"DELETE"})
      * @param Request $request
      * @return JsonResponse
