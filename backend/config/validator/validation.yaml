@@ -78,7 +78,7 @@ App\Request\SubcontractCreateRequest:
   properties:
     fullName:
       - NotBlank: ~
-    serviceType:
+    serviceID:
       - NotBlank: ~
     createdBy:
       - NotBlank: ~
@@ -89,7 +89,7 @@ App\Request\SubcontractUpdateRequest:
       - NotBlank: ~
     fullName:
       - NotBlank: ~
-    serviceType:
+    serviceID:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
@@ -269,3 +269,20 @@ App\Request\UnitUpdateRequest:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
+
+App\Request\ServiceCreateRequest:
+  properties:
+    name:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\ServiceUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    name:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+      

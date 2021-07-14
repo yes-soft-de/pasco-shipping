@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
+use App\Entity\ServicesEntity;
 use App\Entity\SubcontractEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
@@ -24,9 +25,16 @@ class SubcontractEntityRepository extends ServiceEntityRepository
     public function getAllSubcontracts()
     {
         return $this->createQueryBuilder('subcontract')
-            ->select('subcontract.id', 'subcontract.fullName', 'subcontract.phone', 'subcontract.serviceType', 'subcontract.createdAt', 'subcontract.updatedAt',
+            ->select('subcontract.id', 'subcontract.fullName', 'subcontract.phone', 'subcontract.serviceID', 'subcontract.createdAt', 'subcontract.updatedAt',
             'subcontract.createdBy', 'subcontract.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 
-            'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
+            'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage', 'servicesEntity.name as serviceName')
+
+            ->leftJoin(
+                ServicesEntity::class,
+                'servicesEntity',
+                Join::WITH,
+                'servicesEntity.id = subcontract.serviceID'
+            )
 
             ->leftJoin(
                 AdminProfileEntity::class,

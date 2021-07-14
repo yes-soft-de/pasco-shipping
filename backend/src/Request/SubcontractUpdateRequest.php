@@ -10,7 +10,7 @@ class SubcontractUpdateRequest
 
     private $phone;
 
-    private $serviceType;
+    private $serviceID;
 
     private $updatedBy;
 

@@ -2,7 +2,7 @@
 
 namespace App\Request;
 
-class ProductCategoryUpdateRequest
+class ServiceUpdateRequest
 {
     private $id;
 
@@ -12,16 +12,14 @@ class ProductCategoryUpdateRequest
 
     private $updatedBy;
 
-    private $hsCode;
-
     public function getId()
     {
         return $this->id;
     }
 
-    public function setUpdatedBy($userID)
+    public function setUpdatedBy($updatedBy)
     {
-        $this->updatedBy = $userID;
+        $this->updatedBy = $updatedBy;
     }
 
 }

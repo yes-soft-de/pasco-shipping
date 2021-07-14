@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductCategoryEntityRepository;
+use App\Repository\SubProductCategoryEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=ProductCategoryEntityRepository::class)
+ * @ORM\Entity(repositoryClass=SubProductCategoryEntityRepository::class)
  */
-class ProductCategoryEntity
+class SubProductCategoryEntity
 {
     /**
      * @ORM\Id
@@ -27,6 +27,11 @@ class ProductCategoryEntity
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $hsCode;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -51,9 +56,9 @@ class ProductCategoryEntity
     private $updatedBy;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="integer")
      */
-    private $hsCode;
+    private $productCategoryID;
 
     public function getId(): ?int
     {
@@ -80,6 +85,18 @@ class ProductCategoryEntity
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getHsCode(): ?string
+    {
+        return $this->hsCode;
+    }
+
+    public function setHsCode(string $hsCode): self
+    {
+        $this->hsCode = $hsCode;
 
         return $this;
     }
@@ -132,14 +149,14 @@ class ProductCategoryEntity
         return $this;
     }
 
-    public function getHsCode(): ?string
+    public function getProductCategoryID(): ?int
     {
-        return $this->hsCode;
+        return $this->productCategoryID;
     }
 
-    public function setHsCode(?string $hsCode): self
+    public function setProductCategoryID(int $productCategoryID): self
     {
-        $this->hsCode = $hsCode;
+        $this->productCategoryID = $productCategoryID;
 
         return $this;
     }

@@ -10,6 +10,8 @@ class ProductCategoryCreateRequest
 
     private $createdBy;
 
+    private $hsCode;
+
     public function setCreatedBy($userID)
     {
         $this->createdBy = $userID;

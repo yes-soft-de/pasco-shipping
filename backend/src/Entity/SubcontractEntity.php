@@ -29,11 +29,6 @@ class SubcontractEntity
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $serviceType;
-
-    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
@@ -54,6 +49,11 @@ class SubcontractEntity
      * @ORM\Column(type="integer", nullable=true)
      */
     private $updatedBy;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $serviceID;
 
     public function getId(): ?int
     {
@@ -80,18 +80,6 @@ class SubcontractEntity
     public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
-
-        return $this;
-    }
-
-    public function getServiceType(): ?string
-    {
-        return $this->serviceType;
-    }
-
-    public function setServiceType(?string $serviceType): self
-    {
-        $this->serviceType = $serviceType;
 
         return $this;
     }
@@ -140,6 +128,18 @@ class SubcontractEntity
     public function setUpdatedBy(?int $updatedBy): self
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getServiceID(): ?int
+    {
+        return $this->serviceID;
+    }
+
+    public function setServiceID(int $serviceID): self
+    {
+        $this->serviceID = $serviceID;
 
         return $this;
     }

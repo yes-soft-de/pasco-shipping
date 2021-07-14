@@ -2,15 +2,13 @@
 
 namespace App\Response;
 
-class ProductCategoryGetResponse
+class ServicesGetResponse
 {
     public $id;
-
+    
     public $name;
 
     public $description;
-
-    public $hsCode;
 
     public $createdAt;
 

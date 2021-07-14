@@ -10,7 +10,7 @@ class SubcontractGetResponse
     
     public $phone;
     
-    public $serviceType;
+    public $serviceName;
     
     public $createdAt;
     

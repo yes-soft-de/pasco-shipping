@@ -8,7 +8,7 @@ class SubcontractCreateRequest
 
     private $phone;
 
-    private $serviceType;
+    private $serviceID;
 
     private $createdBy;
 
