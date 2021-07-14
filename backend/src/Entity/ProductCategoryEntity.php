@@ -50,6 +50,11 @@ class ProductCategoryEntity
      */
     private $updatedBy;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $hsCode;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,6 +128,18 @@ class ProductCategoryEntity
     public function setUpdatedBy(?int $updatedBy): self
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getHsCode(): ?string
+    {
+        return $this->hsCode;
+    }
+
+    public function setHsCode(?string $hsCode): self
+    {
+        $this->hsCode = $hsCode;
 
         return $this;
     }

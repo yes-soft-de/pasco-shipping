@@ -12,6 +12,8 @@ class ProductCategoryUpdateRequest
 
     private $updatedBy;
 
+    private $hsCode;
+
     public function getId()
     {
         return $this->id;

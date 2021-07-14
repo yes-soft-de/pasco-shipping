@@ -24,7 +24,7 @@ class ProductCategoryEntityRepository extends ServiceEntityRepository
     public function getAllProductCategories()
     {
         return $this->createQueryBuilder('productCategory')
-            ->select('productCategory.id', 'productCategory.name', 'productCategory.description', 'productCategory.createdAt', 'productCategory.updatedAt', 'productCategory.createdBy', 'productCategory.updatedBy',
+            ->select('productCategory.id', 'productCategory.name', 'productCategory.description', 'productCategory.hsCode', 'productCategory.createdAt', 'productCategory.updatedAt', 'productCategory.createdBy', 'productCategory.updatedBy',
             'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
             ->leftJoin(

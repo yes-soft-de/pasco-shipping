@@ -43,7 +43,8 @@ class ProductCategoryController extends BaseController
      *      description="Create new container",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="name"),
-     *          @OA\Property(type="string", property="description")
+     *          @OA\Property(type="string", property="description"),
+     *          @OA\Property(type="string", property="hsCode")
      *      )
      * )
      * 
@@ -102,7 +103,8 @@ class ProductCategoryController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="integer", property="name"),
-     *          @OA\Property(type="string", property="description")
+     *          @OA\Property(type="string", property="description"),
+     *          @OA\Property(type="string", property="hsCode")
      *      )
      * )
      * 
@@ -167,6 +169,7 @@ class ProductCategoryController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="name"),
      *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="hscode"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
      *                  @OA\Property(type="string", property="createdByUser"),
@@ -203,6 +206,7 @@ class ProductCategoryController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="name"),
      *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="hscode"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
      *                  @OA\Property(type="string", property="createdByUser"),

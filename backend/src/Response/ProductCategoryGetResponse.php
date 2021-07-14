@@ -10,6 +10,8 @@ class ProductCategoryGetResponse
 
     public $description;
 
+    public $hsCode;
+
     public $createdAt;
 
     public $updatedAt;
