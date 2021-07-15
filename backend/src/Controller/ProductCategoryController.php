@@ -40,7 +40,7 @@ class ProductCategoryController extends BaseController
      * @OA\Tag(name="Product Category")
      * 
      * @OA\RequestBody(
-     *      description="Create new container",
+     *      description="Create new product category",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="name"),
      *          @OA\Property(type="string", property="description"),
@@ -50,7 +50,7 @@ class ProductCategoryController extends BaseController
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns the info of the new container",
+     *      description="Returns the creation date of the new product category",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -99,7 +99,7 @@ class ProductCategoryController extends BaseController
      * )
      * 
      * @OA\RequestBody(
-     *      description="Update track record when shipment packed into container or when container uploaded onto travel",
+     *      description="Update specific product category",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="integer", property="name"),
@@ -118,6 +118,7 @@ class ProductCategoryController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="name"),
      *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="hscode"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
      *                  @OA\Property(type="string", property="createdByUser"),
