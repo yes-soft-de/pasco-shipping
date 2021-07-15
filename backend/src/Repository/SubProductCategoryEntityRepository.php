@@ -2,8 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\AdminProfileEntity;
+use App\Entity\ProductCategoryEntity;
 use App\Entity\SubProductCategoryEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +22,37 @@ class SubProductCategoryEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, SubProductCategoryEntity::class);
     }
 
-    // /**
-    //  * @return SubProductCategoryEntity[] Returns an array of SubProductCategoryEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getAllSubProductCategories()
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('subproductCategory')
+            ->select('subproductCategory.id', 'subproductCategory.name', 'subproductCategory.description', 'subproductCategory.productCategoryID', 'subproductCategory.hsCode', 'subproductCategory.createdAt', 'subproductCategory.updatedAt', 'subproductCategory.createdBy', 
+            'subproductCategory.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage', 'productCategoryEntity.name as productCategoryName')
 
-    /*
-    public function findOneBySomeField($value): ?SubProductCategoryEntity
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
+            ->leftJoin(
+                ProductCategoryEntity::class,
+                'productCategoryEntity',
+                Join::WITH,
+                'productCategoryEntity.id = subproductCategory.productCategoryID'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = subproductCategory.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = subproductCategory.updatedBy'
+            )
+
+            ->orderBy('subproductCategory.id', 'DESC')
+
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+    
 }
