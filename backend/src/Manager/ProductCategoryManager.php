@@ -15,12 +15,15 @@ class ProductCategoryManager
     private $autoMapping;
     private $entityManager;
     private $productCategoryEntityRepository;
+    private $subProductCategoryManager;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ProductCategoryEntityRepository $productCategoryEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ProductCategoryEntityRepository $productCategoryEntityRepository,
+     SubProductCategoryManager $subProductCategoryManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->productCategoryEntityRepository = $productCategoryEntityRepository;
+        $this->subProductCategoryManager = $subProductCategoryManager;
     }
 
     public function create(ProductCategoryCreateRequest $request)
@@ -57,6 +60,11 @@ class ProductCategoryManager
     public function getAllProductCategories()
     {
         return $this->productCategoryEntityRepository->getAllProductCategories();
+    }
+
+    public function getSubProductCategoriesByProductCategoryID($productCategoryID)
+    {
+        return $this->subProductCategoryManager->getSubProductCategoriesByProductCategoryID($productCategoryID);
     }
 
     public function deleteProductCategoryById(DeleteRequest $request)

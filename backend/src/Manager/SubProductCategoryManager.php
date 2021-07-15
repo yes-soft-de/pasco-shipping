@@ -59,6 +59,11 @@ class SubProductCategoryManager
         return $this->subProductCategoryEntityRepository->getAllSubProductCategories();
     }
 
+    public function getSubProductCategoriesByProductCategoryID($productCategoryID)
+    {
+        return $this->subProductCategoryEntityRepository->getSubProductCategoriesByProductCategoryID($productCategoryID);
+    }
+
     public function deleteSubProductCategoryById(DeleteRequest $request)
     {
         $item = $this->subProductCategoryEntityRepository->find($request->getId());

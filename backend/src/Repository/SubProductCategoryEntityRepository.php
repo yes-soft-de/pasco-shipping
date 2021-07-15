@@ -54,5 +54,34 @@ class SubProductCategoryEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getSubProductCategoriesByProductCategoryID($productCategoryID)
+    {
+        return $this->createQueryBuilder('subproductCategory')
+            ->select('subproductCategory.id', 'subproductCategory.name', 'subproductCategory.description', 'subproductCategory.productCategoryID', 'subproductCategory.hsCode', 'subproductCategory.createdAt', 'subproductCategory.updatedAt', 'subproductCategory.createdBy', 
+            'subproductCategory.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
+
+            ->andWhere('subproductCategory.productCategoryID = :productCategoryID')
+            ->setParameter('productCategoryID', $productCategoryID)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = subproductCategory.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = subproductCategory.updatedBy'
+            )
+
+            ->orderBy('subproductCategory.id', 'DESC')
+
+            ->getQuery()
+            ->getResult();
+    }
     
 }

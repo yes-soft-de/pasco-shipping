@@ -12,6 +12,8 @@ class ProductCategoryGetResponse
 
     public $hsCode;
 
+    public $subProductCategories;
+
     public $createdAt;
 
     public $updatedAt;
