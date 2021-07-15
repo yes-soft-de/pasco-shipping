@@ -203,6 +203,62 @@ class TravelController extends BaseController
     }
 
     /**
+     * @Route("travels/{type}/{status}", name="getTravelsByTypeAndStatus", methods={"GET"})
+     * @return JsonResponse
+     * 
+     * @OA\Tag(name="Travel")
+     * 
+     * @OA\Parameter(
+     *      name="type",
+     *      in="path",
+     *      required="true",
+     *      description="the type of the travel"
+     * )
+     * 
+     * @OA\Parameter(
+     *      name="status",
+     *      in="path",
+     *      required="true",
+     *      description="the status of the travel"
+     * )
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of object which each one represent the info of a travel",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="launchCountry"),
+     *                  @OA\Property(type="string", property="destinationCountry"),
+     *                  @OA\Property(type="object", property="launchDate"),
+     *                  @OA\Property(type="object", property="arrivalDate"),
+     *                  @OA\Property(type="string", property="travelNumber"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="subcontractName")
+     *              )
+     *          )
+     *      )
+     * )
+     * 
+     */
+    public function getTravelsByTypeAndStatus($type, $status)
+    {
+        $result = $this->travelService->getTravelsByTypeAndStatus($type, $status);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
      * @Route("travel/{id}", name="getTravelByID", methods={"GET"})
      * @return JsonResponse
      * 

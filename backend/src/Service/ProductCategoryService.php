@@ -46,6 +46,9 @@ class ProductCategoryService
 
         foreach($productCategories as $productCategory)
         {
+            // get related sub product categories
+            $productCategory['subProductCategories'] = $this->productCategoryManager->getSubProductCategoriesByProductCategoryID($productCategory['id']);
+
             if($productCategory['createdByUserImage'])
             {
                 $productCategory['createdByUserImage'] = $this->params . $productCategory['createdByUserImage'];

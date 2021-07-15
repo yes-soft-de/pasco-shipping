@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\DeleteRequest;
-use App\Request\ProductCategoryCreateRequest;
-use App\Request\ProductCategoryUpdateRequest;
-use App\Service\ProductCategoryService;
+use App\Request\SubProductCategoryCreateRequest;
+use App\Request\SubProductCategoryUpdateRequest;
+use App\Service\SubProductCategoryService;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use stdClass;
@@ -17,40 +17,41 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ProductCategoryController extends BaseController
+class SubProductCategoryController extends BaseController
 {
     private $autoMapping;
     private $validator;
-    private $productCategoryService;
+    private $subProductCategoryService;
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, ProductCategoryService $productCategoryService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, SubProductCategoryService $subProductCategoryService)
     {
         parent::__construct($serializer);
 
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
-        $this->productCategoryService = $productCategoryService;
+        $this->subProductCategoryService = $subProductCategoryService;
     }
 
     /**
-     * @Route("productcategory", name="createProductCategory", methods={"POST"})
+     * @Route("subproductcategory", name="createSubProductCategory", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      * 
-     * @OA\Tag(name="Product Category")
+     * @OA\Tag(name="Sub Product Category")
      * 
      * @OA\RequestBody(
-     *      description="Create new product category",
+     *      description="Create new sub category",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="name"),
      *          @OA\Property(type="string", property="description"),
-     *          @OA\Property(type="string", property="hsCode")
+     *          @OA\Property(type="string", property="hsCode"),
+     *          @OA\Property(type="integer", property="productCategoryID")
      *      )
      * )
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns the creation date of the new product category",
+     *      description="Returns the info of the sub category",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -66,7 +67,7 @@ class ProductCategoryController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, ProductCategoryCreateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, SubProductCategoryCreateRequest::class, (object)$data);
 
         $request->setCreatedBy($this->getUserId());
 
@@ -79,17 +80,17 @@ class ProductCategoryController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $result = $this->productCategoryService->create($request);
+        $result = $this->subProductCategoryService->create($request);
 
         return $this->response($result, self::CREATE);
     }
 
     /**
-     * @Route("productcategory", name="updateProductCategory", methods={"PUT"})
+     * @Route("subproductcategory", name="updateSubProductCategory", methods={"PUT"})
      * @param Request $request
      * @return JsonResponse
      * 
-     * @OA\Tag(name="Product Category")
+     * @OA\Tag(name="Sub Product Category")
      * 
      * @OA\Parameter(
      *      name="token",
@@ -99,12 +100,13 @@ class ProductCategoryController extends BaseController
      * )
      * 
      * @OA\RequestBody(
-     *      description="Update specific product category",
+     *      description="Update specific sub category",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="id"),
-     *          @OA\Property(type="integer", property="name"),
+     *          @OA\Property(type="string", property="name"),
      *          @OA\Property(type="string", property="description"),
-     *          @OA\Property(type="string", property="hsCode")
+     *          @OA\Property(type="string", property="hsCode"),
+     *          @OA\Property(type="integer", property="productCategoryID")
      *      )
      * )
      * 
@@ -118,24 +120,8 @@ class ProductCategoryController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="name"),
      *                  @OA\Property(type="string", property="description"),
-     *                  @OA\Property(type="string", property="hscode"),
-     *                  @OA\Property(type="array", property="subProductCategories",
-     *                      @OA\Items(
-     *                          @OA\Property(type="integer", property="id"),
-     *                          @OA\Property(type="string", property="name"),
-     *                          @OA\Property(type="string", property="description"),
-     *                          @OA\Property(type="string", property="hscode"),
-     *                          @OA\Property(type="integer", property="productCategoryID"),
-     *                          @OA\Property(type="integer", property="createdBy"),
-     *                          @OA\Property(type="integer", property="updatedBy"),
-     *                          @OA\Property(type="object", property="createdAt"),
-     *                          @OA\Property(type="object", property="updatedAt"),
-     *                          @OA\Property(type="string", property="createdByUser"),
-     *                          @OA\Property(type="string", property="createdByUserImage"),
-     *                          @OA\Property(type="string", property="updatedByUser"),
-     *                          @OA\Property(type="string", property="updatedByUserImage")
-     *                      )
-     *                  ),
+     *                  @OA\Property(type="string", property="hsCode"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
      *                  @OA\Property(type="string", property="createdByUser"),
@@ -152,7 +138,7 @@ class ProductCategoryController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, ProductCategoryUpdateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, SubProductCategoryUpdateRequest::class, (object)$data);
 
         $request->setUpdatedBy($this->getUserId());
 
@@ -165,20 +151,20 @@ class ProductCategoryController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $result = $this->productCategoryService->update($request);
+        $result = $this->subProductCategoryService->update($request);
 
         return $this->response($result, self::UPDATE);
     }
 
     /**
-     * @Route("productcategories", name="getAllProductCategories", methods={"GET"})
+     * @Route("subproductcategories", name="getAllSubProductCategories", methods={"GET"})
      * @return JsonResponse
      * 
-     * @OA\Tag(name="Product Category")
+     * @OA\Tag(name="Sub Product Category")
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns array of objects which each one represent a product category",
+     *      description="Returns array of objects which each one represent a sub product category",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -188,23 +174,7 @@ class ProductCategoryController extends BaseController
      *                  @OA\Property(type="string", property="name"),
      *                  @OA\Property(type="string", property="description"),
      *                  @OA\Property(type="string", property="hscode"),
-     *                  @OA\Property(type="array", property="subProductCategories",
-     *                      @OA\Items(
-     *                          @OA\Property(type="integer", property="id"),
-     *                          @OA\Property(type="string", property="name"),
-     *                          @OA\Property(type="string", property="description"),
-     *                          @OA\Property(type="string", property="hscode"),
-     *                          @OA\Property(type="integer", property="productCategoryID"),
-     *                          @OA\Property(type="integer", property="createdBy"),
-     *                          @OA\Property(type="integer", property="updatedBy"),
-     *                          @OA\Property(type="object", property="createdAt"),
-     *                          @OA\Property(type="object", property="updatedAt"),
-     *                          @OA\Property(type="string", property="createdByUser"),
-     *                          @OA\Property(type="string", property="createdByUserImage"),
-     *                          @OA\Property(type="string", property="updatedByUser"),
-     *                          @OA\Property(type="string", property="updatedByUserImage")
-     *                      )
-     *                  ),
+     *                  @OA\Property(type="string", property="productCategoryName"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
      *                  @OA\Property(type="string", property="createdByUser"),
@@ -219,21 +189,21 @@ class ProductCategoryController extends BaseController
      */
     public function getAll()
     {
-        $result = $this->productCategoryService->getAllProductCategories();
+        $result = $this->subProductCategoryService->getAllSubProductCategories();
 
         return $this->response($result, self::FETCH);
     }
 
     /**
-     * @Route("productcategory/{id}", name="deleteProductCategory", methods={"DELETE"})
+     * @Route("subproductcategory/{id}", name="deleteSubProductCategory", methods={"DELETE"})
      * @param Request $request
      * @return JsonResponse
      *
-     * @OA\Tag(name="Product Category")
+     * @OA\Tag(name="Sub Product Category")
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns the info of the deleted Product Category",
+     *      description="Returns the info of the deleted Sub Category",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -242,23 +212,7 @@ class ProductCategoryController extends BaseController
      *                  @OA\Property(type="string", property="name"),
      *                  @OA\Property(type="string", property="description"),
      *                  @OA\Property(type="string", property="hscode"),
-     *                  @OA\Property(type="array", property="subProductCategories",
-     *                      @OA\Items(
-     *                          @OA\Property(type="integer", property="id"),
-     *                          @OA\Property(type="string", property="name"),
-     *                          @OA\Property(type="string", property="description"),
-     *                          @OA\Property(type="string", property="hscode"),
-     *                          @OA\Property(type="integer", property="productCategoryID"),
-     *                          @OA\Property(type="integer", property="createdBy"),
-     *                          @OA\Property(type="integer", property="updatedBy"),
-     *                          @OA\Property(type="object", property="createdAt"),
-     *                          @OA\Property(type="object", property="updatedAt"),
-     *                          @OA\Property(type="string", property="createdByUser"),
-     *                          @OA\Property(type="string", property="createdByUserImage"),
-     *                          @OA\Property(type="string", property="updatedByUser"),
-     *                          @OA\Property(type="string", property="updatedByUserImage")
-     *                      )
-     *                  ),
+     *                  @OA\Property(type="string", property="productCategoryName"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
      *                  @OA\Property(type="string", property="createdByUser"),
@@ -273,7 +227,7 @@ class ProductCategoryController extends BaseController
     {
         $request = new DeleteRequest($request->get('id'));
 
-        $result = $this->productCategoryService->deleteProductCategoryById($request);
+        $result = $this->subProductCategoryService->deleteSubProductCategoryById($request);
 
         return $this->response($result, self::DELETE);
     }

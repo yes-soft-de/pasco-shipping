@@ -285,4 +285,26 @@ App\Request\ServiceUpdateRequest:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
+
+App\Request\SubProductCategoryCreateRequest:
+  properties:
+    name:
+      - NotBlank: ~
+    productCategoryID:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\SubProductCategoryUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    name:
+      - NotBlank: ~
+    productCategoryID:
+      - NotBlank: ~
+    hsCode:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
       

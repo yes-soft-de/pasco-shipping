@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class ProductCategoryGetResponse
+class SubProductCategoryGetResponse
 {
     public $id;
 
@@ -12,7 +12,7 @@ class ProductCategoryGetResponse
 
     public $hsCode;
 
-    public $subProductCategories;
+    public $productCategoryName;
 
     public $createdAt;
 
