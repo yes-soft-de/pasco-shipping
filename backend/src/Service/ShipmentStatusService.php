@@ -261,7 +261,7 @@ class ShipmentStatusService
 
                     if ($airwaybill)
                     {
-                        $shipment["holderInfo"]["IdentificationNumber"] = $airwaybill["containerNumber"];
+                        $shipment["holderInfo"]["IdentificationNumber"] = $airwaybill["airwaybillNumber"];
                         $shipment["holderInfo"]["status"] = $airwaybill["status"];
                     }
                 }
