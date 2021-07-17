@@ -44,7 +44,9 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="integer", property="specificationID"),
      *          @OA\Property(type="string", property="airwaybillNumber"),
      *          @OA\Property(type="string", property="type"),
-     *          @OA\Property(type="integer", property="providedBy")
+     *          @OA\Property(type="integer", property="providedBy"),
+     *          @OA\Property(type="integer", property="shipperID"),
+     *          @OA\Property(type="integer", property="consigneeID")
      *      )
      * )
      *
@@ -106,7 +108,9 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="string", property="airwaybillNumber"),
      *          @OA\Property(type="string", property="status"),
      *          @OA\Property(type="string", property="type"),
-     *          @OA\Property(type="integer", property="providedBy")
+     *          @OA\Property(type="integer", property="providedBy"),
+     *          @OA\Property(type="integer", property="shipperID"),
+     *          @OA\Property(type="integer", property="consigneeID")
      *      )
      * )
      *
@@ -126,7 +130,9 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="createdByUser"),
      *                  @OA\Property(type="string", property="createdByUserImage"),
      *                  @OA\Property(type="string", property="updatedByUser"),
-     *                  @OA\Property(type="string", property="updatedByUserImage")
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="consigneeName"),
+     *                  @OA\Property(type="string", property="subcontractName"),
      *          )
      *      )
      * )
@@ -188,6 +194,8 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="type"),
      *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="consigneeName"),
+     *                  @OA\Property(type="string", property="shipperName"),
      *                  @OA\Property(type="number", property="weight"),
      *              )
      *          )
@@ -235,6 +243,8 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="type"),
      *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="consigneeName"),
+     *                  @OA\Property(type="string", property="shipperName"),
      *                  @OA\Property(type="number", property="weight"),
      *              )
      *          )

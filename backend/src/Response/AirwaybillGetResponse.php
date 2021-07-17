@@ -28,4 +28,8 @@ class AirwaybillGetResponse
 
     public $subcontractName;
 
+    public $consigneeName;
+
+    public $shipperName;
+
 }
