@@ -44,7 +44,9 @@ class ContainerController extends BaseController
      *          @OA\Property(type="integer", property="specificationID"),
      *          @OA\Property(type="string", property="containerNumber"),
      *          @OA\Property(type="string", property="type"),
-     *          @OA\Property(type="integer", property="providedBy")
+     *          @OA\Property(type="integer", property="providedBy"),
+     *          @OA\Property(type="integer", property="shipperID"),
+     *          @OA\Property(type="integer", property="consigneeID")
      *      )
      * )
      * 
@@ -107,7 +109,9 @@ class ContainerController extends BaseController
      *          @OA\Property(type="string", property="containerNumber"),
      *          @OA\Property(type="string", property="status"),
      *          @OA\Property(type="string", property="type"),
-     *          @OA\Property(type="integer", property="providedBy")
+     *          @OA\Property(type="integer", property="providedBy"),
+     *          @OA\Property(type="integer", property="shipperID"),
+     *          @OA\Property(type="integer", property="consigneeID")
      *      )
      * )
      *
@@ -187,6 +191,8 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="type"),
      *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="consigneeName"),
+     *                  @OA\Property(type="string", property="shipperName"),
      *                  @OA\Property(type="number", property="capacityCPM"),
      *                  @OA\Property(type="number", property="widthInMeter"),
      *                  @OA\Property(type="number", property="hightInMeter"),
@@ -235,6 +241,8 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="type"),
      *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="consigneeName"),
+     *                  @OA\Property(type="string", property="shipperName"),
      *                  @OA\Property(type="number", property="capacityCPM"),
      *                  @OA\Property(type="number", property="widthInMeter"),
      *                  @OA\Property(type="number", property="hightInMeter"),

@@ -26,9 +26,10 @@ class ContainerEntityRepository extends ServiceEntityRepository
     public function getByStatus($status)
     {
         return $this->createQueryBuilder('container')
-            ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy',
-            'container.type', 'container.providedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
-            'containerSpecification.capacityCPM', 'containerSpecification.widthInMeter', 'containerSpecification.hightInMeter', 'containerSpecification.lengthInMeter', 'subcontractEntity.fullName as subcontractName')
+            ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID',
+            'container.shipperID', 'container.type', 'container.providedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
+            'containerSpecification.capacityCPM', 'containerSpecification.widthInMeter', 'containerSpecification.hightInMeter', 'containerSpecification.lengthInMeter', 'subcontractEntity.fullName as subcontractName',
+             'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName')
 
             ->andWhere('container.status = :status')
             ->setParameter('status', $status)
@@ -61,6 +62,20 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 'subcontractEntity.id = container.providedBy'
             )
 
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity2',
+                Join::WITH,
+                'subcontractEntity2.id = container.consigneeID'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity3',
+                Join::WITH,
+                'subcontractEntity3.id = container.providedBy'
+            )
+
             ->orderBy('container.id', 'DESC')
             
             ->getQuery()
@@ -70,9 +85,10 @@ class ContainerEntityRepository extends ServiceEntityRepository
     public function getContainerById($id)
     {
         return $this->createQueryBuilder('container')
-            ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy',
-            'container.type', 'container.providedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
-            'containerSpecification.capacityCPM', 'containerSpecification.widthInMeter', 'containerSpecification.hightInMeter', 'containerSpecification.lengthInMeter', 'subcontractEntity.fullName as subcontractName')
+            ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID',
+            'container.shipperID', 'container.type', 'container.providedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
+            'containerSpecification.capacityCPM', 'containerSpecification.widthInMeter', 'containerSpecification.hightInMeter', 'containerSpecification.lengthInMeter', 'subcontractEntity.fullName as subcontractName',
+            'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName')
 
             ->andWhere('container.id = :id')
             ->setParameter('id', $id)
@@ -103,6 +119,20 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 'subcontractEntity',
                 Join::WITH,
                 'subcontractEntity.id = container.providedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity2',
+                Join::WITH,
+                'subcontractEntity2.id = container.consigneeID'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity3',
+                Join::WITH,
+                'subcontractEntity3.id = container.providedBy'
             )
 
             ->getQuery()
