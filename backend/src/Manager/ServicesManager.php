@@ -15,12 +15,15 @@ class ServicesManager
     private $autoMapping;
     private $entityManager;
     private $servicesEntityRepository;
+    private $subcontractManager;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ServicesEntityRepository $servicesEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ServicesEntityRepository $servicesEntityRepository,
+     SubcontractManager $subcontractManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->servicesEntityRepository = $servicesEntityRepository;
+        $this->subcontractManager = $subcontractManager;
     }
 
     public function create(ServiceCreateRequest $request)
@@ -73,8 +76,18 @@ class ServicesManager
         }
         else
         {
-            $this->entityManager->remove($serviceEntity);
-            $this->entityManager->flush();
+            // check if the service is not being used before
+            $subcontracts = $this->subcontractManager->getSubcontractsByServiceID($request->getId());
+
+            if($subcontracts)
+            {
+                return "Can't delete the service. It's used!";
+            }
+            else
+            {
+                $this->entityManager->remove($serviceEntity);
+                $this->entityManager->flush();
+            }
         }
 
         return $serviceEntity;

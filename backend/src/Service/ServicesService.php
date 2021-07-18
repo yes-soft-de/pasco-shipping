@@ -72,7 +72,14 @@ class ServicesService
     {
         $serviceResult = $this->servicesManager->delete($services);
 
-        return  $this->autoMapping->map(ServicesEntity::class, ServicesGetResponse::class, $serviceResult);
+        if($serviceResult instanceof ServicesEntity)
+        {
+            return  $this->autoMapping->map(ServicesEntity::class, ServicesGetResponse::class, $serviceResult);
+        }
+        else
+        {
+            return $serviceResult;
+        }
     }
 
 }
