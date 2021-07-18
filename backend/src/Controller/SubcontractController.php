@@ -182,4 +182,41 @@ class SubcontractController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
+    /**
+     * @Route("subcontracts/{serviceID}", name="getSubcontractsByServiceID", methods={"GET"})
+     * @return JsonResponse
+     * 
+     * @OA\Tag(name="Subcontract")
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns all subcontracts of specific service",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="fullName"),
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="serviceName"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage")
+     *              )
+     *          )
+     *      )
+     * )
+     * 
+     */
+    public function getSubcontractsByServiceID($serviceID)
+    {
+        $result = $this->subcontractService->getSubcontractsByServiceID($serviceID);
+
+        return $this->response($result, self::FETCH);
+    }
+
 }

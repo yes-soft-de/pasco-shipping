@@ -63,4 +63,28 @@ class SubcontractService
         return $subcontractResponse;
     }
 
+    public function getSubcontractsByServiceID($serviceID)
+    {
+        $subcontractResponse = [];
+
+        $subcontracts = $this->subcontractManager->getSubcontractsByServiceID($serviceID);
+
+        foreach ($subcontracts as $subcontract)
+        {
+            if($subcontract['createdByUserImage'])
+            {
+                $subcontract['createdByUserImage'] = $this->params . $subcontract['createdByUserImage'];
+            }
+
+            if($subcontract['updatedByUserImage'])
+            {
+                $subcontract['updatedByUserImage'] = $this->params . $subcontract['updatedByUserImage'];
+            }
+
+            $subcontractResponse[] = $this->autoMapping->map('array', SubcontractGetResponse::class, $subcontract);
+        }
+
+        return $subcontractResponse;
+    }
+
 }
