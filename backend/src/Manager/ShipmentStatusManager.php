@@ -8,7 +8,8 @@ use App\Entity\ShipmentStatusEntity;
 use App\Repository\ShipmentStatusEntityRepository;
 use App\Request\ShipmentLogCreateRequest;
 use App\Request\ShipmentStatusCreateRequest;
-use App\Request\ShipmentStatusUpdateRequest;
+use App\Request\ShipmentStatusOfHolderUpdateRequest;
+use App\Request\ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ShipmentStatusManager
@@ -60,7 +61,7 @@ class ShipmentStatusManager
         return $this->shipmentStatusEntityRepository->getUnPackedShipments();
     }
 
-    public function updateShipmentStatusByShipmentIdAndTrackNumber(ShipmentStatusUpdateRequest $request)
+    public function updateShipmentStatusOfSpecificHolder(ShipmentStatusOfHolderUpdateRequest $request)
     {
         $shipmentStatusEntity = $this->shipmentStatusEntityRepository->getByShipmentIdAndTrackNumber($request->getShipmentID(), $request->getTrackNumber());
         
@@ -70,7 +71,34 @@ class ShipmentStatusManager
         }
         else
         {
-            $shipmentStatusEntity = $this->autoMapping->mapToObject(ShipmentStatusUpdateRequest::class, ShipmentStatusEntity::class, 
+            $shipmentStatusEntity = $this->autoMapping->mapToObject(ShipmentStatusOfHolderUpdateRequest::class, ShipmentStatusEntity::class, 
+            $request, $shipmentStatusEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            //Now, we insert a new log raw
+            $shipmentLogRequest = new ShipmentLogCreateRequest();
+
+            $shipmentLogRequest->setShipmentID($shipmentStatusEntity->getShipmentID());
+            $shipmentLogRequest->setShipmentStatus($shipmentStatusEntity->getShipmentStatus());
+            $shipmentLogRequest->setTrackNumber($shipmentStatusEntity->getTrackNumber());
+
+            $this->shipmentLogManager->create($shipmentLogRequest);
+        }
+    }
+
+    public function updateShipmentStatusByShipmentIdAndTrackNumber(ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest $request)
+    {
+        $shipmentStatusEntity = $this->shipmentStatusEntityRepository->getByShipmentIdAndTrackNumber($request->getShipmentID(), $request->getTrackNumber());
+        
+        if(!$shipmentStatusEntity)
+        {
+            return $shipmentStatusEntity;
+        }
+        else
+        {
+            $shipmentStatusEntity = $this->autoMapping->mapToObject(ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest::class, ShipmentStatusEntity::class, 
             $request, $shipmentStatusEntity);
 
             $this->entityManager->flush();

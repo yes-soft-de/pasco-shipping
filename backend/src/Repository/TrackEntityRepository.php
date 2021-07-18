@@ -43,6 +43,21 @@ class TrackEntityRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getByHolderTypeAndHolderID($holderType, $holderID)
+    {
+        return $this->createQueryBuilder('track')
+
+            ->andWhere('track.holderID = :holderID')
+            ->setParameter('holderID', $holderID)
+
+            ->andWhere('track.holderType = :holderType')
+            ->setParameter('holderType', $holderType)
+
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function getByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
         return $this->createQueryBuilder('track')
