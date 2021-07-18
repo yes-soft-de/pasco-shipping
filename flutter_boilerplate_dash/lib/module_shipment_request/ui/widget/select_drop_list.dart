@@ -69,11 +69,11 @@ Widget build(BuildContext context) {
                     horizontal: 12, vertical: 15),
                 decoration: new BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
-                  color: greyWithMoreOptic,
+                  color: Colors.white,
                   boxShadow: [
                     BoxShadow(
                         blurRadius: 10,
-                        color: Colors.black26,
+                        color: Colors.white,
                         offset: Offset(0, 2))
                   ],
                 ),
@@ -91,7 +91,7 @@ Widget build(BuildContext context) {
                             setState(() {
                             });
                           },
-                          child:optionItemSelected.title=='choose' ?Text('choose' ,style: TextStyle(color: Colors.grey[200]),): Text(optionItemSelected.title, style: TextStyle(
+                          child:optionItemSelected.title=='choose' ?Text('choose' ,style: TextStyle(color: Colors.white),): Text(optionItemSelected.title, style: TextStyle(
                               color: AppThemeDataService.AccentColor,
                               fontSize: 16),),
                         )
@@ -184,7 +184,7 @@ Widget _buildTiles(Entry root) {
           widget.onOptionSelected(root);
         },
         child: ListTile(
-          title: Text(root.title , style: greyWhite14text,),
+          title: Text(root.title , style: black14text,),
         ),
       ),
     );

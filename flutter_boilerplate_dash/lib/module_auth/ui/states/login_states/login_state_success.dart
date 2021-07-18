@@ -18,10 +18,17 @@ class LoginStateSuccess extends LoginState {
     Future.delayed(Duration.zero, () => _showDialog(context));
     return Column(
       children: [
-        EmailPasswordForm(
-          onLoginRequest: (email ,pass){
-            // screen.moveToNext();
-          },
+        Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          elevation: 5.0,
+          color: Colors.white,
+          child: EmailPasswordForm(
+            onLoginRequest: (email ,pass){
+              // screen.moveToNext();
+            },
+          ),
         ),
       ],
     );

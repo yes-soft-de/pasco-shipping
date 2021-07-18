@@ -1,6 +1,6 @@
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:pasco_shipping/module_intro/widget/roundedButton.dart';
+import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
@@ -43,207 +43,205 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
       if (mounted) setState(() {});
     });
     if (mounted) setState(() {});
-    return SingleChildScrollView(
-      child: Form(
-        key: _registerFormKey,
-        autovalidateMode: AutovalidateMode.always,
-        child: Flex(
-          direction: Axis.vertical,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Flex(
-              direction: Axis.vertical,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Container(
-                    child: TextFormField(
-                      controller: _registerEmailController,
-                      cursorColor: AppThemeDataService.AccentColor,
-                      decoration: InputDecoration(
-                          enabledBorder: new UnderlineInputBorder(
-                              borderSide:
-                              new BorderSide(color: Colors.white)),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppThemeDataService.AccentColor)),
-                          suffixIcon: Icon(Icons.check ,color: AppThemeDataService.AccentColor,),
-                          labelText: S.of(context).email,
-                          labelStyle: white16text),
-                      style: white16text,
-                      textInputAction: TextInputAction.next,
-                      onEditingComplete: () => node.nextFocus(),
-                      // Move focus to next
-                      validator: (result) {
-                        if (result!.isEmpty) {
-                          return S.of(context).required;
-                        }
-                        return null;
-                      },
-                    ),
+    return Form(
+      key: _registerFormKey,
+      autovalidateMode: AutovalidateMode.always,
+      child: Flex(
+        direction: Axis.vertical,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Flex(
+            direction: Axis.vertical,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Container(
+                  child: TextFormField(
+                    controller: _registerEmailController,
+                    cursorColor: AppThemeDataService.AccentColor,
+                    decoration: InputDecoration(
+                        enabledBorder: new UnderlineInputBorder(
+                            borderSide:
+                            new BorderSide(color: Colors.white)),
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: AppThemeDataService.AccentColor)),
+                        suffixIcon: Icon(Icons.check ,color: AppThemeDataService.AccentColor,),
+                        labelText: S.of(context).email,
+                        labelStyle: black16text),
+                    style: black16text,
+                    textInputAction: TextInputAction.next,
+                    onEditingComplete: () => node.nextFocus(),
+                    // Move focus to next
+                    validator: (result) {
+                      if (result!.isEmpty) {
+                        return S.of(context).required;
+                      }
+                      return null;
+                    },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: TextFormField(
-                      controller: _registerPasswordController,
-                      decoration: InputDecoration(
-                          enabledBorder: new UnderlineInputBorder(
-                              borderSide:
-                              new BorderSide(color: Colors.white)),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppThemeDataService.AccentColor)),
-                          suffixIcon: Icon(Icons.remove_red_eye,color: AppThemeDataService.AccentColor,),
-                          labelText: S.of(context).password,
-                          labelStyle: white16text),
-                      style: white16text,
-                      validator: (result) {
-                        if (result!.length < 5) {
-                          return '';
-                        }
-                        return null;
-                      },
-                      obscureText: true,
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (_) =>
-                          node.unfocus(), // Submit and hide keyboard
-                    ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: TextFormField(
+                    controller: _registerPasswordController,
+                    decoration: InputDecoration(
+                        enabledBorder: new UnderlineInputBorder(
+                            borderSide:
+                            new BorderSide(color: Colors.white)),
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: AppThemeDataService.AccentColor)),
+                        suffixIcon: Icon(Icons.remove_red_eye,color: AppThemeDataService.AccentColor,),
+                        labelText: S.of(context).password,
+                        labelStyle: black16text),
+                    style: black16text,
+                    validator: (result) {
+                      if (result!.length < 5) {
+                        return '';
+                      }
+                      return null;
+                    },
+                    obscureText: true,
+                    textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (_) =>
+                        node.unfocus(), // Submit and hide keyboard
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: TextFormField(
-                      controller: _registerPasswordController,
-                      decoration: InputDecoration(
-                          enabledBorder: new UnderlineInputBorder(
-                              borderSide:
-                              new BorderSide(color: Colors.white)),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppThemeDataService.AccentColor)),
-                          suffixIcon: Icon(Icons.remove_red_eye,color: AppThemeDataService.AccentColor,),
-                          labelText: S.of(context).confirmPass,
-                          labelStyle: white16text),
-                      style: white16text,
-                      validator: (result) {
-                        if (result!.length < 5) {
-                          return '';
-                        }
-                        return null;
-                      },
-                      obscureText: true,
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (_) =>
-                          node.unfocus(), // Submit and hide keyboard
-                    ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: TextFormField(
+                    controller: _registerPasswordController,
+                    decoration: InputDecoration(
+                        enabledBorder: new UnderlineInputBorder(
+                            borderSide:
+                            new BorderSide(color: Colors.white)),
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: AppThemeDataService.AccentColor)),
+                        suffixIcon: Icon(Icons.remove_red_eye,color: AppThemeDataService.AccentColor,),
+                        labelText: S.of(context).confirmPass,
+                        labelStyle: black16text),
+                    style: black16text,
+                    validator: (result) {
+                      if (result!.length < 5) {
+                        return '';
+                      }
+                      return null;
+                    },
+                    obscureText: true,
+                    textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (_) =>
+                        node.unfocus(), // Submit and hide keyboard
                   ),
                 ),
+              ),
 
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 8, 16, 8),
+            child: Flex(
+              direction: Axis.vertical,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: 16,),
+
+                Container(
+                  child: RoundedButton(
+                    radius: 15,
+                    lable: S.of(context).signUp,
+                    icon: StaticImage.person,
+                    color: Theme.of(context).accentColor,
+                    go: loading == true
+                        ? () {}
+                        : () {
+                      if (_registerFormKey.currentState!.validate()) {
+                        loading = true;
+                        setState(() {});
+                        widget.onRegisterRequest!(
+                          _registerEmailController.text,
+                          _registerPasswordController.text,
+                          _registerNameController.text
+                        );
+                      }
+                    },
+                    style: white18text,
+                  ),
+                ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 8, 16, 8),
-              child: Flex(
-                direction: Axis.vertical,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(height: 16,),
+          ),
+          // CheckboxListTile(
+          //     value: agreed,
+          //     title: Text(S.of(context).iAgreeToTheTermsOfServicePrivacyPolicy),
+          //     onChanged: (v) {
+          //       agreed = v!;
+          //       if (mounted) setState(() {});
+          //     }),
+          // loading == true
+          //     ? Text(S.of(context).loading)
+          //     : Flex(
+          //         direction: Axis.vertical,
+          //         crossAxisAlignment: CrossAxisAlignment.stretch,
+          //         children: [
+          //           Padding(
+          //             padding: const EdgeInsets.all(16.0),
+          //             child: GestureDetector(
+          //               onTap: () {
+          //                 Navigator.of(context).pop();
+          //               },
+          //               child: Text(
+          //                 S.of(context).iHaveAnAccount,
+          //                 textAlign: TextAlign.center,
+          //                 style: TextStyle(
+          //                   fontWeight: FontWeight.bold,
+          //                 ),
+          //               ),
+          //             ),
+          //           ),
+          //           Padding(
+          //             padding: const EdgeInsets.all(16.0),
+          //             child: FlatButton(
+          //               padding: const EdgeInsets.all(16.0),
+          //               shape: RoundedRectangleBorder(
+          //                   borderRadius: BorderRadius.circular(16)),
+          //               color: Theme.of(context).primaryColor,
+          //               onPressed: (!agreed) ? null : () {
+          //                 if (_registerFormKey.currentState!.validate()) {
+          //                   loading = true;
+          //                   setState(() {});
+          //                   widget.onRegisterRequest!(
+          //                     _registerEmailController.text.trim(),
+          //                     _registerPasswordController.text.trim(),
+          //                     _registerNameController.text.trim(),
+          //                   );
+          //                 }
+          //               },
+          //               child: Text(
+          //                 S.of(context).next,
+          //                 textAlign: TextAlign.center,
+          //                 style: TextStyle(
+          //                   color: Colors.white,
+          //                 ),
+          //               ),
+          //             ),
+          //           ),
+          //         ],
+          //       )
+        ],
 
-                  Container(
-                    child: RoundedButton(
-                      radius: 15,
-                      lable: S.of(context).signUp,
-                      icon: StaticImage.person,
-                      color: Theme.of(context).accentColor,
-                      go: loading == true
-                          ? () {}
-                          : () {
-                        if (_registerFormKey.currentState!.validate()) {
-                          loading = true;
-                          setState(() {});
-                          widget.onRegisterRequest!(
-                            _registerEmailController.text,
-                            _registerPasswordController.text,
-                            _registerNameController.text
-                          );
-                        }
-                      },
-                      style: mainHeaderBlackStyle,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // CheckboxListTile(
-            //     value: agreed,
-            //     title: Text(S.of(context).iAgreeToTheTermsOfServicePrivacyPolicy),
-            //     onChanged: (v) {
-            //       agreed = v!;
-            //       if (mounted) setState(() {});
-            //     }),
-            // loading == true
-            //     ? Text(S.of(context).loading)
-            //     : Flex(
-            //         direction: Axis.vertical,
-            //         crossAxisAlignment: CrossAxisAlignment.stretch,
-            //         children: [
-            //           Padding(
-            //             padding: const EdgeInsets.all(16.0),
-            //             child: GestureDetector(
-            //               onTap: () {
-            //                 Navigator.of(context).pop();
-            //               },
-            //               child: Text(
-            //                 S.of(context).iHaveAnAccount,
-            //                 textAlign: TextAlign.center,
-            //                 style: TextStyle(
-            //                   fontWeight: FontWeight.bold,
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //           Padding(
-            //             padding: const EdgeInsets.all(16.0),
-            //             child: FlatButton(
-            //               padding: const EdgeInsets.all(16.0),
-            //               shape: RoundedRectangleBorder(
-            //                   borderRadius: BorderRadius.circular(16)),
-            //               color: Theme.of(context).primaryColor,
-            //               onPressed: (!agreed) ? null : () {
-            //                 if (_registerFormKey.currentState!.validate()) {
-            //                   loading = true;
-            //                   setState(() {});
-            //                   widget.onRegisterRequest!(
-            //                     _registerEmailController.text.trim(),
-            //                     _registerPasswordController.text.trim(),
-            //                     _registerNameController.text.trim(),
-            //                   );
-            //                 }
-            //               },
-            //               child: Text(
-            //                 S.of(context).next,
-            //                 textAlign: TextAlign.center,
-            //                 style: TextStyle(
-            //                   color: Colors.white,
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //         ],
-            //       )
-          ],
-
-        ),
-      ),
+    ),
     );
   }
 }

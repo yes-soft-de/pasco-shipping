@@ -13,7 +13,16 @@ class RegisterStateInit extends RegisterState {
   Widget getUI(BuildContext context) {
     return Column(
       children: [
-        EmailPasswordRegisterForm()
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              elevation: 5.0,
+              color: Colors.white,
+              child: EmailPasswordRegisterForm()),
+        )
       ],
     );
   }

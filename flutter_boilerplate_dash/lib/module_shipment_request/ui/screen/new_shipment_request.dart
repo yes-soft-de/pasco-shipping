@@ -58,7 +58,7 @@ class _NewShipmentState extends State<NewShipment> {
       goBack: (){
         Navigator.pop(context);
       },
-      controller: _controller,
+      // controller: _controller,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -243,9 +243,7 @@ class _NewShipmentState extends State<NewShipment> {
         ),
       ),
       title: S.of(context).requestShipment,
-      currentIndex: -1,
-      isResultScreen: false,
-      isHome: false,
+
     );
   }
 

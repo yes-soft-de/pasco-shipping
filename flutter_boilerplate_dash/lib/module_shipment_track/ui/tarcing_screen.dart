@@ -58,10 +58,10 @@ class _TrackingScreenState extends State<TrackingScreen> {
           Navigator.pop(context);
         },
         title:  S.of(context).resultTrack,
-        currentIndex: -1,
-        isResultScreen: false,
-        controller: controller,
-        isHome: false,
+        // currentIndex: -1,
+        // isResultScreen: false,
+        // controller: controller,
+        // isHome: false,
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
@@ -81,10 +81,10 @@ class _TrackingScreenState extends State<TrackingScreen> {
           Navigator.pop(context);
         },
         title:  S.of(context).resultTrack,
-        currentIndex: -1,
-        isResultScreen: false,
-        controller: controller,
-        isHome: false,
+        // currentIndex: -1,
+        // isResultScreen: false,
+        // controller: controller,
+        // isHome: false,
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
