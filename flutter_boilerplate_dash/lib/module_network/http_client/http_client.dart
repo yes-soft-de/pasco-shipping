@@ -31,6 +31,7 @@ class ApiClient {
       if (headers != null) {
         if (headers['Authorization'] != null) {
           _logger.info(tag, 'Adding Auth Header');
+          print('mm');
           client.options.headers['Authorization'] = headers['Authorization'];
         }
       }
@@ -38,8 +39,11 @@ class ApiClient {
         url,
         queryParameters: queryParams,
       );
+      print(response.statusCode);
       return _processResponse(response);
     } catch (e) {
+      print('please tell me');
+      print(e);
       if (e is DioError) {
         DioError err = e;
         if (err.response != null) {
@@ -181,10 +185,12 @@ class ApiClient {
   }
 
   Map<String, dynamic>? _processResponse(Response response) {
+    print('now');
     if (response.statusCode! >= 200 && response.statusCode! < 400) {
       _logger.info(tag, response.data.toString());
       return response.data;
     } else if (response.statusCode! <= 400 && response.statusCode!< 500) {
+      print('here rahaf');
       return null;
     } else {
       _logger.error(tag,

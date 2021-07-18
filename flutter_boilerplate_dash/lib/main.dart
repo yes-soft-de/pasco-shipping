@@ -8,8 +8,6 @@ import 'package:pasco_shipping/module_auth/authoriazation_module.dart';
 import 'package:pasco_shipping/module_chat/chat_module.dart';
 import 'package:pasco_shipping/module_edit_shipment/edit_shipment_module.dart';
 import 'package:pasco_shipping/module_home/home_module.dart';
-import 'package:pasco_shipping/module_intro/intro_module.dart';
-import 'package:pasco_shipping/module_intro/ui/intro_screen/intro_screen.dart';
 import 'package:pasco_shipping/module_localization/service/localization_service/localization_service.dart';
 import 'package:pasco_shipping/module_mark/mark_module.dart';
 import 'package:pasco_shipping/module_my_shipment/my_shipment_module.dart';
@@ -19,6 +17,8 @@ import 'package:pasco_shipping/module_notifications/service/fire_notification_se
 import 'package:pasco_shipping/module_profile/profile_module.dart';
 import 'package:pasco_shipping/module_settings/settings_module.dart';
 import 'package:pasco_shipping/module_shipment_track/tracking_module.dart';
+import 'package:pasco_shipping/module_subcontract_services/response/sub_contract_service_response.dart';
+import 'package:pasco_shipping/module_subcontract_services/sub_contract_service_module.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/logger/logger.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -29,12 +29,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
-import 'module_intro/intro_routes.dart';
+import 'module_auth/authorization_routes.dart';
+import 'module_countries/country_module.dart';
+import 'module_distributors/distributors_module.dart';
 import 'module_notifications/service/local_notification_service/local_notification_service.dart';
+import 'module_proxies/proxies_module.dart';
 import 'module_shipment_previous/shipment_previous_module.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'module_shipment_request/shipment_request_module.dart';
+import 'module_sub_contract/subcontract_module.dart';
+import 'module_suppliers/supplier_module.dart';
+import 'module_unit/unit_module.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,7 +80,6 @@ class MyApp extends StatefulWidget {
   final SettingsModule _settingsModule;
   final ChatModule _chatModule;
   final HomeModule _homeModule;
-  final IntroModule _introModule;
   // final PreviousShipmentsModule _previousShipmentsModule;
   final ProfileModule _profileModule;
   final MarkModule _markModule;
@@ -84,12 +89,20 @@ class MyApp extends StatefulWidget {
   final MyShipmentModule _myShipmentModule;
   final EditShipmentModule _editShipmentModule;
 
+  final CountryModule _countryModule;
+  final DistributorsModule _distributorsModule;
+  final ProxiesModule _proxiesModule;
+  final SupplierModule _supplierModule;
+  final SubcontractModule _subcontractModule;
+  final SubContractServiceModule _contractServiceModule;
+  final UnitModule _unitModule;
+
+
   MyApp(
       this._themeDataService,
       this._localizationService,
       this._fireNotificationService,
       this._localNotificationService,
-      this._introModule,
       this._authorizationModule,
       this._chatModule,
       this._settingsModule,
@@ -101,7 +114,15 @@ class MyApp extends StatefulWidget {
       this._newShipmentsModule,
       this._trackingModule,
       this._myShipmentModule,
-      this._editShipmentModule
+      this._editShipmentModule,
+
+      this._countryModule,
+      this._distributorsModule,
+      this._proxiesModule,
+      this._supplierModule,
+      this._contractServiceModule,
+      this._subcontractModule,
+      this._unitModule
       );
 
   @override
@@ -144,7 +165,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      initialData: Scaffold(),
+      initialData: Container(),
       future: getConfiguratedApp(YesModule.RoutesMap),
       builder: (BuildContext context, AsyncSnapshot<Widget> scaffoldSnapshot) {
         return scaffoldSnapshot.data!;
@@ -173,7 +194,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: S.delegate.supportedLocales,
       title: 'pasco-shipping',
       routes: fullRoutesList,
-      initialRoute: IntroRoutes.INTRO_SCREEN,
+      initialRoute: AuthorizationRoutes.LOGIN_SCREEN,
     );
   }
 }

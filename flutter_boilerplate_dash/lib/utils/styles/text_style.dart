@@ -5,7 +5,8 @@ import 'colors.dart';
 
 TextStyle white24text = TextStyle(
   fontSize: 24,
-  color: white.withOpacity(0.7),
+  color: white,
+  fontWeight: FontWeight.bold
 );
 TextStyle White14text = TextStyle(
   fontSize: 14,

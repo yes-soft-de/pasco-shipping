@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 
@@ -10,7 +11,7 @@ class ErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [Image.asset(StaticImage.noInternet), Text(error , style: white18text,)],
+      children: [Image.asset(StaticImage.noInternet), Text(error , style: AppTextStyle.largeBlack,)],
     );
   }
 }

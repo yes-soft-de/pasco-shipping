@@ -1,15 +1,46 @@
 class Urls {
-  static const String DOMAIN = 'http://165.22.75.62/';
-  static const String BASE_API = 'http://165.22.75.62/';
+  static const String DOMAIN = 'http://159.89.13.229/';
+  static const String BASE_API = 'http://159.89.13.229/';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
 
   static const SIGN_UP_API = BASE_API + '/user';
   // static const OWNER_PROFILE_API = BASE_API + '/userprofile';
   static const CREATE_TOKEN_API = BASE_API + '/login_check';
 
+  //home
+  static const STATISTIC = BASE_API + 'statistics';
+
 //request shipment
   static const PRODUCT_CATEGORY = BASE_API + 'productcategories';
-  static const Countries = BASE_API + 'countries';
+
+  //country
+  static const COUNTRIES = BASE_API + 'countries';
+  static const COUNTRY = BASE_API + 'country';
+
+  //distributor
+  static const DISTRIBUTORS = BASE_API + 'distributors';
+  static const DISTRIBUTOR = BASE_API + 'distributor';
+
+  //proxies
+  static const PROXIES = BASE_API + 'proxies';
+  static const PROXY = BASE_API + 'proxy';
+
+  //suppliers
+  static const SUPPLIERS = BASE_API + 'suppliers';
+  static const SUPPLIER = BASE_API + 'supplier';
+
+
+  //service
+  static const SUB_CONTRACT_SERVICES = BASE_API + 'subcontractservices';
+  static const SUB_CONTRACT_SERVICE = BASE_API + 'subcontractservice';
+
+  //subContract
+  static const SUB_CONTRACTS = BASE_API + 'subcontracts';
+  static const SUB_CONTRACT = BASE_API + 'subcontract';
+
+  //unit
+  static const UNITS = BASE_API + 'units';
+  static const UNIT = BASE_API + 'unit';
 
 ///mark
   static const MY_MARKS = BASE_API + 'mymarks';
@@ -35,5 +66,5 @@ class Urls {
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
 
 
-  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjU2ODczMDcsImV4cCI6MTYyNTY5MDkwNywicm9sZXMiOlsidXNlciJdLCJ1c2VybmFtZSI6InNhbWkifQ.zhHkbE_gjebpglDU5dKZthtV2cb8TKYh60-s2l7rEUyDxcOgmpKW_gGbk9OWntRmKoYVsShEqM6tKfpwJ4_GBDUi6DY5NA2S6hcYto4gSzfTMazj5vSEefyg9sSx1yZU9QldrImhfApJ3tnIeNbAnzMew0JcLbwmlvSxR1TgnO8FdbNZudAgIIZ7O4MyqiihnR3G0ebsCtoHXBbXC0yKAsYUa0mH_OzFxBi299IpmkArxpqaofxjIbqo_E26DkRN60a1gfcg8EMDujXLUcalu_gc2RaDPC1d2MhQPxefjnVhxg3WB8we1wipEkREz9ukUVrgYiJirJLqAKaquKpptw';
+  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjY1NjA5MDAsImV4cCI6MTYyNjU2NDUwMCwicm9sZXMiOlsiUk9MRV9FTVBMT1lFRSIsInVzZXIiXSwidXNlcm5hbWUiOiJlbTEifQ.J-9eaDSL0cCz7J1h4s1NU-kusXTns5JkyjIcVS3UHT4sgkwNa3ZHACUrJKOYm_KKOUU3pFUq-DEhwos6bM_yk7VvhQMXzfbDTBkquICfkG2FcHa1C9QJic64eIBCA_feTSiOWNtcdYeGth-tu51p0D9Z5haU4yczoOn3C7ZQbsgOqYUuYfW7YFU-oAh8VywbJwtnz5i7r6GRWOOUsTVuKVQ0f2__7RGTGdvcSe3KS2NeZy5wxrWapsVj2G0YyBqctUNfmIDAcOwNQac0_HEDD7Fma_uzmyzu98l8sSJ9BXm1f4gmmGCvW0NzAbQICDkvVfiQBwjJxiO5m9dBu4aHVg';
 }

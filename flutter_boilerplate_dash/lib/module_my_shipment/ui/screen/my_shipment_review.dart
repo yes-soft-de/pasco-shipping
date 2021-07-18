@@ -23,7 +23,7 @@ class ReviewShipmentScreen extends StatelessWidget {
       goBack: (){
         Navigator.pop(context);
       },
-        controller: controller,
+        // controller: controller,
         child:
         Column(
           mainAxisSize: MainAxisSize.min,
@@ -103,8 +103,9 @@ class ReviewShipmentScreen extends StatelessWidget {
 
           ],
         ), title: S.of(context).reviewShipment,
-        currentIndex: -1,
-        isHome: false,
-        isResultScreen: false);
+        // currentIndex: -1,
+        // isHome: false,
+        // isResultScreen: false
+    );
   }
 }

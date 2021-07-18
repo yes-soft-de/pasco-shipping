@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_chat/bloc/chat_page/chat_page.bloc.dart';
@@ -100,10 +100,10 @@ class _ChatScreenState extends State<ChatScreen> {
       goBack: (){
         Navigator.pop(context);
       },
-        controller: _scrollController,
-        isHome: true,
-        isResultScreen: false,
-        currentIndex: 2,
+        // controller: _scrollController,
+        // isHome: true,
+        // isResultScreen: false,
+        // currentIndex: 2,
         title: 'Chat Room',
         child: Column(
           children: [
@@ -133,16 +133,16 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Future<void> buildMessagesList(List<ChatModel> chatList) async {
     List<ChatBubbleWidget> newMessagesList = [];
-    FirebaseAuth auth = await FirebaseAuth.instance;
-    User? user = auth.currentUser;
-    chatList.forEach((element) {
-      newMessagesList.add(ChatBubbleWidget(
-        message: element.msg,
-        me: element.sender == user!.uid ? true : false,
-        sentDate: (element.sentDate),
-        showImage: false,
-      ));
-    });
+    // FirebaseAuth auth = await FirebaseAuth.instance;
+    // User? user = auth.currentUser;
+    // chatList.forEach((element) {
+    //   newMessagesList.add(ChatBubbleWidget(
+    //     message: element.msg,
+    //     me: element.sender == user!.uid ? true : false,
+    //     sentDate: (element.sentDate),
+    //     showImage: false,
+    //   ));
+    // });
     chatsMessagesWidgets = newMessagesList;
 
     return;

@@ -1,5 +1,5 @@
 import 'package:cool_alert/cool_alert.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
@@ -36,12 +36,12 @@ class _MarkScreenState extends State<EditedShipmentScreen> {
       goBack: (){
         Navigator.pop(context);
       },
-      controller: controller,
-      isHome: false,
+      // controller: controller,
+      // isHome: false,
       child: Screen(),
       title: S.of(context).reviewShipment
-      ,currentIndex: -1,
-      isResultScreen: false,
+      // ,currentIndex: -1,
+      // isResultScreen: false,
     );
   }
 

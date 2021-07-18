@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
-import 'package:pasco_shipping/module_intro/widget/roundedButton.dart';
+import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 import 'package:pasco_shipping/module_profile/request/profile_request.dart';
 import 'package:pasco_shipping/module_profile/response/profile_response.dart';
 import 'package:pasco_shipping/utils/widget/text_edit.dart';

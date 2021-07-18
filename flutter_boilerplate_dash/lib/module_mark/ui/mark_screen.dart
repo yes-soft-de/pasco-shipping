@@ -41,12 +41,12 @@ class _MarkScreenState extends State<MarkScreen> {
       goBack: (){
         Navigator.pop(context , items);
       },
-      controller: controller,
-      isHome: false,
+      // controller: controller,
+      // isHome: false,
         child: Screen(),
         title: S.of(context).mark
-      ,currentIndex: -1,
-      isResultScreen: false,
+      // ,currentIndex: -1,
+      // isResultScreen: false,
     );
   }
 

@@ -22,6 +22,9 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "aboutUs": MessageLookupByLibrary.simpleMessage("حول"),
+        "add": MessageLookupByLibrary.simpleMessage("إضافة جديد"),
+        "addedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("تم إضافة العنصر بنجاح"),
         "air": MessageLookupByLibrary.simpleMessage("جوي"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
         "city": MessageLookupByLibrary.simpleMessage("المدينة"),
@@ -29,12 +32,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmCode": MessageLookupByLibrary.simpleMessage("تأكيد الرمز"),
         "confirmPass": MessageLookupByLibrary.simpleMessage("تأكيد كلمة السر"),
         "contactInfo": MessageLookupByLibrary.simpleMessage("معلومات التواصل "),
+        "countries": MessageLookupByLibrary.simpleMessage("البلدان"),
         "country": MessageLookupByLibrary.simpleMessage("البلد"),
         "darkMode": MessageLookupByLibrary.simpleMessage("الوضع الليلي"),
         "deletePreviousMark": MessageLookupByLibrary.simpleMessage(
             "لا يمكنك حذف العلامات المستخدمة سابقا"),
+        "description": MessageLookupByLibrary.simpleMessage("الوصف"),
         "directSupport": MessageLookupByLibrary.simpleMessage("دعم مباشر"),
         "distributorName": MessageLookupByLibrary.simpleMessage("اسم الموزع: "),
+        "distributors": MessageLookupByLibrary.simpleMessage("الموزعين"),
         "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
         "enterMark": MessageLookupByLibrary.simpleMessage("أدخل علامة جديدة"),
         "enterShipmentNumber":
@@ -78,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacy": MessageLookupByLibrary.simpleMessage("سياسة الخصوصية"),
         "productType": MessageLookupByLibrary.simpleMessage("نوع المنتجات:"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
+        "proxies": MessageLookupByLibrary.simpleMessage("الوكلاء"),
         "quantity": MessageLookupByLibrary.simpleMessage("الكمية:"),
         "requestShipment": MessageLookupByLibrary.simpleMessage("طلب شحنة"),
         "required": MessageLookupByLibrary.simpleMessage("الحقل مطلوب"),
@@ -86,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "saveInfo": MessageLookupByLibrary.simpleMessage("حفظ المعلومات"),
         "sea": MessageLookupByLibrary.simpleMessage("بحري"),
+        "service": MessageLookupByLibrary.simpleMessage("الخدمة"),
         "setting": MessageLookupByLibrary.simpleMessage("الإعدادات"),
         "shipment": MessageLookupByLibrary.simpleMessage("الشحنات"),
         "shipmentInfo": MessageLookupByLibrary.simpleMessage("معلومات الشحنة"),
@@ -95,9 +103,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "signIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "signUp": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "startWriting": MessageLookupByLibrary.simpleMessage("أبدء بالكتابة"),
+        "subcontractService": MessageLookupByLibrary.simpleMessage("الخدمات"),
         "success": MessageLookupByLibrary.simpleMessage("نجاح!!!"),
         "termOfService": MessageLookupByLibrary.simpleMessage("شروط الخدمة"),
         "trackShipment": MessageLookupByLibrary.simpleMessage("تعقب شحنة"),
+        "units": MessageLookupByLibrary.simpleMessage("الوحدات"),
+        "view": MessageLookupByLibrary.simpleMessage("عرض الكل"),
         "welcome": MessageLookupByLibrary.simpleMessage("أهلا")
       };
 }

@@ -78,5 +78,21 @@
   "shippingTo": "شحن إلى:",
   "productType": "نوع المنتجات:",
   "quantity": "الكمية:",
-  "image": "صورة:"
+  "image": "صورة:",
+
+
+  "countries": "البلدان",
+  "distributors": "الموزعين",
+  "proxies": "الوكلاء",
+  "warehouse": "المستودعات",
+  "subcontract": "مزودي الخدمة",
+  "subcontractService": "الخدمات",
+  "service": "الخدمة",
+  "supplier": "الموردين",
+  "travel": "الرحلات",
+  "units": "الوحدات",
+  "view": "عرض الكل",
+  "add": "إضافة جديد",
+  "addedSuccessfully": "تم إضافة العنصر بنجاح",
+  "description": "الوصف"
 }

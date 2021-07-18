@@ -47,7 +47,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "de.yes_soft.pasco"
+        applicationId "de.yes_soft.pasco.dash"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()

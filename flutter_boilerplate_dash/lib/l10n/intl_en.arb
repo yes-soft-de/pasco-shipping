@@ -46,7 +46,7 @@
   "deletePreviousMark": "You cannot delete previously used marks",
   "myPrevious": "My Previous",
 
-  "country": "country",
+  "country": "Country",
   "city": "city",
   "phone": "phone",
   "location": "location",
@@ -80,7 +80,23 @@
   "shippingTo": "Shipping to:",
   "productType": "Product type:",
   "quantity": "Quantity:",
-  "image": "Image:"
+  "image": "Image:",
+
+  "countries": "Countries",
+  "distributors": "Distributors",
+  "proxies": "Proxies",
+  "warehouses": "warehouse",
+  "subcontracts": "Subcontract",
+  "subcontractService": "Subcontract Services",
+  "service": "Service",
+  "suppliers": "Supplier",
+  "travels": "Travels",
+  "units": "Units",
+  "view": "View all",
+  "add": "Add new",
+  "addedSuccessfully": "Item added successfully",
+  "description": "Description"
+
 
 
 }

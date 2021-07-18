@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.yes_soft.pasco">
+    package="de.yes_soft.pasco.dash">
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Pasco"
+        android:label="Pasco Dashboard"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
