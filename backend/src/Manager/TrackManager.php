@@ -3,10 +3,14 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\ShipmentStatusConstant;
 use App\Entity\TrackEntity;
 use App\Repository\TrackEntityRepository;
-use App\Request\ShipmentStatusUpdateRequest;
+use App\Request\ShipmentStatusOfHolderUpdateRequest;
+use App\Request\ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest;
 use App\Request\TrackCreateRequest;
+use App\Request\TrackUpdateByHolderTypeAndIdRequest;
+use App\Request\TrackUpdateByTravelIdRequest;
 use App\Request\TrackUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -40,7 +44,7 @@ class TrackManager
         $this->entityManager->clear();
 
         // Then, we update the record related to the shipment in the ShipmentStatusEntity
-        $shipmentStatusRequest = $this->autoMapping->map(TrackCreateRequest::class, ShipmentStatusUpdateRequest::class, $request);
+        $shipmentStatusRequest = $this->autoMapping->map(TrackCreateRequest::class, ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest::class, $request);
 
         $shipmentStatusRequest->setUpdatedBy($request->getCreatedBy());
 
@@ -68,7 +72,7 @@ class TrackManager
             if($trackEntity)
             {
                 // Secondly, update the status in the ShipmentStatusEntity
-                $shipmentStatusRequest = $this->autoMapping->map(TrackUpdateRequest::class, ShipmentStatusUpdateRequest::class, $request);
+                $shipmentStatusRequest = $this->autoMapping->map(TrackUpdateRequest::class, ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest::class, $request);
 
                 $shipmentStatusRequest->setShipmentID($trackEntity->getShipmentID());
                 $shipmentStatusRequest->setUpdatedBy($request->getUpdatedBy());
@@ -77,6 +81,80 @@ class TrackManager
             }
 
             return $trackEntity;
+        }
+    }
+
+    public function updateByHolderTypeAndHolderID(TrackUpdateByHolderTypeAndIdRequest $request)
+    {
+        //Firstly, we update the track records
+        $tracks = $this->trackEntityRepository->getByHolderTypeAndHolderID($request->getHolderType(), $request->getHolderID());
+
+        if(!$tracks)
+        {
+            return $tracks;
+        }
+        else
+        {
+            foreach($tracks as $track)
+            {
+                $track = $this->autoMapping->mapToObject(TrackUpdateByHolderTypeAndIdRequest::class, TrackEntity::class, $request, $track);
+                
+                $this->entityManager->flush();
+            }
+
+            // Secondly, update the status in the ShipmentStatusEntity for all shipments
+            foreach($tracks as $track)
+            {
+                if($track)
+                {
+                    $shipmentStatusRequest = $this->autoMapping->map(TrackUpdateByHolderTypeAndIdRequest::class, ShipmentStatusOfHolderUpdateRequest::class, $request);
+
+                    $shipmentStatusRequest->setShipmentID($track->getShipmentID());
+                    $shipmentStatusRequest->setTrackNumber($track->getTrackNumber());
+                    $shipmentStatusRequest->setUpdatedBy($request->getUpdatedBy());
+
+                    $this->shipmentStatusManager->updateShipmentStatusOfSpecificHolder($shipmentStatusRequest);
+                }
+            }
+     
+            return $tracks;
+        }
+    }
+
+    public function updateByTravelID(TrackUpdateByTravelIdRequest $request)
+    {
+        // First, check the status, if the travel strated or arrived (released) then continue updating the shipments status
+        if($request->getShipmentStatus() == ShipmentStatusConstant::$STARTED_SHIPMENT_STATUS || $request->getShipmentStatus() == ShipmentStatusConstant::$RELEASED_SHIPMENT_STATUS)
+        {
+            //Secondly, get shipmentID and trackNumber for eahc shipment in the travel
+            $tracks = $this->trackEntityRepository->getByTravelID($request->getTravelID());
+
+            if(!$tracks)
+            {
+                return $tracks;
+            }
+            else
+            {
+                // Thirdly, update the status in the ShipmentStatusEntity for all shipments
+                foreach($tracks as $track)
+                {
+                    if($track)
+                    {
+                        $shipmentStatusRequest = $this->autoMapping->map(TrackUpdateByTravelIdRequest::class, ShipmentStatusOfHolderUpdateRequest::class, $request);
+
+                        $shipmentStatusRequest->setShipmentID($track->getShipmentID());
+                        $shipmentStatusRequest->setTrackNumber($track->getTrackNumber());
+                        
+                        $this->shipmentStatusManager->updateShipmentStatusOfSpecificHolder($shipmentStatusRequest);
+                    }
+                }
+        
+                return $tracks;
+            }
+        }
+        else
+        {
+            return "Wrong status!";
         }
     }
 

@@ -14,7 +14,7 @@ use App\Request\OrderShipmentUpdateRequest;
 use App\Request\ShipmentFilterRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
 use App\Request\ShipmentStatusCreateRequest;
-use App\Request\ShipmentStatusUpdateRequest;
+use App\Request\ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ShipmentOrderManager
@@ -111,7 +111,7 @@ class ShipmentOrderManager
              */
             if($request->getShipmentStatus() == ShipmentStatusConstant::$MEASURED_SHIPMENT_STATUS)
             {
-                $shipmentStatusRequest = $this->autoMapping->map(OrderShipmentUpdateRequest::class, ShipmentStatusUpdateRequest::class, $request);
+                $shipmentStatusRequest = $this->autoMapping->map(OrderShipmentUpdateRequest::class, ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest::class, $request);
                 
                 $this->shipmentStatusManager->updateShipmentStatusByShipmentIdAndTrackNumber($shipmentStatusRequest);
             }

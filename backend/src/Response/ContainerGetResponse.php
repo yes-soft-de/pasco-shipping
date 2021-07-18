@@ -26,6 +26,10 @@ class ContainerGetResponse
 
     public $subcontractName;
 
+    public $consigneeName;
+
+    public $shipperName;
+
     public $capacityCPM;
 
     public $widthInMeter;

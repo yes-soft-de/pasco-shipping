@@ -307,4 +307,22 @@ App\Request\SubProductCategoryUpdateRequest:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
+
+App\Request\TrackUpdateByHolderTypeAndIdRequest:
+  properties:
+    holderType:
+      - NotBlank: ~
+    holderID:
+      - NotBlank: ~
+    travelID:
+      - NotBlank: ~
+    shipmentStatus:
+      - NotBlank: ~
+
+App\Request\TrackUpdateByTravelIdRequest:
+  properties:
+    travelID:
+      - NotBlank: ~
+    shipmentStatus:
+      - NotBlank: ~
       

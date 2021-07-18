@@ -26,10 +26,10 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
     public function getAirwaybillsByStatus($status)
     {
         return $this->createQueryBuilder('airwaybill')
-            ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt',
+            ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID',
                 'airwaybill.createdBy', 'airwaybill.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
-                'adminProfile2.userName as updatedByUserImage', 'airwaybill.providedBy', 'airwaybill.type', 'airwaybillSepcification.weight',
-                'subcontractEntity.fullName as subcontractName')
+                'airwaybill.shipperID', 'adminProfile2.userName as updatedByUserImage', 'airwaybill.providedBy', 'airwaybill.type', 'airwaybillSepcification.weight',
+                'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName')
 
             ->andWhere('airwaybill.status = :status')
             ->setParameter('status', $status)
@@ -62,6 +62,20 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
                 'subcontractEntity.id = airwaybill.providedBy'
             )
 
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity2',
+                Join::WITH,
+                'subcontractEntity2.id = airwaybill.consigneeID'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity3',
+                Join::WITH,
+                'subcontractEntity3.id = airwaybill.shipperID'
+            )
+
             ->orderBy('airwaybill.id', 'DESC')
 
             ->getQuery()
@@ -71,9 +85,10 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
     public function getAirwaybillById($id)
     {
         return $this->createQueryBuilder('airwaybill')
-            ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.type',
-            'airwaybill.providedBy', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 
-             'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage', 'subcontractEntity.fullName as subcontractName')
+            ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.type', 'airwaybill.consigneeID',
+            'airwaybill.shipperID', 'airwaybill.providedBy', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 
+             'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 
+             'subcontractEntity3.fullName as shipperName')
 
             ->andWhere('airwaybill.id = :id')
             ->setParameter('id', $id)
@@ -104,6 +119,20 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
                 'subcontractEntity',
                 Join::WITH,
                 'subcontractEntity.id = airwaybill.providedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity2',
+                Join::WITH,
+                'subcontractEntity2.id = airwaybill.consigneeID'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity3',
+                Join::WITH,
+                'subcontractEntity3.id = airwaybill.shipperID'
             )
 
             ->getQuery()

@@ -20,4 +20,9 @@ class TravelStatusUpdateRequest
         $this->updatedBy = $updatedBy;
     }
 
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
 }

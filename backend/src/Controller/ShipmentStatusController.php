@@ -614,7 +614,7 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="boolean", property="isInOneHolder"),
      *                  @OA\Property(type="boolean", property="packed"),
      *                  @OA\Property(type="string", property="target"),
-     *                  @OA\Property(type="integer", property="supplierID"),
+     *                  @OA\Property(type="integer", property="supplierName"),
      *                  @OA\Property(type="string", property="distributorName"),
      *                  @OA\Property(type="string", property="exportWarehouseName"),
      *                  @OA\Property(type="string", property="importWarehouseName"),

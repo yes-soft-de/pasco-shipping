@@ -37,6 +37,13 @@ class ProxyController extends BaseController
      * 
      * @OA\Tag(name="Proxy")
      * 
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true 
+     * )
+     * 
      * @OA\RequestBody(
      *      description="Create new proxy",
      *      @OA\JsonContent(
@@ -111,7 +118,6 @@ class ProxyController extends BaseController
      *      )
      * )
      * 
-     * @Security(name="Bearer")
      */
     public function getAll()
     {

@@ -10,6 +10,16 @@ class ShipmentStatusConstant
 
     static $MEASURED_SHIPMENT_STATUS = "measured";
 
+    static $STORED_SHIPMENT_STATUS = "stored";
+
+    static $STARTED_SHIPMENT_STATUS = "started";
+
+    static $RELEASED_SHIPMENT_STATUS = "released";
+
+    static $CLEARED_SHIPMENT_STATUS = "cleared";
+
+    static $DELIVERED_SHIPMENT_STATUS = "delivered";
+
     static $UNDELIVERED_SHIPMENT_STATUS = "undelivered";
 
     static $ALL_SHIPMENT_STATUS = "all";

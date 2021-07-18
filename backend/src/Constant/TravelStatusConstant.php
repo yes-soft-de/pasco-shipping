@@ -6,7 +6,7 @@ class TravelStatusConstant
 {
     static $CURRENT_TRAVEL_STATUS = "current";
     
-    static $ARRIVED_TRAVEL_STATUS = "arrived";
+    static $RELEASED_TRAVEL_STATUS = "released";
     
     static $STARTED_TRAVEL_STATUS = "started";
 

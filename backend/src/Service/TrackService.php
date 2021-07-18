@@ -7,6 +7,7 @@ use App\Constant\HolderTypeConstant;
 use App\Entity\TrackEntity;
 use App\Manager\TrackManager;
 use App\Request\TrackCreateRequest;
+use App\Request\TrackUpdateByHolderTypeAndIdRequest;
 use App\Request\TrackUpdateRequest;
 use App\Response\TrackCreateResponse;
 use App\Response\TrackGetResponse;
@@ -37,6 +38,20 @@ class TrackService
         $trackResult = $this->trackManager->updateByHolderIdAndTrackNumber($request);
 
         return $this->autoMapping->map(TrackEntity::class, TrackCreateResponse::class, $trackResult);
+    }
+
+    public function updateByHolderTypeAndHolderID(TrackUpdateByHolderTypeAndIdRequest $request)
+    {
+        $trackResponse = [];
+
+        $tracks = $this->trackManager->updateByHolderTypeAndHolderID($request);
+
+        foreach($tracks as $track)
+        {
+            $trackResponse[] = $this->autoMapping->map(TrackEntity::class, TrackGetResponse::class, $track);
+        }
+
+        return $trackResponse;
     }
 
     public function getByShipmentIdAndTrackNumber($shipmentID, $trackNumber)

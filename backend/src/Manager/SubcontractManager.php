@@ -57,4 +57,9 @@ class SubcontractManager
         return $this->subcontractEntityRepository->getAllSubcontracts();
     }
 
+    public function getSubcontractsByServiceID($serviceID)
+    {
+        return $this->subcontractEntityRepository->getSubcontractsByServiceID($serviceID);
+    }
+
 }
