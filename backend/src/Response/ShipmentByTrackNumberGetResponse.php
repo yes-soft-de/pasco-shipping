@@ -32,7 +32,7 @@ class ShipmentByTrackNumberGetResponse
 
     public $target;
 
-    public $supplierID;
+    public $supplierName;
 
     public $distributorName;
 
