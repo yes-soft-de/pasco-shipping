@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Constant\TravelStatusConstant;
 use App\Entity\TravelEntity;
 use App\Repository\TravelEntityRepository;
+use App\Request\TrackUpdateByTravelIdRequest;
 use App\Request\TravelCreateRequest;
 use App\Request\TravelStatusUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,12 +16,14 @@ class TravelManager
     private $autoMapping;
     private $entityManager;
     private $travelEntityRepository;
+    private $trackManager;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, TravelEntityRepository $travelEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, TravelEntityRepository $travelEntityRepository, TrackManager $trackManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->travelEntityRepository = $travelEntityRepository;
+        $this->trackManager = $trackManager;
     }
 
     public function create(TravelCreateRequest $request)
@@ -40,20 +43,31 @@ class TravelManager
 
     public function updateTravelStatus(TravelStatusUpdateRequest $request)
     {
-        $travelEntity = $this->travelEntityRepository->find($request->getId());
-
-        if(!$travelEntity)
+        if($request->getStatus() == TravelStatusConstant::$STARTED_TRAVEL_STATUS || $request->getStatus() == TravelStatusConstant::$RELEASED_TRAVEL_STATUS)
         {
-            return $travelEntity;
-        }
-        else
-        {
-            $travelEntity = $this->autoMapping->mapToObject(TravelStatusUpdateRequest::class, TravelEntity::class, $request, $travelEntity);
+            $travelEntity = $this->travelEntityRepository->find($request->getId());
 
-            $this->entityManager->flush();
-            $this->entityManager->clear();
+            if(!$travelEntity)
+            {
+                return $travelEntity;
+            }
+            else
+            {
+                $travelEntity = $this->autoMapping->mapToObject(TravelStatusUpdateRequest::class, TravelEntity::class, $request, $travelEntity);
 
-            return $travelEntity;
+                $this->entityManager->flush();
+                $this->entityManager->clear();
+
+                // Now, update all shipments status uploaded onto the travel
+                $trackUpdateByTravelRequest = $this->autoMapping->map(TravelStatusUpdateRequest::class, TrackUpdateByTravelIdRequest::class, $request);
+
+                $trackUpdateByTravelRequest->setTravelID($request->getId());
+                $trackUpdateByTravelRequest->setShipmentStatus($request->getStatus());
+
+                $this->trackManager->updateByTravelID($trackUpdateByTravelRequest);
+
+                return $travelEntity;
+            }
         }
     }
 

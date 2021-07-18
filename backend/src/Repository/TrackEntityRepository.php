@@ -39,8 +39,7 @@ class TrackEntityRepository extends ServiceEntityRepository
             ->setParameter('trackNumber', $trackNumber)
 
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
 
     public function getByHolderTypeAndHolderID($holderType, $holderID)
@@ -54,8 +53,18 @@ class TrackEntityRepository extends ServiceEntityRepository
             ->setParameter('holderType', $holderType)
 
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
+    }
+
+    public function getByTravelID($travelID)
+    {
+        return $this->createQueryBuilder('track')
+
+            ->andWhere('track.travelID = :travelID')
+            ->setParameter('travelID', $travelID)
+
+            ->getQuery()
+            ->getResult();
     }
 
     public function getByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
