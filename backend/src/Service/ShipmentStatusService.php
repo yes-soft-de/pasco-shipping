@@ -7,7 +7,7 @@ use App\Constant\HolderTypeConstant;
 use App\Entity\ShipmentStatusEntity;
 use App\Manager\ShipmentStatusManager;
 use App\Request\ShipmentStatusCreateRequest;
-use App\Request\ShipmentStatusUpdateRequest;
+use App\Request\ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest;
 use App\Request\TrackCreateRequest;
 use App\Response\ShipmentByTrackNumberAndSignedInUserGetResponse;
 use App\Response\ShipmentByTrackNumberGetResponse;
@@ -55,7 +55,7 @@ class ShipmentStatusService
         return $this->autoMapping->map(ShipmentStatusEntity::class, ShipmentStatusGetResponse::class, $shipmentStatusResult);
     }
 
-    public function updateShipmentStatusByShipmentIdAndTrackNumber(ShipmentStatusUpdateRequest $request)
+    public function updateShipmentStatusByShipmentIdAndTrackNumber(ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest $request)
     {
         $shipmentStatusEntity = $this->shipmentStatusManager->updateShipmentStatusByShipmentIdAndTrackNumber($request);
         
