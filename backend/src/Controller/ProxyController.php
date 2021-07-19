@@ -31,11 +31,11 @@ class ProxyController extends BaseController
     }
 
     /**
-     * @Route("proxy", name="createProxy", methods={"POST"})
+     * @Route("warehouseagent", name="createWarehouseAgent", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      * 
-     * @OA\Tag(name="Proxy")
+     * @OA\Tag(name="Warehouse Agent")
      * 
      * @OA\Parameter(
      *      name="token",
@@ -45,7 +45,7 @@ class ProxyController extends BaseController
      * )
      * 
      * @OA\RequestBody(
-     *      description="Create new proxy",
+     *      description="Create new warehouse agent",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="fullName"),
      *          @OA\Property(type="string", property="phone"),
@@ -55,7 +55,7 @@ class ProxyController extends BaseController
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns the creation date of the new proxy",
+     *      description="Returns the creation date of the new warehouse agent",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -90,14 +90,14 @@ class ProxyController extends BaseController
     }
 
     /**
-     * @Route("proxies", name="getAllProxies", methods={"GET"})
+     * @Route("warehousesagents", name="getAllWarehousesAgents", methods={"GET"})
      * @return JsonResponse
      * 
-     * @OA\Tag(name="Proxy")
+     * @OA\Tag(name="Warehouse Agent")
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns array of objects which each one represent a proxy",
+     *      description="Returns array of objects which each one represent a warehouse agent",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
