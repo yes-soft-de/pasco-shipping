@@ -50,7 +50,7 @@ class CountryController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns the info of the new country",
+     *      description="Returns the creation date of the new country",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -124,7 +124,7 @@ class CountryController extends BaseController
      *                          @OA\Property(type="integer", property="countryID"),
      *                          @OA\Property(type="string", property="location"),
      *                          @OA\Property(type="integer", property="proxyID"),
-     *                          @OA\Property(type="string", property="rentingFee"),
+     *                          @OA\Property(type="number", property="rentingFee"),
      *                          @OA\Property(type="string", property="name"),
      *                          @OA\Property(type="object", property="createdAt"),
      *                          @OA\Property(type="object", property="updatedAt"),
@@ -199,7 +199,7 @@ class CountryController extends BaseController
      *                          @OA\Property(type="integer", property="countryID"),
      *                          @OA\Property(type="string", property="location"),
      *                          @OA\Property(type="integer", property="proxyID"),
-     *                          @OA\Property(type="string", property="rentingFee"),
+     *                          @OA\Property(type="number", property="rentingFee"),
      *                          @OA\Property(type="string", property="name"),
      *                          @OA\Property(type="object", property="createdAt"),
      *                          @OA\Property(type="object", property="updatedAt"),
@@ -260,7 +260,7 @@ class CountryController extends BaseController
      *                          @OA\Property(type="integer", property="countryID"),
      *                          @OA\Property(type="string", property="location"),
      *                          @OA\Property(type="integer", property="proxyID"),
-     *                          @OA\Property(type="string", property="rentingFee"),
+     *                          @OA\Property(type="number", property="rentingFee"),
      *                          @OA\Property(type="string", property="name"),
      *                          @OA\Property(type="object", property="createdAt"),
      *                          @OA\Property(type="object", property="updatedAt"),

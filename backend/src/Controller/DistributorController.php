@@ -50,7 +50,7 @@ class DistributorController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns the info of the new distributor",
+     *      description="Returns the creation date of the new distributor",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),

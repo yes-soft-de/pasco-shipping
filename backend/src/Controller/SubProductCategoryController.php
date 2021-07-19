@@ -51,7 +51,7 @@ class SubProductCategoryController extends BaseController
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns the info of the sub category",
+     *      description="Returns the creation date of the sub category",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -112,7 +112,7 @@ class SubProductCategoryController extends BaseController
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns the info of the product category",
+     *      description="Returns the info of the sub product category",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -223,7 +223,7 @@ class SubProductCategoryController extends BaseController
      *      )
      * )
      */
-    public function deleteProductCategoryById(Request $request)
+    public function deleteSubProductCategoryById(Request $request)
     {
         $request = new DeleteRequest($request->get('id'));
 

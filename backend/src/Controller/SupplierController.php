@@ -50,7 +50,7 @@ class SupplierController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns the info of the new supplier",
+     *      description="Returns the creation date of the new supplier",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -99,7 +99,7 @@ class SupplierController extends BaseController
      * )
      *
      * @OA\RequestBody(
-     *      description="Update a specific distributor",
+     *      description="Update a specific supplier",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="string", property="fullName"),
