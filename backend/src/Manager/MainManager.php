@@ -76,12 +76,12 @@ class MainManager
         $statisticsResponse["travels"]["flight"]["total"] = $this->travelManager->getCountOfTravelsByType(TravelTypeConstant::$FLIGHT_TRAVEL_TYPE);
         $statisticsResponse["travels"]["flight"]["current"] = count($this->travelManager->getTravelsByTypeAndStatus(TravelTypeConstant::$FLIGHT_TRAVEL_TYPE, TravelStatusConstant::$CURRENT_TRAVEL_STATUS));
         $statisticsResponse["travels"]["flight"]["started"] = count($this->travelManager->getTravelsByTypeAndStatus(TravelTypeConstant::$FLIGHT_TRAVEL_TYPE, TravelStatusConstant::$STARTED_TRAVEL_STATUS));
-        $statisticsResponse["travels"]["flight"]["arrived"] = count($this->travelManager->getTravelsByTypeAndStatus(TravelTypeConstant::$FLIGHT_TRAVEL_TYPE, TravelStatusConstant::$ARRIVED_TRAVEL_STATUS));
+        $statisticsResponse["travels"]["flight"]["released"] = count($this->travelManager->getTravelsByTypeAndStatus(TravelTypeConstant::$FLIGHT_TRAVEL_TYPE, TravelStatusConstant::$RELEASED_TRAVEL_STATUS));
         
         $statisticsResponse["travels"]["cruise"]["total"] = $this->travelManager->getCountOfTravelsByType(TravelTypeConstant::$CRUISE_TRAVEL_TYPE);
         $statisticsResponse["travels"]["cruise"]["current"] = count($this->travelManager->getTravelsByTypeAndStatus(TravelTypeConstant::$CRUISE_TRAVEL_TYPE, TravelStatusConstant::$CURRENT_TRAVEL_STATUS));
         $statisticsResponse["travels"]["cruise"]["started"] = count($this->travelManager->getTravelsByTypeAndStatus(TravelTypeConstant::$CRUISE_TRAVEL_TYPE, TravelStatusConstant::$STARTED_TRAVEL_STATUS));
-        $statisticsResponse["travels"]["cruise"]["arrived"] = count($this->travelManager->getTravelsByTypeAndStatus(TravelTypeConstant::$CRUISE_TRAVEL_TYPE, TravelStatusConstant::$ARRIVED_TRAVEL_STATUS));
+        $statisticsResponse["travels"]["cruise"]["released"] = count($this->travelManager->getTravelsByTypeAndStatus(TravelTypeConstant::$CRUISE_TRAVEL_TYPE, TravelStatusConstant::$RELEASED_TRAVEL_STATUS));
 
         $statisticsResponse["users"]["customers"] = $this->userManager->getCountOfAllClientsProfiles();
         $statisticsResponse["users"]["employees"] = $this->adminManager->getCountOfAllAdmins();
