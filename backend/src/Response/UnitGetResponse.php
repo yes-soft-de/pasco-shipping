@@ -8,6 +8,8 @@ class UnitGetResponse
 
     public $name;
 
+    public $description;
+
     public $createdAt;
 
     public $updatedAt;
