@@ -187,7 +187,10 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUser"),
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
-     *                  @OA\Property(type="string", property="subcontractName")
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="array", property="holders",
+     *                      @OA\Items()
+     *                  )
      *              )
      *          )
      *      )
@@ -243,7 +246,10 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUser"),
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
-     *                  @OA\Property(type="string", property="subcontractName")
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="array", property="holders",
+     *                      @OA\Items()
+     *                  )
      *              )
      *          )
      *      )
@@ -291,15 +297,30 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUser"),
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
-     *                  @OA\Property(type="string", property="subcontractName")
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="array", property="holders",
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="integer", property="shipmentID"),
+     *                          @OA\Property(type="string", property="trackNumber"),
+     *                          @OA\Property(type="integer", property="travelID"),
+     *                          @OA\Property(type="string", property="holderType"),
+     *                          @OA\Property(type="integer", property="holderID"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="object", property="updatedAt"),
+     *                          @OA\Property(type="integer", property="createdBy"),
+     *                          @OA\Property(type="integer", property="updatedBy"),
+     *                          @OA\Property(type="object", property="0")
+     *                      )
+     *                  )
      *          )
      *      )
      * )
      * 
      */
-    public function getTravelsByID($id)
+    public function getTravelByID($id)
     {
-        $result = $this->travelService->getTravelsByID($id);
+        $result = $this->travelService->getTravelByID($id);
 
         return $this->response($result, self::FETCH);
     }

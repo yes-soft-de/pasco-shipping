@@ -86,28 +86,21 @@ class TravelService
         return $travelsResponse;
     }
 
-    public function getTravelsByID($id)
+    public function getTravelByID($id)
     {
-        $travelsResponse = [];
+        $travel = $this->travelManager->getTravelByID($id);
 
-        $travels = $this->travelManager->getTravelsByID($id);
-        
-        foreach($travels as $row)
-        {   
-            if($row['createdByUserImage'])
-            {
-                $row['createdByUserImage'] = $this->params . $row['createdByUserImage'];
-            }
-
-            if($row['updatedByUserImage'])
-            {
-                $row['updatedByUserImage'] = $this->params . $row['updatedByUserImage'];
-            }
-
-            $travelsResponse[] = $this->autoMapping->map('array', TravelGetResponse::class, $row);
+        if($travel['createdByUserImage'])
+        {
+            $travel['createdByUserImage'] = $this->params . $travel['createdByUserImage'];
         }
 
-        return $travelsResponse;
+        if($travel['updatedByUserImage'])
+        {
+            $travel['updatedByUserImage'] = $this->params . $travel['updatedByUserImage'];
+        }
+
+        return $this->autoMapping->map('array', TravelGetResponse::class, $travel);
     }
 
 }

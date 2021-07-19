@@ -81,9 +81,13 @@ class TravelManager
         return $this->travelEntityRepository->getTravelsByTypeAndStatus($type, $status);
     }
 
-    public function getTravelsByID($id)
+    public function getTravelByID($id)
     {
-        return $this->travelEntityRepository->getTravelsByID($id);
+        $travel = $this->travelEntityRepository->getTravelByID($id);
+
+        $travel['holders'] = $this->trackManager->getByTravelID($travel['id']);
+        
+        return $travel;
     }
 
     public function getCountOfTravelsByType($type)

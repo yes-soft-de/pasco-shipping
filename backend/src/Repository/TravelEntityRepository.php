@@ -99,7 +99,7 @@ class TravelEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getTravelsByID($id)
+    public function getTravelByID($id)
     {
         return $this->createQueryBuilder('travel')
             ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
@@ -131,7 +131,7 @@ class TravelEntityRepository extends ServiceEntityRepository
             )
             
             ->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
 
 }

@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\HolderTypeConstant;
 use App\Constant\ShipmentStatusConstant;
 use App\Entity\TrackEntity;
 use App\Repository\TrackEntityRepository;
@@ -171,6 +172,33 @@ class TrackManager
     public function getAirwaybillById($id)
     {
         return $this->airwaybillManager->getAirwaybillById($id);
+    }
+
+    public function getByTravelID($travelID)
+    {
+        $tracks = $this->trackEntityRepository->getTracksByTravelID($travelID);
+        
+        // Get the containers/airwaybills information
+        if($tracks)
+        {
+            $index = 0;
+
+            foreach($tracks as $track)
+            {
+                if($track['holderType'] == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
+                {
+                    $tracks[$index][] = $this->containerManager->getContainerById($track['holderID']);
+                }
+                if($track['holderType'] == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
+                {
+                    $tracks[$index][] = $this->airwaybillManager->getAirwaybillById($track['holderID']);
+                }
+                
+                $index++;
+            }
+        }
+
+        return $tracks;
     }
 
 }

@@ -34,4 +34,6 @@ class TravelGetResponse
 
     public $status;
 
+    public $holders;
+
 }
