@@ -83,7 +83,7 @@ class TrackService
 
                     if ($airwaybill)
                     {
-                        $result["holderInfo"]["IdentificationNumber"] = $airwaybill["containerNumber"];
+                        $result["holderInfo"]["IdentificationNumber"] = $airwaybill["airwaybillNumber"];
                         $result["holderInfo"]["status"] = $airwaybill["status"];
                     }
                 }
