@@ -108,6 +108,29 @@ App\Request\TravelStatusUpdateRequest:
     status:
       - NotBlank: ~
 
+App\Request\TravelUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+    type:
+      - NotBlank: ~
+    launchCountry:
+      - NotBlank: ~
+    destinationCountry:
+      - NotBlank: ~
+    launchDate:
+      - NotBlank: ~
+    arrivalDate:
+      - NotBlank: ~
+    travelNumber:
+      - NotBlank: ~
+    shipperID:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+
 App\Request\WarehouseCreateRequest:
   properties:
     name:

@@ -95,7 +95,7 @@ class MarkController extends BaseController
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="integer", property="markNumber"),
+     *                  @OA\Property(type="string", property="markNumber"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt")
      *          )
@@ -126,7 +126,7 @@ class MarkController extends BaseController
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="integer", property="markNumber"),
+     *                  @OA\Property(type="string", property="markNumber"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt")
      *          )

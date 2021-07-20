@@ -7,6 +7,7 @@ use App\Entity\TravelEntity;
 use App\Manager\TravelManager;
 use App\Request\TravelCreateRequest;
 use App\Request\TravelStatusUpdateRequest;
+use App\Request\TravelUpdateRequest;
 use App\Response\TravelCreateResponse;
 use App\Response\TravelGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -29,6 +30,13 @@ class TravelService
         $travelResult = $this->travelManager->create($request);
 
         return $this->autoMapping->map(TravelEntity::class, TravelCreateResponse::class, $travelResult);
+    }
+
+    public function update(TravelUpdateRequest $request)
+    {
+        $travelEntity = $this->travelManager->update($request);
+
+        return $this->autoMapping->map(TravelEntity::class, TravelGetResponse::class, $travelEntity);
     }
 
     public function updateTravelStatus(TravelStatusUpdateRequest $request)
@@ -86,28 +94,35 @@ class TravelService
         return $travelsResponse;
     }
 
-    public function getTravelsByID($id)
+    public function getTravelByID($id)
     {
-        $travelsResponse = [];
+        $travel = $this->travelManager->getTravelByID($id);
 
-        $travels = $this->travelManager->getTravelsByID($id);
-        
-        foreach($travels as $row)
-        {   
-            if($row['createdByUserImage'])
-            {
-                $row['createdByUserImage'] = $this->params . $row['createdByUserImage'];
-            }
-
-            if($row['updatedByUserImage'])
-            {
-                $row['updatedByUserImage'] = $this->params . $row['updatedByUserImage'];
-            }
-
-            $travelsResponse[] = $this->autoMapping->map('array', TravelGetResponse::class, $row);
+        if($travel['createdByUserImage'])
+        {
+            $travel['createdByUserImage'] = $this->params . $travel['createdByUserImage'];
         }
 
-        return $travelsResponse;
+        if($travel['updatedByUserImage'])
+        {
+            $travel['updatedByUserImage'] = $this->params . $travel['updatedByUserImage'];
+        }
+
+        return $this->autoMapping->map('array', TravelGetResponse::class, $travel);
+    }
+
+    public function delete($request)
+    {
+        $result = $this->travelManager->delete($request);
+
+        if($result instanceof TravelEntity)
+        {
+            return $this->autoMapping->map(TravelEntity::class, TravelGetResponse::class, $result);
+        }
+        else
+        {
+            return $result;
+        }
     }
 
 }

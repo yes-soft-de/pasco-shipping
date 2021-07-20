@@ -108,7 +108,7 @@ class UnitController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns the info of the country",
+     *      description="Returns the info of the unit",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -215,7 +215,7 @@ class UnitController extends BaseController
      *      )
      * )
      */
-    public function deleteCountryById(Request $request)
+    public function deleteUnitById(Request $request)
     {
         $request = new DeleteRequest($request->get('id'));
 

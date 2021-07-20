@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\DeleteRequest;
 use App\Request\TravelCreateRequest;
 use App\Request\TravelStatusUpdateRequest;
+use App\Request\TravelUpdateRequest;
 use App\Service\TravelService;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -47,8 +49,7 @@ class TravelController extends BaseController
      *          @OA\Property(type="string", property="launchDate"),
      *          @OA\Property(type="string", property="arrivalDate"),
      *          @OA\Property(type="string", property="travelNumber"),
-     *          @OA\Property(type="integer", property="shipperID"),
-     *          @OA\Property(type="string", property="status")
+     *          @OA\Property(type="integer", property="shipperID")
      *      )
      * )
      * 
@@ -89,7 +90,82 @@ class TravelController extends BaseController
     }
 
     /**
-     * @Route("travelstatus", name="updateTravel", methods={"PUT"})
+     * @Route("travel", name="updateTravel", methods={"PUT"})
+     * @param Request $request
+     * @return JsonResponse
+     * 
+     * @OA\Tag(name="Travel")
+     * 
+     * @OA\RequestBody(
+     *      description="Update a travel",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="string", property="status"),
+     *          @OA\Property(type="string", property="type"),
+     *          @OA\Property(type="string", property="launchCountry"),
+     *          @OA\Property(type="string", property="destinationCountry"),
+     *          @OA\Property(type="string", property="launchDate"),
+     *          @OA\Property(type="string", property="arrivalDate"),
+     *          @OA\Property(type="string", property="travelNumber"),
+     *          @OA\Property(type="integer", property="shipperID")
+     *      )
+     * )
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the travel",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="launchCountry"),
+     *                  @OA\Property(type="string", property="destinationCountry"),
+     *                  @OA\Property(type="object", property="launchDate"),
+     *                  @OA\Property(type="object", property="arrivalDate"),
+     *                  @OA\Property(type="string", property="travelNumber"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="array", property="holders",
+     *                      @OA\Items()
+     *                  )
+     *          )
+     *      )
+     * )
+     * 
+     * @Security(name="Bearer")
+     */
+    public function update(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, TravelUpdateRequest::class, (object)$data);
+
+        $request->setUpdatedBy($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->travelService->update($request);
+
+        return $this->response($result, self::UPDATE);
+    }
+
+    /**
+     * @Route("travelstatus", name="updateTravelStatus", methods={"PUT"})
      * @param Request $request
      * @return JsonResponse
      * 
@@ -124,7 +200,10 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUser"),
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
-     *                  @OA\Property(type="string", property="subcontractName")
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="array", property="holders",
+     *                      @OA\Items()
+     *                  )
      *          )
      *      )
      * )
@@ -188,7 +267,10 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUser"),
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
-     *                  @OA\Property(type="string", property="subcontractName")
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="array", property="holders",
+     *                      @OA\Items()
+     *                  )
      *              )
      *          )
      *      )
@@ -244,7 +326,10 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUser"),
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
-     *                  @OA\Property(type="string", property="subcontractName")
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="array", property="holders",
+     *                      @OA\Items()
+     *                  )
      *              )
      *          )
      *      )
@@ -292,17 +377,89 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUser"),
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
-     *                  @OA\Property(type="string", property="subcontractName")
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="array", property="holders",
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="integer", property="shipmentID"),
+     *                          @OA\Property(type="string", property="trackNumber"),
+     *                          @OA\Property(type="integer", property="travelID"),
+     *                          @OA\Property(type="string", property="holderType"),
+     *                          @OA\Property(type="integer", property="holderID"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="object", property="updatedAt"),
+     *                          @OA\Property(type="integer", property="createdBy"),
+     *                          @OA\Property(type="integer", property="updatedBy"),
+     *                          @OA\Property(type="object", property="0")
+     *                      )
+     *                  )
      *          )
      *      )
      * )
      * 
      */
-    public function getTravelsByID($id)
+    public function getTravelByID($id)
     {
-        $result = $this->travelService->getTravelsByID($id);
+        $result = $this->travelService->getTravelByID($id);
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("travel/{id}", name="deleteTravel", methods={"DELETE"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Travel")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the deleted travel",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="launchCountry"),
+     *                  @OA\Property(type="string", property="destinationCountry"),
+     *                  @OA\Property(type="object", property="launchDate"),
+     *                  @OA\Property(type="object", property="arrivalDate"),
+     *                  @OA\Property(type="string", property="travelNumber"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="array", property="holders",
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="integer", property="shipmentID"),
+     *                          @OA\Property(type="string", property="trackNumber"),
+     *                          @OA\Property(type="integer", property="travelID"),
+     *                          @OA\Property(type="string", property="holderType"),
+     *                          @OA\Property(type="integer", property="holderID"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="object", property="updatedAt"),
+     *                          @OA\Property(type="integer", property="createdBy"),
+     *                          @OA\Property(type="integer", property="updatedBy"),
+     *                          @OA\Property(type="object", property="0")
+     *                      )
+     *                  )
+     *          )
+     *      )
+     * )
+     */
+    public function delete(Request $request)
+    {
+        $request = new DeleteRequest($request->get('id'));
+
+        $result = $this->travelService->delete($request);
+
+        return $this->response($result, self::DELETE);
     }
 
 }

@@ -6,9 +6,11 @@ use App\AutoMapping;
 use App\Constant\TravelStatusConstant;
 use App\Entity\TravelEntity;
 use App\Repository\TravelEntityRepository;
+use App\Request\DeleteRequest;
 use App\Request\TrackUpdateByTravelIdRequest;
 use App\Request\TravelCreateRequest;
 use App\Request\TravelStatusUpdateRequest;
+use App\Request\TravelUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class TravelManager
@@ -39,6 +41,28 @@ class TravelManager
         $this->entityManager->clear();
 
         return $travelEntity;
+    }
+
+    public function update(TravelUpdateRequest $request)
+    {
+        $travelEntity = $this->travelEntityRepository->find($request->getId());
+
+        if(!$travelEntity)
+        {
+            return $travelEntity;
+        }
+        else
+        {
+            $travelEntity = $this->autoMapping->mapToObject(TravelUpdateRequest::class, TravelEntity::class, $request, $travelEntity);
+
+            $travelEntity->setLaunchDate($request->getLaunchDate());
+            $travelEntity->setArrivalDate($request->getArrivalDate());
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $travelEntity;
+        }
     }
 
     public function updateTravelStatus(TravelStatusUpdateRequest $request)
@@ -81,9 +105,13 @@ class TravelManager
         return $this->travelEntityRepository->getTravelsByTypeAndStatus($type, $status);
     }
 
-    public function getTravelsByID($id)
+    public function getTravelByID($id)
     {
-        return $this->travelEntityRepository->getTravelsByID($id);
+        $travel = $this->travelEntityRepository->getTravelByID($id);
+
+        $travel['holders'] = $this->trackManager->getByTravelID($travel['id']);
+        
+        return $travel;
     }
 
     public function getCountOfTravelsByType($type)
@@ -94,6 +122,34 @@ class TravelManager
     public function getCountOfAllTravels()
     {
         return count($this->travelEntityRepository->findAll());
+    }
+
+    public function delete(DeleteRequest $request)
+    {
+        $item = $this->travelEntityRepository->find($request->getId());
+
+        if(!$item)
+        {
+            return $item;
+        }
+        else
+        {
+            //Check if the travel isn't being used yet
+            $result = $this->trackManager->getByTravelID($request->getId());
+            
+            if(!$result)
+            {
+                //its safe to delete the travel
+                $this->entityManager->remove($item);
+                $this->entityManager->flush();
+            }
+            else
+            {
+                return "The travel is being used. We can not delete it!";
+            }
+        }
+
+        return $item;
     }
 
 }

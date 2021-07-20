@@ -67,6 +67,21 @@ class TrackEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getTracksByTravelID($travelID)
+    {
+        return $this->createQueryBuilder('track')
+            ->select('track.id', 'track.shipmentID', 'track.trackNumber', 'track.travelID', 'track.holderType', 'track.holderID', 'track.createdAt', 'track.updatedAt', 'track.createdBy', 
+            'track.updatedBy')
+
+            ->andWhere('track.travelID = :travelID')
+            ->setParameter('travelID', $travelID)
+
+            ->orderBy('track.id', 'DESC')
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
         return $this->createQueryBuilder('track')

@@ -48,7 +48,7 @@ class ClientController extends BaseController
      * 
      * @OA\Response(
      *      response=200,
-     *      description="Returns the new client's role",
+     *      description="Returns the new client's role and the creation date",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
