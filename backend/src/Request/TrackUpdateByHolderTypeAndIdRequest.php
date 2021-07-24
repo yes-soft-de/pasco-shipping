@@ -34,4 +34,9 @@ class TrackUpdateByHolderTypeAndIdRequest
         return $this->holderID;
     }
 
+    public function getShipmentStatus()
+    {
+        return $this->shipmentStatus;
+    }
+
 }
