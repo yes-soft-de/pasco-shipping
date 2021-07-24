@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\DeleteRequest;
 use App\Request\TravelCreateRequest;
+use App\Request\TravelFilterRequest;
 use App\Request\TravelStatusUpdateRequest;
 use App\Request\TravelUpdateRequest;
 use App\Service\TravelService;
@@ -401,6 +402,76 @@ class TravelController extends BaseController
     public function getTravelByID($id)
     {
         $result = $this->travelService->getTravelByID($id);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("filtertravels", name="filterTravels", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Travel")
+     *
+     * @OA\RequestBody(
+     *      description="Post a request with filtering option",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="type"),
+     *          @OA\Property(type="string", property="launchCountry"),
+     *          @OA\Property(type="string", property="destinationCountry"),
+     *          @OA\Property(type="string", property="launchDate"),
+     *          @OA\Property(type="string", property="arrivalDate"),
+     *          @OA\Property(type="string", property="travelNumber"),
+     *          @OA\Property(type="integer", property="shipperID")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the travel",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="launchCountry"),
+     *                  @OA\Property(type="string", property="destinationCountry"),
+     *                  @OA\Property(type="object", property="launchDate"),
+     *                  @OA\Property(type="object", property="arrivalDate"),
+     *                  @OA\Property(type="string", property="travelNumber"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="array", property="holders",
+     *                      @OA\Items()
+     *                  )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function filterTravels(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, TravelFilterRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->travelService->filterTravels($request);
 
         return $this->response($result, self::FETCH);
     }

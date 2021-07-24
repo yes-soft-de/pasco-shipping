@@ -134,4 +134,355 @@ class TravelEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function getTravelsByType($type)
+    {
+        return $this->createQueryBuilder('travel')
+            ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
+             'travel.status', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
+             'travel.shipperID', 'subcontractEntity.fullName as subcontractName', 'travel.createdAt', 'travel.updatedAt')
+
+            ->andWhere('travel.type = :type')
+            ->setParameter('type', $type)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = travel.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = travel.updatedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = travel.shipperID'
+            )
+
+            ->orderBy('travel.id', 'DESC')
+            
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getTravelsByLaunchCountry($launchCountry)
+    {
+        return $this->createQueryBuilder('travel')
+            ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
+             'travel.status', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
+             'travel.shipperID', 'subcontractEntity.fullName as subcontractName', 'travel.createdAt', 'travel.updatedAt')
+
+            ->andWhere('travel.launchCountry = :launchCountry')
+            ->setParameter('launchCountry', $launchCountry)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = travel.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = travel.updatedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = travel.shipperID'
+            )
+
+            ->orderBy('travel.id', 'DESC')
+            
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getTravelsByDestinationCountry($destinationCountry)
+    {
+        return $this->createQueryBuilder('travel')
+            ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
+             'travel.status', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
+             'travel.shipperID', 'subcontractEntity.fullName as subcontractName', 'travel.createdAt', 'travel.updatedAt')
+
+            ->andWhere('travel.destinationCountry = :destinationCountry')
+            ->setParameter('destinationCountry', $destinationCountry)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = travel.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = travel.updatedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = travel.shipperID'
+            )
+
+            ->orderBy('travel.id', 'DESC')
+            
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getTravelsByLaunchDate($launchDate)
+    {
+        return $this->createQueryBuilder('travel')
+            ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
+             'travel.status', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
+             'travel.shipperID', 'subcontractEntity.fullName as subcontractName', 'travel.createdAt', 'travel.updatedAt')
+
+            ->andWhere('travel.launchDate = :launchDate')
+            ->setParameter('launchDate', $launchDate)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = travel.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = travel.updatedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = travel.shipperID'
+            )
+
+            ->orderBy('travel.id', 'DESC')
+            
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getTravelsByArrivalDate($arrivalDate)
+    {
+        return $this->createQueryBuilder('travel')
+            ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
+             'travel.status', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
+             'travel.shipperID', 'subcontractEntity.fullName as subcontractName', 'travel.createdAt', 'travel.updatedAt')
+
+            ->andWhere('travel.arrivalDate = :arrivalDate')
+            ->setParameter('arrivalDate', $arrivalDate)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = travel.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = travel.updatedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = travel.shipperID'
+            )
+
+            ->orderBy('travel.id', 'DESC')
+            
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getTravelsByShipperID($shipperID)
+    {
+        return $this->createQueryBuilder('travel')
+            ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
+             'travel.status', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
+             'travel.shipperID', 'subcontractEntity.fullName as subcontractName', 'travel.createdAt', 'travel.updatedAt')
+
+            ->andWhere('travel.shipperID = :shipperID')
+            ->setParameter('shipperID', $shipperID)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = travel.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = travel.updatedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = travel.shipperID'
+            )
+
+            ->orderBy('travel.id', 'DESC')
+            
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getTravelsByTypeAndLaunchCountry($type, $launchCountry)
+    {
+        return $this->createQueryBuilder('travel')
+            ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
+             'travel.status', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
+             'travel.shipperID', 'subcontractEntity.fullName as subcontractName', 'travel.createdAt', 'travel.updatedAt')
+
+            ->andWhere('travel.type = :type')
+            ->setParameter('type', $type)
+
+            ->andWhere('travel.launchCountry = :launchCountry')
+            ->setParameter('launchCountry', $launchCountry)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = travel.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = travel.updatedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = travel.shipperID'
+            )
+
+            ->orderBy('travel.id', 'DESC')
+            
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getTravelsByTypeAndLaunchAndDestinationCountry($type, $launchCountry, $destinationCountry)
+    {
+        return $this->createQueryBuilder('travel')
+            ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
+             'travel.status', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
+             'travel.shipperID', 'subcontractEntity.fullName as subcontractName', 'travel.createdAt', 'travel.updatedAt')
+
+            ->andWhere('travel.type = :type')
+            ->setParameter('type', $type)
+
+            ->andWhere('travel.launchCountry = :launchCountry')
+            ->setParameter('launchCountry', $launchCountry)
+
+            ->andWhere('travel.destinationCountry = :destinationCountry')
+            ->setParameter('destinationCountry', $destinationCountry)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = travel.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = travel.updatedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = travel.shipperID'
+            )
+
+            ->orderBy('travel.id', 'DESC')
+            
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getTravelsByTypeAndLaunchAndDestinationCountrAndLaunchDate($type, $launchCountry, $destinationCountry, $launchDate)
+    {
+        return $this->createQueryBuilder('travel')
+            ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
+             'travel.status', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
+             'travel.shipperID', 'subcontractEntity.fullName as subcontractName', 'travel.createdAt', 'travel.updatedAt')
+
+            ->andWhere('travel.type = :type')
+            ->setParameter('type', $type)
+
+            ->andWhere('travel.launchCountry = :launchCountry')
+            ->setParameter('launchCountry', $launchCountry)
+
+            ->andWhere('travel.destinationCountry = :destinationCountry')
+            ->setParameter('destinationCountry', $destinationCountry)
+
+            ->andWhere('travel.launchDate = :launchDate')
+            ->setParameter('launchDate', $launchDate)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = travel.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = travel.updatedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = travel.shipperID'
+            )
+
+            ->orderBy('travel.id', 'DESC')
+            
+            ->getQuery()
+            ->getResult();
+    }
+
 }
