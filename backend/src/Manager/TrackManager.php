@@ -174,7 +174,7 @@ class TrackManager
         return $this->airwaybillManager->getAirwaybillById($id);
     }
 
-    public function getByTravelID($travelID)
+    public function getTracksByTravelID($travelID)
     {
         $tracks = $this->trackEntityRepository->getTracksByTravelID($travelID);
         

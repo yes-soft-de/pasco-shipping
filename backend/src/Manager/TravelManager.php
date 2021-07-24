@@ -109,7 +109,7 @@ class TravelManager
     {
         $travel = $this->travelEntityRepository->getTravelByID($id);
 
-        $travel['holders'] = $this->trackManager->getByTravelID($travel['id']);
+        $travel['holders'] = $this->trackManager->getTracksByTravelID($travel['id']);
         
         return $travel;
     }
@@ -135,7 +135,7 @@ class TravelManager
         else
         {
             //Check if the travel isn't being used yet
-            $result = $this->trackManager->getByTravelID($request->getId());
+            $result = $this->trackManager->getTracksByTravelID($request->getId());
             
             if(!$result)
             {
