@@ -79,4 +79,28 @@ class ContainerService
         return $this->autoMapping->map('array', ContainerGetResponse::class, $container);
     }
 
+    public function filterContainers($request)
+    {
+        $containersResponse = [];
+
+        $containers = $this->containerManager->filterContainers($request);
+
+        foreach($containers as $container)
+        {
+            if($container['createdByUserImage'])
+            {
+                $container['createdByUserImage'] = $this->params . $container['createdByUserImage'];
+            }
+
+            if($container['updatedByUserImage'])
+            {
+                $container['updatedByUserImage'] = $this->params . $container['updatedByUserImage'];
+            }
+
+            $containersResponse[] = $this->autoMapping->map('array', ContainerGetResponse::class, $container);
+        }
+
+        return $containersResponse;
+    }
+
 }
