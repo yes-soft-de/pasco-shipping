@@ -210,6 +210,15 @@ App\Request\ProxyCreateRequest:
     createdBy:
       - NotBlank: ~
 
+App\Request\ProxyUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    fullName:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
 App\Request\SupplierCreateRequest:
   properties:
     fullName:

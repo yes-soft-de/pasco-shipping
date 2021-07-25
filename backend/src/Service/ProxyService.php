@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\ProxyEntity;
 use App\Manager\ProxyManager;
 use App\Request\ProxyCreateRequest;
+use App\Request\ProxyUpdateRequest;
 use App\Response\ProxyCreateResponse;
 use App\Response\ProxyGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -28,6 +29,27 @@ class ProxyService
         $proxyResult = $this->proxyManager->create($request);
 
         return $this->autoMapping->map(ProxyEntity::class, ProxyCreateResponse::class, $proxyResult);
+    }
+
+    public function update(ProxyUpdateRequest $request)
+    {
+        $proxyResult = $this->proxyManager->update($request);
+
+        return $this->autoMapping->map(ProxyEntity::class, ProxyGetResponse::class, $proxyResult);
+    }
+
+    public function delete($request)
+    {
+        $proxyResult = $this->proxyManager->delete($request);
+
+        if($proxyResult instanceof ProxyEntity)
+        {
+            return $this->autoMapping->map(ProxyEntity::class, ProxyGetResponse::class, $proxyResult);
+        }
+        else
+        {
+            return $proxyResult;
+        }
     }
 
     public function getAllProxies()

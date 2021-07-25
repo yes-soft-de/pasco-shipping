@@ -87,7 +87,11 @@ class TrackManager
 
     public function updateByHolderTypeAndHolderID(TrackUpdateByHolderTypeAndIdRequest $request)
     {
-        //Firstly, we update the track records
+        /**
+         * Call this function when we want to update multiple shipments status related to specific holder
+         * after UPLOADING the holder, or after CUSTOM CLEARING the holder, or after TRANSFERRING the holder to
+         * the proxy warehouse in the target city.
+         */
         $tracks = $this->trackEntityRepository->getByHolderTypeAndHolderID($request->getHolderType(), $request->getHolderID());
 
         if(!$tracks)
@@ -96,11 +100,15 @@ class TrackManager
         }
         else
         {
-            foreach($tracks as $track)
+            // If the function is called after uploading the holder to a travel, then we update Track entity by entering the travel ID
+            if ($request->getShipmentStatus() == ShipmentStatusConstant::$UPLOADED_SHIPMENT_STATUS)
             {
-                $track = $this->autoMapping->mapToObject(TrackUpdateByHolderTypeAndIdRequest::class, TrackEntity::class, $request, $track);
-                
-                $this->entityManager->flush();
+                foreach($tracks as $track)
+                {
+                    $track = $this->autoMapping->mapToObject(TrackUpdateByHolderTypeAndIdRequest::class, TrackEntity::class, $request, $track);
+                    
+                    $this->entityManager->flush();
+                }
             }
 
             // Secondly, update the status in the ShipmentStatusEntity for all shipments
@@ -174,7 +182,7 @@ class TrackManager
         return $this->airwaybillManager->getAirwaybillById($id);
     }
 
-    public function getByTravelID($travelID)
+    public function getTracksByTravelID($travelID)
     {
         $tracks = $this->trackEntityRepository->getTracksByTravelID($travelID);
         

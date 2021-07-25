@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\ShipmentStatusCreateRequest;
-use App\Request\ShipmentStatusUpdateRequest;
+use App\Request\ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest;
 use App\Service\ShipmentStatusService;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -212,7 +212,7 @@ class ShipmentStatusController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, ShipmentStatusUpdateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest::class, (object)$data);
 
         $request->setUpdatedBy($this->getUserId());
 

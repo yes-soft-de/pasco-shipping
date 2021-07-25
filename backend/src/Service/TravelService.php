@@ -111,6 +111,30 @@ class TravelService
         return $this->autoMapping->map('array', TravelGetResponse::class, $travel);
     }
 
+    public function filterTravels($request)
+    {
+        $travelsResponse = [];
+
+        $travels = $this->travelManager->filterTravels($request);
+        
+        foreach($travels as $row)
+        {   
+            if($row['createdByUserImage'])
+            {
+                $row['createdByUserImage'] = $this->params . $row['createdByUserImage'];
+            }
+
+            if($row['updatedByUserImage'])
+            {
+                $row['updatedByUserImage'] = $this->params . $row['updatedByUserImage'];
+            }
+
+            $travelsResponse[] = $this->autoMapping->map('array', TravelGetResponse::class, $row);
+        }
+
+        return $travelsResponse;
+    }
+
     public function delete($request)
     {
         $result = $this->travelManager->delete($request);

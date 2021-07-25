@@ -12,6 +12,8 @@ class ShipmentStatusConstant
 
     static $STORED_SHIPMENT_STATUS = "stored";
 
+    static $UPLOADED_SHIPMENT_STATUS = "uploaded";
+
     static $STARTED_SHIPMENT_STATUS = "started";
 
     static $RELEASED_SHIPMENT_STATUS = "released";

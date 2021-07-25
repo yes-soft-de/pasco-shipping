@@ -125,4 +125,15 @@ class WarehouseEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getByProxyID($proxyID)
+    {
+        return $this->createQueryBuilder('warehouse')
+
+            ->andWhere('warehouse.proxyID = :proxyID')
+            ->setParameter('proxyID', $proxyID)
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }
