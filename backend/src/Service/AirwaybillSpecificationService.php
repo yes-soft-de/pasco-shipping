@@ -58,7 +58,14 @@ class AirwaybillSpecificationService
     {
         $result = $this->airwaybillSpecificationManager->deleteAirwaybillSpecificationById($request);
 
-        return $this->autoMapping->map(AirwaybillSpecificationEntity::class, AirwaybillSpecificationGetResponse::class, $result);
+        if($result instanceof AirwaybillSpecificationEntity)
+        {
+            return $this->autoMapping->map(AirwaybillSpecificationEntity::class, AirwaybillSpecificationGetResponse::class, $result);
+        }
+        else
+        {
+            return $result;
+        }
     }
 
 }

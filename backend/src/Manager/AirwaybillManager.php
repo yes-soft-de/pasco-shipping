@@ -106,4 +106,9 @@ class AirwaybillManager
         }
     }
 
+    public function getAirwaybillsBySpecificationID($specificationID)
+    {
+        return $this->airwaybillEntityRepository->getAirwaybillsBySpecificationID($specificationID);
+    }
+
 }
