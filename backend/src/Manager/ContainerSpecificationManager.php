@@ -14,12 +14,15 @@ class ContainerSpecificationManager
     private $autoMapping;
     private $entityManager;
     private $containerSpecificationEntityRepository;
+    private $containerManager;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ContainerSpecificationEntityRepository $containerSpecificationEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ContainerSpecificationEntityRepository $containerSpecificationEntityRepository,
+     ContainerManager $containerManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->containerSpecificationEntityRepository = $containerSpecificationEntityRepository;
+        $this->containerManager = $containerManager;
     }
 
     public function create(ContainerSpecificationCreateRequest $request)
@@ -40,19 +43,29 @@ class ContainerSpecificationManager
 
     public function deleteContainerSpecificationById(DeleteRequest $request)
     {
-        $item = $this->containerSpecificationEntityRepository->find($request->getId());
+        $containerSpecificationEntity = $this->containerSpecificationEntityRepository->find($request->getId());
 
-        if(!$item)
+        if(!$containerSpecificationEntity)
         {
-            return $item;
+            return $containerSpecificationEntity;
         }
         else
         {
-            $this->entityManager->remove($item);
-            $this->entityManager->flush();
-        }
+            //First, check if the specifications are used
+            $containers = $this->containerManager->getContainersBySpecificationID($request->getId());
 
-        return $item;
+            if($containers)
+            {
+                return "Can not delete the specifications because they are used before!";
+            }
+            else
+            {
+                $this->entityManager->remove($containerSpecificationEntity);
+                $this->entityManager->flush();
+            }
+
+            return $containerSpecificationEntity;
+        }
     }
 
 }

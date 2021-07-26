@@ -106,4 +106,9 @@ class ContainerManager
         }
     }
 
+    public function getContainersBySpecificationID($specificationID)
+    {
+        return $this->containerEntityRepository->getContainersBySpecificationID($specificationID);
+    }
+
 }
