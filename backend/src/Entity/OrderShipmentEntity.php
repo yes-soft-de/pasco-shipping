@@ -160,6 +160,16 @@ class OrderShipmentEntity
      */
     private $holderType;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $externalWarehouseInfo;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $isExternalWarehouse;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -497,6 +507,30 @@ class OrderShipmentEntity
     public function setHolderType(string $holderType): self
     {
         $this->holderType = $holderType;
+
+        return $this;
+    }
+
+    public function getExternalWarehouseInfo(): ?string
+    {
+        return $this->externalWarehouseInfo;
+    }
+
+    public function setExternalWarehouseInfo(?string $externalWarehouseInfo): self
+    {
+        $this->externalWarehouseInfo = $externalWarehouseInfo;
+
+        return $this;
+    }
+
+    public function getIsExternalWarehouse(): ?bool
+    {
+        return $this->isExternalWarehouse;
+    }
+
+    public function setIsExternalWarehouse(bool $isExternalWarehouse): self
+    {
+        $this->isExternalWarehouse = $isExternalWarehouse;
 
         return $this;
     }

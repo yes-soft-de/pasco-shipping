@@ -351,6 +351,8 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="integer", property="guniQuantity"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
+     *                  @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
@@ -422,6 +424,8 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
@@ -493,6 +497,8 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
@@ -564,7 +570,9 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="string", property="packetingBy"),
      *                  @OA\Property(type="number", property="weight"),
      *                  @OA\Property(type="string", property="qrCode"),
-     *                  @OA\Property(type="integer", property="guniQuantity")
+     *                  @OA\Property(type="integer", property="guniQuantity"),
+     *                  @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *          )
      *      )
      * )
@@ -635,6 +643,8 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
      *                  @OA\Property(type="string", property="trackCreatedByUser"),

@@ -65,7 +65,9 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="paymentTime"),
      *          @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *          @OA\Property(type="string", property="extraSpecification"),
-     *          @OA\Property(type="string", property="holderType", description="public or private container")
+     *          @OA\Property(type="string", property="holderType", description="public or private container"),
+     *          @OA\Property(type="text", property="externalWarehouseInfo"),
+     *          @OA\Property(type="boolean", property="isExternalWarehouse")
      *      )
      * )
      * 
@@ -157,6 +159,8 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
@@ -228,7 +232,9 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="updatedBy"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
-     *                  @OA\Property(type="string", property="status")
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *          )
      *      )
      * )
@@ -297,6 +303,8 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="trackNumber"),
      *          @OA\Property(type="string", property="shipmentStatus"),
      *          @OA\Property(type="string", property="statusDetails"),
+     *          @OA\Property(type="text", property="externalWarehouseInfo"),
+     *          @OA\Property(type="boolean", property="isExternalWarehouse")
      *      )
      * )
      *
@@ -333,6 +341,8 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
      *                  @OA\Property(type="string", property="orderUpdatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *          )
@@ -395,7 +405,9 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="paymentTime"),
      *          @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *          @OA\Property(type="string", property="extraSpecification"),
-     *          @OA\Property(type="string", property="holderType", description="public or private container")
+     *          @OA\Property(type="string", property="holderType", description="public or private container"),
+     *          @OA\Property(type="text", property="externalWarehouseInfo"),
+     *          @OA\Property(type="boolean", property="isExternalWarehouse")
      *      )
      * )
      *
@@ -429,6 +441,8 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
+     *                  @OA\Property(type="text", property="externalWarehouseInfo"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
@@ -507,6 +521,8 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
@@ -565,6 +581,8 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
@@ -627,6 +645,8 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
@@ -682,6 +702,8 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
