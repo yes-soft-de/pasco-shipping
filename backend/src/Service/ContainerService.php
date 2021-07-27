@@ -16,11 +16,14 @@ class ContainerService
     private $autoMapping;
     private $containerManager;
     private $params;
+    private $trackService;
 
-    public function __construct(AutoMapping $autoMapping, ContainerManager $containerManager, ParameterBagInterface $params)
+    public function __construct(AutoMapping $autoMapping, ContainerManager $containerManager, ParameterBagInterface $params, TrackService $trackService)
     {
         $this->autoMapping = $autoMapping;
         $this->containerManager = $containerManager;
+        $this->trackService = $trackService;
+
         $this->params = $params->get('upload_base_url') . '/';
     }
 
@@ -66,6 +69,8 @@ class ContainerService
     {
         $container = $this->containerManager->getContainerById($id);
 
+        $container['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID("container", $id);
+        
         if($container['createdByUserImage'])
         {
             $container['createdByUserImage'] = $this->params . $container['createdByUserImage'];
