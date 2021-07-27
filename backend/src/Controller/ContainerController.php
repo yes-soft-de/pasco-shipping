@@ -198,7 +198,10 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="number", property="capacityCPM"),
      *                  @OA\Property(type="number", property="widthInMeter"),
      *                  @OA\Property(type="number", property="hightInMeter"),
-     *                  @OA\Property(type="number", property="lengthInMeter")
+     *                  @OA\Property(type="number", property="lengthInMeter"),
+     *                  @OA\Property(type="array", property="shipments",
+     *                      @OA\Items()
+     *                  )
      *              )
      *          )
      *      )
@@ -250,6 +253,39 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="number", property="widthInMeter"),
      *                  @OA\Property(type="number", property="hightInMeter"),
      *                  @OA\Property(type="number", property="lengthInMeter"),
+     *                  @OA\Property(type="array", property="shipments",
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="integer", property="shipmentID"),
+     *                          @OA\Property(type="string", property="trackNumber"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="object", property="updatedAt"),
+     *                          @OA\Property(type="boolean", property="isInOneHolder"),
+     *                          @OA\Property(type="boolean", property="packed"),
+     *                          @OA\Property(type="string", property="target"),
+     *                          @OA\Property(type="integer", property="supplierName"),
+     *                          @OA\Property(type="string", property="distributorName"),
+     *                          @OA\Property(type="string", property="exportWarehouseName"),
+     *                          @OA\Property(type="string", property="importWarehouseName"),
+     *                          @OA\Property(type="integer", property="quantity"),
+     *                          @OA\Property(type="string", property="image"),
+     *                          @OA\Property(type="string", property="productCategoryName"),
+     *                          @OA\Property(type="integer", property="unit"),
+     *                          @OA\Property(type="string", property="receiverName"),
+     *                          @OA\Property(type="string", property="receiverPhoneNumber"),
+     *                          @OA\Property(type="string", property="markNumber"),
+     *                          @OA\Property(type="integer", property="packetingBy"),
+     *                          @OA\Property(type="string", property="paymentTime"),
+     *                          @OA\Property(type="number", property="weight"),
+     *                          @OA\Property(type="string", property="qrCode"),
+     *                          @OA\Property(type="integer", property="guniQuantity"),
+     *                          @OA\Property(type="string", property="vehicleIdentificationNumber"),
+     *                          @OA\Property(type="string", property="extraSpecification"),
+     *                          @OA\Property(type="string", property="status"),
+     *                          @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                          @OA\Property(type="boolean", property="isExternalWarehouse")
+     *                      )
+     *                  )
      *          )
      *      )
      * )
