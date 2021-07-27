@@ -16,11 +16,14 @@ class AirwaybillService
     private $autoMapping;
     private $airwaybillManager;
     private $params;
+    private $trackService;
 
-    public function __construct(AutoMapping $autoMapping, AirwaybillManager $airwaybillManager, ParameterBagInterface $params)
+    public function __construct(AutoMapping $autoMapping, AirwaybillManager $airwaybillManager, ParameterBagInterface $params, TrackService $trackService)
     {
         $this->autoMapping = $autoMapping;
         $this->airwaybillManager = $airwaybillManager;
+        $this->trackService = $trackService;
+
         $this->params = $params->get('upload_base_url') . '/';
     }
 
@@ -65,6 +68,8 @@ class AirwaybillService
     public function getAirwaybillById($id)
     {
         $airwaybill = $this->airwaybillManager->getAirwaybillById($id);
+
+        $airwaybill['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID("airwaybill", $id);
         
         if($airwaybill['createdByUserImage'])
         {
