@@ -209,4 +209,10 @@ class TrackManager
         return $tracks;
     }
 
+    // For Get container/air waybill by ID
+    public function getTracksByHolderTypeAndHolderID($holderType, $holderID)
+    {
+        return $this->trackEntityRepository->getTracksByHolderTypeAndHolderID($holderType, $holderID);
+    }
+
 }
