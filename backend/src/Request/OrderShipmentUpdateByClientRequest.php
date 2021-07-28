@@ -41,6 +41,12 @@ class OrderShipmentUpdateByClientRequest
     // public | private
     private $holderType;
 
+    // external warehouse info
+    private $externalWarehouseInfo;
+
+    // indicates to whether external wharehouse is used or not.
+    private $isExternalWarehouse;
+
     public function getId()
     {
         return $this->id;

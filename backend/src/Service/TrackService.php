@@ -9,6 +9,7 @@ use App\Manager\TrackManager;
 use App\Request\TrackCreateRequest;
 use App\Request\TrackUpdateByHolderTypeAndIdRequest;
 use App\Request\TrackUpdateRequest;
+use App\Response\TrackByHolderTypeAndHolderIdGetResponse;
 use App\Response\TrackCreateResponse;
 use App\Response\TrackGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -93,6 +94,21 @@ class TrackService
         }
         
         return $trackResponse;
+    }
+
+    // For Get container/air waybill by ID
+    public function getTracksByHolderTypeAndHolderID($holderType, $holderID)
+    {
+        $tracksResponse = [];
+
+        $trackResults = $this->trackManager->getTracksByHolderTypeAndHolderID($holderType, $holderID);
+        
+        foreach($trackResults as $result)
+        {
+            $tracksResponse[] = $this->autoMapping->map('array', TrackByHolderTypeAndHolderIdGetResponse::class, $result);
+        }
+        
+        return $tracksResponse;
     }
 
 }

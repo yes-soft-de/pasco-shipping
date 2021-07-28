@@ -16,11 +16,14 @@ class ContainerService
     private $autoMapping;
     private $containerManager;
     private $params;
+    private $trackService;
 
-    public function __construct(AutoMapping $autoMapping, ContainerManager $containerManager, ParameterBagInterface $params)
+    public function __construct(AutoMapping $autoMapping, ContainerManager $containerManager, ParameterBagInterface $params, TrackService $trackService)
     {
         $this->autoMapping = $autoMapping;
         $this->containerManager = $containerManager;
+        $this->trackService = $trackService;
+
         $this->params = $params->get('upload_base_url') . '/';
     }
 
@@ -66,6 +69,8 @@ class ContainerService
     {
         $container = $this->containerManager->getContainerById($id);
 
+        $container['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID("container", $id);
+        
         if($container['createdByUserImage'])
         {
             $container['createdByUserImage'] = $this->params . $container['createdByUserImage'];
@@ -77,6 +82,30 @@ class ContainerService
         }
 
         return $this->autoMapping->map('array', ContainerGetResponse::class, $container);
+    }
+
+    public function filterContainers($request)
+    {
+        $containersResponse = [];
+
+        $containers = $this->containerManager->filterContainers($request);
+
+        foreach($containers as $container)
+        {
+            if($container['createdByUserImage'])
+            {
+                $container['createdByUserImage'] = $this->params . $container['createdByUserImage'];
+            }
+
+            if($container['updatedByUserImage'])
+            {
+                $container['updatedByUserImage'] = $this->params . $container['updatedByUserImage'];
+            }
+
+            $containersResponse[] = $this->autoMapping->map('array', ContainerGetResponse::class, $container);
+        }
+
+        return $containersResponse;
     }
 
 }

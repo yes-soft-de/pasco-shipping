@@ -439,7 +439,7 @@ class TravelEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getTravelsByTypeAndLaunchAndDestinationCountrAndLaunchDate($type, $launchCountry, $destinationCountry, $launchDate)
+    public function getTravelsByTypeAndLaunchAndDestinationCountriesAndLaunchDate($type, $launchCountry, $destinationCountry, $launchDate)
     {
         return $this->createQueryBuilder('travel')
             ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
@@ -457,6 +457,43 @@ class TravelEntityRepository extends ServiceEntityRepository
 
             ->andWhere('travel.launchDate = :launchDate')
             ->setParameter('launchDate', $launchDate)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = travel.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = travel.updatedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = travel.shipperID'
+            )
+
+            ->orderBy('travel.id', 'DESC')
+            
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getTravelByNumber($travelNumber)
+    {
+        return $this->createQueryBuilder('travel')
+            ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
+             'travel.status', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
+             'travel.shipperID', 'subcontractEntity.fullName as subcontractName', 'travel.createdAt', 'travel.updatedAt')
+
+            ->andWhere('travel.travelNumber = :travelNumber')
+            ->setParameter('travelNumber', $travelNumber)
 
             ->leftJoin(
                 AdminProfileEntity::class,

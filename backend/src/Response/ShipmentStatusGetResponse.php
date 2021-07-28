@@ -64,6 +64,12 @@ class ShipmentStatusGetResponse
 
     public $status;
 
+    // external warehouse info
+    public $externalWarehouseInfo;
+
+    // indicates to whether external wharehouse is used or not.
+    public $isExternalWarehouse;
+
     public $clientUsername;
 
     public $clientUserImage;

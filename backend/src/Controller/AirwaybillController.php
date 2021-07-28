@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\AirwaybillCreateRequest;
+use App\Request\AirwaybillFilterRequest;
 use App\Request\AirwaybillUpdateRequest;
 use App\Service\AirwaybillService;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -197,6 +198,9 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
      *                  @OA\Property(type="number", property="weight"),
+     *                  @OA\Property(type="array", property="shipments",
+     *                      @OA\Items()
+     *                  )
      *              )
      *          )
      *      )
@@ -246,6 +250,39 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
      *                  @OA\Property(type="number", property="weight"),
+     *                  @OA\Property(type="array", property="shipments",
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="integer", property="shipmentID"),
+     *                          @OA\Property(type="string", property="trackNumber"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="object", property="updatedAt"),
+     *                          @OA\Property(type="boolean", property="isInOneHolder"),
+     *                          @OA\Property(type="boolean", property="packed"),
+     *                          @OA\Property(type="string", property="target"),
+     *                          @OA\Property(type="integer", property="supplierName"),
+     *                          @OA\Property(type="string", property="distributorName"),
+     *                          @OA\Property(type="string", property="exportWarehouseName"),
+     *                          @OA\Property(type="string", property="importWarehouseName"),
+     *                          @OA\Property(type="integer", property="quantity"),
+     *                          @OA\Property(type="string", property="image"),
+     *                          @OA\Property(type="string", property="productCategoryName"),
+     *                          @OA\Property(type="integer", property="unit"),
+     *                          @OA\Property(type="string", property="receiverName"),
+     *                          @OA\Property(type="string", property="receiverPhoneNumber"),
+     *                          @OA\Property(type="string", property="markNumber"),
+     *                          @OA\Property(type="integer", property="packetingBy"),
+     *                          @OA\Property(type="string", property="paymentTime"),
+     *                          @OA\Property(type="number", property="weight"),
+     *                          @OA\Property(type="string", property="qrCode"),
+     *                          @OA\Property(type="integer", property="guniQuantity"),
+     *                          @OA\Property(type="string", property="vehicleIdentificationNumber"),
+     *                          @OA\Property(type="string", property="extraSpecification"),
+     *                          @OA\Property(type="string", property="status"),
+     *                          @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                          @OA\Property(type="boolean", property="isExternalWarehouse")
+     *                      )
+     *                  )
      *              )
      *          )
      *      )
@@ -256,6 +293,74 @@ class AirwaybillController extends BaseController
     public function getAirwaybillById($id)
     {
         $result = $this->airwaybillService->getAirwaybillById($id);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("filterairwaybills", name="filterAirwaybills", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Airwaybill")
+     *
+     * @OA\RequestBody(
+     *      description="Post a request with filtering option",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="specificationID"),
+     *          @OA\Property(type="string", property="airwaybillNumber"),
+     *          @OA\Property(type="string", property="type"),
+     *          @OA\Property(type="integer", property="providedBy"),
+     *          @OA\Property(type="integer", property="shipperID"),
+     *          @OA\Property(type="integer", property="consigneeID")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the airwaybills",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="specificationID"),
+     *                  @OA\Property(type="string", property="airwaybillNumber"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="consigneeName"),
+     *                  @OA\Property(type="string", property="shipperName"),
+     *                  @OA\Property(type="number", property="weight"),
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function filterAirwaybills(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, AirwaybillFilterRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->airwaybillService->filterAirwaybills($request);
 
         return $this->response($result, self::FETCH);
     }

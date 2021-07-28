@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\ContainerCreateRequest;
+use App\Request\ContainerFilterRequest;
 use App\Request\ContainerUpdateRequest;
 use App\Service\ContainerService;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -179,7 +180,8 @@ class ContainerController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="object", property="Data",
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="containerNumber"),
      *                  @OA\Property(type="string", property="status"),
@@ -197,6 +199,10 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="number", property="widthInMeter"),
      *                  @OA\Property(type="number", property="hightInMeter"),
      *                  @OA\Property(type="number", property="lengthInMeter"),
+     *                  @OA\Property(type="array", property="shipments",
+     *                      @OA\Items()
+     *                  )
+     *              )
      *          )
      *      )
      * )
@@ -247,6 +253,39 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="number", property="widthInMeter"),
      *                  @OA\Property(type="number", property="hightInMeter"),
      *                  @OA\Property(type="number", property="lengthInMeter"),
+     *                  @OA\Property(type="array", property="shipments",
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="integer", property="shipmentID"),
+     *                          @OA\Property(type="string", property="trackNumber"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="object", property="updatedAt"),
+     *                          @OA\Property(type="boolean", property="isInOneHolder"),
+     *                          @OA\Property(type="boolean", property="packed"),
+     *                          @OA\Property(type="string", property="target"),
+     *                          @OA\Property(type="integer", property="supplierName"),
+     *                          @OA\Property(type="string", property="distributorName"),
+     *                          @OA\Property(type="string", property="exportWarehouseName"),
+     *                          @OA\Property(type="string", property="importWarehouseName"),
+     *                          @OA\Property(type="integer", property="quantity"),
+     *                          @OA\Property(type="string", property="image"),
+     *                          @OA\Property(type="string", property="productCategoryName"),
+     *                          @OA\Property(type="integer", property="unit"),
+     *                          @OA\Property(type="string", property="receiverName"),
+     *                          @OA\Property(type="string", property="receiverPhoneNumber"),
+     *                          @OA\Property(type="string", property="markNumber"),
+     *                          @OA\Property(type="integer", property="packetingBy"),
+     *                          @OA\Property(type="string", property="paymentTime"),
+     *                          @OA\Property(type="number", property="weight"),
+     *                          @OA\Property(type="string", property="qrCode"),
+     *                          @OA\Property(type="integer", property="guniQuantity"),
+     *                          @OA\Property(type="string", property="vehicleIdentificationNumber"),
+     *                          @OA\Property(type="string", property="extraSpecification"),
+     *                          @OA\Property(type="string", property="status"),
+     *                          @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                          @OA\Property(type="boolean", property="isExternalWarehouse")
+     *                      )
+     *                  )
      *          )
      *      )
      * )
@@ -256,6 +295,75 @@ class ContainerController extends BaseController
     public function getContainerById($id)
     {
         $result = $this->containerService->getContainerById($id);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("filtercontainers", name="filterContainers", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Container")
+     *
+     * @OA\RequestBody(
+     *      description="Post a request with filtering option",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="containerNumber"),
+     *          @OA\Property(type="string", property="type"),
+     *          @OA\Property(type="integer", property="providedBy"),
+     *          @OA\Property(type="integer", property="shipperID"),
+     *          @OA\Property(type="integer", property="consigneeID")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the containers",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="containerNumber"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="consigneeName"),
+     *                  @OA\Property(type="string", property="shipperName"),
+     *                  @OA\Property(type="number", property="capacityCPM"),
+     *                  @OA\Property(type="number", property="widthInMeter"),
+     *                  @OA\Property(type="number", property="hightInMeter"),
+     *                  @OA\Property(type="number", property="lengthInMeter")
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function filterContainers(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ContainerFilterRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->containerService->filterContainers($request);
 
         return $this->response($result, self::FETCH);
     }

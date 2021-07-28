@@ -56,6 +56,41 @@ class TrackEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    // For Get container/air waybill by ID
+    public function getTracksByHolderTypeAndHolderID($holderType, $holderID)
+    {
+        return $this->createQueryBuilder('track')
+            ->select("track.id", "track.shipmentID", "track.trackNumber", "track.travelID", "track.holderType", "track.holderID", "track.createdAt", "track.updatedAt", "track.createdBy", "track.updatedBy", 
+            "shipmentStatusEntity.shipmentStatus", "shipmentStatusEntity.statusDetails", "shipmentStatusEntity.trackNumber", "shipmentStatusEntity.isInOneHolder", "shipmentStatusEntity.packed",
+            "orderShipmentEntity.clientUserID", "orderShipmentEntity.target", "orderShipmentEntity.supplierName", "orderShipmentEntity.supplierID", "orderShipmentEntity.distributorID", "orderShipmentEntity.exportWarehouseID", "orderShipmentEntity.importWarehouseID", 
+            "orderShipmentEntity.quantity", "orderShipmentEntity.image", "orderShipmentEntity.createdAt as orderCreationDate", "orderShipmentEntity.isExternalWarehouse", "orderShipmentEntity.updatedAt as orderUpdatingDate", "orderShipmentEntity.productCategoryID", 
+            "orderShipmentEntity.unit", "orderShipmentEntity.receiverName", "orderShipmentEntity.receiverPhoneNumber", "orderShipmentEntity.markID", "orderShipmentEntity.packetingBy", "orderShipmentEntity.externalWarehouseInfo", "orderShipmentEntity.paymentTime",
+            "orderShipmentEntity.weight", "orderShipmentEntity.qrCode", "orderShipmentEntity.guniQuantity", "orderShipmentEntity.updatedBy as orderUpdatedByUser", "orderShipmentEntity.vehicleIdentificationNumber", "orderShipmentEntity.extraSpecification",)
+
+            ->leftJoin(
+                ShipmentStatusEntity::class,
+                'shipmentStatusEntity',
+                Join::WITH,
+                'shipmentStatusEntity.shipmentID = track.shipmentID AND shipmentStatusEntity.trackNumber = track.trackNumber'
+            )
+
+            ->leftJoin(
+                OrderShipmentEntity::class,
+                'orderShipmentEntity',
+                Join::WITH,
+                'orderShipmentEntity.id = track.shipmentID'
+            )
+
+            ->andWhere('track.holderID = :holderID')
+            ->setParameter('holderID', $holderID)
+
+            ->andWhere('track.holderType = :holderType')
+            ->setParameter('holderType', $holderType)
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getByTravelID($travelID)
     {
         return $this->createQueryBuilder('track')

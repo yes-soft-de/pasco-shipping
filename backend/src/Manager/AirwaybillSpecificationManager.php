@@ -14,12 +14,15 @@ class AirwaybillSpecificationManager
     private $autoMapping;
     private $entityManager;
     private $airwaybillSpecificationEntityRepository;
+    private $airwaybillManager;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, AirwaybillSpecificationEntityRepository $airwaybillSpecificationEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, AirwaybillSpecificationEntityRepository $airwaybillSpecificationEntityRepository,
+     AirwaybillManager $airwaybillManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->airwaybillSpecificationEntityRepository = $airwaybillSpecificationEntityRepository;
+        $this->airwaybillManager = $airwaybillManager;
     }
 
     public function create(AirwaybillSpecificationCreateRequest $request)
@@ -40,19 +43,29 @@ class AirwaybillSpecificationManager
 
     public function deleteAirwaybillSpecificationById(DeleteRequest $request)
     {
-        $item = $this->airwaybillSpecificationEntityRepository->find($request->getId());
+        $airwaybillSpecificationEntity = $this->airwaybillSpecificationEntityRepository->find($request->getId());
 
-        if(!$item)
+        if(!$airwaybillSpecificationEntity)
         {
-            return $item;
+            return $airwaybillSpecificationEntity;
         }
         else
         {
-            $this->entityManager->remove($item);
-            $this->entityManager->flush();
-        }
+            //First, check if airwaybill specification is used
+            $airwaybills = $this->airwaybillManager->getAirwaybillsBySpecificationID($request->getId());
 
-        return $item;
+            if($airwaybills)
+            {
+                return "Can not delete the specification because it's used before!";
+            }
+            else
+            {
+                $this->entityManager->remove($airwaybillSpecificationEntity);
+                $this->entityManager->flush();
+
+                return $airwaybillSpecificationEntity;
+            }
+        }
     }
 
 }

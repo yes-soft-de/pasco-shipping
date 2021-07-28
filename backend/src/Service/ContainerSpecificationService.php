@@ -58,7 +58,14 @@ class ContainerSpecificationService
     {
         $result = $this->containerSpecificationManager->deleteContainerSpecificationById($request);
 
-        return $this->autoMapping->map(ContainerSpecificationEntity::class, ContainerSpecificationGetResponse::class, $result);
+        if($result instanceof ContainerSpecificationEntity)
+        {
+            return $this->autoMapping->map(ContainerSpecificationEntity::class, ContainerSpecificationGetResponse::class, $result);
+        }
+        else
+        {
+            return $result;
+        }
     }
 
 }

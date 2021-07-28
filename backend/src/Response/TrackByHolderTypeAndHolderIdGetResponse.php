@@ -2,9 +2,23 @@
 
 namespace App\Response;
 
-class ShipmentsGetResponse
+class TrackByHolderTypeAndHolderIdGetResponse
 {
     public $id;
+
+    public $shipmentID;
+
+    public $shipmentStatus;
+
+    public $trackNumber;
+
+    public $statusDetails;
+
+    public $isInOneHolder;
+
+    public $packed;
+
+    public $transportationType;
 
     public $target;
 
@@ -55,17 +69,5 @@ class ShipmentsGetResponse
 
     // indicates to whether external wharehouse is used or not.
     public $isExternalWarehouse;
-
-    public $clientUsername;
-
-    public $clientUserImage;
-    
-    public $orderUpdatedByUser;
-
-    public $orderUpdatedByUserImage;
-    
-    public $shipmentStatusCreatedByUser;
-
-    public $shipmentStatusUpdatedByUser;
 
 }

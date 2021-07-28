@@ -47,6 +47,12 @@ class OrderShipmentCreateRequest
     // public | private
     private $holderType;
 
+    // external warehouse info
+    private $externalWarehouseInfo;
+
+    // indicates to whether external wharehouse is used or not.
+    private $isExternalWarehouse;
+
     public function setClientUserID($clientUserID)
     {
         $this->clientUserID = $clientUserID;
@@ -55,6 +61,16 @@ class OrderShipmentCreateRequest
     public function setCreatedBy($userID)
     {
         $this->createdBy = $userID;
+    }
+
+    public function getClientUserID()
+    {
+        return $this->clientUserID;
+    }
+
+    public function getExternalWarehouseInfo()
+    {
+        return $this->externalWarehouseInfo;
     }
 
 }

@@ -16,11 +16,14 @@ class AirwaybillService
     private $autoMapping;
     private $airwaybillManager;
     private $params;
+    private $trackService;
 
-    public function __construct(AutoMapping $autoMapping, AirwaybillManager $airwaybillManager, ParameterBagInterface $params)
+    public function __construct(AutoMapping $autoMapping, AirwaybillManager $airwaybillManager, ParameterBagInterface $params, TrackService $trackService)
     {
         $this->autoMapping = $autoMapping;
         $this->airwaybillManager = $airwaybillManager;
+        $this->trackService = $trackService;
+
         $this->params = $params->get('upload_base_url') . '/';
     }
 
@@ -65,6 +68,8 @@ class AirwaybillService
     public function getAirwaybillById($id)
     {
         $airwaybill = $this->airwaybillManager->getAirwaybillById($id);
+
+        $airwaybill['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID("airwaybill", $id);
         
         if($airwaybill['createdByUserImage'])
         {
@@ -77,6 +82,30 @@ class AirwaybillService
         }
 
         return $this->autoMapping->map('array', AirwaybillGetResponse::class, $airwaybill);
+    }
+
+    public function filterAirwaybills($request)
+    {
+        $airwaybillsResponse = [];
+
+        $airwaybills = $this->airwaybillManager->filterAirwaybills($request);
+
+        foreach($airwaybills as $airwaybill)
+        {
+            if($airwaybill['createdByUserImage'])
+            {
+                $airwaybill['createdByUserImage'] = $this->params . $airwaybill['createdByUserImage'];
+            }
+
+            if($airwaybill['updatedByUserImage'])
+            {
+                $airwaybill['updatedByUserImage'] = $this->params . $airwaybill['updatedByUserImage'];
+            }
+
+            $airwaybillsResponse[] = $this->autoMapping->map('array', AirwaybillGetResponse::class, $airwaybill);
+        }
+
+        return $airwaybillsResponse;
     }
 
 }
