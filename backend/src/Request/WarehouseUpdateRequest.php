@@ -22,6 +22,8 @@ class WarehouseUpdateRequest
 
     private $proxyID;
 
+    private $type;
+
     public function getId()
     {
         return $this->id;

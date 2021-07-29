@@ -27,7 +27,7 @@ class WarehouseEntityRepository extends ServiceEntityRepository
     public function getAllWarehouses()
     {
         return $this->createQueryBuilder('warehouse')
-            ->select('warehouse.id', 'warehouse.city', 'warehouse.countryID', 'warehouse.location', 'warehouse.proxyID', 'warehouse.rentingFee',
+            ->select('warehouse.id', 'warehouse.city', 'warehouse.countryID', 'warehouse.location', 'warehouse.type', 'warehouse.proxyID', 'warehouse.rentingFee',
              'warehouse.name', 'warehouse.createdAt', 'warehouse.updatedAt', 'warehouse.createdBy', 'warehouse.updatedBy', 'country.name as countryName',
                 'proxy.fullName as proxyName', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'warehouse.subcontractID',
                 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage', 'subcontract.fullName as subcontractName')
@@ -76,7 +76,7 @@ class WarehouseEntityRepository extends ServiceEntityRepository
     public function getWarehousesByCountryID($countryID)
     {
         return $this->createQueryBuilder('warehouse')
-            ->select('warehouse.id', 'warehouse.city', 'warehouse.countryID', 'warehouse.location', 'warehouse.proxyID', 'warehouse.rentingFee',
+            ->select('warehouse.id', 'warehouse.city', 'warehouse.countryID', 'warehouse.location', 'warehouse.type', 'warehouse.proxyID', 'warehouse.rentingFee',
                 'warehouse.name', 'warehouse.createdAt', 'warehouse.updatedAt', 'warehouse.createdBy', 'warehouse.updatedBy', 'country.name as countryName',
                 'proxy.fullName as proxyName', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'warehouse.subcontractID',
                 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage', 'subcontract.fullName as subcontractName')
