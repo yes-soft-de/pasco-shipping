@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\AirwaybillEntity;
 use App\Manager\AirwaybillManager;
 use App\Request\AirwaybillCreateRequest;
+use App\Request\AirwaybillStatusUpdateRequest;
 use App\Request\AirwaybillUpdateRequest;
 use App\Response\AirwaybillCreateResponse;
 use App\Response\AirwaybillGetResponse;
@@ -37,6 +38,13 @@ class AirwaybillService
     public function update(AirwaybillUpdateRequest $request)
     {
         $airwaybillResult = $this->airwaybillManager->update($request);
+
+        return $this->autoMapping->map(AirwaybillEntity::class, AirwaybillGetResponse::class, $airwaybillResult);
+    }
+
+    public function updateStatus(AirwaybillStatusUpdateRequest $request)
+    {
+        $airwaybillResult = $this->airwaybillManager->updateStatus($request);
 
         return $this->autoMapping->map(AirwaybillEntity::class, AirwaybillGetResponse::class, $airwaybillResult);
     }

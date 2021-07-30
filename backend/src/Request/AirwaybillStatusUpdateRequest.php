@@ -2,21 +2,11 @@
 
 namespace App\Request;
 
-class AirwaybillUpdateRequest
+class AirwaybillStatusUpdateRequest
 {
     private $id;
 
-    private $specificationID;
-
-    private $airwaybillNumber;
-
-    private $type;
-
-    private $providedBy;
-
-    private $shipperID;
-
-    private $consigneeID;
+    private $status;
 
     private $updatedBy;
 
