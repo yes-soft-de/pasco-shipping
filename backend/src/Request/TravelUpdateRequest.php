@@ -22,8 +22,6 @@ class TravelUpdateRequest
 
     private $updatedBy;
 
-    private $status;
-
     public function getId()
     {
         return $this->id;
@@ -32,11 +30,6 @@ class TravelUpdateRequest
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
-    }
-
-    public function getStatus()
-    {
-        return $this->status;
     }
 
     public function getLaunchDate()
