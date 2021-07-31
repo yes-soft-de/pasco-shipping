@@ -41,6 +41,7 @@ class ContainerSpecificationController extends BaseController
      * @OA\RequestBody(
      *      description="Create new container specification",
      *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="name"),
      *          @OA\Property(type="number", property="capacityCPM", description="of type Float"),
      *          @OA\Property(type="number", property="widthInMeter", description="of type Float"),
      *          @OA\Property(type="number", property="hightInMeter", description="of type Float"),
@@ -100,6 +101,7 @@ class ContainerSpecificationController extends BaseController
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="name"),
      *                  @OA\Property(type="number", property="capacityCPM"),
      *                  @OA\Property(type="number", property="widthInMeter"),
      *                  @OA\Property(type="number", property="hightInMeter"),
@@ -138,6 +140,7 @@ class ContainerSpecificationController extends BaseController
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="name"),
      *                  @OA\Property(type="number", property="capacityCPM"),
      *                  @OA\Property(type="number", property="widthInMeter"),
      *                  @OA\Property(type="number", property="hightInMeter"),

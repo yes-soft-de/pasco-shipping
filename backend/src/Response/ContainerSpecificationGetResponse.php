@@ -6,6 +6,8 @@ class ContainerSpecificationGetResponse
 {
     public $id;
 
+    public $name;
+
     public $capacityCPM;
 
     public $widthInMeter;
