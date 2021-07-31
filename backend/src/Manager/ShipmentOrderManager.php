@@ -53,6 +53,11 @@ class ShipmentOrderManager
         return $this->orderShipmentEntityRepository->getShipmentsOrdersByStatus(ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS);
     }
 
+    public function getAcceptedShipmentsOrders()
+    {
+        return $this->orderShipmentEntityRepository->getShipmentsOrdersByStatus(ShipmentOrderStatusConstant::$ACCEPTED_SHIPMENT_STATUS);
+    }
+
     public function updateShipmentOrderStatus(ShipmentOrderStatusUpdateRequest $request)
     {
         // First, we update the status of the order
