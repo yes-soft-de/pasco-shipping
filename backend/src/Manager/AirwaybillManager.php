@@ -123,6 +123,11 @@ class AirwaybillManager
         {
             return $this->airwaybillEntityRepository->getAirwaybillsBySpecificationID($request->getSpecificationID());
         }
+        elseif($request->getType() == null && $request->getAirwaybillNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
+        $request->getStatus() == null && $request->getSpecificationID() == null)
+        {
+            return $this->airwaybillEntityRepository->getAllAirwaybills();
+        }
     }
 
     public function getAirwaybillsBySpecificationID($specificationID)

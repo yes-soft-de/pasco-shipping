@@ -380,6 +380,7 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="integer", property="specificationID"),
      *          @OA\Property(type="string", property="airwaybillNumber"),
      *          @OA\Property(type="string", property="type"),
+     *          @OA\Property(type="string", property="status"),
      *          @OA\Property(type="integer", property="providedBy"),
      *          @OA\Property(type="integer", property="shipperID"),
      *          @OA\Property(type="integer", property="consigneeID")
