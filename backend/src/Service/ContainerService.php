@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\ContainerEntity;
 use App\Manager\ContainerManager;
 use App\Request\ContainerCreateRequest;
+use App\Request\ContainerStatusUpdateRequest;
 use App\Request\ContainerUpdateRequest;
 use App\Response\ContainerCreateResponse;
 use App\Response\ContainerGetResponse;
@@ -37,6 +38,13 @@ class ContainerService
     public function update(ContainerUpdateRequest $request)
     {
         $containerResult = $this->containerManager->update($request);
+
+        return $this->autoMapping->map(ContainerEntity::class, ContainerGetResponse::class, $containerResult);
+    }
+
+    public function updateStatus(ContainerStatusUpdateRequest $request)
+    {
+        $containerResult = $this->containerManager->updateStatus($request);
 
         return $this->autoMapping->map(ContainerEntity::class, ContainerGetResponse::class, $containerResult);
     }

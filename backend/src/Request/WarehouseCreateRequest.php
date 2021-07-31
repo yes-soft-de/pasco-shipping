@@ -20,6 +20,8 @@ class WarehouseCreateRequest
 
     private $proxyID;
 
+    private $type;
+
     public function setCreatedBy($userID)
     {
         $this->createdBy = $userID;

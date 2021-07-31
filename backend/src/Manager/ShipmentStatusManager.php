@@ -163,9 +163,10 @@ class ShipmentStatusManager
         return $this->airwaybillManager->getAirwaybillById($id);
     }
 
-    public function getShipmentByShipmentID($shipmentID)
+    // For shipmentorder/id endpoint
+    public function getShipmentStatusAndTracksByShipmentID($shipmentID)
     {
-        return $this->shipmentStatusEntityRepository->findBy(["shipmentID"=>$shipmentID]);
+        return $this->shipmentStatusEntityRepository->getShipmentStatusAndTracksByShipmentID($shipmentID);
     }
 
     public function getShipmentLogByShipmentID($shipmentID)
@@ -173,7 +174,7 @@ class ShipmentStatusManager
         return $this->shipmentLogManager->getShipmentLogsByShipmentID($shipmentID);
     }
 
-    // For filter endpoint
+    // For filter endpoint + delete shipment order
     public function getByShipmentID($shipmentID)
     {
         return $this->shipmentStatusEntityRepository->getByShipmentID($shipmentID);

@@ -645,6 +645,28 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="array", property="tracks", 
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="integer", property="shipmentID"),
+     *                          @OA\Property(type="string", property="trackNumber"),
+     *                          @OA\Property(type="string", property="shipmentStatus"),
+     *                          @OA\Property(type="string", property="statusDetails"),
+     *                          @OA\Property(type="boolean", property="isInOneHolder"),
+     *                          @OA\Property(type="boolean", property="packed"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="object", property="updatedAt"),
+     *                          @OA\Property(type="object", property="createdBy"),
+     *                          @OA\Property(type="object", property="updatedBy"),
+     *                          @OA\Property(type="string", property="holderType"),
+     *                          @OA\Property(type="integer", property="holderID"),
+     *                          @OA\Property(type="integer", property="travelID"),
+     *                          @OA\Property(type="string", property="shipmentStatusCreatedByUser"),
+     *                          @OA\Property(type="string", property="shipmentStatusCreatedByUserImage"),
+     *                          @OA\Property(type="string", property="shipmentStatusUpdatedByUser"),
+     *                          @OA\Property(type="string", property="shipmentStatusUpdatedByUserImage")
+     *                      )
+     *                  ),
      *                  @OA\Property(type="text", property="externalWarehouseInfo"),
      *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
@@ -660,6 +682,85 @@ class ShipmentOrderController extends BaseController
     public function getShipmentOrderById($id)
     {
         $result = $this->shipmentOrderService->getShipmentOrderById($id);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("acceptedshipmentsorders", name="getAllAcceptedShipmentsOrders", methods={"GET"})
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Shipment Order")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of objects which each one represent the info of the order",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="transportationType"),
+     *                  @OA\Property(type="string", property="target"),
+     *                  @OA\Property(type="integer", property="supplierName"),
+     *                  @OA\Property(type="integer", property="distributorID"),
+     *                  @OA\Property(type="string", property="exportWarehouseName"),
+     *                  @OA\Property(type="string", property="importWarehouseName"),
+     *                  @OA\Property(type="string", property="quantity"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="string", property="unit"),
+     *                  @OA\Property(type="string", property="receiverName"),
+     *                  @OA\Property(type="string", property="receiverPhoneNumber"),
+     *                  @OA\Property(type="string", property="packetingBy"),
+     *                  @OA\Property(type="integer", property="markID"),
+     *                  @OA\Property(type="string", property="paymentTime"),
+     *                  @OA\Property(type="number", format="float", property="weight"),
+     *                  @OA\Property(type="string", property="qrCode"),
+     *                  @OA\Property(type="string", property="guniQuantity"),
+     *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
+     *                  @OA\Property(type="string", property="extraSpecification"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="array", property="tracks", 
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="integer", property="shipmentID"),
+     *                          @OA\Property(type="string", property="trackNumber"),
+     *                          @OA\Property(type="string", property="shipmentStatus"),
+     *                          @OA\Property(type="string", property="statusDetails"),
+     *                          @OA\Property(type="boolean", property="isInOneHolder"),
+     *                          @OA\Property(type="boolean", property="packed"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="object", property="updatedAt"),
+     *                          @OA\Property(type="object", property="createdBy"),
+     *                          @OA\Property(type="object", property="updatedBy"),
+     *                          @OA\Property(type="string", property="holderType"),
+     *                          @OA\Property(type="integer", property="holderID"),
+     *                          @OA\Property(type="integer", property="travelID"),
+     *                          @OA\Property(type="string", property="shipmentStatusCreatedByUser"),
+     *                          @OA\Property(type="string", property="shipmentStatusCreatedByUserImage"),
+     *                          @OA\Property(type="string", property="shipmentStatusUpdatedByUser"),
+     *                          @OA\Property(type="string", property="shipmentStatusUpdatedByUserImage")
+     *                      )
+     *                  ),
+     *                  @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
+     *                  @OA\Property(type="string", property="clientUsername"),
+     *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUser"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUserImage")
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function getAcceptedShipmentsOrders()
+    {
+        $result = $this->shipmentOrderService->getAcceptedShipmentsOrders();
 
         return $this->response($result, self::FETCH);
     }

@@ -16,6 +16,8 @@ class WarehouseGetResponse
 
     public $location;
 
+    public $type;
+
     public $createdByUser;
 
     public $createdByUserImage;

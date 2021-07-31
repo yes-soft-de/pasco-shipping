@@ -75,6 +75,11 @@ class WarehouseEntity
      */
     private $subcontractID;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $type;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -208,6 +213,18 @@ class WarehouseEntity
     public function setSubcontractID(?int $subcontractID): self
     {
         $this->subcontractID = $subcontractID;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

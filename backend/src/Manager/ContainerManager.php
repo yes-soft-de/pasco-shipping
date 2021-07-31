@@ -8,6 +8,7 @@ use App\Entity\ContainerEntity;
 use App\Repository\ContainerEntityRepository;
 use App\Request\ContainerCreateRequest;
 use App\Request\ContainerFilterRequest;
+use App\Request\ContainerStatusUpdateRequest;
 use App\Request\ContainerUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -43,12 +44,30 @@ class ContainerManager
 
         if(!$containerEntity)
         {
-            return  $containerEntity;
+            return $containerEntity;
         }
         else
         {
-            $containerEntity = $this->autoMapping->mapToObject(ContainerUpdateRequest::class, ContainerEntity::class,
-                $request, $containerEntity);
+            $containerEntity = $this->autoMapping->mapToObject(ContainerUpdateRequest::class, ContainerEntity::class, $request, $containerEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $containerEntity;
+        }
+    }
+
+    public function updateStatus(ContainerStatusUpdateRequest $request)
+    {
+        $containerEntity = $this->containerEntityRepository->find($request->getId());
+
+        if(!$containerEntity)
+        {
+            return $containerEntity;
+        }
+        else
+        {
+            $containerEntity = $this->autoMapping->mapToObject(ContainerStatusUpdateRequest::class, ContainerEntity::class, $request, $containerEntity);
 
             $this->entityManager->flush();
             $this->entityManager->clear();
@@ -103,6 +122,11 @@ class ContainerManager
         $request->getStatus() == null && $request->getSpecificationID() != null)
         {
             return $this->containerEntityRepository->getContainersBySpecificationID($request->getSpecificationID());
+        }
+        elseif($request->getType() == null && $request->getContainerNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
+        $request->getStatus() == null && $request->getSpecificationID() == null)
+        {
+            return $this->containerEntityRepository->getAllContainers();
         }
     }
 

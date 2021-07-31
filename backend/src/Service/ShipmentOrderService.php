@@ -83,6 +83,37 @@ class ShipmentOrderService
         return $ordersResponse;
     }
 
+    public function getAcceptedShipmentsOrders()
+    {
+        $ordersResponse = [];
+
+        $orders = $this->shipmentOrderManager->getAcceptedShipmentsOrders();
+        
+        foreach ($orders as $order)
+        {
+            $order['tracks'] = $this->shipmentOrderManager->getShipmentStatusAndTracksByShipmentID($order['id']);
+
+            if($order['image'])
+            {
+                $order['image'] = $this->params . $order['image'];
+            }
+
+            if($order['clientUserImage'])
+            {
+                $order['clientUserImage'] = $this->params . $order['clientUserImage'];
+            }
+
+            if($order['orderUpdatedByUserImage'])
+            {
+                $order['orderUpdatedByUserImage'] = $this->params . $order['orderUpdatedByUserImage'];
+            }
+
+            $ordersResponse[] = $this->autoMapping->map('array', OrderShipmentGetResponse::class, $order);
+        }
+
+        return $ordersResponse;
+    }
+
     public function updateShipmentOrderStatus(ShipmentOrderStatusUpdateRequest $request)
     {
         $orderShipmentResult = $this->shipmentOrderManager->updateShipmentOrderStatus($request);
@@ -164,31 +195,26 @@ class ShipmentOrderService
 
     public function getShipmentOrderById($id)
     {
-        $shipmentsOrdersResponse = [];
+        $shipmentOrder = $this->shipmentOrderManager->getShipmentOrderById($id);
 
-        $shipmentsOrders = $this->shipmentOrderManager->getShipmentOrderById($id);
-
-        foreach ($shipmentsOrders as $shipmentsOrder)
+        $shipmentOrder['tracks'] = $this->shipmentOrderManager->getShipmentStatusAndTracksByShipmentID($id);
+        
+        if($shipmentOrder['image'])
         {
-            if($shipmentsOrder['image'])
-            {
-                $shipmentsOrder['image'] = $this->params . $shipmentsOrder['image'];
-            }
-
-            if($shipmentsOrder['clientUserImage'])
-            {
-                $shipmentsOrder['clientUserImage'] = $this->params . $shipmentsOrder['clientUserImage'];
-            }
-
-            if($shipmentsOrder['orderUpdatedByUserImage'])
-            {
-                $shipmentsOrder['orderUpdatedByUserImage'] = $this->params . $shipmentsOrder['orderUpdatedByUserImage'];
-            }
-
-            $shipmentsOrdersResponse[] = $this->autoMapping->map('array', OrderShipmentGetResponse::class, $shipmentsOrder);
+            $shipmentOrder['image'] = $this->params . $shipmentOrder['image'];
         }
 
-        return $shipmentsOrdersResponse;
+        if($shipmentOrder['clientUserImage'])
+        {
+            $shipmentOrder['clientUserImage'] = $this->params . $shipmentOrder['clientUserImage'];
+        }
+
+        if($shipmentOrder['orderUpdatedByUserImage'])
+        {
+            $shipmentsOrder['orderUpdatedByUserImage'] = $this->params . $shipmentOrder['orderUpdatedByUserImage'];
+        }
+
+        return $this->autoMapping->map('array', OrderShipmentGetResponse::class, $shipmentOrder);
     }
 
     public function filterShipments(ShipmentFilterRequest $request)

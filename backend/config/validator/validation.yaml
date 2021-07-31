@@ -128,8 +128,6 @@ App\Request\TravelUpdateRequest:
       - NotBlank: ~
     shipperID:
       - NotBlank: ~
-    status:
-      - NotBlank: ~
 
 App\Request\WarehouseCreateRequest:
   properties:
@@ -259,6 +257,13 @@ App\Request\AirwaybillUpdateRequest:
       - NotBlank: ~
     airwaybillNumber:
       - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
+App\Request\AirwaybillStatusUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
     status:
       - NotBlank: ~
     updatedBy:
@@ -280,6 +285,13 @@ App\Request\ContainerUpdateRequest:
     specificationID:
       - NotBlank: ~
     containerNumber:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
+App\Request\ContainerStatusUpdateRequest:
+  properties:
+    id:
       - NotBlank: ~
     status:
       - NotBlank: ~

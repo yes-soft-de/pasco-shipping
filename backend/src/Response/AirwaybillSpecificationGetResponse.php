@@ -6,6 +6,8 @@ class AirwaybillSpecificationGetResponse
 {
     public $id;
 
+    public $name;
+
     public $weight;
 
     public $createdAt;

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\ContainerCreateRequest;
 use App\Request\ContainerFilterRequest;
+use App\Request\ContainerStatusUpdateRequest;
 use App\Request\ContainerUpdateRequest;
 use App\Service\ContainerService;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -162,6 +163,73 @@ class ContainerController extends BaseController
     }
 
     /**
+     * @Route("containerstatus", name="updateStatusOfContainer", methods={"PUT"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Container")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Update a specific container status",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="string", property="status")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the container",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="specificationID"),
+     *                  @OA\Property(type="string", property="containerNumber"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage")
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function updateStatus(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ContainerStatusUpdateRequest::class, (object)$data);
+
+        $request->setUpdatedBy($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->containerService->updateStatus($request);
+
+        return $this->response($result, self::UPDATE);
+    }
+
+    /**
      * @Route("containers/{status}", name="getContainersByStatus", methods={"GET"})
      * @return JsonResponse
      * 
@@ -195,10 +263,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="subcontractName"),
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
-     *                  @OA\Property(type="number", property="capacityCPM"),
-     *                  @OA\Property(type="number", property="widthInMeter"),
-     *                  @OA\Property(type="number", property="hightInMeter"),
-     *                  @OA\Property(type="number", property="lengthInMeter"),
+     *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
      *                  )
@@ -249,10 +314,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="subcontractName"),
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
-     *                  @OA\Property(type="number", property="capacityCPM"),
-     *                  @OA\Property(type="number", property="widthInMeter"),
-     *                  @OA\Property(type="number", property="hightInMeter"),
-     *                  @OA\Property(type="number", property="lengthInMeter"),
+     *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),
@@ -311,9 +373,11 @@ class ContainerController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="containerNumber"),
      *          @OA\Property(type="string", property="type"),
+     *          @OA\Property(type="string", property="status"),
      *          @OA\Property(type="integer", property="providedBy"),
      *          @OA\Property(type="integer", property="shipperID"),
-     *          @OA\Property(type="integer", property="consigneeID")
+     *          @OA\Property(type="integer", property="consigneeID"),
+     *          @OA\Property(type="integer", property="specificationID")
      *      )
      * )
      *
@@ -338,10 +402,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="subcontractName"),
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
-     *                  @OA\Property(type="number", property="capacityCPM"),
-     *                  @OA\Property(type="number", property="widthInMeter"),
-     *                  @OA\Property(type="number", property="hightInMeter"),
-     *                  @OA\Property(type="number", property="lengthInMeter")
+     *                  @OA\Property(type="string", property="specificationName"),
      *              )
      *          )
      *      )

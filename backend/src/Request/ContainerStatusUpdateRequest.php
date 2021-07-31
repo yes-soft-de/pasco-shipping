@@ -2,21 +2,11 @@
 
 namespace App\Request;
 
-class ContainerUpdateRequest
+class ContainerStatusUpdateRequest
 {
     private $id;
 
-    private $specificationID;
-
-    private $containerNumber;
-
-    private $type;
-
-    private $providedBy;
-
-    private $shipperID;
-
-    private $consigneeID;
+    private $status;
 
     private $updatedBy;
 

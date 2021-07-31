@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\AirwaybillSpecificationEntityRepository;
+use App\Repository\AirwaybillFinanceEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=AirwaybillSpecificationEntityRepository::class)
+ * @ORM\Entity(repositoryClass=AirwaybillFinanceEntityRepository::class)
  */
-class AirwaybillSpecificationEntity
+class AirwaybillFinanceEntity
 {
     /**
      * @ORM\Id
@@ -19,9 +19,29 @@ class AirwaybillSpecificationEntity
     private $id;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $airwaybillID;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $stageDescription;
+
+    /**
      * @ORM\Column(type="float")
      */
-    private $weight;
+    private $stageCost;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $currency;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -45,24 +65,67 @@ class AirwaybillSpecificationEntity
      */
     private $updatedBy;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $name;
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getWeight(): ?float
+    public function getAirwaybillID(): ?int
     {
-        return $this->weight;
+        return $this->airwaybillID;
     }
 
-    public function setWeight(float $weight): self
+    public function setAirwaybillID(int $airwaybillID): self
     {
-        $this->weight = $weight;
+        $this->airwaybillID = $airwaybillID;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getStageDescription(): ?string
+    {
+        return $this->stageDescription;
+    }
+
+    public function setStageDescription(?string $stageDescription): self
+    {
+        $this->stageDescription = $stageDescription;
+
+        return $this;
+    }
+
+    public function getStageCost(): ?float
+    {
+        return $this->stageCost;
+    }
+
+    public function setStageCost(float $stageCost): self
+    {
+        $this->stageCost = $stageCost;
+
+        return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(string $currency): self
+    {
+        $this->currency = $currency;
 
         return $this;
     }
@@ -111,18 +174,6 @@ class AirwaybillSpecificationEntity
     public function setUpdatedBy(?int $updatedBy): self
     {
         $this->updatedBy = $updatedBy;
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
 
         return $this;
     }

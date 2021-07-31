@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\ContainerSpecificationEntityRepository;
+use App\Repository\ShipmentFinanceEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=ContainerSpecificationEntityRepository::class)
+ * @ORM\Entity(repositoryClass=ShipmentFinanceEntityRepository::class)
  */
-class ContainerSpecificationEntity
+class ShipmentFinanceEntity
 {
     /**
      * @ORM\Id
@@ -19,24 +19,34 @@ class ContainerSpecificationEntity
     private $id;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="integer")
      */
-    private $capacityCPM;
+    private $shipmentID;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $trackNumber;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $stageDescription;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $widthInMeter;
+    private $stageCost;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="string", length=50)
      */
-    private $hightInMeter;
+    private $shipmentStatus;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="string", length=50)
      */
-    private $lengthInMeter;
+    private $currency;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -60,60 +70,79 @@ class ContainerSpecificationEntity
      */
     private $updatedBy;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $name;
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCapacityCPM(): ?float
+    public function getShipmentID(): ?int
     {
-        return $this->capacityCPM;
+        return $this->shipmentID;
     }
 
-    public function setCapacityCPM(float $capacityCPM): self
+    public function setShipmentID(int $shipmentID): self
     {
-        $this->capacityCPM = $capacityCPM;
+        $this->shipmentID = $shipmentID;
 
         return $this;
     }
 
-    public function getWidthInMeter(): ?float
+    public function getTrackNumber(): ?string
     {
-        return $this->widthInMeter;
+        return $this->trackNumber;
     }
 
-    public function setWidthInMeter(float $widthInMeter): self
+    public function setTrackNumber(string $trackNumber): self
     {
-        $this->widthInMeter = $widthInMeter;
+        $this->trackNumber = $trackNumber;
 
         return $this;
     }
 
-    public function getHightInMeter(): ?float
+    public function getStageDescription(): ?string
     {
-        return $this->hightInMeter;
+        return $this->stageDescription;
     }
 
-    public function setHightInMeter(float $hightInMeter): self
+    public function setStageDescription(?string $stageDescription): self
     {
-        $this->hightInMeter = $hightInMeter;
+        $this->stageDescription = $stageDescription;
 
         return $this;
     }
 
-    public function getLengthInMeter(): ?float
+    public function getStageCost(): ?float
     {
-        return $this->lengthInMeter;
+        return $this->stageCost;
     }
 
-    public function setLengthInMeter(float $lengthInMeter): self
+    public function setStageCost(float $stageCost): self
     {
-        $this->lengthInMeter = $lengthInMeter;
+        $this->stageCost = $stageCost;
+
+        return $this;
+    }
+
+    public function getShipmentStatus(): ?string
+    {
+        return $this->shipmentStatus;
+    }
+
+    public function setShipmentStatus(string $shipmentStatus): self
+    {
+        $this->shipmentStatus = $shipmentStatus;
+
+        return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(?string $currency): self
+    {
+        $this->currency = $currency;
 
         return $this;
     }
@@ -162,18 +191,6 @@ class ContainerSpecificationEntity
     public function setUpdatedBy(?int $updatedBy): self
     {
         $this->updatedBy = $updatedBy;
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
 
         return $this;
     }

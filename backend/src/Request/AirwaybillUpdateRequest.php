@@ -10,8 +10,6 @@ class AirwaybillUpdateRequest
 
     private $airwaybillNumber;
 
-    private $status;
-
     private $type;
 
     private $providedBy;

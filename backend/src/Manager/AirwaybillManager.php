@@ -8,6 +8,7 @@ use App\Entity\AirwaybillEntity;
 use App\Repository\AirwaybillEntityRepository;
 use App\Request\AirwaybillCreateRequest;
 use App\Request\AirwaybillFilterRequest;
+use App\Request\AirwaybillStatusUpdateRequest;
 use App\Request\AirwaybillUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -43,12 +44,30 @@ class AirwaybillManager
 
         if(!$airwaybillEntity)
         {
-            return  $airwaybillEntity;
+            return $airwaybillEntity;
         }
         else
         {
-            $airwaybillEntity = $this->autoMapping->mapToObject(AirwaybillUpdateRequest::class, AirwaybillEntity::class,
-                $request, $airwaybillEntity);
+            $airwaybillEntity = $this->autoMapping->mapToObject(AirwaybillUpdateRequest::class, AirwaybillEntity::class, $request, $airwaybillEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $airwaybillEntity;
+        }
+    }
+
+    public function updateStatus(AirwaybillStatusUpdateRequest $request)
+    {
+        $airwaybillEntity = $this->airwaybillEntityRepository->find($request->getId());
+
+        if(!$airwaybillEntity)
+        {
+            return $airwaybillEntity;
+        }
+        else
+        {
+            $airwaybillEntity = $this->autoMapping->mapToObject(AirwaybillStatusUpdateRequest::class, AirwaybillEntity::class, $request, $airwaybillEntity);
 
             $this->entityManager->flush();
             $this->entityManager->clear();
@@ -103,6 +122,11 @@ class AirwaybillManager
         $request->getStatus() == null && $request->getSpecificationID() != null)
         {
             return $this->airwaybillEntityRepository->getAirwaybillsBySpecificationID($request->getSpecificationID());
+        }
+        elseif($request->getType() == null && $request->getAirwaybillNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
+        $request->getStatus() == null && $request->getSpecificationID() == null)
+        {
+            return $this->airwaybillEntityRepository->getAllAirwaybills();
         }
     }
 

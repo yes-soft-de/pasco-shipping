@@ -48,7 +48,8 @@ class WarehouseController extends BaseController
      *          @OA\Property(type="string", property="location"),
      *          @OA\Property(type="number", property="rentingFee"),
      *          @OA\Property(type="integer", property="proxyID"),
-     *          @OA\Property(type="integer", property="subcontractID")
+     *          @OA\Property(type="integer", property="subcontractID"),
+     *          @OA\Property(type="string", property="type")
      *      )
      * )
      * 
@@ -105,7 +106,8 @@ class WarehouseController extends BaseController
      *          @OA\Property(type="string", property="location"),
      *          @OA\Property(type="number", property="rentingFee"),
      *          @OA\Property(type="integer", property="proxyID"),
-     *          @OA\Property(type="integer", property="subcontractID")
+     *          @OA\Property(type="integer", property="subcontractID"),
+     *          @OA\Property(type="string", property="type")
      *      )
      * )
      * 
@@ -178,6 +180,7 @@ class WarehouseController extends BaseController
      *                  @OA\Property(type="string", property="countryName"),
      *                  @OA\Property(type="string", property="city"),
      *                  @OA\Property(type="string", property="location"),
+     *                  @OA\Property(type="string", property="type"),
      *                  @OA\Property(type="number", property="rentingFee"),
      *                  @OA\Property(type="string", property="proxyName"),
      *                  @OA\Property(type="object", property="createdAt"),
@@ -220,6 +223,7 @@ class WarehouseController extends BaseController
      *                  @OA\Property(type="string", property="countryName"),
      *                  @OA\Property(type="string", property="city"),
      *                  @OA\Property(type="string", property="location"),
+     *                  @OA\Property(type="string", property="type"),
      *                  @OA\Property(type="number", property="rentingFee"),
      *                  @OA\Property(type="string", property="proxyName"),
      *                  @OA\Property(type="object", property="createdAt"),

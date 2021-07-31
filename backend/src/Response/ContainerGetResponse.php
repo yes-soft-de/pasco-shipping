@@ -30,13 +30,7 @@ class ContainerGetResponse
 
     public $shipperName;
 
-    public $capacityCPM;
-
-    public $widthInMeter;
-
-    public $hightInMeter;
-
-    public $lengthInMeter;
+    public $specificationName;
 
     public $shipments = [];
 

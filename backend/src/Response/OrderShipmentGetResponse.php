@@ -58,6 +58,8 @@ class OrderShipmentGetResponse
 
     public $status;
 
+    public $tracks = [];
+
     // external warehouse info
     public $externalWarehouseInfo;
 
