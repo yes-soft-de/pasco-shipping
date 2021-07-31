@@ -373,9 +373,11 @@ class ContainerController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="containerNumber"),
      *          @OA\Property(type="string", property="type"),
+     *          @OA\Property(type="string", property="status"),
      *          @OA\Property(type="integer", property="providedBy"),
      *          @OA\Property(type="integer", property="shipperID"),
-     *          @OA\Property(type="integer", property="consigneeID")
+     *          @OA\Property(type="integer", property="consigneeID"),
+     *          @OA\Property(type="integer", property="specificationID")
      *      )
      * )
      *

@@ -123,6 +123,11 @@ class ContainerManager
         {
             return $this->containerEntityRepository->getContainersBySpecificationID($request->getSpecificationID());
         }
+        elseif($request->getType() == null && $request->getContainerNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
+        $request->getStatus() == null && $request->getSpecificationID() == null)
+        {
+            return $this->containerEntityRepository->getAllContainers();
+        }
     }
 
     public function getContainersBySpecificationID($specificationID)
