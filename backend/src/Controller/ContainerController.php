@@ -263,10 +263,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="subcontractName"),
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
-     *                  @OA\Property(type="number", property="capacityCPM"),
-     *                  @OA\Property(type="number", property="widthInMeter"),
-     *                  @OA\Property(type="number", property="hightInMeter"),
-     *                  @OA\Property(type="number", property="lengthInMeter"),
+     *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
      *                  )
@@ -317,10 +314,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="subcontractName"),
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
-     *                  @OA\Property(type="number", property="capacityCPM"),
-     *                  @OA\Property(type="number", property="widthInMeter"),
-     *                  @OA\Property(type="number", property="hightInMeter"),
-     *                  @OA\Property(type="number", property="lengthInMeter"),
+     *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),
@@ -406,10 +400,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="subcontractName"),
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
-     *                  @OA\Property(type="number", property="capacityCPM"),
-     *                  @OA\Property(type="number", property="widthInMeter"),
-     *                  @OA\Property(type="number", property="hightInMeter"),
-     *                  @OA\Property(type="number", property="lengthInMeter")
+     *                  @OA\Property(type="string", property="specificationName"),
      *              )
      *          )
      *      )
