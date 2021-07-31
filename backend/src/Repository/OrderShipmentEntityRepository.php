@@ -290,7 +290,7 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             ->orderBy('shipmentOrder.id', 'DESC')
 
             ->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
 
     public function filterShipmentsByStatusAndPaymentTimeAndTransportationType($status, $paymentTime, $transportationType)

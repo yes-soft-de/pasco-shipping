@@ -231,6 +231,11 @@ class ShipmentOrderManager
         return $this->orderShipmentEntityRepository->findBy(["unit"=>$unitName]);
     }
 
+    public function getShipmentStatusAndTracksByShipmentID($shipmentID)
+    {
+        return $this->shipmentStatusManager->getShipmentStatusAndTracksByShipmentID($shipmentID);
+    }
+
     public function deleteShipmentOrder(DeleteRequest $request)
     {
         $item = $this->orderShipmentEntityRepository->find($request->getId());
@@ -242,7 +247,7 @@ class ShipmentOrderManager
         else
         {
             // First, check if it is still waiting and does not have other records in other tables
-            $result = $this->shipmentStatusManager->getShipmentByShipmentID($item->getId());
+            $result = $this->shipmentStatusManager->getByShipmentID($item->getId());
 
             if(!$result)
             {
