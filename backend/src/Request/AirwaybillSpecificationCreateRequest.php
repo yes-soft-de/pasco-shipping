@@ -4,6 +4,8 @@ namespace App\Request;
 
 class AirwaybillSpecificationCreateRequest
 {
+    private $name;
+    
     private $weight;
 
     private $createdBy;

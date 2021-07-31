@@ -24,7 +24,7 @@ class AirwaybillSpecificationEntityRepository extends ServiceEntityRepository
     public function getAllAirwaybillSpecifications()
     {
         return $this->createQueryBuilder('airwaybillSpecification')
-            ->select('airwaybillSpecification.id', 'airwaybillSpecification.weight', 'airwaybillSpecification.createdBy', 'airwaybillSpecification.createdAt', 'airwaybillSpecification.updatedBy', 
+            ->select('airwaybillSpecification.id', 'airwaybillSpecification.weight', 'airwaybillSpecification.name', 'airwaybillSpecification.createdBy', 'airwaybillSpecification.createdAt', 'airwaybillSpecification.updatedBy', 
             'airwaybillSpecification.updatedAt', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
             ->leftJoin(

@@ -41,6 +41,7 @@ class AirwaybillSpecificationController extends BaseController
      * @OA\RequestBody(
      *      description="Create new airwaybill specification",
      *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="name"),
      *          @OA\Property(type="number", property="weight", description="of type Float")
      *      )
      * )
@@ -96,6 +97,7 @@ class AirwaybillSpecificationController extends BaseController
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="name"),
      *                  @OA\Property(type="number", property="weight"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
@@ -131,6 +133,7 @@ class AirwaybillSpecificationController extends BaseController
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="name"),
      *                  @OA\Property(type="number", property="weight"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
