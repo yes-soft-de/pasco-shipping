@@ -6,8 +6,8 @@ use App\AutoMapping;
 use App\Entity\ShipmentFinanceEntity;
 use App\Manager\ShipmentFinanceManager;
 use App\Request\ShipmentFinanceCreateRequest;
-use App\Request\ShipmentFinanceGetResponse;
 use App\Response\ShipmentFinanceCreateResponse;
+use App\Response\ShipmentFinanceGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ShipmentFinanceService
