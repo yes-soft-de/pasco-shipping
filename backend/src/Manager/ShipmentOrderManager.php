@@ -172,41 +172,59 @@ class ShipmentOrderManager
         return count($this->orderShipmentEntityRepository->findAll());
     }
 
-    public function filterShipments(ShipmentFilterRequest $request)
+    public function filterAcceptedShipments(ShipmentFilterRequest $request)
     {
-        if($request->getStatus() != null && $request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
-         && $request->getFinishedAt() == null)
+        if($request->getPaymentTime() == null && $request->getTransportationType() == null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
+         && $request->getFinishedAt() == null && $request->getStatus() == null && $request->getTrackNumber() == null)
         {
-            return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationType($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType());
+            return $this->orderShipmentEntityRepository->getAllAcceptedShipmentsOrders();
         }
 
-        elseif($request->getStatus() != null && $request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() != null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
+        elseif($request->getPaymentTime() == null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
+         && $request->getFinishedAt() == null && $request->getStatus() == null && $request->getTrackNumber() == null)
+        {
+            return $this->orderShipmentEntityRepository->filterAcceptedShipmentsTransportationType($request->getTransportationType());
+        }
+
+        elseif($request->getPaymentTime() == null && $request->getTransportationType() == null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
+         && $request->getFinishedAt() == null && $request->getStatus() != null && $request->getTrackNumber() == null)
+        {
+            return $this->orderShipmentEntityRepository->filterAcceptedShipmentsByShipmentStatus($request->getStatus());
+        }
+
+        elseif($request->getPaymentTime() == null && $request->getTransportationType() == null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
+         && $request->getFinishedAt() == null && $request->getStatus() == null && $request->getTrackNumber() != null)
+        {
+            return $this->orderShipmentEntityRepository->filterAcceptedShipmentsByTrackNumber($request->getTrackNumber());
+        }
+
+        elseif($request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() != null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
          && $request->getFinishedAt() == null)
         {
             return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndLaunchCountry($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType(), $request->getLaunchCountry());
         }
 
-        elseif($request->getStatus() != null && $request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() != null && $request->getTargetCountry() != null && $request->getCreatedAt() == null
+        elseif($request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() != null && $request->getTargetCountry() != null && $request->getCreatedAt() == null
          && $request->getFinishedAt() == null)
         {
             return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndLaunchCountryAndTargetCountry($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType(), $request->getLaunchCountry(),
             $request->getTargetCountry());
         }
 
-        elseif($request->getStatus() != null && $request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() != null
+        elseif($request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() != null
          && $request->getFinishedAt() == null)
         {
             return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndCreationDate($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType(), $request->getCreatedAt());
         }
 
-        elseif($request->getStatus() != null && $request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() != null
+        elseif($request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() != null
          && $request->getFinishedAt() != null)
         {
             return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndTwoDates($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType(), $request->getCreatedAt(),
             $request->getFinishedAt());
         }
 
-        elseif($request->getStatus() != null && $request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() != null && $request->getTargetCountry() != null && $request->getCreatedAt() != null
+        elseif($request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() != null && $request->getTargetCountry() != null && $request->getCreatedAt() != null
          && $request->getFinishedAt() != null)
         {
             return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndTwoDatesAndTwoCities($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType(), $request->getLaunchCountry(),

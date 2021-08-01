@@ -138,6 +138,11 @@ class ShipmentStatusManager
         }
     }
 
+    public function getByShipmentStatusAndShipmentID($shipmentStatus, $shipmentID)
+    {
+        return $this->shipmentStatusEntityRepository->getByShipmentStatusAndShipmentID($shipmentStatus, $shipmentID);
+    }
+
     public function getAllShipments()
     {
         return $this->shipmentStatusEntityRepository->getAllShipments();

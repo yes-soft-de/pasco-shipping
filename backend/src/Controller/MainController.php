@@ -23,7 +23,6 @@ use App\Entity\TrackEntity;
 use App\Entity\TravelEntity;
 use App\Entity\UserEntity;
 use App\Entity\WarehouseEntity;
-use App\Request\ShipmentFilterRequest;
 use App\Request\UserUpdateRequest;
 use App\Service\MainService;
 use OpenApi\Annotations as OA;
@@ -96,52 +95,6 @@ class MainController extends BaseController
     public function getStatistics()
     {
         $result = $this->mainService->getStatistics();
-
-        return $this->response($result, self::FETCH);
-    }
-
-    /**
-     * @Route("filter", name="filterShipments", methods={"POST"})
-     * @param Request $request
-     * @return JsonResponse
-     *
-     * @OA\Tag(name="Main")
-     *
-     * @OA\RequestBody(
-     *      description="Post a request with filtering option",
-     *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status", description="this field is required"),
-     *          @OA\Property(type="string", property="paymentTime", description="this field is required"),
-     *          @OA\Property(type="string", property="transportationType", description="this field is required"),
-     *          @OA\Property(type="string", property="createdAt", example="2021-06-01T00:00:00.000"),
-     *          @OA\Property(type="string", property="finishedAt", example="2021-06-01T00:00:00.000"),
-     *          @OA\Property(type="string", property="launchCountry"),
-     *          @OA\Property(type="string", property="targetCountry"),
-     *      )
-     * )
-     *
-     * @OA\Response(
-     *      response=200,
-     *      description="Returns one of two different responses, one for waiting shipment orders, and the other for accepted ones."
-     * )
-     *
-     */
-    public function filterShipments(Request $request)
-    {
-        $data = json_decode($request->getContent(), true);
-
-        $request = $this->autoMapping->map(stdClass::class, ShipmentFilterRequest::class, (object)$data);
-
-        $violations = $this->validator->validate($request);
-
-        if (\count($violations) > 0)
-        {
-            $violationsString = (string) $violations;
-
-            return new JsonResponse($violationsString, Response::HTTP_OK);
-        }
-
-        $result = $this->mainService->filterShipments($request);
 
         return $this->response($result, self::FETCH);
     }

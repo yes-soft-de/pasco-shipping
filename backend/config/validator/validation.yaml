@@ -269,15 +269,6 @@ App\Request\AirwaybillStatusUpdateRequest:
     updatedBy:
       - NotBlank: ~
 
-App\Request\ShipmentFilterRequest:
-  properties:
-    status:
-      - NotBlank: ~
-    transportationType:
-      - NotBlank: ~
-    paymentTime:
-      - NotBlank: ~
-
 App\Request\ContainerUpdateRequest:
   properties:
     id:
