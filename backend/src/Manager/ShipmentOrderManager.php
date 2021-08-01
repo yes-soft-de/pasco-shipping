@@ -118,6 +118,8 @@ class ShipmentOrderManager
             {
                 $shipmentStatusRequest = $this->autoMapping->map(OrderShipmentUpdateRequest::class, ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest::class, $request);
                 
+                $shipmentStatusRequest->setShipmentID($request->getId());
+                
                 $this->shipmentStatusManager->updateShipmentStatusByShipmentIdAndTrackNumber($shipmentStatusRequest);
             }
 

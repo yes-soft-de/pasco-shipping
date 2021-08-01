@@ -281,20 +281,6 @@ class ShipmentOrderController extends BaseController
      *      description="Update the order of a shipment",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="id"),
-     *          @OA\Property(type="string", property="transportationType"),
-     *          @OA\Property(type="string", property="target"),
-     *          @OA\Property(type="string", property="supplierName"),
-     *          @OA\Property(type="integer", property="distributorID"),
-     *          @OA\Property(type="integer", property="quantity"),
-     *          @OA\Property(type="string", property="image"),
-     *          @OA\Property(type="integer", property="productCategoryID"),
-     *          @OA\Property(type="string", property="unit"),
-     *          @OA\Property(type="string", property="receiverName"),
-     *          @OA\Property(type="string", property="receiverPhoneNumber"),
-     *          @OA\Property(type="string", property="paymentTime"),
-     *          @OA\Property(type="string", property="vehicleIdentificationNumber"),
-     *          @OA\Property(type="string", property="extraSpecification"),
-     *          @OA\Property(type="string", property="exportWarehouseID"),
      *          @OA\Property(type="string", property="importWarehouseID"),
      *          @OA\Property(type="string", property="packetingBy"),
      *          @OA\Property(type="string", property="weight"),
@@ -302,9 +288,7 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="guniQuantity"),
      *          @OA\Property(type="string", property="trackNumber"),
      *          @OA\Property(type="string", property="shipmentStatus"),
-     *          @OA\Property(type="string", property="statusDetails"),
-     *          @OA\Property(type="text", property="externalWarehouseInfo"),
-     *          @OA\Property(type="boolean", property="isExternalWarehouse")
+     *          @OA\Property(type="string", property="statusDetails")
      *      )
      * )
      *

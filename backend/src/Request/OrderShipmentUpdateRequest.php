@@ -6,41 +6,9 @@ class OrderShipmentUpdateRequest
 {
     private $id;
 
-    private $transportationType;
-
-    private $target;
-
-    private $supplierID;
-
-    private $supplierName;
-
-    private $quantity;
-
-    private $image;
-
-    private $productCategoryID;
-
-    private $unit;
-
-    private $receiverName;
-
-    private $receiverPhoneNumber;
-
-    private $paymentTime;
-
-    private $vehicleIdentificationNumber;
-
-    private $extraSpecification;
-
-    private $distributorID;
-
-    private $exportWarehouseID;
-
     private $importWarehouseID;
 
     private $packetingBy;
-
-    private $markID;
 
     private $weight;
 
@@ -53,19 +21,12 @@ class OrderShipmentUpdateRequest
     /**
      * Following fields are for Shipment Status entity
      */
-    private $shipmentID;
 
     private $trackNumber;
 
     private $shipmentStatus;
 
     private $statusDetails;
-
-    // external warehouse info
-    private $externalWarehouseInfo;
-
-    // indicates to whether external wharehouse is used or not.
-    private $isExternalWarehouse;
 
     public function getId()
     {
