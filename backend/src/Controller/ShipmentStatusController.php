@@ -147,7 +147,6 @@ class ShipmentStatusController extends BaseController
      * @OA\RequestBody(
      *      description="Update specific raw in Shipment Status table",
      *      @OA\JsonContent(
-     *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="integer", property="shipmentID"),
      *          @OA\Property(type="string", property="trackNumber"),
      *          @OA\Property(type="string", property="shipmentStatus"),

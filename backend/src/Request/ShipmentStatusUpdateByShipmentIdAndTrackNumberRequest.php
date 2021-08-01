@@ -4,7 +4,7 @@ namespace App\Request;
 
 class ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest
 {
-    private $id;
+    // private $id;
 
     private $shipmentID;
 
