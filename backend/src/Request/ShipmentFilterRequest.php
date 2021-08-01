@@ -8,6 +8,8 @@ class ShipmentFilterRequest
 
     private $transportationType;
 
+    private $trackNumber;
+
     private $paymentTime;
 
     private $createdAt;
@@ -51,6 +53,11 @@ class ShipmentFilterRequest
     public function getTargetCountry()
     {
         return $this->targetCountry;
+    }
+
+    public function getTrackNumber()
+    {
+        return $this->trackNumber;
     }
 
 }

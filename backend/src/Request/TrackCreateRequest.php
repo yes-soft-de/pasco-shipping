@@ -6,8 +6,6 @@ class TrackCreateRequest
 {
     private $shipmentID;
 
-    private $travelID;
-
     private $holderType;
 
     private $holderID;

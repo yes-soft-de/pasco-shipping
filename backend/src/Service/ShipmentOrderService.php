@@ -217,16 +217,18 @@ class ShipmentOrderService
         return $this->autoMapping->map('array', OrderShipmentGetResponse::class, $shipmentOrder);
     }
 
-    public function filterShipments(ShipmentFilterRequest $request)
+    public function filterAcceptedShipments(ShipmentFilterRequest $request)
     {
         $ordersResponse = [];
 
-        $orders = $this->shipmentOrderManager->filterShipments($request);
-
+        $orders = $this->shipmentOrderManager->filterAcceptedShipments($request);
+        
         if($orders)
         {
             foreach ($orders as $order)
             {
+                $order['shipmentStatusInfo'] = $this->shipmentOrderManager->getShipmentStatusAndTracksByShipmentID($order['id']);
+
                 if($order['image'])
                 {
                     $order['image'] = $this->params . $order['image'];
@@ -240,26 +242,6 @@ class ShipmentOrderService
                 if($order['orderUpdatedByUserImage'])
                 {
                     $order['orderUpdatedByUserImage'] = $this->params . $order['orderUpdatedByUserImage'];
-                }
-
-                // If the shimpent order is accepted, then get the shipment info from the ShipmentStatusEntity
-                if($order['status'] == ShipmentStatusConstant::$ACCEPTED_SHIPMENT_STATUS)
-                {
-                    $order['shipmentStatusInfo'] = $this->shipmentOrderManager->getAcceptedShipmentByShipmentID($order['id']);
-
-                    // Also, get the shipment info from the TrackEntity
-                    if($order['shipmentStatusInfo'])
-                    {
-                        foreach ($order['shipmentStatusInfo'] as $shipmentStatusItem)
-                        {
-                            $order['shipmentTrackInfo'] = $this->shipmentOrderManager->getByShipmentIdAndTrackNumber($shipmentStatusItem['shipmentID'], $shipmentStatusItem['trackNumber']);
-                        }
-                    }
-                }
-
-                elseif($order['status'] == ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS)
-                {
-                    $order['shipmentStatusInfo'] = [];
                 }
                 
                 $ordersResponse[] = $this->autoMapping->map('array', ShipmentFilterResponse::class, $order);

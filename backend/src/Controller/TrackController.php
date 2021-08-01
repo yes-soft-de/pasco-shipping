@@ -73,7 +73,6 @@ class TrackController extends BaseController
      *                  @OA\Property(type="string", property="trackNumber"),
      *                  @OA\Property(type="string", property="holderType"),
      *                  @OA\Property(type="integer", property="holderID"),
-     *                  @OA\Property(type="integer", property="travelID"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt")
      *          )

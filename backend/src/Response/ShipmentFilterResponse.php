@@ -60,8 +60,6 @@ class ShipmentFilterResponse
 
     public $orderUpdatedByUserImage;
 
-    public $shipmentStatusInfo;
-
-    public $shipmentTrackInfo;
+    public $shipmentStatusInfo = [];
 
 }

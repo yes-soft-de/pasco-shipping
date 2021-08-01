@@ -13,13 +13,11 @@ class MainService
 {
     private $autoMapping;
     private $mainManager;
-    private $shipmentOrderService;
 
-    public function __construct(AutoMapping $autoMapping, MainManager $mainManager, ShipmentOrderService $shipmentOrderService)
+    public function __construct(AutoMapping $autoMapping, MainManager $mainManager)
     {
         $this->autoMapping = $autoMapping;
         $this->mainManager = $mainManager;
-        $this->shipmentOrderService = $shipmentOrderService;
     }
 
     public function update(UserUpdateRequest $request)
@@ -39,11 +37,6 @@ class MainService
         $statistics = $this->mainManager->getStatistics();
 
         return $this->autoMapping->map('array', StatisticsGetResponse::class, $statistics);
-    }
-
-    public function filterShipments($request)
-    {
-        return $this->shipmentOrderService->filterShipments($request);
     }
 
 }

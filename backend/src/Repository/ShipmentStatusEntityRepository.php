@@ -805,5 +805,45 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getByShipmentStatusAndShipmentID($shipmentStatus, $shipmentID)
+    {
+        return $this->createQueryBuilder('shipmentStatusEntity')
+            ->select("shipmentStatusEntity.id", "shipmentStatusEntity.shipmentID", "shipmentStatusEntity.shipmentStatus", "shipmentStatusEntity.statusDetails", "shipmentStatusEntity.trackNumber", "shipmentStatusEntity.isInOneHolder", "shipmentStatusEntity.packed",
+                "shipmentStatusEntity.createdAt", "shipmentStatusEntity.updatedAt", "shipmentStatusEntity.createdBy", "shipmentStatusEntity.updatedBy", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage",
+                "adminProfile2.userName as shipmentStatusUpdatedByUser", "adminProfile2.image as shipmentStatusUpdatedByUserImage", "trackEntity.travelID", "trackEntity.holderType", "trackEntity.holderID")
+
+            ->andWhere('shipmentStatusEntity.shipmentStatus = :shipmentStatus')
+            ->setParameter('shipmentStatus', $shipmentStatus)
+
+            ->andWhere('shipmentStatusEntity.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->leftJoin(
+                TrackEntity::class,
+                'trackEntity',
+                Join::WITH,
+                'trackEntity.shipmentID = shipmentStatusEntity.shipmentID AND trackEntity.trackNumber = shipmentStatusEntity.trackNumber'
+            )
+            
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = shipmentStatusEntity.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = shipmentStatusEntity.updatedBy'
+            )
+
+            ->orderBy('shipmentStatusEntity.id', 'DESC')
+
+            ->getQuery()
+            ->getResult();
+    }
     
 }
