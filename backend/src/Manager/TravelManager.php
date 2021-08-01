@@ -110,7 +110,10 @@ class TravelManager
     {
         $travel = $this->travelEntityRepository->getTravelByID($id);
 
-        $travel['holders'] = $this->trackManager->getTracksByTravelID($travel['id']);
+        if($travel)
+        {
+            $travel['holders'] = $this->trackManager->getTracksByTravelID($travel['id']);
+        }
         
         return $travel;
     }

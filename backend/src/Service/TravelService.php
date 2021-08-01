@@ -98,16 +98,19 @@ class TravelService
     {
         $travel = $this->travelManager->getTravelByID($id);
 
-        if($travel['createdByUserImage'])
+        if($travel)
         {
-            $travel['createdByUserImage'] = $this->params . $travel['createdByUserImage'];
-        }
+            if($travel['createdByUserImage'])
+            {
+                $travel['createdByUserImage'] = $this->params . $travel['createdByUserImage'];
+            }
 
-        if($travel['updatedByUserImage'])
-        {
-            $travel['updatedByUserImage'] = $this->params . $travel['updatedByUserImage'];
+            if($travel['updatedByUserImage'])
+            {
+                $travel['updatedByUserImage'] = $this->params . $travel['updatedByUserImage'];
+            }
         }
-
+        
         return $this->autoMapping->map('array', TravelGetResponse::class, $travel);
     }
 
