@@ -38,6 +38,37 @@ App\Request\OrderShipmentCreateRequest:
       - NotBlank: ~
     paymentTime:
       - NotBlank: ~
+    holderType:
+      - NotBlank: ~
+    isExternalWarehouse:
+      - NotBlank: ~
+
+App\Request\OrderShipmentByDashboardCreateRequest:
+  properties:
+    clientUserID:
+      - NotBlank: ~
+    transportationType:
+      - NotBlank: ~
+    target:
+      - NotBlank: ~
+    quantity:
+      - NotBlank: ~
+    productCategoryID:
+      - NotBlank: ~
+    unit:
+      - NotBlank: ~
+    receiverName:
+      - NotBlank: ~
+    receiverPhoneNumber:
+      - NotBlank: ~
+    paymentTime:
+      - NotBlank: ~
+    holderType:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+    isExternalWarehouse:
+      - NotBlank: ~
 
 App\Request\ShipmentOrderStatusUpdateRequest:
   properties:

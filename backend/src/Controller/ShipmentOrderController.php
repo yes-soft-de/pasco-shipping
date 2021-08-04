@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\DeleteRequest;
+use App\Request\OrderShipmentByDashboardCreateRequest;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
@@ -118,6 +119,94 @@ class ShipmentOrderController extends BaseController
         }
 
         $result = $this->shipmentOrderService->createShipmentOrder($request);
+
+        return $this->response($result, self::CREATE);
+    }
+
+    /**
+     * @Route("ordershipmentbydashboard", name="createShipmentOrderByDashboard", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Shipment Order")
+     * 
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true 
+     * )
+     * 
+     * @OA\RequestBody(
+     *      description="Create new shipment order",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="clientUserID"),
+     *          @OA\Property(type="string", property="transportationType"),
+     *          @OA\Property(type="string", property="target"),
+     *          @OA\Property(type="string", property="supplierName"),
+     *          @OA\Property(type="integer", property="distributorID"),
+     *          @OA\Property(type="string", property="exportWarehouseID"),
+     *          @OA\Property(type="string", property="quantity"),
+     *          @OA\Property(type="string", property="image"),
+     *          @OA\Property(type="string", property="productCategoryID"),
+     *          @OA\Property(type="string", property="unit"),
+     *          @OA\Property(type="string", property="receiverName"),
+     *          @OA\Property(type="string", property="receiverPhoneNumber"),
+     *          @OA\Property(type="string", property="paymentTime"),
+     *          @OA\Property(type="string", property="vehicleIdentificationNumber"),
+     *          @OA\Property(type="string", property="extraSpecification"),
+     *          @OA\Property(type="string", property="holderType", description="public or private container"),
+     *          @OA\Property(type="text", property="externalWarehouseInfo"),
+     *          @OA\Property(type="boolean", property="isExternalWarehouse")
+     *      )
+     * )
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the new order",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="string", property="transportationType"),
+     *                  @OA\Property(type="string", property="target"),
+     *                  @OA\Property(type="integer", property="supplierName"),
+     *                  @OA\Property(type="integer", property="distributorID"),
+     *                  @OA\Property(type="string", property="exportWarehouseID"),
+     *                  @OA\Property(type="string", property="quantity"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="productCategoryID"),
+     *                  @OA\Property(type="string", property="unit"),
+     *                  @OA\Property(type="string", property="receiverName"),
+     *                  @OA\Property(type="string", property="receiverPhoneNumber"),
+     *                  @OA\Property(type="string", property="paymentTime"),
+     *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
+     *                  @OA\Property(type="string", property="extraSpecification"),
+     *                  @OA\Property(type="string", property="holderType", description="public or private container")
+     *          )
+     *      )
+     * )
+     * 
+     * @Security(name="Bearer")
+     */
+    public function createShipmentOrderByDashboard(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, OrderShipmentByDashboardCreateRequest::class, (object)$data);
+
+        $request->setCreatedBy($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->shipmentOrderService->createShipmentOrderByDashboard($request);
 
         return $this->response($result, self::CREATE);
     }
