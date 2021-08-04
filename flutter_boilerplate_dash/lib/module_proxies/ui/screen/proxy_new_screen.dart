@@ -25,7 +25,7 @@ class _AddNewCountryState extends State<AddNewProxy> {
 
   @override
   Widget build(BuildContext context) {
-    return Background(
+    return Background(showFilter: false,
         goBack: (){
         },
         child: Screen(),
@@ -77,7 +77,7 @@ class _AddNewCountryState extends State<AddNewProxy> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ErrorScreen(retry: (){},error: 'error',),
+            ErrorScreen(retry: (){},error: 'error',isEmptyData: false,),
           ],
         ),
       );
