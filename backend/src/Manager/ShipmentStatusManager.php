@@ -168,10 +168,16 @@ class ShipmentStatusManager
         return $this->airwaybillManager->getAirwaybillById($id);
     }
 
-    // For shipmentorder/id endpoint
+    // For shipmentorder/id endpoint + filter API
     public function getShipmentStatusAndTracksByShipmentID($shipmentID)
     {
         return $this->shipmentStatusEntityRepository->getShipmentStatusAndTracksByShipmentID($shipmentID);
+    }
+
+    // For filter API
+    public function getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        return $this->shipmentStatusEntityRepository->getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
     }
 
     public function getShipmentLogByShipmentID($shipmentID)

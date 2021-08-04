@@ -177,69 +177,141 @@ class ShipmentOrderManager
         if($request->getPaymentTime() == null && $request->getTransportationType() == null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
          && $request->getFinishedAt() == null && $request->getStatus() == null && $request->getTrackNumber() == null)
         {
-            return $this->orderShipmentEntityRepository->getAllAcceptedShipmentsOrders();
+            $shipments = $this->orderShipmentEntityRepository->getAllAcceptedShipmentsOrders();
+
+            if($shipments)
+            {
+                foreach($shipments as $key=>$val)
+                {
+                    $shipments[$key]['shipmentStatusInfo'] = $this->getShipmentStatusAndTracksByShipmentID($val['id']);
+                }
+            }
+            
+            return $shipments;
         }
 
         elseif($request->getPaymentTime() == null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
          && $request->getFinishedAt() == null && $request->getStatus() == null && $request->getTrackNumber() == null)
         {
-            return $this->orderShipmentEntityRepository->filterAcceptedShipmentsTransportationType($request->getTransportationType());
+            $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipmentsTransportationType($request->getTransportationType());
+
+            if($shipments)
+            {
+                foreach($shipments as $key=>$val)
+                {
+                    $shipments[$key]['shipmentStatusInfo'] = $this->getShipmentStatusAndTracksByShipmentID($val['id']);
+                }
+            }
+            
+            return $shipments;
         }
 
         elseif($request->getPaymentTime() == null && $request->getTransportationType() == null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
          && $request->getFinishedAt() == null && $request->getStatus() != null && $request->getTrackNumber() == null)
         {
-            return $this->orderShipmentEntityRepository->filterAcceptedShipmentsByShipmentStatus($request->getStatus());
+            $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipmentsByShipmentStatus($request->getStatus());
+
+            if($shipments)
+            {
+                foreach($shipments as $key=>$val)
+                {
+                    $shipments[$key]['shipmentStatusInfo'] = $this->getShipmentStatusAndTracksByShipmentID($val['id']);
+                }
+            }
+
+            return $shipments;
         }
 
         elseif($request->getPaymentTime() == null && $request->getTransportationType() == null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
          && $request->getFinishedAt() == null && $request->getStatus() == null && $request->getTrackNumber() != null)
         {
-            return $this->orderShipmentEntityRepository->filterAcceptedShipmentsByTrackNumber($request->getTrackNumber());
+            $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipmentsByTrackNumber($request->getTrackNumber());
+
+            if($shipments)
+            {
+                foreach($shipments as $key=>$val)
+                {
+                    $shipments[$key]['shipmentStatusInfo'] = $this->getShipmentStatusAndTracksByShipmentIdAndTrackNumber($val['id'], $request->getTrackNumber());
+                }
+            }
+
+            return $shipments;
         }
 
-        elseif($request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() != null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
-         && $request->getFinishedAt() == null)
+        elseif($request->getPaymentTime() == null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
+         && $request->getFinishedAt() == null && $request->getStatus() != null && $request->getTrackNumber() == null)
         {
-            return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndLaunchCountry($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType(), $request->getLaunchCountry());
+            $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipmentsByShipmentStatusAndTransportationType($request->getStatus(), $request->getTransportationType());
+
+            if($shipments)
+            {
+                foreach($shipments as $key=>$val)
+                {
+                    $shipments[$key]['shipmentStatusInfo'] = $this->getShipmentStatusAndTracksByShipmentID($val['id']);
+                }
+            }
+
+            return $shipments;
+        }
+
+        elseif($request->getPaymentTime() == null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
+         && $request->getFinishedAt() == null && $request->getStatus() == null && $request->getTrackNumber() != null)
+        {
+            $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipmentsByTrackNumberAndTransportationType($request->getTrackNumber(), $request->getTransportationType());
+
+            if($shipments)
+            {
+                foreach($shipments as $key=>$val)
+                {
+                    $shipments[$key]['shipmentStatusInfo'] = $this->getShipmentStatusAndTracksByShipmentIdAndTrackNumber($val['id'], $request->getTrackNumber());
+                }
+            }
+            
+            return $shipments;
+        }
+
+        elseif($request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
+         && $request->getFinishedAt() == null && $request->getStatus() != null && $request->getTrackNumber() == null)
+        {
+            return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationType($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType());
         }
 
         elseif($request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() != null && $request->getTargetCountry() != null && $request->getCreatedAt() == null
-         && $request->getFinishedAt() == null)
+         && $request->getFinishedAt() == null && $request->getStatus() != null && $request->getTrackNumber() == null)
         {
             return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndLaunchCountryAndTargetCountry($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType(), $request->getLaunchCountry(),
             $request->getTargetCountry());
         }
 
         elseif($request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() != null
-         && $request->getFinishedAt() == null)
+         && $request->getFinishedAt() == null && $request->getStatus() != null && $request->getTrackNumber() == null)
         {
             return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndCreationDate($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType(), $request->getCreatedAt());
         }
 
         elseif($request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() != null
-         && $request->getFinishedAt() != null)
+         && $request->getFinishedAt() != null && $request->getStatus() == null && $request->getTrackNumber() == null)
         {
-            return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndTwoDates($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType(), $request->getCreatedAt(),
+            return $this->orderShipmentEntityRepository->filterShipmentsByPaymentTimeAndTransportationTypeAndTwoDates($request->getPaymentTime(), $request->getTransportationType(), $request->getCreatedAt(),
             $request->getFinishedAt());
         }
 
         elseif($request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() != null && $request->getTargetCountry() != null && $request->getCreatedAt() != null
-         && $request->getFinishedAt() != null)
+         && $request->getFinishedAt() != null && $request->getStatus() != null && $request->getTrackNumber() == null)
         {
             return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndTwoDatesAndTwoCities($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType(), $request->getLaunchCountry(),
              $request->getTargetCountry(), $request->getCreatedAt(), $request->getFinishedAt());
         }
     }
 
-    // For filtering.
+    // Not used any more
     // Get shimpment info from ShipmentStatuEntity
     public function getAcceptedShipmentByShipmentID($shipmentID)
     {
         return $this->shipmentStatusManager->getByShipmentID($shipmentID);
     }
 
-    // For filtering.
+    // Not used any more
     // Get shimpment info from TrackEntity
     public function getByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
@@ -259,6 +331,11 @@ class ShipmentOrderManager
     public function getShipmentStatusAndTracksByShipmentID($shipmentID)
     {
         return $this->shipmentStatusManager->getShipmentStatusAndTracksByShipmentID($shipmentID);
+    }
+
+    public function getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        return $this->shipmentStatusManager->getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
     }
 
     public function deleteShipmentOrder(DeleteRequest $request)
