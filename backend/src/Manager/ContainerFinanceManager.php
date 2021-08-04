@@ -13,15 +13,12 @@ class ContainerFinanceManager
     private $autoMapping;
     private $entityManager;
     private $containerFinanceEntityRepository;
-    private $trackManager;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ContainerFinanceEntityRepository $containerFinanceEntityRepository,
-     TrackManager $trackManager)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ContainerFinanceEntityRepository $containerFinanceEntityRepository)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->containerFinanceEntityRepository = $containerFinanceEntityRepository;
-        $this->trackManager = $trackManager;
     }
 
     public function create(ContainerFinanceCreateRequest $request)
