@@ -82,4 +82,35 @@ class ShipmentLogController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
+    /**
+     * @Route("allshipmentlogs/{shipmentID}", name="getAllShipmentLogsByShipmentIdForDashboard", methods={"GET"})
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Shipment Log")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of objects which each one represent a log of a shipment - for dashboard",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="shipmentID"),
+     *                  @OA\Property(type="string", property="shipmentStatus"),
+     *                  @OA\Property(type="object", property="createdAt")
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function getAllShipmentLogsByShipmentID($shipmentID)
+    {
+        $result = $this->shipmentLogService->getAllShipmentLogsByShipmentID($shipmentID);
+
+        return $this->response($result, self::FETCH);
+    }
+
 }
