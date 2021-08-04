@@ -26,6 +26,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
   @override
   Widget build(BuildContext context) {
     return Background(
+      showFilter: false,
         goBack: (){
         },
         child: Screen(),
@@ -83,13 +84,26 @@ class _CountriesScreenState extends State<CountriesScreen> {
     //     widget._stateManager.createMark(request);
     //   },markNumberController: _markNumberController,);
     // }
+    else if(currentState is ErrorState) {
+      ErrorState? state = currentState as ErrorState?;
+     bool  isEmpty = state!.isEmptyData;
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ErrorScreen(retry: (){},error: state.error,isEmptyData: isEmpty,),
+          ],
+        ),
+      );
+    }
     else {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ErrorScreen(retry: (){},error: 'error',),
+            ErrorScreen(retry: (){},error: 'Error',isEmptyData: false,),
           ],
         ),
       );

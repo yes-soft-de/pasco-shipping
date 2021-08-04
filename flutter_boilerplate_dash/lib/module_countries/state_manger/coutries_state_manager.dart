@@ -23,10 +23,12 @@ class CountryStateManager{
     _stateSubject.add(LoadingCountriesState());
     _countryService.getCountries().then((marks) {
       print(marks);
-      if(marks != null) {
+      if(marks != null && marks.isNotEmpty) {
         _stateSubject.add(SuccessfullyFetchCountriesState(marks));
+      }else if(marks!.isEmpty) {
+        _stateSubject.add(ErrorState('No Data' , true));
       }else {
-        _stateSubject.add(ErrorState('error'));
+        _stateSubject.add(ErrorState('Error' , false));
       }
     });
 
@@ -38,15 +40,17 @@ class CountryStateManager{
       if(value != null){
         if(value.isConfirmed){
           _countryService.getCountries().then((marks) {
-            if(marks != null) {
+            if(marks != null && marks.isNotEmpty) {
               _stateSubject.add(SuccessfullyFetchCountriesState(marks));
+            }else if (marks!.isEmpty) {
+              _stateSubject.add(ErrorState('No Data' , true));
             }else {
-              _stateSubject.add(ErrorState('error'));
+              _stateSubject.add(ErrorState('Error' , false));
             }
           });
         }
       }else {
-        _stateSubject.add(ErrorState('error'));
+        _stateSubject.add(ErrorState('Error' , false));
       }
     });
   }
@@ -57,15 +61,15 @@ class CountryStateManager{
       if(value != null){
         if(value.isConfirmed){
           _countryService.getCountries().then((marks) {
-            if(marks != null) {
+            if(marks != null && marks.isNotEmpty) {
               _stateSubject.add(SuccessfullyFetchCountriesState(marks));
-            }else {
-              _stateSubject.add(ErrorState('error'));
+            }else if(marks!.isEmpty) {
+              _stateSubject.add(ErrorState('No Data' , true));
             }
           });
         }
       }else {
-        _stateSubject.add(ErrorState('error'));
+        _stateSubject.add(ErrorState('Error' , false));
       }
     });
   }

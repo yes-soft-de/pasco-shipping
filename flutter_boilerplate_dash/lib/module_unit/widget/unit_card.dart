@@ -73,7 +73,7 @@ class _CountryCardState extends State<UnitCard> {
                     Row(
                       children: [
                         Text(
-                          'Phone: ',
+                          'Description: ',
                           style: AppTextStyle.mediumBlack,
                         ),
                       Expanded(child:   widget.isEdtiable ? TextField(controller: description) :  Text(

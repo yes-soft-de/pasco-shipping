@@ -24,9 +24,15 @@ class CountryRepository{
     try {
       var response = await _apiClient.get(Urls.COUNTRIES,
           headers: {'Authorization': 'Bearer $token'});
-      List<CountryModel>? marks =
-          CountryResponse.fromJson(response!).data;
-      return marks;
+      CountryResponse countryResponse = CountryResponse.fromJson(response!);
+      List<CountryModel>? marks  = [];
+      if(countryResponse.data != null) {
+         marks =
+          CountryResponse.fromJson(response).data;
+        return marks;
+      }else {
+        return marks;
+      }
     } catch (_) {
       return null;
     }

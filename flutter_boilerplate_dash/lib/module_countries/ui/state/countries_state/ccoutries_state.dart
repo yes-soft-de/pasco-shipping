@@ -22,6 +22,7 @@ class SuccessfullyModifyState extends CountriesState{
 
 class ErrorState extends CountriesState{
   String error;
+  bool isEmptyData;
 
-  ErrorState(this.error);
+  ErrorState(this.error , this.isEmptyData);
 }

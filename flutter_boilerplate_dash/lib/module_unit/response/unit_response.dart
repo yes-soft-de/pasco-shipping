@@ -53,7 +53,7 @@ class UnitModel {
   factory UnitModel.fromJson(Map<String, dynamic> json) => UnitModel(
     id: json['id'],
     name: json['name'],
-    description: json['description'],
+    description: json['description']?? '',
     createdAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),
     updatedAt: DateTime.fromMillisecondsSinceEpoch(

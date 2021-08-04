@@ -57,6 +57,7 @@ class ReviewShipmentEditedScreen extends StatelessWidget {
             )
           ],
         ),
+        
         Row(
           children: [
             Expanded(
@@ -235,6 +236,7 @@ class ReviewShipmentEditedScreen extends StatelessWidget {
                 ))
           ],
         ),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

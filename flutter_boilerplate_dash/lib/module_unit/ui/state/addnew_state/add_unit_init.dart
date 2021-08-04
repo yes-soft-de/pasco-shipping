@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
-import 'package:pasco_shipping/module_subcontract_services/request/sub_contract_service_request.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/module_unit/request/unit_request.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
@@ -97,7 +97,7 @@ class _AddCountryInitState extends State<AddUnitInit> {
                   ),
                   child: TextField(
                     controller: description,
-                    keyboardType: TextInputType.phone,
+                    keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'description',
@@ -111,7 +111,7 @@ class _AddCountryInitState extends State<AddUnitInit> {
                 if(name.text.isEmpty || description.text.isEmpty) {
                   Fluttertoast.showToast(msg: S.of(context).fillAllField);
                 }else {
-                  SubContractServiceRequest re = SubContractServiceRequest(description: description.text ,name: name.text );
+                  UnitRequest re = UnitRequest(description: description.text ,name: name.text );
                   widget.onSave(re);
                 }
               }, radius: 15)

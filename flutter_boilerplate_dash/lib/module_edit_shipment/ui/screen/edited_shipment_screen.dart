@@ -33,6 +33,7 @@ class _MarkScreenState extends State<EditedShipmentScreen> {
   @override
   Widget build(BuildContext context) {
     return Background(
+      showFilter: false,
       goBack: (){
         Navigator.pop(context);
       },
@@ -96,7 +97,7 @@ class _MarkScreenState extends State<EditedShipmentScreen> {
         return Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
-            ErrorScreen(retry: (){},error: 'error',),
+            ErrorScreen(retry: (){},error: 'error',isEmptyData: false,),
           ],
         );
       }
@@ -105,7 +106,7 @@ class _MarkScreenState extends State<EditedShipmentScreen> {
       return Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
-          ErrorScreen(retry: (){},error: 'error',),
+          ErrorScreen(retry: (){},error: 'error',isEmptyData: false,),
         ],
       );
     }

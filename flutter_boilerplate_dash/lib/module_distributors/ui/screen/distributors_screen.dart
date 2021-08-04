@@ -26,6 +26,7 @@ class _CountriesScreenState extends State<DistributorsScreen> {
   @override
   Widget build(BuildContext context) {
     return Background(
+      showFilter: false,
         goBack: (){
         },
         child: Screen(),
@@ -89,7 +90,7 @@ class _CountriesScreenState extends State<DistributorsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ErrorScreen(retry: (){},error: 'error',),
+            ErrorScreen(retry: (){},error: 'error',isEmptyData: false,),
           ],
         ),
       );
