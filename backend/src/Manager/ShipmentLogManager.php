@@ -42,4 +42,10 @@ class ShipmentLogManager
         return $this->shipmentLogEntityRepository->getAllShipmentLogsByShipmentID($shipmentID);
     }
 
+    // For dashboard
+    public function getAllShipmentLogsByShipmentID($shipmentID)
+    {
+        return $this->shipmentLogEntityRepository->getAllShipmentLogsByShipmentID($shipmentID);
+    }
+
 }

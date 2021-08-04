@@ -5,6 +5,7 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\OrderShipmentEntity;
 use App\Manager\ShipmentOrderManager;
+use App\Request\OrderShipmentByDashboardCreateRequest;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
@@ -37,6 +38,24 @@ class ShipmentOrderService
     public function createShipmentOrder(OrderShipmentCreateRequest $request)
     {
         $orderShipmentResult = $this->shipmentOrderManager->createShipmentOrder($request);
+
+        //Now, we insert a new log raw
+        if($orderShipmentResult instanceof OrderShipmentEntity)
+        {
+            $shipmentLogRequest = new ShipmentLogCreateRequest();
+
+            $shipmentLogRequest->setShipmentID($orderShipmentResult->getId());
+            $shipmentLogRequest->setShipmentStatus($orderShipmentResult->getStatus());
+
+            $this->shipmentLogService->create($shipmentLogRequest);
+        }
+
+        return $this->autoMapping->map(OrderShipmentEntity::class, OrderShipmentCreateResponse::class, $orderShipmentResult);
+    }
+
+    public function createShipmentOrderByDashboard(OrderShipmentByDashboardCreateRequest $request)
+    {
+        $orderShipmentResult = $this->shipmentOrderManager->createShipmentOrderByDashboard($request);
 
         //Now, we insert a new log raw
         if($orderShipmentResult instanceof OrderShipmentEntity)

@@ -26,4 +26,8 @@ class ShipmentStatusConstant
 
     static $ALL_SHIPMENT_STATUS = "all";
 
+    static $SHIPMENT_STATUS_ARRAY = [
+        "waiting", "accepted", "received", "measured", "stored", "uploaded", "started", "released", "cleared", "arrived", "delivered"
+    ];
+
 }

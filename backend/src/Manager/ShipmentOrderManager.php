@@ -8,6 +8,7 @@ use App\Constant\ShipmentStatusConstant;
 use App\Entity\OrderShipmentEntity;
 use App\Repository\OrderShipmentEntityRepository;
 use App\Request\DeleteRequest;
+use App\Request\OrderShipmentByDashboardCreateRequest;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
@@ -38,6 +39,19 @@ class ShipmentOrderManager
     public function createShipmentOrder(OrderShipmentCreateRequest $request)
     {
         $orderShipmentEntity = $this->autoMapping->map(OrderShipmentCreateRequest::class, OrderShipmentEntity::class, $request);
+
+        $orderShipmentEntity->setStatus(ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS);
+
+        $this->entityManager->persist($orderShipmentEntity);
+        $this->entityManager->flush();
+        $this->entityManager->clear();
+
+        return $orderShipmentEntity;
+    }
+
+    public function createShipmentOrderByDashboard(OrderShipmentByDashboardCreateRequest $request)
+    {
+        $orderShipmentEntity = $this->autoMapping->map(OrderShipmentByDashboardCreateRequest::class, OrderShipmentEntity::class, $request);
 
         $orderShipmentEntity->setStatus(ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS);
 
