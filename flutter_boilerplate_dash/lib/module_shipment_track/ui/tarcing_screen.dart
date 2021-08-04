@@ -54,6 +54,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
   Widget Screen(){
     if(currentState is LoadingTrackingState){
       return Background(
+        showFilter: false,
         goBack: (){
           Navigator.pop(context);
         },
@@ -77,6 +78,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
     else {
       ErrorTrackState? state = currentState as ErrorTrackState?;
       return Background(
+        showFilter: false,
         goBack: (){
           Navigator.pop(context);
         },
@@ -88,7 +90,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
-            ErrorScreen(retry: (){},error: state!.message,),
+            ErrorScreen(retry: (){},error: state!.message,isEmptyData: false,),
           ],
         ),
       );

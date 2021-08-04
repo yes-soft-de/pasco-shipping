@@ -66,7 +66,7 @@ class _FirstOptionsState extends State<FirstOptions> {
       return Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
-          ErrorScreen(retry: (){},error: 'error',),
+          ErrorScreen(retry: (){},error: 'error',isEmptyData: false,),
         ],
       );
     }

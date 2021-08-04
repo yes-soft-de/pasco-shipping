@@ -23,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Background(
+      showFilter: false,
       goBack: () {},
       title: 'Dashboard',
       child: Screen()
@@ -64,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ErrorScreen(retry: (){},error: 'connection error',),
+            ErrorScreen(retry: (){},error: 'connection error',isEmptyData: false,),
           ],
         ),
       );

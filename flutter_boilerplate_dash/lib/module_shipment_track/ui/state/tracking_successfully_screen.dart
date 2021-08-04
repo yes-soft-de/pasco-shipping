@@ -38,6 +38,7 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
   @override
   Widget build(BuildContext context) {
     return Background(
+      showFilter: false,
       goBack: (){
         Navigator.pop(context);
       },

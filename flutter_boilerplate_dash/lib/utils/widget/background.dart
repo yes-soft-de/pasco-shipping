@@ -14,12 +14,13 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 class Background extends StatefulWidget {
  final Widget child;
  final String title;
+ final bool showFilter;
  //  int currentIndex;
  //  final bool isResultScreen;
  //  final bool isHome;
  //  ScrollController controller;
   final Function goBack;
-  Background({required this.child, required this.title, required this.goBack});
+  Background({required this.child, required this.title, required this.goBack,required this.showFilter});
 
   @override
   _BackgroundState createState() => _BackgroundState();
@@ -34,6 +35,7 @@ class _BackgroundState extends State<Background> {
     key: globalKey,
     appBar: AppBar(title: Text(widget.title)),
     drawer: DrawerMenu(),
+    floatingActionButton:widget.showFilter ? FloatingActionButton(onPressed: () { widget.goBack(); },child: Icon(Icons.filter_list_alt ,color: Colors.white,),) :Container(),
     body: SafeArea(
      child:widget.child
     ),

@@ -70,7 +70,7 @@ dependencies:
   cloud_firestore: ^2.2.0
   firebase_performance: ^0.7.0+3
   firebase_messaging: ^10.0.0
-  firebase_crashlytics: ^2.0.4
+#  firebase_crashlytics: ^2.0.4
   # Sign In
   google_sign_in: ^5.0.4
   sign_in_with_apple: ^3.0.0

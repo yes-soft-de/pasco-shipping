@@ -20,6 +20,7 @@ class ReviewShipmentScreen extends StatelessWidget {
     MyHistoryShipment shipment =arguments['myHistoryShipment'];
     ScrollController controller = ScrollController();
     return Background(
+      showFilter: false,
       goBack: (){
         Navigator.pop(context);
       },

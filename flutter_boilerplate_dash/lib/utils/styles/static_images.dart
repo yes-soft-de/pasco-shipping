@@ -32,5 +32,6 @@ class StaticImage{
   static final String shipment='assets/images/shippment.png';
   static final String earth='assets/images/earth.png';
   static final String dis='assets/images/dis.png';
+  static final String noResult='assets/images/noresult.png';
 
 }

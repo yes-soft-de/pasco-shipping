@@ -38,6 +38,7 @@ class _MarkScreenState extends State<MarkScreen> {
   Widget build(BuildContext context) {
     print("Screen rebuild");
     return Background(
+      showFilter: false,
       goBack: (){
         Navigator.pop(context , items);
       },
@@ -100,7 +101,7 @@ class _MarkScreenState extends State<MarkScreen> {
       return Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
-          ErrorScreen(retry: (){},error: 'error',),
+          ErrorScreen(retry: (){},error: 'error',isEmptyData: false,),
         ],
       );
     }

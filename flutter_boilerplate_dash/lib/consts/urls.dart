@@ -22,8 +22,8 @@ class Urls {
   static const DISTRIBUTOR = BASE_API + 'distributor';
 
   //proxies
-  static const PROXIES = BASE_API + 'proxies';
-  static const PROXY = BASE_API + 'proxy';
+  static const PROXIES = BASE_API + 'warehousesagents';
+  static const PROXY = BASE_API + 'warehouseagent';
 
   //suppliers
   static const SUPPLIERS = BASE_API + 'suppliers';
@@ -42,7 +42,26 @@ class Urls {
   static const UNITS = BASE_API + 'units';
   static const UNIT = BASE_API + 'unit';
 
-///mark
+  //travel
+  static const TRAVELS = BASE_API + 'travels';
+  static const TRAVEL = BASE_API + 'travel';
+  static const FILTER_TRAVEL = BASE_API + 'filtertravels';
+  static const TRAVEL_STATUS = BASE_API + 'travelstatus';
+
+  //container
+  static const CONTAINER = BASE_API + 'container';
+  static const CONTAINER_FILTER = BASE_API + 'filtercontainers';
+  static const CONTAINER_STATUS = BASE_API + 'containerstatus';
+  static const UPLOADED_CONTAINER_TO_TRAVEL = BASE_API + 'trackbyholder';
+
+
+  // specification
+  static const CONTAINER_SPECIFICATIONS = BASE_API + 'containerspecifications';
+  static const CONTAINER_SPECIFICATION = BASE_API + 'containerspecification';
+
+
+
+  ///mark
   static const MY_MARKS = BASE_API + 'mymarks';
   static const MARK = BASE_API + 'mark';
 
@@ -55,7 +74,13 @@ class Urls {
   static const MY_WAITING_SHIPMENT=BASE_API+'mywaitingshipmentsorders';
   static const ADD_NEW_SHIPMENT=BASE_API+'ordershipment';
 
+  //waitingShipment
+  static const WAITING_SHIPMENTS=BASE_API+'waitingshipmentsorders';
+  static const ACCEPTED_REJECTED_SHIPMENT=BASE_API+'shipmentorderstatus';
 
+  //acceptedShipment
+  static const ACCEPTED_SHIPMENTS=BASE_API+'filteracceptedshipments';
+  static const ACCEPTED_SHIPMENTS_DETAILS=BASE_API+'shipmentorder';
 
   static const REPORT_API = BASE_API + '/report';
 
@@ -66,5 +91,5 @@ class Urls {
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
 
 
-  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjY1NjA5MDAsImV4cCI6MTYyNjU2NDUwMCwicm9sZXMiOlsiUk9MRV9FTVBMT1lFRSIsInVzZXIiXSwidXNlcm5hbWUiOiJlbTEifQ.J-9eaDSL0cCz7J1h4s1NU-kusXTns5JkyjIcVS3UHT4sgkwNa3ZHACUrJKOYm_KKOUU3pFUq-DEhwos6bM_yk7VvhQMXzfbDTBkquICfkG2FcHa1C9QJic64eIBCA_feTSiOWNtcdYeGth-tu51p0D9Z5haU4yczoOn3C7ZQbsgOqYUuYfW7YFU-oAh8VywbJwtnz5i7r6GRWOOUsTVuKVQ0f2__7RGTGdvcSe3KS2NeZy5wxrWapsVj2G0YyBqctUNfmIDAcOwNQac0_HEDD7Fma_uzmyzu98l8sSJ9BXm1f4gmmGCvW0NzAbQICDkvVfiQBwjJxiO5m9dBu4aHVg';
+  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjgwMjUxODgsImV4cCI6MTYyODAyODc4OCwicm9sZXMiOlsiUk9MRV9FTVBMT1lFRSIsInVzZXIiXSwidXNlcm5hbWUiOiJlbTEifQ.JFWewNIupE1JLhTM0fx9u4ZQwscN0leSpLevMnGBQvL-wNHU6Rqm4W_Du-NqGUbiEQbSz1xGibTDTCkHWGKFGqlTMWCZHOvgnYWoDHjWFUewPYj5JqbvYim3AO5nAaeuItjFKz_hid_kOWE7LiP5Lda4FBkQFE2v_zlRIfjz7d0eD919R9g_XZgYq_5i365__HLjG4absJzXgJky5uUzkj0eliJdq9L9tzFdh2-wNRYW5ssJgVDzpXBjlLaTB_A0pmSOIj3t4C9I_ZQhvqUtM3TFcYlQuwdQC9vmhiv7wMicr9olDgZaTbtt_6pL_faNN7lh2Vmw0J2nbeyPCwo8PQ';
 }

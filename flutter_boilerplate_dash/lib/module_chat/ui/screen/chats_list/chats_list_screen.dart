@@ -87,6 +87,7 @@ class ChatsListScreenState extends State<ChatsListScreen> {
       goBack: (){
         Navigator.pop(context);
       },
+      showFilter: false,
       // controller: controller,
       // key: _scaffoldKey,
       // appBar: TurkishAppBar.getTurkishAppBar(

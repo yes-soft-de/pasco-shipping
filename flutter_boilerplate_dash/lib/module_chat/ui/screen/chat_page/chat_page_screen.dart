@@ -100,6 +100,7 @@ class _ChatScreenState extends State<ChatScreen> {
       goBack: (){
         Navigator.pop(context);
       },
+        showFilter: false,
         // controller: _scrollController,
         // isHome: true,
         // isResultScreen: false,

@@ -34,6 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
 
     return Background(
+      showFilter: false,
       goBack: (){
         Navigator.pop(context);
       },
@@ -77,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
-          ErrorScreen(retry: (){},error: 'connection error',),
+          ErrorScreen(retry: (){},error: 'connection error',isEmptyData: false,),
         ],
       );
     }

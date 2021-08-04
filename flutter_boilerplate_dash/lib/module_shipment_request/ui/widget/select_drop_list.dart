@@ -91,7 +91,7 @@ Widget build(BuildContext context) {
                             setState(() {
                             });
                           },
-                          child:optionItemSelected.title=='choose' ?Text('choose' ,style: TextStyle(color: Colors.white),): Text(optionItemSelected.title, style: TextStyle(
+                          child:optionItemSelected.title=='choose' ?Text('choose' ,style: TextStyle(color: Colors.blueGrey),): Text(optionItemSelected.title, style: TextStyle(
                               color: AppThemeDataService.AccentColor,
                               fontSize: 16),),
                         )

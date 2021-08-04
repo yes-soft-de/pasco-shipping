@@ -55,6 +55,7 @@ class _NewShipmentState extends State<NewShipment> {
   @override
   Widget build(BuildContext context) {
     return Background(
+      showFilter: false,
       goBack: (){
         Navigator.pop(context);
       },

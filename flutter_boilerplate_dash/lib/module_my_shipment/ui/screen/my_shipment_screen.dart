@@ -36,6 +36,7 @@ class _ShipmentTrackingScreenState extends State<MyShipmentScreen> {
   @override
   Widget build(BuildContext context) {
     return Background(
+      showFilter: false,
       goBack: (){
         Navigator.pop(context);
       },

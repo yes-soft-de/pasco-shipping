@@ -58,6 +58,7 @@ class _MyShipmentHistoryScreenState extends State<MyShipmentHistoryScreen> {
           ErrorScreen(
             retry: () {},
             error: 'Connection error',
+            isEmptyData: false,
           ),
         ],
       );

@@ -57,6 +57,7 @@ class _MyShipmentActiveScreenState extends State<MyShipmentActiveScreen> {
           ErrorScreen(
             retry: () {},
             error: 'Connection error',
+            isEmptyData: false,
           ),
         ],
       );

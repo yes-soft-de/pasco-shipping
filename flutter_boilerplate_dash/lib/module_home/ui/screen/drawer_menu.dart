@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_chat/chat_routes.dart';
+import 'package:pasco_shipping/module_container/container_routes.dart';
+import 'package:pasco_shipping/module_container/request/container_filter_request.dart';
+import 'package:pasco_shipping/module_container_specification/container_specification_routes.dart';
 import 'package:pasco_shipping/module_countries/country_routes.dart';
 import 'package:pasco_shipping/module_distributors/distributors_routes.dart';
 import 'package:pasco_shipping/module_home/model/drawer_model.dart';
 import 'package:pasco_shipping/module_proxies/proxies_routes.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/accepted_shipment_routes.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_waiting/waiting_shipment_routes.dart';
 import 'package:pasco_shipping/module_sub_contract/subcontract_routes.dart';
 import 'package:pasco_shipping/module_subcontract_services/sub_contract_service_routes.dart';
 import 'package:pasco_shipping/module_suppliers/supplier_routes.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/module_travel/request/travel_filter_request.dart';
+import 'package:pasco_shipping/module_travel/travel_routes.dart';
 import 'package:pasco_shipping/module_unit/unit_routes.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
@@ -21,7 +29,7 @@ class DrawerMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
         child: Container(
-          color: Colors.white,
+      color: Colors.white,
       child: ListView(
         padding: EdgeInsets.all(0.0),
         shrinkWrap: true,
@@ -45,11 +53,62 @@ class DrawerMenu extends StatelessWidget {
               ),
             ),
           ),
+          ExpansionTile(
+            title: new Text('Waiting Shipment'),
+            leading: Icon(Icons.local_shipping_rounded),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: new Text('Sea shipment'),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'transportationType' : 'sea'});
+                        }),
+                    ListTile(
+                        title: new Text('Air shipment'),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'transportationType' : 'air'});
+                        }),
+                  ],
+                ),
+              ),
+            ],
+          ),
 
           ExpansionTile(
-            title: new Text(
-              S.of(context).countries
-            ),
+            title: new Text('Accepted Shipment'),
+            leading: Icon(Icons.local_shipping_rounded),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: new Text('Sea shipment'),
+                        onTap: () {
+                          AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',);
+                          Navigator.pushNamed(
+                              context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
+                        }),
+                    ListTile(
+                        title: new Text('Air shipment'),
+                        onTap: () {
+                          AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',);
+                          Navigator.pushNamed(
+                              context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
+                        }),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+          ExpansionTile(
+            title: new Text(S.of(context).countries),
             leading: Icon(Icons.location_city),
             children: <Widget>[
               Padding(
@@ -57,18 +116,16 @@ class DrawerMenu extends StatelessWidget {
                 child: Column(
                   children: [
                     ListTile(
-                        title: new Text(
-                         S.of(context).view
-                        ),
+                        title: new Text(S.of(context).view),
                         onTap: () {
-                          Navigator.pushNamed(context, CountryRoutes.All_COUNTRY);
+                          Navigator.pushNamed(
+                              context, CountryRoutes.All_COUNTRY);
                         }),
                     ListTile(
-                        title: new Text(
-                          S.of(context).add
-                        ),
+                        title: new Text(S.of(context).add),
                         onTap: () {
-                          Navigator.pushNamed(context, CountryRoutes.ADD_NEW_COUNTRY);
+                          Navigator.pushNamed(
+                              context, CountryRoutes.ADD_NEW_COUNTRY);
                         }),
                   ],
                 ),
@@ -76,9 +133,7 @@ class DrawerMenu extends StatelessWidget {
             ],
           ),
           ExpansionTile(
-            title: new Text(
-             S.of(context).distributors
-            ),
+            title: new Text(S.of(context).distributors),
             leading: Icon(Icons.support_agent),
             children: <Widget>[
               Padding(
@@ -86,19 +141,18 @@ class DrawerMenu extends StatelessWidget {
                 child: Column(
                   children: [
                     ListTile(
-                        title: new Text(
-                          S.of(context).view
-                        ),
+                        title: new Text(S.of(context).view),
                         onTap: () {
-                          Navigator.pushNamed(context, DistributorRoutes.VIEW_ALL);
+                          Navigator.pushNamed(
+                              context, DistributorRoutes.VIEW_ALL);
                         }),
                     ListTile(
                         title: new Text(
                           S.of(context).add,
                         ),
                         onTap: () {
-                          Navigator.pushNamed(context, DistributorRoutes.ADD_NEW);
-
+                          Navigator.pushNamed(
+                              context, DistributorRoutes.ADD_NEW);
                         }),
                   ],
                 ),
@@ -106,9 +160,7 @@ class DrawerMenu extends StatelessWidget {
             ],
           ),
           ExpansionTile(
-            title: new Text(
-             S.of(context).proxies
-            ),
+            title: new Text(S.of(context).proxies),
             leading: Icon(Icons.portrait_rounded),
             children: <Widget>[
               Padding(
@@ -116,9 +168,7 @@ class DrawerMenu extends StatelessWidget {
                 child: Column(
                   children: [
                     ListTile(
-                        title: new Text(
-                          S.of(context).view
-                        ),
+                        title: new Text(S.of(context).view),
                         onTap: () {
                           Navigator.pushNamed(context, ProxyRoutes.VIEW_ALL);
                         }),
@@ -128,7 +178,6 @@ class DrawerMenu extends StatelessWidget {
                         ),
                         onTap: () {
                           Navigator.pushNamed(context, ProxyRoutes.ADD_NEW);
-
                         }),
                   ],
                 ),
@@ -136,20 +185,15 @@ class DrawerMenu extends StatelessWidget {
             ],
           ),
           ExpansionTile(
-            title: new Text(
-                S.of(context).suppliers
-            ),
-            leading:  Icon(Icons.present_to_all),
-
+            title: new Text(S.of(context).suppliers),
+            leading: Icon(Icons.present_to_all),
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: [
                     ListTile(
-                        title: new Text(
-                            S.of(context).view
-                        ),
+                        title: new Text(S.of(context).view),
                         onTap: () {
                           Navigator.pushNamed(context, SupplierRoutes.VIEW_ALL);
                         }),
@@ -159,40 +203,6 @@ class DrawerMenu extends StatelessWidget {
                         ),
                         onTap: () {
                           Navigator.pushNamed(context, SupplierRoutes.ADD_NEW);
-
-                        }),
-                  ],
-                ),
-              ),
-            ],
-          ),
-
-
-          ExpansionTile(
-            title: new Text(
-                S.of(context).subcontracts
-            ),
-            leading:  Icon(Icons.subtitles_outlined),
-
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    ListTile(
-                        title: new Text(
-                            S.of(context).view
-                        ),
-                        onTap: () {
-                          Navigator.pushNamed(context, SubcontractRoutes.VIEW_ALL)        ;
-                        }),
-                    ListTile(
-                        title: new Text(
-                          S.of(context).add,
-                        ),
-                        onTap: () {
-                          Navigator.pushNamed(context, SubcontractRoutes.ADD_NEW)        ;
-
                         }),
                   ],
                 ),
@@ -200,30 +210,53 @@ class DrawerMenu extends StatelessWidget {
             ],
           ),
           ExpansionTile(
-            title: new Text(
-                S.of(context).subcontractService
-            ),
-            leading:  Icon(Icons.design_services),
-
+            title: new Text(S.of(context).subcontracts),
+            leading: Icon(Icons.subtitles_outlined),
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: [
                     ListTile(
-                        title: new Text(
-                            S.of(context).view
-                        ),
+                        title: new Text(S.of(context).view),
                         onTap: () {
-                          Navigator.pushNamed(context, SubContractServiceRoutes.VIEW_ALL);
+                          Navigator.pushNamed(
+                              context, SubcontractRoutes.VIEW_ALL);
                         }),
                     ListTile(
                         title: new Text(
                           S.of(context).add,
                         ),
                         onTap: () {
-                          Navigator.pushNamed(context, SubContractServiceRoutes.ADD_NEW);
-
+                          Navigator.pushNamed(
+                              context, SubcontractRoutes.ADD_NEW);
+                        }),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ExpansionTile(
+            title: new Text(S.of(context).subcontractService),
+            leading: Icon(Icons.design_services),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: new Text(S.of(context).view),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, SubContractServiceRoutes.VIEW_ALL);
+                        }),
+                    ListTile(
+                        title: new Text(
+                          S.of(context).add,
+                        ),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, SubContractServiceRoutes.ADD_NEW);
                         }),
                   ],
                 ),
@@ -254,28 +287,51 @@ class DrawerMenu extends StatelessWidget {
                         ),
                         onTap: () {
                           Navigator.pushNamed(context, UnitRoutes.ADD_NEW);
-
                         }),
                   ],
                 ),
               ),
             ],
           ),
-
           ExpansionTile(
-            title: new Text(
-             S.of(context).warehouses
-            ),
-            leading:  Icon(Icons.business),
+            title: new Text(S.of(context).travels),
+            leading: Icon(Icons.travel_explore),
+            children: <Widget>[
+              ListTile(
+                  title:Text('Sea Travel'),
+                  onTap: () {
+                    TravelFilterRequest re = TravelFilterRequest(type:'cruise');
+                    Navigator.pushNamed(context, TravelRoutes.VIEW_ALL,
+                        arguments: {'travelFilter': re});
+                  }),
+              ListTile(
+                  title:Text(
+                   'Air Travel'
+                  ),
+                  onTap: () {
+                    TravelFilterRequest re = TravelFilterRequest(type:'flight');
+                    Navigator.pushNamed(context, TravelRoutes.VIEW_ALL,
+                        arguments: {'travelFilter': re});
+                  }),
+              ListTile(
+                  title: new Text(
+                  S.of(context).add
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, TravelRoutes.ADD_NEW,);
+                  }),
+            ],
+          ),
+          ExpansionTile(
+            title: new Text(S.of(context).warehouses),
+            leading: Icon(Icons.business),
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: [
                     ListTile(
-                        title: new Text(
-                          S.of(context).view
-                        ),
+                        title: new Text(S.of(context).view),
                         onTap: () {
                           // _openWebUrl(Websites.endpoints[content], content);
                         }),
@@ -292,13 +348,66 @@ class DrawerMenu extends StatelessWidget {
             ],
           ),
 
+          ExpansionTile(
+            title: new Text('Container Specification'),
+            leading: Icon(Icons.filter_list),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: new Text(S.of(context).view),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, ContainerSpecificationRoutes.VIEW_ALL);
+                        }),
+                    ListTile(
+                        title: new Text(
+                          S.of(context).add,
+                        ),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, ContainerSpecificationRoutes.ADD_NEW);
+                        }),
+                  ],
+                ),
+              ),
+            ],
+          ),
 
-
+          ExpansionTile(
+            title: new Text('Containers'),
+            leading: Icon(Icons.inbox_outlined),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: new Text(S.of(context).view),
+                        onTap: () {
+                          ContainerFilterRequest re = ContainerFilterRequest(type: 'public');
+                          Navigator.pushNamed(
+                              context, ContainerRoutes.VIEW_ALL);
+                        }),
+                    ListTile(
+                        title: new Text(
+                          S.of(context).add,
+                        ),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, ContainerRoutes.ADD_NEW);
+                        }),
+                  ],
+                ),
+              ),
+            ],
+          ),
 
           Divider(
             color: Colors.grey,
           ),
-
           ListTile(
             onTap: () {
               // Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
