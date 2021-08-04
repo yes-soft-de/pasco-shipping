@@ -285,6 +285,7 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="importWarehouseID"),
      *          @OA\Property(type="string", property="packetingBy"),
      *          @OA\Property(type="string", property="weight"),
+     *          @OA\Property(type="float", property="volume"),
      *          @OA\Property(type="string", property="qrCode"),
      *          @OA\Property(type="string", property="guniQuantity"),
      *          @OA\Property(type="string", property="trackNumber"),

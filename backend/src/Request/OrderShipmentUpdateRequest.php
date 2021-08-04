@@ -16,6 +16,8 @@ class OrderShipmentUpdateRequest
 
     private $guniQuantity;
 
+    private $volume;
+
     private $updatedBy;
 
     /**
