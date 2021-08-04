@@ -18,6 +18,10 @@ class TrackByHolderTypeAndHolderIdGetResponse
 
     public $packed;
 
+    public $travelID;
+
+    public $travelStatus;
+
     public $transportationType;
 
     public $target;

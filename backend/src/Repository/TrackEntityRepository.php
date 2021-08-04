@@ -65,7 +65,8 @@ class TrackEntityRepository extends ServiceEntityRepository
             "orderShipmentEntity.clientUserID", "orderShipmentEntity.target", "orderShipmentEntity.supplierName", "orderShipmentEntity.supplierID", "orderShipmentEntity.distributorID", "orderShipmentEntity.exportWarehouseID", "orderShipmentEntity.importWarehouseID", 
             "orderShipmentEntity.quantity", "orderShipmentEntity.image", "orderShipmentEntity.createdAt as orderCreationDate", "orderShipmentEntity.isExternalWarehouse", "orderShipmentEntity.updatedAt as orderUpdatingDate", "orderShipmentEntity.productCategoryID", 
             "orderShipmentEntity.unit", "orderShipmentEntity.receiverName", "orderShipmentEntity.receiverPhoneNumber", "orderShipmentEntity.markID", "orderShipmentEntity.packetingBy", "orderShipmentEntity.externalWarehouseInfo", "orderShipmentEntity.paymentTime",
-            "orderShipmentEntity.weight", "orderShipmentEntity.qrCode", "orderShipmentEntity.guniQuantity", "orderShipmentEntity.updatedBy as orderUpdatedByUser", "orderShipmentEntity.vehicleIdentificationNumber", "orderShipmentEntity.extraSpecification",)
+            "orderShipmentEntity.weight", "orderShipmentEntity.qrCode", "orderShipmentEntity.guniQuantity", "orderShipmentEntity.updatedBy as orderUpdatedByUser", "orderShipmentEntity.vehicleIdentificationNumber", "orderShipmentEntity.extraSpecification",
+             "travelEntity.status as travelStatus")
 
             ->leftJoin(
                 ShipmentStatusEntity::class,
@@ -79,6 +80,13 @@ class TrackEntityRepository extends ServiceEntityRepository
                 'orderShipmentEntity',
                 Join::WITH,
                 'orderShipmentEntity.id = track.shipmentID'
+            )
+
+            ->leftJoin(
+                TravelEntity::class,
+                'travelEntity',
+                Join::WITH,
+                'travelEntity.id = track.travelID'
             )
 
             ->andWhere('track.holderID = :holderID')
