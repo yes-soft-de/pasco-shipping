@@ -23,4 +23,24 @@ class ShipmentFinanceCreateRequest
         $this->createdBy = $createdBy;
     }
 
+    public function setShipmentID($shipmentID)
+    {
+        $this->shipmentID = $shipmentID;
+    }
+
+    public function setTrackNumber($trackNumber)
+    {
+        $this->trackNumber = $trackNumber;
+    }
+
+    public function setShipmentStatus($shipmentStatus)
+    {
+        $this->shipmentStatus = $shipmentStatus;
+    }
+
+    public function setStageCost($stageCost)
+    {
+        $this->stageCost = $stageCost;
+    }
+
 }

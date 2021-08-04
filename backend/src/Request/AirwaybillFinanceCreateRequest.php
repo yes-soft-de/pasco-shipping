@@ -31,4 +31,14 @@ class AirwaybillFinanceCreateRequest
         $this->status = $status;
     }
 
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function getStageCost()
+    {
+        return $this->stageCost;
+    }
+
 }
