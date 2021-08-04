@@ -170,6 +170,11 @@ class OrderShipmentEntity
      */
     private $isExternalWarehouse;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $volume;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -531,6 +536,18 @@ class OrderShipmentEntity
     public function setIsExternalWarehouse(bool $isExternalWarehouse): self
     {
         $this->isExternalWarehouse = $isExternalWarehouse;
+
+        return $this;
+    }
+
+    public function getVolume(): ?float
+    {
+        return $this->volume;
+    }
+
+    public function setVolume(?float $volume): self
+    {
+        $this->volume = $volume;
 
         return $this;
     }

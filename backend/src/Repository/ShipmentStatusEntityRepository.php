@@ -806,6 +806,46 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        return $this->createQueryBuilder('shipmentStatus')
+            ->select("shipmentStatus.id", "shipmentStatus.shipmentID", "shipmentStatus.shipmentStatus", "shipmentStatus.statusDetails", "shipmentStatus.trackNumber", "shipmentStatus.isInOneHolder", "shipmentStatus.packed",
+                "shipmentStatus.createdAt", "shipmentStatus.updatedAt", "shipmentStatus.createdBy", "shipmentStatus.updatedBy", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage",
+                "adminProfile2.userName as shipmentStatusUpdatedByUser", "adminProfile2.image as shipmentStatusUpdatedByUserImage", "trackEntity.travelID", "trackEntity.holderType", "trackEntity.holderID")
+
+            ->andWhere('shipmentStatus.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->andWhere('shipmentStatus.trackNumber = :trackNumber')
+            ->setParameter('trackNumber', $trackNumber)
+
+            ->leftJoin(
+                TrackEntity::class,
+                'trackEntity',
+                Join::WITH,
+                'trackEntity.shipmentID = shipmentStatus.shipmentID AND trackEntity.trackNumber = shipmentStatus.trackNumber'
+            )
+            
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = shipmentStatus.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = shipmentStatus.updatedBy'
+            )
+
+            ->orderBy('shipmentStatus.id', 'DESC')
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function getByShipmentStatusAndShipmentID($shipmentStatus, $shipmentID)
     {
         return $this->createQueryBuilder('shipmentStatusEntity')

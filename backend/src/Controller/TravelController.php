@@ -416,6 +416,7 @@ class TravelController extends BaseController
      *      description="Post a request with filtering option",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="type"),
+     *          @OA\Property(type="string", property="status"),
      *          @OA\Property(type="string", property="launchCountry"),
      *          @OA\Property(type="string", property="destinationCountry"),
      *          @OA\Property(type="string", property="launchDate"),

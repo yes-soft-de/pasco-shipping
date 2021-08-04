@@ -27,9 +27,19 @@ class TrackCreateRequest
         $this->shipmentID = $shipmentID;
     }
 
+    public function getShipmentID()
+    {
+        return $this->shipmentID;
+    }
+
     public function setTrackNumber($trackNumber)
     {
         $this->trackNumber = $trackNumber;
+    }
+
+    public function getTrackNumber()
+    {
+        return $this->trackNumber;
     }
 
     public function setShipmentStatus($shipmentStatus)
@@ -50,6 +60,11 @@ class TrackCreateRequest
     public function setHolderType($holderType)
     {
         $this->holderType = $holderType;
+    }
+
+    public function getHolderType()
+    {
+        return $this->holderType;
     }
 
     public function getHolderID()

@@ -3,8 +3,6 @@
 namespace App\Service;
 
 use App\AutoMapping;
-use App\Constant\ShipmentOrderStatusConstant;
-use App\Constant\ShipmentStatusConstant;
 use App\Entity\OrderShipmentEntity;
 use App\Manager\ShipmentOrderManager;
 use App\Request\OrderShipmentCreateRequest;
@@ -227,8 +225,6 @@ class ShipmentOrderService
         {
             foreach ($orders as $order)
             {
-                $order['shipmentStatusInfo'] = $this->shipmentOrderManager->getShipmentStatusAndTracksByShipmentID($order['id']);
-
                 if($order['image'])
                 {
                     $order['image'] = $this->params . $order['image'];
