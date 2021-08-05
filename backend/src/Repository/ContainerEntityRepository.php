@@ -587,4 +587,13 @@ class ContainerEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function deleteAllContainers()
+    {
+        return $this->createQueryBuilder('container')
+            ->delete()
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }

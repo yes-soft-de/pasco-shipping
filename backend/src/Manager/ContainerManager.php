@@ -140,4 +140,9 @@ class ContainerManager
         return $this->containerEntityRepository->getContainersBySpecificationID($specificationID);
     }
 
+    public function deleteAllContainers()
+    {
+        return $this->containerEntityRepository->deleteAllContainers();
+    }
+
 }
