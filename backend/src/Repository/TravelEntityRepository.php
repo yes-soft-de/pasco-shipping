@@ -522,4 +522,13 @@ class TravelEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function deleteAllTravels()
+    {
+        return $this->createQueryBuilder('travel')
+            ->delete()
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }

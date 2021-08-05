@@ -8,6 +8,7 @@ use App\Manager\TravelManager;
 use App\Request\TravelCreateRequest;
 use App\Request\TravelStatusUpdateRequest;
 use App\Request\TravelUpdateRequest;
+use App\Response\DeleteAllGetResponse;
 use App\Response\TravelCreateResponse;
 use App\Response\TravelGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -150,6 +151,15 @@ class TravelService
         {
             return $result;
         }
+    }
+
+    public function deleteAllTravels()
+    {
+        $result = [];
+
+        $result['numbersOfItemDeleted'] = $this->travelManager->deleteAllTravels();
+
+        return $this->autoMapping->map('array', DeleteAllGetResponse::class, $result);
     }
 
 }
