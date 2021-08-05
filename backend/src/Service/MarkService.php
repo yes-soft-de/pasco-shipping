@@ -7,6 +7,7 @@ use App\Entity\MarkEntity;
 use App\Manager\MarkManager;
 use App\Request\MarkCreateByDashboardRequest;
 use App\Request\MarkCreateRequest;
+use App\Response\MarkByDashboardGetResponse;
 use App\Response\MarkCreateResponse;
 use App\Response\MarkGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -70,6 +71,29 @@ class MarkService
             }
 
             $marksResponse[] = $this->autoMapping->map('array', MarkGetResponse::class, $mark);
+        }
+
+        return $marksResponse;
+    }
+
+    public function getAllMarksByUserFromDashboard($userID)
+    {
+        $marksResponse = [];
+
+        $marks = $this->markManager->getAllMarksByUser($userID);
+
+        foreach ($marks as $mark)
+        {
+            if($this->markManager->getShipmentOrdersByMarkID($mark['id']))
+            {
+                $mark['used'] = true;
+            }
+            else
+            {
+                $mark['used'] = false;
+            }
+
+            $marksResponse[] = $this->autoMapping->map('array', MarkByDashboardGetResponse::class, $mark);
         }
 
         return $marksResponse;

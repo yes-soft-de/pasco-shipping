@@ -180,7 +180,11 @@ class MarkController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="markNumber"),
      *                  @OA\Property(type="object", property="createdAt"),
-     *                  @OA\Property(type="object", property="updatedAt")
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
      *          )
      *      )
      * )
@@ -189,7 +193,7 @@ class MarkController extends BaseController
      */
     public function getAllMarksByUser($userID)
     {
-        $result = $this->markService->getAllMarksByUser($userID);
+        $result = $this->markService->getAllMarksByUserFromDashboard($userID);
 
         return $this->response($result, self::FETCH);
     }
