@@ -455,7 +455,7 @@ class ContainerController extends BaseController
     {
         $result = $this->containerService->deleteAllContainers();
 
-        return $this->response($result, self::FETCH);
+        return $this->response($result, self::DELETE);
     }
 
 }

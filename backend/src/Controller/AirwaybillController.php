@@ -462,7 +462,7 @@ class AirwaybillController extends BaseController
     {
         $result = $this->airwaybillService->deleteAllAirwaybills();
 
-        return $this->response($result, self::FETCH);
+        return $this->response($result, self::DELETE);
     }
 
 }
