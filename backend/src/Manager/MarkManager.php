@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\MarkEntity;
 use App\Repository\MarkEntityRepository;
 use App\Request\DeleteRequest;
+use App\Request\MarkCreateByDashboardRequest;
 use App\Request\MarkCreateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -39,6 +40,29 @@ class MarkManager
         {
             // Request mark number does not exist, so create it.
             $markEntity = $this->autoMapping->map(MarkCreateRequest::class, MarkEntity::class, $request);
+
+            $this->entityManager->persist($markEntity);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $markEntity;
+        }
+    }
+
+    public function createByDashboard(MarkCreateByDashboardRequest $request)
+    {
+        // First, check if the mark number exist
+        $result = $this->getMarkByMarkNumber($request->getMarkNumber());
+
+        if($result)
+        {
+            // Requested mark number already existed!
+            return "Requested mark number already existed!";
+        }
+        else
+        {
+            // Request mark number does not exist, so create it.
+            $markEntity = $this->autoMapping->map(MarkCreateByDashboardRequest::class, MarkEntity::class, $request);
 
             $this->entityManager->persist($markEntity);
             $this->entityManager->flush();

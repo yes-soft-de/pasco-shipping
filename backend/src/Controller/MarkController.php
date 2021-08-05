@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\DeleteRequest;
+use App\Request\MarkCreateByDashboardRequest;
 use App\Request\MarkCreateRequest;
 use App\Service\MarkService;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -41,7 +42,7 @@ class MarkController extends BaseController
      * @OA\RequestBody(
      *      description="Create new mark",
      *      @OA\JsonContent(
-     *          @OA\Property(type="integer", property="markNumber")
+     *          @OA\Property(type="string", property="markNumber")
      *      )
      * )
      *
@@ -77,6 +78,57 @@ class MarkController extends BaseController
         }
 
         $result = $this->markService->create($request);
+
+        return $this->response($result, self::CREATE);
+    }
+
+    /**
+     * @Route("markbydashboard", name="createMarkFromDashboard", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Mark")
+     *
+     * @OA\RequestBody(
+     *      description="Create new mark from dashboard",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="markNumber"),
+     *          @OA\Property(type="integer", property="clientUserID")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the creation date of the new mark",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="object", property="createdAt")
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function createByDashboard(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, MarkCreateByDashboardRequest::class, (object)$data);
+
+        $request->setCreatedBy($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->markService->createByDashboard($request);
 
         return $this->response($result, self::CREATE);
     }

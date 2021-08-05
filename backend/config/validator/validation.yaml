@@ -216,6 +216,15 @@ App\Request\MarkCreateRequest:
     markNumber:
       - NotBlank: ~
 
+App\Request\MarkCreateByDashboardRequest:
+  properties:
+    clientUserID:
+      - NotBlank: ~
+    markNumber:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
 App\Request\ProductCategoryCreateRequest:
   properties:
     name:
