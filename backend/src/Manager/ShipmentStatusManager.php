@@ -191,6 +191,12 @@ class ShipmentStatusManager
         return $this->shipmentStatusEntityRepository->getByShipmentID($shipmentID);
     }
 
+    // For Check Holder API
+    public function getShipmentOrderByShipmentID($shipmentID)
+    {
+        return $this->shipmentStatusEntityRepository->getShipmentOrderByShipmentID($shipmentID);
+    }
+
     // For Track Number
     public function getRandomCode()
     {

@@ -641,7 +641,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 "shipmentStatus.createdAt", "shipmentStatus.updatedAt", "shipmentStatus.createdBy", "shipmentStatus.updatedBy", "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierName",
                 "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt as orderCreationDate", "shipmentOrder.isExternalWarehouse",
                 "shipmentOrder.updatedAt as orderUpdatingDate", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy","shipmentOrder.externalWarehouseInfo",
-                "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification",
+                "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.volume",
                 "shipmentOrder.status", "track.id", "track.shipmentID", "track.trackNumber", "track.travelID", "track.holderType", "track.holderID", "track.createdAt", "track.updatedAt", "track.createdBy", "track.updatedBy",
                 "adminProfile4.userName as trackCreatedByUser", "adminProfile4.image as trackCreatedByUserImage", "adminProfile5.userName as trackUpdatedByUser", "adminProfile5.image as trackUpdatedByUserImage", "clientProfile.userName as clientUsername",
                 "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage",
@@ -734,6 +734,31 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 Join::WITH,
                 'productCategory.id = shipmentOrder.productCategoryID'
             )
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    // For Check Holder API
+    public function getShipmentOrderByShipmentID($shipmentID)
+    {
+        return $this->createQueryBuilder('shipmentStatus')
+            ->select("shipmentStatus.id", "shipmentStatus.shipmentID", "shipmentStatus.shipmentStatus", "shipmentStatus.statusDetails", "shipmentStatus.trackNumber", "shipmentStatus.isInOneHolder", "shipmentStatus.packed",
+                "shipmentStatus.createdAt", "shipmentStatus.updatedAt", "shipmentStatus.createdBy", "shipmentStatus.updatedBy", "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierName",
+                "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt as orderCreationDate", "shipmentOrder.isExternalWarehouse",
+                "shipmentOrder.updatedAt as orderUpdatingDate", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy","shipmentOrder.externalWarehouseInfo",
+                "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.volume",
+                "shipmentOrder.status")
+
+            ->leftJoin(
+                OrderShipmentEntity::class,
+                'shipmentOrder',
+                Join::WITH,
+                'shipmentOrder.id = shipmentStatus.shipmentID'
+            )
+
+            ->andWhere('shipmentStatus.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
 
             ->getQuery()
             ->getResult();

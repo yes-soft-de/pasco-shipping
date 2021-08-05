@@ -9,6 +9,7 @@ use App\Manager\TrackManager;
 use App\Request\TrackCreateRequest;
 use App\Request\TrackUpdateByHolderTypeAndIdRequest;
 use App\Request\TrackUpdateRequest;
+use App\Response\CheckHolderGetResponse;
 use App\Response\TrackByHolderTypeAndHolderIdGetResponse;
 use App\Response\TrackCreateResponse;
 use App\Response\TrackGetResponse;
@@ -109,6 +110,15 @@ class TrackService
         }
         
         return $tracksResponse;
+    }
+
+    public function checkHolderAvailability($request)
+    {
+        $result = [];
+
+        $result['result'] = $this->trackManager->checkHolderAvailability($request);
+        //dd($result);
+        return $this->autoMapping->map('array', CheckHolderGetResponse::class, $result);
     }
 
 }

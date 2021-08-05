@@ -65,6 +65,11 @@ class TrackEntity
      */
     private $trackNumber;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $amount;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -174,6 +179,18 @@ class TrackEntity
     public function setTrackNumber(string $trackNumber): self
     {
         $this->trackNumber = $trackNumber;
+
+        return $this;
+    }
+
+    public function getAmount(): ?float
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(?float $amount): self
+    {
+        $this->amount = $amount;
 
         return $this;
     }

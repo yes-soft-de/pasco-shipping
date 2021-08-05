@@ -48,4 +48,32 @@ class ContainerSpecificationEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getContainerSpecificationById($specificationID)
+    {
+        return $this->createQueryBuilder('containerSpecification')
+            ->select('containerSpecification.id', 'containerSpecification.name', 'containerSpecification.capacityCPM', 'containerSpecification.widthInMeter', 'containerSpecification.hightInMeter', 'containerSpecification.lengthInMeter', 
+            'containerSpecification.createdAt', 'containerSpecification.updatedAt', 'containerSpecification.createdBy', 'containerSpecification.updatedBy', 'adminProfile1.userName as createdByUser', 
+            'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
+
+            ->andWhere('containerSpecification.id = :specificationID')
+            ->setParameter('specificationID', $specificationID)
+            
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = containerSpecification.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = containerSpecification.updatedBy'
+            )
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }
