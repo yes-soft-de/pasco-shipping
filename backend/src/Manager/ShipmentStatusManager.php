@@ -50,6 +50,7 @@ class ShipmentStatusManager
         $shipmentLogRequest->setShipmentID($shipmentStatusEntity->getShipmentID());
         $shipmentLogRequest->setShipmentStatus($shipmentStatusEntity->getShipmentStatus());
         $shipmentLogRequest->setTrackNumber($shipmentStatusEntity->getTrackNumber());
+        $shipmentLogRequest->setCreatedBy($shipmentStatusEntity->getCreatedBy());
 
         $this->shipmentLogManager->create($shipmentLogRequest);
 
@@ -83,6 +84,7 @@ class ShipmentStatusManager
             $shipmentLogRequest->setShipmentID($shipmentStatusEntity->getShipmentID());
             $shipmentLogRequest->setShipmentStatus($shipmentStatusEntity->getShipmentStatus());
             $shipmentLogRequest->setTrackNumber($shipmentStatusEntity->getTrackNumber());
+            $shipmentLogRequest->setCreatedBy($shipmentStatusEntity->getCreatedBy());
 
             $this->shipmentLogManager->create($shipmentLogRequest);
         }
@@ -110,6 +112,7 @@ class ShipmentStatusManager
             $shipmentLogRequest->setShipmentID($shipmentStatusEntity->getShipmentID());
             $shipmentLogRequest->setShipmentStatus($shipmentStatusEntity->getShipmentStatus());
             $shipmentLogRequest->setTrackNumber($shipmentStatusEntity->getTrackNumber());
+            $shipmentLogRequest->setCreatedBy($shipmentStatusEntity->getUpdatedBy());
 
             $this->shipmentLogManager->create($shipmentLogRequest);
 

@@ -10,6 +10,13 @@ class ShipmentLogCreateRequest
 
     private $trackNumber;
 
+    private $createdBy;
+
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+    }
+
     public function setShipmentID($shipmentID)
     {
         $this->shipmentID = $shipmentID;

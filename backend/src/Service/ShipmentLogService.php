@@ -8,16 +8,19 @@ use App\Manager\ShipmentLogManager;
 use App\Request\ShipmentLogCreateRequest;
 use App\Response\ShipmentLogForDashboardGetResponse;
 use App\Response\ShipmentLogGetResponse;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ShipmentLogService
 {
     private $autoMapping;
     private $shipmentLogManager;
+    private $params;
 
-    public function __construct(AutoMapping $autoMapping, ShipmentLogManager $shipmentLogManager)
+    public function __construct(AutoMapping $autoMapping, ShipmentLogManager $shipmentLogManager, ParameterBagInterface $params)
     {
         $this->autoMapping = $autoMapping;
         $this->shipmentLogManager = $shipmentLogManager;
+        $this->params = $params->get('upload_base_url') . '/';
     }
 
     public function create(ShipmentLogCreateRequest $request)
@@ -63,6 +66,11 @@ class ShipmentLogService
         
         foreach ($shipmentsLogsResult as $shipmentLog)
         {
+            if($shipmentLog['createdByUserImage'])
+            {
+                $shipmentLog['createdByUserImage'] = $this->params . $shipmentLog['createdByUserImage'];
+            }
+
             $shipmentsLogsResponse[] = $this->autoMapping->map('array', ShipmentLogForDashboardGetResponse::class, $shipmentLog);
         }
 

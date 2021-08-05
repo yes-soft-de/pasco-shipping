@@ -99,7 +99,9 @@ class ShipmentLogController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="shipmentID"),
      *                  @OA\Property(type="string", property="shipmentStatus"),
-     *                  @OA\Property(type="object", property="createdAt")
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage")
      *              )
      *          )
      *      )
