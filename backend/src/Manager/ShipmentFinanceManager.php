@@ -41,5 +41,10 @@ class ShipmentFinanceManager
     {
         return $this->shipmentFinanceEntityRepository->getCurrentTotalCostByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
     }
+    
+    public function deleteAllShipmentFinances()
+    {
+        return $this->shipmentFinanceEntityRepository->deleteAllShipmentFinances();
+    }
 
 }

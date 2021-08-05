@@ -418,5 +418,10 @@ class TrackManager
             return "You can not store this shipment completely into the holder!";
         }
     }
+    
+    public function deleteAllTracks()
+    {
+        return $this->trackEntityRepository->deleteAllTracks();
+    }
 
 }

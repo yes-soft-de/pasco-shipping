@@ -910,5 +910,14 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function deleteAllShipmentStatus()
+    {
+        return $this->createQueryBuilder('shipmentStatus')
+            ->delete()
+
+            ->getQuery()
+            ->getResult();
+    }
     
 }

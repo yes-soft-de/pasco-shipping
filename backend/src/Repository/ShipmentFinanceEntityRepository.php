@@ -69,4 +69,13 @@ class ShipmentFinanceEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function deleteAllShipmentFinances()
+    {
+        return $this->createQueryBuilder('shipmentFinance')
+            ->delete()
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }

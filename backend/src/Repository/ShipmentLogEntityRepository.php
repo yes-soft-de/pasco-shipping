@@ -44,4 +44,13 @@ class ShipmentLogEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function deleteAllShipmentsLogs()
+    {
+        return $this->createQueryBuilder('shipmentLog')
+            ->delete()
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }

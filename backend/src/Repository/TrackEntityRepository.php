@@ -149,5 +149,14 @@ class TrackEntityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function deleteAllTracks()
+    {
+        return $this->createQueryBuilder('track')
+            ->delete()
+
+            ->getQuery()
+            ->getResult();
+    }
     
 }

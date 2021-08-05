@@ -204,6 +204,11 @@ class ShipmentStatusManager
         $data = random_int(0, 9) . random_int(0, 9) . random_int(0, 9) . random_int(0, 9) . random_int(0, 9);
 
         return  vsprintf('%s%s%s%s%s', str_split(($data)));
+    }
+    
+    public function deleteAllShipmentStatus()
+    {
+        return $this->shipmentStatusEntityRepository->deleteAllShipmentStatus();
     }    
 
 }

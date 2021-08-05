@@ -379,4 +379,8 @@ class ShipmentOrderManager
         }
     }
     
+    public function deleteAllOrders()
+    {
+        return $this->orderShipmentEntityRepository->deleteAllOrders();
+    }
 }

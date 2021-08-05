@@ -47,5 +47,10 @@ class ShipmentLogManager
     {
         return $this->shipmentLogEntityRepository->getAllShipmentLogsByShipmentID($shipmentID);
     }
+    
+    public function deleteAllShipmentsLogs()
+    {
+        return $this->shipmentLogEntityRepository->deleteAllShipmentsLogs();
+    }
 
 }
