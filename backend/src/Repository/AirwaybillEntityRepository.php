@@ -610,4 +610,13 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function deleteAllAirwaybills()
+    {
+        return $this->createQueryBuilder('airwaybill')
+            ->delete()
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }

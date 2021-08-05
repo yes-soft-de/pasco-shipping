@@ -10,6 +10,7 @@ use App\Request\AirwaybillStatusUpdateRequest;
 use App\Request\AirwaybillUpdateRequest;
 use App\Response\AirwaybillCreateResponse;
 use App\Response\AirwaybillGetResponse;
+use App\Response\DeleteAllGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class AirwaybillService
@@ -114,6 +115,15 @@ class AirwaybillService
         }
 
         return $airwaybillsResponse;
+    }
+
+    public function deleteAllAirwaybills()
+    {
+        $result = [];
+
+        $result['numbersOfItemDeleted'] = $this->airwaybillManager->deleteAllAirwaybills();
+
+        return $this->autoMapping->map('array', DeleteAllGetResponse::class, $result);
     }
 
 }

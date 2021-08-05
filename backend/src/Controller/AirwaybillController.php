@@ -436,4 +436,33 @@ class AirwaybillController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
+    /**
+     * @Route("deleteallairwaybills", name="deleteAllAirwaybills", methods={"DELETE"})
+     * @return JsonResponse
+     * 
+     * @OA\Tag(name="Airwaybill")
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the number of the airwaybills being deleted",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                 @OA\Property(type="number", property="numbersOfItemDeleted")
+     *                      )
+     *                     )
+     *          )
+     * 
+     * )
+     * 
+     * @Security(name="Bearer")
+     */
+    public function deleteAllAirwaybills()
+    {
+        $result = $this->airwaybillService->deleteAllAirwaybills();
+
+        return $this->response($result, self::FETCH);
+    }
+
 }

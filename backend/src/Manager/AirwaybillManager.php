@@ -140,4 +140,9 @@ class AirwaybillManager
         return $this->airwaybillEntityRepository->getAirwaybillsBySpecificationID($specificationID);
     }
 
+    public function deleteAllAirwaybills()
+    {
+        return $this->airwaybillEntityRepository->deleteAllAirwaybills();
+    }
+
 }
