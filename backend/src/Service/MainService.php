@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\UserEntity;
 use App\Manager\MainManager;
 use App\Request\UserUpdateRequest;
+use App\Response\DeleteAllGetResponse;
 use App\Response\StatisticsGetResponse;
 use App\Response\UserRegisterResponse;
 
@@ -37,6 +38,15 @@ class MainService
         $statistics = $this->mainManager->getStatistics();
 
         return $this->autoMapping->map('array', StatisticsGetResponse::class, $statistics);
+    }
+
+    public function deleteAllShipments()
+    {
+        $result = [];
+
+        $result['numbersOfItemDeleted'] = $this->mainManager->deleteAllShipments();
+
+        return $this->autoMapping->map('array', DeleteAllGetResponse::class, $result);
     }
 
 }

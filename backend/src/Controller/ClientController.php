@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\ClientProfileUpdateRequest;
+use App\Request\ClientRegisterByDashboardRequest;
 use App\Request\ClientRegisterRequest;
 use App\Request\DeleteRequest;
 use App\Service\ClientService;
@@ -76,6 +77,57 @@ class ClientController extends BaseController
         }
 
         $response = $this->clientService->clientRegister($request);
+
+        return $this->response($response, self::CREATE);
+    }
+
+    /**
+     * @Route("/clientbydashboard", name="clientRegisterByDashboard", methods={"POST"})
+     *
+     * @OA\Tag(name="Client")
+     *
+     * @OA\RequestBody(
+     *      description="Creates client and profile at the same time from dashboard",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="userID"),
+     *          @OA\Property(type="string", property="password"),
+     *          @OA\Property(type="string", property="userName"),
+     *          @OA\Property(type="string", property="email")
+     *      )
+     * )
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the new client's role and the creation date",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="array", property="roles",
+     *                      @OA\Items(example="user")),
+     *                  @OA\Property(type="object", property="createdAt")
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function clientRegisterByDashboard(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ClientRegisterByDashboardRequest::class, (object)$data);
+
+        $request->setCreatedBy($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $response = $this->clientService->clientRegisterByDashboard($request);
 
         return $this->response($response, self::CREATE);
     }
@@ -197,6 +249,60 @@ class ClientController extends BaseController
     public function getClientProfileByID()
     {
         $response = $this->clientService->getClientProfileByUserID($this->getUserId());
+
+        return $this->response($response, self::FETCH);
+    }
+
+    /**
+     * @Route("client/{userID}", name="getClientProfileByID",methods={"GET"})
+     * 
+     * @OA\Tag(name="Client")
+     * 
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true 
+     * )
+     *
+     * @OA\Parameter(
+     *      name="userID",
+     *      in="path",
+     *      required="true",
+     *      description="the userID of the client"
+     * )
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the full infor of the client",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="array", property="roles",
+     *                      @OA\Items(example="user")
+     *                  ),
+     *                  @OA\Property(type="object", property="createAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="userName"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="city"),
+     *                  @OA\Property(type="string", property="country"),
+     *                  @OA\Property(type="string", property="location"),
+     *                  @OA\Property(type="string", property="phone")
+     *          )
+     *      )
+     * )
+     * 
+     * @Security(name="Bearer")
+     */
+    public function getFullClientInfoByUserID($userID)
+    {
+        $response = $this->clientService->getFullClientInfoByUserID($userID);
 
         return $this->response($response, self::FETCH);
     }

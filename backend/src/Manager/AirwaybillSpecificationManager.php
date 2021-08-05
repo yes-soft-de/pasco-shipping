@@ -41,6 +41,11 @@ class AirwaybillSpecificationManager
         return $this->airwaybillSpecificationEntityRepository->getAllAirwaybillSpecifications();
     }
 
+    public function getAirwaybillSpecificationByID($specificationID)
+    {
+        return $this->airwaybillSpecificationEntityRepository->getAirwaybillSpecificationByID($specificationID);
+    }
+
     public function deleteAirwaybillSpecificationById(DeleteRequest $request)
     {
         $airwaybillSpecificationEntity = $this->airwaybillSpecificationEntityRepository->find($request->getId());

@@ -39,6 +39,11 @@ class ShipmentLogEntity
      */
     private $trackNumber;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $createdBy;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +93,18 @@ class ShipmentLogEntity
     public function setTrackNumber(?string $trackNumber): self
     {
         $this->trackNumber = $trackNumber;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?int
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(int $createdBy): self
+    {
+        $this->createdBy = $createdBy;
 
         return $this;
     }

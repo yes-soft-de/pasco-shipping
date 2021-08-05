@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\AdminProfileEntity;
 use App\Entity\ShipmentLogEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -33,12 +35,29 @@ class ShipmentLogEntityRepository extends ServiceEntityRepository
     public function getAllShipmentLogsByShipmentID($shipmentID)
     {
         return $this->createQueryBuilder('shipmentLog')
-            ->select('shipmentLog.id', 'shipmentLog.shipmentID', 'shipmentLog.shipmentStatus', 'shipmentLog.createdAt')
+            ->select('shipmentLog.id', 'shipmentLog.shipmentID', 'shipmentLog.shipmentStatus', 'shipmentLog.createdAt', 'shipmentLog.createdBy', 'adminProfile.userName as createdByUser', 
+            'adminProfile.image as createdByUserImage')
 
             ->andWhere('shipmentLog.shipmentID = :shipmentID')
             ->setParameter('shipmentID', $shipmentID)
 
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile',
+                Join::WITH,
+                'adminProfile.userID = shipmentLog.createdBy'
+            )
+
             ->orderBy('shipmentLog.id', 'ASC')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function deleteAllShipmentsLogs()
+    {
+        return $this->createQueryBuilder('shipmentLog')
+            ->delete()
 
             ->getQuery()
             ->getResult();

@@ -136,6 +136,17 @@ class MainController extends BaseController
     }
 
     /**
+     * @Route("deleteallshipments", name="deleteAllShipments", methods={"DELETE"})
+     * @return JsonResponse
+     */
+    public function deleteAllShipments()
+    {
+        $result = $this->mainService->deleteAllShipments();
+
+        return $this->response($result, self::DELETE);
+    }
+
+    /**
      * @Route("eraseall", name="deleteAllData", methods={"DELETE"})
      */
     public function eraseAllData()

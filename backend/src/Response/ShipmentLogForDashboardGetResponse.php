@@ -14,4 +14,8 @@ class ShipmentLogForDashboardGetResponse
 
     public $createdAt;
 
+    public $createdByUser;
+
+    public $createdByUserImage;
+
 }

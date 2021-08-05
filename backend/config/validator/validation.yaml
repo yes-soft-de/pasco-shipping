@@ -6,16 +6,18 @@ App\Request\UploadImageRequest:
           maxSize: 20m
           maxSizeMessage: "Image size over 20M"
 
-App\Request\UserRegisterRequest:
+App\Request\ClientRegisterRequest:
   properties:
     userID:
       - NotBlank: ~
     password:
       - NotBlank: ~
 
-App\Request\UserProfileCreateRequest:
+App\Request\ClientRegisterByDashboardRequest:
   properties:
-    userName:
+    userID:
+      - NotBlank: ~
+    password:
       - NotBlank: ~
 
 App\Request\OrderShipmentCreateRequest:
@@ -39,8 +41,6 @@ App\Request\OrderShipmentCreateRequest:
     paymentTime:
       - NotBlank: ~
     holderType:
-      - NotBlank: ~
-    isExternalWarehouse:
       - NotBlank: ~
 
 App\Request\OrderShipmentByDashboardCreateRequest:
@@ -66,8 +66,6 @@ App\Request\OrderShipmentByDashboardCreateRequest:
     holderType:
       - NotBlank: ~
     createdBy:
-      - NotBlank: ~
-    isExternalWarehouse:
       - NotBlank: ~
 
 App\Request\ShipmentOrderStatusUpdateRequest:
@@ -214,6 +212,15 @@ App\Request\MarkCreateRequest:
     clientUserID:
       - NotBlank: ~
     markNumber:
+      - NotBlank: ~
+
+App\Request\MarkCreateByDashboardRequest:
+  properties:
+    clientUserID:
+      - NotBlank: ~
+    markNumber:
+      - NotBlank: ~
+    createdBy:
       - NotBlank: ~
 
 App\Request\ProductCategoryCreateRequest:

@@ -46,6 +46,7 @@ class ShipmentOrderService
 
             $shipmentLogRequest->setShipmentID($orderShipmentResult->getId());
             $shipmentLogRequest->setShipmentStatus($orderShipmentResult->getStatus());
+            $shipmentLogRequest->setCreatedBy($request->getClientUserID());
 
             $this->shipmentLogService->create($shipmentLogRequest);
         }
@@ -64,6 +65,7 @@ class ShipmentOrderService
 
             $shipmentLogRequest->setShipmentID($orderShipmentResult->getId());
             $shipmentLogRequest->setShipmentStatus($orderShipmentResult->getStatus());
+            $shipmentLogRequest->setCreatedBy($request->getCreatedBy());
 
             $this->shipmentLogService->create($shipmentLogRequest);
         }

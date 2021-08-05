@@ -10,6 +10,7 @@ use App\Request\ContainerStatusUpdateRequest;
 use App\Request\ContainerUpdateRequest;
 use App\Response\ContainerCreateResponse;
 use App\Response\ContainerGetResponse;
+use App\Response\DeleteAllGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ContainerService
@@ -114,6 +115,15 @@ class ContainerService
         }
 
         return $containersResponse;
+    }
+
+    public function deleteAllContainers()
+    {
+        $result = [];
+
+        $result['numbersOfItemDeleted'] = $this->containerManager->deleteAllContainers();
+
+        return $this->autoMapping->map('array', DeleteAllGetResponse::class, $result);
     }
 
 }

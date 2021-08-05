@@ -220,5 +220,10 @@ class TravelManager
 
         return $item;
     }
+    
+    public function deleteAllTravels()
+    {
+        return $this->travelEntityRepository->deleteAllTravels();
+    }
 
 }

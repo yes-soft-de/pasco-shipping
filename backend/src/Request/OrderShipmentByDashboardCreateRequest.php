@@ -73,4 +73,9 @@ class OrderShipmentByDashboardCreateRequest
         return $this->externalWarehouseInfo;
     }
 
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
 }

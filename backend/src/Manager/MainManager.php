@@ -10,6 +10,7 @@ use App\Entity\UserEntity;
 use App\Repository\UserEntityRepository;
 use App\Request\UserUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class MainManager
@@ -22,9 +23,14 @@ class MainManager
     private $travelManager;
     private $userManager;
     private $adminManager;
+    private $shipmentStatusManager;
+    private $shipmentLogManager;
+    private $shipmentFinanceManager;
+    private $trackManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder, UserEntityRepository $userEntityRepository,
-                                ShipmentOrderManager $shipmentOrderManager, TravelManager $travelManager, ClientManager $userManager, AdminManager $adminManager)
+                                ShipmentOrderManager $shipmentOrderManager, TravelManager $travelManager, ClientManager $userManager, AdminManager $adminManager, ShipmentStatusManager $shipmentStatusManager,
+                                ShipmentLogManager $shipmentLogManager, ShipmentFinanceManager $shipmentFinanceManager, TrackManager $trackManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -34,6 +40,10 @@ class MainManager
         $this->travelManager = $travelManager;
         $this->userManager = $userManager;
         $this->adminManager = $adminManager;
+        $this->shipmentStatusManager = $shipmentStatusManager;
+        $this->shipmentLogManager = $shipmentLogManager;
+        $this->shipmentFinanceManager = $shipmentFinanceManager;
+        $this->trackManager = $trackManager;
     }
 
     public function update(UserUpdateRequest $request)
@@ -89,6 +99,30 @@ class MainManager
         $statisticsResponse["users"]["totals"] = $statisticsResponse["users"]["customers"] + $statisticsResponse["users"]["employees"];
 
         return $statisticsResponse;
+    }
+
+    public function deleteAllShipments()
+    {
+        $number = 0;
+
+        try
+        {
+            $number = $this->shipmentOrderManager->deleteAllOrders();
+            
+            $number = $number + $this->shipmentStatusManager->deleteAllShipmentStatus();
+
+            $number = $number + $this->trackManager->deleteAllTracks();
+
+            $number = $number + $this->shipmentFinanceManager->deleteAllShipmentFinances();
+
+            $number = $number + $this->shipmentLogManager->deleteAllShipmentsLogs();
+
+            return $number;
+        }
+        catch (Exception $ex)
+        {
+            return $ex;
+        }
     }
 
 }

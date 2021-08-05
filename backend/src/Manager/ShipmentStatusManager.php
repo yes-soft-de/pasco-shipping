@@ -50,6 +50,7 @@ class ShipmentStatusManager
         $shipmentLogRequest->setShipmentID($shipmentStatusEntity->getShipmentID());
         $shipmentLogRequest->setShipmentStatus($shipmentStatusEntity->getShipmentStatus());
         $shipmentLogRequest->setTrackNumber($shipmentStatusEntity->getTrackNumber());
+        $shipmentLogRequest->setCreatedBy($shipmentStatusEntity->getCreatedBy());
 
         $this->shipmentLogManager->create($shipmentLogRequest);
 
@@ -83,6 +84,7 @@ class ShipmentStatusManager
             $shipmentLogRequest->setShipmentID($shipmentStatusEntity->getShipmentID());
             $shipmentLogRequest->setShipmentStatus($shipmentStatusEntity->getShipmentStatus());
             $shipmentLogRequest->setTrackNumber($shipmentStatusEntity->getTrackNumber());
+            $shipmentLogRequest->setCreatedBy($shipmentStatusEntity->getCreatedBy());
 
             $this->shipmentLogManager->create($shipmentLogRequest);
         }
@@ -110,6 +112,7 @@ class ShipmentStatusManager
             $shipmentLogRequest->setShipmentID($shipmentStatusEntity->getShipmentID());
             $shipmentLogRequest->setShipmentStatus($shipmentStatusEntity->getShipmentStatus());
             $shipmentLogRequest->setTrackNumber($shipmentStatusEntity->getTrackNumber());
+            $shipmentLogRequest->setCreatedBy($shipmentStatusEntity->getUpdatedBy());
 
             $this->shipmentLogManager->create($shipmentLogRequest);
 
@@ -191,6 +194,12 @@ class ShipmentStatusManager
         return $this->shipmentStatusEntityRepository->getByShipmentID($shipmentID);
     }
 
+    // For Check Holder API
+    public function getShipmentOrderByShipmentID($shipmentID)
+    {
+        return $this->shipmentStatusEntityRepository->getShipmentOrderByShipmentID($shipmentID);
+    }
+
     // For Track Number
     public function getRandomCode()
     {
@@ -198,6 +207,11 @@ class ShipmentStatusManager
         $data = random_int(0, 9) . random_int(0, 9) . random_int(0, 9) . random_int(0, 9) . random_int(0, 9);
 
         return  vsprintf('%s%s%s%s%s', str_split(($data)));
+    }
+    
+    public function deleteAllShipmentStatus()
+    {
+        return $this->shipmentStatusEntityRepository->deleteAllShipmentStatus();
     }    
 
 }

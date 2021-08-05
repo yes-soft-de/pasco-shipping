@@ -57,7 +57,7 @@ class TrackController extends BaseController
      *          @OA\Property(type="boolean", property="packed"),
      *          @OA\Property(type="string", property="holderType"),
      *          @OA\Property(type="integer", property="holderID"),
-     *          @OA\Property(type="integer", property="travelID")
+     *          @OA\Property(type="number", property="amount")
      *      )
      * )
      * 
@@ -240,6 +240,77 @@ class TrackController extends BaseController
         $result = $this->trackService->updateByHolderTypeAndHolderID($request);
 
         return $this->response($result, self::UPDATE);
+    }
+
+    /**
+     * @Route("checkholder", name="canBeStoredInHolder", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     * 
+     * @OA\Tag(name="Track")
+     * 
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true 
+     * )
+     * 
+     * @OA\RequestBody(
+     *      description="check if shipment can be stored into a holder by following request",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="shipmentID"),
+     *          @OA\Property(type="string", property="trackNumber"),
+     *          @OA\Property(type="string", property="shipmentStatus"),
+     *          @OA\Property(type="string", property="statusDetails"),
+     *          @OA\Property(type="boolean", property="isInOneHolder"),
+     *          @OA\Property(type="boolean", property="packed"),
+     *          @OA\Property(type="string", property="holderType"),
+     *          @OA\Property(type="integer", property="holderID"),
+     *          @OA\Property(type="number", property="amount")
+     *      )
+     * )
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the new track",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="shipmentID"),
+     *                  @OA\Property(type="string", property="trackNumber"),
+     *                  @OA\Property(type="string", property="holderType"),
+     *                  @OA\Property(type="integer", property="holderID"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt")
+     *          )
+     *      )
+     * )
+     * 
+     * @Security(name="Bearer")
+     */
+    public function checkHolderAvailability(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, TrackCreateRequest::class, (object)$data);
+
+        $request->setCreatedBy($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->trackService->checkHolderAvailability($request);
+
+        return $this->response($result, self::FETCH);
     }
 
 }

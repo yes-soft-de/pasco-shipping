@@ -60,8 +60,8 @@ class TrackEntityRepository extends ServiceEntityRepository
     public function getTracksByHolderTypeAndHolderID($holderType, $holderID)
     {
         return $this->createQueryBuilder('track')
-            ->select("track.id", "track.shipmentID", "track.trackNumber", "track.travelID", "track.holderType", "track.holderID", "track.createdAt", "track.updatedAt", "track.createdBy", "track.updatedBy", 
-            "shipmentStatusEntity.shipmentStatus", "shipmentStatusEntity.statusDetails", "shipmentStatusEntity.trackNumber", "shipmentStatusEntity.isInOneHolder", "shipmentStatusEntity.packed",
+            ->select("track.id", "track.shipmentID", "track.trackNumber", "track.travelID", "track.holderType", "track.holderID", "track.createdAt", "track.updatedAt", "track.createdBy", "track.updatedBy", "track.amount", 
+            "shipmentStatusEntity.shipmentStatus", "shipmentStatusEntity.statusDetails", "shipmentStatusEntity.trackNumber", "shipmentStatusEntity.isInOneHolder", "shipmentStatusEntity.packed", "orderShipmentEntity.volume", 
             "orderShipmentEntity.clientUserID", "orderShipmentEntity.target", "orderShipmentEntity.supplierName", "orderShipmentEntity.supplierID", "orderShipmentEntity.distributorID", "orderShipmentEntity.exportWarehouseID", "orderShipmentEntity.importWarehouseID", 
             "orderShipmentEntity.quantity", "orderShipmentEntity.image", "orderShipmentEntity.createdAt as orderCreationDate", "orderShipmentEntity.isExternalWarehouse", "orderShipmentEntity.updatedAt as orderUpdatingDate", "orderShipmentEntity.productCategoryID", 
             "orderShipmentEntity.unit", "orderShipmentEntity.receiverName", "orderShipmentEntity.receiverPhoneNumber", "orderShipmentEntity.markID", "orderShipmentEntity.packetingBy", "orderShipmentEntity.externalWarehouseInfo", "orderShipmentEntity.paymentTime",
@@ -145,6 +145,15 @@ class TrackEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('track.id', 'DESC')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function deleteAllTracks()
+    {
+        return $this->createQueryBuilder('track')
+            ->delete()
 
             ->getQuery()
             ->getResult();

@@ -45,6 +45,16 @@ class UserEntity implements UserInterface
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $createdBy;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $updatedBy;
+
     public function __construct($userID)
     {
         $this->userID = $userID;
@@ -148,6 +158,30 @@ class UserEntity implements UserInterface
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?int
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?int $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getUpdatedBy(): ?int
+    {
+        return $this->updatedBy;
+    }
+
+    public function setUpdatedBy(?int $updatedBy): self
+    {
+        $this->updatedBy = $updatedBy;
 
         return $this;
     }

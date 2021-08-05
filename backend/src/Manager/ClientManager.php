@@ -8,6 +8,7 @@ use App\Entity\ClientProfileEntity;
 use App\Repository\UserEntityRepository;
 use App\Repository\ClientProfileEntityRepository;
 use App\Request\ClientProfileUpdateRequest;
+use App\Request\ClientRegisterByDashboardRequest;
 use App\Request\DeleteRequest;
 use App\Request\ClientRegisterRequest;
 use Doctrine\ORM\EntityManagerInterface;
@@ -93,6 +94,68 @@ class ClientManager
         }
     }
 
+    public function clientRegisterByDashboard(ClientRegisterByDashboardRequest $request)
+    {
+        // First, create the user
+        $userResult = $this->getUserByUserID($request->getUserID());
+
+        if ($userResult == null) 
+        {
+            $userRegister = $this->autoMapping->map(ClientRegisterByDashboardRequest::class, UserEntity::class, $request);
+
+            $user = new UserEntity($request->getUserID());
+
+            if ($request->getPassword())
+            {
+                $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
+            }
+
+            if ($request->getRoles() == null)
+            {
+                $request->setRoles(['user']);
+            }
+
+            $userRegister->setRoles($request->getRoles());
+
+            $this->entityManager->persist($userRegister);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            // Second, create the client's profile
+            $clientProfile = $this->getProfileByClientID($request->getUserID());
+
+            if ($clientProfile == null)
+            {
+                $clientProfile = $this->autoMapping->map(ClientRegisterByDashboardRequest::class, ClientProfileEntity::class, $request);
+
+                $clientProfile->setUserID($userRegister->getId());
+
+                $this->entityManager->persist($clientProfile);
+                $this->entityManager->flush();
+                $this->entityManager->clear();
+            }
+
+            return $userRegister;
+        }
+        else
+        {
+            $clientProfile = $this->getProfileByClientID($userResult['id']);
+
+            if ($clientProfile == null)
+            {
+                $clientProfile = $this->autoMapping->map(ClientRegisterByDashboardRequest::class, ClientProfileEntity::class, $request);
+                
+                $clientProfile->setUserID($userResult['id']);
+
+                $this->entityManager->persist($clientProfile);
+                $this->entityManager->flush();
+                $this->entityManager->clear();
+            }
+
+            return true;
+        }
+    }
+
     // public function userProfileCreate(UserProfileCreateRequest $request)
     // {
     //    $userProfile = $this->getProfileByUserID($request->getUserID());
@@ -133,6 +196,11 @@ class ClientManager
     public function getUserByUserID($userID)
     {
         return $this->userRepository->getUserByUserID($userID);
+    }
+
+    public function getFullClientInfoByUserID($userID)
+    {
+        return $this->userRepository->getFullClientInfoByUserID($userID);
     }
 
     public function getUserByEmail($email)

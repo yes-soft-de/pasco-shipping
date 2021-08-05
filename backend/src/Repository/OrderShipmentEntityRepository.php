@@ -1317,4 +1317,13 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function deleteAllOrders()
+    {
+        return $this->createQueryBuilder('shipmentOrder')
+            ->delete()
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }

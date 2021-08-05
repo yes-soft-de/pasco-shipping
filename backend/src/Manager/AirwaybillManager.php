@@ -128,11 +128,21 @@ class AirwaybillManager
         {
             return $this->airwaybillEntityRepository->getAllAirwaybills();
         }
+        elseif($request->getType() != null && $request->getAirwaybillNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
+        $request->getStatus() != null && $request->getSpecificationID() == null)
+        {
+            return $this->airwaybillEntityRepository->getAirwaybillsByStatusAndType($request->getStatus(), $request->getType());
+        }
     }
 
     public function getAirwaybillsBySpecificationID($specificationID)
     {
         return $this->airwaybillEntityRepository->getAirwaybillsBySpecificationID($specificationID);
+    }
+
+    public function deleteAllAirwaybills()
+    {
+        return $this->airwaybillEntityRepository->deleteAllAirwaybills();
     }
 
 }

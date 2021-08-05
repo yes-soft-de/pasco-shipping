@@ -22,6 +22,8 @@ class TrackCreateRequest
 
     private $packed;
 
+    private $amount;
+
     public function setShipmentID($shipmentID)
     {
         $this->shipmentID = $shipmentID;
@@ -75,6 +77,16 @@ class TrackCreateRequest
     public function setHolderID($holderID)
     {
         $this->holderID = $holderID;
+    }
+
+    public function getIsInOneHolder()
+    {
+        return $this->isInOneHolder;
+    }
+
+    public function getAmount()
+    {
+        return $this->amount;
     }
 
 }
