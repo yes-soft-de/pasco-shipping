@@ -254,7 +254,7 @@ class ClientController extends BaseController
     }
 
     /**
-     * @Route("client/{userID}", name="getClientProfileByID",methods={"GET"})
+     * @Route("client/{userID}", name="getFullClientInfoByID",methods={"GET"})
      * 
      * @OA\Tag(name="Client")
      * 
@@ -280,6 +280,7 @@ class ClientController extends BaseController
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="userID"),
      *                  @OA\Property(type="array", property="roles",
      *                      @OA\Items(example="user")
      *                  ),

@@ -6,6 +6,8 @@ class ClientFullInfoResponse
 {
     public $id;
 
+    public $userID;
+
     public $roles;
 
     public $email;

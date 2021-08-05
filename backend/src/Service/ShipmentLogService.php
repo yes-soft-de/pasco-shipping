@@ -62,13 +62,17 @@ class ShipmentLogService
 
         $shipmentsLogs = $this->shipmentLogManager->getAllShipmentLogsByShipmentID($shipmentID);
 
+        // Befor autmaping, we have to chech which status is passed and which is not
         $shipmentsLogsResult = $this->checkWhatStatusIsPassed($shipmentsLogs, ShipmentStatusConstant::$SHIPMENT_STATUS_ARRAY);
         
         foreach ($shipmentsLogsResult as $shipmentLog)
         {
-            if($shipmentLog['createdByUserImage'])
+            if(in_array('createdByUserImage', $shipmentLog))
             {
-                $shipmentLog['createdByUserImage'] = $this->params . $shipmentLog['createdByUserImage'];
+                if($shipmentLog['createdByUserImage'])
+                {
+                    $shipmentLog['createdByUserImage'] = $this->params . $shipmentLog['createdByUserImage'];
+                }
             }
 
             $shipmentsLogsResponse[] = $this->autoMapping->map('array', ShipmentLogForDashboardGetResponse::class, $shipmentLog);
