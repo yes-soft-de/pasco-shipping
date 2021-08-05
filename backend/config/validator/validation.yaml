@@ -6,7 +6,14 @@ App\Request\UploadImageRequest:
           maxSize: 20m
           maxSizeMessage: "Image size over 20M"
 
-App\Request\UserRegisterRequest:
+App\Request\ClientRegisterRequest:
+  properties:
+    userID:
+      - NotBlank: ~
+    password:
+      - NotBlank: ~
+
+App\Request\ClientRegisterByDashboardRequest:
   properties:
     userID:
       - NotBlank: ~

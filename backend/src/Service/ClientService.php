@@ -7,6 +7,7 @@ use App\Entity\UserEntity;
 use App\Entity\ClientProfileEntity;
 use App\Manager\ClientManager;
 use App\Request\ClientProfileUpdateRequest;
+use App\Request\ClientRegisterByDashboardRequest;
 use App\Request\ClientRegisterRequest;
 use App\Response\ClientProfileResponse;
 use App\Response\UserRegisterResponse;
@@ -28,6 +29,24 @@ class ClientService
     public function clientRegister(ClientRegisterRequest $request)
     {
         $userRegister = $this->clientManager->clientRegister($request);
+
+        if ($userRegister instanceof UserEntity) 
+        {
+            return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
+        }
+        elseif ($userRegister == true) 
+        {  
+            $user = $this->clientManager->getUserByUserID($request->getUserID());
+
+            $user['found']="yes";
+
+            return $user;
+        }
+    }
+
+    public function clientRegisterByDashboard(ClientRegisterByDashboardRequest $request)
+    {
+        $userRegister = $this->clientManager->clientRegisterByDashboard($request);
 
         if ($userRegister instanceof UserEntity) 
         {

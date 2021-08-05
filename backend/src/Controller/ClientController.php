@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\ClientProfileUpdateRequest;
+use App\Request\ClientRegisterByDashboardRequest;
 use App\Request\ClientRegisterRequest;
 use App\Request\DeleteRequest;
 use App\Service\ClientService;
@@ -76,6 +77,57 @@ class ClientController extends BaseController
         }
 
         $response = $this->clientService->clientRegister($request);
+
+        return $this->response($response, self::CREATE);
+    }
+
+    /**
+     * @Route("/clientbydashboard", name="clientRegisterByDashboard", methods={"POST"})
+     *
+     * @OA\Tag(name="Client")
+     *
+     * @OA\RequestBody(
+     *      description="Creates client and profile at the same time from dashboard",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="userID"),
+     *          @OA\Property(type="string", property="password"),
+     *          @OA\Property(type="string", property="userName"),
+     *          @OA\Property(type="string", property="email")
+     *      )
+     * )
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the new client's role and the creation date",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="array", property="roles",
+     *                      @OA\Items(example="user")),
+     *                  @OA\Property(type="object", property="createdAt")
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function clientRegisterByDashboard(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ClientRegisterByDashboardRequest::class, (object)$data);
+
+        $request->setCreatedBy($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $response = $this->clientService->clientRegisterByDashboard($request);
 
         return $this->response($response, self::CREATE);
     }
