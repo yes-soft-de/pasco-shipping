@@ -254,6 +254,60 @@ class ClientController extends BaseController
     }
 
     /**
+     * @Route("client/{userID}", name="getClientProfileByID",methods={"GET"})
+     * 
+     * @OA\Tag(name="Client")
+     * 
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true 
+     * )
+     *
+     * @OA\Parameter(
+     *      name="userID",
+     *      in="path",
+     *      required="true",
+     *      description="the userID of the client"
+     * )
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the full infor of the client",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="array", property="roles",
+     *                      @OA\Items(example="user")
+     *                  ),
+     *                  @OA\Property(type="object", property="createAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="userName"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="city"),
+     *                  @OA\Property(type="string", property="country"),
+     *                  @OA\Property(type="string", property="location"),
+     *                  @OA\Property(type="string", property="phone")
+     *          )
+     *      )
+     * )
+     * 
+     * @Security(name="Bearer")
+     */
+    public function getFullClientInfoByUserID($userID)
+    {
+        $response = $this->clientService->getFullClientInfoByUserID($userID);
+
+        return $this->response($response, self::FETCH);
+    }
+
+    /**
      * @Route("clientprofileall", name="clientProfileAll", methods={"GET"})
      *
      * @OA\Tag(name="Client")

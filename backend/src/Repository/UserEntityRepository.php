@@ -2,8 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\AdminProfileEntity;
+use App\Entity\ClientProfileEntity;
 use App\Entity\UserEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -56,5 +59,40 @@ class UserEntityRepository extends ServiceEntityRepository implements PasswordUp
             ->getQuery()
             ->getOneOrNullResult()
             ;
+    }
+
+    public function getFullClientInfoByUserID($userID)
+    {
+        return $this->createQueryBuilder('user')
+            ->select('user.id', 'user.roles', 'user.createAt', 'user.createdBy', 'user.updatedBy', 'user.email', 'clientProfile.userName', 'clientProfile.image', 
+            'clientProfile.city', 'clientProfile.country', 'clientProfile.location', 'clientProfile.phone', 'adminProfile1.userName as createdByUser', 
+            'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
+
+            ->andWhere('user.id = :userID')
+            ->setParameter('userID', $userID)
+
+            ->leftJoin(
+                ClientProfileEntity::class,
+                'clientProfile',
+                Join::WITH,
+                'clientProfile.userID = user.id'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = user.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = user.updatedBy'
+            )
+
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }

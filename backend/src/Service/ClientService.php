@@ -9,6 +9,7 @@ use App\Manager\ClientManager;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\ClientRegisterByDashboardRequest;
 use App\Request\ClientRegisterRequest;
+use App\Response\ClientFullInfoResponse;
 use App\Response\ClientProfileResponse;
 use App\Response\UserRegisterResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -94,6 +95,28 @@ class ClientService
         }
 
         return $this->autoMapping->map('array', ClientProfileResponse::class, $item);
+    }
+
+    public function getFullClientInfoByUserID($userID)
+    {
+        $item = $this->clientManager->getFullClientInfoByUserID($userID);
+
+        if($item['image'])
+        {
+            $item['image'] = $this->params . $item['image'];
+        }
+
+        if($item['createdByUserImage'])
+        {
+            $item['createdByUserImage'] = $this->params . $item['createdByUserImage'];
+        }
+
+        if($item['updatedByUserImage'])
+        {
+            $item['updatedByUserImage'] = $this->params . $item['updatedByUserImage'];
+        }
+
+        return $this->autoMapping->map('array', ClientFullInfoResponse::class, $item);
     }
 
     public function getAllClientProfiles()

@@ -198,6 +198,11 @@ class ClientManager
         return $this->userRepository->getUserByUserID($userID);
     }
 
+    public function getFullClientInfoByUserID($userID)
+    {
+        return $this->userRepository->getFullClientInfoByUserID($userID);
+    }
+
     public function getUserByEmail($email)
     {
         return $this->userRepository->getUserByEmail($email);
