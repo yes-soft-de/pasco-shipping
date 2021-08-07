@@ -2,8 +2,9 @@ class ReceivedOrDeliveredRequest{
   int shipmentId;
   String trackNumber;
   String shipmentStatus;
-
   String statusDetails;
+
+
   bool isInOneHolder;
   bool packed;
 

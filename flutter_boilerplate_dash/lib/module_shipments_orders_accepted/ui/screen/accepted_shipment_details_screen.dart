@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/state_manager/accepted_shipment_details_state_manager.dart';
@@ -9,6 +10,8 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepte
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
+
+import '../../accepted_shipment_routes.dart';
 
 @injectable
 class AcceptedShipmentDetailsScreen extends StatefulWidget {
@@ -69,8 +72,13 @@ class _CountriesScreenState extends State<AcceptedShipmentDetailsScreen> {
     else if (currentState is initDetailsState) {
       initDetailsState state = currentState as initDetailsState;
       AcceptedShipmentDetailsModel detailsModel = state.model;
+      List<ContainerModel> containers = state.containers;
       return AcceptedShipmentDetailsSuccessfully(
-     shipment: detailsModel,
+     shipment: detailsModel, onShowStatus: (id , trackNumber, cityName,holderType,status){
+          Navigator.pushNamed(context,AcceptedShipmentRoutes.STATUS , arguments: {'id' : id ,'trackNumber': trackNumber ,'cityName':cityName , 'holderType':holderType,'status':status} ).then((value){
+            widget._stateManager.getDetailsShipment(id.toString());
+          });
+      },
       );
     }
     // else if(currentState is SuccessfullyModifyState){

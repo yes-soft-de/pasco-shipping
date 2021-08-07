@@ -1,15 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_container/widget/status_card.dart';
 import 'package:pasco_shipping/module_shipment_request/response/product_categories/product_categories_response.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/choice_card.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
+import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 
 class AcceptedShipmentDetailsSuccessfully extends StatefulWidget {
   final AcceptedShipmentDetailsModel shipment;
-  const AcceptedShipmentDetailsSuccessfully({required this.shipment});
+  // final List<ContainerModel> containers;
+  final Function onShowStatus;
+  const AcceptedShipmentDetailsSuccessfully({required this.shipment,required this.onShowStatus});
 
   @override
   _AcceptedShipmentDetailsSuccessfullyState createState() => _AcceptedShipmentDetailsSuccessfullyState();
@@ -225,61 +230,66 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
   }
 
   Widget subShipmentCard(SubShipmentModel subShipmentModel){
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        color: Colors.grey[200],
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Text('Track Number: ' , style: AppTextStyle.mediumBlack,),
-                  Text(subShipmentModel.trackNumber?? '' , style: AppTextStyle.mediumBlueBold,),
-                ],),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Text('Status: ' , style: AppTextStyle.mediumBlack,),
-                  Text(subShipmentModel.shipmentStatus ??'' , style: AppTextStyle.mediumBlueBold,),
-                ],),
-              ),
-              statusCard()
-            ],
+    return InkWell(
+      onTap: (){
+        widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,'public', subShipmentModel.shipmentStatus);
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Card(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          color: Colors.grey[200],
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text('Track Number: ' , style: AppTextStyle.mediumBlack,),
+                    Text(subShipmentModel.trackNumber?? '' , style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text('Status: ' , style: AppTextStyle.mediumBlack,),
+                    Text(subShipmentModel.shipmentStatus ??'' , style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-
-  Widget statusCard(){
-    return
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Wrap(
-          spacing:2,
-          runSpacing: 2.0,
-          children: stats.map((item) {
-            var index = stats.indexOf(item);
-            return InkWell(
-                onTap: () {
-                  setState(() {
-                    stats.forEach((element) {
-                      element.isSelected = false;
-                    });
-                  });
-                  stats[index].isSelected = true;
-                  // widget.filterRequest.status = stats[index].description;
-                  // widget.shipmentRequest.productCategoryID = widget.categories[index].id;
-                  // widget.shipmentRequest.productCategoryName = widget.categories[index].name;
-                },
-                child: StatusCard(item.name ,item.isSelected));
-          }).toList(),
-        ),
-      );
-  }
+  // Widget selectContainer(){
+  //   return
+  //     Column(children: [
+  //       Padding(
+  //         padding: const EdgeInsets.all(8.0),
+  //         child: Row(children: [
+  //           Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+  //           SizedBox(width: 5,),
+  //           Text('Choose Container' , style: AppTextStyle.mediumBlackBold,)
+  //         ],),
+  //       ),
+  //       SelectDropList(
+  //         this.optionItemSelectedTravels,
+  //         this.dropListModelTravels,
+  //             (optionItem) {
+  //           FocusScope.of(context).unfocus();
+  //           optionItemSelectedTravels = optionItem;
+  //           travelID = optionItem.id;
+  //           setState(() {});
+  //         },
+  //       ),
+  //       RoundedButton(lable: 'Done', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
+  //         AddContainerToTravelRequest re = AddContainerToTravelRequest(holderType: 'container' , holderID: widget.model.id!, travelID: travelID , shipmentStatus: 'uploaded');
+  //         widget.onUploadedToTravel(re);
+  //       },radius: 12)
+  //
+  //     ],);
+  // }
 }

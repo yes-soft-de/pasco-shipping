@@ -81,6 +81,10 @@ class Urls {
   //acceptedShipment
   static const ACCEPTED_SHIPMENTS=BASE_API+'filteracceptedshipments';
   static const ACCEPTED_SHIPMENTS_DETAILS=BASE_API+'shipmentorder';
+  static const ACCEPTED_SHIPMENTS_STATUS=BASE_API+'allshipmentlogs';
+  static const CHANGE_SHIPMENTS_STATUS_RECEIVED=BASE_API+'shipmentstatus';
+  static const WAREHOUSES=BASE_API+'warehouses';
+  static const STORED_SHIPMENT=BASE_API+'track';
 
   static const REPORT_API = BASE_API + '/report';
 
@@ -91,5 +95,5 @@ class Urls {
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
 
 
-  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjgwMjUxODgsImV4cCI6MTYyODAyODc4OCwicm9sZXMiOlsiUk9MRV9FTVBMT1lFRSIsInVzZXIiXSwidXNlcm5hbWUiOiJlbTEifQ.JFWewNIupE1JLhTM0fx9u4ZQwscN0leSpLevMnGBQvL-wNHU6Rqm4W_Du-NqGUbiEQbSz1xGibTDTCkHWGKFGqlTMWCZHOvgnYWoDHjWFUewPYj5JqbvYim3AO5nAaeuItjFKz_hid_kOWE7LiP5Lda4FBkQFE2v_zlRIfjz7d0eD919R9g_XZgYq_5i365__HLjG4absJzXgJky5uUzkj0eliJdq9L9tzFdh2-wNRYW5ssJgVDzpXBjlLaTB_A0pmSOIj3t4C9I_ZQhvqUtM3TFcYlQuwdQC9vmhiv7wMicr9olDgZaTbtt_6pL_faNN7lh2Vmw0J2nbeyPCwo8PQ';
+  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjgyOTU4NzEsImV4cCI6MTYyODI5OTQ3MSwicm9sZXMiOlsiUk9MRV9FTVBMT1lFRSIsInVzZXIiXSwidXNlcm5hbWUiOiJlbTEifQ.HroBbKhRNj_q58hJtmxbu0FYPMZRBNWi8HCjjpa-x2-WFDzqwQ-lzpgKauMfjotVZhTgs3dLofxA-EJ2LQQraFO6U77gCpUErGcI-BBpAeGbhcYYsjGlsm_bJJhM6wgJlAKYPllLX2sBvEhhZI-mCbW4nkpNAKot4HT2iYta1VviLlZJ-Snyp_oTxP-V4x4CgSR57xrxPHguV5bqxNc1C92TjRxSUZYh99HgDm9tq2sDiCsUMCkkxjzHKVrJ4BACFli8Kq6dYIeOQSswk5gt8Z80ZvuyCctMtMfVj48IoOC9co_epdwvL35VKPIOEJb5suFJuxViGxdTYyUrHu5THQ';
 }

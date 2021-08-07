@@ -117,6 +117,8 @@ class ShipmentModel {
     this.vehicleIdentificationNumber,
     this.extraSpecification,
     this.isExternalWarehouse,
+    this.travelID,
+    this.travelStatus,
 
     this.updatedAt,
     this.createdAt,
@@ -151,6 +153,8 @@ class ShipmentModel {
   String? vehicleIdentificationNumber;
   String? extraSpecification;
   bool? isExternalWarehouse;
+  int? travelID;
+  String? travelStatus;
 
 
 
@@ -187,6 +191,8 @@ class ShipmentModel {
     vehicleIdentificationNumber: json["vehicleIdentificationNumber"],
     extraSpecification: json["extraSpecification"],
     isExternalWarehouse: json["isExternalWarehouse"],
+    travelID: json['travelID'],
+    travelStatus: json['travelStatus'],
 
 
     createdAt:DateTime.fromMillisecondsSinceEpoch(

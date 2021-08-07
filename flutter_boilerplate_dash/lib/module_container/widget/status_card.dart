@@ -20,7 +20,6 @@ class StatusCard extends StatelessWidget {
             child: Text(statusName , style: AppTextStyle.mediumWhite),
           ),
         ),
-        Icon(Icons.arrow_forward_outlined , color: Colors.grey,),
       ],
     );
   }

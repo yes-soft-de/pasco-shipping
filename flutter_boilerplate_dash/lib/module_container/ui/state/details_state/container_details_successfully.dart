@@ -265,21 +265,21 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Product Category Name: ' , style: AppTextStyle.mediumBlack,),
+                  Text('Product Category : ' , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.productCategoryName ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('target Warehouse Name ' , style: AppTextStyle.mediumBlack,),
+                  Text('target Warehouse : ' , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.target ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Export Warehouse Name: ' , style: AppTextStyle.mediumBlack,),
+                  Text('Export Warehouse : ' , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.exportWarehouseName ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),

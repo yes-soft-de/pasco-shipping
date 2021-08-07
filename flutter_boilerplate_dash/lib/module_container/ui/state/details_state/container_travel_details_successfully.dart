@@ -9,7 +9,9 @@ import 'package:pasco_shipping/module_container/widget/status_card.dart';
 import 'package:pasco_shipping/module_my_shipment/ui/widget/shipment_card.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
@@ -19,7 +21,8 @@ class ContainerTravelDetailsSuccessfully extends StatefulWidget {
   final List<TravelModel> travels;
   final Function onShipmentReview;
   final Function onUploadedToTravel;
-  const ContainerTravelDetailsSuccessfully({required this.model,required this.onShipmentReview,required this.travels,required this.onUploadedToTravel });
+  final Function onClearedOrArrived;
+  const ContainerTravelDetailsSuccessfully({required this.model,required this.onShipmentReview,required this.travels,required this.onUploadedToTravel,required this.onClearedOrArrived });
 
   @override
   _ContainerDetailsSuccessfullyState createState() => _ContainerDetailsSuccessfullyState();
@@ -161,7 +164,24 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
             },
             itemCount: widget.model.shipments!.length,
           ),
-          selectTravel()
+          (widget.model.shipments!.isNotEmpty && widget.model.shipments![0].travelStatus == null)?
+          selectTravel() :
+          (widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].travelStatus != null && widget.model.shipments![0].travelStatus == TravelStatusName[TravelStatus.CURRENT]) ?
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('This container is already included in an existing trip, do you want to change the trip' ,style: AppTextStyle.mediumRed,),
+                ),
+                selectTravel()
+              ],
+            ):
+          (widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].travelStatus != null && widget.model.shipments![0].travelStatus == TravelStatusName[TravelStatus.RELEASED]) ?
+          changeContainerStatus():
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('This container is already included in an existing trip ' , style: AppTextStyle.mediumRed,),
+          ),
         ],
       ),
     );
@@ -304,4 +324,72 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
 
     ],);
   }
+
+  Widget changeContainerStatus(){
+    if(widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].travelStatus != null
+        && widget.model.shipments![0].travelStatus == TravelStatusName[TravelStatus.RELEASED]
+        && widget.model.shipments![0].shipmentStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED])
+      {
+      return  Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text('Container Status' , style: AppTextStyle.largeBlueBold,),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              StatusCard('cleared' ,false),
+              Icon(Icons.arrow_forward_outlined , color: Colors.grey,),
+              StatusCard('arrived' ,false),
+            ],),
+         RoundedButton(lable: 'Next Status', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
+           AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderType: 'container',holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]! , travelID: widget.model.shipments![0].travelID!);
+              widget.onClearedOrArrived(re1);
+
+          },radius: 12)
+        ],
+      ),
+    );
+    }
+    else if (widget.model.shipments!.isNotEmpty
+        &&  widget.model.shipments![0].shipmentStatus != null && widget.model.shipments![0].shipmentStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED])
+    {
+        return  Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text('Container Status' , style: AppTextStyle.largeBlueBold,),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  StatusCard('cleared' ,true),
+                  Icon(Icons.arrow_forward_outlined , color: Colors.grey,),
+                  StatusCard('arrived' ,false),
+                ],),
+              RoundedButton(lable: 'Next Status', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
+                AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderType: 'container',holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]! , travelID: widget.model.shipments![0].travelID!);
+                widget.onClearedOrArrived(re1);
+
+              },radius: 12)
+            ],
+          ),
+        );
+  }
+    else if (widget.model.shipments!.isNotEmpty
+        &&  widget.model.shipments![0].shipmentStatus != null && widget.model.shipments![0].shipmentStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]){
+      return Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Text('this Container arrived to warehouse' , style: AppTextStyle.mediumRedBold,),
+      );
+    }
+    else {
+      return Container();
+    }
+    }
 }

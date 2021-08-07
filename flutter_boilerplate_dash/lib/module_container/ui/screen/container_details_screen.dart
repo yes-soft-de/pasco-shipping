@@ -120,6 +120,9 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
         }, onUploadedToTravel: (addContainerToTravelRequest){
         widget._stateManager.uploadedContainerToTravel(addContainerToTravelRequest);
         }, travels: travels,
+        onClearedOrArrived: (re){
+        widget._stateManager.clearedOrArrived(re);
+        },
       );
     }
     else {

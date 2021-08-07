@@ -6,9 +6,14 @@ import 'package:pasco_shipping/consts/urls.dart';
 import 'package:pasco_shipping/module_auth/service/auth_service/auth_service.dart';
 import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_network/http_client/http_client.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/measured_shipment_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/received_deliered_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/stored_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_response.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/response/warehouse_response.dart';
 
 @injectable
 class AcceptedShipmentRepository{
@@ -51,6 +56,111 @@ class AcceptedShipmentRepository{
       return null;
     }
 
+  }
+
+  Future<List<AcceptedShipmentStatusModel>?> getAcceptedShipmentStatus(String id) async {
+    // await _authService.refreshToken();
+    var token = Urls.token; // await _authService.getToken();
+    try {
+      var response = await _apiClient.get(Urls.ACCEPTED_SHIPMENTS_STATUS + '/'+ id,headers: {'Authorization': 'Bearer $token'});
+
+      AcceptedShipmentStatusResponse waitingShipmentResponse =  AcceptedShipmentStatusResponse.fromJson(response!);
+      List<AcceptedShipmentStatusModel> marks = [];
+      if(waitingShipmentResponse.data != null) {
+        marks =
+        AcceptedShipmentStatusResponse.fromJson(response).data!;
+      }
+      print(marks.length);
+      return marks;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+  Future<List<WarehouseModel>?> getWarehouses(String cityName) async {
+    // await _authService.refreshToken();
+    var token = Urls.token; // await _authService.getToken();
+    try {
+      var response = await _apiClient.get(Urls.WAREHOUSES ,headers: {'Authorization': 'Bearer $token'});
+
+      WarehouseResponse waitingShipmentResponse =  WarehouseResponse.fromJson(response!);
+      List<WarehouseModel> marks = [];
+      List<WarehouseModel> warehouses = [];
+      if(waitingShipmentResponse.data != null) {
+        marks =
+        WarehouseResponse.fromJson(response).data!;
+        for(WarehouseModel item  in marks){
+          if(item.city ==cityName) {
+            warehouses.add(item);
+          }
+        }
+      }
+      print(marks.length);
+      return warehouses;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<ConfirmResponse?> recivedOrDeliverdShipment(ReceivedOrDeliveredRequest request) async{
+    // await _authService.refreshToken();
+    var token = Urls.token; // await _authService.getToken();
+    try {
+      var response = await _apiClient.put(Urls.CHANGE_SHIPMENTS_STATUS_RECEIVED, request.toJson()
+          ,headers: {'Authorization': 'Bearer $token'});
+
+      String? statusCode = AcceptedShipmentDetailsResponse.fromJson(response!).statusCode;
+      String? msg = AcceptedShipmentDetailsResponse.fromJson(response).msg;
+      if(statusCode =='204'){
+        return ConfirmResponse(true, msg!);
+      }else {
+        return ConfirmResponse(false, msg!);
+      }
+
+  }catch(_){
+      return null;
+    }
+    }
+
+  Future<ConfirmResponse?> measuredShipment(MeasuredRequest request) async{
+    // await _authService.refreshToken();
+    var token = Urls.token; // await _authService.getToken();
+    try {
+      var response = await _apiClient.put(Urls.ACCEPTED_SHIPMENTS_DETAILS, request.toJson()
+          ,headers: {'Authorization': 'Bearer $token'});
+
+      String? statusCode = AcceptedShipmentDetailsResponse.fromJson(response!).statusCode;
+      String? msg = AcceptedShipmentDetailsResponse.fromJson(response).msg;
+      if(statusCode =='204'){
+        return ConfirmResponse(true, msg!);
+      }else {
+        return ConfirmResponse(false, msg!);
+      }
+
+    }catch(_){
+      return null;
+    }
+  }
+
+  Future<ConfirmResponse?> storedShipment(StoredRequest request) async{
+    // await _authService.refreshToken();
+    var token = Urls.token; // await _authService.getToken();
+    try {
+      var response = await _apiClient.post(Urls.STORED_SHIPMENT, request.toJson()
+          ,headers: {'Authorization': 'Bearer $token'});
+
+      String? statusCode = AcceptedShipmentDetailsResponse.fromJson(response!).statusCode;
+      String? msg = AcceptedShipmentDetailsResponse.fromJson(response).msg;
+      if(statusCode =='201'){
+        return ConfirmResponse(true, msg!);
+      }else {
+        return ConfirmResponse(false, msg!);
+      }
+
+    }catch(_){
+      return null;
+    }
   }
 
 }

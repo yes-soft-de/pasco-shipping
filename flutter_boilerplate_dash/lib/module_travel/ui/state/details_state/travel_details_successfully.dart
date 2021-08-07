@@ -95,7 +95,10 @@ class TravelDetailsSuccessfully extends StatelessWidget {
             child: Text('Container Information' , style: AppTextStyle.largeBlueBold,),
           ),
           model.holders!.isEmpty?
-              Text('No holder has been added to this trip'):
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('No holder has been added to this trip',style: AppTextStyle.mediumRed,),
+              ):
           ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),

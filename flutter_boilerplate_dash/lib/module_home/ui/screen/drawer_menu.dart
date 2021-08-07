@@ -209,6 +209,7 @@ class DrawerMenu extends StatelessWidget {
               ),
             ],
           ),
+
           ExpansionTile(
             title: new Text(S.of(context).subcontracts),
             leading: Icon(Icons.subtitles_outlined),

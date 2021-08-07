@@ -24,6 +24,14 @@ class AcceptedShipmentCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(children: [
+                    // Text('Order Number' , style: AppTextStyle.largeBlackBold,),
+
+                    Text('#'+shipmentModel.shipmentId.toString() , style: AppTextStyle.largeBlackBold,),
+                  ],),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
                     Text('client Username: ' , style: AppTextStyle.mediumBlack,),
                     Text(shipmentModel.clientUsername ?? '' , style: AppTextStyle.mediumBlueBold,),
                   ],),

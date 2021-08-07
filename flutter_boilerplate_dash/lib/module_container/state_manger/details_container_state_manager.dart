@@ -78,6 +78,25 @@ class ContainerDetailsStateManager {
         }
     });
   }
+  void clearedOrArrived(AddContainerToTravelRequest request) {
+    _addStateSubject.add(LoadingDetailsState());
+    _service.uploadedContainerToTravelRequest(request).then((value) {
+      if (value != null) {
+        if (value.isConfirmed) {
+          _service.getContainerDetails(request.holderID.toString()).then((value) {
+            if(value != null) {
+              _addStateSubject.add(SuccessfullyDetailsWithTravelsState(value,[]));
+            }
+          });
+        }
+        else {
+          _addStateSubject.add(ErrorDetailsState('error'));
+        }
+      }else{
+        _addStateSubject.add(ErrorDetailsState('error'));
+      }
+    });
+  }
 
   void getContainerDetailsAndTravels(String id , TravelFilterRequest request) {
     _addStateSubject.add(LoadingDetailsState());
