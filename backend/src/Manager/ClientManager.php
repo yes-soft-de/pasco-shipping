@@ -210,7 +210,7 @@ class ClientManager
 
     public function getAllClientsProfiles()
     {
-        return $this->clientProfileEntityRepository->getAllProfiles();
+        return $this->userRepository->getAllClients();
     }
 
     public function getCountOfAllClientsProfiles()
