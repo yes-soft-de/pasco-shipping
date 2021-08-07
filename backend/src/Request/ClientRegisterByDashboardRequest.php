@@ -12,9 +12,19 @@ class ClientRegisterByDashboardRequest
 
     private $email;
 
+    private $createdBy;
+
     private $userName;
 
-    private $createdBy;
+    private $image;
+
+    private $city;
+
+    private $country;
+
+    private $location;
+
+    private $phone;
 
     /**
      * @return mixed
