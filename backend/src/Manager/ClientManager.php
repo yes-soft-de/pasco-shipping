@@ -21,15 +21,18 @@ class ClientManager
     private $encoder;
     private $userRepository;
     private $clientProfileEntityRepository;
+    private $markManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager,
-                                UserPasswordEncoderInterface $encoder, UserEntityRepository $userRepository, ClientProfileEntityRepository $clientProfileEntityRepository)
+                                UserPasswordEncoderInterface $encoder, UserEntityRepository $userRepository, ClientProfileEntityRepository $clientProfileEntityRepository,
+                                MarkManager $markManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->encoder = $encoder;
         $this->userRepository = $userRepository;
         $this->clientProfileEntityRepository = $clientProfileEntityRepository;
+        $this->markManager = $markManager;
     }
 
     public function clientRegister(ClientRegisterRequest $request)
@@ -210,7 +213,14 @@ class ClientManager
 
     public function getAllClientsProfiles()
     {
-        return $this->userRepository->getAllClients();
+        $clients = $this->userRepository->getAllClients();
+        
+        foreach ($clients as $key=>$val)
+        {
+            $clients[$key]['marks'] = $this->markManager->getAllMarksByUser($clients[$key]['id']);
+        }
+
+        return $clients;
     }
 
     public function getCountOfAllClientsProfiles()
