@@ -67,8 +67,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
   }
 
   Widget changeStatusCard() {
-    if (!widget.statusModel[2].isPassed ||
-        widget.statusModel[9].isPassed) {
+    if (!widget.statusModel[2].isPassed) {
       return Column(
         children: [
           Padding(
@@ -141,7 +140,81 @@ class _AcceptedShipmentDetailsSuccessfullyState
 
         ],
       );
-    } else {
+    } else if(widget.statusModel[9].isPassed) {
+      return Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              color: Colors.grey,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.circle,
+                          color: AppThemeDataService.AccentColor,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          'Write a Details about next status',
+                          style: AppTextStyle.mediumBlackBold,
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          top: 4, left: 16, right: 16, bottom: 4),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(color: Colors.black12, blurRadius: 5)
+                          ]),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'details',
+                        ),
+                        controller: editingController,
+                      ),
+                    ),
+                  ),
+                  RoundedButton(
+                      lable: 'Next',
+                      icon: '',
+                      color: blue,
+                      style: AppTextStyle.mediumWhite,
+                      go: () {
+                        ReceivedOrDeliveredRequest request = ReceivedOrDeliveredRequest(
+                            shipmentStatus: AcceptedShipmentStatusName[
+                            AcceptedShipmentStatus.DELIVERED]!,
+                            isInOneHolder: false,
+                            packed: false,
+                            shipmentId: shipmentID,
+                            statusDetails: editingController.text,
+                            trackNumber: trackNumber);
+                        widget.onChangeStatus(request, cityName);
+                      },
+                      radius: 10),
+                ],
+              ),
+            ),
+          ),
+
+        ],
+      );
+    }
+    else {
       return Container();
     }
   }

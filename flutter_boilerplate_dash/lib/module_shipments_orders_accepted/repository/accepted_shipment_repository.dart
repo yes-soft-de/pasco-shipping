@@ -58,11 +58,11 @@ class AcceptedShipmentRepository{
 
   }
 
-  Future<List<AcceptedShipmentStatusModel>?> getAcceptedShipmentStatus(String id) async {
+  Future<List<AcceptedShipmentStatusModel>?> getAcceptedShipmentStatus(String id ,String trackNumber) async {
     // await _authService.refreshToken();
     var token = Urls.token; // await _authService.getToken();
     try {
-      var response = await _apiClient.get(Urls.ACCEPTED_SHIPMENTS_STATUS + '/'+ id,headers: {'Authorization': 'Bearer $token'});
+      var response = await _apiClient.get(Urls.ACCEPTED_SHIPMENTS_STATUS + '/'+ id+'/'+trackNumber,headers: {'Authorization': 'Bearer $token'});
 
       AcceptedShipmentStatusResponse waitingShipmentResponse =  AcceptedShipmentStatusResponse.fromJson(response!);
       List<AcceptedShipmentStatusModel> marks = [];
@@ -89,14 +89,14 @@ class AcceptedShipmentRepository{
       if(waitingShipmentResponse.data != null) {
         marks =
         WarehouseResponse.fromJson(response).data!;
-        for(WarehouseModel item  in marks){
-          if(item.city ==cityName) {
-            warehouses.add(item);
-          }
-        }
+        // for(WarehouseModel item  in marks){
+        //   if(item.city ==cityName) {
+        //     warehouses.add(item);
+        //   }
+        // }
       }
-      print(marks.length);
-      return warehouses;
+      print("lenght" + marks.length.toString());
+      return marks;
     } catch (e) {
       print(e);
       return null;

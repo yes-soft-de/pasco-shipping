@@ -19,8 +19,8 @@ class AcceptedShipmentService{
   Future<List<AcceptedShipmentModel>?> getAcceptedShipment(AcceptedShipmentFilterRequest type) {
     return _manager.getAcceptedShipment(type);
   }
- Future<List<AcceptedShipmentStatusModel>?> getAcceptedShipmentStatus(String type) {
-   return _manager.getAcceptedShipmentStatus(type);
+ Future<List<AcceptedShipmentStatusModel>?> getAcceptedShipmentStatus(String type,String trackNumber) {
+   return _manager.getAcceptedShipmentStatus(type,trackNumber);
  }
  Future<AcceptedShipmentDetailsModel?> getShipmentDetails(String id) {
    return _manager.getShipmentDetails(id);
