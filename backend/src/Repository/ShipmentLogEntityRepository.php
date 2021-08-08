@@ -35,11 +35,28 @@ class ShipmentLogEntityRepository extends ServiceEntityRepository
     public function getAllShipmentLogsByShipmentID($shipmentID)
     {
         return $this->createQueryBuilder('shipmentLog')
-            ->select('shipmentLog.id', 'shipmentLog.shipmentID', 'shipmentLog.shipmentStatus', 'shipmentLog.createdAt', 'shipmentLog.createdBy', 'adminProfile.userName as createdByUser', 
+            ->select('shipmentLog.id', 'shipmentLog.shipmentID', 'shipmentLog.trackNumber', 'shipmentLog.shipmentStatus', 'shipmentLog.createdAt')
+
+            ->andWhere('shipmentLog.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->orderBy('shipmentLog.id', 'ASC')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAllShipmentLogsByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        return $this->createQueryBuilder('shipmentLog')
+            ->select('shipmentLog.id', 'shipmentLog.shipmentID', 'shipmentLog.trackNumber', 'shipmentLog.shipmentStatus', 'shipmentLog.createdAt', 'shipmentLog.createdBy', 'adminProfile.userName as createdByUser', 
             'adminProfile.image as createdByUserImage')
 
             ->andWhere('shipmentLog.shipmentID = :shipmentID')
             ->setParameter('shipmentID', $shipmentID)
+
+            ->andWhere('shipmentLog.trackNumber = :trackNumber')
+            ->setParameter('trackNumber', $trackNumber)
 
             ->leftJoin(
                 AdminProfileEntity::class,

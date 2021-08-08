@@ -43,9 +43,9 @@ class ShipmentLogManager
     }
 
     // For dashboard
-    public function getAllShipmentLogsByShipmentID($shipmentID)
+    public function getAllShipmentLogsByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
-        return $this->shipmentLogEntityRepository->getAllShipmentLogsByShipmentID($shipmentID);
+        return $this->shipmentLogEntityRepository->getAllShipmentLogsByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
     }
     
     public function deleteAllShipmentsLogs()

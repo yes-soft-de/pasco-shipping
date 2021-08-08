@@ -56,18 +56,18 @@ class ShipmentLogService
         return $shipmentsLogsResponse;
     }
 
-    public function getAllShipmentLogsByShipmentID($shipmentID)
+    public function getAllShipmentLogsByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
         $shipmentsLogsResponse = [];
 
-        $shipmentsLogs = $this->shipmentLogManager->getAllShipmentLogsByShipmentID($shipmentID);
-
+        $shipmentsLogs = $this->shipmentLogManager->getAllShipmentLogsByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+        
         // Befor auotmaping, we have to chech which status is passed and which is not
         $shipmentsLogsResult = $this->checkWhatStatusIsPassed($shipmentsLogs, ShipmentStatusConstant::$SHIPMENT_STATUS_ARRAY);
         
         foreach ($shipmentsLogsResult as $shipmentLog)
         {
-            if(in_array('createdByUserImage', $shipmentLog))
+            if($this->isKeyInArray($shipmentLog, "createdByUserImage"))
             {
                 if($shipmentLog['createdByUserImage'])
                 {
@@ -97,11 +97,20 @@ class ShipmentLogService
 
             if($result)
             {
+                $shipmentsLogs[$result]['isPassed'] = true;
+
                 $shipmentsLogsResponse[] = $shipmentsLogs[$result];
             }
             else
             {
-                $log['isPassed'] = false;
+                if($state == "waiting" || $state == "accepted")
+                {
+                    $log['isPassed'] = true;
+                }
+                else
+                {
+                    $log['isPassed'] = false;
+                }
 
                 $log['shipmentStatus'] = $state;
 
@@ -126,6 +135,22 @@ class ShipmentLogService
                     return $key;
                 }
             }
+        }
+    }
+
+    public function isKeyInArray($array, $item)
+    {
+        if(is_array($array))
+        {
+            foreach($array as $key=>$val)
+            {
+                if($key == $item)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 
