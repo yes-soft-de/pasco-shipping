@@ -56,6 +56,10 @@ class ShipmentFilterResponse
 
     public $status;
 
+    public $externalWarehouseInfo;
+
+    public $isExternalWarehouse;
+
     public $orderUpdatedByUser;
 
     public $orderUpdatedByUserImage;
