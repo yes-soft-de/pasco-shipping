@@ -132,7 +132,17 @@ class ClientService
                 $client['image'] = $this->params . $client['image'];
             }
 
-            $clientsResponse[] = $this->autoMapping->map('array', ClientProfileResponse::class, $client);
+            if($client['createdByUserImage'])
+            {
+                $client['createdByUserImage'] = $this->params . $client['createdByUserImage'];
+            }
+            
+            if($client['updatedByUserImage'])
+            {
+                $client['updatedByUserImage'] = $this->params . $client['updatedByUserImage'];
+            }
+
+            $clientsResponse[] = $this->autoMapping->map('array', ClientFullInfoResponse::class, $client);
         }
 
         return $clientsResponse;

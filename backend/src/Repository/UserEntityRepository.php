@@ -95,4 +95,40 @@ class UserEntityRepository extends ServiceEntityRepository implements PasswordUp
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function getAllClients()
+    {
+        return $this->createQueryBuilder('user')
+            ->select('user.id', 'user.userID', 'user.roles', 'user.email', 'user.createAt', 'user.createdBy', 'user.updatedBy', 'clientProfile.userName',
+             'clientProfile.city', 'clientProfile.image', 'clientProfile.country', 'clientProfile.location', 'clientProfile.phone', 'adminProfile1.userName as createdByUser', 
+             'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
+
+            ->andWhere('user.roles LIKE :clientRole')
+            ->setParameter('clientRole',  '%"'.'user'.'"%')
+
+            ->leftJoin(
+                ClientProfileEntity::class,
+                'clientProfile',
+                Join::WITH,
+                'clientProfile.userID = user.id'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = user.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = user.updatedBy'
+            )
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }

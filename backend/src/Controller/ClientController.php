@@ -319,16 +319,22 @@ class ClientController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="array", property="Data",
-     *              @OA\Items(
+     *          @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="userID"),
+     *                  @OA\Property(type="array", property="roles",
+     *                      @OA\Items(example="user")
+     *                  ),
+     *                  @OA\Property(type="object", property="createAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="userName"),
      *                  @OA\Property(type="string", property="image"),
      *                  @OA\Property(type="string", property="city"),
      *                  @OA\Property(type="string", property="country"),
      *                  @OA\Property(type="string", property="location"),
      *                  @OA\Property(type="string", property="phone")
-     *              )
-     *          )
      *      )
      * )
      *

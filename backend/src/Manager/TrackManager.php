@@ -190,29 +190,70 @@ class TrackManager
 
     public function getTracksByTravelID($travelID)
     {
+        $holders = [];
+
         $tracks = $this->trackEntityRepository->getTracksByTravelID($travelID);
         
         // Get the containers/airwaybills information
         if($tracks)
         {
-            $index = 0;
+            // Call getUniqueHolders function to only get unique holders
+            $holders = $this->getUniqueHolders($holders, $tracks);
+            
+            foreach($holders as $key=>$val)
+            {  
+                if($holders[$key]['holderType'] == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
+                {
+                    $holders[$key] = array_merge($holders[$key], $this->containerManager->getContainerById($holders[$key]['holderID']));
 
-            foreach($tracks as $track)
+                    // Get the shipments stored in the container
+                    $holders[$key]['shipments'] = $this->trackEntityRepository->getByHolderTypeAndHolderID($holders[$key]['holderType'], $holders[$key]['holderID']);
+                }
+                if($holders[$key]['holderType'] == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
+                {
+                    $holders[$key] = array_merge($holders[$key], $this->airwaybillManager->getAirwaybillById($holders[$key]['holderID']));
+
+                    // Get the shipments stored in the air waybill
+                    $holders[$key]['shipments'] = $this->trackEntityRepository->getByHolderTypeAndHolderID($holders[$key]['holderType'], $holders[$key]['holderID']);
+                }
+            }
+        }
+        
+        return $holders;
+    }
+
+    public function getUniqueHolders($holders, $tracks)
+    {
+        if($tracks)
+        {
+            foreach ($tracks as $key=>$val)
             {
-                if($track['holderType'] == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
+                if(!$holders)
                 {
-                    $tracks[$index][] = $this->containerManager->getContainerById($track['holderID']);
+                    // added first holder
+                    $holders[$key]['holderType'] = $val['holderType'];
+                    $holders[$key]['holderID'] = $val['holderID'];
                 }
-                if($track['holderType'] == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
+                else
                 {
-                    $tracks[$index][] = $this->airwaybillManager->getAirwaybillById($track['holderID']);
+                    // there is already a holder. Check is the next one is the same
+                    foreach ($holders as $holder)
+                    {
+                        if($holder['holderType'] == $val['holderType'] && $holder['holderID'] == $val['holderID'])
+                        {
+                            // Do not add the holder
+                        }
+                        else
+                        {
+                            $holders[$key]['holderType'] = $val['holderType'];
+                            $holders[$key]['holderID'] = $val['holderID'];
+                        }
+                    }
                 }
-                
-                $index++;
             }
         }
 
-        return $tracks;
+        return $holders;
     }
 
     // For Get container/air waybill by ID

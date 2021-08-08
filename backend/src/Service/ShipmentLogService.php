@@ -62,7 +62,7 @@ class ShipmentLogService
 
         $shipmentsLogs = $this->shipmentLogManager->getAllShipmentLogsByShipmentID($shipmentID);
 
-        // Befor autmaping, we have to chech which status is passed and which is not
+        // Befor auotmaping, we have to chech which status is passed and which is not
         $shipmentsLogsResult = $this->checkWhatStatusIsPassed($shipmentsLogs, ShipmentStatusConstant::$SHIPMENT_STATUS_ARRAY);
         
         foreach ($shipmentsLogsResult as $shipmentLog)
@@ -83,29 +83,50 @@ class ShipmentLogService
 
     public function checkWhatStatusIsPassed($shipmentsLogs, $fullStates)
     {
+        /**
+         * This function returns an array of the shipment states, and check each state
+         * which is passed and also defines what state doesn't passed yet
+         */
         $shipmentsLogsResponse = [];
 
         $log = [];
 
-        foreach ($shipmentsLogs as $shipmentLog)
+        foreach ($fullStates as $state)
         {
-            $shipmentLog['isPassed'] = true;
+            $result = $this->statusIsPassed($shipmentsLogs, $state);
 
-            $shipmentsLogsResponse[] = $shipmentLog;
-        }
+            if($result)
+            {
+                $shipmentsLogsResponse[] = $shipmentsLogs[$result];
+            }
+            else
+            {
+                $log['isPassed'] = false;
 
-        // Here we complete the response with the status that the shipment does not passed.
-        // Completion started from that last status position that the shipment finished.
-        for($index = count($shipmentsLogs); $index < 10; $index++)
-        {
-            $log['isPassed'] = false;
+                $log['shipmentStatus'] = $state;
 
-            $log['shipmentStatus'] = $fullStates[$index];
-
-            $shipmentsLogsResponse[] = $log;
+                $shipmentsLogsResponse[] = $log;
+            }
         }
 
         return $shipmentsLogsResponse;
+    }
+
+    public function statusIsPassed($shipmentsLogs, $state)
+    {
+        /**
+         * This function search if a shipment status is exist in the shipment logs array
+         */
+        if($shipmentsLogs)
+        {
+            foreach ($shipmentsLogs as $key=>$val)
+            {
+                if($val['shipmentStatus'] == $state)
+                {
+                    return $key;
+                }
+            }
+        }
     }
 
 }
