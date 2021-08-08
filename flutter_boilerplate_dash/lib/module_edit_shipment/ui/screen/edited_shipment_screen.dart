@@ -27,7 +27,7 @@ class EditedShipmentScreen extends StatefulWidget {
 class _MarkScreenState extends State<EditedShipmentScreen> {
   late ConfirmedShipmentState currentState;
   ScrollController controller = ScrollController();
- late ShipmentTempRequest shipmentTempRequest;
+ late ShipmentRequest shipmentTempRequest;
 
 
   @override

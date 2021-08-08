@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 
@@ -15,7 +16,7 @@ class TextEdit extends StatelessWidget {
       margin: const EdgeInsets.all(15.0),
       // padding: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
-          border: Border.all(color: white ,),
+          border: Border.all(color: Colors.black ,),
         borderRadius: BorderRadius.circular(5),
       ),
       child: Padding(
@@ -26,13 +27,13 @@ class TextEdit extends StatelessWidget {
           },
           decoration: InputDecoration(
           hintText: title,
-          hintStyle: white18text,
+          hintStyle:AppTextStyle.mediumDeepGray,
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,
           errorBorder: InputBorder.none,
           disabledBorder: InputBorder.none,
         ),
-          style: white16text,),
+          style: AppTextStyle.mediumBlack,),
       ),
     );
   }
@@ -50,7 +51,7 @@ class TextEditLocation extends StatelessWidget {
       margin: const EdgeInsets.all(15.0),
       // padding: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
-        border: Border.all(color: greyBlack ,),
+        border: Border.all(color: Colors.black ,),
         borderRadius: BorderRadius.circular(5),
       ),
       child: Padding(
@@ -63,14 +64,14 @@ class TextEditLocation extends StatelessWidget {
 
           decoration: InputDecoration(
           hintText: controller.text,
-          hintStyle: white18text,
+          hintStyle: AppTextStyle.mediumDeepGray,
             filled: true,
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,
           errorBorder: InputBorder.none,
           disabledBorder: InputBorder.none,
 
-        ), style: white16text,),
+        ), style: AppTextStyle.mediumBlackBold,),
       ),
     );
   }

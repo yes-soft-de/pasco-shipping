@@ -185,7 +185,7 @@ class ShipmentHistoryCard extends StatelessWidget {
 
 class waitingShipmentCard extends StatefulWidget {
   final String image;
-  final ShipmentTempRequest shipmentRequest;
+  final ShipmentRequest shipmentRequest;
 
   const waitingShipmentCard(this.image, this.shipmentRequest);
 

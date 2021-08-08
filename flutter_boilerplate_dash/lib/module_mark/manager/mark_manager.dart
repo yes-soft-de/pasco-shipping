@@ -11,7 +11,7 @@ class MarkManager{
 
   Future<ConfirmResponse?> createMark(MarkRequest request) => _repository.createMark(request);
   Future<ConfirmResponse?> deleteMark(String id) => _repository.deleteMark(id);
-  Future<List<Mark>?> getMyMarks() => _repository.getMyMark();
+  Future<List<Mark>?> getUserMark(userID) => _repository.getUserMark(userID);
 
 
 }

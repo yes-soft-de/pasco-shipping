@@ -18,7 +18,7 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 
 class ReviewShipmentEditedScreen extends StatelessWidget {
-  final ShipmentTempRequest shipment;
+  final ShipmentRequest shipment;
   final Function onConfirm;
   // final Function onDelete;
   ReviewShipmentEditedScreen(this.shipment , this.onConfirm);

@@ -1,11 +1,14 @@
 import 'package:cool_alert/cool_alert.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_mark/model/markModel.dart';
 import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/module_mark/state_manager/mark_state_manager.dart';
+import 'package:pasco_shipping/module_mark/ui/state/mark_first_time_successfully.dart';
 import 'package:pasco_shipping/module_mark/ui/state/mark_state.dart';
 import 'package:pasco_shipping/module_mark/widget/mark_card.dart';
 import 'package:pasco_shipping/module_my_shipment/ui/widget/shipment_card.dart';
@@ -29,6 +32,7 @@ class MarkScreen extends StatefulWidget {
 class _MarkScreenState extends State<MarkScreen> {
   late MarkState currentState;
   late List<Mark> items;
+  late List<ClientModel> clients;
   ScrollController controller = ScrollController();
   final TextEditingController _markNumberController = TextEditingController();
 
@@ -40,7 +44,7 @@ class _MarkScreenState extends State<MarkScreen> {
     return Background(
       showFilter: false,
       goBack: (){
-        Navigator.pop(context , items);
+        // Navigator.pop(context , items);
       },
       // controller: controller,
       // isHome: false,
@@ -54,6 +58,7 @@ class _MarkScreenState extends State<MarkScreen> {
   @override
   void initState() {
     super.initState();
+    clients = [];
     currentState = LoadingMarkState();
     widget._stateManager.stateStream.listen((event) {
       print("newEvent"+event.toString());
@@ -62,27 +67,33 @@ class _MarkScreenState extends State<MarkScreen> {
         setState(() {});
       }
     });
-    widget._stateManager.getMyMarks();
+    widget._stateManager.getClients();
   }
 
   Widget Screen(){
     if(currentState is LoadingMarkState){
-      return Column(
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
-          LoadingIndicator(AppThemeDataService.AccentColor),
-        ],
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
+            LoadingIndicator(AppThemeDataService.AccentColor),
+          ],
+        ),
       );
     }
     else if (currentState is SuccessfullyFetchMarkState){
       SuccessfullyFetchMarkState? state = currentState as SuccessfullyFetchMarkState?;
       items = state!.marks;
       return MarkSuccessfullyScreen(deleteMark: (id){
-        widget._stateManager.deleteMark(id.toString());
+        // widget._stateManager.deleteMark(id.toString());
       }, items: items,
         addMark: (request){
-        widget._stateManager.createMark(request);
-      },markNumberController: _markNumberController,
+        widget._stateManager.createMark(request,state.optionItem);
+      },markNumberController: _markNumberController, clients: state.clients,
+        optionItem: state.optionItem, onClientSelect: (optionItem){
+          widget._stateManager.getUserMarks(optionItem.id.toString(), state.clients , optionItem);
+        },
       );
 
     }
@@ -92,17 +103,31 @@ class _MarkScreenState extends State<MarkScreen> {
       // Future.delayed(Duration.zero, () => _showDialog(context,state.response.message));
       _markNumberController.clear();
       return MarkSuccessfullyScreen(deleteMark: (id){
-        widget._stateManager.deleteMark(id.toString());
+        // widget._stateManager.deleteMark(id.toString());
       }, items: items, addMark: (request){
-        widget._stateManager.createMark(request);
-      },markNumberController: _markNumberController,);
+        widget._stateManager.createMark(request,state.optionItem);
+      },markNumberController: _markNumberController,
+          clients: clients, optionItem: state.optionItem,
+        onClientSelect: (){
+          widget._stateManager.getUserMarks(state.optionItem.id.toString(), clients , state.optionItem);
+
+        }
+      );
+    }
+    else if(currentState is MarkFirstState){
+      MarkFirstState? state = currentState as MarkFirstState?;
+      return MarkFirstTime(clients: state!.clients,onClientSelect: (optionItem){
+        widget._stateManager.getUserMarks(optionItem.id.toString(), state.clients , optionItem);
+      },);
     }
     else {
-      return Column(
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
-          ErrorScreen(retry: (){},error: 'error',isEmptyData: false,),
-        ],
+      return Center(
+        child: Column(
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
+            ErrorScreen(retry: (){},error: 'error',isEmptyData: false,),
+          ],
+        ),
       );
     }
   }

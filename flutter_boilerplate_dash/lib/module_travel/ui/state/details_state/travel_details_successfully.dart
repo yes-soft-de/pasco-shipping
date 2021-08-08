@@ -263,39 +263,39 @@ class TravelDetailsSuccessfully extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Text('Track Number: ' , style: AppTextStyle.mediumBlack,),
-                  Text(holderModel.trackNumber?? '' , style: AppTextStyle.mediumBlueBold,),
-                ],),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Row(children: [
+              //     Text('Track Number: ' , style: AppTextStyle.mediumBlack,),
+              //     Text(holderModel.trackNumber?? '' , style: AppTextStyle.mediumBlueBold,),
+              //   ],),
+              // ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
                   Text('Container Number: ' , style: AppTextStyle.mediumBlack,),
-                  Text(holderModel.the0!.containerNumber ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  Text(holderModel.containerNumber ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
                   Text('Status: ' , style: AppTextStyle.mediumBlack,),
-                  Text(holderModel.the0!.status ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  Text(holderModel.status ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
                   Text('Type: ' , style: AppTextStyle.mediumBlack,),
-                  Text(holderModel.the0!.type ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  Text(holderModel.type ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
                   Text('Subcontract Name: ' , style: AppTextStyle.mediumBlack,),
-                  Text(holderModel.the0!.subcontractName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  Text(holderModel.subcontractName ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
@@ -306,14 +306,14 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                     Row(
                       children: [
                         Text('Consignee Name: ' , style: AppTextStyle.mediumBlack,),
-                        Text(holderModel.the0!.consigneeName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                        Text(holderModel.consigneeName ?? '' , style: AppTextStyle.mediumBlueBold,),
                       ],
                     ),
 
 
                     Row(children: [
                       Text('shipper Name: ' , style: AppTextStyle.mediumBlack,),
-                      Text(holderModel.the0!.shipperName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                      Text(holderModel.shipperName ?? '' , style: AppTextStyle.mediumBlueBold,),
                     ],)
 
                 ],),
