@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class ClientFullInfoResponse
+class ClientFullInfoGetResponse
 {
     public $id;
 
