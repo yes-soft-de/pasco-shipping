@@ -189,7 +189,7 @@ class ShipmentOrderManager
     public function filterAcceptedShipments(ShipmentFilterRequest $request)
     {
         if($request->getPaymentTime() == null && $request->getTransportationType() == null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
-         && $request->getFinishedAt() == null && $request->getStatus() == null && $request->getTrackNumber() == null)
+         && $request->getFinishedAt() == null && $request->getStatus() == null && $request->getTrackNumber() == null && $request->getIsExternalWarehouse() == null)
         {
             $shipments = $this->orderShipmentEntityRepository->getAllAcceptedShipmentsOrders();
 
@@ -205,7 +205,7 @@ class ShipmentOrderManager
         }
 
         elseif($request->getPaymentTime() == null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
-         && $request->getFinishedAt() == null && $request->getStatus() == null && $request->getTrackNumber() == null)
+         && $request->getFinishedAt() == null && $request->getStatus() == null && $request->getTrackNumber() == null && $request->getIsExternalWarehouse() == null)
         {
             $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipmentsTransportationType($request->getTransportationType());
 
@@ -220,8 +220,24 @@ class ShipmentOrderManager
             return $shipments;
         }
 
+        elseif($request->getPaymentTime() == null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
+         && $request->getFinishedAt() == null && $request->getStatus() == null && $request->getTrackNumber() == null && $request->getIsExternalWarehouse() != null)
+        {
+            $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipmentsByExternalWarehouseAndTransportationType($request->getTransportationType(), $request->getIsExternalWarehouse());
+
+            if($shipments)
+            {
+                foreach($shipments as $key=>$val)
+                {
+                    $shipments[$key]['shipmentStatusInfo'] = $this->getShipmentStatusAndTracksByShipmentID($val['id']);
+                }
+            }
+            
+            return $shipments;
+        }
+
         elseif($request->getPaymentTime() == null && $request->getTransportationType() == null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
-         && $request->getFinishedAt() == null && $request->getStatus() != null && $request->getTrackNumber() == null)
+         && $request->getFinishedAt() == null && $request->getStatus() != null && $request->getTrackNumber() == null && $request->getIsExternalWarehouse() == null)
         {
             $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipmentsByShipmentStatus($request->getStatus());
 
@@ -237,7 +253,7 @@ class ShipmentOrderManager
         }
 
         elseif($request->getPaymentTime() == null && $request->getTransportationType() == null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
-         && $request->getFinishedAt() == null && $request->getStatus() == null && $request->getTrackNumber() != null)
+         && $request->getFinishedAt() == null && $request->getStatus() == null && $request->getTrackNumber() != null && $request->getIsExternalWarehouse() == null)
         {
             $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipmentsByTrackNumber($request->getTrackNumber());
 
@@ -253,7 +269,7 @@ class ShipmentOrderManager
         }
 
         elseif($request->getPaymentTime() == null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
-         && $request->getFinishedAt() == null && $request->getStatus() != null && $request->getTrackNumber() == null)
+         && $request->getFinishedAt() == null && $request->getStatus() != null && $request->getTrackNumber() == null && $request->getIsExternalWarehouse() == null)
         {
             $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipmentsByShipmentStatusAndTransportationType($request->getStatus(), $request->getTransportationType());
 
@@ -269,7 +285,7 @@ class ShipmentOrderManager
         }
 
         elseif($request->getPaymentTime() == null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
-         && $request->getFinishedAt() == null && $request->getStatus() == null && $request->getTrackNumber() != null)
+         && $request->getFinishedAt() == null && $request->getStatus() == null && $request->getTrackNumber() != null && $request->getIsExternalWarehouse() == null)
         {
             $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipmentsByTrackNumberAndTransportationType($request->getTrackNumber(), $request->getTransportationType());
 
@@ -285,33 +301,33 @@ class ShipmentOrderManager
         }
 
         elseif($request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() == null
-         && $request->getFinishedAt() == null && $request->getStatus() != null && $request->getTrackNumber() == null)
+         && $request->getFinishedAt() == null && $request->getStatus() != null && $request->getTrackNumber() == null && $request->getIsExternalWarehouse() == null)
         {
             return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationType($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType());
         }
 
         elseif($request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() != null && $request->getTargetCountry() != null && $request->getCreatedAt() == null
-         && $request->getFinishedAt() == null && $request->getStatus() != null && $request->getTrackNumber() == null)
+         && $request->getFinishedAt() == null && $request->getStatus() != null && $request->getTrackNumber() == null && $request->getIsExternalWarehouse() == null)
         {
             return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndLaunchCountryAndTargetCountry($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType(), $request->getLaunchCountry(),
             $request->getTargetCountry());
         }
 
         elseif($request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() != null
-         && $request->getFinishedAt() == null && $request->getStatus() != null && $request->getTrackNumber() == null)
+         && $request->getFinishedAt() == null && $request->getStatus() != null && $request->getTrackNumber() == null && $request->getIsExternalWarehouse() == null)
         {
             return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndCreationDate($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType(), $request->getCreatedAt());
         }
 
         elseif($request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() == null && $request->getTargetCountry() == null && $request->getCreatedAt() != null
-         && $request->getFinishedAt() != null && $request->getStatus() == null && $request->getTrackNumber() == null)
+         && $request->getFinishedAt() != null && $request->getStatus() == null && $request->getTrackNumber() == null && $request->getIsExternalWarehouse() == null)
         {
             return $this->orderShipmentEntityRepository->filterShipmentsByPaymentTimeAndTransportationTypeAndTwoDates($request->getPaymentTime(), $request->getTransportationType(), $request->getCreatedAt(),
             $request->getFinishedAt());
         }
 
         elseif($request->getPaymentTime() != null && $request->getTransportationType() != null && $request->getLaunchCountry() != null && $request->getTargetCountry() != null && $request->getCreatedAt() != null
-         && $request->getFinishedAt() != null && $request->getStatus() != null && $request->getTrackNumber() == null)
+         && $request->getFinishedAt() != null && $request->getStatus() != null && $request->getTrackNumber() == null && $request->getIsExternalWarehouse() == null)
         {
             return $this->orderShipmentEntityRepository->filterShipmentsByStatusAndPaymentTimeAndTransportationTypeAndTwoDatesAndTwoCities($request->getStatus(), $request->getPaymentTime(), $request->getTransportationType(), $request->getLaunchCountry(),
              $request->getTargetCountry(), $request->getCreatedAt(), $request->getFinishedAt());

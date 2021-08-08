@@ -20,6 +20,8 @@ class ShipmentFilterRequest
 
     private $targetCountry;
 
+    private $isExternalWarehouse;
+
     public function getStatus()
     {
         return $this->status;
@@ -58,6 +60,11 @@ class ShipmentFilterRequest
     public function getTrackNumber()
     {
         return $this->trackNumber;
+    }
+
+    public function getIsExternalWarehouse()
+    {
+        return $this->isExternalWarehouse;
     }
 
 }
