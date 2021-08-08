@@ -38,11 +38,12 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
   @override
   Widget build(BuildContext context) {
     return Background(
+      showFilter: false,
       goBack: (){
         Navigator.pop(context);
       },
-      controller: _controller,
-      isHome: false,
+      // controller: _controller,
+      // isHome: false,
       child: CustomScrollView(
         shrinkWrap: true,
         slivers: [
@@ -313,8 +314,8 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
           ),
         ],
       ),
-      isResultScreen: true,
-      currentIndex: -1,
+      // isResultScreen: true,
+      // currentIndex: -1,
       title: S.of(context).resultTrack,
     );
   }

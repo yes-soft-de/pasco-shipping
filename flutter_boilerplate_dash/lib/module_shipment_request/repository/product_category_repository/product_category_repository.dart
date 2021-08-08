@@ -31,7 +31,7 @@ class FirstOptionRepository {
     var token = Urls.token; // await _authService.getToken();
     try {
       var response = await _apiClient
-          .get(Urls.Countries, headers: {'Authorization': 'Bearer $token'});
+          .get(Urls.COUNTRIES, headers: {'Authorization': 'Bearer $token'});
       List<Countries>? warehouses = WarehouseResponse.fromJson(response!).data;
       return warehouses;
     } catch (_) {

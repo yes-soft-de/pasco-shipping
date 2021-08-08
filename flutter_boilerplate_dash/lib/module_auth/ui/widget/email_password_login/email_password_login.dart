@@ -1,7 +1,7 @@
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_auth/authorization_routes.dart';
 import 'package:flutter/material.dart';
-import 'package:pasco_shipping/module_intro/widget/roundedButton.dart';
+import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
@@ -60,13 +60,13 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                       decoration: InputDecoration(
                           enabledBorder: new UnderlineInputBorder(
                               borderSide:
-                                  new BorderSide(color: Colors.white)),
+                                  new BorderSide(color:Colors.black)),
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
-                                  color: AppThemeDataService.AccentColor)),
+                                  color:Colors.black)),
                           labelText: S.of(context).email,
-                          labelStyle: white16text),
-                      style: white16text,
+                          labelStyle: black14text),
+                      style: black14text,
                       textInputAction: TextInputAction.next,
                       onEditingComplete: () => node.nextFocus(),
                       // Move focus to next
@@ -92,14 +92,14 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                         controller: _loginPasswordController,
                         decoration: InputDecoration(
                           enabledBorder: new UnderlineInputBorder(
-                              borderSide: new BorderSide(color: Colors.white)),
+                              borderSide: new BorderSide(color:Colors.black)),
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
-                                  color: AppThemeDataService.AccentColor)),
+                                  color:Colors.black)),
                           labelText: S.of(context).password,
-                          labelStyle: white16text,
+                          labelStyle: black14text,
                         ),
-                        style: white16text,
+                        style: black14text,
                         validator: (result) {
                           if (result == null) {
                             return S.of(context).passwordIsTooShort;
@@ -149,7 +149,7 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                               );
                             }
                           },
-                    style: mainHeaderBlackStyle,
+                    style: white24text,
                   ),
                 ),
                 Padding(

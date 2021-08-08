@@ -24,6 +24,14 @@ class StaticImage{
   static final String userIcon='assets/images/manager.png';
   static final String userIcon2='assets/images/manager2.png';
   static final String waiting='assets/images/waiting.png';
-  static final String noInternet='assets/images/noInternet.png';
+  static final String noInternet='assets/images/connectionError.png';
+
+  static final String flight='assets/images/flight.png';
+  static final String emp='assets/images/emp.png';
+  static final String customer='assets/images/customer.png';
+  static final String shipment='assets/images/shippment.png';
+  static final String earth='assets/images/earth.png';
+  static final String dis='assets/images/dis.png';
+  static final String noResult='assets/images/noresult.png';
 
 }

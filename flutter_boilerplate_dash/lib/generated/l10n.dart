@@ -440,10 +440,10 @@ class S {
     );
   }
 
-  /// `country`
+  /// `Country`
   String get country {
     return Intl.message(
-      'country',
+      'Country',
       name: 'country',
       desc: '',
       args: [],
@@ -725,6 +725,146 @@ class S {
     return Intl.message(
       'Image:',
       name: 'image',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Countries`
+  String get countries {
+    return Intl.message(
+      'Countries',
+      name: 'countries',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Distributors`
+  String get distributors {
+    return Intl.message(
+      'Distributors',
+      name: 'distributors',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Proxies`
+  String get proxies {
+    return Intl.message(
+      'Proxies',
+      name: 'proxies',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `warehouse`
+  String get warehouses {
+    return Intl.message(
+      'warehouse',
+      name: 'warehouses',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subcontract`
+  String get subcontracts {
+    return Intl.message(
+      'Subcontract',
+      name: 'subcontracts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subcontract Services`
+  String get subcontractService {
+    return Intl.message(
+      'Subcontract Services',
+      name: 'subcontractService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service`
+  String get service {
+    return Intl.message(
+      'Service',
+      name: 'service',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Supplier`
+  String get suppliers {
+    return Intl.message(
+      'Supplier',
+      name: 'suppliers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Travels`
+  String get travels {
+    return Intl.message(
+      'Travels',
+      name: 'travels',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Units`
+  String get units {
+    return Intl.message(
+      'Units',
+      name: 'units',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View all`
+  String get view {
+    return Intl.message(
+      'View all',
+      name: 'view',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new`
+  String get add {
+    return Intl.message(
+      'Add new',
+      name: 'add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item added successfully`
+  String get addedSuccessfully {
+    return Intl.message(
+      'Item added successfully',
+      name: 'addedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get description {
+    return Intl.message(
+      'Description',
+      name: 'description',
       desc: '',
       args: [],
     );

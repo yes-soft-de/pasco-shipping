@@ -39,47 +39,30 @@ class RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.withOpacity(0.3),
-      body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(StaticImage.intro),
-              fit: BoxFit.cover,
-            )),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      color: Colors.grey.withOpacity(0.1),
-                      height: MediaQuery.of(context).size.height * 0.4,
-                    ),
-                    Positioned(
-                        bottom: 0,
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.only(start: 20),
-                          child: Text(
-                            "Sign Up",
-                            style: titleBlackStyle,
-                          ),
-                        )),
-                  ],
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Image.asset(
-                  StaticImage.divider,
-                  width: MediaQuery.of(context).size.width,
-                ),
-                _currentState.getUI(context),
-              ],
+      backgroundColor: Colors.blue.shade700,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(StaticImage.intro),
+                    fit: BoxFit.cover,
+                  )),
             ),
-          ),
-
-
+            SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height *0.1,),
+                  Text('SignUp' , style: white24text,),
+                  SizedBox(height: MediaQuery.of(context).size.height *0.1,),
+                  _currentState.getUI(context),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
-import 'package:pasco_shipping/module_intro/widget/roundedButton.dart';
+import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 import 'package:pasco_shipping/module_profile/manager/profile_manager.dart';
 import 'package:pasco_shipping/module_profile/state_manager/profile_state_manager.dart';
 import 'package:pasco_shipping/module_profile/ui/state/profile_state.dart';
@@ -34,15 +34,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
 
     return Background(
+      showFilter: false,
       goBack: (){
         Navigator.pop(context);
       },
-      controller: controller,
-      isHome: false,
+      // controller: controller,
+      // isHome: false,
       child: Screen(),
       title: S.of(context).profile,
-      currentIndex: -1,
-      isResultScreen: false,
+      // currentIndex: -1,
+      // isResultScreen: false,
     );
   }
   @override
@@ -77,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
-          ErrorScreen(retry: (){},error: 'connection error',),
+          ErrorScreen(retry: (){},error: 'connection error',isEmptyData: false,),
         ],
       );
     }

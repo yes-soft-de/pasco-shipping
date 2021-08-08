@@ -28,7 +28,7 @@ class _ChipCardState extends State<ChoiceCard> {
           color: Colors.white,
         ),
       ),
-      backgroundColor: widget.type.isSelected ? AppThemeDataService.AccentColor :greyBlack,
+      backgroundColor: widget.type.isSelected ? AppThemeDataService.AccentColor :Colors.grey,
       elevation: 6.0,
       shadowColor: Colors.grey[60],
       padding: EdgeInsets.all(8.0),

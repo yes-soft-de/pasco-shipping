@@ -71,6 +71,7 @@ class _SecondOptionState extends State<SecondOption> {
           ErrorScreen(
             retry: () {},
             error: 'Connection error',
+            isEmptyData: false,
           ),
         ],
       );

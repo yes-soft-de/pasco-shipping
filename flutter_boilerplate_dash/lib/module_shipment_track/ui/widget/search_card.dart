@@ -32,16 +32,16 @@ class SearchCard extends StatelessWidget {
               Expanded(
                 child: TextField(
                   controller: trackNumberController,
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    hintText: S.of(context).enterShipmentNumber,
-                    hintStyle: white18text,
+                    hintText: 'Enter the Track Number',
+                    hintStyle: black18text,
                     focusedBorder: InputBorder.none,
                     enabledBorder: InputBorder.none,
                     errorBorder: InputBorder.none,
                     disabledBorder: InputBorder.none,
                   ),
-                  style: white18text,
+                  style: black16text,
                 ),
               ),
               ElevatedButton(
@@ -60,7 +60,7 @@ class SearchCard extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: Icon(
                     Icons.search_outlined,
-                    color: black,
+                    color: white,
                   ),
                 ),
               )

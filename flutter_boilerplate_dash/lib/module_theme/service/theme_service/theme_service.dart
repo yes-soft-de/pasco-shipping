@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:pasco_shipping/utils/styles/text_style.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:pasco_shipping/module_theme/pressistance/theme_preferences_helper.dart';
 
@@ -23,7 +25,7 @@ class AppThemeDataService {
   }
 
   static Color get AccentColor {
-    return Color(0xFFF9AA05);
+    return Color(0xD7007BFF);
   }
 
   Future<ThemeData> getActiveTheme() async {
@@ -35,10 +37,10 @@ class AppThemeDataService {
         primaryColorDark: PrimaryDarker,
         accentColor: AccentColor,
         appBarTheme: AppBarTheme(
-          centerTitle: true,
+          // centerTitle: true,
           textTheme: TextTheme(),
-          brightness: Brightness.dark,
-          color: Colors.black,
+          // brightness: Brightness.dark,
+          color: AccentColor,
           iconTheme: IconThemeData(color: Colors.white),
         ),
         textSelectionTheme: TextSelectionThemeData(cursorColor: AccentColor ,selectionColor: AccentColor,selectionHandleColor: AccentColor),
@@ -49,8 +51,8 @@ class AppThemeDataService {
       primaryColor: PrimaryColor,
       primaryColorDark: PrimaryDarker,
       accentColor: AccentColor,
-      appBarTheme: AppBarTheme(centerTitle: true, color: Colors.white),
-        textSelectionTheme: TextSelectionThemeData(cursorColor: AccentColor ,selectionColor: AccentColor ,selectionHandleColor: AccentColor)
+      appBarTheme: AppBarTheme(color: AccentColor , titleTextStyle: White14text),
+        textSelectionTheme: TextSelectionThemeData(cursorColor: AccentColor ,selectionColor: Colors.white ,selectionHandleColor: Colors.white)
     );
   }
 

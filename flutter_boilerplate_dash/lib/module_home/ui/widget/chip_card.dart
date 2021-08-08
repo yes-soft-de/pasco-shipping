@@ -1,66 +1,194 @@
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/module_home/response/home_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:align_positioned/align_positioned.dart';
+import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 
-class ChipCard extends StatelessWidget {
+class UserCard extends StatelessWidget {
   final String icon;
   final String label;
-  final Function() onPressed;
-  const ChipCard(
-      {required this.icon, required this.label, required this.onPressed});
+  final Users users;
+
+  const UserCard(
+      {required this.icon, required this.label , required this.users});
+  // HomeCard();
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        margin: new EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-        height: MediaQuery.of(context).size.height * 0.16,
-        width: MediaQuery.of(context).size.width * 0.4,
-        child: Stack(children: [
-          AlignPositioned(
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.2,
-                width: MediaQuery.of(context).size.width * 0.4,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: AppThemeDataService.AccentColor,
-                  ),
-                  borderRadius: BorderRadius.circular(30.0),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        elevation: 5.0,
+        color: AppThemeDataService.AccentColor,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(icon,height: MediaQuery.of(context).size.height*0.03),
+                    SizedBox(width: 10,),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                      Text(label,style: AppTextStyle.largeWhiteBold,),
+                      SizedBox(height: 5,),
+                      Text(label == 'Customers' ? users.customers.toString()+ ' Total' : users.employees.toString() + ' Total' ,style: AppTextStyle.mediumWhite,)
+                    ],)
+                  ],
                 ),
               ),
-              alignment: Alignment.bottomRight,
-              touch: Touch.inside,
-              dx: 15.0,
-              dy: 15.0,
+            ],
           ),
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.black,
-              ),
-              borderRadius: BorderRadius.circular(30.0),
-              color: Colors.black
-            ),
-            height: MediaQuery.of(context).size.height * 0.2,
-            width: MediaQuery.of(context).size.width * 0.4,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(icon),
-                  SizedBox(height: 10,),
-                  Text(label ,style: white18text)
-                ],
-              ),
-            ),
-          ),
-
-        ]),
+        ),
       ),
     );
   }
+
+
+}
+
+
+class OrderCard extends StatelessWidget {
+  final Orders orders;
+
+  const OrderCard(this.orders);
+  // HomeCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        elevation: 5.0,
+        color: AppThemeDataService.AccentColor,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(StaticImage.box,height: MediaQuery.of(context).size.height*0.04,),
+                    SizedBox(width: 10,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                      Text('Shipment',style: AppTextStyle.largeWhiteBold,),
+                      Text(orders.total.toString() + ' Total',style: AppTextStyle.mediumWhite,)
+                    ],)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Divider(thickness: 2,color: Colors.white,height: 5,indent: 5,endIndent: 5.0,),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(children: [
+                    Text('Waiting' , style: AppTextStyle.mediumWhite,),
+                    Text(orders.waitingOrders.toString() ,style: AppTextStyle.mediumWhite,),
+                  ],),
+                  Column(children: [
+                    Text('Accepted' , style: AppTextStyle.mediumWhite,),
+                    Text(orders.acceptedOrders.toString() ,style: AppTextStyle.mediumWhite,),
+                  ],),
+                ],)
+
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+
+}
+
+class TravelCard extends StatelessWidget {
+  final String name;
+  final  Cruise cruise;
+
+  const TravelCard(this.cruise, this.name);
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        elevation: 5.0,
+        color: AppThemeDataService.AccentColor,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(name=='Flight'?StaticImage.flight:StaticImage.shipment,height: MediaQuery.of(context).size.height*0.06,),
+                    // SizedBox(width: 10,),
+                    Column(children: [
+                      Text(name,style: AppTextStyle.largeWhiteBold,),
+                      Text(cruise.total.toString() + ' Total',style: AppTextStyle.mediumWhite,)
+                    ],)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Divider(thickness: 2,color: Colors.white,height: 5,indent: 5,endIndent: 5.0,),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(children: [
+                    Text('Arrived' , style: AppTextStyle.mediumWhite,),
+                    Text(cruise.arrived.toString() ,style: AppTextStyle.mediumWhite,),
+                  ],),
+                  Column(children: [
+                    Text('Started' , style: AppTextStyle.mediumWhite,),
+                    Text(cruise.started.toString() ,style: AppTextStyle.mediumWhite,),
+                  ],),
+                  Column(children: [
+                    Text('Current' , style: AppTextStyle.mediumWhite,),
+                    Text(cruise.current.toString() ,style: AppTextStyle.mediumWhite,),
+                  ],),
+                ],)
+
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+
 }

@@ -20,10 +20,11 @@ class ReviewShipmentScreen extends StatelessWidget {
     MyHistoryShipment shipment =arguments['myHistoryShipment'];
     ScrollController controller = ScrollController();
     return Background(
+      showFilter: false,
       goBack: (){
         Navigator.pop(context);
       },
-        controller: controller,
+        // controller: controller,
         child:
         Column(
           mainAxisSize: MainAxisSize.min,
@@ -103,8 +104,9 @@ class ReviewShipmentScreen extends StatelessWidget {
 
           ],
         ), title: S.of(context).reviewShipment,
-        currentIndex: -1,
-        isHome: false,
-        isResultScreen: false);
+        // currentIndex: -1,
+        // isHome: false,
+        // isResultScreen: false
+    );
   }
 }

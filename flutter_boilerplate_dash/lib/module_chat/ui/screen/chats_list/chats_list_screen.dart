@@ -87,15 +87,16 @@ class ChatsListScreenState extends State<ChatsListScreen> {
       goBack: (){
         Navigator.pop(context);
       },
-      controller: controller,
+      showFilter: false,
+      // controller: controller,
       // key: _scaffoldKey,
       // appBar: TurkishAppBar.getTurkishAppBar(
       //     context, _scaffoldKey, S.of(context).chats),
       // drawer: TurkishNavigationDrawer(),
-      isHome: true,
+      // isHome: true,
       title: "chats",
-      currentIndex: 2,
-      isResultScreen: false,
+      // currentIndex: 2,
+      // isResultScreen: false,
       child: ListView.builder(
         shrinkWrap: true,
           itemCount: 5,

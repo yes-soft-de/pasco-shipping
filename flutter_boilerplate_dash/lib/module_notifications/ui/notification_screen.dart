@@ -24,11 +24,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Background(
+      showFilter: false,
       goBack: (){
         Navigator.pop(context);
       },
-      controller: controller,
-      isHome: true,
+      // controller: controller,
+      // isHome: true,
       child: Container(
       child: ListView.builder(
         shrinkWrap: true,
@@ -37,7 +38,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
       },
       itemCount: model.length,
       ),
-    ), title:  S.of(context).notification ,currentIndex: 1,      isResultScreen: false,
+    ), title:  S.of(context).notification
+      // ,currentIndex: 1,      isResultScreen: false,
     );
   }
 }

@@ -6,10 +6,9 @@ import 'package:pasco_shipping/abstracts/module/yes_module.dart';
 import 'package:pasco_shipping/di/di_config.dart';
 import 'package:pasco_shipping/module_auth/authoriazation_module.dart';
 import 'package:pasco_shipping/module_chat/chat_module.dart';
+import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_edit_shipment/edit_shipment_module.dart';
 import 'package:pasco_shipping/module_home/home_module.dart';
-import 'package:pasco_shipping/module_intro/intro_module.dart';
-import 'package:pasco_shipping/module_intro/ui/intro_screen/intro_screen.dart';
 import 'package:pasco_shipping/module_localization/service/localization_service/localization_service.dart';
 import 'package:pasco_shipping/module_mark/mark_module.dart';
 import 'package:pasco_shipping/module_my_shipment/my_shipment_module.dart';
@@ -19,32 +18,45 @@ import 'package:pasco_shipping/module_notifications/service/fire_notification_se
 import 'package:pasco_shipping/module_profile/profile_module.dart';
 import 'package:pasco_shipping/module_settings/settings_module.dart';
 import 'package:pasco_shipping/module_shipment_track/tracking_module.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/accepted_shipment_module.dart';
+import 'package:pasco_shipping/module_shipments_orders_waiting/waiting_shipment_module.dart';
+import 'package:pasco_shipping/module_subcontract_services/response/sub_contract_service_response.dart';
+import 'package:pasco_shipping/module_subcontract_services/sub_contract_service_module.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/module_travel/travel_module.dart';
 import 'package:pasco_shipping/utils/logger/logger.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+// import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
-import 'module_intro/intro_routes.dart';
+import 'module_auth/authorization_routes.dart';
+import 'module_container/container_module.dart';
+import 'module_container_specification/container_specification_module.dart';
+import 'module_countries/country_module.dart';
+import 'module_distributors/distributors_module.dart';
 import 'module_notifications/service/local_notification_service/local_notification_service.dart';
+import 'module_proxies/proxies_module.dart';
 import 'module_shipment_previous/shipment_previous_module.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'module_shipment_request/shipment_request_module.dart';
+import 'module_sub_contract/subcontract_module.dart';
+import 'module_suppliers/supplier_module.dart';
+import 'module_unit/unit_module.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   timeago.setLocaleMessages('ar', timeago.ArMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
   await Firebase.initializeApp();
-  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-  FlutterError.onError = (FlutterErrorDetails details) {
-    FirebaseCrashlytics.instance.recordFlutterError(details);
-  };
+  // await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  // FlutterError.onError = (FlutterErrorDetails details) {
+  //   FirebaseCrashlytics.instance.recordFlutterError(details);
+  // };
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -68,13 +80,12 @@ class MyApp extends StatefulWidget {
   final AppThemeDataService _themeDataService;
   final LocalizationService _localizationService;
   final FireNotificationService _fireNotificationService;
-  final LocalNotificationService _localNotificationService;
+  // final LocalNotificationService _localNotificationService;
   // final SplashModule _splashModule;
   final AuthorizationModule _authorizationModule;
   final SettingsModule _settingsModule;
   final ChatModule _chatModule;
   final HomeModule _homeModule;
-  final IntroModule _introModule;
   // final PreviousShipmentsModule _previousShipmentsModule;
   final ProfileModule _profileModule;
   final MarkModule _markModule;
@@ -84,12 +95,26 @@ class MyApp extends StatefulWidget {
   final MyShipmentModule _myShipmentModule;
   final EditShipmentModule _editShipmentModule;
 
+  final CountryModule _countryModule;
+  final DistributorsModule _distributorsModule;
+  final ProxiesModule _proxiesModule;
+  final SupplierModule _supplierModule;
+  final SubcontractModule _subcontractModule;
+  final SubContractServiceModule _contractServiceModule;
+  final UnitModule _unitModule;
+  final TravelModule _travelModule;
+  final ContainerModule _containerModule;
+  final ContainerSpecificationModule _containerSpecificationModule;
+
+  final WaitingShipmentModule _waitingShipmentModule;
+  final AcceptedShipmentModule _acceptedShipmentModule;
+
+
   MyApp(
       this._themeDataService,
       this._localizationService,
       this._fireNotificationService,
-      this._localNotificationService,
-      this._introModule,
+      // this._localNotificationService,
       this._authorizationModule,
       this._chatModule,
       this._settingsModule,
@@ -101,7 +126,21 @@ class MyApp extends StatefulWidget {
       this._newShipmentsModule,
       this._trackingModule,
       this._myShipmentModule,
-      this._editShipmentModule
+      this._editShipmentModule,
+
+      this._countryModule,
+      this._distributorsModule,
+      this._proxiesModule,
+      this._supplierModule,
+      this._contractServiceModule,
+      this._subcontractModule,
+      this._unitModule,
+      this._travelModule,
+      this._containerModule,
+      this._containerSpecificationModule,
+
+      this._waitingShipmentModule,
+      this._acceptedShipmentModule
       );
 
   @override
@@ -120,36 +159,61 @@ class _MyAppState extends State<MyApp> {
   late ThemeData activeTheme;
   bool authorized = false;
   late StreamSubscription streamSubscription;
+  var activeLanguage;
+  var theme;
   @override
   void initState() {
     super.initState();
     widget._fireNotificationService.init();
-    widget._localNotificationService.init();
+    // widget._localNotificationService.init();
     widget._localizationService.localizationStream.listen((event) {
       timeago.setDefaultLocale(event);
       setState(() {});
     });
-    widget._fireNotificationService.onNotificationStream.listen((event) {
-      widget._localNotificationService.showNotification(event);
-    });
-    widget._localNotificationService.onLocalNotificationStream
-        .listen((event) {});
+    // widget._fireNotificationService.onNotificationStream.listen((event) {
+    //   widget._localNotificationService.showNotification(event);
+    // });
+    // widget._localNotificationService.onLocalNotificationStream
+    //     .listen((event) {});
 
     widget._themeDataService.darkModeStream.listen((event) {
       activeTheme = event;
       setState(() {});
     });
+    initS();
   }
 
+  initS()async {
+     activeLanguage = await widget._localizationService.getLanguage();
+     theme = await widget._themeDataService.getActiveTheme();
+  }
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      initialData: Scaffold(),
-      future: getConfiguratedApp(YesModule.RoutesMap),
-      builder: (BuildContext context, AsyncSnapshot<Widget> scaffoldSnapshot) {
-        return scaffoldSnapshot.data!;
-      },
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      navigatorObservers: <NavigatorObserver>[observer],
+      locale: Locale.fromSubtags(
+        languageCode: 'en',
+      ),
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      theme: theme,
+      supportedLocales: S.delegate.supportedLocales,
+      title: 'pasco-shipping',
+      routes: YesModule.RoutesMap,
+      initialRoute: AuthorizationRoutes.LOGIN_SCREEN,
     );
+    // return FutureBuilder(
+    //   initialData: Container(),
+    //   future: getConfiguratedApp(YesModule.RoutesMap),
+    //   builder: (BuildContext context, AsyncSnapshot<Widget> scaffoldSnapshot) {
+    //     return scaffoldSnapshot.data!;
+    //   },
+    // );
   }
 
   Future<Widget> getConfiguratedApp(
@@ -172,8 +236,8 @@ class _MyAppState extends State<MyApp> {
       theme: theme,
       supportedLocales: S.delegate.supportedLocales,
       title: 'pasco-shipping',
-      routes: fullRoutesList,
-      initialRoute: IntroRoutes.INTRO_SCREEN,
+      routes: YesModule.RoutesMap,
+      initialRoute: AuthorizationRoutes.LOGIN_SCREEN,
     );
   }
 }

@@ -215,24 +215,24 @@ class AuthService {
     bool isRegister,
   ) async {
     try {
-      var creds = await _auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      // var creds = await _auth.signInWithEmailAndPassword(
+      //   email: email,
+      //   password: password,
+      // );
 
       if (isRegister) {
-        await _registerApiNewUser(AppUser(creds.user, AuthSource.EMAIL, role));
+        // await _registerApiNewUser(AppUser(creds.user, AuthSource.EMAIL, role));
       } else {
         await _loginApiUser(role, AuthSource.EMAIL);
       }
     } catch (e) {
-      if (e is FirebaseAuthException) {
-        FirebaseAuthException x = e;
-        Logger().info('AuthService', 'Got Authorization Error: ${x.message}');
-        _authSubject.addError(x.message??'Got Authorization Error with unknown cause');
-      } else {
-        _authSubject.addError(e.toString());
-      }
+      // if (e is FirebaseAuthException) {
+      //   FirebaseAuthException x = e;
+      //   Logger().info('AuthService', 'Got Authorization Error: ${x.message}');
+      //   _authSubject.addError(x.message??'Got Authorization Error with unknown cause');
+      // } else {
+      //   _authSubject.addError(e.toString());
+      // }
     }
   }
 
@@ -380,7 +380,7 @@ class AuthService {
   }
 
   Future<void> logout() async {
-    await _auth.signOut();
+    // await _auth.signOut();
     await _prefsHelper.deleteToken();
     await _prefsHelper.cleanAll();
   }

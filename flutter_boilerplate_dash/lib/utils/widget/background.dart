@@ -14,12 +14,13 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 class Background extends StatefulWidget {
  final Widget child;
  final String title;
-  int currentIndex;
-  final bool isResultScreen;
-  final bool isHome;
-  ScrollController controller;
+ final bool showFilter;
+ //  int currentIndex;
+ //  final bool isResultScreen;
+ //  final bool isHome;
+ //  ScrollController controller;
   final Function goBack;
-  Background({required this.child,required this.title,  required this.currentIndex, required this.isResultScreen,required this.isHome ,required this.controller,required this.goBack});
+  Background({required this.child, required this.title, required this.goBack,required this.showFilter});
 
   @override
   _BackgroundState createState() => _BackgroundState();
@@ -31,90 +32,13 @@ class _BackgroundState extends State<Background> {
  @override
   Widget build(BuildContext context) {
    return Scaffold(
-    backgroundColor: greyWithMoreOptic,
     key: globalKey,
+    appBar: AppBar(title: Text(widget.title)),
     drawer: DrawerMenu(),
+    floatingActionButton:widget.showFilter ? FloatingActionButton(onPressed: () { widget.goBack(); },child: Icon(Icons.filter_list_alt ,color: Colors.white,),) :Container(),
     body: SafeArea(
-     child:widget.isResultScreen ? widget.child :
-     SingleChildScrollView(
-       child: Column(
-         children: [
-         Stack(
-           children: [
-             Container(
-               height: MediaQuery.of(context).size.height * 0.08,
-               color: greyWithOptic,
-               child:  Padding(
-                 padding: const EdgeInsetsDirectional.only(start: 20 ,end: 20),
-                 child: Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                   children: [
-                     IconButton(
-                         icon: Icon(
-                           Icons.menu,
-                           color: white,
-                         ),
-                         onPressed: () {
-                           globalKey.currentState!.openDrawer();
-                         }),
-                     Text(
-                       widget.title,
-                       style: white18text,
-                     ),
-                     widget.isHome ?Container(): InkWell(
-                         onTap: (){
-                          widget.goBack();
-                         },
-                         child: Icon(Icons.arrow_forward_ios , color: white,))
-                   ],
-                 ),
-               ),
-             ),
-
-           ],
-         ),
-         SizedBox(
-           height: 10,
-         ),
-         Image.asset(
-           StaticImage.divider,
-           width: MediaQuery.of(context).size.width,
-         ),
-         widget.child,
-       ],),
-     ),
+     child:widget.child
     ),
-    bottomNavigationBar: FloatingNavbar(
-     selectedBackgroundColor: AppThemeDataService.AccentColor,
-     onTap: (int val) {
-     setState(() {
-      if(val ==0 ){
-       widget.currentIndex = val;
-       Navigator.pushNamedAndRemoveUntil(context, HomeRoutes.Home, (route) => false);
-      }
-      else if(val == 1){
-       widget.currentIndex = val;
-       Navigator.pushNamedAndRemoveUntil(context, NotificationRoutes.NOTIFICATION_SCREEN, (route) => false);
-      }
-      else if(val == 2){
-        widget.currentIndex = val;
-        Navigator.pushNamedAndRemoveUntil(context, ChatRoutes.chatRoute, (route) => false);
-      }
-
-     });
-     },
-     currentIndex: widget.currentIndex,
-
-     items: [
-      FloatingNavbarItem(icon: Icons.home, title: 'Home'),
-      FloatingNavbarItem(icon: Icons.notifications_active_outlined, title: 'Notification'),
-      FloatingNavbarItem(icon: Icons.chat_bubble_outline, title: 'Direct support'),
-      // FloatingNavbarItem(icon: Icons.settings, title: 'Settings'),
-     ],
-    ),
-
-    // extendBody: true,
-
    );
   }
 

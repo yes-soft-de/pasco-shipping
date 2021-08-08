@@ -1,5 +1,5 @@
 import 'package:cool_alert/cool_alert.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
@@ -33,15 +33,16 @@ class _MarkScreenState extends State<EditedShipmentScreen> {
   @override
   Widget build(BuildContext context) {
     return Background(
+      showFilter: false,
       goBack: (){
         Navigator.pop(context);
       },
-      controller: controller,
-      isHome: false,
+      // controller: controller,
+      // isHome: false,
       child: Screen(),
       title: S.of(context).reviewShipment
-      ,currentIndex: -1,
-      isResultScreen: false,
+      // ,currentIndex: -1,
+      // isResultScreen: false,
     );
   }
 
@@ -96,7 +97,7 @@ class _MarkScreenState extends State<EditedShipmentScreen> {
         return Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
-            ErrorScreen(retry: (){},error: 'error',),
+            ErrorScreen(retry: (){},error: 'error',isEmptyData: false,),
           ],
         );
       }
@@ -105,7 +106,7 @@ class _MarkScreenState extends State<EditedShipmentScreen> {
       return Column(
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
-          ErrorScreen(retry: (){},error: 'error',),
+          ErrorScreen(retry: (){},error: 'error',isEmptyData: false,),
         ],
       );
     }

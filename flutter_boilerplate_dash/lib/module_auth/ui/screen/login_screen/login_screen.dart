@@ -49,58 +49,47 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        var fucos = FocusScope.of(context);
-        if (fucos.canRequestFocus) {
-          fucos.unfocus();
-        }
-      },
-      child: Scaffold(
-        backgroundColor: Colors.grey.withOpacity(0.3),
-        body: Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(StaticImage.intro),
-                fit: BoxFit.cover,
-              )),
-          child: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Stack(
+        onTap: () {
+          var fucos = FocusScope.of(context);
+          if (fucos.canRequestFocus) {
+            fucos.unfocus();
+          }
+        },
+        child: Scaffold(
+          backgroundColor: Colors.blue.shade700,
+          body: SafeArea(
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                    image: AssetImage(StaticImage.intro),
+                    fit: BoxFit.cover,
+                  )),
+                ),
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        color: Colors.grey.withOpacity(0.1),
-                        height: MediaQuery.of(context).size.height * 0.4,
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.1,
                       ),
-                      Positioned(
-                          bottom: 0,
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.only(start: 20),
-                            child: Text(
-                              "Sign In",
-                              style: titleBlackStyle,
-                            ),
-                          )),
+                      Text(
+                        'Sign In',
+                        style: white24text,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                      ),
+                      _currentStates!.getUI(context),
                     ],
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Image.asset(
-                    StaticImage.divider,
-                    width: MediaQuery.of(context).size.width,
-                  ),
-                  _currentStates!.getUI(context),
-                ],
-              ),
+                ),
+              ],
             ),
-
-
           ),
-        ),
-      ),
-    );
+        ));
   }
 
   @override

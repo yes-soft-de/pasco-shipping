@@ -36,10 +36,11 @@ class _ShipmentTrackingScreenState extends State<MyShipmentScreen> {
   @override
   Widget build(BuildContext context) {
     return Background(
+      showFilter: false,
       goBack: (){
         Navigator.pop(context);
       },
-      controller: controller,
+      // controller: controller,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -170,9 +171,9 @@ class _ShipmentTrackingScreenState extends State<MyShipmentScreen> {
         ],
       ),
       title: S.of(context).trackShipment,
-      currentIndex: -1,
-      isResultScreen: false,
-      isHome: false,
+      // currentIndex: -1,
+      // isResultScreen: false,
+      // isHome: false,
     );
   }
 

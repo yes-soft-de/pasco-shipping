@@ -22,6 +22,9 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "aboutUs": MessageLookupByLibrary.simpleMessage("About Us"),
+        "add": MessageLookupByLibrary.simpleMessage("Add new"),
+        "addedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("Item added successfully"),
         "air": MessageLookupByLibrary.simpleMessage("Air"),
         "cancel": MessageLookupByLibrary.simpleMessage("cancel"),
         "city": MessageLookupByLibrary.simpleMessage("city"),
@@ -29,13 +32,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmCode": MessageLookupByLibrary.simpleMessage("confirm Code"),
         "confirmPass": MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "contactInfo": MessageLookupByLibrary.simpleMessage("Contact Info"),
-        "country": MessageLookupByLibrary.simpleMessage("country"),
+        "countries": MessageLookupByLibrary.simpleMessage("Countries"),
+        "country": MessageLookupByLibrary.simpleMessage("Country"),
         "darkMode": MessageLookupByLibrary.simpleMessage("dark mode"),
         "deletePreviousMark": MessageLookupByLibrary.simpleMessage(
             "You cannot delete previously used marks"),
+        "description": MessageLookupByLibrary.simpleMessage("Description"),
         "directSupport": MessageLookupByLibrary.simpleMessage("Direct support"),
         "distributorName":
             MessageLookupByLibrary.simpleMessage("Distributor Name: "),
+        "distributors": MessageLookupByLibrary.simpleMessage("Distributors"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "enterMark": MessageLookupByLibrary.simpleMessage("Enter new mark"),
         "enterShipmentNumber":
@@ -78,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "productType": MessageLookupByLibrary.simpleMessage("Product type:"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "proxies": MessageLookupByLibrary.simpleMessage("Proxies"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity:"),
         "requestShipment":
             MessageLookupByLibrary.simpleMessage("Request Shipment"),
@@ -90,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "save": MessageLookupByLibrary.simpleMessage("save"),
         "saveInfo": MessageLookupByLibrary.simpleMessage("Save Information"),
         "sea": MessageLookupByLibrary.simpleMessage("Sea"),
+        "service": MessageLookupByLibrary.simpleMessage("Service"),
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "shipment": MessageLookupByLibrary.simpleMessage("Shipments"),
         "shipmentInfo": MessageLookupByLibrary.simpleMessage("Shipment Info"),
@@ -99,11 +107,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "startWriting": MessageLookupByLibrary.simpleMessage("start writing"),
+        "subcontractService":
+            MessageLookupByLibrary.simpleMessage("Subcontract Services"),
+        "subcontracts": MessageLookupByLibrary.simpleMessage("Subcontract"),
         "success": MessageLookupByLibrary.simpleMessage("Success!!!"),
+        "suppliers": MessageLookupByLibrary.simpleMessage("Supplier"),
         "termOfService":
             MessageLookupByLibrary.simpleMessage("Term Of Service"),
         "trackShipment":
             MessageLookupByLibrary.simpleMessage("Tracking the shipment"),
+        "travels": MessageLookupByLibrary.simpleMessage("Travels"),
+        "units": MessageLookupByLibrary.simpleMessage("Units"),
+        "view": MessageLookupByLibrary.simpleMessage("View all"),
+        "warehouses": MessageLookupByLibrary.simpleMessage("warehouse"),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome")
       };
 }
