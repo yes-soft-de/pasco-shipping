@@ -69,7 +69,7 @@ Widget build(BuildContext context) {
                     horizontal: 12, vertical: 15),
                 decoration: new BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
-                  color: Colors.white,
+                  color: Colors.grey[200],
                   boxShadow: [
                     BoxShadow(
                         blurRadius: 10,

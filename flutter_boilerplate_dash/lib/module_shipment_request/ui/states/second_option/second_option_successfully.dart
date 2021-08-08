@@ -4,6 +4,7 @@ import 'package:pasco_shipping/module_mark/mark_routes.dart';
 import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
+import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/widget/text_edit.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
@@ -11,7 +12,7 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 class SecondOptionSuccessfully extends StatefulWidget {
   final List<Mark> marks;
-  final ShipmentTempRequest shipmentRequest;
+  final ShipmentRequest shipmentRequest;
   final Function goBackStep;
   final Function goNextPage;
   SecondOptionSuccessfully({required this.marks,required this.shipmentRequest,required this.goBackStep,required this.goNextPage});
@@ -93,13 +94,12 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
 
   @override
   Widget build(BuildContext context) {
-    print(dropListModelMark.listOptionItems.length);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Supplier Info : ',
-          style: white18text,
+          style: AppTextStyle.mediumBlackBold,
         ),
         TextEdit(supplierName, 50, (supplierName) {
           widget.shipmentRequest.supplierName = supplierName;
@@ -108,8 +108,8 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
           height: 25,
         ),
         Text(
-          'Recipient Info : ',
-          style: white18text,
+          'Receiver Info : ',
+          style: AppTextStyle.mediumBlackBold,
         ),
         TextEdit(receiverName, 50, (receiverName) {
           widget.shipmentRequest.receiverName = receiverName;
@@ -122,7 +122,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
         ),
         Text(
           'Unit : ',
-          style: white18text,
+          style: AppTextStyle.mediumBlackBold,
         ),
         SelectDropList(
           this.optionItemSelectedU,
@@ -138,7 +138,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
         ),
         Text(
           'Mark : ',
-          style: white18text,
+          style: AppTextStyle.mediumBlackBold,
         ),
         Row(
           children: [
@@ -155,41 +155,6 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                 },
               ),
             ),
-            InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, MarkRoutes.mark).then((value) {
-                  print('back');
-                 setState(() {
-                   List<Mark>  marks = value as List<Mark>;
-                   isFromMarks = true;
-                   marksEntry = <Entry>[];
-                   for(Mark item in marks){
-                     Entry v = Entry(item.markNumber! ,item.id! ,[]);
-                     marksEntry.add(v);
-                   }
-                   this.dropListModelFromMark = DropListModel(marksEntry);
-                 });
-                });
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Icon(
-                      Icons.add_circle_outline_sharp,
-                      color: AppThemeDataService.AccentColor,
-                      size: 25,
-                    ),
-                    Text(
-                      'add\nnew',
-                      style: White14text,
-                    )
-                  ],
-                ),
-              ),
-            ),
-
-
           ],
         ),
         Row(

@@ -48,7 +48,7 @@ class _NumberInputWithIncrementDecrementState
                   ),
                 ),
                 controller: _controller,
-                style: white18text,
+                // style: white18text,
                 keyboardType: TextInputType.numberWithOptions(
                   decimal: false,
                   signed: true,

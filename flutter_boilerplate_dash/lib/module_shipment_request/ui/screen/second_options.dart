@@ -14,7 +14,7 @@ import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
 class SecondOption extends StatefulWidget {
   final RequestShipmentStateManger stateManger;
-  final ShipmentTempRequest _shipmentRequest;
+  final ShipmentRequest _shipmentRequest;
   final Function goBackStep;
   final Function goNextStep;
   const SecondOption(this.stateManger, this._shipmentRequest, this.goBackStep,
@@ -39,7 +39,7 @@ class _SecondOptionState extends State<SecondOption> {
         setState(() {});
       }
     });
-    widget.stateManger.getSecondOption();
+    widget.stateManger.getSecondOption('1');
   }
 
   @override
