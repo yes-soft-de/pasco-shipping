@@ -11,6 +11,7 @@ use App\Request\ClientRegisterByDashboardRequest;
 use App\Request\ClientRegisterRequest;
 use App\Response\ClientFullInfoGetResponse;
 use App\Response\ClientProfileResponse;
+use App\Response\ClientRegisterResponse;
 use App\Response\UserRegisterResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -51,7 +52,7 @@ class ClientService
 
         if ($userRegister instanceof UserEntity) 
         {
-            return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $userRegister);
+            return $this->autoMapping->map(UserEntity::class, ClientRegisterResponse::class, $userRegister);
         }
         elseif ($userRegister == true) 
         {  
