@@ -83,10 +83,24 @@ class ShipmentLogController extends BaseController
     }
 
     /**
-     * @Route("allshipmentlogs/{shipmentID}", name="getAllShipmentLogsByShipmentIdForDashboard", methods={"GET"})
+     * @Route("allshipmentlogs/{shipmentID}/{trackNumber}", name="getAllShipmentLogsByShipmentIdAndTrackNumberForDashboard", methods={"GET"})
      * @return JsonResponse
      *
      * @OA\Tag(name="Shipment Log")
+     *
+     * @OA\Parameter(
+     *      name="shipmentID",
+     *      in="path",
+     *      required="true",
+     *      description="the ID of the shipment"
+     * )
+     *
+     * @OA\Parameter(
+     *      name="trackNumber",
+     *      in="path",
+     *      required="true",
+     *      description="the trackNumber of the shipment"
+     * )
      *
      * @OA\Response(
      *      response=200,
@@ -99,6 +113,7 @@ class ShipmentLogController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="shipmentID"),
      *                  @OA\Property(type="string", property="shipmentStatus"),
+     *                  @OA\Property(type="bool", property="isPassed"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="string", property="createdByUser"),
      *                  @OA\Property(type="string", property="createdByUserImage")
@@ -108,9 +123,9 @@ class ShipmentLogController extends BaseController
      * )
      *
      */
-    public function getAllShipmentLogsByShipmentID($shipmentID)
+    public function getAllShipmentLogsByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
-        $result = $this->shipmentLogService->getAllShipmentLogsByShipmentID($shipmentID);
+        $result = $this->shipmentLogService->getAllShipmentLogsByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
 
         return $this->response($result, self::FETCH);
     }
