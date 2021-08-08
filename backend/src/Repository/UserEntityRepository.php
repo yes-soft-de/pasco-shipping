@@ -127,6 +127,8 @@ class UserEntityRepository extends ServiceEntityRepository implements PasswordUp
                 'adminProfile2.userID = user.updatedBy'
             )
 
+            ->orderBy('user.id', 'DESC')
+
             ->getQuery()
             ->getResult();
     }
