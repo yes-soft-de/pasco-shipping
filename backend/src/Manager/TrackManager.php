@@ -50,12 +50,19 @@ class TrackManager
         $this->entityManager->flush();
         $this->entityManager->clear();
 
-        // Then, we update the record related to the shipment in the ShipmentStatusEntity
-        $shipmentStatusRequest = $this->autoMapping->map(TrackCreateRequest::class, ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest::class, $request);
+        /**
+         * Then, we update the record related to the shipment in the ShipmentStatusEntity when the following coditions
+         * are true; the shipment stored completely in one holder OR shipment stored in more than one holder, and the storation 
+         * of the final part is finished
+         */ 
+        if($request->getIsInOneHolder() == true || ($request->getIsInOneHolder() == false && $request->getPacked() == true))
+        {
+            $shipmentStatusRequest = $this->autoMapping->map(TrackCreateRequest::class, ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest::class, $request);
 
-        $shipmentStatusRequest->setUpdatedBy($request->getCreatedBy());
+            $shipmentStatusRequest->setUpdatedBy($request->getCreatedBy());
 
-        $this->shipmentStatusManager->updateShipmentStatusByShipmentIdAndTrackNumber($shipmentStatusRequest);
+            $this->shipmentStatusManager->updateShipmentStatusByShipmentIdAndTrackNumber($shipmentStatusRequest);
+        }
 
         return $trackEntity;
     }
