@@ -77,6 +77,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('container.id', 'DESC')
+            ->setMaxResults(30)
             
             ->getQuery()
             ->getResult();
@@ -190,6 +191,9 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 'subcontractEntity3.id = container.providedBy'
             )
 
+            ->orderBy('container.id', 'DESC')
+            ->setMaxResults(30)
+
             ->getQuery()
             ->getResult();
     }
@@ -246,6 +250,9 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 'subcontractEntity3.id = container.providedBy'
             )
 
+            ->orderBy('container.id', 'DESC')
+            ->setMaxResults(30)
+
             ->getQuery()
             ->getResult();
     }
@@ -301,6 +308,9 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 Join::WITH,
                 'subcontractEntity3.id = container.providedBy'
             )
+
+            ->orderBy('container.id', 'DESC')
+            ->setMaxResults(30)
 
             ->getQuery()
             ->getResult();
@@ -359,6 +369,9 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 'subcontractEntity3.id = container.providedBy'
             )
 
+            ->orderBy('container.id', 'DESC')
+            ->setMaxResults(30)
+
             ->getQuery()
             ->getResult();
     }
@@ -414,6 +427,9 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 Join::WITH,
                 'subcontractEntity3.id = container.providedBy'
             )
+
+            ->orderBy('container.id', 'DESC')
+            ->setMaxResults(30)
 
             ->getQuery()
             ->getResult();
@@ -471,6 +487,9 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 'subcontractEntity3.id = container.providedBy'
             )
 
+            ->orderBy('container.id', 'DESC')
+            ->setMaxResults(30)
+
             ->getQuery()
             ->getResult();
     }
@@ -523,6 +542,9 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 Join::WITH,
                 'subcontractEntity3.id = container.providedBy'
             )
+
+            ->orderBy('container.id', 'DESC')
+            ->setMaxResults(30)
 
             ->getQuery()
             ->getResult();
@@ -582,6 +604,9 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 Join::WITH,
                 'subcontractEntity3.id = container.providedBy'
             )
+
+            ->orderBy('container.id', 'DESC')
+            ->setMaxResults(30)
 
             ->getQuery()
             ->getResult();
