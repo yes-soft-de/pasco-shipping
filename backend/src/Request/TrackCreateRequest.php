@@ -84,6 +84,11 @@ class TrackCreateRequest
         return $this->isInOneHolder;
     }
 
+    public function getPacked()
+    {
+        return $this->packed;
+    }
+
     public function getAmount()
     {
         return $this->amount;
