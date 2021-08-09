@@ -203,10 +203,24 @@ class ShipmentStatusManager
     // For Track Number
     public function getRandomCode()
     {
-        // Get 5-digits random number
-        $data = random_int(0, 9) . random_int(0, 9) . random_int(0, 9) . random_int(0, 9) . random_int(0, 9);
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomCode = "";
+        $index = 0;
 
-        return  vsprintf('%s%s%s%s%s', str_split(($data)));
+        // Get 7-digits random code
+        for ($i = 0; $i < 3; $i++)
+        {
+            $index = rand(0, strlen($characters));
+
+            $randomCode .= $characters[$index];
+        }
+        
+        for ($i = 3; $i < 7; $i++)
+        {
+            $randomCode .= random_int(0, 9);
+        }
+
+        return $randomCode;
     }
     
     public function deleteAllShipmentStatus()
