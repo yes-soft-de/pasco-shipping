@@ -95,15 +95,15 @@ class ShipmentLogService
         {
             $result = $this->statusIsPassed($shipmentsLogs, $state);
 
-            if($result)
+            if($result >= 0)
             {
                 $shipmentsLogs[$result]['isPassed'] = true;
 
                 $shipmentsLogsResponse[] = $shipmentsLogs[$result];
             }
-            else
+            elseif($result == -1)
             {
-                if($state == "waiting" || $state == "accepted")
+                if($state == "waiting")
                 {
                     $log['isPassed'] = true;
                 }
@@ -135,6 +135,8 @@ class ShipmentLogService
                     return $key;
                 }
             }
+
+            return -1;
         }
     }
 
