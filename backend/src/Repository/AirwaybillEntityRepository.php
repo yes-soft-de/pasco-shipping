@@ -77,6 +77,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('airwaybill.id', 'DESC')
+            ->setMaxResults(30)
 
             ->getQuery()
             ->getResult();
@@ -193,6 +194,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('airwaybill.id', 'DESC')
+            ->setMaxResults(30)
 
             ->getQuery()
             ->getResult();
@@ -252,6 +254,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('airwaybill.id', 'DESC')
+            ->setMaxResults(30)
 
             ->getQuery()
             ->getResult();
@@ -311,6 +314,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('airwaybill.id', 'DESC')
+            ->setMaxResults(30)
 
             ->getQuery()
             ->getResult();
@@ -370,6 +374,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('airwaybill.id', 'DESC')
+            ->setMaxResults(30)
 
             ->getQuery()
             ->getResult();
@@ -429,6 +434,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('airwaybill.id', 'DESC')
+            ->setMaxResults(30)
 
             ->getQuery()
             ->getResult();
@@ -488,6 +494,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('airwaybill.id', 'DESC')
+            ->setMaxResults(30)
 
             ->getQuery()
             ->getResult();
@@ -543,6 +550,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('airwaybill.id', 'DESC')
+            ->setMaxResults(30)
 
             ->getQuery()
             ->getResult();
@@ -605,6 +613,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('airwaybill.id', 'DESC')
+            ->setMaxResults(30)
 
             ->getQuery()
             ->getResult();
