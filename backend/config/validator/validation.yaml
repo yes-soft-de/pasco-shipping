@@ -17,8 +17,6 @@ App\Request\ClientRegisterByDashboardRequest:
   properties:
     userID:
       - NotBlank: ~
-    password:
-      - NotBlank: ~
 
 App\Request\OrderShipmentCreateRequest:
   properties:
