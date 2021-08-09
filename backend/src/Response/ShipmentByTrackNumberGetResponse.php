@@ -18,6 +18,8 @@ class ShipmentByTrackNumberGetResponse
 
     public $holderInfo;
 
+    public $amount;
+
     public $createdAt;
 
     public $updatedAt;
