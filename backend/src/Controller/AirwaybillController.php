@@ -344,6 +344,7 @@ class AirwaybillController extends BaseController
      *                          @OA\Property(type="integer", property="packetingBy"),
      *                          @OA\Property(type="string", property="paymentTime"),
      *                          @OA\Property(type="number", property="weight"),
+     *                          @OA\Property(type="number", property="volume"),
      *                          @OA\Property(type="string", property="qrCode"),
      *                          @OA\Property(type="integer", property="guniQuantity"),
      *                          @OA\Property(type="string", property="vehicleIdentificationNumber"),
