@@ -55,6 +55,11 @@ class SubcontractEntity
      */
     private $serviceID;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $email;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -140,6 +145,18 @@ class SubcontractEntity
     public function setServiceID(int $serviceID): self
     {
         $this->serviceID = $serviceID;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }
