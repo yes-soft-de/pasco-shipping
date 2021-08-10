@@ -32,6 +32,8 @@ class AirwaybillGetResponse
 
     public $shipperName;
 
+    public $carrierName;
+
     public $shipments = [];
 
 }
