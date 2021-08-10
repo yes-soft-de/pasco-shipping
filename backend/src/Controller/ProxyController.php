@@ -51,6 +51,7 @@ class ProxyController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="fullName"),
      *          @OA\Property(type="string", property="phone"),
+     *          @OA\Property(type="string", property="email"),
      *          @OA\Property(type="string", property="address")
      *      )
      * )
@@ -111,6 +112,7 @@ class ProxyController extends BaseController
      *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="string", property="fullName"),
      *          @OA\Property(type="string", property="phone"),
+     *          @OA\Property(type="string", property="email"),
      *          @OA\Property(type="string", property="address")
      *      )
      * )
@@ -125,6 +127,7 @@ class ProxyController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="fullName"),
      *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="email"),
      *                  @OA\Property(type="string", property="address"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
@@ -177,6 +180,7 @@ class ProxyController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="fullName"),
      *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="email"),
      *                  @OA\Property(type="string", property="address"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
@@ -215,6 +219,7 @@ class ProxyController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="fullName"),
      *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="email"),
      *                  @OA\Property(type="string", property="address"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),

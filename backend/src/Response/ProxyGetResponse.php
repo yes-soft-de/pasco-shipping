@@ -10,6 +10,8 @@ class ProxyGetResponse
     
     public $phone;
     
+    public $email;
+    
     public $address;
     
     public $createdAt;

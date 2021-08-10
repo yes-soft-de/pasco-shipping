@@ -10,6 +10,8 @@ class ProxyUpdateRequest
 
     private $phone;
 
+    private $email;
+
     private $address;
 
     private $updatedBy;
