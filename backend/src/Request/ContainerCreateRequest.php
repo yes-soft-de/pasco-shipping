@@ -18,6 +18,8 @@ class ContainerCreateRequest
 
     private $consigneeID;
 
+    private $carrierID;
+
     private $createdBy;
 
     public function setCreatedBy($userID)

@@ -30,6 +30,8 @@ class ContainerGetResponse
 
     public $shipperName;
 
+    public $carrierName;
+
     public $specificationName;
 
     public $shipments = [];
