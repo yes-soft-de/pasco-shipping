@@ -1,9 +1,11 @@
 class MarkRequest {
   String markNumber;
-  MarkRequest(this.markNumber);
+  int clientUserID;
+  MarkRequest(this.markNumber , this.clientUserID);
   Map<String, dynamic> toJson() {
     return {
       'markNumber': markNumber,
+      'clientUserID':clientUserID
     };
   }
 }

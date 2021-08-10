@@ -16,7 +16,7 @@ class MarkService {
   Future<ConfirmResponse?> deleteMark(String id) {
     return _manager.deleteMark(id);
   }
-  Future<List<Mark>?> getMyMarks() {
-    return _manager.getMyMarks();
+  Future<List<Mark>?> getUserMark(String userID) {
+    return _manager.getUserMark(userID);
   }
 }

@@ -6,23 +6,24 @@ import 'package:pasco_shipping/module_shipments_orders_waiting/widget/waiting_sh
 class WaitingShipmentSuccessfully extends StatelessWidget {
   final List<WaitingShipmentModel> items;
   final Function onDetails;
+  final bool isExternalWarehouse;
 
   const WaitingShipmentSuccessfully({
     required this.items,
-    required this.onDetails,
+    required this.onDetails,required this.isExternalWarehouse,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        return WaitingShipmentCard(
-          shipmentModel: items[index],
-          onDetails: (model) {
-            onDetails(model);
-          },
-        );
-      },
+          return WaitingShipmentCard(
+            shipmentModel: items[index],
+            onDetails: (model) {
+              onDetails(model);
+            },
+          );
+        },
       itemCount: items.length,
       shrinkWrap: true,
     );

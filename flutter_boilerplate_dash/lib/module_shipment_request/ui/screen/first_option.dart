@@ -16,7 +16,7 @@ import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 // @injectable
 class FirstOptions extends StatefulWidget {
   final RequestShipmentStateManger stateManger;
-  final ShipmentTempRequest _shipmentRequest;
+  final ShipmentRequest _shipmentRequest;
   final Function goToSecondStep;
   FirstOptions(this.stateManger, this._shipmentRequest, this.goToSecondStep);
 

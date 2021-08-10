@@ -47,16 +47,17 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
     String cityName =arguments['cityName'].toString();
     String holderType =arguments['holderType'].toString();
     String status =arguments['status'].toString();
+    String trackNumber =arguments['trackNumber'].toString();
 
     ContainerFilterRequest containerFilterRequest =ContainerFilterRequest(status:ContainerStatusName[ContainerStatus.NOTFULL] ,type: holderType);
     if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.ACCEPTED]!) {
-      widget._stateManager.getShipmentStatus(id);
+      widget._stateManager.getShipmentStatus(id,trackNumber);
     }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]!){
-      widget._stateManager.getReceivedStatus(id,cityName);
+      widget._stateManager.getReceivedStatus(id,cityName,trackNumber);
     }else if (status == AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!){
-      widget._stateManager.getMeasuredStatus(id,containerFilterRequest);
+      widget._stateManager.getMeasuredStatus(id,containerFilterRequest,trackNumber);
     }else {
-      widget._stateManager.getShipmentStatus(id);
+      widget._stateManager.getShipmentStatus(id,trackNumber);
     }
   }
 

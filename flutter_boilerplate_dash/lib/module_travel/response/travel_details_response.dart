@@ -97,53 +97,53 @@ class TravelDetailsModel {
 }
 
 
+// class HolderModel {
+//   HolderModel({
+//     this.the0,
+//     this.id,
+//     this.shipmentId,
+//     this.trackNumber,
+//     this.travelId,
+//     this.holderType,
+//     this.holderId,
+//     this.createdAt,
+//     this.updatedAt,
+//     this.createdBy,
+//     this.updatedBy,
+//   });
+//
+//   The0? the0;
+//   int? id;
+//   int? shipmentId;
+//   String? trackNumber;
+//   int? travelId;
+//   String? holderType;
+//   int? holderId;
+//   DateTime? createdAt;
+//   DateTime? updatedAt;
+//   int? createdBy;
+//   String? updatedBy;
+//
+//   factory HolderModel.fromJson(Map<String, dynamic> json) => HolderModel(
+//     the0: The0.fromJson(json["0"]),
+//     id: json["id"],
+//     shipmentId: json["shipmentID"],
+//     trackNumber: json["trackNumber"],
+//     travelId: json["travelID"],
+//     holderType: json["holderType"],
+//     holderId: json["holderID"],
+//     createdAt:DateTime.fromMillisecondsSinceEpoch(
+//         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),
+//     updatedAt:DateTime.fromMillisecondsSinceEpoch(
+//         CreatedAt.fromJson(json['updatedAt']).timestamp! * 1000),
+//     createdBy: json["createdBy"],
+//     updatedBy: json["updatedBy"],
+//   );
+//
+//
+// }
 class HolderModel {
   HolderModel({
-    this.the0,
-    this.id,
-    this.shipmentId,
-    this.trackNumber,
-    this.travelId,
-    this.holderType,
-    this.holderId,
-    this.createdAt,
-    this.updatedAt,
-    this.createdBy,
-    this.updatedBy,
-  });
-
-  The0? the0;
-  int? id;
-  int? shipmentId;
-  String? trackNumber;
-  int? travelId;
-  String? holderType;
-  int? holderId;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  int? createdBy;
-  String? updatedBy;
-
-  factory HolderModel.fromJson(Map<String, dynamic> json) => HolderModel(
-    the0: The0.fromJson(json["0"]),
-    id: json["id"],
-    shipmentId: json["shipmentID"],
-    trackNumber: json["trackNumber"],
-    travelId: json["travelID"],
-    holderType: json["holderType"],
-    holderId: json["holderID"],
-    createdAt:DateTime.fromMillisecondsSinceEpoch(
-        CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),
-    updatedAt:DateTime.fromMillisecondsSinceEpoch(
-        CreatedAt.fromJson(json['updatedAt']).timestamp! * 1000),
-    createdBy: json["createdBy"],
-    updatedBy: json["updatedBy"],
-  );
-
-
-}
-class The0 {
-  The0({
     this.id,
     this.specificationId,
     this.containerNumber,
@@ -159,10 +159,10 @@ class The0 {
     this.createdByUser,
     this.updatedByUser,
 
-    this.capacityCpm,
-    this.widthInMeter,
-    this.hightInMeter,
-    this.lengthInMeter,
+    // this.capacityCpm,
+    // this.widthInMeter,
+    // this.hightInMeter,
+    // this.lengthInMeter,
     this.subcontractName,
     this.consigneeName,
     this.shipperName,
@@ -182,15 +182,15 @@ class The0 {
   int? providedBy;
   String? createdByUser;
   String? updatedByUser;
-  int? capacityCpm;
-  double? widthInMeter;
-  int? hightInMeter;
-  int? lengthInMeter;
+  // int? capacityCpm;
+  // double? widthInMeter;
+  // int? hightInMeter;
+  // int? lengthInMeter;
   String? subcontractName;
   String? consigneeName;
   String? shipperName;
 
-  factory The0.fromJson(Map<String, dynamic> json) => The0(
+  factory HolderModel.fromJson(Map<String, dynamic> json) => HolderModel(
     id: json["id"],
     specificationId: json["specificationID"],
     containerNumber: json["containerNumber"] ?? json["airwaybillNumber"],
@@ -207,10 +207,10 @@ class The0 {
     providedBy: json["providedBy"],
     createdByUser: json["createdByUser"],
     updatedByUser: json["updatedByUser"],
-    capacityCpm: json["capacityCPM"],
-    widthInMeter: json["widthInMeter"],
-    hightInMeter: json["hightInMeter"],
-    lengthInMeter: json["lengthInMeter"],
+    // capacityCpm: json["capacityCPM"],
+    // widthInMeter: json["widthInMeter"],
+    // hightInMeter: json["hightInMeter"],
+    // lengthInMeter: json["lengthInMeter"],
     subcontractName: json["subcontractName"],
     consigneeName: json["consigneeName"],
     shipperName: json["shipperName"],

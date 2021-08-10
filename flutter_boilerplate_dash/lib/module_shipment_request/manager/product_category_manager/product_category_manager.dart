@@ -1,5 +1,7 @@
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_shipment_request/repository/product_category_repository/product_category_repository.dart';
+import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_shipment_request/response/product_categories/product_categories_response.dart';
 import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
 
@@ -10,4 +12,5 @@ class FirstOptionManager{
 
   Future<List<Category>?> getCategories() => _repository.getProductCategories();
   Future<List<Countries>?> getWarehouses() => _repository.getWarehouses();
+  Future<ConfirmResponse?> addShipment(ShipmentRequest request) => _repository.addNewShipment(request);
 }

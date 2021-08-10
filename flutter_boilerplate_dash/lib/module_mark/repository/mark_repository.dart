@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/consts/urls.dart';
 import 'package:pasco_shipping/module_auth/service/auth_service/auth_service.dart';
 import 'package:pasco_shipping/module_general/response/confirm_response.dart';
+import 'package:pasco_shipping/module_mark/model/markModel.dart';
 import 'package:pasco_shipping/module_mark/request/mark_request.dart';
 import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/module_network/http_client/http_client.dart';
@@ -16,14 +17,18 @@ class MarkRepository{
 
   MarkRepository(this._apiClient, this._authService);
 
-  Future<List<Mark>?> getMyMark() async {
+  Future<List<Mark>?> getUserMark(String userID) async {
     // await _authService.refreshToken();
     var token = Urls.token; // await _authService.getToken();
     try {
-      var response = await _apiClient.get(Urls.MY_MARKS,
+      var response = await _apiClient.get(Urls.USER_MARKS + '/'+ userID,
           headers: {'Authorization': 'Bearer $token'});
-      List<Mark>? marks =
-          MarkResponse.fromJson(response!).data;
+      MarkResponse markResponse =  MarkResponse.fromJson(response!);
+      List<Mark>? marks = [];
+      if(markResponse.data != null) {
+        marks =
+            MarkResponse.fromJson(response).data;
+      }
       return marks;
     } catch (_) {
       return null;
@@ -34,7 +39,7 @@ class MarkRepository{
     // await _authService.refreshToken();
     var token = Urls.token;  //await _authService.getToken();
 
-    var response = await _apiClient.post(Urls.MARK, request.toJson(),
+    var response = await _apiClient.post(Urls.CREATE_MARK, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = MarkResponse.fromJson(response!).statusCode;
     String? msg = MarkResponse.fromJson(response).msg;
@@ -48,7 +53,7 @@ class MarkRepository{
   Future<ConfirmResponse?> deleteMark(String id) async {
     // await _authService.refreshToken();
     var token = Urls.token;  //await _authService.getToken();
-    var response = await _apiClient.delete(Urls.MARK+'/'+id,
+    var response = await _apiClient.delete(Urls.USER_MARKS+'/'+id,
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = MarkResponse.fromJson(response!).statusCode;
     String? msg = MarkResponse.fromJson(response).msg;

@@ -1,136 +1,140 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_mark/request/mark_request.dart';
 import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/module_mark/widget/mark_card.dart';
+import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 
-class MarkSuccessfullyScreen extends StatelessWidget {
+class MarkSuccessfullyScreen extends StatefulWidget {
  final List<Mark> items;
+ final List<ClientModel> clients;
  final Function deleteMark;
  final Function addMark;
+ final Entry optionItem;
  final TextEditingController markNumberController;
- MarkSuccessfullyScreen({required this.items, required this.deleteMark,required this.addMark, required this.markNumberController});
+ final Function onClientSelect;
+ MarkSuccessfullyScreen({required this.items, required this.deleteMark,required this.addMark, required this.markNumberController,required this.clients, required this.optionItem,required this.onClientSelect});
+
+  @override
+  _MarkSuccessfullyScreenState createState() => _MarkSuccessfullyScreenState();
+}
+
+class _MarkSuccessfullyScreenState extends State<MarkSuccessfullyScreen> {
+
+  late DropListModel dropListModelClient;
+  late Entry optionItemSelectedClient ;
+  late List<Entry> client;
 
   @override
   Widget build(BuildContext context) {
-    print("SuccessfullyScreen rebuild");
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ListTile(
-            title: Row(
-              children: [
-                Text(
-                  S.of(context).myPrevious,
-                  style: white30text,
-                ),
-                Spacer(),
-                Image.asset(StaticImage.book)
-              ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Clients',
+              style: AppTextStyle.mediumBlackBold,
             ),
-            subtitle: Text(
-              S.of(context).mark,
-              style: white30text,
+            SelectDropList(
+              this.optionItemSelectedClient,
+              this.dropListModelClient,
+                  (optionItem) {
+                optionItemSelectedClient = optionItem;
+                widget.onClientSelect(optionItem);
+                // widget.shipmentRequest.exportWarehouseID =optionItem.id;
+                // widget.shipmentRequest.exportWarehouseName =optionItem.title;
+                // print("nameWear"  +  optionItem.title);
+                // setState(() {});
+              },
             ),
-          ),
-          Row(
-            children: [
-              Icon(
-                Icons.info,
-                color: white,
-                size: 15,
+          widget.items.isEmpty ?
+          Text('No Mark Added yet' , style: AppTextStyle.mediumRedBold,)
+          :ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: widget.items.length,
+                itemBuilder: (context, index) {
+                  return MarkCard(model: widget.items[index] ,
+                    incrementNumber: (index+1).toString()
+                    ,deleteMark: (id){
+                    widget.deleteMark(id);
+                  },);
+                }),
+            Card(
+              color: blue,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
               ),
-              SizedBox(
-                width: 15,
-              ),
-              Text(
-                S.of(context).deletePreviousMark,
-                style: basic14text,
-              )
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Divider(
-              color: greyWhite,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsetsDirectional.only(start: 20, top: 10),
-            child: Text(
-              S.of(context).previousMark,
-              style: greyWhite14text,
-            ),
-          ),
-          ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                return MarkCard(model: items[index] ,
-                  incrementNumber: (index+1).toString()
-                  ,deleteMark: (id){
-                  deleteMark(id);
-                },);
-              }),
-          Card(
-            color: black,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            elevation: 5.0,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          border: Border.all(color: white)),
-                      child: Padding(
-                        padding: const EdgeInsetsDirectional.only(start: 5),
-                        child: TextField(
-                          controller: markNumberController,
-                          decoration: InputDecoration(
-                            hintText:  S.of(context).enterMark,
-                            hintStyle: white18text,
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            errorBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
+              elevation: 5.0,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            border: Border.all(color: white)),
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.only(start: 5),
+                          child: TextField(
+                            controller: widget.markNumberController,
+                            decoration: InputDecoration(
+                              hintText:  S.of(context).enterMark,
+                              hintStyle: white18text,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                            ),
+                            style: white16text,
                           ),
-                          style: white16text,
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 10,),
-                  InkWell(
-                      onTap: (){
-                        if(markNumberController.text.isEmpty) {
-                          Fluttertoast.showToast(msg: S.of(context).fillAllField);
-                        }
-                      else {
-                        MarkRequest mark = MarkRequest(markNumberController.text);
-                          addMark(mark);
-                        }
-                      },
-                      child: Icon(Icons.add_circle_outline_sharp ,color: AppThemeDataService.AccentColor,size: 30,))
-                ],
+                    SizedBox(width: 10,),
+                    InkWell(
+                        onTap: (){
+                          if(widget.markNumberController.text.isEmpty) {
+                            Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                          }
+                        else {
+                          MarkRequest mark = MarkRequest(widget.markNumberController.text,widget.optionItem.id);
+                            widget.addMark(mark);
+                          }
+                        },
+                        child: Icon(Icons.add_circle_outline_sharp ,color: white,size: 30,))
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    client = <Entry>[];
+    optionItemSelectedClient =  widget.optionItem;
+
+    for(ClientModel item in widget.clients){
+      Entry v = Entry(item.userName! ,item.id! ,[]);
+      client.add(v);
+    }
+    dropListModelClient = DropListModel(client);
   }
 }

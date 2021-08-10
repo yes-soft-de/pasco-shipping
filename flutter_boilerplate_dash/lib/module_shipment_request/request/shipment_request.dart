@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'dart:convert';
-class ShipmentTempRequest {
+class ShipmentRequest {
   late String _transportationType;
 
   late int _exportWarehouseID;
@@ -30,6 +30,15 @@ class ShipmentTempRequest {
   late String _holderType;
   late String? imageFilePath;
 
+  late int userID;
+  late String  userName;
+
+  late int distributorID;
+  late String  distributorName;
+
+  late bool isExternalWarehouse;
+  late String externalWarehouseInfo;
+
 
   Map<String, dynamic> toJson() => {
         "transportationType": transportationType,
@@ -49,36 +58,17 @@ class ShipmentTempRequest {
         'image':imageFilePath == null ?'': imageFilePath!,
     'exportWarehouseName':exportWarehouseName,
     'markName':markName,
-    'holderType':holderType
-
+    'holderType':holderType,
+    'clientUserID':userID,
+    'userName':userName,
+    'distributorID':distributorID,
+    'distributorName':distributorName,
+    'isExternalWarehouse':isExternalWarehouse,
+    'externalWarehouseInfo':externalWarehouseInfo,
       };
-  factory ShipmentTempRequest.fromJson(Map<String, dynamic> json) =>
-      ShipmentTempRequest(
-          json['transportationType']??'',
-          json['exportWarehouseID']??0,
-          json['exportWarehouseName']??'',
-          json['target']??'',
-
-          json['productCategoryID']??0,
-          json['productCategoryName']??'',
-          json['quantity']??0,
-
-          json['supplierName']??'',
-          json['receiverName']??'',
-          json['receiverPhoneNumber']??'',
-
-          json['unit']??'',
-          json['markId']??0,
-          json['markName'] ?? '',
-
-          json['paymentTime']??'',
 
 
-          json['vehicleIdentificationNumber']??'',
-          json['extraSpecification']??'',
-          json['holderType']??'',
-          json['image']);
-  ShipmentTempRequest(
+  ShipmentRequest(
       this._transportationType,
 
       this._exportWarehouseID,
@@ -103,7 +93,15 @@ class ShipmentTempRequest {
       this._extraSpecification,
       this._vehicleIdentificationNumber,
       this._holderType,
-      this.imageFilePath);
+      this.imageFilePath,
+
+      this.externalWarehouseInfo,
+      this.isExternalWarehouse,
+      this.distributorName,
+      this.distributorID,
+      this.userName,
+      this.userID
+      );
 
   String get extraSpecification => _extraSpecification;
 

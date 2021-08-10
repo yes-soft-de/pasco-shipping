@@ -14,65 +14,70 @@ class MyShipmentWaiting extends StatefulWidget {
 }
 
 class _MyShipmentWaitingState extends State<MyShipmentWaiting> {
- late ShipmentTempRequest shipmentRequest;
- late bool isEmptyData;
-
-
- @override
-  void initState() {
-   super.initState();
-   isEmptyData= false;
-   shipmentRequest = ShipmentTempRequest(
-       '', 0,'', '', 0, '',0, '', '', '', '', 0, '', '', '','','',null);
-  }
-
- @override
-  void didChangeDependencies() {
-   super.didChangeDependencies();
-   getShipmentt();
-
-  }
-
-  void getShipmentt() async {
-   await getShipment().then((value) {
-      if(value == null){
-        setState(() {
-          isEmptyData = true;
-        });
-      }
-      else {
-        setState(() {
-          shipmentRequest = value;
-          isEmptyData = false;
-        });
-      }
-    });
-  }
   @override
   Widget build(BuildContext context) {
-    return  isEmptyData ?Center(child: Text('No Shipment waiting for confirmation',style: greyWhite14text,),):
-      Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsetsDirectional.only(start: 20, top: 10),
-                child: Text(
-                  'Shipment waiting for confirmation',
-                  style: greyWhite14text,
-                ),
-              ),
-              ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: 1,
-                  itemBuilder: (context, index) {
-                    return waitingShipmentCard(StaticImage.box,shipmentRequest);
-                  }),
-            ],
-          ),
-        );
+    // TODO: implement build
+    throw UnimplementedError();
   }
+ // late ShipmentRequest shipmentRequest;
+ // late bool isEmptyData;
+ //
+ //
+ // @override
+ //  void initState() {
+ //   super.initState();
+ //   isEmptyData= false;
+ //  //  shipmentRequest = ShipmentRequest(
+ //  //      '', 0,'', '', 0, '',0, '', '', '', '', 0, '', '', '','','',null,"",'');
+ //  // }
+ //
+ // @override
+ //  void didChangeDependencies() {
+ //   super.didChangeDependencies();
+ //   getShipmentt();
+ //
+ //  }
+ //
+ //  void getShipmentt() async {
+ //   await getShipment().then((value) {
+ //      if(value == null){
+ //        setState(() {
+ //          isEmptyData = true;
+ //        });
+ //      }
+ //      else {
+ //        setState(() {
+ //          shipmentRequest = value;
+ //          isEmptyData = false;
+ //        });
+ //      }
+ //    });
+ //  }
+ //  @override
+ //  Widget build(BuildContext context) {
+ //    return  isEmptyData ?Center(child: Text('No Shipment waiting for confirmation',style: greyWhite14text,),):
+ //      Container(
+ //          child: Column(
+ //            crossAxisAlignment: CrossAxisAlignment.start,
+ //            children: [
+ //              Padding(
+ //                padding:
+ //                    const EdgeInsetsDirectional.only(start: 20, top: 10),
+ //                child: Text(
+ //                  'Shipment waiting for confirmation',
+ //                  style: greyWhite14text,
+ //                ),
+ //              ),
+ //              ListView.builder(
+ //                  shrinkWrap: true,
+ //                  scrollDirection: Axis.vertical,
+ //                  physics: NeverScrollableScrollPhysics(),
+ //                  itemCount: 1,
+ //                  itemBuilder: (context, index) {
+ //                    return waitingShipmentCard(StaticImage.box,shipmentRequest);
+ //                  }),
+ //            ],
+ //          ),
+ //        );
+ //  }
 }

@@ -21,9 +21,9 @@ class AcceptedShipmentsStatusStateManager {
 
   AcceptedShipmentsStatusStateManager(this._service, this._subcontractService, this._containerService);
 
-  void getShipmentStatus(String id) {
+  void getShipmentStatus(String id ,String trackNumber) {
     _stateSubject.add(LoadingState());
-    _service.getAcceptedShipmentStatus(id).then((value) {
+    _service.getAcceptedShipmentStatus(id,trackNumber).then((value) {
       if (value != null) {
         _stateSubject.add(AcceptedStatusState(value));
       }else {
@@ -37,7 +37,7 @@ class AcceptedShipmentsStatusStateManager {
     _service.changeShipmentStatus(request).then((value) {
       if(value != null){
         if(value.isConfirmed){
-          _service.getAcceptedShipmentStatus(request.shipmentId.toString()).then((model) {
+          _service.getAcceptedShipmentStatus(request.shipmentId.toString(),request.trackNumber).then((model) {
             if (model != null) {
               _subcontractService.getSubcontracts().then((subcontracts) {
                 if(subcontracts != null){
@@ -62,7 +62,7 @@ class AcceptedShipmentsStatusStateManager {
     _service.measuredShipment(request).then((value) {
       if(value != null){
         if(value.isConfirmed){
-          _service.getAcceptedShipmentStatus(request.shipmentId.toString()).then((model) {
+          _service.getAcceptedShipmentStatus(request.shipmentId.toString(),request.trackNumber).then((model) {
             if (model != null) {
               _containerService.getContainersWithFilter(containerFilterRequest).then((containers) {
                 if(containers != null){
@@ -85,7 +85,7 @@ class AcceptedShipmentsStatusStateManager {
     _service.storedShipment(request).then((value) {
       if(value != null){
         if(value.isConfirmed){
-          _service.getAcceptedShipmentStatus(request.shipmentId.toString()).then((model) {
+          _service.getAcceptedShipmentStatus(request.shipmentId.toString(),request.trackNumber).then((model) {
             if (model != null) {
               print('model stored');
               _stateSubject.add(AcceptedStatusState(model));
@@ -101,8 +101,8 @@ class AcceptedShipmentsStatusStateManager {
   }
 
 
-  void getReceivedStatus(String shipmentID ,String cityName ){
-    _service.getAcceptedShipmentStatus(shipmentID).then((model) {
+  void getReceivedStatus(String shipmentID ,String cityName ,String trackNumber){
+    _service.getAcceptedShipmentStatus(shipmentID,trackNumber).then((model) {
       if (model != null) {
         _subcontractService.getSubcontracts().then((subcontracts) {
           if(subcontracts != null){
@@ -119,8 +119,8 @@ class AcceptedShipmentsStatusStateManager {
     });
   }
 
-  void getMeasuredStatus(String shipmentID ,ContainerFilterRequest containerFilterRequest){
-    _service.getAcceptedShipmentStatus(shipmentID).then((model) {
+  void getMeasuredStatus(String shipmentID ,ContainerFilterRequest containerFilterRequest,String trackNumber){
+    _service.getAcceptedShipmentStatus(shipmentID,trackNumber).then((model) {
       if (model != null) {
         _containerService.getContainersWithFilter(containerFilterRequest).then((containers) {
           if(containers != null){

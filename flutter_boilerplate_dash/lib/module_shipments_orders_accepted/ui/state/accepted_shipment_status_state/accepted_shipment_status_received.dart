@@ -80,6 +80,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
 
    for(WarehouseModel item in widget.warehouse){
      Entry v = Entry(item.name! ,item.id! ,[]);
+     print("hhhhhhh" + item.name!);
      entryWarehouse.add(v);
    }
    dropListModelWarehouse = DropListModel(entryWarehouse);

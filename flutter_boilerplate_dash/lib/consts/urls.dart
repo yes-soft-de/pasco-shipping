@@ -13,6 +13,8 @@ class Urls {
 //request shipment
   static const PRODUCT_CATEGORY = BASE_API + 'productcategories';
 
+  static const REQUEST_SHIPMENT_ADMIN = BASE_API + 'ordershipmentbydashboard';
+
   //country
   static const COUNTRIES = BASE_API + 'countries';
   static const COUNTRY = BASE_API + 'country';
@@ -59,11 +61,23 @@ class Urls {
   static const CONTAINER_SPECIFICATIONS = BASE_API + 'containerspecifications';
   static const CONTAINER_SPECIFICATION = BASE_API + 'containerspecification';
 
+  //client
+  static const CREATE_CLIENT_ACCOUNT = BASE_API + 'clientbydashboard';
+  static const CREATE_CLIENT_MARK = BASE_API + 'markbydashboard';
+  static const GET_CLIENT_MARK = BASE_API + 'marks';
+  static const GET_CLIENTS = BASE_API + 'clientprofileall';
+
 
 
   ///mark
-  static const MY_MARKS = BASE_API + 'mymarks';
-  static const MARK = BASE_API + 'mark';
+  static const USER_MARKS = BASE_API + 'marks';
+  static const CREATE_MARK = BASE_API + 'markbydashboard';
+
+
+
+  //product
+  static const PRODUCT_CATEGORIES=BASE_API+"productcategories";
+  static const ADD_PRODUCT_CATEGORY=BASE_API+"productcategory";
 
   //profile
   static const MY_PROFILE=BASE_API+"clientprofile";
@@ -95,5 +109,5 @@ class Urls {
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
 
 
-  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjgyOTU4NzEsImV4cCI6MTYyODI5OTQ3MSwicm9sZXMiOlsiUk9MRV9FTVBMT1lFRSIsInVzZXIiXSwidXNlcm5hbWUiOiJlbTEifQ.HroBbKhRNj_q58hJtmxbu0FYPMZRBNWi8HCjjpa-x2-WFDzqwQ-lzpgKauMfjotVZhTgs3dLofxA-EJ2LQQraFO6U77gCpUErGcI-BBpAeGbhcYYsjGlsm_bJJhM6wgJlAKYPllLX2sBvEhhZI-mCbW4nkpNAKot4HT2iYta1VviLlZJ-Snyp_oTxP-V4x4CgSR57xrxPHguV5bqxNc1C92TjRxSUZYh99HgDm9tq2sDiCsUMCkkxjzHKVrJ4BACFli8Kq6dYIeOQSswk5gt8Z80ZvuyCctMtMfVj48IoOC9co_epdwvL35VKPIOEJb5suFJuxViGxdTYyUrHu5THQ';
+  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2Mjg0NDkwMzksImV4cCI6MTYyODQ2NzAzOSwicm9sZXMiOlsiUk9MRV9FTVBMT1lFRSIsInVzZXIiXSwidXNlcm5hbWUiOiJlbTEifQ.C_qsVIptW7M-h3xCisXu7CcDC4PNiiPJZSEg9t92hCbxkIchFXUyfz8Xbcy4C24IgQ3xDb_LikuW0DRWUkV3yRxuqJb9RWGdqytUbJMfkk5klcTduHsN-yL0WQ9JkFb2cIbheCKsxhOIV_XR2UVsJ4IIecvxffArSD0ptr_j6EeFwjr5MUNVpglEZntUBbsrF0eKrDtcUotFMU-u8TwWa3jlRYiIf56Ho6YqXUsYTGG7n5_nEtQV9EuQIbsVbH30FQxize30GWJL8vxP63J6Q61_wHeCn0NLOqNtXlI1DvptAGF56YRN3uK3Xklwyht9-OuXnaECfasdaqg9fRp2oQ';
 }

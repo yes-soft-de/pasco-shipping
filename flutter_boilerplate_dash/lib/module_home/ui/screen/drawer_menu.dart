@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_chat/chat_routes.dart';
+import 'package:pasco_shipping/module_client/client_routes.dart';
 import 'package:pasco_shipping/module_container/container_routes.dart';
 import 'package:pasco_shipping/module_container/request/container_filter_request.dart';
 import 'package:pasco_shipping/module_container_specification/container_specification_routes.dart';
 import 'package:pasco_shipping/module_countries/country_routes.dart';
 import 'package:pasco_shipping/module_distributors/distributors_routes.dart';
 import 'package:pasco_shipping/module_home/model/drawer_model.dart';
+import 'package:pasco_shipping/module_mark/mark_routes.dart';
+import 'package:pasco_shipping/module_product_category/product_routes.dart';
 import 'package:pasco_shipping/module_proxies/proxies_routes.dart';
+import 'package:pasco_shipping/module_shipment_request/request_routes.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/accepted_shipment_routes.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/waiting_shipment_routes.dart';
@@ -18,6 +22,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/module_travel/request/travel_filter_request.dart';
 import 'package:pasco_shipping/module_travel/travel_routes.dart';
 import 'package:pasco_shipping/module_unit/unit_routes.dart';
+import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 
@@ -53,6 +58,10 @@ class DrawerMenu extends StatelessWidget {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('Shipment' ,style: AppTextStyle.mediumDeepGrayBold,),
+          ),
           ExpansionTile(
             title: new Text('Waiting Shipment'),
             leading: Icon(Icons.local_shipping_rounded),
@@ -61,18 +70,67 @@ class DrawerMenu extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: [
-                    ListTile(
-                        title: new Text('Sea shipment'),
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'transportationType' : 'sea'});
-                        }),
-                    ListTile(
-                        title: new Text('Air shipment'),
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'transportationType' : 'air'});
-                        }),
+                    ExpansionTile(
+                      title: new Text('Sea shipment'),
+                      // leading: Icon(Icons.sea),
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              ListTile(
+                                  title: new Text('in External Warehouse'),
+                                  onTap: () {
+                                    // AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',);
+                                    Navigator.pushNamed(
+                                        context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'transportationType' : 'sea','isExternalWarehouse':true});
+                                  }),
+                              ListTile(
+                                  title: new Text('in Local Warehouse'),
+                                  onTap: () {
+                                    // AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',);
+                                    Navigator.pushNamed(
+                                        context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'transportationType' : 'air','isExternalWarehouse':false});
+                                  }),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    ExpansionTile(
+                      title: new Text('Air shipment'),
+                      // leading: Icon(Icons.sea),
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              ListTile(
+                                  title: new Text('in External Warehouse'),
+                                  onTap: () {
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',);
+                                    Navigator.pushNamed(
+                                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
+                                  }),
+                              ListTile(
+                                  title: new Text('in Local Warehouse'),
+                                  onTap: () {
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',);
+                                    Navigator.pushNamed(
+                                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
+                                  }),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -106,7 +164,229 @@ class DrawerMenu extends StatelessWidget {
               ),
             ],
           ),
+          ExpansionTile(
+            title: new Text('Request shipment'),
+            leading: Icon(Icons.add),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsetsDirectional.only(start: 5),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: new Text(S.of(context).add),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, NewShipmentRoutes.NEW_SHIPMENTS);
+                        }),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Divider(
+            color: Colors.grey,
+          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Text('Clients' ,style: AppTextStyle.mediumDeepGrayBold,),
+          // ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('Users',style: AppTextStyle.mediumDeepGrayBold,),
+          ),
+          ExpansionTile(
+            title: new Text('Clients'),
+            leading: Icon(Icons.supervised_user_circle),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsetsDirectional.only(start: 5),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: new Text(S.of(context).view),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, ClientRoutes.VIEW_ALL);
+                        }),
+                    ListTile(
+                        title: new Text(S.of(context).add),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, ClientRoutes.ADD_NEW);
+                        }),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ExpansionTile(
+            title: new Text('Employees'),
+            leading: Icon(Icons.person),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsetsDirectional.only(start: 5),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: new Text(S.of(context).view),
+                        onTap: () {
+                          // Navigator.pushNamed(
+                          //     context, ClientRoutes.VIEW_ALL);
+                        }),
+                    ListTile(
+                        title: new Text(S.of(context).add),
+                        onTap: () {
+                          // Navigator.pushNamed(
+                          //     context, ClientRoutes.ADD_NEW);
+                        }),
+                  ],
+                ),
+              ),
+            ],
+          ),
 
+          ExpansionTile(
+            title: new Text('Marks'),
+            leading: Icon(Icons.note),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsetsDirectional.only(start: 5),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: new Text(S.of(context).add),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, MarkRoutes.mark);
+                        }),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Divider(
+            color: Colors.grey,
+          ),
+          ExpansionTile(
+            title: new Text(S.of(context).travels),
+            leading: Icon(Icons.travel_explore),
+            children: <Widget>[
+              ListTile(
+                  title:Text('Sea Travel'),
+                  onTap: () {
+                    TravelFilterRequest re = TravelFilterRequest(type:'cruise');
+                    Navigator.pushNamed(context, TravelRoutes.VIEW_ALL,
+                        arguments: {'travelFilter': re});
+                  }),
+              ListTile(
+                  title:Text(
+                      'Air Travel'
+                  ),
+                  onTap: () {
+                    TravelFilterRequest re = TravelFilterRequest(type:'flight');
+                    Navigator.pushNamed(context, TravelRoutes.VIEW_ALL,
+                        arguments: {'travelFilter': re});
+                  }),
+              ListTile(
+                  title: new Text(
+                      S.of(context).add
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, TravelRoutes.ADD_NEW,);
+                  }),
+            ],
+          ),
+          Divider(
+            color: Colors.grey,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('Container' ,style: AppTextStyle.mediumDeepGrayBold,),
+          ),
+          ExpansionTile(
+            title: new Text('Container Specification'),
+            leading: Icon(Icons.filter_list),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: new Text(S.of(context).view),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, ContainerSpecificationRoutes.VIEW_ALL);
+                        }),
+                    ListTile(
+                        title: new Text(
+                          S.of(context).add,
+                        ),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, ContainerSpecificationRoutes.ADD_NEW);
+                        }),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+          ExpansionTile(
+            title: new Text('Containers'),
+            leading: Icon(Icons.inbox_outlined),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: new Text(S.of(context).view),
+                        onTap: () {
+                          ContainerFilterRequest re = ContainerFilterRequest(type: 'public');
+                          Navigator.pushNamed(
+                              context, ContainerRoutes.VIEW_ALL);
+                        }),
+                    ListTile(
+                        title: new Text(
+                          S.of(context).add,
+                        ),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, ContainerRoutes.ADD_NEW);
+                        }),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Divider(
+            color: Colors.grey,
+          ),
+          ExpansionTile(
+            title: new Text('Product Category'),
+            leading: Icon(Icons.closed_caption_off),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsetsDirectional.only(start: 5),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: new Text(S.of(context).view),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, ProductRoutes.VIEW_ALL);
+                        }),
+                    ListTile(
+                        title: new Text(S.of(context).add),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, ProductRoutes.ADD_NEW);
+                        }),
+                  ],
+                ),
+              ),
+            ],
+          ),
           ExpansionTile(
             title: new Text(S.of(context).countries),
             leading: Icon(Icons.location_city),
@@ -294,35 +574,7 @@ class DrawerMenu extends StatelessWidget {
               ),
             ],
           ),
-          ExpansionTile(
-            title: new Text(S.of(context).travels),
-            leading: Icon(Icons.travel_explore),
-            children: <Widget>[
-              ListTile(
-                  title:Text('Sea Travel'),
-                  onTap: () {
-                    TravelFilterRequest re = TravelFilterRequest(type:'cruise');
-                    Navigator.pushNamed(context, TravelRoutes.VIEW_ALL,
-                        arguments: {'travelFilter': re});
-                  }),
-              ListTile(
-                  title:Text(
-                   'Air Travel'
-                  ),
-                  onTap: () {
-                    TravelFilterRequest re = TravelFilterRequest(type:'flight');
-                    Navigator.pushNamed(context, TravelRoutes.VIEW_ALL,
-                        arguments: {'travelFilter': re});
-                  }),
-              ListTile(
-                  title: new Text(
-                  S.of(context).add
-                  ),
-                  onTap: () {
-                    Navigator.pushNamed(context, TravelRoutes.ADD_NEW,);
-                  }),
-            ],
-          ),
+
           ExpansionTile(
             title: new Text(S.of(context).warehouses),
             leading: Icon(Icons.business),
@@ -349,62 +601,6 @@ class DrawerMenu extends StatelessWidget {
             ],
           ),
 
-          ExpansionTile(
-            title: new Text('Container Specification'),
-            leading: Icon(Icons.filter_list),
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    ListTile(
-                        title: new Text(S.of(context).view),
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, ContainerSpecificationRoutes.VIEW_ALL);
-                        }),
-                    ListTile(
-                        title: new Text(
-                          S.of(context).add,
-                        ),
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, ContainerSpecificationRoutes.ADD_NEW);
-                        }),
-                  ],
-                ),
-              ),
-            ],
-          ),
-
-          ExpansionTile(
-            title: new Text('Containers'),
-            leading: Icon(Icons.inbox_outlined),
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    ListTile(
-                        title: new Text(S.of(context).view),
-                        onTap: () {
-                          ContainerFilterRequest re = ContainerFilterRequest(type: 'public');
-                          Navigator.pushNamed(
-                              context, ContainerRoutes.VIEW_ALL);
-                        }),
-                    ListTile(
-                        title: new Text(
-                          S.of(context).add,
-                        ),
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, ContainerRoutes.ADD_NEW);
-                        }),
-                  ],
-                ),
-              ),
-            ],
-          ),
 
           Divider(
             color: Colors.grey,

@@ -26,6 +26,7 @@ class _CountriesScreenState extends State<WaitingShipmentScreen> {
   late WaitingShipmentsState currentState;
   late List<WaitingShipmentModel> items;
   late String transportationType;
+  late bool isExternalWarehouse;
   @override
   Widget build(BuildContext context) {
     return Background(
@@ -42,6 +43,7 @@ class _CountriesScreenState extends State<WaitingShipmentScreen> {
     super.didChangeDependencies();
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     transportationType =arguments['transportationType'];
+    isExternalWarehouse =arguments['isExternalWarehouse'];
     widget._stateManager.getWaitingShipment(transportationType);
   }
 
@@ -78,7 +80,7 @@ class _CountriesScreenState extends State<WaitingShipmentScreen> {
           Navigator.pushNamed(context, WaitingShipmentRoutes.DETAILS , arguments: {'shipmentModel' : model} ).then((value){
             widget._stateManager.getWaitingShipment(transportationType);
           });
-        },
+        }, isExternalWarehouse: isExternalWarehouse,
       );
     }
     else if(currentState is ErrorState) {

@@ -16,7 +16,7 @@ class AcceptedShipmentManager{
   AcceptedShipmentManager(this._repository);
 
   Future<List<AcceptedShipmentModel>?> getAcceptedShipment(AcceptedShipmentFilterRequest transportationType) => _repository.getAcceptedShipment(transportationType);
-  Future<List<AcceptedShipmentStatusModel>?> getAcceptedShipmentStatus(String id) => _repository.getAcceptedShipmentStatus(id);
+  Future<List<AcceptedShipmentStatusModel>?> getAcceptedShipmentStatus(String id,String trackNumber) => _repository.getAcceptedShipmentStatus(id,trackNumber);
   Future<List<WarehouseModel>?> getWarehouse(String cityName) => _repository.getWarehouses(cityName);
   Future<AcceptedShipmentDetailsModel?> getShipmentDetails(String id) => _repository.getShipmentDetails(id);
   Future<ConfirmResponse?> changeShipmentStatus(ReceivedOrDeliveredRequest id) => _repository.recivedOrDeliverdShipment(id);
