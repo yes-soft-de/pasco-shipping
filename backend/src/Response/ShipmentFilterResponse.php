@@ -38,7 +38,7 @@ class ShipmentFilterResponse
 
     public $receiverPhoneNumber;
 
-    public $markID;
+    public $markNumber;
 
     public $packetingBy;
 

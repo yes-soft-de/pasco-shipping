@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
 use App\Entity\ShipmentLogEntity;
+use App\Entity\ShipmentStatusEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -50,7 +51,7 @@ class ShipmentLogEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('shipmentLog')
             ->select('shipmentLog.id', 'shipmentLog.shipmentID', 'shipmentLog.trackNumber', 'shipmentLog.shipmentStatus', 'shipmentLog.createdAt', 'shipmentLog.createdBy', 'adminProfile.userName as createdByUser', 
-            'adminProfile.image as createdByUserImage')
+            'adminProfile.image as createdByUserImage', 'shipmentStatusEntity.statusDetails')
 
             ->andWhere('shipmentLog.shipmentID = :shipmentID')
             ->setParameter('shipmentID', $shipmentID)
@@ -63,6 +64,13 @@ class ShipmentLogEntityRepository extends ServiceEntityRepository
                 'adminProfile',
                 Join::WITH,
                 'adminProfile.userID = shipmentLog.createdBy'
+            )
+
+            ->leftJoin(
+                ShipmentStatusEntity::class,
+                'shipmentStatusEntity',
+                Join::WITH,
+                'shipmentStatusEntity.shipmentID = shipmentLog.shipmentID AND shipmentStatusEntity.trackNumber = shipmentLog.trackNumber'
             )
 
             ->orderBy('shipmentLog.id', 'ASC')

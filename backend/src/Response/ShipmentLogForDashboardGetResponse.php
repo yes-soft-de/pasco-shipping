@@ -10,6 +10,8 @@ class ShipmentLogForDashboardGetResponse
 
     public $shipmentStatus;
 
+    public $statusDetails;
+
     public $isPassed;
 
     public $createdAt;

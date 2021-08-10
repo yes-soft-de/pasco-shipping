@@ -75,6 +75,11 @@ class ContainerEntity
      */
     private $consigneeID;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $carrierID;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -208,6 +213,18 @@ class ContainerEntity
     public function setConsigneeID(?int $consigneeID): self
     {
         $this->consigneeID = $consigneeID;
+
+        return $this;
+    }
+
+    public function getCarrierID(): ?int
+    {
+        return $this->carrierID;
+    }
+
+    public function setCarrierID(?int $carrierID): self
+    {
+        $this->carrierID = $carrierID;
 
         return $this;
     }

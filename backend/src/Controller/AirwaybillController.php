@@ -48,7 +48,8 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="string", property="type"),
      *          @OA\Property(type="integer", property="providedBy"),
      *          @OA\Property(type="integer", property="shipperID"),
-     *          @OA\Property(type="integer", property="consigneeID")
+     *          @OA\Property(type="integer", property="consigneeID"),
+     *          @OA\Property(type="integer", property="carrierID")
      *      )
      * )
      *
@@ -112,7 +113,8 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="string", property="type"),
      *          @OA\Property(type="integer", property="providedBy"),
      *          @OA\Property(type="integer", property="shipperID"),
-     *          @OA\Property(type="integer", property="consigneeID")
+     *          @OA\Property(type="integer", property="consigneeID"),
+     *          @OA\Property(type="integer", property="carrierID")
      *      )
      * )
      *
@@ -267,6 +269,7 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="subcontractName"),
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
+     *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
@@ -319,6 +322,7 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="subcontractName"),
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
+     *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items(
@@ -344,6 +348,7 @@ class AirwaybillController extends BaseController
      *                          @OA\Property(type="integer", property="packetingBy"),
      *                          @OA\Property(type="string", property="paymentTime"),
      *                          @OA\Property(type="number", property="weight"),
+     *                          @OA\Property(type="number", property="volume"),
      *                          @OA\Property(type="string", property="qrCode"),
      *                          @OA\Property(type="integer", property="guniQuantity"),
      *                          @OA\Property(type="string", property="vehicleIdentificationNumber"),
@@ -409,7 +414,11 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="subcontractName"),
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
+     *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="string", property="specificationName"),
+     *                  @OA\Property(type="array", property="shipments",
+     *                      @OA\Items()
+     *                  )
      *              )
      *          )
      *      )

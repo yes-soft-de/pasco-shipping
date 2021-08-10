@@ -8,6 +8,8 @@ class ProxyCreateRequest
 
     private $phone;
 
+    private $email;
+
     private $address;
 
     private $createdBy;

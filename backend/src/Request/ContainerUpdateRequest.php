@@ -18,6 +18,8 @@ class ContainerUpdateRequest
 
     private $consigneeID;
 
+    private $carrierID;
+
     private $updatedBy;
 
     public function getId()

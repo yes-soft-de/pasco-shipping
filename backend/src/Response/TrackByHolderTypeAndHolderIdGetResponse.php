@@ -58,6 +58,8 @@ class TrackByHolderTypeAndHolderIdGetResponse
 
     public $weight;
 
+    public $volume;
+
     public $qrCode;
 
     public $guniQuantity;

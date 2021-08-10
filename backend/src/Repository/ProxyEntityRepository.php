@@ -24,7 +24,7 @@ class ProxyEntityRepository extends ServiceEntityRepository
     public function getAllProxies()
     {
         return $this->createQueryBuilder('proxy')
-            ->select('proxy.id', 'proxy.fullName', 'proxy.phone', 'proxy.address', 'proxy.createdAt', 'proxy.updatedAt', 'proxy.createdBy', 'proxy.updatedBy',
+            ->select('proxy.id', 'proxy.fullName', 'proxy.email', 'proxy.phone', 'proxy.address', 'proxy.createdAt', 'proxy.updatedAt', 'proxy.createdBy', 'proxy.updatedBy',
             'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
             ->leftJoin(
