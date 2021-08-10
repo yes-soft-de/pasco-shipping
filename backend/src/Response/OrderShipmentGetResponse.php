@@ -40,7 +40,7 @@ class OrderShipmentGetResponse
 
     public $receiverPhoneNumber;
 
-    public $markID;
+    public $markNumber;
 
     public $packetingBy;
 
