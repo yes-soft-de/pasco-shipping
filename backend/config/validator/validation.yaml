@@ -407,4 +407,15 @@ App\Request\TravelFinanceCreateRequest:
       - NotBlank: ~
     createdBy:
       - NotBlank: ~
+
+App\Request\CheckHolderRequest:
+  properties:
+    shipmentID:
+      - NotBlank: ~
+    holderType:
+      - NotBlank: ~
+    holderID:
+      - NotBlank: ~
+    trackNumber:
+      - NotBlank: ~
       
