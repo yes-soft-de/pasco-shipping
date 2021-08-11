@@ -333,6 +333,7 @@ class AirwaybillController extends BaseController
      *                          @OA\Property(type="object", property="updatedAt"),
      *                          @OA\Property(type="boolean", property="isInOneHolder"),
      *                          @OA\Property(type="boolean", property="packed"),
+     *                          @OA\Property(type="integer", property="travelID"),
      *                          @OA\Property(type="string", property="target"),
      *                          @OA\Property(type="integer", property="supplierName"),
      *                          @OA\Property(type="string", property="distributorName"),
