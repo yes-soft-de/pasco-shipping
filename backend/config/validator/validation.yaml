@@ -394,4 +394,17 @@ App\Request\TrackUpdateByTravelIdRequest:
       - NotBlank: ~
     shipmentStatus:
       - NotBlank: ~
+
+App\Request\TravelFinanceCreateRequest:
+  properties:
+    travelID:
+      - NotBlank: ~
+    stageCost:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+    currency:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
       
