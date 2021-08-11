@@ -192,7 +192,6 @@ class TrackController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="holderType"),
      *          @OA\Property(type="integer", property="holderID"),
-     *          @OA\Property(type="integer", property="travelID"),
      *          @OA\Property(type="string", property="shipmentStatus")
      *      )
      * )

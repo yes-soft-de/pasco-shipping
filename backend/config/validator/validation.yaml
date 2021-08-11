@@ -385,8 +385,6 @@ App\Request\TrackUpdateByHolderTypeAndIdRequest:
       - NotBlank: ~
     holderID:
       - NotBlank: ~
-    travelID:
-      - NotBlank: ~
     shipmentStatus:
       - NotBlank: ~
 
