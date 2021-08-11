@@ -80,6 +80,8 @@ class ContainerService
 
         $container['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID("container", $id);
         
+        $container['freeCapacity'] = $this->trackService->getCurrentCapacityOfContainer($container);
+
         if($container['createdByUserImage'])
         {
             $container['createdByUserImage'] = $this->params . $container['createdByUserImage'];

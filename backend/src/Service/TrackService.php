@@ -121,4 +121,9 @@ class TrackService
         return $this->autoMapping->map('array', CheckHolderGetResponse::class, $result);
     }
 
+    public function getCurrentCapacityOfContainer($container)
+    {
+        return $this->trackManager->getCurrentCapacityOfContainer($container);
+    }
+
 }

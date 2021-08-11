@@ -34,6 +34,8 @@ class ContainerGetResponse
 
     public $specificationName;
 
+    public $freeCapacity;
+
     public $shipments = [];
 
 }

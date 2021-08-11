@@ -381,7 +381,7 @@ class TrackManager
         if(!$tracks)
         {
             // There is not any shipment stored in the container yet. Returned the whole capacity of the container.
-            return $capacity;
+            return (float)number_format($capacity, 2);
         }
         else
         {
@@ -400,7 +400,7 @@ class TrackManager
                 }
             }
 
-            return $capacity - $shipmentsVolumes;
+            return (float)number_format($capacity - $shipmentsVolumes, 2);
         }
     }
 
