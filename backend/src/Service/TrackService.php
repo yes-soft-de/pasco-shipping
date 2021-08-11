@@ -121,9 +121,16 @@ class TrackService
         return $this->autoMapping->map('array', CheckHolderGetResponse::class, $result);
     }
 
+    // For Get container by ID
     public function getCurrentCapacityOfContainer($container)
     {
         return $this->trackManager->getCurrentCapacityOfContainer($container);
+    }
+
+    // For Get air waybill by ID
+    public function getCurrentWeightOfAirwaybill($airwaybill)
+    {
+        return $this->trackManager->getCurrentWeightOfAirwaybill($airwaybill);
     }
 
 }

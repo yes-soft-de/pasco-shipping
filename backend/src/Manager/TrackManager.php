@@ -8,6 +8,7 @@ use App\Constant\HolderTypeConstant;
 use App\Constant\ShipmentStatusConstant;
 use App\Entity\TrackEntity;
 use App\Repository\TrackEntityRepository;
+use App\Request\CheckHolderRequest;
 use App\Request\ShipmentStatusCreateRequest;
 use App\Request\ShipmentStatusOfHolderUpdateRequest;
 use App\Request\ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest;
@@ -281,7 +282,7 @@ class TrackManager
         return $this->trackEntityRepository->getTracksByHolderTypeAndHolderID($holderType, $holderID);
     }
 
-    public function checkHolderAvailability(TrackCreateRequest $request)
+    public function checkHolderAvailability(CheckHolderRequest $request)
     {
         // Fist check the holder type then the status of the holder if it is full or not yes
         if($request->getHolderType() == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
@@ -419,7 +420,7 @@ class TrackManager
         if(!$tracks)
         {
             // There is not any shipment stored in the air waybill yet. Returned the whole weight of the air waybill.
-            return $weight;
+            return (float)number_format($weight, 2);
         }
         else
         {
@@ -438,7 +439,7 @@ class TrackManager
                 }
             }
 
-            return $weight - $shipmentsWieght;
+            return (float)number_format($weight - $shipmentsWieght, 2);
         }
     }
 
