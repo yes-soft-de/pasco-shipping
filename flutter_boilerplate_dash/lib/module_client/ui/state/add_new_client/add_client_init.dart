@@ -113,7 +113,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('UserID' , style: AppTextStyle.mediumBlackBold,)
+                  Text('Email Or Phone' , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -137,7 +137,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                   child: TextField(
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'userID',
+                      hintText: 'email Or phone',
                     ),
                     controller: userID,
                   ),
@@ -226,7 +226,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('email' , style: AppTextStyle.mediumBlackBold,)
+                  Text('Email' , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -264,7 +264,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('city' , style: AppTextStyle.mediumBlackBold,)
+                  Text('City' , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -302,7 +302,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('country' , style: AppTextStyle.mediumBlackBold,)
+                  Text('Country' , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -340,7 +340,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('location' , style: AppTextStyle.mediumBlackBold,)
+                  Text('Location' , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(

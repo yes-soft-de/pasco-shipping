@@ -72,7 +72,7 @@ name: json['name'],
     location: json['travelNumber'],
     proxyName: json['status'],
     subcontractName: json['subcontractName'],
-    rentingFee: json['rentingFee'],
+    rentingFee: json['rentingFee'].toString(),
 
 
     createdAt: DateTime.fromMillisecondsSinceEpoch(

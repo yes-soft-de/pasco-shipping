@@ -1,5 +1,6 @@
-enum AcceptedShipmentStatus { ACCEPTED, RECEIVED,MEASURED,STORED,UPLOADED,STARTED ,RELEASED ,CLEARED,ARRIVED,DELIVERED}
+enum AcceptedShipmentStatus {WAITING, ACCEPTED, RECEIVED,MEASURED,STORED,UPLOADED,STARTED ,RELEASED ,CLEARED,ARRIVED,DELIVERED}
 const Map<AcceptedShipmentStatus, String> AcceptedShipmentStatusName = {
+  AcceptedShipmentStatus.WAITING: 'waiting',
   AcceptedShipmentStatus.ACCEPTED: 'accepted',
   AcceptedShipmentStatus.RECEIVED: 'received',
   AcceptedShipmentStatus.MEASURED: 'measured',

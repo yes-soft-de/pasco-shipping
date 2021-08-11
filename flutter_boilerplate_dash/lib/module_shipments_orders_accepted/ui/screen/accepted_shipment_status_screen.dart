@@ -112,8 +112,8 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
       return AcceptedShipmentStatusMeasured(
         statusModel: statusModels,
         containers:state.containers,
-        onChangeStatus: (request){
-            widget._stateManager.storedShipment(request);
+        onChangeStatus: (request , isSeperate,containers){
+            widget._stateManager.storedShipment(request,isSeperate,containers);
         },
         // onChangeStatus: (re , containerFilterRequest){
         // },

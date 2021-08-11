@@ -1,5 +1,6 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
@@ -72,10 +73,13 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReview> {
       });
     }
     else if (currentState is SuccessfullyAddedShipment){
-        Future.delayed(Duration.zero, () => _showDialog(context));
-      return RequestShipmentReviewInit(shipment,(request){
-        // widget._stateManger.addShipment(request);
-      });
+      Fluttertoast.showToast(msg: 'Shipment add successfully');
+      Navigator.pop(
+          context,);
+      // Navigator.pop(
+      //     context,);
+        // Future.delayed(Duration.zero, () => _showDialog(context));
+      return Container();
     }
     // else if(currentState is SuccessfullyModifyMarkState){
     //   SuccessfullyModifyMarkState state = currentState as SuccessfullyModifyMarkState;

@@ -34,7 +34,7 @@ class SearchCard extends StatelessWidget {
                   controller: trackNumberController,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    hintText: 'Enter the Track Number',
+                    hintText: 'Enter the Number',
                     hintStyle: black18text,
                     focusedBorder: InputBorder.none,
                     enabledBorder: InputBorder.none,

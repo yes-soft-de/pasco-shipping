@@ -22,6 +22,7 @@ class _CountryCardState extends State<ProxyCard> {
  late TextEditingController fullName;
  late TextEditingController phone;
  late TextEditingController address;
+ late TextEditingController email;
 
 
  @override
@@ -35,6 +36,10 @@ class _CountryCardState extends State<ProxyCard> {
 
    address =TextEditingController();
    address..text = widget.model.address!;
+
+   email =TextEditingController();
+   email..text = widget.model.email!;
+
    widget.isEdtiable = false;
   }
 
@@ -97,6 +102,23 @@ class _CountryCardState extends State<ProxyCard> {
                             child:widget.isEdtiable ?
                         TextField(controller: address,) : Text(
                           widget.model.address ?? '',
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                         )],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Email: ',
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                         Expanded(
+                            child:widget.isEdtiable ?
+                        TextField(controller: email,) : Text(
+                          widget.model.email ?? '',
                           style: AppTextStyle.mediumBlueBold,
                         ),
                          )],
@@ -176,7 +198,7 @@ class _CountryCardState extends State<ProxyCard> {
                           if(fullName.text.isEmpty || address.text.isEmpty || phone.text.isEmpty){
                             Fluttertoast.showToast(msg: S.of(context).fillAllField);
                           }else {
-                            ProxyRequest re = ProxyRequest(id: widget.model.id ,fullName: fullName.text,phone: phone.text,address: address.text);
+                            ProxyRequest re = ProxyRequest(id: widget.model.id ,fullName: fullName.text,phone: phone.text,address: address.text, email: email.text);
                             widget.onEdit(re);
                           }
 

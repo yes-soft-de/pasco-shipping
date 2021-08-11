@@ -24,6 +24,8 @@ import 'package:pasco_shipping/module_subcontract_services/response/sub_contract
 import 'package:pasco_shipping/module_subcontract_services/sub_contract_service_module.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/module_travel/travel_module.dart';
+import 'package:pasco_shipping/module_warehouses/response/warhouse_response.dart';
+import 'package:pasco_shipping/module_warehouses/warehouse_module.dart';
 import 'package:pasco_shipping/utils/logger/logger.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
@@ -41,6 +43,7 @@ import 'module_countries/country_module.dart';
 import 'module_distributors/distributors_module.dart';
 import 'module_notifications/service/local_notification_service/local_notification_service.dart';
 import 'module_product_category/product_module.dart';
+import 'module_product_sub_category/sub_product_module.dart';
 import 'module_proxies/proxies_module.dart';
 import 'module_shipment_previous/shipment_previous_module.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -113,6 +116,9 @@ class MyApp extends StatefulWidget {
 
   final ClientModule _clientModule;
   final ProductModule _productModule;
+  final SubProductModule _subProductModule;
+
+  final WarehouseModule _warehouseModule;
 
 
   MyApp(
@@ -147,7 +153,9 @@ class MyApp extends StatefulWidget {
       this._waitingShipmentModule,
       this._acceptedShipmentModule,
       this._clientModule,
-      this._productModule
+      this._productModule,
+      this._subProductModule,
+      this._warehouseModule
 
       );
 

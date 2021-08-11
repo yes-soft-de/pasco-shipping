@@ -18,12 +18,12 @@ class FirstOptionFetchingDataState extends RequestShipmentState{
 }
 
 class SecondOptionFetchingDataState extends RequestShipmentState{
-  List<Mark> marks;
+  List<ClientModel> marks;
   SecondOptionFetchingDataState(this.marks);
 }
 class ThirdOptionFetchingDataState extends RequestShipmentState{
   List<DistributorModel> distributors;
-  List<ClientModel> clients;
+  List<Mark> clients;
   ThirdOptionFetchingDataState(this.distributors , this.clients);
 }
 class errorState extends RequestShipmentState{

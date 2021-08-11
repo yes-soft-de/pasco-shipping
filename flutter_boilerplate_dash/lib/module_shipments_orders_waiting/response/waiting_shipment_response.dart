@@ -50,7 +50,7 @@ class WaitingShipmentModel {
     this.holderType,
     this.imagePath,
     this.externalWarehouseInfo,
-    this.isExternalWarehouse
+    required this.isExternalWarehouse
   });
 
   int? shipmentId;
@@ -81,7 +81,7 @@ class WaitingShipmentModel {
   String? holderType;
   String? imagePath;
 
-  bool? isExternalWarehouse;
+  bool isExternalWarehouse;
   String? externalWarehouseInfo;
 
   DateTime? createdAt;
@@ -113,7 +113,7 @@ class WaitingShipmentModel {
         holderType: json['holderType'],
         imagePath:json['image'],
         isExternalWarehouse: json['isExternalWarehouse'],
-        externalWarehouseInfo: json['externalWarehouseInfo']
+        externalWarehouseInfo: json['externalWarehouseInfo'] ??''
 
 
       );

@@ -760,10 +760,10 @@ class S {
     );
   }
 
-  /// `warehouse`
+  /// `Warehouse`
   String get warehouses {
     return Intl.message(
-      'warehouse',
+      'Warehouse',
       name: 'warehouses',
       desc: '',
       args: [],

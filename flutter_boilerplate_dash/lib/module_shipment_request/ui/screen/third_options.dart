@@ -36,9 +36,17 @@ class _SecondOptionState extends State<ThirdOptions> {
         setState(() {});
       }
     });
-    widget.stateManger.getThirdOption();
   }
 
+@override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    // final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    // String id =arguments['id'].toString();
+  widget.stateManger.getThirdOption(widget._shipmentRequest.userID.toString());
+
+}
   @override
   Widget build(BuildContext context) {
     if (currentState is LoadingState) {

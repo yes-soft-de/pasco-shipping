@@ -98,6 +98,7 @@ dependencies:
   cool_alert: ^1.1.0
   badges: ^2.0.1
   floating_bottom_navigation_bar: ^1.5.1
+  qr_flutter: ^4.0.0
 
 dev_dependencies:
   # Test Libs

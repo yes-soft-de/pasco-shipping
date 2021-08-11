@@ -79,8 +79,8 @@ class _AddNewCountryState extends State<AddNewTravel> {
     else if (currentState is SuccessfullyAddState){
       Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
       return AddTravelInit(
-        subContracts: [],
-        countries: [],
+        subContracts: subs,
+        countries: countries,
         onSave: (request){
         widget._stateManager.createTravel(request);
       },);

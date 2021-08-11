@@ -20,6 +20,7 @@ class _AddCountryInitState extends State<AddProxyInit> {
  late TextEditingController name ;
  late  TextEditingController phone;
  late  TextEditingController address;
+ late  TextEditingController email;
 
 
   @override
@@ -144,11 +145,49 @@ class _AddCountryInitState extends State<AddProxyInit> {
                   ),
                 ),
               ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text('Email', style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: 4,left: 16, right: 16, bottom: 4
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(15)
+                      ),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 5
+                        )
+                      ]
+                  ),
+                  child: TextField(
+                    controller: email,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'email',
+
+                    ),
+                  ),
+                ),
+              ),
+
               RoundedButton(lable: 'Save', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
-                if(name.text.isEmpty || phone.text.isEmpty || address.text.isEmpty) {
+                if(name.text.isEmpty || phone.text.isEmpty || address.text.isEmpty ||email.text.isEmpty) {
                   Fluttertoast.showToast(msg: S.of(context).fillAllField);
                 }else {
-                  ProxyRequest re = ProxyRequest(address: address.text ,fullName: name.text ,phone: phone.text);
+                  ProxyRequest re = ProxyRequest(address: address.text ,fullName: name.text ,phone: phone.text,email: email.text);
                   widget.onSave(re);
                 }
               }, radius: 15)
@@ -165,6 +204,7 @@ class _AddCountryInitState extends State<AddProxyInit> {
     name =TextEditingController();
     phone = TextEditingController();
     address = TextEditingController();
+    email = TextEditingController();
   }
 
 }

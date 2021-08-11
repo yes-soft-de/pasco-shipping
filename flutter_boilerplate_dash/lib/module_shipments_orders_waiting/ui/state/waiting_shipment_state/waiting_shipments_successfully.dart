@@ -15,15 +15,36 @@ class WaitingShipmentSuccessfully extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("inSideBulid" + isExternalWarehouse.toString() );
     return ListView.builder(
       itemBuilder: (context, index) {
-          return WaitingShipmentCard(
-            shipmentModel: items[index],
-            onDetails: (model) {
-              onDetails(model);
-            },
-          );
-        },
+        return WaitingShipmentCard(
+          shipmentModel: items[index],
+          onDetails: (model) {
+            onDetails(model);
+          },
+        );
+        // if(items[index].isExternalWarehouse && isExternalWarehouse){
+        //   return WaitingShipmentCard(
+        //     shipmentModel: items[index],
+        //     onDetails: (model) {
+        //       onDetails(model);
+        //     },
+        //   );
+        // }
+        // // else if(!isExternalWarehouse && items[index].isExternalWarehouse)
+        // //   {print("dddd" + isExternalWarehouse.toString());
+        // //     return WaitingShipmentCard(
+        // //     shipmentModel: items[index],
+        // //     onDetails: (model) {
+        // //       onDetails(model);
+        // //     },
+        // //   );
+        // //   }
+        // else {
+        //   return Container();
+        // }
+      },
       itemCount: items.length,
       shrinkWrap: true,
     );

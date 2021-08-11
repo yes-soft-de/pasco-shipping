@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_mark/mark_routes.dart';
 import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
@@ -11,7 +12,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 class SecondOptionSuccessfully extends StatefulWidget {
-  final List<Mark> marks;
+  final List<ClientModel> marks;
   final ShipmentRequest shipmentRequest;
   final Function goBackStep;
   final Function goNextPage;
@@ -42,16 +43,16 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     print('here');
-    if(widget.shipmentRequest.markId !=0){
-      for(Mark item in widget.marks){
-        if(item.id == widget.shipmentRequest.markId) {
-          optionItemSelectedMar = Entry(item.markNumber!, item.id!, []);
+    if(widget.shipmentRequest.userID !=0){
+      for(ClientModel item in widget.marks){
+        if(item.id == widget.shipmentRequest.userID) {
+          optionItemSelectedMar = Entry(item.userName!, item.id!, []);
         }
       }
     }else {
       optionItemSelectedMar =  Entry('choose', 1, []);
     }
-
+    // optionItemSelectedMar =  Entry('choose', 1, []);
     if(widget.shipmentRequest.supplierName.isNotEmpty){
       supplierName = widget.shipmentRequest.supplierName;
     }else{
@@ -85,8 +86,8 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
     isFromMarks = false;
     marksEntry = <Entry>[];
     marksBackEntry = <Entry>[];
-    for(Mark item in widget.marks){
-      Entry v = Entry(item.markNumber! ,item.id! ,[]);
+    for(ClientModel item in widget.marks){
+      Entry v = Entry(item.userName! ,item.id! ,[]);
       marksEntry.add(v);
     }
     dropListModelMark = DropListModel(marksEntry);
@@ -137,7 +138,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
           height: 15,
         ),
         Text(
-          'Mark : ',
+          'Client: ',
           style: AppTextStyle.mediumBlackBold,
         ),
         Row(
@@ -145,11 +146,11 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
             Expanded(
               child: SelectDropList(
                 this.optionItemSelectedMar,
-               isFromMarks ? this.dropListModelFromMark : this.dropListModelMark,
+                this.dropListModelMark,
                 (optionItem) {
                   optionItemSelectedMar = optionItem;
-                  widget.shipmentRequest.markId = optionItem.id;
-                  widget.shipmentRequest.markName = optionItem.title;
+                  widget.shipmentRequest.userID = optionItem.id;
+                  widget.shipmentRequest.userName = optionItem.title;
                   print(optionItem.title);
                   setState(() {});
                 },

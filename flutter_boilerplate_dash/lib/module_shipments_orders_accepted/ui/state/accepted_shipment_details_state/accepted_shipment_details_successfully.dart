@@ -9,6 +9,8 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_s
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class AcceptedShipmentDetailsSuccessfully extends StatefulWidget {
   final AcceptedShipmentDetailsModel shipment;
@@ -212,9 +214,31 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                 style: AppTextStyle.smallBlueBold,
               )),
           Divider(color: Colors.grey[300],thickness: 2,),
+
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text('Sub Shipment Info' , style: AppTextStyle.largeBlueBold,),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Show QR'),
+                InkWell(
+                  onTap: (){
+                    _showQrAlert();
+                  },
+                  child: Icon(
+                    Icons.qr_code_scanner,
+                    size: 50,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Divider(color: Colors.grey[300],thickness: 2,),
+
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text('Shipment Status' , style: AppTextStyle.largeBlueBold,),
           ),
           ListView.builder(itemBuilder:(context , index){
             return subShipmentCard(widget.shipment.subShipmentModelList![index]);
@@ -263,6 +287,34 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
         ),
       ),
     );
+  }
+
+
+   _showQrAlert(){
+     showDialog(
+         context: context,
+         builder: (BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      title: Text('Shipment QR'),
+      content: SizedBox(
+        width: 200,
+        height: 200,
+        child: QrImage(
+          data: widget.shipment.toString(),
+          // version: QrVersions.auto,
+          size: 200,
+        ),
+      ),
+      actions: [
+        FlatButton(onPressed: (){}, child: Row(children: [
+          Icon(Icons.print, color: blue,size: 30,),
+        ],))
+      ],
+    );
+  });
   }
   // Widget selectContainer(){
   //   return
