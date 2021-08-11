@@ -42,6 +42,7 @@ class SubProductModel {
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
+    this.createdByUser
   });
 
   int? id;
@@ -54,6 +55,7 @@ class SubProductModel {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? updatedByUser;
+  String? createdByUser;
 
 
   factory SubProductModel.fromJson(Map<String, dynamic> json) => SubProductModel(
@@ -68,7 +70,8 @@ class SubProductModel {
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),
     updatedAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['updatedAt']).timestamp! * 1000),
-    updatedByUser: json['createdByUser'],
+    updatedByUser: json['updatedByUser'],
+    createdByUser: json['createdByUser'],
 
   );
 }

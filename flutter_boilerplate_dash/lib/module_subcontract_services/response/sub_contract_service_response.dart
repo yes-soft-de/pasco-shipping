@@ -39,6 +39,7 @@ class SubContractServiceModel {
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
+    this.createdByUser
   });
 
   int? id;
@@ -48,6 +49,7 @@ class SubContractServiceModel {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? updatedByUser;
+  String? createdByUser;
 
 
   factory SubContractServiceModel.fromJson(Map<String, dynamic> json) => SubContractServiceModel(
@@ -58,7 +60,8 @@ class SubContractServiceModel {
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),
     updatedAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['updatedAt']).timestamp! * 1000),
-    updatedByUser: json['createdByUser'],
+    updatedByUser: json['updatedByUser'],
+    createdByUser: json['createdByUser'],
 
   );
 }

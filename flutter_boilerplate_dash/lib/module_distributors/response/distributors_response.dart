@@ -38,6 +38,7 @@ class DistributorModel {
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
+    this.createdByUser
   });
 
   int? id;
@@ -47,6 +48,7 @@ class DistributorModel {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? updatedByUser;
+  String? createdByUser;
 
 
   factory DistributorModel.fromJson(Map<String, dynamic> json) => DistributorModel(
@@ -58,7 +60,8 @@ class DistributorModel {
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),
     updatedAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['updatedAt']).timestamp! * 1000),
-    updatedByUser: json['createdByUser'],
+    createdByUser: json['createdByUser'],
+    updatedByUser: json['updatedByUser'],
 
   );
 }

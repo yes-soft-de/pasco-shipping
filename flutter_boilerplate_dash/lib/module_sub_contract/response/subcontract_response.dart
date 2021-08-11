@@ -38,6 +38,7 @@ class SubcontractModel {
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
+    this.createdByUser
   });
 
   int? id;
@@ -48,6 +49,7 @@ class SubcontractModel {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? updatedByUser;
+  String? createdByUser;
 
 
   factory SubcontractModel.fromJson(Map<String, dynamic> json) => SubcontractModel(
@@ -59,7 +61,8 @@ class SubcontractModel {
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),
     updatedAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['updatedAt']).timestamp! * 1000),
-    updatedByUser: json['createdByUser'],
+    updatedByUser: json['updatedByUser'],
+    createdByUser: json['createdByUser'],
 
   );
 }

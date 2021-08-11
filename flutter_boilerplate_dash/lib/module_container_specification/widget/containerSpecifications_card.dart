@@ -145,7 +145,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
-                          widget.model.updatedByUser ?? '',
+                          widget.model.createdByUser ?? '',
                           style: AppTextStyle.mediumBlueBold,
                         ),
                       ],
@@ -157,6 +157,34 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                       children: [
                         Text(
                           'Created At ',
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Text(
+                          widget.model.createdAt.toString().split(' ').first,
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                      ],
+                    ),
+
+                    Row(
+                      children: [
+                        Text(
+                          'Updated By ',
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Text(
+                          widget.model.updatedByUser ?? '',
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Updated At ',
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
