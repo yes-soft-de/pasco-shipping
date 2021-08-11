@@ -10,6 +10,7 @@ class ContainerRequest {
   int shipperID;
   int consigneeID;
   int providedBy;
+  int carrierID;
 
   ContainerRequest(
       {
@@ -21,6 +22,7 @@ class ContainerRequest {
 
       required this.consigneeID,
       required this.providedBy,
+        required this.carrierID,
       required this.shipperID});
 
   Map<String, dynamic> toJson() {
@@ -32,6 +34,7 @@ class ContainerRequest {
         'providedBy': providedBy,
         'consigneeID': consigneeID,
         'shipperID': shipperID,
+        'carrierID': carrierID,
         'status': status
       };
     } else {

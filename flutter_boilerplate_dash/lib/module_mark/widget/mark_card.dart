@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/module_mark/model/markModel.dart';
 import 'package:pasco_shipping/module_mark/response/mark_response.dart';
+import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
@@ -10,8 +11,9 @@ class MarkCard extends StatelessWidget {
   final Mark model;
   final String incrementNumber;
   final Function deleteMark;
+  final Entry optionItem;
   // final String name;
-  const MarkCard({required this.model, required this.incrementNumber, required this.deleteMark});
+  const MarkCard({required this.model, required this.incrementNumber, required this.deleteMark,required this.optionItem});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class MarkCard extends StatelessWidget {
                     Fluttertoast.showToast(msg: 'Cannot delete this item');
                   }
                 else {
-                    deleteMark(model.id);
+                    deleteMark(model.id,optionItem.id,optionItem);
                   }
                 },
                 child: Icon(Icons.delete , color: Colors.red,size: 18,))

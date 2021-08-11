@@ -65,10 +65,12 @@ class _MarkSuccessfullyScreenState extends State<MarkSuccessfullyScreen> {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: widget.items.length,
                 itemBuilder: (context, index) {
-                  return MarkCard(model: widget.items[index] ,
-                    incrementNumber: (index+1).toString()
-                    ,deleteMark: (id){
-                    widget.deleteMark(id);
+                  return MarkCard(
+                    model: widget.items[index] ,
+                    incrementNumber: (index+1).toString(),
+                    optionItem: widget.optionItem
+                    ,deleteMark: (markid,userID,optionItemSelectedClient){
+                    widget.deleteMark(markid ,userID ,optionItemSelectedClient);
                   },);
                 }),
             Card(

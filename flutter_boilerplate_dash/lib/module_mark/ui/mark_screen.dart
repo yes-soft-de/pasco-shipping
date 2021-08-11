@@ -85,12 +85,13 @@ class _MarkScreenState extends State<MarkScreen> {
     else if (currentState is SuccessfullyFetchMarkState){
       SuccessfullyFetchMarkState? state = currentState as SuccessfullyFetchMarkState?;
       items = state!.marks;
-      return MarkSuccessfullyScreen(deleteMark: (id){
-        // widget._stateManager.deleteMark(id.toString());
+      clients =state.clients;
+      return MarkSuccessfullyScreen(deleteMark:  (markID ,userID,optin){
+        widget._stateManager.deleteMark(markID.toString(),userID.toString(),optin);
       }, items: items,
         addMark: (request){
         widget._stateManager.createMark(request,state.optionItem);
-      },markNumberController: _markNumberController, clients: state.clients,
+      },markNumberController: _markNumberController, clients: clients,
         optionItem: state.optionItem, onClientSelect: (optionItem){
           widget._stateManager.getUserMarks(optionItem.id.toString(), state.clients , optionItem);
         },
@@ -102,14 +103,14 @@ class _MarkScreenState extends State<MarkScreen> {
       items = state.marks;
       // Future.delayed(Duration.zero, () => _showDialog(context,state.response.message));
       _markNumberController.clear();
-      return MarkSuccessfullyScreen(deleteMark: (id){
-        // widget._stateManager.deleteMark(id.toString());
+      return MarkSuccessfullyScreen(deleteMark: (markID ,userID,optin){
+        widget._stateManager.deleteMark(markID.toString(),userID.toString(),optin);
       }, items: items, addMark: (request){
         widget._stateManager.createMark(request,state.optionItem);
       },markNumberController: _markNumberController,
           clients: clients, optionItem: state.optionItem,
-        onClientSelect: (){
-          widget._stateManager.getUserMarks(state.optionItem.id.toString(), clients , state.optionItem);
+        onClientSelect: (optionItem){
+          widget._stateManager.getUserMarks(optionItem.id.toString(), clients , optionItem);
 
         }
       );

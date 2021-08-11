@@ -2,25 +2,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
-import 'package:pasco_shipping/module_product_category/request/product_caetgory_request.dart';
-import 'package:pasco_shipping/module_product_category/response/product_category_response.dart';
-import 'package:pasco_shipping/module_subcontract_services/request/sub_contract_service_request.dart';
-import 'package:pasco_shipping/module_subcontract_services/response/sub_contract_service_response.dart';
+import 'package:pasco_shipping/module_product_sub_category/request/product__sub_caetgory_request.dart';
+import 'package:pasco_shipping/module_product_sub_category/response/product__sub_category_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 
-class ProductCard extends StatefulWidget {
-  final ProductModel model;
+class SubProductCard extends StatefulWidget {
+  final SubProductModel model;
   final Function onDelete;
   final Function onEdit;
   late bool isEdtiable;
-  ProductCard(
+  SubProductCard(
       {required this.model, required this.onDelete, required this.onEdit,required this.isEdtiable});
 
   @override
   _CountryCardState createState() => _CountryCardState();
 }
 
-class _CountryCardState extends State<ProductCard> {
+class _CountryCardState extends State<SubProductCard> {
  late TextEditingController name;
  late TextEditingController description;
  late TextEditingController hsCode;
@@ -74,21 +72,8 @@ class _CountryCardState extends State<ProductCard> {
                     SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          'Description: ',
-                          style: AppTextStyle.mediumBlack,
-                        ),
-                      Expanded(child:   widget.isEdtiable ? TextField(controller: description) :  Text(
-                          widget.model.description ?? '',
-                          style: AppTextStyle.mediumBlueBold,
-                        ),
-                      )],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
+
+
                     Row(
                       children: [
                         Text(
@@ -102,39 +87,34 @@ class _CountryCardState extends State<ProductCard> {
                         ),
                         )],
                     ),
-
-                    Padding(
-                      padding: const EdgeInsetsDirectional.only(top: 10, bottom: 10),
-                      child: Text('SubProduct' , style: AppTextStyle.mediumBlueBold,),
+                    SizedBox(
+                      height: 10,
                     ),
-                    ListView.builder(itemBuilder:(context,index){
-                      return Card(
-                        color: Colors.grey[100],
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text('Name: ' , style: AppTextStyle.mediumBlueBold,),
-                                  Text(widget.model.subs![index].name ??'' ,
-                                    style: AppTextStyle.mediumDeepGrayBold,),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text('HsCode: ' , style: AppTextStyle.mediumBlueBold,),
-                                  Text(widget.model.subs![index].hscode ??'' ,
-                                    style: AppTextStyle.mediumDeepGrayBold,),
-                                ],
-                              )
-                            ],
-                          ),
+                    Row(
+                      children: [
+                        Text(
+                          'Product Name: ',
+                          style: AppTextStyle.mediumBlack,
                         ),
-                      );
-                    },itemCount: widget.model.subs!.length,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
+                        Expanded(child :Text(
+                          widget.model.productCategoryName ?? '',
+                          style: AppTextStyle.mediumBlueBold,
+                        ))],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Description: ',
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Expanded(child:   widget.isEdtiable ? TextField(controller: description) :  Text(
+                          widget.model.description ?? '',
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                        )],
                     ),
 
 
@@ -210,7 +190,7 @@ class _CountryCardState extends State<ProductCard> {
                           if(name.text.isEmpty || description.text.isEmpty){
                             Fluttertoast.showToast(msg: S.of(context).fillAllField);
                           }else {
-                            ProductRequest re = ProductRequest(id: widget.model.id ,name: name.text,description: description.text, hscode: hsCode.text);
+                            SubProductRequest re = SubProductRequest(id: widget.model.id ,name: name.text,description: description.text, hscode: hsCode.text, productCategoryID:widget.model.id!);
                             widget.onEdit(re);
                           }
 
