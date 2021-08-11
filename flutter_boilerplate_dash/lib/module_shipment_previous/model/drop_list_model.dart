@@ -73,18 +73,18 @@ final List<Entry> dataUnit = <Entry>[
 ];
 final List<Entry> dataTime = <Entry>[
   Entry(
-      'When received', 1,[]
+      'Prepaid', 1,[]
   ),
   Entry(
-    'When delivered', 1,[]
+    'Collect', 1,[]
   ),
 ];
 final List<Entry> holderType = <Entry>[
   Entry(
-      'Public', 1,[]
+      'LCL', 1,[]
   ),
   Entry(
-      'Private', 1,[]
+      'FCL', 1,[]
   ),
 ];
 final List<Entry> dataMark = <Entry>[

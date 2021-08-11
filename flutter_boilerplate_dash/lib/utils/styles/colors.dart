@@ -11,6 +11,7 @@ Color white = Colors.white;
 Color black = Colors.black;
 Color green = Color(0xFF218838);
 Color blue = Color(0xFF007BFF);
+Color yellow =Colors.yellow[800]!;
 Color red = Color(0xFFFF0000);
 Color deepGray = Color(0xFF707070);
 Color lightGray = Color(0xFF606060).withOpacity(0.7);

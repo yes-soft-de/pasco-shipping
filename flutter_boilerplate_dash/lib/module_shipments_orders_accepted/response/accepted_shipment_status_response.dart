@@ -33,6 +33,7 @@ class AcceptedShipmentStatusModel {
     this.shipmentId,
     this.createdAt,
     this.shipmentStatus,
+    this.statusDetails,
     required this.isPassed,
     this.createdByUser,
     this.id,
@@ -42,6 +43,7 @@ class AcceptedShipmentStatusModel {
   int? shipmentId;
 
   String? shipmentStatus;
+  String? statusDetails;
   String? createdByUser;
   DateTime? createdAt;
   late bool isPassed;
@@ -51,6 +53,7 @@ class AcceptedShipmentStatusModel {
     id = json['id'];
     shipmentStatus =addDesriptionToStatus( json['shipmentStatus']);
     createdByUser = json['createdByUser'];
+    statusDetails = json['statusDetails'] ??'';
     isPassed = json['isPassed'] ?? false;
 
     createdAt = json['createdAt'] == null

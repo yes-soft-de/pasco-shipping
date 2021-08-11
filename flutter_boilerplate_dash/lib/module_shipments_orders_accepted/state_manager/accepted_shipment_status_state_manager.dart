@@ -33,23 +33,30 @@ class AcceptedShipmentsStatusStateManager {
     });
   }
 
-  void receivedOrDelevired(ReceivedOrDeliveredRequest request ,String cityName){
+  void receivedOrDelevired(ReceivedOrDeliveredRequest request ,String cityName , bool isDelivred){
+    print("rahaf " + isDelivred.toString());
     _stateSubject.add(LoadingState());
     _service.changeShipmentStatus(request).then((value) {
       if(value != null){
         if(value.isConfirmed){
           _service.getAcceptedShipmentStatus(request.shipmentId.toString(),request.trackNumber).then((model) {
             if (model != null) {
-              _subcontractService.getSubcontracts().then((subcontracts) {
-                if(subcontracts != null){
-                  _service.getWarehouse(cityName).then((warehouses) {
-                    if(warehouses != null) {
-                      _stateSubject.add(ReceivedStatusState(model , subcontracts ,warehouses));
-                    }
-                  });
-                }
-              });
-            }else {
+              print("is Deleivred");
+              if(isDelivred){
+                print(isDelivred);
+                _stateSubject.add(AcceptedStatusState(model));
+              }else {
+                _subcontractService.getSubcontracts().then((subcontracts) {
+                  if (subcontracts != null) {
+                    _service.getWarehouse(cityName).then((warehouses) {
+                      if (warehouses != null) {
+                        _stateSubject.add(ReceivedStatusState(
+                            model, subcontracts, warehouses));
+                      }
+                    });
+                  }
+                });
+              }}else {
               _stateSubject.add(ErrorState('Error'));
             }
           });

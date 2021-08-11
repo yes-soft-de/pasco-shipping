@@ -6,6 +6,7 @@ import 'package:pasco_shipping/module_distributors/response/distributors_respons
 import 'package:pasco_shipping/module_home/home_routes.dart';
 import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/presistance/shipment_prefs_helper.dart';
@@ -20,8 +21,9 @@ class ThirdOptionsSuccessfully extends StatefulWidget {
   final List<Mark> clients;
   final ShipmentRequest shipmentRequest;
   final Function goBackStep;
+  final Function goToMark;
   final Function onRequest;
-  const ThirdOptionsSuccessfully({required this.shipmentRequest,required this.goBackStep,required this.distributors, required this.clients,required this.onRequest});
+  const ThirdOptionsSuccessfully({required this.shipmentRequest,required this.goBackStep,required this.distributors, required this.clients,required this.onRequest,required this.goToMark});
 
   @override
   _ThirdOptionsState createState() => _ThirdOptionsState();
@@ -105,15 +107,26 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
             'Mark: ',
             style: AppTextStyle.mediumBlackBold,
           ),
-          SelectDropList(
-            this.optionItemSelectedClient,
-            this.dropListModelClient,
-                (optionItem) {
-              optionItemSelectedClient = optionItem;
-              widget.shipmentRequest.markName = optionItem.title;
-              widget.shipmentRequest.markId = optionItem.id;
-              setState(() {});
-            },
+          Row(
+            children: [
+              Expanded(
+                child: SelectDropList(
+                  this.optionItemSelectedClient,
+                  this.dropListModelClient,
+                      (optionItem) {
+                    optionItemSelectedClient = optionItem;
+                    widget.shipmentRequest.markName = optionItem.title;
+                    widget.shipmentRequest.markId = optionItem.id;
+                    setState(() {});
+                  },
+                ),
+              ),
+              InkWell(
+                  onTap: (){
+                    widget.goToMark();
+                  },
+                  child: Icon(Icons.add_circle , color: blue , size: 40,)),
+            ],
           ),
           SizedBox(
             height: 15,
