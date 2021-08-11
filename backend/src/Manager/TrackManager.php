@@ -8,6 +8,7 @@ use App\Constant\HolderTypeConstant;
 use App\Constant\ShipmentStatusConstant;
 use App\Entity\TrackEntity;
 use App\Repository\TrackEntityRepository;
+use App\Request\ShipmentStatusCreateRequest;
 use App\Request\ShipmentStatusOfHolderUpdateRequest;
 use App\Request\ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest;
 use App\Request\TrackCreateRequest;
@@ -43,25 +44,47 @@ class TrackManager
 
     public function create(TrackCreateRequest $request)
     {
-        // First, we insert new raw in the TrackEntity
-        $trackEntity = $this->autoMapping->map(TrackCreateRequest::class, TrackEntity::class, $request);
-        
-        $this->entityManager->persist($trackEntity);
-        $this->entityManager->flush();
-        $this->entityManager->clear();
-
         /**
-         * Then, we update the record related to the shipment in the ShipmentStatusEntity when the following coditions
-         * are true; the shipment stored completely in one holder OR shipment stored in more than one holder, and the storation 
-         * of the final part is finished
-         */ 
-        if($request->getIsInOneHolder() == true || ($request->getIsInOneHolder() == false && $request->getPacked() == true))
+         * Now, we have to check if the holder is going to uploaded onto different travel or not
+         */
+        if($request->getDifferentTravel() == true)
         {
-            $shipmentStatusRequest = $this->autoMapping->map(TrackCreateRequest::class, ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest::class, $request);
+            // Enter new shipment info with new track number in the ShipmentStatus entity
+            $shipmentStatusRequest = $this->autoMapping->map(TrackCreateRequest::class, ShipmentStatusCreateRequest::class, $request);
 
-            $shipmentStatusRequest->setUpdatedBy($request->getCreatedBy());
+            $shipmentStatusEntity = $this->shipmentStatusManager->createNewShipmentInfo($shipmentStatusRequest);
 
-            $this->shipmentStatusManager->updateShipmentStatusByShipmentIdAndTrackNumber($shipmentStatusRequest);
+            // Enter new shipment info with the new track number in the Track entity
+            $request->setTrackNumber($shipmentStatusEntity->getTrackNumber());
+
+            $trackEntity = $this->autoMapping->map(TrackCreateRequest::class, TrackEntity::class, $request);
+            
+            $this->entityManager->persist($trackEntity);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+        }
+        else
+        {
+            // We insert new raw in the TrackEntity
+            $trackEntity = $this->autoMapping->map(TrackCreateRequest::class, TrackEntity::class, $request);
+            
+            $this->entityManager->persist($trackEntity);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            /**
+             * Then, we update the record related to the shipment in the ShipmentStatusEntity when the following coditions
+             * are true; the shipment stored completely in one holder OR shipment stored in more than one holder, and the storation 
+             * of the final part is finished
+             */ 
+            if($request->getIsInOneHolder() == true || ($request->getIsInOneHolder() == false && $request->getPacked() == true))
+            {
+                $shipmentStatusRequest = $this->autoMapping->map(TrackCreateRequest::class, ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest::class, $request);
+    
+                $shipmentStatusRequest->setUpdatedBy($request->getCreatedBy());
+    
+                $this->shipmentStatusManager->updateShipmentStatusByShipmentIdAndTrackNumber($shipmentStatusRequest);
+            }
         }
 
         return $trackEntity;
@@ -113,17 +136,6 @@ class TrackManager
         }
         else
         {
-            // If the function is called after uploading the holder to a travel, then we update Track entity by entering the travel ID
-            if ($request->getShipmentStatus() == ShipmentStatusConstant::$UPLOADED_SHIPMENT_STATUS)
-            {
-                foreach($tracks as $track)
-                {
-                    $track = $this->autoMapping->mapToObject(TrackUpdateByHolderTypeAndIdRequest::class, TrackEntity::class, $request, $track);
-                    
-                    $this->entityManager->flush();
-                }
-            }
-
             // Secondly, update the status in the ShipmentStatusEntity for all shipments
             foreach($tracks as $track)
             {

@@ -33,6 +33,11 @@ class ShipmentStatusCreateRequest
         $this->trackNumber = $trackNumber;
     }
 
+    public function getTrackNumber()
+    {
+        return $this->trackNumber;
+    }
+
     public function setShipmentStatus($shipmentStatus)
     {
         $this->shipmentStatus = $shipmentStatus;

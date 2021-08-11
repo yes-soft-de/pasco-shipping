@@ -65,4 +65,9 @@ class ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest
         return $this->shipmentStatus;
     }
 
+    public function setStatusDetails($statusDetails)
+    {
+        $this->statusDetails = $statusDetails;
+    }
+
 }
