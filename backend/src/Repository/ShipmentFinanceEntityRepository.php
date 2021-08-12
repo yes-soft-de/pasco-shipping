@@ -54,19 +54,74 @@ class ShipmentFinanceEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getCurrentTotalCostByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    public function getCurrentTotalCostByFilterOptions($shipmentID, $trackNumber, $shipmentStatus)
     {
-        return $this->createQueryBuilder('shipmentFinance')
-            ->select('SUM(shipmentFinance.stageCost) as currentTotalCost')
+        $query = $this->createQueryBuilder('shipmentFinance')
+            ->select('SUM(shipmentFinance.stageCost) as currentTotalCost');
 
-            ->andWhere('shipmentFinance.shipmentID = :shipmentID')
-            ->setParameter('shipmentID', $shipmentID)
+        if($shipmentID)
+        {
+            $query->andWhere('shipmentFinance.shipmentID = :shipmentID');
+            $query->setParameter('shipmentID', $shipmentID);
+        }
 
-            ->andWhere('shipmentFinance.trackNumber = :trackNumber')
-            ->setParameter('trackNumber', $trackNumber)
+        if($trackNumber)
+        {
+            $query->andWhere('shipmentFinance.trackNumber = :trackNumber');
+            $query->setParameter('trackNumber', $trackNumber);
+        }
 
-            ->getQuery()
-            ->getResult();
+        if($shipmentStatus)
+        {
+            $query->andWhere('shipmentFinance.shipmentStatus = :shipmentStatus');
+            $query->setParameter('shipmentStatus', $shipmentStatus);
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
+    public function filterShipmentFinances($shipmentID, $trackNumber, $shipmentStatus)
+    {
+        $query = $this->createQueryBuilder('shipmentFinance')
+            ->select('shipmentFinance.id', 'shipmentFinance.shipmentID', 'shipmentFinance.trackNumber', 'shipmentFinance.shipmentStatus', 'shipmentFinance.stageCost', 'shipmentFinance.stageDescription',
+            'shipmentFinance.currency', 'shipmentFinance.createdAt', 'shipmentFinance.updatedAt', 'shipmentFinance.createdBy', 'shipmentFinance.updatedBy', 
+            'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = shipmentFinance.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = shipmentFinance.updatedBy'
+            )
+
+            ->orderBy('shipmentFinance.id', 'DESC');
+
+        if($shipmentID)
+        {
+            $query->andWhere('shipmentFinance.shipmentID = :shipmentID');
+            $query->setParameter('shipmentID', $shipmentID);
+        }
+
+        if($trackNumber)
+        {
+            $query->andWhere('shipmentFinance.trackNumber = :trackNumber');
+            $query->setParameter('trackNumber', $trackNumber);
+        }
+
+        if($shipmentStatus)
+        {
+            $query->andWhere('shipmentFinance.shipmentStatus = :shipmentStatus');
+            $query->setParameter('shipmentStatus', $shipmentStatus);
+        }
+
+        return $query->getQuery()->getResult();
     }
 
     public function deleteAllShipmentFinances()

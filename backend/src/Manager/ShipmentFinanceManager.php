@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\ShipmentFinanceEntity;
 use App\Repository\ShipmentFinanceEntityRepository;
 use App\Request\ShipmentFinanceCreateRequest;
+use App\Request\ShipmentFinanceFilterRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ShipmentFinanceManager
@@ -37,9 +38,14 @@ class ShipmentFinanceManager
         return $this->shipmentFinanceEntityRepository->getAllCostsByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
     }
 
-    public function getCurrentTotalCostByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    public function getCurrentTotalCostByFilterOptions($shipmentID, $trackNumber, $shipmentStatus)
     {
-        return $this->shipmentFinanceEntityRepository->getCurrentTotalCostByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+        return $this->shipmentFinanceEntityRepository->getCurrentTotalCostByFilterOptions($shipmentID, $trackNumber, $shipmentStatus);
+    }
+
+    public function filterShipmentFinances(ShipmentFinanceFilterRequest $request)
+    {
+        return $this->shipmentFinanceEntityRepository->filterShipmentFinances($request->getShipmentID(), $request->getTrackNumber(), $request->getShipmentStatus());
     }
     
     public function deleteAllShipmentFinances()

@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\ShipmentFinanceEntity;
 use App\Manager\ShipmentFinanceManager;
 use App\Request\ShipmentFinanceCreateRequest;
+use App\Request\ShipmentFinanceFilterRequest;
 use App\Response\ShipmentFinanceCreateResponse;
 use App\Response\ShipmentFinanceGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -36,6 +37,30 @@ class ShipmentFinanceService
         $shipmentFinanceResponse = [];
 
         $shipmentFinances = $this->shipmentFinanceManager->getAllCostsByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+        
+        foreach($shipmentFinances as $shipmentFinance)
+        {
+            if($shipmentFinance['createdByUserImage'])
+            {
+                $shipmentFinance['createdByUserImage'] = $this->params . $shipmentFinance['createdByUserImage'];
+            }
+
+            if($shipmentFinance['updatedByUserImage'])
+            {
+                $shipmentFinance['updatedByUserImage'] = $this->params . $shipmentFinance['updatedByUserImage'];
+            }
+
+            $shipmentFinanceResponse[] = $this->autoMapping->map('array', ShipmentFinanceGetResponse::class, $shipmentFinance);
+        }
+        
+        return $shipmentFinanceResponse;
+    }
+
+    public function filterShipmentFinances(ShipmentFinanceFilterRequest $request)
+    {
+        $shipmentFinanceResponse = [];
+
+        $shipmentFinances = $this->shipmentFinanceManager->filterShipmentFinances($request);
         
         foreach($shipmentFinances as $shipmentFinance)
         {
