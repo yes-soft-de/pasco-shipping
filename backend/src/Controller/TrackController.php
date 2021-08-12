@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\CheckHolderRequest;
 use App\Request\TrackCreateRequest;
 use App\Request\TrackUpdateByHolderTypeAndIdRequest;
 use App\Request\TrackUpdateRequest;
@@ -192,7 +193,6 @@ class TrackController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="holderType"),
      *          @OA\Property(type="integer", property="holderID"),
-     *          @OA\Property(type="integer", property="travelID"),
      *          @OA\Property(type="string", property="shipmentStatus")
      *      )
      * )
@@ -261,8 +261,6 @@ class TrackController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="shipmentID"),
      *          @OA\Property(type="string", property="trackNumber"),
-     *          @OA\Property(type="string", property="shipmentStatus"),
-     *          @OA\Property(type="string", property="statusDetails"),
      *          @OA\Property(type="boolean", property="isInOneHolder"),
      *          @OA\Property(type="boolean", property="packed"),
      *          @OA\Property(type="string", property="holderType"),
@@ -295,9 +293,7 @@ class TrackController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, TrackCreateRequest::class, (object)$data);
-
-        $request->setCreatedBy($this->getUserId());
+        $request = $this->autoMapping->map(stdClass::class, CheckHolderRequest::class, (object)$data);
 
         $violations = $this->validator->validate($request);
 

@@ -2,23 +2,21 @@
 
 namespace App\Request;
 
-class ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest
+class CheckHolderRequest
 {
-    // private $id;
-
     private $shipmentID;
 
+    private $holderType;
+
+    private $holderID;
+
     private $trackNumber;
-
-    private $shipmentStatus;
-
-    private $statusDetails;
 
     private $isInOneHolder;
 
     private $packed;
 
-    private $updatedBy;
+    private $amount;
 
     public function setShipmentID($shipmentID)
     {
@@ -45,29 +43,39 @@ class ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest
         $this->shipmentStatus = $shipmentStatus;
     }
 
-    public function setIsInOneHolder($isInOneHolder)
+    public function setHolderType($holderType)
     {
-        $this->isInOneHolder = $isInOneHolder;
+        $this->holderType = $holderType;
     }
 
-    public function setPacked($packed)
+    public function getHolderType()
     {
-        $this->packed = $packed;
+        return $this->holderType;
     }
 
-    public function setUpdatedBy($userID)
+    public function getHolderID()
     {
-        $this->updatedBy = $userID;
+        return $this->holderID;
     }
 
-    public function getShipmentStatus()
+    public function setHolderID($holderID)
     {
-        return $this->shipmentStatus;
+        $this->holderID = $holderID;
     }
 
-    public function setStatusDetails($statusDetails)
+    public function getIsInOneHolder()
     {
-        $this->statusDetails = $statusDetails;
+        return $this->isInOneHolder;
+    }
+
+    public function getPacked()
+    {
+        return $this->packed;
+    }
+
+    public function getAmount()
+    {
+        return $this->amount;
     }
 
 }

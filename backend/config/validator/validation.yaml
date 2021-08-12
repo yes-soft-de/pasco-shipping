@@ -385,8 +385,6 @@ App\Request\TrackUpdateByHolderTypeAndIdRequest:
       - NotBlank: ~
     holderID:
       - NotBlank: ~
-    travelID:
-      - NotBlank: ~
     shipmentStatus:
       - NotBlank: ~
 
@@ -395,5 +393,29 @@ App\Request\TrackUpdateByTravelIdRequest:
     travelID:
       - NotBlank: ~
     shipmentStatus:
+      - NotBlank: ~
+
+App\Request\TravelFinanceCreateRequest:
+  properties:
+    travelID:
+      - NotBlank: ~
+    stageCost:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+    currency:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\CheckHolderRequest:
+  properties:
+    shipmentID:
+      - NotBlank: ~
+    holderType:
+      - NotBlank: ~
+    holderID:
+      - NotBlank: ~
+    trackNumber:
       - NotBlank: ~
       

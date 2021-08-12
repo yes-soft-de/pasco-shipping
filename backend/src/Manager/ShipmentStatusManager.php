@@ -57,6 +57,42 @@ class ShipmentStatusManager
         return $shipmentStatusEntity;
     }
 
+    /**
+     * Create new track number for existing shipment
+     * ex. when part of the shipment goes on different travel
+     */
+    public function createNewShipmentInfo(ShipmentStatusCreateRequest $request)
+    {
+        $newTrackNumber = $this->getRandomCode();
+
+        // Update statusDetails + shipmentStatus of the shipment for the first track number in the ShipmentStatus entity
+        $shipmentStatusRequest = $this->autoMapping->map(ShipmentStatusCreateRequest::class, ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest::class, $request);
+        
+        $shipmentStatusRequest->setStatusDetails("You can track the other shipment's part via the track number: " . $newTrackNumber);
+        $shipmentStatusRequest->setUpdatedBy($request->getCreatedBy());
+        
+        $this->updateShipmentStatusByShipmentIdAndTrackNumber($shipmentStatusRequest);
+
+        // Next insert new record for the same shipment but with new track number
+        $shipmentStatusEntity = $this->autoMapping->map(ShipmentStatusCreateRequest::class, ShipmentStatusEntity::class, $request);
+
+        $shipmentStatusEntity->setTrackNumber($newTrackNumber);
+        $shipmentStatusRequest->setStatusDetails("You can track the other shipment's part via the track number: " . $request->getTrackNumber());
+        
+        $this->entityManager->persist($shipmentStatusEntity);
+        $this->entityManager->flush();
+        $this->entityManager->clear();
+
+        //Now, we insert a new log raw with the new track number
+        $shipmentLogRequest = $this->autoMapping->map(ShipmentStatusCreateRequest::class, ShipmentLogCreateRequest::class, $request);
+
+        $shipmentLogRequest->setTrackNumber($shipmentStatusEntity->getTrackNumber());
+
+        $this->shipmentLogManager->create($shipmentLogRequest);
+
+        return $shipmentStatusEntity;
+    }
+
     public function getUnPackedShipments()
     {
         return $this->shipmentStatusEntityRepository->getUnPackedShipments();
@@ -107,11 +143,8 @@ class ShipmentStatusManager
             $this->entityManager->clear();
 
             //Now, we insert a new log raw
-            $shipmentLogRequest = new ShipmentLogCreateRequest();
+            $shipmentLogRequest = $this->autoMapping->map(ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest::class, ShipmentLogCreateRequest::class, $request);
 
-            $shipmentLogRequest->setShipmentID($shipmentStatusEntity->getShipmentID());
-            $shipmentLogRequest->setShipmentStatus($shipmentStatusEntity->getShipmentStatus());
-            $shipmentLogRequest->setTrackNumber($shipmentStatusEntity->getTrackNumber());
             $shipmentLogRequest->setCreatedBy($shipmentStatusEntity->getUpdatedBy());
 
             $this->shipmentLogManager->create($shipmentLogRequest);
