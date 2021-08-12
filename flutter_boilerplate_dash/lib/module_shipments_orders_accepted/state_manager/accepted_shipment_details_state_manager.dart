@@ -20,9 +20,7 @@ class AcceptedShipmentsDetailsStateManager {
     _stateSubject.add(LoadingState());
     _service.getShipmentDetails(id).then((value) {
       if (value != null) {
-        _containerService.getContainersWithFilter(containerRequest).then((container) {
-          _stateSubject.add(initDetailsState(value , container!));
-        });
+        _stateSubject.add(initDetailsState(value));
       }else {
         _stateSubject.add(ErrorState('Error'));
       }

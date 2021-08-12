@@ -10,13 +10,15 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepte
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class AcceptedShipmentDetailsSuccessfully extends StatefulWidget {
   final AcceptedShipmentDetailsModel shipment;
   // final List<ContainerModel> containers;
   final Function onShowStatus;
-  const AcceptedShipmentDetailsSuccessfully({required this.shipment,required this.onShowStatus});
+  final Function onShowFinance;
+  const AcceptedShipmentDetailsSuccessfully({required this.shipment,required this.onShowStatus,required this.onShowFinance});
 
   @override
   _AcceptedShipmentDetailsSuccessfullyState createState() => _AcceptedShipmentDetailsSuccessfullyState();
@@ -281,6 +283,9 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                     Text(subShipmentModel.shipmentStatus ??'' , style: AppTextStyle.mediumBlueBold,),
                   ],),
                 ),
+                RoundedButton(lable: '', icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
+                  widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber);
+                }, radius: 12)
               ],
             ),
           ),

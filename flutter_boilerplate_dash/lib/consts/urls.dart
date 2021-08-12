@@ -112,6 +112,10 @@ class Urls {
   static const WAREHOUSE=BASE_API+'warehouse';
 
 
+  //shipmentfinance
+  static const SHIPMENT_FINANCE = BASE_API + '/shipmentfinance';
+
+
   static const REPORT_API = BASE_API + '/report';
 
   static const UPLOAD_API = BASE_API + 'uploadfile';
@@ -121,5 +125,5 @@ class Urls {
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
 
 
-  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2Mjg2NDI0NzEsImV4cCI6MTYyODY2MDQ3MSwicm9sZXMiOlsiUk9MRV9FTVBMT1lFRSIsInVzZXIiXSwidXNlcm5hbWUiOiJlbTIifQ.Eo_cLc_SPZMa9MT1aiQmRWc5dneFox6i28bKMY_qjXmWqd5YVHTrKWbFKKzIxH6paiy5aHsAoROmrMoZXykM5e_NvTgH-ciEnQAWxsr0lBTcC6oc1Y8_LLWGlOQK0ZJsadnIZ8UAl7IQOGwtG-8g_mdGFF9iL-a24pJ-TOZdQ2VulRkUj8ANvuvQPN_AEjOek1-hUYMxb3QTiuSU8z5KCuFQNupN_WtzzjAtOym_1absdwhLADAkd8hkWlC7sBaK6zETeFMshIKDKOU83xeliNM5HGhfX-NPjt9NbUuKQa-xxi3lwF9EU8o4eTMNsV4gF-_UlvXAZCCh8zm9CCd67w';
+  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2Mjg3OTAwMjYsImV4cCI6MTYyODgwODAyNiwicm9sZXMiOlsiUk9MRV9FTVBMT1lFRSIsInVzZXIiXSwidXNlcm5hbWUiOiJlbTIifQ.mjTRsEHm8kkrDE0DGDF9xNst2BkZjburxs7coWHJDRFE9EBwSyO-9KO6qArAvG4yBiaCsdKz22EJ5WZXBrSV2OYcwIplhhP-faRdD6CbfKZPC96N0Bw1Cke8Jvc86DvvHl40ZazhrY09U4ijfeu-GoZKOnzNL9AcLFAa0OhzY_ZKqLVcXYZPsiQzhLmL2W9_H_XHKlb5Aefw2ON2ZB74DMNTCuLBUDlz-Fm0xh-bmfRCxlLvOl1a_VddAACUD9RWfBt2QKjZ6fhsXELfQJaJSKNS3hQcIbuRvNvY9s2qGRzmj6qf9rRVMT1T7b_Aoy7uAhbptb2sOprOsYmgJtPOxA';
 }
