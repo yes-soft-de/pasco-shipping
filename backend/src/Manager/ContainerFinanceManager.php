@@ -8,6 +8,7 @@ use App\Entity\ContainerFinanceEntity;
 use App\Repository\ContainerFinanceEntityRepository;
 use App\Request\ContainerDistributeStatusCostRequest;
 use App\Request\ContainerFinanceCreateRequest;
+use App\Request\ContainerFinanceFilterRequest;
 use App\Request\ShipmentFinanceCreateRequest;
 use App\Request\ShipmentFinanceUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
@@ -44,6 +45,15 @@ class ContainerFinanceManager
     public function getCurrentTotalCostByFilterOptions($containerID, $status)
     {
         return $this->containerFinanceEntityRepository->getCurrentTotalCostByFilterOptions($containerID, $status);
+    }
+
+    public function filterContainerFinances(ContainerFinanceFilterRequest $request)
+    {
+        $containerFinances['containerFinances'] = $this->containerFinanceEntityRepository->filterContainerFinances($request->getContainerID(), $request->getStatus());
+        
+        $containerFinances['currentTotalCost'] = $this->getCurrentTotalCostByFilterOptions($request->getContainerID(), $request->getStatus())['currentTotalCost'];
+
+        return $containerFinances;
     }
 
     public function distributeContainerCost(ContainerDistributeStatusCostRequest $request)
@@ -85,8 +95,6 @@ class ContainerFinanceManager
                             $this->updateShipmentFinanceByContainer($shipmentFinance, $request->getCreatedBy(), $shipmentCost);
                         }
                     }
-
-
                 }
                 else
                 {
