@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\AirwaybillFinanceEntity;
 use App\Repository\AirwaybillFinanceEntityRepository;
 use App\Request\AirwaybillFinanceCreateRequest;
+use App\Request\AirwaybillFinanceFilterRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class AirwaybillFinanceManager
@@ -30,6 +31,20 @@ class AirwaybillFinanceManager
         $this->entityManager->clear();
 
         return $airwaybillFinanceEntity;
+    }
+
+    public function getCurrentTotalCostByFilterOptions($airwaybillID, $status)
+    {
+        return $this->airwaybillFinanceEntityRepository->getCurrentTotalCostByFilterOptions($airwaybillID, $status);
+    }
+
+    public function filterAirwaybillFinances(AirwaybillFinanceFilterRequest $request)
+    {
+        $airwaybillFinances['airwaybillFinances'] = $this->airwaybillFinanceEntityRepository->filterAirwaybillFinances($request->getAirwaybillID(), $request->getStatus());
+        
+        $airwaybillFinances['currentTotalCost'] = $this->getCurrentTotalCostByFilterOptions($request->getAirwaybillID(), $request->getStatus())['currentTotalCost'];
+
+        return $airwaybillFinances;
     }
 
 }
