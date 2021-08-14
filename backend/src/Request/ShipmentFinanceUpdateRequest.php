@@ -2,8 +2,10 @@
 
 namespace App\Request;
 
-class ShipmentFinanceCreateRequest
+class ShipmentFinanceUpdateRequest
 {
+    private $id;
+
     private $shipmentID;
 
     private $trackNumber;
@@ -20,11 +22,16 @@ class ShipmentFinanceCreateRequest
 
     private $holderID;
 
-    private $createdBy;
+    private $updatedBy;
 
-    public function setCreatedBy($createdBy)
+    public function getId()
     {
-        $this->createdBy = $createdBy;
+        return $this->id;
+    }
+
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
     }
 
     public function setShipmentID($shipmentID)

@@ -5,8 +5,10 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\ContainerFinanceEntity;
 use App\Manager\ContainerFinanceManager;
+use App\Request\ContainerDistributeStatusCostRequest;
 use App\Request\ContainerFinanceCreateRequest;
 use App\Response\ContainerFinanceCreateResponse;
+use App\Response\TrackByHolderTypeAndHolderIdGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ContainerFinanceService
@@ -28,6 +30,23 @@ class ContainerFinanceService
         $containerFinanceResult = $this->containerFinanceManager->create($request);
 
         return $this->autoMapping->map(ContainerFinanceEntity::class, ContainerFinanceCreateResponse::class, $containerFinanceResult);
+    }
+
+    public function distributeContainerCost(ContainerDistributeStatusCostRequest $request)
+    {
+        $tracksResponse = [];
+        
+        $tracks = $this->containerFinanceManager->distributeContainerCost($request);
+
+        if(is_array($tracks))
+        {
+            foreach($tracks as $track)
+            {
+                $tracksResponse[] = $this->autoMapping->map('array', TrackByHolderTypeAndHolderIdGetResponse::class, $track);
+            }
+        }
+
+        return $tracks;
     }
 
 }

@@ -77,7 +77,7 @@ class ShipmentFinanceEntityRepository extends ServiceEntityRepository
             $query->setParameter('shipmentStatus', $shipmentStatus);
         }
 
-        return $query->getQuery()->getResult();
+        return $query->getQuery()->getOneOrNullResult();
     }
 
     public function filterShipmentFinances($shipmentID, $trackNumber, $shipmentStatus)
@@ -128,6 +128,49 @@ class ShipmentFinanceEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('shipmentFinance')
             ->delete()
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    // For distribute holder cost functions
+    public function getByShipmentIdAndTrackNumberAndHolderTypeAndHolderIdAndStatus($shipmentID, $trackNumber, $holderType, $holderID, $shipmentStatus)
+    {
+        return $this->createQueryBuilder('shipmentFinance')
+            ->select('shipmentFinance.id', 'shipmentFinance.shipmentID', 'shipmentFinance.trackNumber', 'shipmentFinance.shipmentStatus', 'shipmentFinance.stageCost', 'shipmentFinance.stageDescription',
+            'shipmentFinance.currency', 'shipmentFinance.holderType', 'shipmentFinance.holderID', 'shipmentFinance.createdAt', 'shipmentFinance.updatedAt', 'shipmentFinance.createdBy', 'shipmentFinance.updatedBy', 'adminProfile1.userName as createdByUser', 
+            'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
+
+            ->andWhere('shipmentFinance.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->andWhere('shipmentFinance.trackNumber = :trackNumber')
+            ->setParameter('trackNumber', $trackNumber)
+
+            ->andWhere('shipmentFinance.holderType = :holderType')
+            ->setParameter('holderType', $holderType)
+
+            ->andWhere('shipmentFinance.holderID = :holderID')
+            ->setParameter('holderID', $holderID)
+
+            ->andWhere('shipmentFinance.shipmentStatus = :shipmentStatus')
+            ->setParameter('shipmentStatus', $shipmentStatus)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = shipmentFinance.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = shipmentFinance.updatedBy'
+            )
+
+            ->orderBy('shipmentFinance.id', 'DESC')
 
             ->getQuery()
             ->getResult();
