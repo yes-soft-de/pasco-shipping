@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_container/request/container_filter_request.dart';
+import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_container/service/container_service.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/measured_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/received_deliered_shipment_request.dart';
@@ -80,15 +81,19 @@ class AcceptedShipmentsStatusStateManager {
     });
   }
 
-  void storedShipment(StoredRequest request){
+  void storedShipment(StoredRequest request , bool isSaperate , List<ContainerModel> containers){
     _stateSubject.add(LoadingState());
     _service.storedShipment(request).then((value) {
       if(value != null){
         if(value.isConfirmed){
           _service.getAcceptedShipmentStatus(request.shipmentId.toString(),request.trackNumber).then((model) {
             if (model != null) {
-              print('model stored');
-              _stateSubject.add(AcceptedStatusState(model));
+              if(isSaperate){
+                _stateSubject.add(MeasuredStatusState(model , containers));
+              }
+              else {
+                _stateSubject.add(AcceptedStatusState(model));
+              }
             }else {
               _stateSubject.add(ErrorState('Error'));
             }
@@ -134,4 +139,21 @@ class AcceptedShipmentsStatusStateManager {
       }
     });
   }
+  void delevired(ReceivedOrDeliveredRequest request ,String cityName){
+    _stateSubject.add(LoadingState());
+    _service.changeShipmentStatus(request).then((value) {
+      if(value != null){
+        if(value.isConfirmed){
+          _service.getAcceptedShipmentStatus(request.shipmentId.toString(),request.trackNumber).then((model) {
+            if (model != null) {
+              _stateSubject.add(AcceptedStatusState(model));
+            }else {
+              _stateSubject.add(ErrorState('Error'));
+            }
+          });
+        }
+      }
+    });
+  }
+
 }

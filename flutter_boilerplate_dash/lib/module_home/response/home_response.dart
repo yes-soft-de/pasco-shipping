@@ -91,7 +91,7 @@ class Cruise {
     total: json["total"],
     current: json["current"],
     started: json["started"],
-    arrived: json["arrived"],
+    arrived: json["released"],
   );
 
 

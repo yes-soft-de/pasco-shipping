@@ -38,9 +38,9 @@ class RequestShipmentStateManger {
     });
   }
 
-  void getSecondOption(String userID) {
+  void getSecondOption() {
     _stateSubject.add(LoadingState());
-    _markService.getUserMark(userID).then((marks) {
+    _clientService.getClients().then((marks) {
       if (marks == null) {
         _stateSubject.add(errorState('error connection'));
       } else {
@@ -49,9 +49,9 @@ class RequestShipmentStateManger {
     });
   }
 
-  void getThirdOption() {
+  void getThirdOption(String UserID) {
     _stateSubject.add(LoadingState());
-    _clientService.getClients().then((clients) {
+    _markService.getUserMark(UserID).then((clients) {
       if (clients != null) {
         _distributorService.getDistributors().then((distributor) {
           if (distributor != null) {

@@ -119,7 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "travels": MessageLookupByLibrary.simpleMessage("Travels"),
         "units": MessageLookupByLibrary.simpleMessage("Units"),
         "view": MessageLookupByLibrary.simpleMessage("View all"),
-        "warehouses": MessageLookupByLibrary.simpleMessage("warehouse"),
+        "warehouses": MessageLookupByLibrary.simpleMessage("Warehouse"),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome")
       };
 }

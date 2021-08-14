@@ -51,6 +51,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
   late List<Entry> entryContainer;
 
   late int holderID;
+  late bool separateShipment;
 
   @override
   void initState() {
@@ -58,6 +59,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
     entryContainer = <Entry>[];
     optionItemSelectedContainer = Entry('choose', 1, []);
     holderID = 0;
+    separateShipment = false;
 
     iniList();
   }
@@ -196,8 +198,29 @@ class _AcceptedShipmentDetailsSuccessfullyState
             ),
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Icon(
+                Icons.circle,
+                color: AppThemeDataService.AccentColor,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text('Shipment separation' ,style: AppTextStyle.mediumBlackBold,),
+              Checkbox(onChanged: (bool? value) {
+                setState(() {
+                  separateShipment = value!;
+                });
+              }, value: separateShipment,
+              ),
+            ],
+          ),
+        ),
         RoundedButton(
-            lable: 'Next',
+            lable: 'Save',
             icon: '',
             color: blue,
             style: AppTextStyle.mediumWhite,
@@ -206,16 +229,37 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   trackNumber: trackNumber,
                   statusDetails: editingController.text,
                   shipmentId: shipmentID,
-                  packed: true,
-                  isInOneHolder: true,
+                  packed:separateShipment ? false :true,
+                  isInOneHolder:separateShipment ? false :true,
                   shipmentStatus: AcceptedShipmentStatusName[
-                      AcceptedShipmentStatus.STORED]!,
+                  AcceptedShipmentStatus.STORED]!,
                   holderID: holderID,
                   holderType: 'container',
                   amount: int.parse(amountController.text));
-              widget.onChangeStatus(request);
+              widget.onChangeStatus(request , separateShipment, widget.containers);
             },
             radius: 10),
+
+        // RoundedButton(
+        //     lable: 'Next',
+        //     icon: '',
+        //     color: blue,
+        //     style: AppTextStyle.mediumWhite,
+        //     go: () {
+        //       StoredRequest request = StoredRequest(
+        //           trackNumber: trackNumber,
+        //           statusDetails: editingController.text,
+        //           shipmentId: shipmentID,
+        //           packed: true,
+        //           isInOneHolder: true,
+        //           shipmentStatus: AcceptedShipmentStatusName[
+        //               AcceptedShipmentStatus.STORED]!,
+        //           holderID: holderID,
+        //           holderType: 'container',
+        //           amount: int.parse(amountController.text));
+        //       widget.onChangeStatus(request);
+        //     },
+        //     radius: 10),
       ],
     );
   }

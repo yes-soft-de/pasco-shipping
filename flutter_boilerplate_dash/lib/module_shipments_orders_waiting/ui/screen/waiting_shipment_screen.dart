@@ -44,6 +44,7 @@ class _CountriesScreenState extends State<WaitingShipmentScreen> {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     transportationType =arguments['transportationType'];
     isExternalWarehouse =arguments['isExternalWarehouse'];
+    print("hhhhhhhh" +isExternalWarehouse.toString());
     widget._stateManager.getWaitingShipment(transportationType);
   }
 

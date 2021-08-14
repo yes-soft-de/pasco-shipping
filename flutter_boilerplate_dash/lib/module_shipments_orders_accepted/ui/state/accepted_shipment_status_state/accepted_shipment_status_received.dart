@@ -276,34 +276,6 @@ class _AcceptedShipmentDetailsSuccessfullyState
                 ]
             ),
             child: TextField(
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'qrCode',
-              ),
-              controller: qrCodeController,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-            padding: EdgeInsets.only(
-                top: 4,left: 16, right: 16, bottom: 4
-            ),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                    Radius.circular(15)
-                ),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 5
-                  )
-                ]
-            ),
-            child: TextField(
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 border: InputBorder.none,
@@ -317,7 +289,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
         RoundedButton(lable: 'Next', icon: '', color: blue, style: AppTextStyle.mediumWhite,
               go: (){
           ContainerFilterRequest containerRequest = ContainerFilterRequest(status: ContainerStatusName[ContainerStatus.NOTFULL],type: holderType);
-                MeasuredRequest request  = MeasuredRequest(shipmentStatus: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!,shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text),importWarehouseID: warehouseID,packetingBy: packetingBy,qrCode: qrCodeController.text,volume: double.parse(volumeController.text),weight: double.parse(weightController.text) );
+                MeasuredRequest request  = MeasuredRequest(shipmentStatus: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!,shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text),importWarehouseID: warehouseID,packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text),weight: double.parse(weightController.text) );
                 widget.onChangeStatus(request ,containerRequest );
               }, radius: 10),
       ],

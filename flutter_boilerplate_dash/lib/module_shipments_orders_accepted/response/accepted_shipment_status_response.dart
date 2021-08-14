@@ -1,3 +1,4 @@
+import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
 import 'package:pasco_shipping/utils/logger/logger.dart';
 
 class AcceptedShipmentStatusResponse {
@@ -48,7 +49,7 @@ class AcceptedShipmentStatusModel {
   AcceptedShipmentStatusModel.fromJson(Map<String, dynamic> json) {
     shipmentId = json['shipmentID'];
     id = json['id'];
-    shipmentStatus = json['shipmentStatus'];
+    shipmentStatus =addDesriptionToStatus( json['shipmentStatus']);
     createdByUser = json['createdByUser'];
     isPassed = json['isPassed'] ?? false;
 
@@ -57,7 +58,36 @@ class AcceptedShipmentStatusModel {
         : DateTime.fromMillisecondsSinceEpoch(
             CreatedAt.fromJson(json['createdAt']).timestamp! * 1000);
   }
-}
+
+
+  String addDesriptionToStatus(String status){
+    if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.ACCEPTED]!) {
+      return 'Shipment accepted successfully';
+    }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]!){
+      return 'The shipment was received from the customer in the warehouse';}
+      else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!){
+        return 'The packaging and measurement phase has been completed';
+    }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.STORED]!){
+        return 'The shipment was loaded into a container';
+    }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.UPLOADED]!){
+      return 'The shipment was loaded into a travel';
+    }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.STARTED]!){
+      return 'The travel has started';
+    }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED]!){
+      return 'The travel has arrived the destination country';
+    }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]!){
+      return 'The container has cleared';
+    }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!){
+      return 'The shipment has arrived to warehouse';
+    }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.DELIVERED]!){
+      return 'The shipment has been delivered to the client';
+      }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.WAITING]!){
+      return 'Shipment waiting for acceptance';
+    }
+      else {
+      return '';
+    }
+}}
 
 class CreatedAt {
   CreatedAt({

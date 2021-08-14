@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_product_category/request/product_caetgory_request.dart';
 import 'package:pasco_shipping/module_product_category/response/product_category_response.dart';
 import 'package:pasco_shipping/module_subcontract_services/request/sub_contract_service_request.dart';
 import 'package:pasco_shipping/module_subcontract_services/response/sub_contract_service_response.dart';
@@ -35,7 +36,7 @@ class _CountryCardState extends State<ProductCard> {
    description..text = widget.model.description!;
 
    hsCode =TextEditingController();
-   hsCode..text = widget.model.hscode!;
+   hsCode..text = widget.model.hscode ??'';
    widget.isEdtiable = false;
   }
 
@@ -60,7 +61,7 @@ class _CountryCardState extends State<ProductCard> {
                     Row(
                       children: [
                         Text(
-                          'name ',
+                          'Name ',
                           style: AppTextStyle.mediumBlack,
                         ),
                          Expanded(child: widget.isEdtiable ?
@@ -76,7 +77,7 @@ class _CountryCardState extends State<ProductCard> {
                     Row(
                       children: [
                         Text(
-                          'description: ',
+                          'Description: ',
                           style: AppTextStyle.mediumBlack,
                         ),
                       Expanded(child:   widget.isEdtiable ? TextField(controller: description) :  Text(
@@ -91,7 +92,7 @@ class _CountryCardState extends State<ProductCard> {
                     Row(
                       children: [
                         Text(
-                          'HsCode ',
+                          'HsCode: ',
                           style: AppTextStyle.mediumBlack,
                         ),
                         Expanded(child: widget.isEdtiable ?
@@ -101,6 +102,42 @@ class _CountryCardState extends State<ProductCard> {
                         ),
                         )],
                     ),
+
+                    Padding(
+                      padding: const EdgeInsetsDirectional.only(top: 10, bottom: 10),
+                      child: Text('SubProduct' , style: AppTextStyle.mediumBlueBold,),
+                    ),
+                    ListView.builder(itemBuilder:(context,index){
+                      return Card(
+                        color: Colors.grey[100],
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text('Name: ' , style: AppTextStyle.mediumBlueBold,),
+                                  Text(widget.model.subs![index].name ??'' ,
+                                    style: AppTextStyle.mediumDeepGrayBold,),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text('HsCode: ' , style: AppTextStyle.mediumBlueBold,),
+                                  Text(widget.model.subs![index].hscode ??'' ,
+                                    style: AppTextStyle.mediumDeepGrayBold,),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    },itemCount: widget.model.subs!.length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                    ),
+
+
                     SizedBox(
                       height: 20,
                     ),
@@ -151,9 +188,6 @@ class _CountryCardState extends State<ProductCard> {
                             Icons.delete,
                             color: Colors.white,
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
                           Text(
                             'delete',
                             style: AppTextStyle.mediumWhite,
@@ -176,7 +210,7 @@ class _CountryCardState extends State<ProductCard> {
                           if(name.text.isEmpty || description.text.isEmpty){
                             Fluttertoast.showToast(msg: S.of(context).fillAllField);
                           }else {
-                            SubContractServiceRequest re = SubContractServiceRequest(id: widget.model.id ,name: name.text,description: description.text);
+                            ProductRequest re = ProductRequest(id: widget.model.id ,name: name.text,description: description.text, hscode: hsCode.text);
                             widget.onEdit(re);
                           }
 
@@ -187,9 +221,7 @@ class _CountryCardState extends State<ProductCard> {
                               Icons.save,
                               color: Colors.white,
                             ),
-                            SizedBox(
-                              width: 5,
-                            ),
+
                             Text(
                               'save',
                               style: AppTextStyle.mediumWhite,

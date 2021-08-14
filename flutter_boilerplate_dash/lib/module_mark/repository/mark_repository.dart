@@ -53,7 +53,7 @@ class MarkRepository{
   Future<ConfirmResponse?> deleteMark(String id) async {
     // await _authService.refreshToken();
     var token = Urls.token;  //await _authService.getToken();
-    var response = await _apiClient.delete(Urls.USER_MARKS+'/'+id,
+    var response = await _apiClient.delete(Urls.MARK+'/'+id,
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = MarkResponse.fromJson(response!).statusCode;
     String? msg = MarkResponse.fromJson(response).msg;

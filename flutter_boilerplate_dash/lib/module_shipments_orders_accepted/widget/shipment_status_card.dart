@@ -27,16 +27,16 @@ class AcceptedShipmentStatusCard extends StatelessWidget {
                 children: [
                  model.isPassed ? Icon(Icons.check_circle ,color: white):Container(),
                   SizedBox(width: 10,),
-                  Text(model.shipmentStatus ??'' , style: model.isPassed ?  AppTextStyle.largeWhiteBold :AppTextStyle.mediumWhite ),
+                  Expanded(child: Text(model.shipmentStatus ??'' , style: model.isPassed ?  AppTextStyle.largeWhiteBold :AppTextStyle.mediumWhite )),
                 ],
               ),
               model.isPassed ? Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(model.createdAt.toString().split('.').first, style:AppTextStyle.largeWhiteBold),
+                child: Text(model.createdAt.toString().split('.').first, style:AppTextStyle.mediumWhiteBold),
               ): Container(),
               model.isPassed ? Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(model.createdByUser  ??'', style:AppTextStyle.largeWhiteBold),
+                child: Text(model.createdByUser  ??'', style:AppTextStyle.mediumWhiteBold),
               ): Container()
 
               // Row(

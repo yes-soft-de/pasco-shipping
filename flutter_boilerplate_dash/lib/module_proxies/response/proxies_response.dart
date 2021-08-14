@@ -35,6 +35,7 @@ class ProxyModel {
     this.fullName,
     this.phone,
     this.address,
+    this.email,
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
@@ -44,6 +45,7 @@ class ProxyModel {
   String? fullName;
   String? phone;
   String? address;
+  String? email;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? updatedByUser;
@@ -54,6 +56,7 @@ class ProxyModel {
     fullName: json["fullName"],
     phone: json["phone"],
     address: json["address"],
+    email: json["email"],
     createdAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),
     updatedAt: DateTime.fromMillisecondsSinceEpoch(

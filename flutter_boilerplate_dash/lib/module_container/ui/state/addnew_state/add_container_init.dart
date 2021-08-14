@@ -39,9 +39,13 @@ class _AddCountryInitState extends State<RequestContainerInit> {
  late DropListModel dropListModelSpecification;
  late Entry optionItemSelectedSpecification;
 
+ late DropListModel dropListModelCarrier;
+ late Entry optionItemSelectedCarrier;
+
  late List<Entry> entryProvidedBy;
  late List<Entry> entryConsignee;
  late List<Entry> entryShipper;
+ late List<Entry> entryCarrier;
  late List<Entry> entrySpecification;
 
  late String status;
@@ -52,6 +56,8 @@ class _AddCountryInitState extends State<RequestContainerInit> {
  late int consigneeID;
  late int providedByID;
  late int specificationID;
+
+ late int carrierID;
 
  // TimeOfDay selectedTimeStart = TimeOfDay.now();
  // TimeOfDay selectedTimeEnd = TimeOfDay.now();
@@ -210,7 +216,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('consignee' , style: AppTextStyle.mediumBlackBold,)
+                  Text('Consignee' , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               SelectDropList(
@@ -246,6 +252,25 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
+                  Text('Carrier' , style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              SelectDropList(
+                this.optionItemSelectedCarrier,
+                this.dropListModelCarrier,
+                    (optionItem) {
+                  optionItemSelectedCarrier= optionItem;
+                  carrierID = optionItem.id;
+                  setState(() {});
+                },
+              ),
+
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
                   Text('Specification' , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
@@ -266,7 +291,8 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 ContainerRequest re = ContainerRequest(status: status ,type: type
                     ,specificationID: specificationID ,
                     consigneeID: consigneeID ,
-                    shipperID: shipperID
+                    shipperID: shipperID,
+                    carrierID: carrierID
                     ,containerNumber: containerNumber.text,
                   providedBy: providedByID
                 );
@@ -287,6 +313,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
     entryProvidedBy = <Entry>[];
     entryShipper= <Entry>[];
     entryConsignee= <Entry>[];
+    entryCarrier= <Entry>[];
 
     entrySpecification = <Entry>[];
 
@@ -301,6 +328,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
     optionItemSelectedShipper =  Entry('choose', 1, []);
     optionItemSelectedConsignee =  Entry('choose', 1, []);
     optionItemSelectedSpecification =  Entry('choose', 1, []);
+    optionItemSelectedCarrier =  Entry('choose', 1, []);
 
     initList();
 
@@ -312,10 +340,12 @@ class _AddCountryInitState extends State<RequestContainerInit> {
       entryProvidedBy.add(v);
       entryShipper.add(v);
       entryConsignee.add(v);
+      entryCarrier.add(v);
     }
     dropListModelProvidedBy = DropListModel(entryProvidedBy);
     dropListModelShipper = DropListModel(entryShipper);
     dropListModelConsignee= DropListModel(entryConsignee);
+    dropListModelCarrier= DropListModel(entryCarrier);
 
 
     for(ContainerSpecificationModel  item in widget.specifications){

@@ -39,7 +39,7 @@ class _SecondOptionState extends State<SecondOption> {
         setState(() {});
       }
     });
-    widget.stateManger.getSecondOption('1');
+    widget.stateManger.getSecondOption();
   }
 
   @override

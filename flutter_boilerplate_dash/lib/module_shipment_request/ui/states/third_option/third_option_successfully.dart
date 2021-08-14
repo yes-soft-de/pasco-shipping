@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_distributors/response/distributors_response.dart';
 import 'package:pasco_shipping/module_home/home_routes.dart';
+import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
@@ -16,7 +17,7 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 class ThirdOptionsSuccessfully extends StatefulWidget {
   final List<DistributorModel> distributors;
-  final List<ClientModel> clients;
+  final List<Mark> clients;
   final ShipmentRequest shipmentRequest;
   final Function goBackStep;
   final Function onRequest;
@@ -81,8 +82,8 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    for(ClientModel item in widget.clients){
-      Entry v = Entry(item.userName! ,item.id??1 ,[]);
+    for(Mark item in widget.clients){
+      Entry v = Entry(item.markNumber! ,item.id??1 ,[]);
       clientsEntry.add(v);
     }
     dropListModelClient = DropListModel(clientsEntry);
@@ -101,7 +102,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Client name : ',
+            'Mark: ',
             style: AppTextStyle.mediumBlackBold,
           ),
           SelectDropList(
@@ -109,8 +110,8 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
             this.dropListModelClient,
                 (optionItem) {
               optionItemSelectedClient = optionItem;
-              widget.shipmentRequest.userName = optionItem.title;
-              widget.shipmentRequest.userID = optionItem.id;
+              widget.shipmentRequest.markName = optionItem.title;
+              widget.shipmentRequest.markId = optionItem.id;
               setState(() {});
             },
           ),

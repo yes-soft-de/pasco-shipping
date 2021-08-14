@@ -71,6 +71,7 @@ class Urls {
 
   ///mark
   static const USER_MARKS = BASE_API + 'marks';
+  static const MARK = BASE_API + 'mark';
   static const CREATE_MARK = BASE_API + 'markbydashboard';
 
 
@@ -78,6 +79,10 @@ class Urls {
   //product
   static const PRODUCT_CATEGORIES=BASE_API+"productcategories";
   static const ADD_PRODUCT_CATEGORY=BASE_API+"productcategory";
+
+  // sub product
+  static const SUB_PRODUCT_CATEGORIES=BASE_API+"subproductcategories";
+  static const ADD_SUB_PRODUCT_CATEGORY=BASE_API+"subproductcategory";
 
   //profile
   static const MY_PROFILE=BASE_API+"clientprofile";
@@ -100,6 +105,13 @@ class Urls {
   static const WAREHOUSES=BASE_API+'warehouses';
   static const STORED_SHIPMENT=BASE_API+'track';
 
+
+
+  //warehouses
+  static const GET_WAREHOUSES=BASE_API+'warehouses';
+  static const WAREHOUSE=BASE_API+'warehouse';
+
+
   static const REPORT_API = BASE_API + '/report';
 
   static const UPLOAD_API = BASE_API + 'uploadfile';
@@ -109,5 +121,5 @@ class Urls {
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
 
 
-  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2Mjg0NDkwMzksImV4cCI6MTYyODQ2NzAzOSwicm9sZXMiOlsiUk9MRV9FTVBMT1lFRSIsInVzZXIiXSwidXNlcm5hbWUiOiJlbTEifQ.C_qsVIptW7M-h3xCisXu7CcDC4PNiiPJZSEg9t92hCbxkIchFXUyfz8Xbcy4C24IgQ3xDb_LikuW0DRWUkV3yRxuqJb9RWGdqytUbJMfkk5klcTduHsN-yL0WQ9JkFb2cIbheCKsxhOIV_XR2UVsJ4IIecvxffArSD0ptr_j6EeFwjr5MUNVpglEZntUBbsrF0eKrDtcUotFMU-u8TwWa3jlRYiIf56Ho6YqXUsYTGG7n5_nEtQV9EuQIbsVbH30FQxize30GWJL8vxP63J6Q61_wHeCn0NLOqNtXlI1DvptAGF56YRN3uK3Xklwyht9-OuXnaECfasdaqg9fRp2oQ';
+  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2Mjg2NDI0NzEsImV4cCI6MTYyODY2MDQ3MSwicm9sZXMiOlsiUk9MRV9FTVBMT1lFRSIsInVzZXIiXSwidXNlcm5hbWUiOiJlbTIifQ.Eo_cLc_SPZMa9MT1aiQmRWc5dneFox6i28bKMY_qjXmWqd5YVHTrKWbFKKzIxH6paiy5aHsAoROmrMoZXykM5e_NvTgH-ciEnQAWxsr0lBTcC6oc1Y8_LLWGlOQK0ZJsadnIZ8UAl7IQOGwtG-8g_mdGFF9iL-a24pJ-TOZdQ2VulRkUj8ANvuvQPN_AEjOek1-hUYMxb3QTiuSU8z5KCuFQNupN_WtzzjAtOym_1absdwhLADAkd8hkWlC7sBaK6zETeFMshIKDKOU83xeliNM5HGhfX-NPjt9NbUuKQa-xxi3lwF9EU8o4eTMNsV4gF-_UlvXAZCCh8zm9CCd67w';
 }

@@ -109,7 +109,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Subcontract Name'),
+                      Text('Provided By'),
                       Text(widget.model.subcontractName ?? ''),
                     ],
                   ),

@@ -11,6 +11,11 @@ class AcceptedStatusState extends AcceptedShipmentStatusState{
   List<AcceptedShipmentStatusModel> model;
   AcceptedStatusState(this.model);
 }
+class DelivredStatusState extends AcceptedShipmentStatusState{
+  List<AcceptedShipmentStatusModel> model;
+  DelivredStatusState(this.model);
+}
+
 class ReceivedStatusState extends AcceptedShipmentStatusState{
   List<AcceptedShipmentStatusModel> model;
   List<SubcontractModel> subContracts;
