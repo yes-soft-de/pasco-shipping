@@ -7,6 +7,7 @@ use App\Entity\ShipmentFinanceEntity;
 use App\Repository\ShipmentFinanceEntityRepository;
 use App\Request\ShipmentFinanceCreateRequest;
 use App\Request\ShipmentFinanceFilterRequest;
+use App\Request\ShipmentFinanceUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ShipmentFinanceManager
@@ -33,6 +34,25 @@ class ShipmentFinanceManager
         return $shipmentFinanceEntity;
     }
 
+    public function update(ShipmentFinanceUpdateRequest $request)
+    {
+        $shipmentFinanceEntity = $this->shipmentFinanceEntityRepository->find($request->getId());
+
+        if(!$shipmentFinanceEntity)
+        {
+
+        }
+        else
+        {
+            $shipmentFinanceEntity = $this->autoMapping->mapToObject(ShipmentFinanceUpdateRequest::class, ShipmentFinanceEntity::class, $request, $shipmentFinanceEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $shipmentFinanceEntity;
+        }
+    }
+
     public function getAllCostsByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
         return $this->shipmentFinanceEntityRepository->getAllCostsByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
@@ -45,7 +65,16 @@ class ShipmentFinanceManager
 
     public function filterShipmentFinances(ShipmentFinanceFilterRequest $request)
     {
-        return $this->shipmentFinanceEntityRepository->filterShipmentFinances($request->getShipmentID(), $request->getTrackNumber(), $request->getShipmentStatus());
+        $shipmentFinances['shipmentFinances'] = $this->shipmentFinanceEntityRepository->filterShipmentFinances($request->getShipmentID(), $request->getTrackNumber(), $request->getShipmentStatus());
+        
+        $shipmentFinances['currentTotalCost'] = $this->getCurrentTotalCostByFilterOptions($request->getShipmentID(), $request->getTrackNumber(), $request->getShipmentStatus())['currentTotalCost'];
+
+        return $shipmentFinances;
+    }
+
+    public function getByShipmentIdAndTrackNumberAndHolderTypeAndHolderIdAndStatus($shipmentID, $trackNumber, $holderType, $holderID, $shipmentStatus)
+    {
+        return $this->shipmentFinanceEntityRepository->getByShipmentIdAndTrackNumberAndHolderTypeAndHolderIdAndStatus($shipmentID, $trackNumber, $holderType, $holderID, $shipmentStatus);
     }
     
     public function deleteAllShipmentFinances()

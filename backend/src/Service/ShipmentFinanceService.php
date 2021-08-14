@@ -58,11 +58,9 @@ class ShipmentFinanceService
 
     public function filterShipmentFinances(ShipmentFinanceFilterRequest $request)
     {
-        $shipmentFinanceResponse = [];
-
         $shipmentFinances = $this->shipmentFinanceManager->filterShipmentFinances($request);
         
-        foreach($shipmentFinances as $shipmentFinance)
+        foreach($shipmentFinances['shipmentFinances'] as $shipmentFinance)
         {
             if($shipmentFinance['createdByUserImage'])
             {
@@ -73,11 +71,9 @@ class ShipmentFinanceService
             {
                 $shipmentFinance['updatedByUserImage'] = $this->params . $shipmentFinance['updatedByUserImage'];
             }
-
-            $shipmentFinanceResponse[] = $this->autoMapping->map('array', ShipmentFinanceGetResponse::class, $shipmentFinance);
         }
-        
-        return $shipmentFinanceResponse;
+
+        return $this->autoMapping->map('array', ShipmentFinanceGetResponse::class, $shipmentFinances);
     }
 
 }

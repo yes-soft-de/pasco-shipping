@@ -161,21 +161,24 @@ class ShipmentFinanceController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="array", property="Data",
-     *              @OA\Items(
-     *                  @OA\Property(type="integer", property="shipmentID"),
-     *                  @OA\Property(type="string", property="trackNumber"),
-     *                  @OA\Property(type="string", property="shipmentStatus"),
-     *                  @OA\Property(type="number", property="stageCost"),
-     *                  @OA\Property(type="string", property="stageDescription"),
-     *                  @OA\Property(type="string", property="currency"),
-     *                  @OA\Property(type="object", property="createdAt"),
-     *                  @OA\Property(type="object", property="updatedAt"),
-     *                  @OA\Property(type="string", property="createdByUser"),
-     *                  @OA\Property(type="string", property="createdByUserImage"),
-     *                  @OA\Property(type="string", property="updatedByUser"),
-     *                  @OA\Property(type="string", property="updatedByUserImage")
-     *              )
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="array", property="shipmentFinances",
+     *                  @OA\Items(
+     *                      @OA\Property(type="integer", property="shipmentID"),
+     *                      @OA\Property(type="string", property="trackNumber"),
+     *                      @OA\Property(type="string", property="shipmentStatus"),
+     *                      @OA\Property(type="number", property="stageCost"),
+     *                      @OA\Property(type="string", property="stageDescription"),
+     *                      @OA\Property(type="string", property="currency"),
+     *                      @OA\Property(type="object", property="createdAt"),
+     *                      @OA\Property(type="object", property="updatedAt"),
+     *                      @OA\Property(type="string", property="createdByUser"),
+     *                      @OA\Property(type="string", property="createdByUserImage"),
+     *                      @OA\Property(type="string", property="updatedByUser"),
+     *                      @OA\Property(type="string", property="updatedByUserImage")
+     *                  )
+     *              ),
+     *              @OA\Property(type="number", property="currentTotalCost")
      *          )
      *      )
      * )
