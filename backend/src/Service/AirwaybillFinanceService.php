@@ -5,10 +5,12 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\AirwaybillFinanceEntity;
 use App\Manager\AirwaybillFinanceManager;
+use App\Request\AirwaybillDistributeStatusCostRequest;
 use App\Request\AirwaybillFinanceCreateRequest;
 use App\Request\AirwaybillFinanceFilterRequest;
 use App\Response\AirwaybillFinanceCreateResponse;
 use App\Response\AirwaybillFinanceGetResponse;
+use App\Response\TrackByHolderTypeAndHolderIdGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class AirwaybillFinanceService
@@ -50,6 +52,23 @@ class AirwaybillFinanceService
         }
 
         return $this->autoMapping->map('array', AirwaybillFinanceGetResponse::class, $airwaybillFinances);
+    }
+
+    public function distributeAirwaybillCost(AirwaybillDistributeStatusCostRequest $request)
+    {
+        $tracksResponse = [];
+        
+        $tracks = $this->airwaybillFinanceManager->distributeAirwaybillCost($request);
+
+        if(is_array($tracks))
+        {
+            foreach($tracks as $track)
+            {
+                $tracksResponse[] = $this->autoMapping->map('array', TrackByHolderTypeAndHolderIdGetResponse::class, $track);
+            }
+        }
+
+        return $tracks;
     }
 
 }
