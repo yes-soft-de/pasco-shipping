@@ -83,12 +83,42 @@ class _CountryCardState extends State<SubContractServiceCard> {
                       )],
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
                     Row(
                       children: [
                         Text(
                           'Created By ',
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Text(
+                          widget.model.createdByUser ?? '',
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Created At ',
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Text(
+                          widget.model.createdAt.toString().split(' ').first,
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Updated By ',
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -103,7 +133,7 @@ class _CountryCardState extends State<SubContractServiceCard> {
                     Row(
                       children: [
                         Text(
-                          'Created At ',
+                          'Updated At ',
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(

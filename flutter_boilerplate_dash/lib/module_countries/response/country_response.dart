@@ -38,6 +38,7 @@ class CountryModel {
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
+    this.createdByUser
 
   });
 
@@ -48,6 +49,7 @@ class CountryModel {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? updatedByUser;
+  String? createdByUser;
 
 
   factory CountryModel.fromJson(Map<String, dynamic> json) => CountryModel(
@@ -59,7 +61,8 @@ class CountryModel {
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),
     updatedAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['updatedAt']).timestamp! * 1000),
-    updatedByUser: json['createdByUser'],
+    createdByUser: json['createdByUser'],
+    updatedByUser: json['updatedByUser'],
 
   );
 }

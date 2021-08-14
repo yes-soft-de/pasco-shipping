@@ -44,6 +44,7 @@ class ContainerModel {
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
+    this.createdByUser
   });
 
   int? id;
@@ -61,6 +62,7 @@ class ContainerModel {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? updatedByUser;
+  String? createdByUser;
 
 
   factory ContainerModel.fromJson(Map<String, dynamic> json) => ContainerModel(
@@ -81,7 +83,8 @@ class ContainerModel {
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),
     updatedAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['updatedAt']).timestamp! * 1000),
-    updatedByUser: json['createdByUser'],
+    createdByUser: json['createdByUser'],
+    updatedByUser: json['updatedByUser'],
 
   );
 }

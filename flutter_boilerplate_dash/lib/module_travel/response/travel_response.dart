@@ -45,6 +45,7 @@ class TravelModel {
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
+    this.createdByUser
   });
 
   int? id;
@@ -63,6 +64,7 @@ class TravelModel {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? updatedByUser;
+  String? createdByUser;
 
 
   factory TravelModel.fromJson(Map<String, dynamic> json) => TravelModel(
@@ -88,7 +90,8 @@ class TravelModel {
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),
     updatedAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['updatedAt']).timestamp! * 1000),
-    updatedByUser: json['createdByUser'],
+    updatedByUser: json['updatedByUser'],
+    createdByUser: json['createdByUser'],
 
   );
 }

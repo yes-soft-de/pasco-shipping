@@ -44,6 +44,7 @@ this.marks,
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
+    this.createdByUser
   });
 
   int? id;
@@ -59,6 +60,7 @@ this.marks,
   DateTime? createdAt;
   DateTime? updatedAt;
   String? updatedByUser;
+  String? createdByUser;
 
 
   factory ClientModel.fromJson(Map<String, dynamic> json) => ClientModel(
@@ -70,14 +72,16 @@ this.marks,
     city: json['city'],
     phone: json['phone'],
     image: json['image'],
-    marks: List<MarkNumber>.from(json['marks'].map((x) => MarkNumber.fromJson(x)))
+    marks: List<MarkNumber>.from(json['marks'].map((x) => MarkNumber.fromJson(x))),
 
 
-    // createdAt: DateTime.fromMillisecondsSinceEpoch(
-    //     CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),
-    // updatedAt: DateTime.fromMillisecondsSinceEpoch(
-    //     CreatedAt.fromJson(json['updatedAt']).timestamp! * 1000),
-    // updatedByUser: json['createdByUser'],
+    createdAt: DateTime.fromMillisecondsSinceEpoch(
+        CreatedAt.fromJson(json['createAt'] ?? 0).timestamp! * 1000),
+    updatedAt:DateTime.now(),
+    // DateTime.fromMillisecondsSinceEpoch(
+    //     CreatedAt.fromJson(json['updatedAt'] ?? 0).timestamp! * 1000),
+    createdByUser: json['createdByUser'],
+    updatedByUser: json['updatedByUser'],
 
   );
 }

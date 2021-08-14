@@ -12,6 +12,7 @@ import 'package:pasco_shipping/module_mark/ui/state/mark_first_time_successfully
 import 'package:pasco_shipping/module_mark/ui/state/mark_state.dart';
 import 'package:pasco_shipping/module_mark/widget/mark_card.dart';
 import 'package:pasco_shipping/module_my_shipment/ui/widget/shipment_card.dart';
+import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
@@ -34,6 +35,7 @@ class _MarkScreenState extends State<MarkScreen> {
   late List<Mark> items;
   late List<ClientModel> clients;
   ScrollController controller = ScrollController();
+ late bool isFirst;
   final TextEditingController _markNumberController = TextEditingController();
 
 
@@ -59,6 +61,7 @@ class _MarkScreenState extends State<MarkScreen> {
   void initState() {
     super.initState();
     clients = [];
+    isFirst = true;
     currentState = LoadingMarkState();
     widget._stateManager.stateStream.listen((event) {
       print("newEvent"+event.toString());
@@ -67,7 +70,29 @@ class _MarkScreenState extends State<MarkScreen> {
         setState(() {});
       }
     });
-    widget._stateManager.getClients();
+  }
+
+   void init()  {
+    if(ModalRoute.of(context)!.settings.arguments == null){
+      widget._stateManager.getClients();
+    }else{
+      final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+      int userID = arguments['userID'];
+      String userName = arguments['userName'].toString();
+      Entry optionItem  =  Entry(userName, userID, []);;
+      widget._stateManager.getUserMarks(userID.toString(), [], optionItem);
+
+    }
+  }
+
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if(isFirst){
+      init();
+      isFirst =false;
+    }
   }
 
   Widget Screen(){

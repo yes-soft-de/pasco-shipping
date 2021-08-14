@@ -101,6 +101,25 @@ class _AcceptedShipmentDetailsSuccessfullyState
     return SingleChildScrollView(
       child: Column(
         children: [
+          widget.statusModel[3].statusDetails!.isNotEmpty ?Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              color: Colors.grey[200],
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.warning ,color: Colors.red),
+                    SizedBox(width: 10,),
+                    Text(widget.statusModel[3].statusDetails ??'' , style:  AppTextStyle.mediumRedBold),
+                  ],
+                ),
+              ),
+            ),
+          ) :Container(),
           ListView.builder(itemBuilder: (context, index) {
             return AcceptedShipmentStatusCard(widget.statusModel[index]);
           },itemCount: widget.statusModel.length,

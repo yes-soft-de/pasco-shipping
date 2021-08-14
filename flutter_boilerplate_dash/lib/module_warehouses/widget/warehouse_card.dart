@@ -155,7 +155,7 @@ class _CountryCardState extends State<WarehouseCard> {
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
-                          widget.model.updatedByUser ?? '',
+                          widget.model.createdByUser ?? '',
                           style: AppTextStyle.mediumBlueBold,
                         ),
                       ],
@@ -167,6 +167,36 @@ class _CountryCardState extends State<WarehouseCard> {
                       children: [
                         Text(
                           'Created At ',
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Text(
+                          widget.model.createdAt.toString().split(' ').first,
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Updated By ',
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Text(
+                          widget.model.updatedByUser ?? '',
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Updated At ',
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(

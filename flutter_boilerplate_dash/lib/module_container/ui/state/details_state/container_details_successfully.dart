@@ -87,7 +87,17 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
                     ],
                   ),
                 ),
-
+                Divider(color: Colors.grey[300],thickness: 2,),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Container specification'),
+                      Text(widget.model.specificationName ?? ''),
+                    ],
+                  ),
+                ),
                 Divider(color: Colors.grey[300],thickness: 2,),
                 Padding(
                   padding: const EdgeInsets.all(10.0),

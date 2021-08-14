@@ -8,11 +8,13 @@ import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_network/http_client/http_client.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/measured_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/received_deliered_shipment_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipemnt_finance_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/stored_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/response/shipment_finance_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/warehouse_response.dart';
 
 @injectable
@@ -160,6 +162,37 @@ class AcceptedShipmentRepository{
 
     }catch(_){
       return null;
+    }
+  }
+
+
+
+  Future<List<ShipmentFinanceModel>?> getShipmentFinance(String id, String trackNumber) async {
+    // await _authService.refreshToken();
+    var token = Urls.token; // await _authService.getToken();
+    try {
+      var response = await _apiClient.get(Urls.SHIPMENT_FINANCE,
+          headers: {'Authorization': 'Bearer $token'});
+      List<ShipmentFinanceModel>? marks =
+          ShipmentFinanceResponse.fromJson(response!).data;
+      return marks;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Future<ConfirmResponse?> createShipmentFinance(ShipmentFinanceRequest request) async {
+    // await _authService.refreshToken();
+    var token = Urls.token;  //await _authService.getToken();
+
+    var response = await _apiClient.post(Urls.SHIPMENT_FINANCE, request.toJson(),
+        headers: {'Authorization': 'Bearer $token'});
+    String? statusCode = ShipmentFinanceResponse.fromJson(response!).statusCode;
+    String? msg = ShipmentFinanceResponse.fromJson(response).msg;
+    if(statusCode =='201'){
+      return ConfirmResponse(true, msg!);
+    }else {
+      return ConfirmResponse(false, msg!);
     }
   }
 

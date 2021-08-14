@@ -72,12 +72,14 @@ class _CountriesScreenState extends State<AcceptedShipmentDetailsScreen> {
     else if (currentState is initDetailsState) {
       initDetailsState state = currentState as initDetailsState;
       AcceptedShipmentDetailsModel detailsModel = state.model;
-      List<ContainerModel> containers = state.containers;
+      // List<ContainerModel> containers = state.containers;
       return AcceptedShipmentDetailsSuccessfully(
      shipment: detailsModel, onShowStatus: (id , trackNumber, cityName,holderType,status){
           Navigator.pushNamed(context,AcceptedShipmentRoutes.STATUS , arguments: {'id' : id ,'trackNumber': trackNumber ,'cityName':cityName , 'holderType':holderType,'status':status} ).then((value){
             widget._stateManager.getDetailsShipment(id.toString());
           });
+      }, onShowFinance: (id , trackNumber){
+
       },
       );
     }

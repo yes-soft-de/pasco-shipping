@@ -1,22 +1,24 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 
-class SelectDropList extends StatefulWidget {
+class SelectDropListl extends StatefulWidget {
 
 final Entry itemSelected;
    DropListModel dropListModel;
   final Function(Entry optionItem) onOptionSelected;
 
-  SelectDropList( this.itemSelected,this.dropListModel,this.onOptionSelected, );
+  SelectDropListl( this.itemSelected,this.dropListModel,this.onOptionSelected, );
 
   @override
-  _SelectDropListState createState() => _SelectDropListState(itemSelected ,dropListModel);
+  _SelectDropListStatey createState() => _SelectDropListStatey(itemSelected ,dropListModel);
 }
 
-class _SelectDropListState extends State<SelectDropList> with SingleTickerProviderStateMixin {
+class _SelectDropListStatey extends State<SelectDropListl> with SingleTickerProviderStateMixin {
 
 late Entry optionItemSelected;
  DropListModel dropListModel;
@@ -26,7 +28,7 @@ late Animation<double> animation;
 
 bool isShow = false;
 
-_SelectDropListState(this.optionItemSelected ,this.dropListModel);
+_SelectDropListStatey(this.optionItemSelected ,this.dropListModel);
 
 @override
 void initState() {
@@ -202,4 +204,90 @@ Widget _buildTiles(Entry root) {
     children: root.children.map<Widget>(_buildTiles).toList(),
   );
 }
+}
+
+class SelectDropList extends StatefulWidget {
+  final Entry itemSelected;
+  DropListModel dropListModel;
+  final Function(Entry optionItem) onOptionSelected;
+
+  SelectDropList(
+    this.itemSelected,
+    this.dropListModel,
+    this.onOptionSelected,
+  );
+
+  @override
+  _SelectDropListState createState() =>
+      _SelectDropListState(itemSelected, dropListModel);
+}
+
+class _SelectDropListState extends State<SelectDropList> {
+  late Entry optionItemSelected;
+  DropListModel dropListModel;
+
+// late AnimationController expandController;
+// late Animation<double> animation;
+
+// bool isShow = false;
+
+  _SelectDropListState(this.optionItemSelected, this.dropListModel);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+            child: Column(children: <Widget>[
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+            decoration: new BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              color: Colors.grey[200],
+              boxShadow: [
+                BoxShadow(
+                    blurRadius: 10, color: Colors.white, offset: Offset(0, 2))
+              ],
+            ),
+            child: new Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                // Icon(Icons.card_travel, color: AppThemeDataService.AccentColor,),
+                // SizedBox(width: 10,),
+                Expanded(
+                  child: DropdownSearch<Entry>(
+                      mode: Mode.BOTTOM_SHEET,
+                      showSelectedItem: false,
+                      showSearchBox: true,
+                      itemAsString: (Entry u) => u.title,
+                      items: dropListModel.listOptionItems,
+                      popupItemDisabled: (Entry s) => s.title.isEmpty,
+                      onChanged: (item) {
+                        widget.onOptionSelected(item!);
+                      },
+                      showAsSuffixIcons: true,
+                      searchBoxDecoration: InputDecoration(
+                        icon: Icon(Icons.search_outlined ,color: blue,)
+                      ),
+                      // dropdownSearchDecoration: InputDecoration(
+                      //   focusedBorder: InputBorder.none,
+                      //   enabledBorder: InputBorder.none,
+                      //   errorBorder: InputBorder.none,
+                      //   disabledBorder: InputBorder.none,
+                      // ),
+                      emptyBuilder: (context, string) {
+                        return Container(
+                            child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text('No data', style: AppTextStyle.mediumRed),
+                        ));
+                      },
+                      selectedItem: optionItemSelected),
+                ),
+              ],
+            ),
+          ),
+        ])));
+  }
 }

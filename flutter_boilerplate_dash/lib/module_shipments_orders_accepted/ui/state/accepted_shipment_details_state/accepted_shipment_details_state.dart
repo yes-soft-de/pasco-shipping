@@ -7,8 +7,8 @@ class AcceptedShipmentDetailsState{}
 
 class initDetailsState extends AcceptedShipmentDetailsState{
   AcceptedShipmentDetailsModel model;
-  List<ContainerModel> containers;
-  initDetailsState(this.model , this.containers);
+  // List<ContainerModel> containers;
+  initDetailsState(this.model);
 }
 
 class LoadingState extends AcceptedShipmentDetailsState{}

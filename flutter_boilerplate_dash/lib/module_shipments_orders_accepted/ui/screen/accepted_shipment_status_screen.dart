@@ -89,8 +89,8 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
       AcceptedStatusState state = currentState as AcceptedStatusState;
       List<AcceptedShipmentStatusModel> statusModels = state.model;
       return AcceptedShipmentStatusSuccessfully(
-      statusModel: statusModels, onChangeStatus: (re , cityName){
-        widget._stateManager.receivedOrDelevired(re,cityName);
+      statusModel: statusModels, onChangeStatus: (re , cityName , isDelivred){
+        widget._stateManager.receivedOrDelevired(re,cityName,isDelivred);
       },
       );
     }

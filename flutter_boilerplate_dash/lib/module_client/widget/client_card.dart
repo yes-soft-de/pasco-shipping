@@ -111,7 +111,64 @@ class ClientCard extends StatelessWidget {
                     },itemCount: model.marks!.length,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
-                    )
+                    ),
+                    SizedBox(height: 20,),
+
+
+
+                    Row(
+                      children: [
+                        Text(
+                          'Created By: ',
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Expanded(child: Text(
+                          model.createdByUser ?? '',
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                        )],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Created At: ',
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Expanded(child: Text(
+                          model.createdAt.toString().split('.').first,
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                        )],
+                    ),
+
+                   model.updatedByUser !=null ? Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              'Updated By: ',
+                              style: AppTextStyle.mediumBlack,
+                            ),
+                            Expanded(child: Text(
+                              model.updatedByUser ?? '',
+                              style: AppTextStyle.mediumBlueBold,
+                            ),
+                            )],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              'Update At: ',
+                              style: AppTextStyle.mediumBlack,
+                            ),
+                            Expanded(child: Text(
+                              model.createdAt.toString().split('.').first,
+                              style: AppTextStyle.mediumBlueBold,
+                            ),
+                            )],
+                        ),
+                      ],
+                    ):Container()
 
                   ],
                 ),

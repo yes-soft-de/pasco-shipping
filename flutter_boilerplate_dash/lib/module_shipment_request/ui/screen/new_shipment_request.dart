@@ -5,6 +5,8 @@ import 'package:im_stepper/stepper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_client/client_routes.dart';
+import 'package:pasco_shipping/module_mark/mark_routes.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_shipment_request/state_manager/request_shipment_state_manager/request_shipment_state_manager.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/screen/first_option.dart';
@@ -113,8 +115,8 @@ class _NewShipmentState extends State<NewShipment> {
                       });
                     });
                   } else if (snapshot.data == 1) {
-                    return SecondOption(
-                        widget._stateManger, _shipmentRequestModel, () {
+                    return SecondOption(stateManger:
+                        widget._stateManger,shipmentRequest:  _shipmentRequestModel,goBackStep:  () {
                       setState(() {
                         activeStep = activeStep - 1;
                         _optionsStreamController.add(activeStep);
@@ -129,7 +131,7 @@ class _NewShipmentState extends State<NewShipment> {
                           }
                         });
                       });
-                    }, () {
+                    },goNextStep:() {
                       setState(() {
                         activeStep = activeStep + 1;
                         _optionsStreamController.add(activeStep);
@@ -143,9 +145,18 @@ class _NewShipmentState extends State<NewShipment> {
                           }
                         });
                       });
-                    });
+                    },goToAddClient: (req){
+                      Navigator.pushNamed(context, ClientRoutes.ADD_NEW).then((value) {
+                        setState(() {
+                          activeStep = 0;
+                          _optionsStreamController.add(activeStep);
+                        });
+                      });
+                    },
+                    );
                   } else {
-                    return ThirdOptions(widget._stateManger,_shipmentRequestModel,(){
+                    return ThirdOptions(stateManger: widget._stateManger,shipmentRequest:_shipmentRequestModel,
+                        goBackStep:(){
                       setState(() {
                         activeStep = activeStep - 1;
                         _optionsStreamController.add(activeStep);
@@ -160,7 +171,14 @@ class _NewShipmentState extends State<NewShipment> {
                           }
                         });
                       });
-                    });
+                    } , goToMark: (){
+                        Navigator.pushNamed(context, MarkRoutes.mark , arguments: {'userID' : _shipmentRequestModel.userID ,'userName':_shipmentRequestModel.userName}).then((value) {
+                          setState(() {
+                            activeStep = 0;
+                            _optionsStreamController.add(activeStep);
+                          });
+                        });
+                      },);
                   }
                 },
               ),

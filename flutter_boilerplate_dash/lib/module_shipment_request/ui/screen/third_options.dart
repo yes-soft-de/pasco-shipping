@@ -12,10 +12,11 @@ import '../../request_routes.dart';
 
 class ThirdOptions extends StatefulWidget {
   final RequestShipmentStateManger stateManger;
-  final ShipmentRequest _shipmentRequest;
+  final ShipmentRequest shipmentRequest;
   final Function goBackStep;
+  final Function goToMark;
   // final Function goNextStep;
-  const ThirdOptions(this.stateManger, this._shipmentRequest, this.goBackStep);
+  const ThirdOptions({required this.stateManger,required this.shipmentRequest,required this.goBackStep,required this.goToMark});
 
   @override
   _SecondOptionState createState() => _SecondOptionState();
@@ -44,7 +45,7 @@ class _SecondOptionState extends State<ThirdOptions> {
     super.didChangeDependencies();
     // final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     // String id =arguments['id'].toString();
-  widget.stateManger.getThirdOption(widget._shipmentRequest.userID.toString());
+  widget.stateManger.getThirdOption(widget.shipmentRequest.userID.toString());
 
 }
   @override
@@ -63,11 +64,13 @@ class _SecondOptionState extends State<ThirdOptions> {
       currentState as ThirdOptionFetchingDataState?;
       return ThirdOptionsSuccessfully(
           distributors: state!.distributors,
-          clients: state.clients,shipmentRequest: widget._shipmentRequest,
+          clients: state.clients,shipmentRequest: widget.shipmentRequest,
           goBackStep: () {
             widget.goBackStep();
           }, onRequest: (request){
             Navigator.pushNamed(context, NewShipmentRoutes.REVIEW_SHIPMENTS , arguments: request);
+      }, goToMark: (){
+            widget.goToMark();
       },);
     } else {
       return Column(

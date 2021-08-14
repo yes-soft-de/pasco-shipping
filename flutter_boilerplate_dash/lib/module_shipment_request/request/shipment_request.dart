@@ -52,7 +52,7 @@ class ShipmentRequest {
         "receiverPhoneNumber": receiverPhoneNumber,
         "paymentTime": paymentTime,
         "exportWarehouseID": exportWarehouseID,
-        "markId": markId,
+        "markID": markId,
         "vehicleIdentificationNumber": vehicleIdentificationNumber,
         "extraSpecification": extraSpecification,
         'image':imageFilePath == null ?'': imageFilePath!,

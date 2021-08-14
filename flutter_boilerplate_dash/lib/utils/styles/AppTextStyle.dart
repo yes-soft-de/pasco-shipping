@@ -229,6 +229,11 @@ abstract class AppTextStyle {
     color: green,
     fontSize: AppFontsSize.getScaledFontSize(AppFontsSize.small_font_size),
   );
+  static final largeGreenBold = TextStyle(
+    color: green,
+    fontSize: AppFontsSize.getScaledFontSize(AppFontsSize.large_font_size),
+      fontWeight: FontWeight.bold
+  );
   static final xSmallGreen = TextStyle(
     color: green,
     fontSize: AppFontsSize.getScaledFontSize(AppFontsSize.x_small_font_size),
@@ -283,6 +288,17 @@ abstract class AppTextStyle {
   static final largeBlue = TextStyle(
     color: blue,
     fontSize: AppFontsSize.getScaledFontSize(AppFontsSize.large_font_size),
+  );
+
+  /// yellow
+  static final normalYellowBold = TextStyle(
+        color: yellow,
+        fontSize: AppFontsSize.getScaledFontSize(AppFontsSize.normal_font_size),
+        fontWeight: FontWeight.bold
+    );
+  static final normalYellow = TextStyle(
+      color: yellow,
+      fontSize: AppFontsSize.getScaledFontSize(AppFontsSize.normal_font_size),
   );
 
   static final Shadow appShadow =  Shadow(color: black.withOpacity(0.35), blurRadius: 6 , offset: Offset(0, 6));

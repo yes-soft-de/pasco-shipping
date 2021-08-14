@@ -120,16 +120,16 @@ class DrawerMenu extends StatelessWidget {
                               ListTile(
                                   title: new Text('in External Warehouse'),
                                   onTap: () {
-                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',);
+                                    // AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',);
                                     Navigator.pushNamed(
-                                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
+                                        context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'transportationType' : 'air','isExternalWarehouse':true});
                                   }),
                               ListTile(
                                   title: new Text('in Local Warehouse'),
                                   onTap: () {
-                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',);
+                                    // AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',);
                                     Navigator.pushNamed(
-                                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
+                                        context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'transportationType' : 'air','isExternalWarehouse':false});
                                   }),
                             ],
                           ),
@@ -141,6 +141,7 @@ class DrawerMenu extends StatelessWidget {
               ),
             ],
           ),
+
           ExpansionTile(
             title: new Text('Accepted Shipment'),
             leading: Icon(Icons.local_shipping_rounded),
@@ -149,48 +150,67 @@ class DrawerMenu extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: [
-                    ListTile(
-                        title: new Text('Sea shipment'),
-                        onTap: () {
-                          AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',);
-                          Navigator.pushNamed(
-                              context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
-                        }),
-                    ListTile(
-                        title: new Text('Air shipment'),
-                        onTap: () {
-                          AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',);
-                          Navigator.pushNamed(
-                              context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
-                        }),
+                    ExpansionTile(
+                      title: new Text('Sea shipment'),
+                      // leading: Icon(Icons.sea),
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              ListTile(
+                                  title: new Text('in External Warehouse'),
+                                  onTap: () {
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea' ,isExternalWarehouse: true);
+                                    Navigator.pushNamed(
+                                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
+                                  }),
+                              ListTile(
+                                  title: new Text('in Local Warehouse'),
+                                  onTap: () {
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false);
+                                    Navigator.pushNamed(
+                                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
+                                  }),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
-            ],
-          ),
-
-          ExpansionTile(
-            title: new Text('Arrived Shipment'),
-            leading: Icon(Icons.local_shipping_rounded),
-            children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: [
-                    ListTile(
-                        title: new Text('Sea shipment'),
-                        onTap: () {
-                          AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',status: 'arrived');
-                          Navigator.pushNamed(
-                              context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
-                        }),
-                    ListTile(
-                        title: new Text('Air shipment'),
-                        onTap: () {
-                          AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',status: 'arrived');
-                          Navigator.pushNamed(
-                              context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
-                        }),
+                    ExpansionTile(
+                      title: new Text('Air shipment'),
+                      // leading: Icon(Icons.sea),
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              ListTile(
+                                  title: new Text('in External Warehouse'),
+                                  onTap: () {
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: true);
+                                    Navigator.pushNamed(
+                                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
+                                  }),
+                              ListTile(
+                                  title: new Text('in Local Warehouse'),
+                                  onTap: () {
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false);
+                                    Navigator.pushNamed(
+                                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
+                                  }),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

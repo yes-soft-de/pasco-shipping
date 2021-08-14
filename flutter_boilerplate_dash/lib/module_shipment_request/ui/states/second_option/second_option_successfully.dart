@@ -6,6 +6,7 @@ import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/text_edit.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
@@ -16,7 +17,8 @@ class SecondOptionSuccessfully extends StatefulWidget {
   final ShipmentRequest shipmentRequest;
   final Function goBackStep;
   final Function goNextPage;
-  SecondOptionSuccessfully({required this.marks,required this.shipmentRequest,required this.goBackStep,required this.goNextPage});
+  final Function goToAddClient;
+  SecondOptionSuccessfully({required this.marks,required this.shipmentRequest,required this.goBackStep,required this.goNextPage,required this.goToAddClient});
 
   @override
   _SecondOptionSuccessfullyState createState() => _SecondOptionSuccessfullyState();
@@ -156,6 +158,11 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                 },
               ),
             ),
+            InkWell(
+                onTap: (){
+                  widget.goToAddClient(widget.shipmentRequest);
+                },
+                child: Icon(Icons.add_circle , color: blue , size: 40,)),
           ],
         ),
         Row(

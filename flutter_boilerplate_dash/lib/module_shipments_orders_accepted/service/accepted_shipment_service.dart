@@ -4,11 +4,13 @@ import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/manager/accepted_shipment_manager.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/measured_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/received_deliered_shipment_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipemnt_finance_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/stored_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/response/shipment_finance_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/warehouse_response.dart';
 
 @injectable
@@ -36,5 +38,12 @@ class AcceptedShipmentService{
  }
  Future<List<WarehouseModel>?> getWarehouse(String type) {
    return _manager.getWarehouse(type);
+ }
+
+ Future<ConfirmResponse?> createShipmentFinance(ShipmentFinanceRequest request) {
+   return _manager.createShipmentFinance(request);
+ }
+ Future<List<ShipmentFinanceModel>?> getShipmentFinance(String id , String trackNumber) {
+   return _manager.getShipmentFinance(id, trackNumber);
  }
 }

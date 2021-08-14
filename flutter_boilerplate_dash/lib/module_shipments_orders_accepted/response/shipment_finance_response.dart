@@ -1,9 +1,7 @@
-
 import 'package:pasco_shipping/utils/logger/logger.dart';
 
-
-class SubProductResponse {
-  SubProductResponse({
+class ShipmentFinanceResponse {
+  ShipmentFinanceResponse({
     this.statusCode,
     this.msg,
     this.data,
@@ -11,15 +9,15 @@ class SubProductResponse {
 
   String? statusCode;
   String? msg;
-  List<SubProductModel>? data;
+  List<ShipmentFinanceModel>? data;
 
-  SubProductResponse.fromJson(Map<String, dynamic> json) {
+  ShipmentFinanceResponse.fromJson(Map<String, dynamic> json) {
     statusCode = json['status_code'];
     msg = json['msg'];
     if (json['Data'] != null) {
-      data = <SubProductModel>[];
+      data = <ShipmentFinanceModel>[];
       try {
-        data = List<SubProductModel>.from(json['Data'].map((x) => SubProductModel.fromJson(x)));
+        data = List<ShipmentFinanceModel>.from(json['Data'].map((x) => ShipmentFinanceModel.fromJson(x)));
       } catch (e, stack) {
         Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
             StackTrace.current);
@@ -29,14 +27,13 @@ class SubProductResponse {
 
 }
 
-class SubProductModel {
-  SubProductModel({
-    this.id,
-    this.name,
-    this.description,
-    this.hscode,
-    this.productCategoryName,
-
+class ShipmentFinanceModel {
+  ShipmentFinanceModel({
+    this.shipmentID,
+    this.trackNumber,
+    this.shipmentStatus,
+    this.stageDescription,
+    this.stageCost,
 
 
     this.createdAt,
@@ -45,12 +42,12 @@ class SubProductModel {
     this.createdByUser
   });
 
-  int? id;
-  String? name;
-  String? description;
-  String? hscode;
-  String? productCategoryName;
-
+  int? shipmentID;
+  String? trackNumber;
+  String? shipmentStatus;
+  String? stageCost;
+  String? stageDescription;
+  String? currency;
 
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -58,13 +55,12 @@ class SubProductModel {
   String? createdByUser;
 
 
-  factory SubProductModel.fromJson(Map<String, dynamic> json) => SubProductModel(
-    id: json['id'],
-    name: json['name']??'',
-    description: json['description']??'',
-    hscode: json['hsCode']??'',
-    productCategoryName :json['productCategoryName']??'',
-
+  factory ShipmentFinanceModel.fromJson(Map<String, dynamic> json) => ShipmentFinanceModel(
+    shipmentID: json['shipmentID'],
+    trackNumber: json['trackNumber'],
+    shipmentStatus: json['shipmentStatus']?? '',
+      stageCost: json['stageCost']?? '',
+    stageDescription: json['stageDescription']?? '',
 
     createdAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),
@@ -85,12 +81,3 @@ class CreatedAt {
     timestamp: json['timestamp'],
   );
 }
-
-
-
-
-
-
-
-
-

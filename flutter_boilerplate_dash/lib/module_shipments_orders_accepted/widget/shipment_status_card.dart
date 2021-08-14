@@ -15,28 +15,43 @@ class AcceptedShipmentStatusCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color:(model.isPassed) ?  blue : Colors.grey ,
+          color:(model.isPassed) ? Colors.blue[900]: Colors.grey ,
         ),
         // color:model.isCurrent  ? AppThemeDataService.AccentColor : Colors.grey[900],
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                 model.isPassed ? Icon(Icons.check_circle ,color: white):Container(),
+                 model.isPassed ? Icon(Icons.check_circle ,color: Colors.green):Container(),
                   SizedBox(width: 10,),
-                  Expanded(child: Text(model.shipmentStatus ??'' , style: model.isPassed ?  AppTextStyle.largeWhiteBold :AppTextStyle.mediumWhite )),
+                  Expanded(child: Text(model.shipmentStatus ??'' , style: model.isPassed ?  AppTextStyle.largeGreenBold :AppTextStyle.mediumWhite )),
                 ],
               ),
               model.isPassed ? Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(model.createdAt.toString().split('.').first, style:AppTextStyle.mediumWhiteBold),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text('Changed At: ',style:AppTextStyle.mediumWhiteBold),
+                    Text(model.createdAt.toString().split('.').first, style:AppTextStyle.mediumWhite),
+                  ],
+                ),
               ): Container(),
               model.isPassed ? Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(model.createdByUser  ??'', style:AppTextStyle.mediumWhiteBold),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text('Changed By: ',style:AppTextStyle.mediumWhiteBold),
+                    Text(model.createdByUser  ??'', style:AppTextStyle.mediumWhite),
+                  ],
+                ),
               ): Container()
 
               // Row(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/module_client/client_routes.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_mark/mark_routes.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
@@ -14,11 +15,12 @@ import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
 class SecondOption extends StatefulWidget {
   final RequestShipmentStateManger stateManger;
-  final ShipmentRequest _shipmentRequest;
+  final ShipmentRequest shipmentRequest;
   final Function goBackStep;
   final Function goNextStep;
-  const SecondOption(this.stateManger, this._shipmentRequest, this.goBackStep,
-      this.goNextStep);
+  final Function goToAddClient;
+  const SecondOption( {required this.stateManger,required this.shipmentRequest,required this.goBackStep,
+     required this.goNextStep,required this.goToAddClient});
 
   @override
   _SecondOptionState createState() => _SecondOptionState();
@@ -56,12 +58,14 @@ class _SecondOptionState extends State<SecondOption> {
     } else if (currentState is SecondOptionFetchingDataState) {
       SecondOptionFetchingDataState? state =
           currentState as SecondOptionFetchingDataState?;
-      return SecondOptionSuccessfully(marks: state!.marks,shipmentRequest: widget._shipmentRequest,
+      return SecondOptionSuccessfully(marks: state!.marks,shipmentRequest: widget.shipmentRequest,
           goBackStep: () {
         widget.goBackStep();
       },goNextPage: () {
         widget.goNextStep();
-      });
+      }, goToAddClient: (shipmentRequest){
+        widget.goToAddClient(shipmentRequest);
+        },);
     } else {
       return Column(
         children: [
