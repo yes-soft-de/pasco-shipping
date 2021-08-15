@@ -27,6 +27,11 @@ class ShipmentLogCreateRequest
         $this->shipmentStatus = $shipmentStatus;
     }
 
+    public function getShipmentStatus()
+    {
+        return $this->shipmentStatus;
+    }
+
     public function setTrackNumber($trackNumber)
     {
         $this->trackNumber = $trackNumber;
