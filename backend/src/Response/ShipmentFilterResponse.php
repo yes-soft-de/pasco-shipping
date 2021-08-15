@@ -46,6 +46,8 @@ class ShipmentFilterResponse
 
     public $weight;
 
+    public $volume;
+
     public $qrCode;
 
     public $guniQuantity;
