@@ -12,11 +12,6 @@ class TrackCreateRequest
 
     private $travelID;
 
-    /**
-     * boolean var refers to if the holder would be uploaded onto different travel or not
-     */
-    private $differentTravel;
-
     private $createdBy;
 
     private $trackNumber;
@@ -101,9 +96,9 @@ class TrackCreateRequest
         return $this->amount;
     }
 
-    public function getDifferentTravel()
+    public function getTravelID()
     {
-        return $this->differentTravel;
+        return $this->travelID;
     }
 
 }

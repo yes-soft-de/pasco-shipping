@@ -7,6 +7,7 @@ use App\Entity\UserEntity;
 use App\Entity\ClientProfileEntity;
 use App\Repository\UserEntityRepository;
 use App\Repository\ClientProfileEntityRepository;
+use App\Request\ClientFilterRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\ClientRegisterByDashboardRequest;
 use App\Request\DeleteRequest;
@@ -221,6 +222,11 @@ class ClientManager
         }
 
         return $clients;
+    }
+
+    public function filterClients(ClientFilterRequest $request)
+    {
+        return $this->clientProfileEntityRepository->filterClients($request->getName());
     }
 
     public function getCountOfAllClientsProfiles()

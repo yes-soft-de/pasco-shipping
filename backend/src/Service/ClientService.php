@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\UserEntity;
 use App\Entity\ClientProfileEntity;
 use App\Manager\ClientManager;
+use App\Request\ClientFilterRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\ClientRegisterByDashboardRequest;
 use App\Request\ClientRegisterRequest;
@@ -125,6 +126,35 @@ class ClientService
         $clientsResponse = [];
 
         $clients = $this->clientManager->getAllClientsProfiles();
+
+        foreach($clients as $client)
+        {
+            if($client['image'])
+            {
+                $client['image'] = $this->params . $client['image'];
+            }
+
+            if($client['createdByUserImage'])
+            {
+                $client['createdByUserImage'] = $this->params . $client['createdByUserImage'];
+            }
+            
+            if($client['updatedByUserImage'])
+            {
+                $client['updatedByUserImage'] = $this->params . $client['updatedByUserImage'];
+            }
+
+            $clientsResponse[] = $this->autoMapping->map('array', ClientFullInfoGetResponse::class, $client);
+        }
+
+        return $clientsResponse;
+    }
+
+    public function filterClients(ClientFilterRequest $request)
+    {
+        $clientsResponse = [];
+
+        $clients = $this->clientManager->filterClients($request);
 
         foreach($clients as $client)
         {

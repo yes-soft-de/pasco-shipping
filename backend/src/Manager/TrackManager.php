@@ -47,8 +47,11 @@ class TrackManager
     {
         /**
          * Now, we have to check if the holder is going to uploaded onto different travel or not
+         * To do that, we just need to check if there is a previous record with the info: shipmentID + trackNumber
          */
-        if($request->getDifferentTravel() == true)
+        $differentTravel = $this->checkIfShipmentGoesOnDifferentTravel($request->getShipmentID(), $request->getTrackNumber(), $request->getTravelID());
+        
+        if($differentTravel)
         {
             // Enter new shipment info with new track number in the ShipmentStatus entity
             $shipmentStatusRequest = $this->autoMapping->map(TrackCreateRequest::class, ShipmentStatusCreateRequest::class, $request);
@@ -480,6 +483,30 @@ class TrackManager
         }
     }
     
+    public function checkIfShipmentGoesOnDifferentTravel($shipmentID, $trackNumber, $travelID)
+    {
+        $tracks = [];
+
+        $tracks = $this->trackEntityRepository->getByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+        
+        if($tracks)
+        {
+            foreach($tracks as $track)
+            {
+                if($track['travelID'] != $travelID)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public function deleteAllTracks()
     {
         return $this->trackEntityRepository->deleteAllTracks();

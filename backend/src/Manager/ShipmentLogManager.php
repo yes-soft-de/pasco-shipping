@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\ShipmentStatusConstant;
 use App\Entity\ShipmentLogEntity;
 use App\Repository\ShipmentLogEntityRepository;
 use App\Request\ShipmentLogCreateRequest;
@@ -30,6 +31,18 @@ class ShipmentLogManager
         $this->entityManager->clear();
 
         return $shipmentLogEntity;
+    }
+
+    public function createShipmentLogsUntillSpecificStatus(ShipmentLogCreateRequest $request)
+    {
+        $key = array_search($request->getShipmentStatus(), ShipmentStatusConstant::$SHIPMENT_STATUS_ARRAY);
+        
+        for($index = 1; $index <= $key; $index++)
+        {
+            $request->setShipmentStatus(ShipmentStatusConstant::$SHIPMENT_STATUS_ARRAY[$index]);
+
+            $this->create($request);
+        }
     }
 
     public function getAllShipmentsLogs()

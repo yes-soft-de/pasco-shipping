@@ -48,6 +48,8 @@ class OrderShipmentGetResponse
 
     public $weight;
 
+    public $volume;
+
     public $qrCode;
 
     public $guniQuantity;

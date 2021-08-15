@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\ClientFilterRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\ClientRegisterByDashboardRequest;
 use App\Request\ClientRegisterRequest;
@@ -319,7 +320,7 @@ class ClientController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="integer", property="Data"),
      *                  @OA\Property(type="string", property="userID"),
      *                  @OA\Property(type="array", property="roles",
      *                      @OA\Items(example="user")
@@ -342,6 +343,64 @@ class ClientController extends BaseController
     public function clientProfilesAll()
     {
         $response = $this->clientService->getAllClientProfiles();
+
+        return $this->response($response, self::FETCH);
+    }
+
+    /**
+     * @Route("/filterclients", name="clientFilter", methods={"POST"})
+     *
+     * @OA\Tag(name="Client")
+     *
+     * @OA\RequestBody(
+     *      description="Filter clients with the following option",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="name")
+     *      )
+     * )
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the new client's profiles which accomodate with the filtering options",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="string", property="userID"),
+     *                  @OA\Property(type="array", property="roles",
+     *                      @OA\Items(example="user")
+     *                  ),
+     *                  @OA\Property(type="object", property="createAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="userName"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="city"),
+     *                  @OA\Property(type="string", property="country"),
+     *                  @OA\Property(type="string", property="location"),
+     *                  @OA\Property(type="string", property="phone")
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function filterClients(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ClientFilterRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $response = $this->clientService->filterClients($request);
 
         return $this->response($response, self::FETCH);
     }

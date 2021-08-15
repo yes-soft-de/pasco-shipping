@@ -83,19 +83,14 @@ class ShipmentStatusManager
         $this->entityManager->flush();
         $this->entityManager->clear();
 
-        //Now, we insert a new log raw with the new track number
+        //Now, we insert logs raws with the new track number
         $shipmentLogRequest = $this->autoMapping->map(ShipmentStatusCreateRequest::class, ShipmentLogCreateRequest::class, $request);
 
         $shipmentLogRequest->setTrackNumber($shipmentStatusEntity->getTrackNumber());
 
-        $this->shipmentLogManager->create($shipmentLogRequest);
+        $this->shipmentLogManager->createShipmentLogsUntillSpecificStatus($shipmentLogRequest);
 
         return $shipmentStatusEntity;
-    }
-
-    public function getUnPackedShipments()
-    {
-        return $this->shipmentStatusEntityRepository->getUnPackedShipments();
     }
 
     public function updateShipmentStatusOfSpecificHolder(ShipmentStatusOfHolderUpdateRequest $request)

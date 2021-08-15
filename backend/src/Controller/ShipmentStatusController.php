@@ -230,69 +230,6 @@ class ShipmentStatusController extends BaseController
     }
 
     /**
-     * @Route("unpackedshipments", name="getUnPackedShipments", methods={"GET"})
-     * @return JsonResponse
-     * 
-     * @OA\Tag(name="Shipment Status")
-     * 
-     * @OA\Response(
-     *      response=200,
-     *      description="Return array of shipments which has not packed into container/airwaybill yet.",
-     *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code"),
-     *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="array", property="Data",
-     *              @OA\Items(
-     *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="string", property="shipmentID"),
-     *                  @OA\Property(type="string", property="trackNumber"),
-     *                  @OA\Property(type="string", property="shipmentStatus"),
-     *                  @OA\Property(type="string", property="statusDetails"),
-     *                  @OA\Property(type="boolean", property="isInOneHolder"),
-     *                  @OA\Property(type="boolean", property="packed"),
-     *                  @OA\Property(type="string", property="transportationType"),
-     *                  @OA\Property(type="string", property="target"),
-     *                  @OA\Property(type="integer", property="supplierID"),
-     *                  @OA\Property(type="string", property="distributorName"),
-     *                  @OA\Property(type="integer", property="exportWarehouseName"),
-     *                  @OA\Property(type="integer", property="importWarehouseName"),
-     *                  @OA\Property(type="string", property="quantity"),
-     *                  @OA\Property(type="string", property="image"),
-     *                  @OA\Property(type="object", property="createdAt"),
-     *                  @OA\Property(type="object", property="updatedAt"),
-     *                  @OA\Property(type="string", property="productCategoryName"),
-     *                  @OA\Property(type="string", property="unit"),
-     *                  @OA\Property(type="string", property="receiverName"),
-     *                  @OA\Property(type="string", property="receiverPhoneNumber"),
-     *                  @OA\Property(type="string", property="packetingBy"),
-     *                  @OA\Property(type="integer", property="markID"),
-     *                  @OA\Property(type="string", property="paymentTime"),
-     *                  @OA\Property(type="float", property="weight"),
-     *                  @OA\Property(type="string", property="qrCode"),
-     *                  @OA\Property(type="integer", property="guniQuantity"),
-     *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
-     *                  @OA\Property(type="string", property="extraSpecification"),
-     *                  @OA\Property(type="string", property="status"),
-     *                  @OA\Property(type="string", property="clientUsername"),
-     *                  @OA\Property(type="string", property="clientUserImage"),
-     *                  @OA\Property(type="string", property="orderUpdatedByUser"),
-     *                  @OA\Property(type="string", property="orderUpdatedByUserImage"),
-     *                  @OA\Property(type="string", property="shipmentStatusCreatedByUser"),
-     *                  @OA\Property(type="string", property="shipmentStatusUpdatedByUser")
-     *              )
-     *          )
-     *      )
-     * )
-     * 
-     */
-    public function getUnPackedShipments()
-    {
-        $result = $this->shipmentStatusService->getUnPackedShipments();
-
-        return $this->response($result, self::FETCH);
-    }
-
-    /**
      * @Route("myshipments/{status}", name="getShipmentsBySignedInUser", methods={"GET"})
      * @return JsonResponse
      *
