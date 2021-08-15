@@ -12,6 +12,8 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepte
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_status_state/accepted_shipment_status_state.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_status_state/accepted_shipment_status_successfully.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
+import 'package:pasco_shipping/module_travel/request/travel_filter_request.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
@@ -48,14 +50,16 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
     String holderType =arguments['holderType'].toString();
     String status =arguments['status'].toString();
     String trackNumber =arguments['trackNumber'].toString();
+    String transportation =arguments['transportation'].toString();
 
     ContainerFilterRequest containerFilterRequest =ContainerFilterRequest(status:ContainerStatusName[ContainerStatus.NOTFULL] ,type: holderType);
+    TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:'cruise');
     if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.ACCEPTED]!) {
       widget._stateManager.getShipmentStatus(id,trackNumber);
     }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]!){
       widget._stateManager.getReceivedStatus(id,cityName,trackNumber);
     }else if (status == AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!){
-      widget._stateManager.getMeasuredStatus(id,containerFilterRequest,trackNumber);
+      widget._stateManager.getMeasuredStatus(id,containerFilterRequest,trackNumber,travelFilterRequest);
     }else {
       widget._stateManager.getShipmentStatus(id,trackNumber);
     }
@@ -101,8 +105,8 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         statusModel: statusModels,
         subcontracts:state.subContracts ,
         warehouse: state.warehouse,
-        onChangeStatus: (re , containerFilterRequest){
-        widget._stateManager.measuredShipment(re, containerFilterRequest);
+        onChangeStatus: (re , containerFilterRequest ,travelFilterRequest){
+        widget._stateManager.measuredShipment(re, containerFilterRequest,travelFilterRequest);
       },
       );
     }
@@ -112,8 +116,9 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
       return AcceptedShipmentStatusMeasured(
         statusModel: statusModels,
         containers:state.containers,
-        onChangeStatus: (request , isSeperate,containers){
-            widget._stateManager.storedShipment(request,isSeperate,containers);
+        travels: state.travels,
+        onChangeStatus: (request , isSeperate,containers ,travels){
+            widget._stateManager.storedShipment(request,isSeperate,containers ,travels);
         },
         // onChangeStatus: (re , containerFilterRequest){
         // },

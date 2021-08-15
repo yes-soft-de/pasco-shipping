@@ -4,6 +4,7 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepte
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/warehouse_response.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_subcontract_services/response/sub_contract_service_response.dart';
+import 'package:pasco_shipping/module_travel/response/travel_response.dart';
 
 class AcceptedShipmentStatusState{}
 
@@ -25,7 +26,8 @@ class ReceivedStatusState extends AcceptedShipmentStatusState{
 class MeasuredStatusState extends AcceptedShipmentStatusState{
   List<AcceptedShipmentStatusModel> model;
   List<ContainerModel> containers;
-  MeasuredStatusState(this.model , this.containers);
+  List<TravelModel> travels;
+  MeasuredStatusState(this.model , this.containers , this.travels);
 }
 class DetailsStatusState extends AcceptedShipmentStatusState{
   List<AcceptedShipmentStatusModel> model;

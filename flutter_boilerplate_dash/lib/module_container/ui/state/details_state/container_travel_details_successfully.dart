@@ -169,10 +169,10 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
           (widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].travelStatus != null && widget.model.shipments![0].travelStatus == TravelStatusName[TravelStatus.CURRENT]) ?
             Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('This container is already included in an existing trip, do you want to change the trip' ,style: AppTextStyle.mediumRed,),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: Text('This container is already included in an existing trip, do you want to change the trip' ,style: AppTextStyle.mediumRed,),
+                // ),
                 selectTravel()
               ],
             ):
@@ -299,26 +299,26 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
 
     return
     Column(children: [
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(children: [
-          Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-          SizedBox(width: 5,),
-          Text('Choose Travel' , style: AppTextStyle.mediumBlackBold,)
-        ],),
-      ),
-      SelectDropList(
-        this.optionItemSelectedTravels,
-        this.dropListModelTravels,
-            (optionItem) {
-          FocusScope.of(context).unfocus();
-          optionItemSelectedTravels = optionItem;
-          travelID = optionItem.id;
-          setState(() {});
-        },
-      ),
-      RoundedButton(lable: 'Done', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
-        AddContainerToTravelRequest re = AddContainerToTravelRequest(holderType: 'container' , holderID: widget.model.id!, travelID: travelID , shipmentStatus: 'uploaded');
+      // Padding(
+      //   padding: const EdgeInsets.all(8.0),
+      //   child: Row(children: [
+      //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+      //     SizedBox(width: 5,),
+      //     Text('Choose Travel' , style: AppTextStyle.mediumBlackBold,)
+      //   ],),
+      // ),
+      // SelectDropList(
+      //   this.optionItemSelectedTravels,
+      //   this.dropListModelTravels,
+      //       (optionItem) {
+      //     FocusScope.of(context).unfocus();
+      //     optionItemSelectedTravels = optionItem;
+      //     travelID = optionItem.id;
+      //     setState(() {});
+      //   },
+      // ),
+      RoundedButton(lable: 'Upload container to travel', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
+        AddContainerToTravelRequest re = AddContainerToTravelRequest(holderType: 'container' , holderID: widget.model.id!, shipmentStatus: 'uploaded');
         widget.onUploadedToTravel(re);
       },radius: 12)
 
@@ -346,7 +346,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
               StatusCard('arrived' ,false),
             ],),
          RoundedButton(lable: 'Next Status', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
-           AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderType: 'container',holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]! , travelID: widget.model.shipments![0].travelID!);
+           AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderType: 'container',holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]!);
               widget.onClearedOrArrived(re1);
 
           },radius: 12)
@@ -373,7 +373,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                   StatusCard('arrived' ,false),
                 ],),
               RoundedButton(lable: 'Next Status', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
-                AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderType: 'container',holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]! , travelID: widget.model.shipments![0].travelID!);
+                AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderType: 'container',holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
                 widget.onClearedOrArrived(re1);
 
               },radius: 12)

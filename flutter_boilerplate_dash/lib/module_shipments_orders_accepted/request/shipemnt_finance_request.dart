@@ -24,7 +24,7 @@ class ShipmentFinanceRequest {
       };
     } else {
       return {
-        'id': shipmentID,
+        'shipmentID': shipmentID,
         'trackNumber': trackNumber,
         'stageDescription': stageDescription,
         'stageCost': stageCost,

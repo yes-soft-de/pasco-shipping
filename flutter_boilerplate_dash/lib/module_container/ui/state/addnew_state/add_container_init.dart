@@ -119,7 +119,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                           width: 5,
                         ),
                         Text(
-                          'Private',
+                          'FCL',
                           style: AppTextStyle.mediumWhite,
                         ),
                       ],
@@ -146,7 +146,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                           width: 5,
                         ),
                         Text(
-                          'Public',
+                          'LCL',
                           style: AppTextStyle.mediumWhite,
                         ),
                       ],

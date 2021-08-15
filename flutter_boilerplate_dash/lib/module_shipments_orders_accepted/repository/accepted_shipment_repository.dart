@@ -171,11 +171,15 @@ class AcceptedShipmentRepository{
     // await _authService.refreshToken();
     var token = Urls.token; // await _authService.getToken();
     try {
-      var response = await _apiClient.get(Urls.SHIPMENT_FINANCE,
+      var response = await _apiClient.get(Urls.SHIPMENT_FINANCE+'/'+ id+'/'+trackNumber,
           headers: {'Authorization': 'Bearer $token'});
-      List<ShipmentFinanceModel>? marks =
-          ShipmentFinanceResponse.fromJson(response!).data;
-      return marks;
+      ShipmentFinanceResponse travelResponse =  ShipmentFinanceResponse.fromJson(response!);
+      List<ShipmentFinanceModel>? travels = [];
+      if(travelResponse.data != null) {
+        travels =
+            ShipmentFinanceResponse.fromJson(response).data;
+      }
+      return travels;
     } catch (_) {
       return null;
     }

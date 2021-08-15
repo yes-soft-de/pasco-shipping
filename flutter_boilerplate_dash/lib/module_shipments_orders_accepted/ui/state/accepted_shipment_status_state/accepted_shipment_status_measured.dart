@@ -17,6 +17,7 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/widget/shipment_
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_subcontract_services/response/sub_contract_service_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/module_travel/response/travel_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
@@ -24,12 +25,15 @@ import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 class AcceptedShipmentStatusMeasured extends StatefulWidget {
   final List<AcceptedShipmentStatusModel> statusModel;
   final List<ContainerModel> containers;
+  final List<TravelModel> travels;
 
   final Function onChangeStatus;
   const AcceptedShipmentStatusMeasured(
       {required this.statusModel,
       required this.onChangeStatus,
-      required this.containers});
+      required this.containers,
+       required this.travels
+      });
 
   @override
   _AcceptedShipmentDetailsSuccessfullyState createState() =>
@@ -50,16 +54,30 @@ class _AcceptedShipmentDetailsSuccessfullyState
   late Entry optionItemSelectedContainer;
   late List<Entry> entryContainer;
 
+  late DropListModel dropListModelTravel;
+  late Entry optionItemSelectedTravel;
+  late List<Entry> entryTravel;
+
+
   late int holderID;
+  late int travelID;
   late bool separateShipment;
+  late bool isDifferentTravel;
 
   @override
   void initState() {
     super.initState();
     entryContainer = <Entry>[];
     optionItemSelectedContainer = Entry('choose', 1, []);
+
+
+    entryTravel = <Entry>[];
+    optionItemSelectedTravel = Entry('choose', 1, []);
+
     holderID = 0;
+    travelID = 0;
     separateShipment = false;
+    isDifferentTravel = false;
 
     iniList();
   }
@@ -70,6 +88,13 @@ class _AcceptedShipmentDetailsSuccessfullyState
       entryContainer.add(v);
     }
     dropListModelContainer = DropListModel(entryContainer);
+
+
+    for (TravelModel item in widget.travels) {
+      Entry v = Entry(item.travelNumber!, item.id!, []);
+      entryTravel.add(v);
+    }
+    dropListModelTravel = DropListModel(entryTravel);
   }
 
   @override
@@ -199,24 +224,37 @@ class _AcceptedShipmentDetailsSuccessfullyState
             setState(() {});
           },
         ),
+
         Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-            padding: EdgeInsets.only(top: 4, left: 16, right: 16, bottom: 4),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                color: Colors.white,
-                boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
-            child: TextField(
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'amount',
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Icon(
+                Icons.circle,
+                color: AppThemeDataService.AccentColor,
               ),
-              controller: amountController,
-            ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                'Choose Travel',
+                style: AppTextStyle.mediumBlackBold,
+              )
+            ],
           ),
         ),
+        SelectDropList(
+          this.optionItemSelectedTravel,
+          this.dropListModelTravel,
+              (optionItem) {
+            FocusScope.of(context).unfocus();
+            optionItemSelectedTravel = optionItem;
+            travelID = optionItem.id;
+            setState(() {});
+          },
+        ),
+
+
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -238,6 +276,24 @@ class _AcceptedShipmentDetailsSuccessfullyState
             ],
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
+            padding: EdgeInsets.only(top: 4, left: 16, right: 16, bottom: 4),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+                color: Colors.white,
+                boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
+            child: TextField(
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'amount',
+              ),
+              controller: amountController,
+            ),
+          ),
+        ) ,
         RoundedButton(
             lable: 'Save',
             icon: '',
@@ -254,8 +310,8 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   AcceptedShipmentStatus.STORED]!,
                   holderID: holderID,
                   holderType: 'container',
-                  amount: int.parse(amountController.text));
-              widget.onChangeStatus(request , separateShipment, widget.containers);
+                  amount: int.parse(amountController.text), travelID: travelID, differentTravel: true);
+              widget.onChangeStatus(request , separateShipment, widget.containers,widget.travels);
             },
             radius: 10),
 
