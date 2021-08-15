@@ -16,6 +16,7 @@ use App\Request\ShipmentFilterRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
 use App\Request\ShipmentStatusCreateRequest;
 use App\Request\ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest;
+use App\Request\ShipmentWaitingFilterRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ShipmentOrderManager
@@ -184,6 +185,12 @@ class ShipmentOrderManager
     public function getCountOfAllShipmentsOrders()
     {
         return count($this->orderShipmentEntityRepository->findAll());
+    }
+
+    public function filterWaitingShipmentsOrders(ShipmentWaitingFilterRequest $request)
+    {
+        return $this->orderShipmentEntityRepository->filterWaitingShipmentsOrders($request->getTransportationType(), $request->getIsExternalWarehouse(), $request->getExportWarehouseName(), 
+        $request->getPaymentTime());
     }
 
     public function filterAcceptedShipments(ShipmentFilterRequest $request)

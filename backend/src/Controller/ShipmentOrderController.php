@@ -10,6 +10,7 @@ use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
 use App\Request\ShipmentFilterRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
+use App\Request\ShipmentWaitingFilterRequest;
 use App\Service\ShipmentOrderService;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -778,11 +779,11 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="transportationType"),
      *                  @OA\Property(type="string", property="target"),
-     *                  @OA\Property(type="integer", property="supplierName"),
-     *                  @OA\Property(type="integer", property="distributorID"),
+     *                  @OA\Property(type="string", property="supplierName"),
+     *                  @OA\Property(type="string", property="distributorName"),
      *                  @OA\Property(type="string", property="exportWarehouseName"),
      *                  @OA\Property(type="string", property="importWarehouseName"),
-     *                  @OA\Property(type="string", property="quantity"),
+     *                  @OA\Property(type="number", property="quantity"),
      *                  @OA\Property(type="string", property="image"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
@@ -791,11 +792,12 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="receiverName"),
      *                  @OA\Property(type="string", property="receiverPhoneNumber"),
      *                  @OA\Property(type="string", property="packetingBy"),
-     *                  @OA\Property(type="integer", property="markID"),
+     *                  @OA\Property(type="string", property="markNumber"),
      *                  @OA\Property(type="string", property="paymentTime"),
-     *                  @OA\Property(type="number", format="float", property="weight"),
+     *                  @OA\Property(type="number", property="weight"),
+     *                  @OA\Property(type="number", property="volume"),
      *                  @OA\Property(type="string", property="qrCode"),
-     *                  @OA\Property(type="string", property="guniQuantity"),
+     *                  @OA\Property(type="number", property="guniQuantity"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
@@ -836,6 +838,88 @@ class ShipmentOrderController extends BaseController
     public function getAcceptedShipmentsOrders()
     {
         $result = $this->shipmentOrderService->getAcceptedShipmentsOrders();
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("filterwaitingshipments", name="filterWaitingShipments", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Shipment Order")
+     *
+     * @OA\RequestBody(
+     *      description="Post a request with filtering option",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="boolean", property="isExternalWarehouse"),
+     *          @OA\Property(type="string", property="transportationType")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Get the whole info of waiting shipment orders being filtered",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="transportationType"),
+     *                  @OA\Property(type="string", property="target"),
+     *                  @OA\Property(type="string", property="supplierName"),
+     *                  @OA\Property(type="string", property="distributorName"),
+     *                  @OA\Property(type="string", property="exportWarehouseName"),
+     *                  @OA\Property(type="string", property="importWarehouseName"),
+     *                  @OA\Property(type="number", property="quantity"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="productCategoryName"),
+     *                  @OA\Property(type="string", property="unit"),
+     *                  @OA\Property(type="string", property="receiverName"),
+     *                  @OA\Property(type="string", property="receiverPhoneNumber"),
+     *                  @OA\Property(type="string", property="packetingBy"),
+     *                  @OA\Property(type="string", property="markNumber"),
+     *                  @OA\Property(type="string", property="paymentTime"),
+     *                  @OA\Property(type="number", property="weight"),
+     *                  @OA\Property(type="number", property="volume"),
+     *                  @OA\Property(type="string", property="qrCode"),
+     *                  @OA\Property(type="number", property="guniQuantity"),
+     *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
+     *                  @OA\Property(type="string", property="extraSpecification"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="array", property="tracks", 
+     *                      @OA\Items()
+     *                  ),
+     *                  @OA\Property(type="text", property="externalWarehouseInfo"),
+     *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
+     *                  @OA\Property(type="string", property="clientUsername"),
+     *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUser"),
+     *                  @OA\Property(type="string", property="orderUpdatedByUserImage")
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function filterWaitingShipmentsOrders(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ShipmentWaitingFilterRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->shipmentOrderService->filterWaitingShipmentsOrders($request);
 
         return $this->response($result, self::FETCH);
     }

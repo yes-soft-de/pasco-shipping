@@ -12,6 +12,7 @@ use App\Request\OrderShipmentUpdateRequest;
 use App\Request\ShipmentFilterRequest;
 use App\Request\ShipmentLogCreateRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
+use App\Request\ShipmentWaitingFilterRequest;
 use App\Response\OrderShipmentByUserGetResponse;
 use App\Response\OrderShipmentCreateResponse;
 use App\Response\OrderShipmentGetResponse;
@@ -234,6 +235,38 @@ class ShipmentOrderService
         }
 
         return $this->autoMapping->map('array', OrderShipmentGetResponse::class, $shipmentOrder);
+    }
+
+    public function filterWaitingShipmentsOrders(ShipmentWaitingFilterRequest $request)
+    {
+        $ordersResponse = [];
+
+        $orders = $this->shipmentOrderManager->filterWaitingShipmentsOrders($request);
+        
+        if($orders)
+        {
+            foreach ($orders as $order)
+            {
+                if($order['image'])
+                {
+                    $order['image'] = $this->params . $order['image'];
+                }
+
+                if($order['clientUserImage'])
+                {
+                    $order['clientUserImage'] = $this->params . $order['clientUserImage'];
+                }
+
+                if($order['orderUpdatedByUserImage'])
+                {
+                    $order['orderUpdatedByUserImage'] = $this->params . $order['orderUpdatedByUserImage'];
+                }
+                
+                $ordersResponse[] = $this->autoMapping->map('array', OrderShipmentGetResponse::class, $order);
+            }
+        }
+
+        return $ordersResponse;
     }
 
     public function filterAcceptedShipments(ShipmentFilterRequest $request)
