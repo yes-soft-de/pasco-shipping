@@ -93,11 +93,6 @@ class ShipmentStatusManager
         return $shipmentStatusEntity;
     }
 
-    public function getUnPackedShipments()
-    {
-        return $this->shipmentStatusEntityRepository->getUnPackedShipments();
-    }
-
     public function updateShipmentStatusOfSpecificHolder(ShipmentStatusOfHolderUpdateRequest $request)
     {
         $shipmentStatusEntity = $this->shipmentStatusEntityRepository->getByShipmentIdAndTrackNumber($request->getShipmentID(), $request->getTrackNumber());

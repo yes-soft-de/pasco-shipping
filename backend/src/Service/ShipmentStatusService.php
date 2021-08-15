@@ -62,40 +62,6 @@ class ShipmentStatusService
         return $this->autoMapping->map(ShipmentStatusEntity::class, ShipmentStatusGetResponse::class, $shipmentStatusEntity);
     }
 
-    public function getUnPackedShipments()
-    {
-        $shipmentsResponse = [];
-
-        $shipmentResults = $this->shipmentStatusManager->getUnPackedShipments();
-
-        foreach($shipmentResults as $shipmentResult)
-        {
-            if($shipmentResult['image'])
-            {
-                $shipmentResult['image'] = $this->params . $shipmentResult['image'];
-            }
-
-            if($shipmentResult['clientUserImage'])
-            {
-                $shipmentResult['clientUserImage'] = $this->params . $shipmentResult['clientUserImage'];
-            }
-
-            if($shipmentResult['orderUpdatedByUserImage'])
-            {
-                $shipmentResult['orderUpdatedByUserImage'] = $this->params . $shipmentResult['orderUpdatedByUserImage'];
-            }
-
-            if($shipmentResult['shipmentStatusCreatedByUserImage'])
-            {
-                $shipmentResult['shipmentStatusCreatedByUserImage'] = $this->params . $shipmentResult['shipmentStatusCreatedByUserImage'];
-            }
-
-            $shipmentsResponse[] = $this->autoMapping->map('array', ShipmentStatusGetResponse::class, $shipmentResult);
-        }
-
-        return $shipmentsResponse;
-    }
-
     public function getShipmentsByTransportationType($transportationType)
     {
         $shipmentsResponse = [];
