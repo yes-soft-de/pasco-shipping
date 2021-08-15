@@ -9,6 +9,9 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/service/accepted
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_status_state/accepted_shipment_status_state.dart';
 import 'package:pasco_shipping/module_sub_contract/service/subcontract_service.dart';
 import 'package:pasco_shipping/module_subcontract_services/service/sub_contract_service.dart';
+import 'package:pasco_shipping/module_travel/request/travel_filter_request.dart';
+import 'package:pasco_shipping/module_travel/response/travel_response.dart';
+import 'package:pasco_shipping/module_travel/service/travel_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 @injectable
@@ -16,11 +19,12 @@ class AcceptedShipmentsStatusStateManager {
   final AcceptedShipmentService _service;
   final SubcontractService _subcontractService;
   final ContainerService _containerService;
+  final TravelService _travelService;
 
   final PublishSubject<AcceptedShipmentStatusState> _stateSubject = PublishSubject();
   Stream<AcceptedShipmentStatusState> get stateStream => _stateSubject.stream;
 
-  AcceptedShipmentsStatusStateManager(this._service, this._subcontractService, this._containerService);
+  AcceptedShipmentsStatusStateManager(this._service, this._subcontractService, this._containerService, this._travelService);
 
   void getShipmentStatus(String id ,String trackNumber) {
     _stateSubject.add(LoadingState());
@@ -65,7 +69,7 @@ class AcceptedShipmentsStatusStateManager {
     });
   }
 
-  void measuredShipment(MeasuredRequest request , ContainerFilterRequest containerFilterRequest){
+  void measuredShipment(MeasuredRequest request , ContainerFilterRequest containerFilterRequest ,TravelFilterRequest travelFilterRequest){
     _stateSubject.add(LoadingState());
     _service.measuredShipment(request).then((value) {
       if(value != null){
@@ -74,7 +78,13 @@ class AcceptedShipmentsStatusStateManager {
             if (model != null) {
               _containerService.getContainersWithFilter(containerFilterRequest).then((containers) {
                 if(containers != null){
-                      _stateSubject.add(MeasuredStatusState(model , containers));
+                  _travelService.getTravelsWithFilter(travelFilterRequest).then((travels){
+                    if(travels != null) {
+                      _stateSubject.add(MeasuredStatusState(model , containers , travels));
+                    }else {
+                      _stateSubject.add(ErrorState('Error'));
+                    }
+                  });
                 }
               });
             }else {
@@ -88,7 +98,7 @@ class AcceptedShipmentsStatusStateManager {
     });
   }
 
-  void storedShipment(StoredRequest request , bool isSaperate , List<ContainerModel> containers){
+  void storedShipment(StoredRequest request , bool isSaperate , List<ContainerModel> containers , List<TravelModel> travels){
     _stateSubject.add(LoadingState());
     _service.storedShipment(request).then((value) {
       if(value != null){
@@ -96,7 +106,7 @@ class AcceptedShipmentsStatusStateManager {
           _service.getAcceptedShipmentStatus(request.shipmentId.toString(),request.trackNumber).then((model) {
             if (model != null) {
               if(isSaperate){
-                _stateSubject.add(MeasuredStatusState(model , containers));
+                _stateSubject.add(MeasuredStatusState(model , containers ,travels));
               }
               else {
                 _stateSubject.add(AcceptedStatusState(model));
@@ -131,12 +141,16 @@ class AcceptedShipmentsStatusStateManager {
     });
   }
 
-  void getMeasuredStatus(String shipmentID ,ContainerFilterRequest containerFilterRequest,String trackNumber){
+  void getMeasuredStatus(String shipmentID ,ContainerFilterRequest containerFilterRequest,String trackNumber ,TravelFilterRequest travelFilterRequest){
     _service.getAcceptedShipmentStatus(shipmentID,trackNumber).then((model) {
       if (model != null) {
         _containerService.getContainersWithFilter(containerFilterRequest).then((containers) {
           if(containers != null){
-            _stateSubject.add(MeasuredStatusState(model , containers));
+            _travelService.getTravelsWithFilter(travelFilterRequest).then((travels){
+              if(travels != null){
+                _stateSubject.add(MeasuredStatusState(model , containers,travels));
+              }
+            });
           }else {
             _stateSubject.add(ErrorState('Error'));
           }

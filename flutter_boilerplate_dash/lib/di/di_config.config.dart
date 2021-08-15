@@ -7,8 +7,8 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../main.dart' as _i229;
-import '../module_auth/authoriazation_module.dart' as _i165;
+import '../main.dart' as _i231;
+import '../module_auth/authoriazation_module.dart' as _i166;
 import '../module_auth/manager/auth_manager/auth_manager.dart' as _i23;
 import '../module_auth/presistance/auth_prefs_helper.dart' as _i4;
 import '../module_auth/repository/auth/auth_repository.dart' as _i20;
@@ -21,40 +21,40 @@ import '../module_auth/state_manager/register_state_manager/register_state_manag
     as _i44;
 import '../module_auth/ui/screen/login_screen/login_screen.dart' as _i87;
 import '../module_auth/ui/screen/register_screen/register_screen.dart' as _i103;
-import '../module_chat/bloc/chat_page/chat_page.bloc.dart' as _i166;
+import '../module_chat/bloc/chat_page/chat_page.bloc.dart' as _i167;
 import '../module_chat/chat_module.dart' as _i58;
 import '../module_chat/manager/chat/chat_manager.dart' as _i57;
 import '../module_chat/repository/chat/chat_repository.dart' as _i26;
 import '../module_chat/service/chat/char_service.dart' as _i59;
 import '../module_chat/ui/screen/chat_page/chat_page_screen.dart' as _i5;
 import '../module_chat/ui/screen/chats_list/chats_list_screen.dart' as _i27;
-import '../module_client/client_module.dart' as _i207;
+import '../module_client/client_module.dart' as _i209;
 import '../module_client/manager/client_manager.dart' as _i60;
 import '../module_client/repository/client_repository.dart' as _i28;
 import '../module_client/service/client_service.dart' as _i61;
 import '../module_client/state_manager/client_state_manager.dart' as _i62;
-import '../module_client/state_manager/new_client_state_manger.dart' as _i146;
-import '../module_client/ui/screen/add_new_client_screen.dart' as _i151;
-import '../module_client/ui/screen/client_screen.dart' as _i167;
-import '../module_container/container_module.dart' as _i210;
+import '../module_client/state_manager/new_client_state_manger.dart' as _i147;
+import '../module_client/ui/screen/add_new_client_screen.dart' as _i152;
+import '../module_client/ui/screen/client_screen.dart' as _i168;
+import '../module_container/container_module.dart' as _i212;
 import '../module_container/manager/container_manager.dart' as _i63;
 import '../module_container/repository/container_repository.dart' as _i29;
 import '../module_container/service/container_service.dart' as _i64;
 import '../module_container/state_manger/container_state_manager.dart' as _i69;
 import '../module_container/state_manger/details_container_state_manager.dart'
-    as _i168;
+    as _i169;
 import '../module_container/state_manger/filter_container_state_manger.dart'
-    as _i175;
+    as _i176;
 import '../module_container/state_manger/new_container_state_manger.dart'
-    as _i148;
-import '../module_container/ui/screen/container_details_screen.dart' as _i208;
-import '../module_container/ui/screen/container_filter_screen.dart' as _i209;
-import '../module_container/ui/screen/container_new_screen.dart' as _i152;
-import '../module_container/ui/screen/container_screen.dart' as _i169;
+    as _i149;
+import '../module_container/ui/screen/container_details_screen.dart' as _i210;
+import '../module_container/ui/screen/container_filter_screen.dart' as _i211;
+import '../module_container/ui/screen/container_new_screen.dart' as _i153;
+import '../module_container/ui/screen/container_screen.dart' as _i170;
 import '../module_container/ui/screen/container_shipment_review_screen.dart'
     as _i6;
 import '../module_container_specification/container_specification_module.dart'
-    as _i170;
+    as _i171;
 import '../module_container_specification/manager/container_specification_manager.dart'
     as _i65;
 import '../module_container_specification/repository/container_specification_repository.dart'
@@ -64,31 +64,31 @@ import '../module_container_specification/service/container_specification_servic
 import '../module_container_specification/state_manger/container_specification_state_manager.dart'
     as _i67;
 import '../module_container_specification/state_manger/new_container_specification_state_manger.dart'
-    as _i147;
+    as _i148;
 import '../module_container_specification/ui/screen/containerSpecification_new_screen.dart'
-    as _i153;
+    as _i154;
 import '../module_container_specification/ui/screen/containerSpecification_screen.dart'
     as _i68;
-import '../module_countries/country_module.dart' as _i172;
+import '../module_countries/country_module.dart' as _i173;
 import '../module_countries/manager/country_manager.dart' as _i70;
 import '../module_countries/repository/country_repository.dart' as _i31;
 import '../module_countries/service/country_service.dart' as _i71;
 import '../module_countries/state_manger/coutries_state_manager.dart' as _i72;
 import '../module_countries/state_manger/new_country_state_manger.dart'
-    as _i149;
-import '../module_countries/ui/screen/countries_screen.dart' as _i171;
-import '../module_countries/ui/screen/country_new_screen.dart' as _i154;
-import '../module_distributors/distributors_module.dart' as _i173;
+    as _i150;
+import '../module_countries/ui/screen/countries_screen.dart' as _i172;
+import '../module_countries/ui/screen/country_new_screen.dart' as _i155;
+import '../module_distributors/distributors_module.dart' as _i174;
 import '../module_distributors/manager/distributors_manager.dart' as _i73;
 import '../module_distributors/repository/distributors_repository.dart' as _i32;
 import '../module_distributors/service/distributors_service.dart' as _i74;
 import '../module_distributors/state_manger/distributors_state_manager.dart'
     as _i75;
 import '../module_distributors/state_manger/new_distributors_state_manger.dart'
-    as _i150;
-import '../module_distributors/ui/screen/distributors_new_screen.dart' as _i155;
+    as _i151;
+import '../module_distributors/ui/screen/distributors_new_screen.dart' as _i156;
 import '../module_distributors/ui/screen/distributors_screen.dart' as _i76;
-import '../module_edit_shipment/edit_shipment_module.dart' as _i174;
+import '../module_edit_shipment/edit_shipment_module.dart' as _i175;
 import '../module_edit_shipment/manager/edit_shipment_manager.dart' as _i77;
 import '../module_edit_shipment/repository/edit_shipment_repository.dart'
     as _i33;
@@ -96,30 +96,30 @@ import '../module_edit_shipment/service/editshipment_service.dart' as _i78;
 import '../module_edit_shipment/state_manager/confirmed_state_manager.dart'
     as _i79;
 import '../module_edit_shipment/ui/screen/edited_shipment_screen.dart' as _i80;
-import '../module_home/home_module.dart' as _i211;
+import '../module_home/home_module.dart' as _i213;
 import '../module_home/manager/home_manager.dart' as _i84;
 import '../module_home/repository/home_repository.dart' as _i35;
 import '../module_home/service/home_service.dart' as _i85;
 import '../module_home/state_manager/state_manager_home.dart' as _i86;
-import '../module_home/ui/screen/home_screen.dart' as _i177;
+import '../module_home/ui/screen/home_screen.dart' as _i178;
 import '../module_localization/presistance/localization_preferences_helper/localization_preferences_helper.dart'
     as _i8;
 import '../module_localization/service/localization_service/localization_service.dart'
     as _i9;
 import '../module_mark/manager/mark_manager.dart' as _i88;
-import '../module_mark/mark_module.dart' as _i212;
+import '../module_mark/mark_module.dart' as _i214;
 import '../module_mark/repository/mark_repository.dart' as _i38;
 import '../module_mark/service/mark_service.dart' as _i89;
 import '../module_mark/state_manager/mark_state_manager.dart' as _i90;
-import '../module_mark/ui/mark_screen.dart' as _i178;
+import '../module_mark/ui/mark_screen.dart' as _i179;
 import '../module_my_shipment/manager/my_shipment_manager.dart' as _i91;
-import '../module_my_shipment/my_shipment_module.dart' as _i213;
+import '../module_my_shipment/my_shipment_module.dart' as _i215;
 import '../module_my_shipment/repository/my_shipment_repository.dart' as _i39;
 import '../module_my_shipment/service/my_shipment_service.dart' as _i92;
 import '../module_my_shipment/state_manager/my_shipment_state_manger.dart'
     as _i93;
 import '../module_my_shipment/ui/screen/my_shipment_review.dart' as _i15;
-import '../module_my_shipment/ui/screen/my_shipment_screen.dart' as _i179;
+import '../module_my_shipment/ui/screen/my_shipment_screen.dart' as _i180;
 import '../module_network/http_client/http_client.dart' as _i18;
 import '../module_notifications/notification_module.dart' as _i21;
 import '../module_notifications/preferences/notification_preferences/notification_preferences.dart'
@@ -132,16 +132,16 @@ import '../module_notifications/service/local_notification_service/local_notific
 import '../module_notifications/ui/notification_screen.dart' as _i11;
 import '../module_product_category/manager/product_category_manager.dart'
     as _i94;
-import '../module_product_category/product_module.dart' as _i215;
+import '../module_product_category/product_module.dart' as _i217;
 import '../module_product_category/repository/product_category_repository.dart'
     as _i41;
 import '../module_product_category/service/product_service.dart' as _i95;
 import '../module_product_category/state_manger/new_product_state_manger.dart'
-    as _i156;
+    as _i157;
 import '../module_product_category/state_manger/products_state_manager.dart'
     as _i96;
-import '../module_product_category/ui/screen/product_new_screen.dart' as _i198;
-import '../module_product_category/ui/screen/products_screen.dart' as _i181;
+import '../module_product_category/ui/screen/product_new_screen.dart' as _i200;
+import '../module_product_category/ui/screen/products_screen.dart' as _i182;
 import '../module_product_sub_category/manager/product_sub_category_manager.dart'
     as _i113;
 import '../module_product_sub_category/repository/product_sub_category_repository.dart'
@@ -149,33 +149,33 @@ import '../module_product_sub_category/repository/product_sub_category_repositor
 import '../module_product_sub_category/service/sub_product_service.dart'
     as _i114;
 import '../module_product_sub_category/state_manger/new_sub_product_state_manger.dart'
-    as _i159;
+    as _i160;
 import '../module_product_sub_category/state_manger/subs_products_state_manager.dart'
     as _i115;
-import '../module_product_sub_category/sub_product_module.dart' as _i219;
+import '../module_product_sub_category/sub_product_module.dart' as _i221;
 import '../module_product_sub_category/ui/screen/sub_product_new_screen.dart'
-    as _i201;
+    as _i203;
 import '../module_product_sub_category/ui/screen/sub_products_screen.dart'
-    as _i187;
+    as _i188;
 import '../module_profile/manager/profile_manager.dart' as _i97;
-import '../module_profile/profile_module.dart' as _i216;
+import '../module_profile/profile_module.dart' as _i218;
 import '../module_profile/repository/profile_repository.dart' as _i42;
 import '../module_profile/service/profile_service.dart' as _i98;
 import '../module_profile/state_manager/profile_state_manager.dart' as _i99;
-import '../module_profile/ui/profile_screen.dart' as _i182;
+import '../module_profile/ui/profile_screen.dart' as _i183;
 import '../module_proxies/manager/proxies_manager.dart' as _i100;
-import '../module_proxies/proxies_module.dart' as _i217;
+import '../module_proxies/proxies_module.dart' as _i219;
 import '../module_proxies/repository/proxies_repository.dart' as _i43;
 import '../module_proxies/service/proixes_service.dart' as _i101;
-import '../module_proxies/state_manger/new_proxies_state_manger.dart' as _i157;
+import '../module_proxies/state_manger/new_proxies_state_manger.dart' as _i158;
 import '../module_proxies/state_manger/proxies_state_manager.dart' as _i102;
-import '../module_proxies/ui/screen/proxies_screen.dart' as _i183;
-import '../module_proxies/ui/screen/proxy_new_screen.dart' as _i199;
+import '../module_proxies/ui/screen/proxies_screen.dart' as _i184;
+import '../module_proxies/ui/screen/proxy_new_screen.dart' as _i201;
 import '../module_report/manager/report_manager.dart' as _i104;
 import '../module_report/presistance/report_prefs_helper.dart' as _i14;
 import '../module_report/repository/report_repository.dart' as _i45;
 import '../module_report/service/report_service.dart' as _i105;
-import '../module_settings/settings_module.dart' as _i185;
+import '../module_settings/settings_module.dart' as _i186;
 import '../module_settings/ui/settings_page/settings_page.dart' as _i108;
 import '../module_shipment_previous/shipment_previous_module.dart' as _i13;
 import '../module_shipment_request/manager/product_category_manager/product_category_manager.dart'
@@ -184,24 +184,24 @@ import '../module_shipment_request/repository/product_category_repository/produc
     as _i34;
 import '../module_shipment_request/service/shipment_request_service/first_option_service.dart'
     as _i83;
-import '../module_shipment_request/shipment_request_module.dart' as _i214;
+import '../module_shipment_request/shipment_request_module.dart' as _i216;
 import '../module_shipment_request/state_manager/request_shipment_state_manager/request_shipment_state_manager.dart'
     as _i106;
 import '../module_shipment_request/state_manager/review_shipment_state_manager.dart'
     as _i107;
 import '../module_shipment_request/ui/screen/new_shipment_request.dart'
-    as _i180;
+    as _i181;
 import '../module_shipment_request/ui/screen/review_shipment_screen.dart'
-    as _i184;
+    as _i185;
 import '../module_shipment_track/manager/tracking_manager.dart' as _i123;
 import '../module_shipment_track/repository/tracking_repository.dart' as _i51;
 import '../module_shipment_track/service/tracking_service.dart' as _i124;
 import '../module_shipment_track/state_manager/tracking_state_manager.dart'
     as _i125;
-import '../module_shipment_track/tracking_module.dart' as _i222;
-import '../module_shipment_track/ui/tarcing_screen.dart' as _i189;
+import '../module_shipment_track/tracking_module.dart' as _i224;
+import '../module_shipment_track/ui/tarcing_screen.dart' as _i190;
 import '../module_shipments_orders_accepted/accepted_shipment_module.dart'
-    as _i228;
+    as _i230;
 import '../module_shipments_orders_accepted/manager/accepted_shipment_manager.dart'
     as _i141;
 import '../module_shipments_orders_accepted/repository/accepted_shipment_repository.dart'
@@ -210,16 +210,20 @@ import '../module_shipments_orders_accepted/service/accepted_shipment_service.da
     as _i142;
 import '../module_shipments_orders_accepted/state_manager/accepted_shipment_details_state_manager.dart'
     as _i143;
-import '../module_shipments_orders_accepted/state_manager/accepted_shipment_state_manager.dart'
+import '../module_shipments_orders_accepted/state_manager/accepted_shipment_finance_state_manager.dart'
     as _i144;
-import '../module_shipments_orders_accepted/state_manager/accepted_shipment_status_state_manager.dart'
+import '../module_shipments_orders_accepted/state_manager/accepted_shipment_state_manager.dart'
     as _i145;
+import '../module_shipments_orders_accepted/state_manager/accepted_shipment_status_state_manager.dart'
+    as _i146;
 import '../module_shipments_orders_accepted/ui/screen/accepted_shipment_details_screen.dart'
-    as _i195;
-import '../module_shipments_orders_accepted/ui/screen/accepted_shipment_screen.dart'
     as _i196;
-import '../module_shipments_orders_accepted/ui/screen/accepted_shipment_status_screen.dart'
+import '../module_shipments_orders_accepted/ui/screen/accepted_shipment_finance_screen.dart'
     as _i197;
+import '../module_shipments_orders_accepted/ui/screen/accepted_shipment_screen.dart'
+    as _i198;
+import '../module_shipments_orders_accepted/ui/screen/accepted_shipment_status_screen.dart'
+    as _i199;
 import '../module_shipments_orders_accepted/ui/screen/filter_accepted_shipment_screen.dart'
     as _i3;
 import '../module_shipments_orders_waiting/manager/waiting_shipment_manager.dart'
@@ -235,21 +239,21 @@ import '../module_shipments_orders_waiting/state_manager/waiting_shipment_state_
 import '../module_shipments_orders_waiting/ui/screen/waiting_shipment_details_screen.dart'
     as _i137;
 import '../module_shipments_orders_waiting/ui/screen/waiting_shipment_screen.dart'
-    as _i193;
+    as _i194;
 import '../module_shipments_orders_waiting/waiting_shipment_module.dart'
-    as _i226;
+    as _i228;
 import '../module_splash/splash_module.dart' as _i109;
 import '../module_splash/ui/screen/splash_screen.dart' as _i46;
 import '../module_sub_contract/manager/subcontract_manager.dart' as _i116;
 import '../module_sub_contract/repository/subcontract_repository.dart' as _i49;
 import '../module_sub_contract/service/subcontract_service.dart' as _i117;
 import '../module_sub_contract/state_manger/new_subcontract_state_manger.dart'
-    as _i160;
+    as _i161;
 import '../module_sub_contract/state_manger/subcontracts_state_manager.dart'
     as _i118;
-import '../module_sub_contract/subcontract_module.dart' as _i220;
-import '../module_sub_contract/ui/screen/subcontract_new_screen.dart' as _i202;
-import '../module_sub_contract/ui/screen/subcontracts_screen.dart' as _i188;
+import '../module_sub_contract/subcontract_module.dart' as _i222;
+import '../module_sub_contract/ui/screen/subcontract_new_screen.dart' as _i204;
+import '../module_sub_contract/ui/screen/subcontracts_screen.dart' as _i189;
 import '../module_subcontract_services/manager/sub_contract_service_manager.dart'
     as _i110;
 import '../module_subcontract_services/repository/sub_contract_service_repository.dart'
@@ -257,23 +261,23 @@ import '../module_subcontract_services/repository/sub_contract_service_repositor
 import '../module_subcontract_services/service/sub_contract_service.dart'
     as _i111;
 import '../module_subcontract_services/state_manger/new_contract_service_state_manger.dart'
-    as _i158;
+    as _i159;
 import '../module_subcontract_services/state_manger/sub_contract_services_state_manager.dart'
     as _i112;
 import '../module_subcontract_services/sub_contract_service_module.dart'
-    as _i218;
+    as _i220;
 import '../module_subcontract_services/ui/screen/sub_contract_service_new_screen.dart'
-    as _i200;
+    as _i202;
 import '../module_subcontract_services/ui/screen/sub_contract_service_screen.dart'
-    as _i186;
+    as _i187;
 import '../module_suppliers/manager/suppliers_manager.dart' as _i119;
 import '../module_suppliers/repository/suppliers_repository.dart' as _i50;
 import '../module_suppliers/service/suppliers_service.dart' as _i120;
 import '../module_suppliers/state_manger/new_suppliers_state_manger.dart'
-    as _i161;
+    as _i162;
 import '../module_suppliers/state_manger/suppliers_state_manager.dart' as _i121;
-import '../module_suppliers/supplier_module.dart' as _i221;
-import '../module_suppliers/ui/screen/suppliers_new_screen.dart' as _i203;
+import '../module_suppliers/supplier_module.dart' as _i223;
+import '../module_suppliers/ui/screen/suppliers_new_screen.dart' as _i205;
 import '../module_suppliers/ui/screen/suppliers_screen.dart' as _i122;
 import '../module_theme/pressistance/theme_preferences_helper.dart' as _i16;
 import '../module_theme/service/theme_service/theme_service.dart' as _i19;
@@ -281,23 +285,23 @@ import '../module_travel/manager/travel_manager.dart' as _i126;
 import '../module_travel/repository/travel_repository.dart' as _i52;
 import '../module_travel/service/travel_service.dart' as _i127;
 import '../module_travel/state_manger/details_travel_state_manager.dart'
-    as _i190;
-import '../module_travel/state_manger/filter_travel_state_manger.dart' as _i176;
-import '../module_travel/state_manger/new_travel_state_manger.dart' as _i162;
+    as _i191;
+import '../module_travel/state_manger/filter_travel_state_manger.dart' as _i177;
+import '../module_travel/state_manger/new_travel_state_manger.dart' as _i163;
 import '../module_travel/state_manger/travels_state_manager.dart' as _i128;
-import '../module_travel/travel_module.dart' as _i224;
-import '../module_travel/ui/screen/travel_details_screen.dart' as _i223;
-import '../module_travel/ui/screen/travel_filter_screen.dart' as _i191;
-import '../module_travel/ui/screen/travel_new_screen.dart' as _i204;
-import '../module_travel/ui/screen/travel_screen.dart' as _i192;
+import '../module_travel/travel_module.dart' as _i226;
+import '../module_travel/ui/screen/travel_details_screen.dart' as _i225;
+import '../module_travel/ui/screen/travel_filter_screen.dart' as _i192;
+import '../module_travel/ui/screen/travel_new_screen.dart' as _i206;
+import '../module_travel/ui/screen/travel_screen.dart' as _i193;
 import '../module_unit/manager/unit_manager.dart' as _i129;
 import '../module_unit/repository/unit_repository.dart' as _i53;
 import '../module_unit/service/unit_service.dart' as _i130;
-import '../module_unit/state_manger/new_unit_state_manger.dart' as _i163;
+import '../module_unit/state_manger/new_unit_state_manger.dart' as _i164;
 import '../module_unit/state_manger/units_state_manager.dart' as _i131;
-import '../module_unit/ui/screen/unit_new_screen.dart' as _i205;
+import '../module_unit/ui/screen/unit_new_screen.dart' as _i207;
 import '../module_unit/ui/screen/units_screen.dart' as _i132;
-import '../module_unit/unit_module.dart' as _i225;
+import '../module_unit/unit_module.dart' as _i227;
 import '../module_upload/manager/upload_manager/upload_manager.dart' as _i22;
 import '../module_upload/repository/upload_repository/upload_repository.dart'
     as _i17;
@@ -307,12 +311,12 @@ import '../module_warehouses/manager/warehouses_manager.dart' as _i138;
 import '../module_warehouses/repository/warehouse_repository.dart' as _i55;
 import '../module_warehouses/service/warehouse_service.dart' as _i139;
 import '../module_warehouses/state_manger/new_warehouse_state_manger.dart'
-    as _i164;
+    as _i165;
 import '../module_warehouses/state_manger/warehouse_state_manager.dart'
     as _i140;
-import '../module_warehouses/ui/screen/warehouse_new_screen.dart' as _i206;
-import '../module_warehouses/ui/screen/warehouse_screen.dart' as _i194;
-import '../module_warehouses/warehouse_module.dart' as _i227;
+import '../module_warehouses/ui/screen/warehouse_new_screen.dart' as _i208;
+import '../module_warehouses/ui/screen/warehouse_screen.dart' as _i195;
+import '../module_warehouses/warehouse_module.dart' as _i229;
 import '../utils/logger/logger.dart'
     as _i10; // ignore_for_file: unnecessary_lambdas
 
@@ -612,241 +616,249 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i143.AcceptedShipmentsDetailsStateManager>(() =>
       _i143.AcceptedShipmentsDetailsStateManager(
           get<_i142.AcceptedShipmentService>(), get<_i64.ContainerService>()));
-  gh.factory<_i144.AcceptedShipmentsStateManager>(() =>
-      _i144.AcceptedShipmentsStateManager(
+  gh.factory<_i144.AcceptedShipmentsFinanceStateManager>(() =>
+      _i144.AcceptedShipmentsFinanceStateManager(
           get<_i142.AcceptedShipmentService>()));
-  gh.factory<_i145.AcceptedShipmentsStatusStateManager>(() =>
-      _i145.AcceptedShipmentsStatusStateManager(
+  gh.factory<_i145.AcceptedShipmentsStateManager>(() =>
+      _i145.AcceptedShipmentsStateManager(
+          get<_i142.AcceptedShipmentService>()));
+  gh.factory<_i146.AcceptedShipmentsStatusStateManager>(() =>
+      _i146.AcceptedShipmentsStatusStateManager(
           get<_i142.AcceptedShipmentService>(),
           get<_i117.SubcontractService>(),
-          get<_i64.ContainerService>()));
-  gh.factory<_i146.AddClientStateManager>(
-      () => _i146.AddClientStateManager(get<_i61.ClientService>()));
-  gh.factory<_i147.AddContainerSpecificationStateManager>(() =>
-      _i147.AddContainerSpecificationStateManager(
+          get<_i64.ContainerService>(),
+          get<_i127.TravelService>()));
+  gh.factory<_i147.AddClientStateManager>(
+      () => _i147.AddClientStateManager(get<_i61.ClientService>()));
+  gh.factory<_i148.AddContainerSpecificationStateManager>(() =>
+      _i148.AddContainerSpecificationStateManager(
           get<_i66.ContainerSpecificationService>()));
-  gh.factory<_i148.AddContainerStateManager>(() =>
-      _i148.AddContainerStateManager(
+  gh.factory<_i149.AddContainerStateManager>(() =>
+      _i149.AddContainerStateManager(
           get<_i64.ContainerService>(),
           get<_i117.SubcontractService>(),
           get<_i66.ContainerSpecificationService>()));
-  gh.factory<_i149.AddCountryStateManager>(
-      () => _i149.AddCountryStateManager(get<_i71.CountryService>()));
-  gh.factory<_i150.AddDistributorStateManager>(
-      () => _i150.AddDistributorStateManager(get<_i74.DistributorService>()));
-  gh.factory<_i151.AddNewClient>(
-      () => _i151.AddNewClient(get<_i146.AddClientStateManager>()));
-  gh.factory<_i152.AddNewContainer>(
-      () => _i152.AddNewContainer(get<_i148.AddContainerStateManager>()));
-  gh.factory<_i153.AddNewContainerSpecification>(() =>
-      _i153.AddNewContainerSpecification(
-          get<_i147.AddContainerSpecificationStateManager>()));
-  gh.factory<_i154.AddNewCountry>(
-      () => _i154.AddNewCountry(get<_i149.AddCountryStateManager>()));
-  gh.factory<_i155.AddNewDistributor>(
-      () => _i155.AddNewDistributor(get<_i150.AddDistributorStateManager>()));
-  gh.factory<_i156.AddProductStateManager>(
-      () => _i156.AddProductStateManager(get<_i95.ProductService>()));
-  gh.factory<_i157.AddProxyStateManager>(
-      () => _i157.AddProxyStateManager(get<_i101.ProxyService>()));
-  gh.factory<_i158.AddSubContractServiceStateManager>(() =>
-      _i158.AddSubContractServiceStateManager(
+  gh.factory<_i150.AddCountryStateManager>(
+      () => _i150.AddCountryStateManager(get<_i71.CountryService>()));
+  gh.factory<_i151.AddDistributorStateManager>(
+      () => _i151.AddDistributorStateManager(get<_i74.DistributorService>()));
+  gh.factory<_i152.AddNewClient>(
+      () => _i152.AddNewClient(get<_i147.AddClientStateManager>()));
+  gh.factory<_i153.AddNewContainer>(
+      () => _i153.AddNewContainer(get<_i149.AddContainerStateManager>()));
+  gh.factory<_i154.AddNewContainerSpecification>(() =>
+      _i154.AddNewContainerSpecification(
+          get<_i148.AddContainerSpecificationStateManager>()));
+  gh.factory<_i155.AddNewCountry>(
+      () => _i155.AddNewCountry(get<_i150.AddCountryStateManager>()));
+  gh.factory<_i156.AddNewDistributor>(
+      () => _i156.AddNewDistributor(get<_i151.AddDistributorStateManager>()));
+  gh.factory<_i157.AddProductStateManager>(
+      () => _i157.AddProductStateManager(get<_i95.ProductService>()));
+  gh.factory<_i158.AddProxyStateManager>(
+      () => _i158.AddProxyStateManager(get<_i101.ProxyService>()));
+  gh.factory<_i159.AddSubContractServiceStateManager>(() =>
+      _i159.AddSubContractServiceStateManager(
           get<_i111.SubContractServiceService>()));
-  gh.factory<_i159.AddSubProductStateManager>(() =>
-      _i159.AddSubProductStateManager(
+  gh.factory<_i160.AddSubProductStateManager>(() =>
+      _i160.AddSubProductStateManager(
           get<_i114.SubProductService>(), get<_i95.ProductService>()));
-  gh.factory<_i160.AddSubcontractStateManager>(() =>
-      _i160.AddSubcontractStateManager(get<_i111.SubContractServiceService>(),
+  gh.factory<_i161.AddSubcontractStateManager>(() =>
+      _i161.AddSubcontractStateManager(get<_i111.SubContractServiceService>(),
           get<_i117.SubcontractService>()));
-  gh.factory<_i161.AddSupplierStateManager>(
-      () => _i161.AddSupplierStateManager(get<_i120.SupplierService>()));
-  gh.factory<_i162.AddTravelStateManager>(() => _i162.AddTravelStateManager(
+  gh.factory<_i162.AddSupplierStateManager>(
+      () => _i162.AddSupplierStateManager(get<_i120.SupplierService>()));
+  gh.factory<_i163.AddTravelStateManager>(() => _i163.AddTravelStateManager(
       get<_i127.TravelService>(),
       get<_i71.CountryService>(),
       get<_i117.SubcontractService>()));
-  gh.factory<_i163.AddUnitStateManager>(
-      () => _i163.AddUnitStateManager(get<_i130.UnitService>()));
-  gh.factory<_i164.AddWarehouseStateManager>(() =>
-      _i164.AddWarehouseStateManager(
+  gh.factory<_i164.AddUnitStateManager>(
+      () => _i164.AddUnitStateManager(get<_i130.UnitService>()));
+  gh.factory<_i165.AddWarehouseStateManager>(() =>
+      _i165.AddWarehouseStateManager(
           get<_i139.WarehouseService>(),
           get<_i117.SubcontractService>(),
           get<_i101.ProxyService>(),
           get<_i71.CountryService>()));
-  gh.factory<_i165.AuthorizationModule>(() => _i165.AuthorizationModule(
+  gh.factory<_i166.AuthorizationModule>(() => _i166.AuthorizationModule(
       get<_i87.LoginScreen>(), get<_i103.RegisterScreen>()));
-  gh.factory<_i166.ChatPageBloc>(
-      () => _i166.ChatPageBloc(get<_i59.ChatService>()));
-  gh.factory<_i167.ClientsScreen>(
-      () => _i167.ClientsScreen(get<_i62.ClientsStateManager>()));
-  gh.factory<_i168.ContainerDetailsStateManager>(() =>
-      _i168.ContainerDetailsStateManager(
+  gh.factory<_i167.ChatPageBloc>(
+      () => _i167.ChatPageBloc(get<_i59.ChatService>()));
+  gh.factory<_i168.ClientsScreen>(
+      () => _i168.ClientsScreen(get<_i62.ClientsStateManager>()));
+  gh.factory<_i169.ContainerDetailsStateManager>(() =>
+      _i169.ContainerDetailsStateManager(
           get<_i64.ContainerService>(), get<_i127.TravelService>()));
-  gh.factory<_i169.ContainerScreen>(
-      () => _i169.ContainerScreen(get<_i69.ContainerStateManager>()));
-  gh.factory<_i170.ContainerSpecificationModule>(() =>
-      _i170.ContainerSpecificationModule(
+  gh.factory<_i170.ContainerScreen>(
+      () => _i170.ContainerScreen(get<_i69.ContainerStateManager>()));
+  gh.factory<_i171.ContainerSpecificationModule>(() =>
+      _i171.ContainerSpecificationModule(
           get<_i68.ContainerSpecificationsScreen>(),
-          get<_i153.AddNewContainerSpecification>()));
-  gh.factory<_i171.CountriesScreen>(
-      () => _i171.CountriesScreen(get<_i72.CountryStateManager>()));
-  gh.factory<_i172.CountryModule>(() => _i172.CountryModule(
-      get<_i171.CountriesScreen>(), get<_i154.AddNewCountry>()));
-  gh.factory<_i173.DistributorsModule>(() => _i173.DistributorsModule(
-      get<_i76.DistributorsScreen>(), get<_i155.AddNewDistributor>()));
-  gh.factory<_i174.EditShipmentModule>(
-      () => _i174.EditShipmentModule(get<_i80.EditedShipmentScreen>()));
-  gh.factory<_i175.FilterContainerStateManager>(
-      () => _i175.FilterContainerStateManager(get<_i117.SubcontractService>()));
-  gh.factory<_i176.FilterTravelStateManager>(() =>
-      _i176.FilterTravelStateManager(get<_i127.TravelService>(),
+          get<_i154.AddNewContainerSpecification>()));
+  gh.factory<_i172.CountriesScreen>(
+      () => _i172.CountriesScreen(get<_i72.CountryStateManager>()));
+  gh.factory<_i173.CountryModule>(() => _i173.CountryModule(
+      get<_i172.CountriesScreen>(), get<_i155.AddNewCountry>()));
+  gh.factory<_i174.DistributorsModule>(() => _i174.DistributorsModule(
+      get<_i76.DistributorsScreen>(), get<_i156.AddNewDistributor>()));
+  gh.factory<_i175.EditShipmentModule>(
+      () => _i175.EditShipmentModule(get<_i80.EditedShipmentScreen>()));
+  gh.factory<_i176.FilterContainerStateManager>(
+      () => _i176.FilterContainerStateManager(get<_i117.SubcontractService>()));
+  gh.factory<_i177.FilterTravelStateManager>(() =>
+      _i177.FilterTravelStateManager(get<_i127.TravelService>(),
           get<_i71.CountryService>(), get<_i117.SubcontractService>()));
-  gh.factory<_i177.HomeScreen>(
-      () => _i177.HomeScreen(get<_i86.HomeStateManager>()));
-  gh.factory<_i178.MarkScreen>(
-      () => _i178.MarkScreen(get<_i90.MarkStateManager>()));
-  gh.factory<_i179.MyShipmentScreen>(
-      () => _i179.MyShipmentScreen(get<_i93.MyShipmentStateManger>()));
-  gh.factory<_i180.NewShipment>(
-      () => _i180.NewShipment(get<_i106.RequestShipmentStateManger>()));
-  gh.factory<_i181.ProductScreen>(
-      () => _i181.ProductScreen(get<_i96.ProductStateManager>()));
-  gh.factory<_i182.ProfileScreen>(
-      () => _i182.ProfileScreen(get<_i99.ProfileStateManager>()));
-  gh.factory<_i183.ProxiesScreen>(
-      () => _i183.ProxiesScreen(get<_i102.ProxyStateManager>()));
-  gh.factory<_i184.RequestShipmentReview>(() =>
-      _i184.RequestShipmentReview(get<_i107.ReviewShipmentStateManger>()));
-  gh.factory<_i185.SettingsModule>(
-      () => _i185.SettingsModule(get<_i108.SettingsScreen>()));
-  gh.factory<_i186.SubContractServiceScreen>(() =>
-      _i186.SubContractServiceScreen(
+  gh.factory<_i178.HomeScreen>(
+      () => _i178.HomeScreen(get<_i86.HomeStateManager>()));
+  gh.factory<_i179.MarkScreen>(
+      () => _i179.MarkScreen(get<_i90.MarkStateManager>()));
+  gh.factory<_i180.MyShipmentScreen>(
+      () => _i180.MyShipmentScreen(get<_i93.MyShipmentStateManger>()));
+  gh.factory<_i181.NewShipment>(
+      () => _i181.NewShipment(get<_i106.RequestShipmentStateManger>()));
+  gh.factory<_i182.ProductScreen>(
+      () => _i182.ProductScreen(get<_i96.ProductStateManager>()));
+  gh.factory<_i183.ProfileScreen>(
+      () => _i183.ProfileScreen(get<_i99.ProfileStateManager>()));
+  gh.factory<_i184.ProxiesScreen>(
+      () => _i184.ProxiesScreen(get<_i102.ProxyStateManager>()));
+  gh.factory<_i185.RequestShipmentReview>(() =>
+      _i185.RequestShipmentReview(get<_i107.ReviewShipmentStateManger>()));
+  gh.factory<_i186.SettingsModule>(
+      () => _i186.SettingsModule(get<_i108.SettingsScreen>()));
+  gh.factory<_i187.SubContractServiceScreen>(() =>
+      _i187.SubContractServiceScreen(
           get<_i112.SubContractServiceStateManager>()));
-  gh.factory<_i187.SubProductScreen>(
-      () => _i187.SubProductScreen(get<_i115.SubProductStateManager>()));
-  gh.factory<_i188.SubcontractScreen>(
-      () => _i188.SubcontractScreen(get<_i118.SubcontractStateManager>()));
-  gh.factory<_i189.TrackingScreen>(
-      () => _i189.TrackingScreen(get<_i125.TrackingStateManager>()));
-  gh.factory<_i190.TravelDetailsStateManager>(
-      () => _i190.TravelDetailsStateManager(get<_i127.TravelService>()));
-  gh.factory<_i191.TravelFilterScreen>(
-      () => _i191.TravelFilterScreen(get<_i176.FilterTravelStateManager>()));
-  gh.factory<_i192.TravelScreen>(
-      () => _i192.TravelScreen(get<_i128.TravelStateManager>()));
-  gh.factory<_i193.WaitingShipmentScreen>(() =>
-      _i193.WaitingShipmentScreen(get<_i136.WaitingShipmentsStateManager>()));
-  gh.factory<_i194.WarehouseScreen>(
-      () => _i194.WarehouseScreen(get<_i140.WarehouseStateManager>()));
-  gh.factory<_i195.AcceptedShipmentDetailsScreen>(() =>
-      _i195.AcceptedShipmentDetailsScreen(
+  gh.factory<_i188.SubProductScreen>(
+      () => _i188.SubProductScreen(get<_i115.SubProductStateManager>()));
+  gh.factory<_i189.SubcontractScreen>(
+      () => _i189.SubcontractScreen(get<_i118.SubcontractStateManager>()));
+  gh.factory<_i190.TrackingScreen>(
+      () => _i190.TrackingScreen(get<_i125.TrackingStateManager>()));
+  gh.factory<_i191.TravelDetailsStateManager>(
+      () => _i191.TravelDetailsStateManager(get<_i127.TravelService>()));
+  gh.factory<_i192.TravelFilterScreen>(
+      () => _i192.TravelFilterScreen(get<_i177.FilterTravelStateManager>()));
+  gh.factory<_i193.TravelScreen>(
+      () => _i193.TravelScreen(get<_i128.TravelStateManager>()));
+  gh.factory<_i194.WaitingShipmentScreen>(() =>
+      _i194.WaitingShipmentScreen(get<_i136.WaitingShipmentsStateManager>()));
+  gh.factory<_i195.WarehouseScreen>(
+      () => _i195.WarehouseScreen(get<_i140.WarehouseStateManager>()));
+  gh.factory<_i196.AcceptedShipmentDetailsScreen>(() =>
+      _i196.AcceptedShipmentDetailsScreen(
           get<_i143.AcceptedShipmentsDetailsStateManager>()));
-  gh.factory<_i196.AcceptedShipmentScreen>(() =>
-      _i196.AcceptedShipmentScreen(get<_i144.AcceptedShipmentsStateManager>()));
-  gh.factory<_i197.AcceptedShipmentStatusScreen>(() =>
-      _i197.AcceptedShipmentStatusScreen(
-          get<_i145.AcceptedShipmentsStatusStateManager>()));
-  gh.factory<_i198.AddNewProduct>(
-      () => _i198.AddNewProduct(get<_i156.AddProductStateManager>()));
-  gh.factory<_i199.AddNewProxy>(
-      () => _i199.AddNewProxy(get<_i157.AddProxyStateManager>()));
-  gh.factory<_i200.AddNewSubContractService>(() =>
-      _i200.AddNewSubContractService(
-          get<_i158.AddSubContractServiceStateManager>()));
-  gh.factory<_i201.AddNewSubProduct>(
-      () => _i201.AddNewSubProduct(get<_i159.AddSubProductStateManager>()));
-  gh.factory<_i202.AddNewSubcontract>(
-      () => _i202.AddNewSubcontract(get<_i160.AddSubcontractStateManager>()));
-  gh.factory<_i203.AddNewSupplier>(
-      () => _i203.AddNewSupplier(get<_i161.AddSupplierStateManager>()));
-  gh.factory<_i204.AddNewTravel>(
-      () => _i204.AddNewTravel(get<_i162.AddTravelStateManager>()));
-  gh.factory<_i205.AddNewUnit>(
-      () => _i205.AddNewUnit(get<_i163.AddUnitStateManager>()));
-  gh.factory<_i206.AddNewWarehouse>(
-      () => _i206.AddNewWarehouse(get<_i164.AddWarehouseStateManager>()));
-  gh.factory<_i207.ClientModule>(() => _i207.ClientModule(
-      get<_i167.ClientsScreen>(), get<_i151.AddNewClient>()));
-  gh.factory<_i208.ContainerDetailsScreen>(() =>
-      _i208.ContainerDetailsScreen(get<_i168.ContainerDetailsStateManager>()));
-  gh.factory<_i209.ContainerFilterScreen>(() =>
-      _i209.ContainerFilterScreen(get<_i175.FilterContainerStateManager>()));
-  gh.factory<_i210.ContainerModule>(() => _i210.ContainerModule(
-      get<_i169.ContainerScreen>(),
-      get<_i152.AddNewContainer>(),
-      get<_i209.ContainerFilterScreen>(),
-      get<_i208.ContainerDetailsScreen>(),
+  gh.factory<_i197.AcceptedShipmentFinanceScreen>(() =>
+      _i197.AcceptedShipmentFinanceScreen(
+          get<_i144.AcceptedShipmentsFinanceStateManager>()));
+  gh.factory<_i198.AcceptedShipmentScreen>(() =>
+      _i198.AcceptedShipmentScreen(get<_i145.AcceptedShipmentsStateManager>()));
+  gh.factory<_i199.AcceptedShipmentStatusScreen>(() =>
+      _i199.AcceptedShipmentStatusScreen(
+          get<_i146.AcceptedShipmentsStatusStateManager>()));
+  gh.factory<_i200.AddNewProduct>(
+      () => _i200.AddNewProduct(get<_i157.AddProductStateManager>()));
+  gh.factory<_i201.AddNewProxy>(
+      () => _i201.AddNewProxy(get<_i158.AddProxyStateManager>()));
+  gh.factory<_i202.AddNewSubContractService>(() =>
+      _i202.AddNewSubContractService(
+          get<_i159.AddSubContractServiceStateManager>()));
+  gh.factory<_i203.AddNewSubProduct>(
+      () => _i203.AddNewSubProduct(get<_i160.AddSubProductStateManager>()));
+  gh.factory<_i204.AddNewSubcontract>(
+      () => _i204.AddNewSubcontract(get<_i161.AddSubcontractStateManager>()));
+  gh.factory<_i205.AddNewSupplier>(
+      () => _i205.AddNewSupplier(get<_i162.AddSupplierStateManager>()));
+  gh.factory<_i206.AddNewTravel>(
+      () => _i206.AddNewTravel(get<_i163.AddTravelStateManager>()));
+  gh.factory<_i207.AddNewUnit>(
+      () => _i207.AddNewUnit(get<_i164.AddUnitStateManager>()));
+  gh.factory<_i208.AddNewWarehouse>(
+      () => _i208.AddNewWarehouse(get<_i165.AddWarehouseStateManager>()));
+  gh.factory<_i209.ClientModule>(() => _i209.ClientModule(
+      get<_i168.ClientsScreen>(), get<_i152.AddNewClient>()));
+  gh.factory<_i210.ContainerDetailsScreen>(() =>
+      _i210.ContainerDetailsScreen(get<_i169.ContainerDetailsStateManager>()));
+  gh.factory<_i211.ContainerFilterScreen>(() =>
+      _i211.ContainerFilterScreen(get<_i176.FilterContainerStateManager>()));
+  gh.factory<_i212.ContainerModule>(() => _i212.ContainerModule(
+      get<_i170.ContainerScreen>(),
+      get<_i153.AddNewContainer>(),
+      get<_i211.ContainerFilterScreen>(),
+      get<_i210.ContainerDetailsScreen>(),
       get<_i6.ContainerShipmentReview>()));
-  gh.factory<_i211.HomeModule>(() => _i211.HomeModule(get<_i177.HomeScreen>()));
-  gh.factory<_i212.MarkModule>(() => _i212.MarkModule(get<_i178.MarkScreen>()));
-  gh.factory<_i213.MyShipmentModule>(() => _i213.MyShipmentModule(
-      get<_i179.MyShipmentScreen>(), get<_i15.ReviewShipmentScreen>()));
-  gh.factory<_i214.NewShipmentsModule>(() => _i214.NewShipmentsModule(
-      get<_i180.NewShipment>(), get<_i184.RequestShipmentReview>()));
-  gh.factory<_i215.ProductModule>(() => _i215.ProductModule(
-      get<_i181.ProductScreen>(), get<_i198.AddNewProduct>()));
-  gh.factory<_i216.ProfileModule>(
-      () => _i216.ProfileModule(get<_i182.ProfileScreen>()));
-  gh.factory<_i217.ProxiesModule>(() => _i217.ProxiesModule(
-      get<_i183.ProxiesScreen>(), get<_i199.AddNewProxy>()));
-  gh.factory<_i218.SubContractServiceModule>(() =>
-      _i218.SubContractServiceModule(get<_i186.SubContractServiceScreen>(),
-          get<_i200.AddNewSubContractService>()));
-  gh.factory<_i219.SubProductModule>(() => _i219.SubProductModule(
-      get<_i187.SubProductScreen>(), get<_i201.AddNewSubProduct>()));
-  gh.factory<_i220.SubcontractModule>(() => _i220.SubcontractModule(
-      get<_i188.SubcontractScreen>(), get<_i202.AddNewSubcontract>()));
-  gh.factory<_i221.SupplierModule>(() => _i221.SupplierModule(
-      get<_i122.SuppliersScreen>(), get<_i203.AddNewSupplier>()));
-  gh.factory<_i222.TrackingModule>(
-      () => _i222.TrackingModule(get<_i189.TrackingScreen>()));
-  gh.factory<_i223.TravelDetailsScreen>(
-      () => _i223.TravelDetailsScreen(get<_i190.TravelDetailsStateManager>()));
-  gh.factory<_i224.TravelModule>(() => _i224.TravelModule(
-      get<_i192.TravelScreen>(),
-      get<_i204.AddNewTravel>(),
-      get<_i191.TravelFilterScreen>(),
-      get<_i223.TravelDetailsScreen>()));
-  gh.factory<_i225.UnitModule>(() =>
-      _i225.UnitModule(get<_i132.UnitsScreen>(), get<_i205.AddNewUnit>()));
-  gh.factory<_i226.WaitingShipmentModule>(() => _i226.WaitingShipmentModule(
-      get<_i193.WaitingShipmentScreen>(),
+  gh.factory<_i213.HomeModule>(() => _i213.HomeModule(get<_i178.HomeScreen>()));
+  gh.factory<_i214.MarkModule>(() => _i214.MarkModule(get<_i179.MarkScreen>()));
+  gh.factory<_i215.MyShipmentModule>(() => _i215.MyShipmentModule(
+      get<_i180.MyShipmentScreen>(), get<_i15.ReviewShipmentScreen>()));
+  gh.factory<_i216.NewShipmentsModule>(() => _i216.NewShipmentsModule(
+      get<_i181.NewShipment>(), get<_i185.RequestShipmentReview>()));
+  gh.factory<_i217.ProductModule>(() => _i217.ProductModule(
+      get<_i182.ProductScreen>(), get<_i200.AddNewProduct>()));
+  gh.factory<_i218.ProfileModule>(
+      () => _i218.ProfileModule(get<_i183.ProfileScreen>()));
+  gh.factory<_i219.ProxiesModule>(() => _i219.ProxiesModule(
+      get<_i184.ProxiesScreen>(), get<_i201.AddNewProxy>()));
+  gh.factory<_i220.SubContractServiceModule>(() =>
+      _i220.SubContractServiceModule(get<_i187.SubContractServiceScreen>(),
+          get<_i202.AddNewSubContractService>()));
+  gh.factory<_i221.SubProductModule>(() => _i221.SubProductModule(
+      get<_i188.SubProductScreen>(), get<_i203.AddNewSubProduct>()));
+  gh.factory<_i222.SubcontractModule>(() => _i222.SubcontractModule(
+      get<_i189.SubcontractScreen>(), get<_i204.AddNewSubcontract>()));
+  gh.factory<_i223.SupplierModule>(() => _i223.SupplierModule(
+      get<_i122.SuppliersScreen>(), get<_i205.AddNewSupplier>()));
+  gh.factory<_i224.TrackingModule>(
+      () => _i224.TrackingModule(get<_i190.TrackingScreen>()));
+  gh.factory<_i225.TravelDetailsScreen>(
+      () => _i225.TravelDetailsScreen(get<_i191.TravelDetailsStateManager>()));
+  gh.factory<_i226.TravelModule>(() => _i226.TravelModule(
+      get<_i193.TravelScreen>(),
+      get<_i206.AddNewTravel>(),
+      get<_i192.TravelFilterScreen>(),
+      get<_i225.TravelDetailsScreen>()));
+  gh.factory<_i227.UnitModule>(() =>
+      _i227.UnitModule(get<_i132.UnitsScreen>(), get<_i207.AddNewUnit>()));
+  gh.factory<_i228.WaitingShipmentModule>(() => _i228.WaitingShipmentModule(
+      get<_i194.WaitingShipmentScreen>(),
       get<_i137.WantingShipmentDetailsScreen>()));
-  gh.factory<_i227.WarehouseModule>(() => _i227.WarehouseModule(
-      get<_i194.WarehouseScreen>(), get<_i206.AddNewWarehouse>()));
-  gh.factory<_i228.AcceptedShipmentModule>(() => _i228.AcceptedShipmentModule(
-      get<_i196.AcceptedShipmentScreen>(),
-      get<_i195.AcceptedShipmentDetailsScreen>(),
+  gh.factory<_i229.WarehouseModule>(() => _i229.WarehouseModule(
+      get<_i195.WarehouseScreen>(), get<_i208.AddNewWarehouse>()));
+  gh.factory<_i230.AcceptedShipmentModule>(() => _i230.AcceptedShipmentModule(
+      get<_i198.AcceptedShipmentScreen>(),
+      get<_i196.AcceptedShipmentDetailsScreen>(),
       get<_i3.AcceptedShipmentFilterScreen>(),
-      get<_i197.AcceptedShipmentStatusScreen>()));
-  gh.factory<_i229.MyApp>(() => _i229.MyApp(
+      get<_i199.AcceptedShipmentStatusScreen>(),
+      get<_i197.AcceptedShipmentFinanceScreen>()));
+  gh.factory<_i231.MyApp>(() => _i231.MyApp(
       get<_i19.AppThemeDataService>(),
       get<_i9.LocalizationService>(),
       get<_i81.FireNotificationService>(),
-      get<_i165.AuthorizationModule>(),
+      get<_i166.AuthorizationModule>(),
       get<_i58.ChatModule>(),
-      get<_i185.SettingsModule>(),
-      get<_i211.HomeModule>(),
-      get<_i216.ProfileModule>(),
-      get<_i212.MarkModule>(),
+      get<_i186.SettingsModule>(),
+      get<_i213.HomeModule>(),
+      get<_i218.ProfileModule>(),
+      get<_i214.MarkModule>(),
       get<_i21.NotificationModule>(),
-      get<_i214.NewShipmentsModule>(),
-      get<_i222.TrackingModule>(),
-      get<_i174.EditShipmentModule>(),
-      get<_i172.CountryModule>(),
-      get<_i173.DistributorsModule>(),
-      get<_i217.ProxiesModule>(),
-      get<_i221.SupplierModule>(),
-      get<_i218.SubContractServiceModule>(),
-      get<_i220.SubcontractModule>(),
-      get<_i225.UnitModule>(),
-      get<_i224.TravelModule>(),
-      get<_i210.ContainerModule>(),
-      get<_i170.ContainerSpecificationModule>(),
-      get<_i226.WaitingShipmentModule>(),
-      get<_i228.AcceptedShipmentModule>(),
-      get<_i207.ClientModule>(),
-      get<_i215.ProductModule>(),
-      get<_i219.SubProductModule>(),
-      get<_i227.WarehouseModule>()));
+      get<_i216.NewShipmentsModule>(),
+      get<_i224.TrackingModule>(),
+      get<_i175.EditShipmentModule>(),
+      get<_i173.CountryModule>(),
+      get<_i174.DistributorsModule>(),
+      get<_i219.ProxiesModule>(),
+      get<_i223.SupplierModule>(),
+      get<_i220.SubContractServiceModule>(),
+      get<_i222.SubcontractModule>(),
+      get<_i227.UnitModule>(),
+      get<_i226.TravelModule>(),
+      get<_i212.ContainerModule>(),
+      get<_i171.ContainerSpecificationModule>(),
+      get<_i228.WaitingShipmentModule>(),
+      get<_i230.AcceptedShipmentModule>(),
+      get<_i209.ClientModule>(),
+      get<_i217.ProductModule>(),
+      get<_i221.SubProductModule>(),
+      get<_i229.WarehouseModule>()));
   return get;
 }

@@ -258,7 +258,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
   Widget subShipmentCard(SubShipmentModel subShipmentModel){
     return InkWell(
       onTap: (){
-        widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,'public', subShipmentModel.shipmentStatus);
+        widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,'public', subShipmentModel.shipmentStatus,widget.shipment.transportationType);
       },
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -283,7 +283,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                     Text(subShipmentModel.shipmentStatus ??'' , style: AppTextStyle.mediumBlueBold,),
                   ],),
                 ),
-                RoundedButton(lable: '', icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
+                RoundedButton(lable: 'Show Finance', icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
                   widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber);
                 }, radius: 12)
               ],

@@ -36,23 +36,23 @@ class ShipmentFinanceModel {
     this.stageCost,
 
 
-    this.createdAt,
-    this.updatedAt,
-    this.updatedByUser,
-    this.createdByUser
+    // this.createdAt,
+    // this.updatedAt,
+    // this.updatedByUser,
+    // this.createdByUser
   });
 
   int? shipmentID;
   String? trackNumber;
   String? shipmentStatus;
-  String? stageCost;
+  int? stageCost;
   String? stageDescription;
   String? currency;
 
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  String? updatedByUser;
-  String? createdByUser;
+  // DateTime? createdAt;
+  // DateTime? updatedAt;
+  // String? updatedByUser;
+  // String? createdByUser;
 
 
   factory ShipmentFinanceModel.fromJson(Map<String, dynamic> json) => ShipmentFinanceModel(
@@ -62,12 +62,12 @@ class ShipmentFinanceModel {
       stageCost: json['stageCost']?? '',
     stageDescription: json['stageDescription']?? '',
 
-    createdAt: DateTime.fromMillisecondsSinceEpoch(
-        CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),
-    updatedAt: DateTime.fromMillisecondsSinceEpoch(
-        CreatedAt.fromJson(json['updatedAt']).timestamp! * 1000),
-    updatedByUser: json['updatedByUser'],
-    createdByUser: json['createdByUser'],
+    // createdAt: DateTime.fromMillisecondsSinceEpoch(
+    //     CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),
+    // updatedAt: DateTime.fromMillisecondsSinceEpoch(
+    //     CreatedAt.fromJson(json['updatedAt']).timestamp! * 1000),
+    // updatedByUser: json['updatedByUser'],
+    // createdByUser: json['createdByUser'],
 
   );
 }

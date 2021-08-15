@@ -7,6 +7,7 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/accept
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/filter_accepted_shipment_screen.dart';
 
 import 'accepted_shipment_routes.dart';
+import 'ui/screen/accepted_shipment_finance_screen.dart';
 
 @injectable
 class AcceptedShipmentModule extends YesModule {
@@ -14,9 +15,10 @@ class AcceptedShipmentModule extends YesModule {
   final AcceptedShipmentStatusScreen _statusScreen;
   final AcceptedShipmentScreen _acceptedShipmentScreen;
   final AcceptedShipmentFilterScreen _filterScreen;
+  final AcceptedShipmentFinanceScreen _financeScreen;
 
 
-  AcceptedShipmentModule(this._acceptedShipmentScreen,this._detailsScreen, this._filterScreen, this._statusScreen) {
+  AcceptedShipmentModule(this._acceptedShipmentScreen,this._detailsScreen, this._filterScreen, this._statusScreen, this._financeScreen) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
   Map<String, WidgetBuilder> getRoutes() {
@@ -25,6 +27,7 @@ class AcceptedShipmentModule extends YesModule {
       AcceptedShipmentRoutes.DETAILS: (context) => _detailsScreen,
       AcceptedShipmentRoutes.FILTER: (context) => _filterScreen,
       AcceptedShipmentRoutes.STATUS: (context) => _statusScreen,
+      AcceptedShipmentRoutes.FINANCE: (context) => _financeScreen,
 
     };
   }
