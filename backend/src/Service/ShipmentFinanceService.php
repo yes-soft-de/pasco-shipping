@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\ShipmentFinanceEntity;
 use App\Manager\ShipmentFinanceManager;
 use App\Request\ShipmentFinanceCreateRequest;
+use App\Request\ShipmentFinanceFilterRequest;
 use App\Response\ShipmentFinanceCreateResponse;
 use App\Response\ShipmentFinanceGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -53,6 +54,26 @@ class ShipmentFinanceService
         }
         
         return $shipmentFinanceResponse;
+    }
+
+    public function filterShipmentFinances(ShipmentFinanceFilterRequest $request)
+    {
+        $shipmentFinances = $this->shipmentFinanceManager->filterShipmentFinances($request);
+        
+        foreach($shipmentFinances['shipmentFinances'] as $shipmentFinance)
+        {
+            if($shipmentFinance['createdByUserImage'])
+            {
+                $shipmentFinance['createdByUserImage'] = $this->params . $shipmentFinance['createdByUserImage'];
+            }
+
+            if($shipmentFinance['updatedByUserImage'])
+            {
+                $shipmentFinance['updatedByUserImage'] = $this->params . $shipmentFinance['updatedByUserImage'];
+            }
+        }
+
+        return $this->autoMapping->map('array', ShipmentFinanceGetResponse::class, $shipmentFinances);
     }
 
 }

@@ -70,6 +70,16 @@ class ShipmentFinanceEntity
      */
     private $updatedBy;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $holderType;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $holderID;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -191,6 +201,30 @@ class ShipmentFinanceEntity
     public function setUpdatedBy(?int $updatedBy): self
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getHolderType(): ?string
+    {
+        return $this->holderType;
+    }
+
+    public function setHolderType(?string $holderType): self
+    {
+        $this->holderType = $holderType;
+
+        return $this;
+    }
+
+    public function getHolderID(): ?int
+    {
+        return $this->holderID;
+    }
+
+    public function setHolderID(?int $holderID): self
+    {
+        $this->holderID = $holderID;
 
         return $this;
     }

@@ -5,8 +5,12 @@ namespace App\Service;
 use App\AutoMapping;
 use App\Entity\AirwaybillFinanceEntity;
 use App\Manager\AirwaybillFinanceManager;
+use App\Request\AirwaybillDistributeStatusCostRequest;
 use App\Request\AirwaybillFinanceCreateRequest;
+use App\Request\AirwaybillFinanceFilterRequest;
 use App\Response\AirwaybillFinanceCreateResponse;
+use App\Response\AirwaybillFinanceGetResponse;
+use App\Response\TrackByHolderTypeAndHolderIdGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class AirwaybillFinanceService
@@ -28,6 +32,43 @@ class AirwaybillFinanceService
         $airwaybillEntityResult = $this->airwaybillFinanceManager->create($request);
 
         return $this->autoMapping->map(AirwaybillFinanceEntity::class, AirwaybillFinanceCreateResponse::class, $airwaybillEntityResult);
+    }
+
+    public function filterAirwaybillFinances(AirwaybillFinanceFilterRequest $request)
+    {
+        $airwaybillFinances = $this->airwaybillFinanceManager->filterAirwaybillFinances($request);
+        
+        foreach($airwaybillFinances['airwaybillFinances'] as $airwaybillFinance)
+        {
+            if($airwaybillFinance['createdByUserImage'])
+            {
+                $airwaybillFinance['createdByUserImage'] = $this->params . $airwaybillFinance['createdByUserImage'];
+            }
+
+            if($airwaybillFinance['updatedByUserImage'])
+            {
+                $airwaybillFinance['updatedByUserImage'] = $this->params . $airwaybillFinance['updatedByUserImage'];
+            }
+        }
+
+        return $this->autoMapping->map('array', AirwaybillFinanceGetResponse::class, $airwaybillFinances);
+    }
+
+    public function distributeAirwaybillCost(AirwaybillDistributeStatusCostRequest $request)
+    {
+        $tracksResponse = [];
+        
+        $tracks = $this->airwaybillFinanceManager->distributeAirwaybillCost($request);
+
+        if(is_array($tracks))
+        {
+            foreach($tracks as $track)
+            {
+                $tracksResponse[] = $this->autoMapping->map('array', TrackByHolderTypeAndHolderIdGetResponse::class, $track);
+            }
+        }
+
+        return $tracks;
     }
 
 }
