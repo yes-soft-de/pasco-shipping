@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\AdminProfileEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\UserEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -61,6 +62,46 @@ class ClientProfileEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getResult();
+    }
+
+    public function filterClients($name)
+    {
+        $query = $this->createQueryBuilder('profile')
+            ->select('profile.id', 'profile.userID', 'profile.phone', 'profile.city', 'profile.image', 'profile.userName', 'profile.location', 'userEntity.roles', 
+            'userEntity.email', 'userEntity.createAt', 'userEntity.createdBy', 'userEntity.updatedBy', 'adminProfile1.userName as createdByUser',
+            'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
+
+            ->leftJoin(
+                UserEntity::class,
+                'userEntity',
+                Join::WITH,
+                'userEntity.id = profile.userID'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = userEntity.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = userEntity.updatedBy'
+            )
+
+            ->orderBy('profile.id', 'DESC');
+
+        if($name)
+        {
+            $query->andWhere('profile.userName LIKE :name');
+            $query->setParameter('name', '%'.$name.'%');
+        }
+
+        return $query->getQuery()->getResult();
+
     }
 
 }
