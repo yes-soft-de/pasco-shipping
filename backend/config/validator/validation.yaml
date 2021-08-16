@@ -418,4 +418,13 @@ App\Request\CheckHolderRequest:
       - NotBlank: ~
     trackNumber:
       - NotBlank: ~
+
+App\Request\WarehouseFinanceCreateRequest:
+  properties:
+    warehouseID:
+      - NotBlank: ~
+    cost:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
       
