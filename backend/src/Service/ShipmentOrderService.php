@@ -245,6 +245,8 @@ class ShipmentOrderService
         
         if($orders)
         {
+            $ordersResponse['totalCount'] = count($orders);
+            
             foreach ($orders as $order)
             {
                 if($order['image'])
@@ -262,7 +264,7 @@ class ShipmentOrderService
                     $order['orderUpdatedByUserImage'] = $this->params . $order['orderUpdatedByUserImage'];
                 }
                 
-                $ordersResponse[] = $this->autoMapping->map('array', OrderShipmentGetResponse::class, $order);
+                $ordersResponse['shipments'][] = $this->autoMapping->map('array', OrderShipmentGetResponse::class, $order);
             }
         }
 
@@ -277,6 +279,8 @@ class ShipmentOrderService
         
         if($orders)
         {
+            $ordersResponse['totalCount'] = count($orders);
+            
             foreach ($orders as $order)
             {
                 if($order['image'])
@@ -294,7 +298,7 @@ class ShipmentOrderService
                     $order['orderUpdatedByUserImage'] = $this->params . $order['orderUpdatedByUserImage'];
                 }
                 
-                $ordersResponse[] = $this->autoMapping->map('array', ShipmentFilterResponse::class, $order);
+                $ordersResponse['shipments'][] = $this->autoMapping->map('array', ShipmentFilterResponse::class, $order);
             }
         }
 
