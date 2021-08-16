@@ -8,7 +8,7 @@ class ShipmentWaitingFilterRequest
 
     private $isExternalWarehouse;
 
-    private $exportWarehouseName;
+    private $exportWarehouseID;
 
     private $paymentTime;
 
@@ -22,9 +22,9 @@ class ShipmentWaitingFilterRequest
         return $this->isExternalWarehouse;
     }
 
-    public function getExportWarehouseName()
+    public function getExportWarehouseID()
     {
-        return $this->exportWarehouseName;
+        return $this->exportWarehouseID;
     }
 
     public function getPaymentTime()

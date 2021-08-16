@@ -9,9 +9,12 @@ use App\Entity\OrderShipmentEntity;
 use App\Entity\ProductCategoryEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\MarkEntity;
+use App\Entity\ShipmentLogEntity;
 use App\Entity\ShipmentStatusEntity;
 use App\Entity\SubcontractEntity;
 use App\Entity\WarehouseEntity;
+use DateInterval;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -379,16 +382,30 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function filterAcceptedShipments($transportationType, $isExternalWarehouse, $trackNumber, $shipmentStatus, $exportWarehouseName, $importWarehouseName, 
-    $paymentTime, $launchCountry, $targetCountry)
+    public function filterAcceptedShipments($transportationType, $isExternalWarehouse, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID, 
+    $paymentTime, $launchCountry, $targetCountry, $dateOne, $dateTwo)
     {
         $query = $this->createQueryBuilder('shipmentOrder')
-            ->select("shipmentOrder.id", "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.supplierName", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity",
+            ->select("DISTINCT(shipmentOrder.id) as id", "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.supplierName", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity",
                 "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.volume",
                 "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "shipmentOrder.isExternalWarehouse", "shipmentOrder.externalWarehouseInfo", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage",
                 "adminProfile.userName as orderUpdatedByUser", "adminProfile.image as orderUpdatedByUserImage", "productCategory.name as productCategoryName", "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "markEntity.markNumber")
 
             ->andWhere("shipmentOrder.status = 'accepted'")
+            
+            ->leftJoin(
+                ShipmentStatusEntity::class,
+                'shipmentStatusEntity',
+                Join::WITH,
+                'shipmentStatusEntity.shipmentID = shipmentOrder.id'
+            )
+            
+            ->leftJoin(
+                ShipmentLogEntity::class,
+                'shipmentLogEntity',
+                Join::WITH,
+                'shipmentLogEntity.shipmentID = shipmentOrder.id'
+            )
             
             ->leftJoin(
                 ClientProfileEntity::class,
@@ -463,18 +480,11 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
 
             if($trackNumber)
             {
-                $query->leftJoin(
-                    ShipmentStatusEntity::class,
-                    'shipmentStatusEntity',
-                    Join::WITH,
-                    'shipmentStatusEntity.shipmentID = shipmentOrder.id'
-                );
-
                 $query->andWhere('shipmentStatusEntity.trackNumber = :trackNumber');
                 $query->setParameter('trackNumber', $trackNumber);
             }
 
-            if($shipmentStatus)
+            if($shipmentStatus && $dateOne == null && $dateTwo == null)
             {
                 $query->andWhere('shipmentStatusEntity.shipmentStatus = :shipmentStatus');
                 $query->setParameter('shipmentStatus', $shipmentStatus);
@@ -486,16 +496,16 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
                 $query->setParameter('isExternalWarehouse', $isExternalWarehouse);
             }
 
-            if($exportWarehouseName)
+            if($exportWarehouseID)
             {
-                $query->andWhere('exportWarehouse.name LIKE :exportWarehouseName');
-                $query->setParameter('exportWarehouseName', '%'.$exportWarehouseName.'%');
+                $query->andWhere('shipmentOrder.exportWarehouseID = :exportWarehouseID');
+                $query->setParameter('exportWarehouseID', $exportWarehouseID);
             }
 
-            if($importWarehouseName)
+            if($importWarehouseID)
             {
-                $query->andWhere('importWarehouse.name LIKE :importWarehouseName');
-                $query->setParameter('importWarehouseName', '%'.$importWarehouseName.'%');
+                $query->andWhere('shipmentOrder.importWarehouseID = :importWarehouseID');
+                $query->setParameter('importWarehouseID', $importWarehouseID);
             }
 
             if($paymentTime)
@@ -516,10 +526,40 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
                 $query->setParameter('targetCountry', $targetCountry);
             }
 
+            if($dateOne != null && $dateTwo != null && $shipmentStatus != null)
+            {
+                $query->andWhere('shipmentLogEntity.createdAt BETWEEN :dateOne AND :dateTwo');
+                $query->setParameter('dateOne', $dateOne);
+                $query->setParameter('dateTwo', $dateTwo);
+
+                $query->andWhere('shipmentLogEntity.shipmentStatus = :shipmentStatus');
+                $query->setParameter('shipmentStatus', $shipmentStatus);
+            }
+
+            if($dateOne != null && $dateTwo == null && $shipmentStatus != null)
+            {
+                $query->andWhere('shipmentLogEntity.createdAt BETWEEN :dateOne AND :dateTwo');
+                $query->setParameter('dateOne', $dateOne);
+                $query->setParameter('dateTwo', (new \DateTime($dateOne))->modify('+1 day')->format('Y-m-d'));
+
+                $query->andWhere('shipmentLogEntity.shipmentStatus = :shipmentStatus');
+                $query->setParameter('shipmentStatus', $shipmentStatus);
+            }
+
+            if($dateOne == null && $dateTwo != null && $shipmentStatus != null)
+            {
+                $query->andWhere('shipmentLogEntity.createdAt BETWEEN :dateTwo AND :dateThree');
+                $query->setParameter('dateTwo', $dateTwo);
+                $query->setParameter('dateThree', (new \DateTime($dateTwo))->modify('+1 day')->format('Y-m-d'));
+
+                $query->andWhere('shipmentLogEntity.shipmentStatus = :shipmentStatus');
+                $query->setParameter('shipmentStatus', $shipmentStatus);
+            }
+
             return $query->getQuery()->getResult();
     }
 
-    public function filterWaitingShipmentsOrders($transportationType, $isExternalWarehouse, $exportWarehouseName, $paymentTime)
+    public function filterWaitingShipmentsOrders($transportationType, $isExternalWarehouse, $exportWarehouseID, $paymentTime)
     {
         $query = $this->createQueryBuilder('shipmentOrder')
             ->select("shipmentOrder.id", "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.supplierName", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity",
@@ -606,10 +646,10 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
                 $query->setParameter('isExternalWarehouse', $isExternalWarehouse);
             }
 
-            if($exportWarehouseName)
+            if($exportWarehouseID)
             {
-                $query->andWhere('exportWarehouse.name LIKE :exportWarehouseName');
-                $query->setParameter('exportWarehouseName', '%'.$exportWarehouseName.'%');
+                $query->andWhere('exportWarehouse.id = :exportWarehouseID');
+                $query->setParameter('exportWarehouseID', $exportWarehouseID);
             }
 
             if($paymentTime)
@@ -617,7 +657,7 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
                 $query->andWhere('shipmentOrder.paymentTime = :paymentTime');
                 $query->setParameter('paymentTime', $paymentTime);
             }
-            // dd($query->getQuery()->getResult());
+
             return $query->getQuery()->getResult();
     }
 

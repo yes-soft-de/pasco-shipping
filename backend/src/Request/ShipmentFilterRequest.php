@@ -18,9 +18,13 @@ class ShipmentFilterRequest
 
     private $isExternalWarehouse;
 
-    private $exportWarehouseName;
+    private $exportWarehouseID;
 
-    private $importWarehouseName;
+    private $importWarehouseID;
+
+    private $dateOne;
+
+    private $dateTwo;
 
     public function getStatus()
     {
@@ -37,9 +41,9 @@ class ShipmentFilterRequest
         return $this->paymentTime;
     }
 
-    public function getExportWarehouseName()
+    public function getExportWarehouseID()
     {
-        return $this->exportWarehouseName;
+        return $this->exportWarehouseID;
     }
 
     public function getLaunchCountry()
@@ -62,9 +66,18 @@ class ShipmentFilterRequest
         return $this->isExternalWarehouse;
     }
 
-    public function getImportWarehouseName()
+    public function getImportWarehouseID()
     {
-        return $this->importWarehouseName;
+        return $this->importWarehouseID;
     }
 
+    public function getDateOne()
+    {
+        return $this->dateOne;
+    }
+
+    public function getDateTwo()
+    {
+        return $this->dateTwo;
+    }
 }

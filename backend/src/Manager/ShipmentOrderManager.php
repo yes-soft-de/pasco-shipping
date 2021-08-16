@@ -189,14 +189,15 @@ class ShipmentOrderManager
 
     public function filterWaitingShipmentsOrders(ShipmentWaitingFilterRequest $request)
     {
-        return $this->orderShipmentEntityRepository->filterWaitingShipmentsOrders($request->getTransportationType(), $request->getIsExternalWarehouse(), $request->getExportWarehouseName(), 
+        return $this->orderShipmentEntityRepository->filterWaitingShipmentsOrders($request->getTransportationType(), $request->getIsExternalWarehouse(), $request->getExportWarehouseID(), 
         $request->getPaymentTime());
     }
 
     public function filterAcceptedShipments(ShipmentFilterRequest $request)
     {
         $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipments($request->getTransportationType(), $request->getIsExternalWarehouse(), $request->getTrackNumber(), 
-        $request->getStatus(), $request->getExportWarehouseName(), $request->getImportWarehouseName(), $request->getPaymentTime(), $request->getLaunchCountry(), $request->getTargetCountry());
+        $request->getStatus(), $request->getExportWarehouseID(), $request->getImportWarehouseID(), $request->getPaymentTime(), $request->getLaunchCountry(), $request->getTargetCountry(), 
+        $request->getDateOne(), $request->getDateTwo());
 
         if($shipments)
         {

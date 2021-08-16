@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\AdminProfileEntity;
 use App\Entity\TravelFinanceEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +21,62 @@ class TravelFinanceEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, TravelFinanceEntity::class);
     }
 
-    // /**
-    //  * @return TravelFinanceEntity[] Returns an array of TravelFinanceEntity objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getCurrentTotalCostByFilterOptions($travelID, $status)
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $query = $this->createQueryBuilder('travelFinance')
+            ->select('SUM(travelFinance.stageCost) as currentTotalCost');
 
-    /*
-    public function findOneBySomeField($value): ?TravelFinanceEntity
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if($travelID)
+        {
+            $query->andWhere('travelFinance.travelID = :travelID');
+            $query->setParameter('travelID', $travelID);
+        }
+
+        if($status)
+        {
+            $query->andWhere('travelFinance.status = :status');
+            $query->setParameter('status', $status);
+        }
+        
+        return $query->getQuery()->getOneOrNullResult();
     }
-    */
+
+    public function filterTravelFinances($travelID, $status)
+    {
+        $query = $this->createQueryBuilder('travelFinance')
+            ->select('travelFinance.id', 'travelFinance.travelID', 'travelFinance.status', 'travelFinance.stageCost', 'travelFinance.stageDescription', 'travelFinance.currency', 
+            'travelFinance.createdAt', 'travelFinance.updatedAt', 'travelFinance.createdBy', 'travelFinance.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 
+            'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = travelFinance.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = travelFinance.updatedBy'
+            )
+
+            ->orderBy('travelFinance.id', 'DESC');
+
+        if($travelID)
+        {
+            $query->andWhere('travelFinance.travelID = :travelID');
+            $query->setParameter('travelID', $travelID);
+        }
+
+        if($status)
+        {
+            $query->andWhere('travelFinance.status = :status');
+            $query->setParameter('status', $status);
+        }
+        
+        return $query->getQuery()->getResult();
+    }
+
 }
