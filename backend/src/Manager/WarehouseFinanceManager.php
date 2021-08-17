@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\WarehouseFinanceEntity;
 use App\Repository\WarehouseFinanceEntityRepository;
 use App\Request\WarehouseFinanceCreateRequest;
+use App\Request\WarehouseFinanceFilterRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class WarehouseFinanceManager
@@ -30,6 +31,11 @@ class WarehouseFinanceManager
         $this->entityManager->clear();
 
         return $warehouseFinanceEntity;
+    }
+
+    public function filterWarehouseFinances(WarehouseFinanceFilterRequest $request)
+    {
+        return $this->warehouseFinanceEntityRepository->filterWarehouseFinances($request->getWarehouseID());
     }
 
 }
