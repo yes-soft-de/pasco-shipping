@@ -10,6 +10,10 @@ class ShipmentFinanceFilterRequest
 
     private $shipmentStatus;
 
+    private $exportWarehouseID;
+
+    private $importWarehouseID;
+
     public function setShipmentID($shipmentID)
     {
         $this->shipmentID = $shipmentID;
@@ -38,6 +42,16 @@ class ShipmentFinanceFilterRequest
     public function getShipmentStatus()
     {
         return $this->shipmentStatus;
+    }
+
+    public function getExportWarehouseID()
+    {
+        return $this->exportWarehouseID;
+    }
+
+    public function getImportWarehouseID()
+    {
+        return $this->importWarehouseID;
     }
 
 }

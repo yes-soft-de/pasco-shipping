@@ -58,16 +58,18 @@ class ShipmentFinanceManager
         return $this->shipmentFinanceEntityRepository->getAllCostsByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
     }
 
-    public function getCurrentTotalCostByFilterOptions($shipmentID, $trackNumber, $shipmentStatus)
+    public function getCurrentTotalCostByFilterOptions($shipmentID, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID)
     {
-        return $this->shipmentFinanceEntityRepository->getCurrentTotalCostByFilterOptions($shipmentID, $trackNumber, $shipmentStatus);
+        return $this->shipmentFinanceEntityRepository->getCurrentTotalCostByFilterOptions($shipmentID, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID);
     }
 
     public function filterShipmentFinances(ShipmentFinanceFilterRequest $request)
     {
-        $shipmentFinances['shipmentFinances'] = $this->shipmentFinanceEntityRepository->filterShipmentFinances($request->getShipmentID(), $request->getTrackNumber(), $request->getShipmentStatus());
+        $shipmentFinances['shipmentFinances'] = $this->shipmentFinanceEntityRepository->filterShipmentFinances($request->getShipmentID(), $request->getTrackNumber(), $request->getShipmentStatus(), 
+        $request->getExportWarehouseID(), $request->getImportWarehouseID());
         
-        $shipmentFinances['currentTotalCost'] = $this->getCurrentTotalCostByFilterOptions($request->getShipmentID(), $request->getTrackNumber(), $request->getShipmentStatus())['currentTotalCost'];
+        $shipmentFinances['currentTotalCost'] = $this->getCurrentTotalCostByFilterOptions($request->getShipmentID(), $request->getTrackNumber(), $request->getShipmentStatus(), 
+        $request->getExportWarehouseID(), $request->getImportWarehouseID())['currentTotalCost'];
 
         return $shipmentFinances;
     }

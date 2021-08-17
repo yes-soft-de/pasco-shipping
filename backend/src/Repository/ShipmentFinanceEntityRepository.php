@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
+use App\Entity\OrderShipmentEntity;
 use App\Entity\ShipmentFinanceEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
@@ -54,10 +55,17 @@ class ShipmentFinanceEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getCurrentTotalCostByFilterOptions($shipmentID, $trackNumber, $shipmentStatus)
+    public function getCurrentTotalCostByFilterOptions($shipmentID, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID)
     {
         $query = $this->createQueryBuilder('shipmentFinance')
-            ->select('SUM(shipmentFinance.stageCost) as currentTotalCost');
+            ->select('SUM(shipmentFinance.stageCost) as currentTotalCost')
+
+            ->leftJoin(
+                OrderShipmentEntity::class,
+                'orderShipmentEntity',
+                Join::WITH,
+                'orderShipmentEntity.id = shipmentFinance.shipmentID'
+            );
 
         if($shipmentID)
         {
@@ -77,15 +85,34 @@ class ShipmentFinanceEntityRepository extends ServiceEntityRepository
             $query->setParameter('shipmentStatus', $shipmentStatus);
         }
 
+        if($exportWarehouseID)
+        {
+            $query->andWhere('orderShipmentEntity.exportWarehouseID = :exportWarehouseID');
+            $query->setParameter('exportWarehouseID', $exportWarehouseID);
+        }
+
+        if($importWarehouseID)
+        {
+            $query->andWhere('orderShipmentEntity.importWarehouseID = :importWarehouseID');
+            $query->setParameter('importWarehouseID', $importWarehouseID);
+        }
+
         return $query->getQuery()->getOneOrNullResult();
     }
 
-    public function filterShipmentFinances($shipmentID, $trackNumber, $shipmentStatus)
+    public function filterShipmentFinances($shipmentID, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID)
     {
         $query = $this->createQueryBuilder('shipmentFinance')
             ->select('shipmentFinance.id', 'shipmentFinance.shipmentID', 'shipmentFinance.trackNumber', 'shipmentFinance.shipmentStatus', 'shipmentFinance.stageCost', 'shipmentFinance.stageDescription',
             'shipmentFinance.currency', 'shipmentFinance.createdAt', 'shipmentFinance.updatedAt', 'shipmentFinance.createdBy', 'shipmentFinance.updatedBy', 
             'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
+
+            ->leftJoin(
+                OrderShipmentEntity::class,
+                'orderShipmentEntity',
+                Join::WITH,
+                'orderShipmentEntity.id = shipmentFinance.shipmentID'
+            )
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -119,6 +146,18 @@ class ShipmentFinanceEntityRepository extends ServiceEntityRepository
         {
             $query->andWhere('shipmentFinance.shipmentStatus = :shipmentStatus');
             $query->setParameter('shipmentStatus', $shipmentStatus);
+        }
+
+        if($exportWarehouseID)
+        {
+            $query->andWhere('orderShipmentEntity.exportWarehouseID = :exportWarehouseID');
+            $query->setParameter('exportWarehouseID', $exportWarehouseID);
+        }
+
+        if($importWarehouseID)
+        {
+            $query->andWhere('orderShipmentEntity.importWarehouseID = :importWarehouseID');
+            $query->setParameter('importWarehouseID', $importWarehouseID);
         }
 
         return $query->getQuery()->getResult();
