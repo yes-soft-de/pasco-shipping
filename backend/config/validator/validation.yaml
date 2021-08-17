@@ -427,4 +427,24 @@ App\Request\WarehouseFinanceCreateRequest:
       - NotBlank: ~
     createdBy:
       - NotBlank: ~
+
+App\Request\ReceiverCreateRequest:
+  properties:
+    fullName:
+      - NotBlank: ~
+    phone:
+      - NotBlank: ~
+    clientUserID:
+      - NotBlank: ~
+
+App\Request\ReceiverCreateByDashboardRequest:
+  properties:
+    fullName:
+      - NotBlank: ~
+    phone:
+      - NotBlank: ~
+    clientUserID:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
       
