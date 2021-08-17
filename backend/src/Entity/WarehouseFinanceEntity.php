@@ -55,6 +55,11 @@ class WarehouseFinanceEntity
      */
     private $updatedBy;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $currency;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -140,6 +145,18 @@ class WarehouseFinanceEntity
     public function setUpdatedBy(?int $updatedBy): self
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(string $currency): self
+    {
+        $this->currency = $currency;
 
         return $this;
     }

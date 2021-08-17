@@ -42,7 +42,8 @@ class WarehouseFinanceController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="warehouseID"),
      *          @OA\Property(type="number", property="cost"),
-     *          @OA\Property(type="string", property="description")
+     *          @OA\Property(type="string", property="description"),
+     *          @OA\Property(type="string", property="currency")
      *      )
      * )
      * 
