@@ -853,7 +853,9 @@ class ShipmentOrderController extends BaseController
      *      description="Post a request with filtering option",
      *      @OA\JsonContent(
      *          @OA\Property(type="boolean", property="isExternalWarehouse"),
-     *          @OA\Property(type="string", property="transportationType")
+     *          @OA\Property(type="string", property="transportationType"),
+     *          @OA\Property(type="integer", property="exportWarehouseID"),
+     *          @OA\Property(type="string", property="paymentTime")
      *      )
      * )
      *
@@ -941,7 +943,14 @@ class ShipmentOrderController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status"),
      *          @OA\Property(type="string", property="trackNumber"),
-     *          @OA\Property(type="string", property="transportationType")
+     *          @OA\Property(type="string", property="transportationType"),
+     *          @OA\Property(type="string", property="paymentTime"),
+     *          @OA\Property(type="string", property="launchCountry"),
+     *          @OA\Property(type="string", property="targetCountry"),
+     *          @OA\Property(type="boolean", property="isExternalWarehouse"),
+     *          @OA\Property(type="integer", property="exportWarehouseID"),
+     *          @OA\Property(type="string", property="dateOne", example="2021-05-10"),
+     *          @OA\Property(type="string", property="dateTwo", example="2021-05-10")
      *      )
      * )
      *

@@ -151,7 +151,9 @@ class ShipmentFinanceController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="shipmentID"),
      *          @OA\Property(type="string", property="trackNumber"),
-     *          @OA\Property(type="string", property="shipmentStatus")
+     *          @OA\Property(type="string", property="shipmentStatus"),
+     *          @OA\Property(type="integer", property="exportWarehouseID"),
+     *          @OA\Property(type="integer", property="importWarehouseID")
      *      )
      * )
      *

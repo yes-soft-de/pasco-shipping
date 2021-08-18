@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\WarehouseFinanceEntityRepository;
+use App\Repository\ReceiverEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=WarehouseFinanceEntityRepository::class)
+ * @ORM\Entity(repositoryClass=ReceiverEntityRepository::class)
  */
-class WarehouseFinanceEntity
+class ReceiverEntity
 {
     /**
      * @ORM\Id
@@ -19,19 +19,29 @@ class WarehouseFinanceEntity
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $fullName;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $address;
+
+    /**
      * @ORM\Column(type="integer")
      */
-    private $warehouseID;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $cost;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
+    private $clientUserID;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -46,7 +56,7 @@ class WarehouseFinanceEntity
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $createdBy;
 
@@ -55,48 +65,67 @@ class WarehouseFinanceEntity
      */
     private $updatedBy;
 
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $currency;
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getWarehouseID(): ?int
+    public function getFullName(): ?string
     {
-        return $this->warehouseID;
+        return $this->fullName;
     }
 
-    public function setWarehouseID(int $warehouseID): self
+    public function setFullName(string $fullName): self
     {
-        $this->warehouseID = $warehouseID;
+        $this->fullName = $fullName;
 
         return $this;
     }
 
-    public function getCost(): ?float
+    public function getPhone(): ?string
     {
-        return $this->cost;
+        return $this->phone;
     }
 
-    public function setCost(float $cost): self
+    public function setPhone(string $phone): self
     {
-        $this->cost = $cost;
+        $this->phone = $phone;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getEmail(): ?string
     {
-        return $this->description;
+        return $this->email;
     }
 
-    public function setDescription(?string $description): self
+    public function setEmail(?string $email): self
     {
-        $this->description = $description;
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getClientUserID(): ?int
+    {
+        return $this->clientUserID;
+    }
+
+    public function setClientUserID(int $clientUserID): self
+    {
+        $this->clientUserID = $clientUserID;
 
         return $this;
     }
@@ -145,18 +174,6 @@ class WarehouseFinanceEntity
     public function setUpdatedBy(?int $updatedBy): self
     {
         $this->updatedBy = $updatedBy;
-
-        return $this;
-    }
-
-    public function getCurrency(): ?string
-    {
-        return $this->currency;
-    }
-
-    public function setCurrency(string $currency): self
-    {
-        $this->currency = $currency;
 
         return $this;
     }

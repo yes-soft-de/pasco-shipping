@@ -10,6 +10,8 @@ class WarehouseFinanceCreateRequest
 
     private $description;
 
+    private $currency;
+
     private $createdBy;
 
     public function setCreatedBy($userID)

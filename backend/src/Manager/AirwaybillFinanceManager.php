@@ -58,9 +58,6 @@ class AirwaybillFinanceManager
 
     public function distributeAirwaybillCost(AirwaybillDistributeStatusCostRequest $request)
     {
-        $currentTotalCost = $this->getCurrentTotalCostByFilterOptions($request->getAirwaybillID(), $request->getStatus())['currentTotalCost'];
-        $currentTotalCost = (float)number_format($currentTotalCost, 2);
-        
         // get all shipments stored in the air waybill
         $tracks = $this->trackManager->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $request->getAirwaybillID());
         
@@ -81,16 +78,16 @@ class AirwaybillFinanceManager
                         if($track['isInOneHolder'])
                         {
                             // The shipment is stored completely in the air waybill => use the whole shipment volume in finding the cost according to the formula:
-                            // shipment cost = weight X price
-                            $shipmentCost = $track['weight'] * $currentTotalCost;
+                            // shipment cost = weight X price of 1 kilogram 
+                            $shipmentCost = $track['weight'] * 10;
 
                             $this->updateShipmentFinanceByAirwaybill($shipmentFinance, $request->getCreatedBy(), $shipmentCost);
                         }
                         else
                         {
                             // Part of the shipment is stored in the air waybill => use the shipment's volume which is entered in the amount field.
-                            // shipment cost = weight X price
-                            $shipmentCost = $track['weight'] * $currentTotalCost;
+                            // shipment cost = weight X price of 1 kilogram 
+                            $shipmentCost = $track['weight'] * 10;
 
                             $this->updateShipmentFinanceByAirwaybill($shipmentFinance, $request->getCreatedBy(), $shipmentCost);
                         }
@@ -102,16 +99,16 @@ class AirwaybillFinanceManager
                     if($track['isInOneHolder'])
                     {
                         // The shipment is stored completely in the air waybill => use the whole shipment volume in finding the cost according to the formula:
-                        // shipment cost = weight X price
-                        $shipmentCost = $track['weight'] * $currentTotalCost;
+                        // shipment cost = weight X price of 1 kilogram 
+                        $shipmentCost = $track['weight'] * 10;
 
                         $this->createShipmentFinanceByAirwaybill($request, $track['shipmentID'], $track['trackNumber'], $shipmentCost);
                     }
                     else
                     {
                         // Part of the shipment is stored in the air waybill => use the shipment's volume which is entered in the amount field.
-                        // shipment cost = weight X price
-                        $shipmentCost = $track['weight'] * $currentTotalCost;
+                        // shipment cost = weight X price of 1 kilogram 
+                        $shipmentCost = $track['weight'] * 10;
 
                         $this->createShipmentFinanceByAirwaybill($request, $track['shipmentID'], $track['trackNumber'], $shipmentCost);
                     }
@@ -124,8 +121,6 @@ class AirwaybillFinanceManager
         {
             return "There is not any shipment stored in the air waybill!";
         }
-
-        return $currentTotalCost;
     }
 
     public function createShipmentFinanceByAirwaybill(AirwaybillDistributeStatusCostRequest $request, $shipmentID, $trackNumber, $stageCost)

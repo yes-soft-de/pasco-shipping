@@ -58,9 +58,6 @@ class ContainerFinanceManager
 
     public function distributeContainerCost(ContainerDistributeStatusCostRequest $request)
     {
-        $currentTotalCost = $this->getCurrentTotalCostByFilterOptions($request->getContainerID(), $request->getStatus())['currentTotalCost'];
-        $currentTotalCost = (float)number_format($currentTotalCost, 2);
-        
         // get all shipments stored in the container
         $tracks = $this->trackManager->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $request->getContainerID());
         
@@ -81,16 +78,16 @@ class ContainerFinanceManager
                         if($track['isInOneHolder'])
                         {
                             // The shipment is stored completely in the container => use the whole shipment volume in finding the cost according to the formula:
-                            // shipment cost = volume X quantity X price
-                            $shipmentCost = $track['volume'] * $track['quantity'] * $currentTotalCost;
+                            // shipment cost = volume X quantity X price of 1 CPM
+                            $shipmentCost = $track['volume'] * $track['quantity'] * 10;
 
                             $this->updateShipmentFinanceByContainer($shipmentFinance, $request->getCreatedBy(), $shipmentCost);
                         }
                         else
                         {
                             // Part of the shipment is stored in the container => use the shipment's volume which is entered in the amount field.
-                            // shipment cost = volume X quantity X price
-                            $shipmentCost = $track['amount'] * $track['quantity'] * $currentTotalCost;
+                            // shipment cost = volume X quantity X price of 1 CPM
+                            $shipmentCost = $track['amount'] * $track['quantity'] * 10;
 
                             $this->updateShipmentFinanceByContainer($shipmentFinance, $request->getCreatedBy(), $shipmentCost);
                         }
@@ -102,16 +99,16 @@ class ContainerFinanceManager
                     if($track['isInOneHolder'])
                     {
                         // The shipment is stored completely in the container => use the whole shipment volume in finding the cost according to the formula:
-                        // shipment cost = volume X quantity X price
-                        $shipmentCost = $track['volume'] * $track['quantity'] * $currentTotalCost;
+                        // shipment cost = volume X quantity X price of 1 CPM
+                        $shipmentCost = $track['volume'] * $track['quantity'] * 10;
 
                         $this->createShipmentFinanceByContainer($request, $track['shipmentID'], $track['trackNumber'], $shipmentCost);
                     }
                     else
                     {
                         // Part of the shipment is stored in the container => use the shipment's volume which is entered in the amount field.
-                        // shipment cost = volume X quantity X price
-                        $shipmentCost = $track['amount'] * $track['quantity'] * $currentTotalCost;
+                        // shipment cost = volume X quantity X price of 1 CPM
+                        $shipmentCost = $track['amount'] * $track['quantity'] * 10;
 
                         $this->createShipmentFinanceByContainer($request, $track['shipmentID'], $track['trackNumber'], $shipmentCost);
                     }
@@ -124,8 +121,6 @@ class ContainerFinanceManager
         {
             return "There is not any shipment stored in the container!";
         }
-
-        return $currentTotalCost;
     }
 
     public function createShipmentFinanceByContainer(ContainerDistributeStatusCostRequest $request, $shipmentID, $trackNumber, $stageCost)
