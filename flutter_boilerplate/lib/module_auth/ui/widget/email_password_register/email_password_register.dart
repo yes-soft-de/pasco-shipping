@@ -1,5 +1,6 @@
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/module_auth/request/register_request/register_request.dart';
 import 'package:pasco_shipping/module_intro/widget/roundedButton.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
@@ -8,7 +9,7 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 import '../../../authorization_routes.dart';
 
 class EmailPasswordRegisterForm extends StatefulWidget {
-  final Function(String, String, String)? onRegisterRequest;
+  final Function(RegisterRequest)? onRegisterRequest;
 
   EmailPasswordRegisterForm({
     this.onRegisterRequest,
@@ -55,7 +56,7 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
               direction: Axis.vertical,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                   child: Container(
                     child: TextFormField(
                       controller: _registerEmailController,
@@ -122,25 +123,24 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: TextFormField(
-                      controller: _registerPasswordController,
+                      controller: _registerNameController,
                       decoration: InputDecoration(
+                          suffixIcon: Icon(Icons.check ,color: AppThemeDataService.AccentColor,),
                           enabledBorder: new UnderlineInputBorder(
                               borderSide:
                               new BorderSide(color: Colors.white)),
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                   color: AppThemeDataService.AccentColor)),
-                          suffixIcon: Icon(Icons.remove_red_eye,color: AppThemeDataService.AccentColor,),
-                          labelText: S.of(context).confirmPass,
+                          labelText: S.of(context).nameHere,
                           labelStyle: white16text),
                       style: white16text,
                       validator: (result) {
-                        if (result!.length < 5) {
+                        if (result!.length < 4) {
                           return '';
                         }
                         return null;
                       },
-                      obscureText: true,
                       textInputAction: TextInputAction.done,
                       onFieldSubmitted: (_) =>
                           node.unfocus(), // Submit and hide keyboard
@@ -161,7 +161,7 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                   Container(
                     child: RoundedButton(
                       radius: 15,
-                      lable: S.of(context).signUp,
+                      lable:loading ? 'Loading': S.of(context).signUp,
                       icon: StaticImage.person,
                       color: Theme.of(context).accentColor,
                       go: loading == true
@@ -170,10 +170,9 @@ class _EmailPasswordRegisterFormState extends State<EmailPasswordRegisterForm> {
                         if (_registerFormKey.currentState!.validate()) {
                           loading = true;
                           setState(() {});
+                          RegisterRequest rre = RegisterRequest(userID: _registerEmailController.text ,password: _registerPasswordController.text,userName: _registerNameController.text);
                           widget.onRegisterRequest!(
-                            _registerEmailController.text,
-                            _registerPasswordController.text,
-                            _registerNameController.text
+                            rre
                           );
                         }
                       },

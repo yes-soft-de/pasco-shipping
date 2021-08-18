@@ -14,7 +14,7 @@ class FirstOptionRepository {
 
   Future<List<Category>?> getProductCategories() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.PRODUCT_CATEGORY,
           headers: {'Authorization': 'Bearer $token'});
@@ -28,7 +28,7 @@ class FirstOptionRepository {
 
   Future<List<Countries>?> getWarehouses() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token = await _authService.getToken();
     try {
       var response = await _apiClient
           .get(Urls.Countries, headers: {'Authorization': 'Bearer $token'});

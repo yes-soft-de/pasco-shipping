@@ -78,5 +78,20 @@
   "shippingTo": "شحن إلى:",
   "productType": "نوع المنتجات:",
   "quantity": "الكمية:",
-  "image": "صورة:"
+  "image": "صورة:",
+
+  "networkError": "هناك مشكلة بالاتصال بالشبكة الرجاء إعادة المحاولة لاحقا",
+  "invalidCredentials": "هناك خطأ في كلمة السر أو اسم المستخدم",
+
+  "statusCodeOk": "تم جلب المعلومات بنجاح",
+  "statusCodeCreated": "نجح الطلب وتم إنشاء تغيير جديد نتيجة لذلك ",
+  "statusCodeBadRequest":"تعذر على الخادم فهم الطلب",
+  "statusCodeUnauthorized":"أنت غير مخول بالقيام بهذا الطلب",
+  "StatusCodeNotFound":"لم يتمكن الخادم من العثور على طلبك",
+
+
+  "internalServerError": "هناك مشكلة ما في الخادم",
+  "dataDecodeError": "هناك مشكلة في تفسير البيانات",
+  "errorHappened": "حدث خطأ ما",
+  "registerSuccess": "تم تسجيل حسابك بنجاح"
 }

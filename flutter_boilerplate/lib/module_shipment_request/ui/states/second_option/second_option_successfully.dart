@@ -14,7 +14,8 @@ class SecondOptionSuccessfully extends StatefulWidget {
   final ShipmentTempRequest shipmentRequest;
   final Function goBackStep;
   final Function goNextPage;
-  SecondOptionSuccessfully({required this.marks,required this.shipmentRequest,required this.goBackStep,required this.goNextPage});
+  final Function goMarkPage;
+  SecondOptionSuccessfully({required this.marks,required this.shipmentRequest,required this.goBackStep,required this.goNextPage,required this.goMarkPage});
 
   @override
   _SecondOptionSuccessfullyState createState() => _SecondOptionSuccessfullyState();
@@ -157,19 +158,20 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
             ),
             InkWell(
               onTap: () {
-                Navigator.pushNamed(context, MarkRoutes.mark).then((value) {
-                  print('back');
-                 setState(() {
-                   List<Mark>  marks = value as List<Mark>;
-                   isFromMarks = true;
-                   marksEntry = <Entry>[];
-                   for(Mark item in marks){
-                     Entry v = Entry(item.markNumber! ,item.id! ,[]);
-                     marksEntry.add(v);
-                   }
-                   this.dropListModelFromMark = DropListModel(marksEntry);
-                 });
-                });
+                widget.goMarkPage();
+                // Navigator.pushNamed(context, MarkRoutes.mark).then((value) {
+                //   print('back');
+                //  setState(() {
+                //    List<Mark>  marks = value as List<Mark>;
+                //    isFromMarks = true;
+                //    marksEntry = <Entry>[];
+                //    for(Mark item in marks){
+                //      Entry v = Entry(item.markNumber! ,item.id! ,[]);
+                //      marksEntry.add(v);
+                //    }
+                //    this.dropListModelFromMark = DropListModel(marksEntry);
+                //  });
+                // });
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

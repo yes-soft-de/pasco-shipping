@@ -1,3 +1,5 @@
+import 'package:pasco_shipping/utils/logger/logger.dart';
+
 class MyHistoryShipmentResponse {
   MyHistoryShipmentResponse({
     this.statusCode,
@@ -9,39 +11,47 @@ class MyHistoryShipmentResponse {
   String? msg;
   List<MyHistoryShipment>? data;
 
-  factory MyHistoryShipmentResponse.fromJson(Map<String, dynamic> json) =>
-      MyHistoryShipmentResponse(
-        statusCode: json["status_code"],
-        msg: json["msg"],
-        data: List<MyHistoryShipment>.from(
-            json["Data"].map((x) => MyHistoryShipment.fromJson(x))),
-      );
+  MyHistoryShipmentResponse.fromJson(Map<String, dynamic> json) {
+    try {
+      statusCode = json['status_code'];
+      msg = json['msg'];
+      if (json['Data'] != null) {
+        data = List<MyHistoryShipment>.from(
+            json["Data"].map((x) => MyHistoryShipment.fromJson(x)));
+      }
+    } catch (e) {
+      Logger()
+          .error('HistoryShipment Response', e.toString(), StackTrace.current);
+      statusCode = '-1';
+    }
+  }
 }
 
 class MyHistoryShipment {
-  MyHistoryShipment({
-    this.shipmentId,
-    this.trackNumber,
-    this.statusDetails,
-    this.target,
-    this.supplierName,
-    this.distributorName,
-    this.exportWarehouseName,
-    this.importWarehouseName,
-    this.quantity,
-    this.updatedAt,
-    this.productCategoryName,
-    this.unit,
-    this.receiverName,
-    this.receiverPhoneNumber,
-    this.paymentTime,
-    this.vehicleIdentificationNumber,
-    this.extraSpecification,
-    this.transportationType,
-    this.markNumber,
-    this.holderType,
-    this.imagePath
-  });
+  MyHistoryShipment(
+      {this.shipmentId,
+      this.trackNumber,
+      this.statusDetails,
+      this.target,
+      this.supplierName,
+      this.distributorName,
+      this.exportWarehouseName,
+      this.importWarehouseName,
+      this.quantity,
+      this.updatedAt,
+      this.productCategoryName,
+      this.unit,
+      this.receiverName,
+      this.receiverPhoneNumber,
+      this.paymentTime,
+      this.vehicleIdentificationNumber,
+      this.extraSpecification,
+      this.transportationType,
+      this.markNumber,
+      this.holderType,
+      this.externalWarehouseInfo,
+      this.isExternalWarehouse,
+      this.imagePath});
 
   int? shipmentId;
   String? trackNumber;
@@ -69,6 +79,8 @@ class MyHistoryShipment {
   String? extraSpecification;
 
   String? holderType;
+  String? externalWarehouseInfo;
+  bool? isExternalWarehouse;
   String? imagePath;
 
   factory MyHistoryShipment.fromJson(Map<String, dynamic> json) =>
@@ -91,11 +103,12 @@ class MyHistoryShipment {
         paymentTime: json["paymentTime"],
         vehicleIdentificationNumber: json["vehicleIdentificationNumber"],
         extraSpecification: json["extraSpecification"],
-
-        transportationType : json['transportationType'],
+        transportationType: json['transportationType'],
         markNumber: json['markNumber'],
         holderType: json['holderType'],
-        imagePath:json['image'],
+        isExternalWarehouse: json['isExternalWarehouse'],
+        externalWarehouseInfo: json['externalWarehouseInfo'],
+        imagePath: json['image'],
       );
 }
 

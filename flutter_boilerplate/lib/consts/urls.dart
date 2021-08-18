@@ -1,11 +1,11 @@
 class Urls {
-  static const String DOMAIN = 'http://165.22.75.62/';
-  static const String BASE_API = 'http://165.22.75.62/';
+  static const String DOMAIN = 'http://159.89.13.229/';
+  static const String BASE_API = 'http://159.89.13.229/';
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
 
-  static const SIGN_UP_API = BASE_API + '/user';
+  static const SIGN_UP_API = BASE_API + 'client';
   // static const OWNER_PROFILE_API = BASE_API + '/userprofile';
-  static const CREATE_TOKEN_API = BASE_API + '/login_check';
+  static const CREATE_TOKEN_API = BASE_API + 'login_check';
 
 //request shipment
   static const PRODUCT_CATEGORY = BASE_API + 'productcategories';
@@ -35,5 +35,5 @@ class Urls {
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
 
 
-  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjU2ODczMDcsImV4cCI6MTYyNTY5MDkwNywicm9sZXMiOlsidXNlciJdLCJ1c2VybmFtZSI6InNhbWkifQ.zhHkbE_gjebpglDU5dKZthtV2cb8TKYh60-s2l7rEUyDxcOgmpKW_gGbk9OWntRmKoYVsShEqM6tKfpwJ4_GBDUi6DY5NA2S6hcYto4gSzfTMazj5vSEefyg9sSx1yZU9QldrImhfApJ3tnIeNbAnzMew0JcLbwmlvSxR1TgnO8FdbNZudAgIIZ7O4MyqiihnR3G0ebsCtoHXBbXC0yKAsYUa0mH_OzFxBi299IpmkArxpqaofxjIbqo_E26DkRN60a1gfcg8EMDujXLUcalu_gc2RaDPC1d2MhQPxefjnVhxg3WB8we1wipEkREz9ukUVrgYiJirJLqAKaquKpptw';
+  // static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjU2ODczMDcsImV4cCI6MTYyNTY5MDkwNywicm9sZXMiOlsidXNlciJdLCJ1c2VybmFtZSI6InNhbWkifQ.zhHkbE_gjebpglDU5dKZthtV2cb8TKYh60-s2l7rEUyDxcOgmpKW_gGbk9OWntRmKoYVsShEqM6tKfpwJ4_GBDUi6DY5NA2S6hcYto4gSzfTMazj5vSEefyg9sSx1yZU9QldrImhfApJ3tnIeNbAnzMew0JcLbwmlvSxR1TgnO8FdbNZudAgIIZ7O4MyqiihnR3G0ebsCtoHXBbXC0yKAsYUa0mH_OzFxBi299IpmkArxpqaofxjIbqo_E26DkRN60a1gfcg8EMDujXLUcalu_gc2RaDPC1d2MhQPxefjnVhxg3WB8we1wipEkREz9ukUVrgYiJirJLqAKaquKpptw';
 }

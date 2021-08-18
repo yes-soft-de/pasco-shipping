@@ -15,15 +15,15 @@ class MyShipmentHistorySuccessfully extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
+            shipments.isNotEmpty ?  Padding(
               padding:
                   const EdgeInsetsDirectional.only(start: 20, top: 10),
               child: Text(
                 'Previous shipments',
                 style: greyWhite14text,
               ),
-            ),
-            ListView.builder(
+            ) :Container(),
+          shipments.isEmpty ?  Center(child: Text('No Previous Shipments',style: greyWhite14text,)):  ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 physics: NeverScrollableScrollPhysics(),

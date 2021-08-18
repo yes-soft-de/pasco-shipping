@@ -39,7 +39,7 @@ class _MarkScreenState extends State<MarkScreen> {
     print("Screen rebuild");
     return Background(
       goBack: (){
-        Navigator.pop(context , items);
+        Navigator.pop(context);
       },
       controller: controller,
       isHome: false,

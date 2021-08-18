@@ -25,6 +25,9 @@ class AddShipmentRequest {
    String extraSpecification;
 
    String holderType;
+
+   bool isExternalWarehouse;
+   String? externalWarehouseInfo;
    String? imageFile;
 
 
@@ -40,10 +43,13 @@ class AddShipmentRequest {
     "receiverPhoneNumber": receiverPhoneNumber,
     "paymentTime": paymentTime,
     "exportWarehouseID": exportWarehouseID,
-    "markId": markId,
+    "markID": markId,
     "vehicleIdentificationNumber": vehicleIdentificationNumber,
     "extraSpecification": extraSpecification,
     'holderType':holderType,
+    'isExternalWarehouse':isExternalWarehouse,
+    'externalWarehouseInfo':externalWarehouseInfo,
+
     'image': imageFile,
   };
 
@@ -62,5 +68,8 @@ class AddShipmentRequest {
      required this.vehicleIdentificationNumber,
      required  this.extraSpecification,
      required this.holderType,
+    required this.isExternalWarehouse,
+     this.externalWarehouseInfo,
+
       this.imageFile});
 }

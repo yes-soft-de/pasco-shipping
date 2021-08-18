@@ -17,8 +17,9 @@ class SecondOption extends StatefulWidget {
   final ShipmentTempRequest _shipmentRequest;
   final Function goBackStep;
   final Function goNextStep;
+  final Function goMarkPage;
   const SecondOption(this.stateManger, this._shipmentRequest, this.goBackStep,
-      this.goNextStep);
+      this.goNextStep, this.goMarkPage);
 
   @override
   _SecondOptionState createState() => _SecondOptionState();
@@ -61,7 +62,9 @@ class _SecondOptionState extends State<SecondOption> {
         widget.goBackStep();
       },goNextPage: () {
         widget.goNextStep();
-      });
+      }, goMarkPage: (){
+        widget.goMarkPage();
+        },);
     } else {
       return Column(
         children: [

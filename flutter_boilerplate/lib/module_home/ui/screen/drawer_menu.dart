@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_auth/authorization_routes.dart';
 import 'package:pasco_shipping/module_chat/chat_routes.dart';
 import 'package:pasco_shipping/module_home/presistance/profile_prefs_helper.dart';
 import 'package:pasco_shipping/module_profile/request/profile_request.dart';
@@ -9,6 +10,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class DrawerMenu extends StatefulWidget {
    DrawerMenu();
@@ -101,8 +103,12 @@ class _DrawerMenuState extends State<DrawerMenu> {
              leading: Icon(Icons.settings),
            ),
            ListTile(
-             onTap: () {
-               // Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
+             onTap: ()  {
+               var box = Hive.box('Authorization');
+                box.clear().then((value){
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      AuthorizationRoutes.LOGIN_SCREEN, (route) => false);
+               });
              },
              title: Text(S.of(context).logout),
              leading: Icon(Icons.logout),

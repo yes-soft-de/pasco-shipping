@@ -17,6 +17,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 import 'dart:io';
 import 'package:image/image.dart' as ImageProcess;
+import 'package:pasco_shipping/utils/widget/text_edit.dart';
 
 class FirstOptionSuccessfully extends StatefulWidget {
   final List<Countries> countries;
@@ -35,6 +36,7 @@ class FirstOptionSuccessfully extends StatefulWidget {
 
 class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
  late int selectedRadioGender;
+ late int selectedRadioWarehouse;
 
   late DropListModel dropListModelFrom;
 
@@ -69,6 +71,11 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
    }else {selectedRadioGender = 2;
    widget.shipmentRequest.transportationType = 'air';
    }
+    if(widget.shipmentRequest.isExternalWarehouse){
+      selectedRadioWarehouse = 1;
+    }else {selectedRadioWarehouse = 2;
+    widget.shipmentRequest.isExternalWarehouse = false;
+    }
 
    if(widget.shipmentRequest.quantity == 0){
      initQuantity = '0';
@@ -230,6 +237,56 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
               setState(() {});
             },
           ),
+          Row(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'External Warehouse',
+                style: white18text,
+              ),
+              Radio(
+                onChanged: (value) {
+                  _setSelectedRadioWarehouse(1);
+                },
+                value: 1,
+                groupValue: selectedRadioWarehouse,
+              ),
+              Text(
+                'True',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(
+                width: 50,
+              ),
+              Radio(
+                onChanged: (value) {
+                  _setSelectedRadioWarehouse(2);
+                },
+                value: 2,
+                groupValue: selectedRadioWarehouse,
+              ),
+              Text('false',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ))
+            ],
+          ),
+          Visibility(
+            visible: widget.shipmentRequest.isExternalWarehouse ,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Warehouse Info : ',
+                  style: white18text,
+                ),
+                TextEdit('info', 50, (info) {
+                  widget.shipmentRequest.externalWarehouseInfo = info;
+                }),
+              ],),
+          ),
           SizedBox(
             height: 10,
           ),
@@ -363,6 +420,17 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
       print(val);
     });
   }
+ void _setSelectedRadioWarehouse(int val) {
+   setState(() {
+     selectedRadioWarehouse = val;
+     if (val == 1) {
+       widget.shipmentRequest.isExternalWarehouse = true;
+     } else if (val == 2) {
+       widget.shipmentRequest.isExternalWarehouse = false;
+     }
+     print(val);
+   });
+ }
  String parseImage(File imageFile){
    List<int> imageBytes = imageFile.readAsBytesSync();
    return  base64.encode(imageBytes);

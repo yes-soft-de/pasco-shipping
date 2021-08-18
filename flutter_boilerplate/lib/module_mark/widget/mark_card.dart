@@ -44,7 +44,7 @@ class MarkCard extends StatelessWidget {
                     deleteMark(model.id);
                   }
                 },
-                child: Icon(Icons.delete , color: Colors.red,size: 18,))
+                child: Icon(Icons.delete , color: Colors.red,size: 25,))
           ],
         ) ,
       ),
