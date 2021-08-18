@@ -34,6 +34,8 @@ class OrderShipmentByUserGetResponse
 
     public $productCategoryName;
 
+    public $subProductCategoryName;
+
     public $unit;
 
     public $receiverName;
