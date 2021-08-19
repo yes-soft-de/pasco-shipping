@@ -47,4 +47,9 @@ class TravelFinanceManager
         return $travelFinances;
     }
 
+    public function deleteAllTravelsFinances()
+    {
+        return $this->travelFinanceEntityRepository->deleteAllTravelsFinances();
+    }
+
 }

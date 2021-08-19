@@ -7,6 +7,7 @@ use App\Entity\ShipmentFinanceEntity;
 use App\Manager\ShipmentFinanceManager;
 use App\Request\ShipmentFinanceCreateRequest;
 use App\Request\ShipmentFinanceFilterRequest;
+use App\Response\DeleteAllGetResponse;
 use App\Response\ShipmentFinanceCreateResponse;
 use App\Response\ShipmentFinanceGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -74,6 +75,15 @@ class ShipmentFinanceService
         }
 
         return $this->autoMapping->map('array', ShipmentFinanceGetResponse::class, $shipmentFinances);
+    }
+
+    public function deleteAllShipmentFinances()
+    {
+        $result = [];
+
+        $result['numbersOfItemDeleted'] = $this->shipmentFinanceManager->deleteAllShipmentFinances();
+
+        return $this->autoMapping->map('array', DeleteAllGetResponse::class, $result);
     }
 
 }

@@ -161,4 +161,9 @@ class AirwaybillFinanceManager
         $this->shipmentFinanceManager->update($shipmentFinanceUpdateRequest);
     }
 
+    public function deleteAllAirwaybillsFinances()
+    {
+        return $this->airwaybillFinanceEntityRepository->deleteAllAirwaybillsFinances();
+    }
+
 }

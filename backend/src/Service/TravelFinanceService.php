@@ -7,6 +7,7 @@ use App\Entity\TravelFinanceEntity;
 use App\Manager\TravelFinanceManager;
 use App\Request\TravelFinanceCreateRequest;
 use App\Request\TravelFinanceFilterRequest;
+use App\Response\DeleteAllGetResponse;
 use App\Response\TravelFinanceCreateResponse;
 use App\Response\TravelFinanceGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -50,6 +51,15 @@ class TravelFinanceService
         }
 
         return $this->autoMapping->map('array', TravelFinanceGetResponse::class, $travelFinances);
+    }
+
+    public function deleteAllTravelsFinances()
+    {
+        $result = [];
+
+        $result['numbersOfItemDeleted'] = $this->travelFinanceManager->deleteAllTravelsFinances();
+
+        return $this->autoMapping->map('array', DeleteAllGetResponse::class, $result);
     }
 
 }

@@ -235,4 +235,15 @@ class ContainerFinanceController extends BaseController
         return $this->response($result, self::UPDATE);
     }
 
+    /**
+     * @Route("deleteallcontainersfinances", name="deleteAllContainersFinances", methods={"DELETE"})
+     * @return JsonResponse
+     */
+    public function deleteAllContainersFinances()
+    {
+        $result = $this->containerFinanceService->deleteAllContainersFinances();
+
+        return $this->response($result, self::DELETE);
+    }
+
 }

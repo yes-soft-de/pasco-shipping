@@ -148,4 +148,15 @@ class TravelFinanceController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
+    /**
+     * @Route("deletealltravelsfinances", name="deleteAllTravelsFinances", methods={"DELETE"})
+     * @return JsonResponse
+     */
+    public function deleteAllTravelsFinances()
+    {
+        $result = $this->travelFinanceService->deleteAllTravelsFinances();
+
+        return $this->response($result, self::DELETE);
+    }
+
 }

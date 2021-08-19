@@ -235,4 +235,15 @@ class AirwaybillFinanceController extends BaseController
         return $this->response($result, self::UPDATE);
     }
 
+    /**
+     * @Route("deleteallairwaybillsfinances", name="deleteAllAirwaybillsFinances", methods={"DELETE"})
+     * @return JsonResponse
+     */
+    public function deleteAllAirwaybillsFinances()
+    {
+        $result = $this->airwaybillFinanceService->deleteAllAirwaybillsFinances();
+
+        return $this->response($result, self::DELETE);
+    }
+
 }

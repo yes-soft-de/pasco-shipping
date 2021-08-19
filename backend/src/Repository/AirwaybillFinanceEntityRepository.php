@@ -79,4 +79,13 @@ class AirwaybillFinanceEntityRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function deleteAllAirwaybillsFinances()
+    {
+        return $this->createQueryBuilder('airwaybill_finance_entity')
+            ->delete()
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }

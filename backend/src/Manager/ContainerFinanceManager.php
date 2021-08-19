@@ -161,4 +161,9 @@ class ContainerFinanceManager
         $this->shipmentFinanceManager->update($shipmentFinanceUpdateRequest);
     }
 
+    public function deleteAllContainersFinances()
+    {
+        return $this->containerFinanceEntityRepository->deleteAllContainersFinances();
+    }
+
 }

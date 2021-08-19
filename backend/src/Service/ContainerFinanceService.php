@@ -10,6 +10,7 @@ use App\Request\ContainerFinanceCreateRequest;
 use App\Request\ContainerFinanceFilterRequest;
 use App\Response\ContainerFinanceCreateResponse;
 use App\Response\ContainerFinanceGetResponse;
+use App\Response\DeleteAllGetResponse;
 use App\Response\TrackByHolderTypeAndHolderIdGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -69,6 +70,15 @@ class ContainerFinanceService
         }
 
         return $tracks;
+    }
+
+    public function deleteAllContainersFinances()
+    {
+        $result = [];
+
+        $result['numbersOfItemDeleted'] = $this->containerFinanceManager->deleteAllContainersFinances();
+
+        return $this->autoMapping->map('array', DeleteAllGetResponse::class, $result);
     }
 
 }

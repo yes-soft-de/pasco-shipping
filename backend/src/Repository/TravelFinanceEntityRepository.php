@@ -79,4 +79,13 @@ class TravelFinanceEntityRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function deleteAllTravelsFinances()
+    {
+        return $this->createQueryBuilder('travel_finance_entity')
+            ->delete()
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }
