@@ -50,8 +50,17 @@ class AirwaybillFinanceManager
     public function filterAirwaybillFinances(AirwaybillFinanceFilterRequest $request)
     {
         $airwaybillFinances['airwaybillFinances'] = $this->airwaybillFinanceEntityRepository->filterAirwaybillFinances($request->getAirwaybillID(), $request->getStatus());
-        
-        $airwaybillFinances['currentTotalCost'] = $this->getCurrentTotalCostByFilterOptions($request->getAirwaybillID(), $request->getStatus())['currentTotalCost'];
+
+        $currentTotalCost = $this->getCurrentTotalCostByFilterOptions($request->getAirwaybillID(), $request->getStatus())['currentTotalCost'];
+
+        if($currentTotalCost)
+        {
+            $airwaybillFinances['currentTotalCost'] = $currentTotalCost;
+        }
+        else
+        {
+            $airwaybillFinances['currentTotalCost'] = 0;
+        }
 
         return $airwaybillFinances;
     }

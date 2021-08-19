@@ -51,7 +51,16 @@ class ContainerFinanceManager
     {
         $containerFinances['containerFinances'] = $this->containerFinanceEntityRepository->filterContainerFinances($request->getContainerID(), $request->getStatus());
         
-        $containerFinances['currentTotalCost'] = $this->getCurrentTotalCostByFilterOptions($request->getContainerID(), $request->getStatus())['currentTotalCost'];
+        $currentTotalCost = $this->getCurrentTotalCostByFilterOptions($request->getContainerID(), $request->getStatus())['currentTotalCost'];
+
+        if($currentTotalCost)
+        {
+            $containerFinances['currentTotalCost'] = $currentTotalCost;
+        }
+        else
+        {
+            $containerFinances['currentTotalCost'] = 0;
+        }
 
         return $containerFinances;
     }
