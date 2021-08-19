@@ -3,6 +3,7 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\HolderTypeConstant;
 use App\Constant\ShipmentStatusConstant;
 use App\Entity\ShipmentStatusEntity;
 use App\Repository\ShipmentStatusEntityRepository;
@@ -202,13 +203,81 @@ class ShipmentStatusManager
     // For shipmentorder/id endpoint + filter API
     public function getShipmentStatusAndTracksByShipmentID($shipmentID)
     {
-        return $this->shipmentStatusEntityRepository->getShipmentStatusAndTracksByShipmentID($shipmentID);
+        $tracks = $this->shipmentStatusEntityRepository->getShipmentStatusAndTracksByShipmentID($shipmentID);
+
+        // Following part is for get the load mode of the holder, either it is LCL or FCL
+        if($tracks)
+        {
+            foreach ($tracks as $key=>$val)
+            {
+                if($val['holderType'] == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
+                {
+                    $container = $this->getContainerById($val['holderID']);
+                    if($container)
+                    {
+                        $tracks[$key] += ['loadMode' => $container['type']];
+                    }
+                    else
+                    {
+                        $tracks[$key] += ['loadMode' => null];
+                    }
+                }
+                elseif ($val['holderType'] == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
+                {
+                    $airwaybill = $this->getAirwaybillById($val['holderID']);
+                    if($airwaybill)
+                    {
+                        $tracks[$key] += ['loadMode' => $airwaybill['type']];
+                    }
+                    else
+                    {
+                        $tracks[$key] += ['loadMode' => null];
+                    }
+                }
+            }
+        }
+
+        return $tracks;
     }
 
     // For filter API
     public function getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
-        return $this->shipmentStatusEntityRepository->getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+        $tracks = $this->shipmentStatusEntityRepository->getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+
+        // Following part is for get the load mode of the holder, either it is LCL or FCL
+        if($tracks)
+        {
+            foreach ($tracks as $key=>$val)
+            {
+                if($val['holderType'] == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
+                {
+                    $container = $this->getContainerById($val['holderID']);
+                    if($container)
+                    {
+                        $tracks[$key] += ['loadMode' => $container['type']];
+                    }
+                    else
+                    {
+                        $tracks[$key] += ['loadMode' => null];
+                    }
+                }
+                elseif ($val['holderType'] == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
+                {
+                    $airwaybill = $this->getAirwaybillById($val['holderID']);
+                    if($airwaybill)
+                    {
+                        $tracks[$key] += ['loadMode' => $airwaybill['type']];
+                    }
+                    else
+                    {
+                        $tracks[$key] += ['loadMode' => null];
+                    }
+                }
+            }
+        }
+
+        return $tracks;
     }
 
     public function getShipmentLogByShipmentID($shipmentID)
