@@ -2,15 +2,11 @@
 
 namespace App\Response;
 
-class MessageGetResponse
+class ChatGetResponse
 {
     public $id;
     
     public $roomID;
-
-    public $username;
-
-    public $image;
 
     public $createdAt;
 
