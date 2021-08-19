@@ -52,6 +52,8 @@ class ShipmentByTrackNumberGetResponse
 
     public $productCategoryName;
 
+    public $subProductCategoryName;
+
     public $unit;
 
     public $receiverName;

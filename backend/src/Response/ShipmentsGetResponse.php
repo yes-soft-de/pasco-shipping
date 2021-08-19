@@ -26,6 +26,8 @@ class ShipmentsGetResponse
 
     public $productCategoryName;
 
+    public $subProductCategoryName;
+
     public $unit;
 
     public $receiverName;

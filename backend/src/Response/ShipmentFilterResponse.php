@@ -32,6 +32,8 @@ class ShipmentFilterResponse
 
     public $productCategoryName;
 
+    public $subProductCategoryName;
+
     public $unit;
 
     public $receiverName;

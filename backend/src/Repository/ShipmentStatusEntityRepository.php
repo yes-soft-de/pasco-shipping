@@ -10,6 +10,7 @@ use App\Entity\ShipmentStatusEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\MarkEntity;
 use App\Entity\SubcontractEntity;
+use App\Entity\SubProductCategoryEntity;
 use App\Entity\TrackEntity;
 use App\Entity\WarehouseEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -39,7 +40,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "adminProfile1.userName as shipmentStatusCreatedByUser", 
             "adminProfile1.userName as shipmentStatusCreatedByUserImage", "adminProfile2.userName as shipmentStatusUpdatedByUser", "adminProfile2.userName as shipmentStatusUpdatedByUserImage", "clientProfile.userName as clientUsername", 
             "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", 
-            "distributor.fullName as distributorName", "productCategory.name as productCategoryName", "markEntity.markNumber", "subcontractEntity.fullName as packetingBy")
+            "distributor.fullName as distributorName", "productCategory.name as productCategoryName", "markEntity.markNumber", "subcontractEntity.fullName as packetingBy", "subProductCategoryEntity.name as subProductCategoryName")
 
             ->leftJoin(
                 OrderShipmentEntity::class,
@@ -87,10 +88,17 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
+                SubProductCategoryEntity::class,
+                'subProductCategoryEntity',
+                Join::WITH,
+                'subProductCategoryEntity.id = shipmentOrder.productCategoryID'
+            )
+
+            ->leftJoin(
                 ProductCategoryEntity::class,
                 'productCategory',
                 Join::WITH,
-                'productCategory.id = shipmentOrder.productCategoryID'
+                'productCategory.id = subProductCategoryEntity.productCategoryID'
             )
 
             ->leftJoin(
@@ -150,7 +158,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy",
                 "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage", "adminProfile2.userName as shipmentStatusUpdatedByUser", 
                 "adminProfile2.image as shipmentStatusUpdatedByUserImage", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage", 
-                "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName", "markEntity.markNumber")
+                "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName", "markEntity.markNumber", "subProductCategoryEntity.name as subProductCategoryName")
 
             ->andWhere('shipment.shipmentStatus = :status')
             ->setParameter('status', $status)
@@ -215,10 +223,17 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
+                SubProductCategoryEntity::class,
+                'subProductCategoryEntity',
+                Join::WITH,
+                'subProductCategoryEntity.id = shipmentOrder.productCategoryID'
+            )
+
+            ->leftJoin(
                 ProductCategoryEntity::class,
                 'productCategory',
                 Join::WITH,
-                'productCategory.id = shipmentOrder.productCategoryID'
+                'productCategory.id = subProductCategoryEntity.productCategoryID'
             )
 
             ->leftJoin(
@@ -243,7 +258,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy",
                 "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage", "adminProfile2.userName as shipmentStatusUpdatedByUser", 
                 "adminProfile2.image as shipmentStatusUpdatedByUserImage", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage", 
-                "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName", "markEntity.markNumber")
+                "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName", "markEntity.markNumber", "subProductCategoryEntity.name as subProductCategoryName")
 
             ->andWhere("shipment.shipmentStatus != 'delivered'")
 
@@ -307,10 +322,17 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
+                SubProductCategoryEntity::class,
+                'subProductCategoryEntity',
+                Join::WITH,
+                'subProductCategoryEntity.id = shipmentOrder.productCategoryID'
+            )
+
+            ->leftJoin(
                 ProductCategoryEntity::class,
                 'productCategory',
                 Join::WITH,
-                'productCategory.id = shipmentOrder.productCategoryID'
+                'productCategory.id = subProductCategoryEntity.productCategoryID'
             )
 
             ->leftJoin(
@@ -335,7 +357,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy",
                 "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage", "adminProfile2.userName as shipmentStatusUpdatedByUser",
                 "adminProfile2.image as shipmentStatusUpdatedByUserImage", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage",
-                "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName", "markEntity.markNumber")
+                "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName", "markEntity.markNumber", "subProductCategoryEntity.name as subProductCategoryName")
 
             ->leftJoin(
                 OrderShipmentEntity::class,
@@ -397,6 +419,13 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
+                SubProductCategoryEntity::class,
+                'subProductCategoryEntity',
+                Join::WITH,
+                'subProductCategoryEntity.id = shipmentOrder.productCategoryID'
+            )
+
+            ->leftJoin(
                 ProductCategoryEntity::class,
                 'productCategory',
                 Join::WITH,
@@ -425,7 +454,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.status",
                 "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage", "adminProfile2.userName as shipmentStatusUpdatedByUser",
                 "adminProfile2.image as shipmentStatusUpdatedByUserImage", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage", 
-                "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName")
+                "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName", "subProductCategoryEntity.name as subProductCategoryName")
 
             ->leftJoin(
                 OrderShipmentEntity::class,
@@ -484,10 +513,17 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
+                SubProductCategoryEntity::class,
+                'subProductCategoryEntity',
+                Join::WITH,
+                'subProductCategoryEntity.id = shipmentOrder.productCategoryID'
+            )
+
+            ->leftJoin(
                 ProductCategoryEntity::class,
                 'productCategory',
                 Join::WITH,
-                'productCategory.id = shipmentOrder.productCategoryID'
+                'productCategory.id = subProductCategoryEntity.productCategoryID'
             )
 
             ->orderBy('shipment.id', 'DESC')
@@ -502,7 +538,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             ->select("shipmentStatus.id", "shipmentStatus.shipmentID", "shipmentStatus.shipmentStatus", "shipmentStatus.statusDetails", "shipmentStatus.trackNumber", "shipmentStatus.isInOneHolder", "shipmentStatus.packed", "shipmentOrder.isExternalWarehouse", 
                 "shipmentOrder.clientUserID", "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.createdAt as orderCreationDate", "shipmentOrder.externalWarehouseInfo", 
                 "shipmentOrder.updatedAt as orderUpdatingDate", "shipmentOrder.productCategoryID", "shipmentOrder.markID", "shipmentOrder.packetingBy as packetedBy", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", 
-                "distributor.fullName as distributorName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName", "subcontract.fullName as packetingBy")
+                "distributor.fullName as distributorName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName", "subcontract.fullName as packetingBy", "subProductCategoryEntity.name as subProductCategoryName")
 
             ->andWhere('shipmentStatus.trackNumber = :trackNumber')
             ->setParameter('trackNumber', $trackNumber)
@@ -546,10 +582,17 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
+                SubProductCategoryEntity::class,
+                'subProductCategoryEntity',
+                Join::WITH,
+                'subProductCategoryEntity.id = shipmentOrder.productCategoryID'
+            )
+
+            ->leftJoin(
                 ProductCategoryEntity::class,
                 'productCategory',
                 Join::WITH,
-                'productCategory.id = shipmentOrder.productCategoryID'
+                'productCategory.id = subProductCategoryEntity.productCategoryID'
             )
 
             ->getQuery()
@@ -568,7 +611,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 "adminProfile4.userName as trackCreatedByUser", "adminProfile4.image as trackCreatedByUserImage", "adminProfile5.userName as trackUpdatedByUser", "adminProfile5.image as trackUpdatedByUserImage", "clientProfile.userName as clientUsername",
                 "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage",
                 "adminProfile2.userName as shipmentStatusUpdatedByUser", "adminProfile2.image as shipmentStatusUpdatedByUserImage", "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName",
-                "productCategory.name as productCategoryName")
+                "productCategory.name as productCategoryName", "subProductCategoryEntity.name as subProductCategoryName")
 
             ->andWhere('shipmentStatus.trackNumber = :trackNumber')
             ->setParameter('trackNumber', $trackNumber)
@@ -651,10 +694,17 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
+                SubProductCategoryEntity::class,
+                'subProductCategoryEntity',
+                Join::WITH,
+                'subProductCategoryEntity.id = shipmentOrder.productCategoryID'
+            )
+
+            ->leftJoin(
                 ProductCategoryEntity::class,
                 'productCategory',
                 Join::WITH,
-                'productCategory.id = shipmentOrder.productCategoryID'
+                'productCategory.id = subProductCategoryEntity.productCategoryID'
             )
 
             ->getQuery()

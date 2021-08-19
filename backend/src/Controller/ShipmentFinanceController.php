@@ -153,7 +153,10 @@ class ShipmentFinanceController extends BaseController
      *          @OA\Property(type="string", property="trackNumber"),
      *          @OA\Property(type="string", property="shipmentStatus"),
      *          @OA\Property(type="integer", property="exportWarehouseID"),
-     *          @OA\Property(type="integer", property="importWarehouseID")
+     *          @OA\Property(type="integer", property="importWarehouseID"),
+     *          @OA\Property(type="integer", property="containerID"),
+     *          @OA\Property(type="integer", property="airwaybillID"),
+     *          @OA\Property(type="integer", property="travelID")
      *      )
      * )
      *

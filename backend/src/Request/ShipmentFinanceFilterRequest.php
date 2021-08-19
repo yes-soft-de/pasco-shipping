@@ -14,6 +14,12 @@ class ShipmentFinanceFilterRequest
 
     private $importWarehouseID;
 
+    private $containerID;
+
+    private $airwaybillID;
+
+    private $travelID;
+
     public function setShipmentID($shipmentID)
     {
         $this->shipmentID = $shipmentID;
@@ -52,6 +58,21 @@ class ShipmentFinanceFilterRequest
     public function getImportWarehouseID()
     {
         return $this->importWarehouseID;
+    }
+
+    public function getContainerID()
+    {
+        return $this->containerID;
+    }
+
+    public function getAirwaybillID()
+    {
+        return $this->airwaybillID;
+    }
+
+    public function getTravelID()
+    {
+        return $this->travelID;
     }
 
 }

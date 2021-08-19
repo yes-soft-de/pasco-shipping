@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\AdminProfileEntity;
 use App\Entity\OrderShipmentEntity;
 use App\Entity\ShipmentFinanceEntity;
+use App\Entity\TrackEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -55,10 +56,17 @@ class ShipmentFinanceEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getCurrentTotalCostByFilterOptions($shipmentID, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID)
+    public function getCurrentTotalCostByFilterOptions($shipmentID, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID, $containerID, $airwaybillID, $travelID)
     {
         $query = $this->createQueryBuilder('shipmentFinance')
             ->select('SUM(shipmentFinance.stageCost) as currentTotalCost')
+
+            ->leftJoin(
+                TrackEntity::class,
+                'trackEntity',
+                Join::WITH,
+                'trackEntity.shipmentID = shipmentFinance.shipmentID AND trackEntity.trackNumber = shipmentFinance.trackNumber'
+            )
 
             ->leftJoin(
                 OrderShipmentEntity::class,
@@ -97,10 +105,30 @@ class ShipmentFinanceEntityRepository extends ServiceEntityRepository
             $query->setParameter('importWarehouseID', $importWarehouseID);
         }
 
+        if($containerID != null && $airwaybillID == null)
+        {
+            $query->andWhere("trackEntity.holderType = 'container'");
+            $query->andWhere('trackEntity.holderID = :containerID');
+            $query->setParameter('containerID', $containerID);
+        }
+
+        if($containerID == null && $airwaybillID != null)
+        {
+            $query->andWhere("trackEntity.holderType = 'airwaybill'");
+            $query->andWhere('trackEntity.holderID = :airwaybillID');
+            $query->setParameter('airwaybillID', $airwaybillID);
+        }
+
+        if($travelID)
+        {
+            $query->andWhere('trackEntity.travelID = :travelID');
+            $query->setParameter('travelID', $travelID);
+        }
+
         return $query->getQuery()->getOneOrNullResult();
     }
 
-    public function filterShipmentFinances($shipmentID, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID)
+    public function filterShipmentFinances($shipmentID, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID, $containerID, $airwaybillID, $travelID)
     {
         $query = $this->createQueryBuilder('shipmentFinance')
             ->select('shipmentFinance.id', 'shipmentFinance.shipmentID', 'shipmentFinance.trackNumber', 'shipmentFinance.shipmentStatus', 'shipmentFinance.stageCost', 'shipmentFinance.stageDescription',
@@ -112,6 +140,13 @@ class ShipmentFinanceEntityRepository extends ServiceEntityRepository
                 'orderShipmentEntity',
                 Join::WITH,
                 'orderShipmentEntity.id = shipmentFinance.shipmentID'
+            )
+
+            ->leftJoin(
+                TrackEntity::class,
+                'trackEntity',
+                Join::WITH,
+                'trackEntity.shipmentID = shipmentFinance.shipmentID AND trackEntity.trackNumber = shipmentFinance.trackNumber'
             )
 
             ->leftJoin(
@@ -158,6 +193,26 @@ class ShipmentFinanceEntityRepository extends ServiceEntityRepository
         {
             $query->andWhere('orderShipmentEntity.importWarehouseID = :importWarehouseID');
             $query->setParameter('importWarehouseID', $importWarehouseID);
+        }
+
+        if($containerID != null && $airwaybillID == null)
+        {
+            $query->andWhere("trackEntity.holderType = 'container'");
+            $query->andWhere('trackEntity.holderID = :containerID');
+            $query->setParameter('containerID', $containerID);
+        }
+
+        if($containerID == null && $airwaybillID != null)
+        {
+            $query->andWhere("trackEntity.holderType = 'airwaybill'");
+            $query->andWhere('trackEntity.holderID = :airwaybillID');
+            $query->setParameter('airwaybillID', $airwaybillID);
+        }
+
+        if($travelID)
+        {
+            $query->andWhere('trackEntity.travelID = :travelID');
+            $query->setParameter('travelID', $travelID);
         }
 
         return $query->getQuery()->getResult();

@@ -26,6 +26,8 @@ class ShipmentByTrackNumberAndSignedInUserGetResponse
 
     public $productCategoryName;
 
+    public $subProductCategoryName;
+
     public $packetingBy;
 
     public $weight;
