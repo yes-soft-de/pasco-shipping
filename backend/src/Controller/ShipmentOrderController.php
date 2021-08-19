@@ -60,7 +60,9 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="integer", property="distributorID"),
      *          @OA\Property(type="string", property="exportWarehouseID"),
      *          @OA\Property(type="string", property="quantity"),
-     *          @OA\Property(type="string", property="image"),
+     *          @OA\Property(type="array", property="images",
+     *              @OA\Items()
+     *          ),
      *          @OA\Property(type="string", property="productCategoryID"),
      *          @OA\Property(type="string", property="unit"),
      *          @OA\Property(type="string", property="receiverName"),
@@ -148,7 +150,9 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="integer", property="distributorID"),
      *          @OA\Property(type="string", property="exportWarehouseID"),
      *          @OA\Property(type="string", property="quantity"),
-     *          @OA\Property(type="string", property="image"),
+     *          @OA\Property(type="array", property="images",
+     *              @OA\Items()
+     *          ),
      *          @OA\Property(type="string", property="productCategoryID"),
      *          @OA\Property(type="string", property="unit"),
      *          @OA\Property(type="string", property="receiverName"),

@@ -224,6 +224,14 @@ class ShipmentOrderService
             $shipmentOrder['image'] = $this->params . $shipmentOrder['image'];
         }
 
+        if($shipmentOrder['images'])
+        {
+            foreach ($shipmentOrder['images'] as $key=>$val)
+            {
+                $shipmentOrder['images'][$key]['image'] = $this->params . $shipmentOrder['images'][$key]['image'];
+            }
+        }
+
         if($shipmentOrder['clientUserImage'])
         {
             $shipmentOrder['clientUserImage'] = $this->params . $shipmentOrder['clientUserImage'];
@@ -276,7 +284,7 @@ class ShipmentOrderService
         $ordersResponse = [];
 
         $orders = $this->shipmentOrderManager->filterAcceptedShipments($request);
-        
+
         if($orders)
         {
             $ordersResponse['totalCount'] = count($orders);
