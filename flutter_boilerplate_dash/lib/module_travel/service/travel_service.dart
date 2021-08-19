@@ -1,10 +1,13 @@
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_travel/manager/travel_manager.dart';
+import 'package:pasco_shipping/module_travel/request/travel_add_finance_request.dart';
 import 'package:pasco_shipping/module_travel/request/travel_change_state_request.dart';
+import 'package:pasco_shipping/module_travel/request/travel_filter_finance_request.dart';
 import 'package:pasco_shipping/module_travel/request/travel_filter_request.dart';
 import 'package:pasco_shipping/module_travel/request/travel_request.dart';
 import 'package:pasco_shipping/module_travel/response/travel_details_response.dart';
+import 'package:pasco_shipping/module_travel/response/travel_finance_response.dart';
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
 
 
@@ -35,4 +38,14 @@ import 'package:pasco_shipping/module_travel/response/travel_response.dart';
   Future<ConfirmResponse?> updateTravelStatus(TravelChangeStateRequest request) {
     return _manager.updateTravelStatus(request);
   }
+
+
+  Future<ConfirmResponse?> createTravelFinance(TravelAddFinanceRequest request) {
+    return _manager.createTravelFinance(request);
+  }
+
+  Future<Data?> getTravelFinance(TravelFilterFinanceRequest request) {
+    return _manager.getTravelFinance(request);
+  }
+
 }

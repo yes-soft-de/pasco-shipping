@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipemnt_finance_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_finance_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/service/accepted_shipment_service.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_finance_state/shipment_finance_state.dart';
 import 'package:rxdart/rxdart.dart';
@@ -13,9 +14,9 @@ class AcceptedShipmentsFinanceStateManager {
 
   AcceptedShipmentsFinanceStateManager(this._service);
   //
-  void getShipmentFinance(String id, String trackNumber) {
+  void getShipmentFinance(ShipmentFilterFinanceRequest request) {
     _stateSubject.add(LoadingState());
-    _service.getShipmentFinance(id, trackNumber).then((value) {
+    _service.getShipmentFinance(request).then((value) {
       print(value);
       if (value != null) {
         _stateSubject.add(SuccessfullyFetchState(value));
@@ -30,9 +31,9 @@ class AcceptedShipmentsFinanceStateManager {
     _service.createShipmentFinance(financeRequest).then((value) {
       if (value != null) {
         if (value.isConfirmed) {
+          ShipmentFilterFinanceRequest request = ShipmentFilterFinanceRequest(shipmentID: financeRequest.shipmentID ,trackNumber:  financeRequest.trackNumber);
           _service
-              .getShipmentFinance(financeRequest.shipmentID.toString(),
-                  financeRequest.trackNumber)
+              .getShipmentFinance(request)
               .then((finances) {
             if (finances != null) {
               _stateSubject.add(SuccessfullyFetchState(finances));

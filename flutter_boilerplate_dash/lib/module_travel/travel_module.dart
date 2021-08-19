@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:pasco_shipping/module_travel/travel_routes.dart';
 import 'package:pasco_shipping/module_travel/ui/screen/travel_details_screen.dart';
 import 'package:pasco_shipping/module_travel/ui/screen/travel_filter_screen.dart';
+import 'package:pasco_shipping/module_travel/ui/screen/travel_finance_screen.dart';
 import 'package:pasco_shipping/module_travel/ui/screen/travel_new_screen.dart';
 import 'package:pasco_shipping/module_travel/ui/screen/travel_screen.dart';
 @injectable
@@ -12,8 +13,9 @@ class TravelModule extends YesModule {
   final AddNewTravel _addNewTravel;
   final TravelFilterScreen _filterScreen;
   final TravelDetailsScreen _detailsScreen;
+  final TravelFinanceScreen _financeScreen;
 
-  TravelModule(this._screen, this._addNewTravel, this._filterScreen, this._detailsScreen) {
+  TravelModule(this._screen, this._addNewTravel, this._filterScreen, this._detailsScreen, this._financeScreen) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
   Map<String, WidgetBuilder> getRoutes() {
@@ -22,6 +24,7 @@ class TravelModule extends YesModule {
       TravelRoutes.ADD_NEW: (context) => _addNewTravel,
       TravelRoutes.FILTER: (context) => _filterScreen,
       TravelRoutes.DETAILS: (context) => _detailsScreen,
+      TravelRoutes.FINANCE: (context) => _financeScreen,
     };
   }
 }

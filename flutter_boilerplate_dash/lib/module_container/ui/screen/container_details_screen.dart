@@ -95,7 +95,9 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
         widget._stateManager.updateContainerStatus(request,travelRequest);
       },onShipmentReview: (model){
         Navigator.pushNamed(context, ContainerRoutes.CONTAINER_SHIPMENT_REVIEW , arguments:  model);
-      }
+      }, onShowFinance: (id){
+        Navigator.pushNamed(context, ContainerRoutes.CONTAINER_FINANCE ,arguments: {'id' :id});
+      },
       );
     }
     else if (currentState is SuccessfullyUploadedContainerState){
@@ -107,7 +109,9 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
         widget._stateManager.updateContainerStatus(request ,travelRequest);
       },onShipmentReview: (model){
         Navigator.pushNamed(context, ContainerRoutes.CONTAINER_SHIPMENT_REVIEW , arguments:  model);
-      },
+      }, onShowFinance: (id){
+          Navigator.pushNamed(context, ContainerRoutes.CONTAINER_FINANCE ,arguments: {'id' :id});
+        },
       );
     }
     else if (currentState is SuccessfullyDetailsWithTravelsState){

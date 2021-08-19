@@ -4,6 +4,7 @@ import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/abstracts/module/yes_module.dart';
 import 'package:pasco_shipping/di/di_config.dart';
+import 'package:pasco_shipping/module_airwaybill_specification/airwaybill_specification_module.dart';
 import 'package:pasco_shipping/module_auth/authoriazation_module.dart';
 import 'package:pasco_shipping/module_chat/chat_module.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
@@ -35,6 +36,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
+import 'module_airwaybill/airwaybill_module.dart';
 import 'module_auth/authorization_routes.dart';
 import 'module_client/client_module.dart';
 import 'module_container/container_module.dart';
@@ -108,8 +110,11 @@ class MyApp extends StatefulWidget {
   final SubContractServiceModule _contractServiceModule;
   final UnitModule _unitModule;
   final TravelModule _travelModule;
+
   final ContainerModule _containerModule;
+  final AirwaybillModule _airwaybillModule;
   final ContainerSpecificationModule _containerSpecificationModule;
+  final AirwaybillSpecificationModule _airwaybillSpecificationModule;
 
   final WaitingShipmentModule _waitingShipmentModule;
   final AcceptedShipmentModule _acceptedShipmentModule;
@@ -148,7 +153,9 @@ class MyApp extends StatefulWidget {
       this._unitModule,
       this._travelModule,
       this._containerModule,
+      this._airwaybillModule,
       this._containerSpecificationModule,
+      this._airwaybillSpecificationModule,
 
       this._waitingShipmentModule,
       this._acceptedShipmentModule,

@@ -9,15 +9,33 @@ class WaitingShipmentResponse {
 
   String? statusCode;
   String? msg;
-  List<WaitingShipmentModel>? data;
+  Data? data;
 
   WaitingShipmentResponse.fromJson(Map<String, dynamic> json) {
     statusCode = json['status_code'];
     msg = json['msg'];
     if (json['Data'] != null) {
+      try {
+        data = Data.fromJson(json['Data']);
+      } catch (e, stack) {
+        Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
+            StackTrace.current);
+      }
+    }
+  }
+}
+
+class Data{
+  Data({this.data , this.totalCount});
+  int? totalCount;
+List<WaitingShipmentModel>? data;
+
+  Data.fromJson(Map<String, dynamic> json) {
+    totalCount = json['totalCount'];
+    if (json['shipments'] != null) {
       data = <WaitingShipmentModel>[];
       try {
-        data = List<WaitingShipmentModel>.from(json['Data'].map((x) => WaitingShipmentModel.fromJson(x)));
+        data = List<WaitingShipmentModel>.from(json['shipments'].map((x) => WaitingShipmentModel.fromJson(x)));
       } catch (e, stack) {
         Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
             StackTrace.current);

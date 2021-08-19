@@ -7,12 +7,14 @@ import 'package:pasco_shipping/module_travel/request/travel_change_state_request
 import 'package:pasco_shipping/module_travel/response/travel_details_response.dart';
 import 'package:pasco_shipping/module_travel/widget/status_card.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class TravelDetailsSuccessfully extends StatelessWidget {
   final TravelDetailsModel model;
   final Function onChangeStatus;
-  const TravelDetailsSuccessfully(this.model, this.onChangeStatus);
+  final Function onShowFinance;
+  const TravelDetailsSuccessfully({required this.model,required this.onChangeStatus,required this.onShowFinance});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,17 @@ class TravelDetailsSuccessfully extends StatelessWidget {
           firstCard(),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text('Travel Information' , style: AppTextStyle.largeBlueBold,),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Travel Information' , style: AppTextStyle.largeBlueBold,),
+                InkWell(
+                    onTap: (){
+                      onShowFinance(model.id);
+                    },
+                    child: Icon(Icons.money , color: blue,size: 40,))
+              ],
+            ),
           ),
           Container(
             child: Column(
@@ -92,7 +104,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text('Container Information' , style: AppTextStyle.largeBlueBold,),
+            child: Text('Holder Information' , style: AppTextStyle.largeBlueBold,),
           ),
           model.holders!.isEmpty?
               Padding(

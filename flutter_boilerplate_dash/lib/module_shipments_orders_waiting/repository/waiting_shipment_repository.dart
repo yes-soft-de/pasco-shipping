@@ -7,6 +7,7 @@ import 'package:pasco_shipping/module_auth/service/auth_service/auth_service.dar
 import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_network/http_client/http_client.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/request/accepted_rejected_shipment_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_waiting/request/waiting_shipment_filter_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/response/waiting_shipment_response.dart';
 
 @injectable
@@ -16,18 +17,18 @@ class WaitingShipmentRepository{
 
   WaitingShipmentRepository(this._apiClient, this._authService);
 
-  Future<List<WaitingShipmentModel>?> getWaitingShipment(String transportationType) async {
+  Future<List<WaitingShipmentModel>?> getWaitingShipmentFilter(WaitingShipmentFilterRequest request) async {
     // await _authService.refreshToken();
     var token = Urls.token; // await _authService.getToken();
     try {
-      var response = await _apiClient.get(Urls.WAITING_SHIPMENTS + '/'+transportationType,
-          headers: {'Authorization': 'Bearer $token'});
+      var response = await _apiClient.post(Urls.WAITING_SHIPMENTS_FILTER ,request.toJson()
+          ,headers: {'Authorization': 'Bearer $token'});
 
       WaitingShipmentResponse waitingShipmentResponse =  WaitingShipmentResponse.fromJson(response!);
       List<WaitingShipmentModel> marks = [];
       if(waitingShipmentResponse.data != null) {
         marks =
-           WaitingShipmentResponse.fromJson(response).data!;
+           WaitingShipmentResponse.fromJson(response).data!.data!;
       }
       print(marks.length);
       return marks;

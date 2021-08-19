@@ -12,13 +12,16 @@ import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_lis
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class ContainerDetailsSuccessfully extends StatefulWidget {
   final ContainerDetailsModel model;
   final Function onChangeStatus;
   final Function onShipmentReview;
-  const ContainerDetailsSuccessfully({required this.model,required this.onChangeStatus ,required this.onShipmentReview});
+  final Function onShowFinance;
+
+  const ContainerDetailsSuccessfully({required this.model,required this.onChangeStatus ,required this.onShipmentReview,required this.onShowFinance});
 
   @override
   _ContainerDetailsSuccessfullyState createState() => _ContainerDetailsSuccessfullyState();
@@ -36,7 +39,17 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
           firstCard(),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text('Container Information' , style: AppTextStyle.largeBlueBold,),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Container Information' , style: AppTextStyle.largeBlueBold,),
+                InkWell(
+                    onTap: (){
+                      widget.onShowFinance(widget.model.id);
+                    },
+                    child: Icon(Icons.money , color: blue,size: 40,))
+              ],
+            ),
           ),
           Container(
             child: Column(

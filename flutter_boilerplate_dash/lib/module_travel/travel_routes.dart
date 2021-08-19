@@ -3,4 +3,5 @@ class TravelRoutes{
   static const ADD_NEW = '/add_new_travel';
   static const FILTER = '/filter_travel';
   static const DETAILS = '/travel_details';
+  static const FINANCE = '/travel_finance';
 }

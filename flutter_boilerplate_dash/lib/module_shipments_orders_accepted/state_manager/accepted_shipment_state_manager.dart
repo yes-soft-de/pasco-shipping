@@ -19,7 +19,7 @@ class AcceptedShipmentsStateManager {
       print(value);
       if (value != null && value.isNotEmpty) {
         _stateSubject.add(SuccessfullyFetchState(value));
-      } else if(value!.isEmpty) {
+      } else if(value !=null  && value.isEmpty) {
         _stateSubject.add(ErrorState('No Data' , true));
       }else {
         _stateSubject.add(ErrorState('Error' , false));

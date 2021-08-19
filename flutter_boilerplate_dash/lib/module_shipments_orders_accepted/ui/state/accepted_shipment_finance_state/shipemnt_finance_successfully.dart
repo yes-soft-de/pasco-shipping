@@ -13,7 +13,7 @@ import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class ShipmentFinanceSuccessfullyScreen extends StatefulWidget {
-  final List<ShipmentFinanceModel> shipmentFinance;
+  final DataFinance shipmentFinance;
   final Function addFinance;
   final int shipmentID;
   final String trackNumber;
@@ -38,16 +38,33 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            widget.shipmentFinance.isEmpty ?
+            Card(
+              color: Colors.grey[200],
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Total Cost: ' ,style: AppTextStyle.mediumBlackBold,),
+                      Text(widget.shipmentFinance.currentTotalCost ??'' ,style: AppTextStyle.mediumRedBold,),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            widget.shipmentFinance.data!.isEmpty ?
             Text('No thing Added yet' , style: AppTextStyle.mediumRedBold,)
                 :ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: widget.shipmentFinance.length,
+                itemCount: widget.shipmentFinance.data!.length,
                 itemBuilder: (context, index) {
                   return ShipmentFinanceCard(
-                    model: widget.shipmentFinance[index]
+                    model: widget.shipmentFinance.data![index]
                   );
                 }),
             Card(

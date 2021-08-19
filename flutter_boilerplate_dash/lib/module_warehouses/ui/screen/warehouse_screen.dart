@@ -7,6 +7,7 @@ import 'package:pasco_shipping/module_warehouses/response/warhouse_response.dart
 import 'package:pasco_shipping/module_warehouses/state_manger/warehouse_state_manager.dart';
 import 'package:pasco_shipping/module_warehouses/ui/state/warehouse_state/warehouse_state.dart';
 import 'package:pasco_shipping/module_warehouses/ui/state/warehouse_state/warehouses_successfully.dart';
+import 'package:pasco_shipping/module_warehouses/warehoue_routes.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
@@ -70,6 +71,8 @@ class _CountriesScreenState extends State<WarehouseScreen> {
       },
         onEdit: (request){
           widget._stateManager.updateWarehouses(request);
+        }, onShowFinance: (id){
+          Navigator.pushNamed(context, WarehouseRoutes.FINANCE ,arguments: {'id':id});
         },
       );
     }

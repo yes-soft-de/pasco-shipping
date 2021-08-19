@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_finance_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/shipment_finance_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/state_manager/accepted_shipment_finance_state_manager.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_finance_state/shipemnt_finance_successfully.dart';
@@ -47,7 +48,8 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
      id =arguments['id'];
      trackNumber =arguments['trackNumber'].toString();
-    widget._stateManager.getShipmentFinance(id.toString() , trackNumber);
+     ShipmentFilterFinanceRequest request = ShipmentFilterFinanceRequest(shipmentID: id,trackNumber: trackNumber);
+    widget._stateManager.getShipmentFinance(request);
   }
 
   @override
@@ -76,11 +78,11 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
     }
     else if (currentState is SuccessfullyFetchState) {
       SuccessfullyFetchState state = currentState as SuccessfullyFetchState;
-      finances = state.finances;
+
       return ShipmentFinanceSuccessfullyScreen(
         trackNumber:trackNumber ,
      shipmentID: id,
-     shipmentFinance: finances,
+     shipmentFinance: state.finances,
      addFinance: (request){
           widget._stateManager.addShipmentFinance(request);
      },

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
+import 'package:pasco_shipping/module_shipments_orders_waiting/request/waiting_shipment_filter_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/response/waiting_shipment_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/state_manager/waiting_shipment_state_manager.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/ui/state/waiting_shipment_state/wainting_shipment_state.dart';
@@ -25,8 +26,8 @@ class WaitingShipmentScreen extends StatefulWidget {
 class _CountriesScreenState extends State<WaitingShipmentScreen> {
   late WaitingShipmentsState currentState;
   late List<WaitingShipmentModel> items;
-  late String transportationType;
-  late bool isExternalWarehouse;
+  late WaitingShipmentFilterRequest waitingShipmentFilterRequest;
+
   @override
   Widget build(BuildContext context) {
     return Background(
@@ -42,10 +43,8 @@ class _CountriesScreenState extends State<WaitingShipmentScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
-    transportationType =arguments['transportationType'];
-    isExternalWarehouse =arguments['isExternalWarehouse'];
-    print("hhhhhhhh" +isExternalWarehouse.toString());
-    widget._stateManager.getWaitingShipment(transportationType);
+    waitingShipmentFilterRequest =arguments['waitingFilter'];
+    widget._stateManager.getWaitingShipment(waitingShipmentFilterRequest);
   }
 
   @override
@@ -79,9 +78,9 @@ class _CountriesScreenState extends State<WaitingShipmentScreen> {
       return WaitingShipmentSuccessfully(items: items,
         onDetails: (model){
           Navigator.pushNamed(context, WaitingShipmentRoutes.DETAILS , arguments: {'shipmentModel' : model} ).then((value){
-            widget._stateManager.getWaitingShipment(transportationType);
+            widget._stateManager.getWaitingShipment(waitingShipmentFilterRequest);
           });
-        }, isExternalWarehouse: isExternalWarehouse,
+        },
       );
     }
     else if(currentState is ErrorState) {

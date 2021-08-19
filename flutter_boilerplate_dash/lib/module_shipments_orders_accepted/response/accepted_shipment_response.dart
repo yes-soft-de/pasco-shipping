@@ -9,15 +9,14 @@ class AcceptedShipmentResponse {
 
   String? statusCode;
   String? msg;
-  List<AcceptedShipmentModel>? data;
+  Data? data;
 
   AcceptedShipmentResponse.fromJson(Map<String, dynamic> json) {
     statusCode = json['status_code'];
     msg = json['msg'];
     if (json['Data'] != null) {
-      data = <AcceptedShipmentModel>[];
       try {
-        data = List<AcceptedShipmentModel>.from(json['Data'].map((x) => AcceptedShipmentModel.fromJson(x)));
+        data = Data.fromJson(json['Data']);
       } catch (e, stack) {
         Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
             StackTrace.current);
@@ -25,7 +24,24 @@ class AcceptedShipmentResponse {
     }
   }
 }
+class Data{
+  Data({this.data , this.totalCount});
+  int? totalCount;
+  List<AcceptedShipmentModel>? data;
 
+  Data.fromJson(Map<String, dynamic> json) {
+    totalCount = json['totalCount'];
+    if (json['shipments'] != null) {
+      data = <AcceptedShipmentModel>[];
+      try {
+        data = List<AcceptedShipmentModel>.from(json['shipments'].map((x) => AcceptedShipmentModel.fromJson(x)));
+      } catch (e, stack) {
+        Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
+            StackTrace.current);
+      }
+    }
+  }
+}
 class AcceptedShipmentModel {
   AcceptedShipmentModel({
     this.shipmentId,
@@ -51,7 +67,7 @@ class AcceptedShipmentModel {
     // this.subShipmentModelList
   });
 
-  int? shipmentId;
+  String? shipmentId;
   String? clientUsername;
   String? target;
 

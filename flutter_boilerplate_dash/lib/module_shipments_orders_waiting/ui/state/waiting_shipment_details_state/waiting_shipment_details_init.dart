@@ -25,6 +25,20 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 Expanded(
                     child: ListTile(
                         title: Text(
+                          'Shipping Type',
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        subtitle: Text(
+                          shipment.transportationType ?? '',
+                          style: AppTextStyle.smallBlueBold,
+                        ))),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                    child: ListTile(
+                        title: Text(
                           'Shipment from: ',
                           style: AppTextStyle.mediumBlack,
                         ),

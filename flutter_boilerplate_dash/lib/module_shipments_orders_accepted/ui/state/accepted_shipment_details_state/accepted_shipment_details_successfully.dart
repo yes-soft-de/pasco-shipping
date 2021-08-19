@@ -59,6 +59,21 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                 Expanded(
                     child: Row(
                       children: [
+                        Text(
+                          'Shipping type: ',
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Text(
+                          widget.shipment.transportationType??'',
+                          style: AppTextStyle.smallBlueBold,
+                        )
+                      ],
+
+
+                    )),
+                Expanded(
+                    child: Row(
+                      children: [
               Text(
               'Client name: ',
               style: AppTextStyle.mediumBlack,

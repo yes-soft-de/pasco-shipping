@@ -318,7 +318,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
       //   },
       // ),
       RoundedButton(lable: 'Upload container to travel', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
-        AddContainerToTravelRequest re = AddContainerToTravelRequest(holderType: 'container' , holderID: widget.model.id!, shipmentStatus: 'uploaded');
+        AddContainerToTravelRequest re = AddContainerToTravelRequest( holderID: widget.model.id!, shipmentStatus: 'uploaded');
         widget.onUploadedToTravel(re);
       },radius: 12)
 
@@ -346,7 +346,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
               StatusCard('arrived' ,false),
             ],),
          RoundedButton(lable: 'Next Status', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
-           AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderType: 'container',holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]!);
+           AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]!);
               widget.onClearedOrArrived(re1);
 
           },radius: 12)
@@ -373,7 +373,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                   StatusCard('arrived' ,false),
                 ],),
               RoundedButton(lable: 'Next Status', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
-                AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderType: 'container',holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
+                AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
                 widget.onClearedOrArrived(re1);
 
               },radius: 12)

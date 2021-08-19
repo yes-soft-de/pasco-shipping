@@ -1,10 +1,13 @@
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_travel/repository/travel_repository.dart';
+import 'package:pasco_shipping/module_travel/request/travel_add_finance_request.dart';
 import 'package:pasco_shipping/module_travel/request/travel_change_state_request.dart';
+import 'package:pasco_shipping/module_travel/request/travel_filter_finance_request.dart';
 import 'package:pasco_shipping/module_travel/request/travel_filter_request.dart';
 import 'package:pasco_shipping/module_travel/request/travel_request.dart';
 import 'package:pasco_shipping/module_travel/response/travel_details_response.dart';
+import 'package:pasco_shipping/module_travel/response/travel_finance_response.dart';
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
 
 @injectable
@@ -19,7 +22,12 @@ class TravelManager{
   Future<List<TravelModel>?> getTravelsByTypeAndStatus(String type ,String status) => _repository.getTravelsByTypeAndStatus(type, status);
   Future<List<TravelModel>?> getTravelsWithFilter(TravelFilterRequest request) => _repository.getTravelsWithFilter(request);
 
-  // Future<ConfirmResponse?> updateSupplier(SupplierRequest request) => _repository.updateSupplier(request);
+
+
+  Future<Data?> getTravelFinance(TravelFilterFinanceRequest request) => _repository.getTravelFinance(request);
+  Future<ConfirmResponse?> createTravelFinance(TravelAddFinanceRequest request) => _repository.createTravelFinance(request);
+
+// Future<ConfirmResponse?> updateSupplier(SupplierRequest request) => _repository.updateSupplier(request);
 
 
 }
