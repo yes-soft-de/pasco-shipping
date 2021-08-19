@@ -28,6 +28,21 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
               Expanded(
                   child: ListTile(
                       title: Text(
+                        'Shipping Type',
+                        style: AppTextStyle.mediumBlack,
+                      ),
+                      subtitle: Text(
+                        widget.shipment.transportationType,
+                        style: AppTextStyle.smallBlueBold,
+                      ))),
+            ],
+          ),
+          Divider(color: Colors.grey[300],thickness: 2,),
+          Row(
+            children: [
+              Expanded(
+                  child: ListTile(
+                      title: Text(
                         'Client name: ',
                         style: AppTextStyle.mediumBlack,
                       ),

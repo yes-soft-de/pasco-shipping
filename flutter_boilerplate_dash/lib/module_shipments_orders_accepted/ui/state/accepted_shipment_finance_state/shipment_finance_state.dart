@@ -12,7 +12,7 @@ class addFinanceSuccessfullyState extends FinanceShipmentsState{
 }
 
 class SuccessfullyFetchState extends FinanceShipmentsState{
-  List<ShipmentFinanceModel>  finances;
+  DataFinance  finances;
 
   SuccessfullyFetchState(this.finances);
 }

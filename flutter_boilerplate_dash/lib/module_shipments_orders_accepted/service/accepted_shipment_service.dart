@@ -5,6 +5,7 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/manager/accepted
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/measured_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/received_deliered_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipemnt_finance_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_finance_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/stored_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
@@ -43,7 +44,7 @@ class AcceptedShipmentService{
  Future<ConfirmResponse?> createShipmentFinance(ShipmentFinanceRequest request) {
    return _manager.createShipmentFinance(request);
  }
- Future<List<ShipmentFinanceModel>?> getShipmentFinance(String id , String trackNumber) {
-   return _manager.getShipmentFinance(id, trackNumber);
+ Future<DataFinance?> getShipmentFinance(ShipmentFilterFinanceRequest request) {
+   return _manager.getShipmentFinance(request);
  }
 }

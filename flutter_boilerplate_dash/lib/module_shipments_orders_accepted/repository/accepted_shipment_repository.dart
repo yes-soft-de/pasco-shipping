@@ -9,6 +9,7 @@ import 'package:pasco_shipping/module_network/http_client/http_client.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/measured_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/received_deliered_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipemnt_finance_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_finance_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/stored_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
@@ -35,7 +36,7 @@ class AcceptedShipmentRepository{
       List<AcceptedShipmentModel> marks = [];
       if(waitingShipmentResponse.data != null) {
         marks =
-        AcceptedShipmentResponse.fromJson(response).data!;
+        AcceptedShipmentResponse.fromJson(response).data!.data!;
       }
       print(marks.length);
       return marks;
@@ -167,19 +168,15 @@ class AcceptedShipmentRepository{
 
 
 
-  Future<List<ShipmentFinanceModel>?> getShipmentFinance(String id, String trackNumber) async {
+  Future<DataFinance?> getShipmentFinance(ShipmentFilterFinanceRequest request) async {
     // await _authService.refreshToken();
     var token = Urls.token; // await _authService.getToken();
     try {
-      var response = await _apiClient.get(Urls.SHIPMENT_FINANCE+'/'+ id+'/'+trackNumber,
-          headers: {'Authorization': 'Bearer $token'});
-      ShipmentFinanceResponse travelResponse =  ShipmentFinanceResponse.fromJson(response!);
-      List<ShipmentFinanceModel>? travels = [];
-      if(travelResponse.data != null) {
-        travels =
-            ShipmentFinanceResponse.fromJson(response).data;
-      }
-      return travels;
+      var response = await _apiClient.post(Urls.GET_SHIPMENT_FINANCE,request.toJson()
+        ,  headers: {'Authorization': 'Bearer $token'});
+      DataFinance? model = ShipmentFinanceResponse
+          .fromJson(response!).c;
+      return model;
     } catch (_) {
       return null;
     }
@@ -189,7 +186,7 @@ class AcceptedShipmentRepository{
     // await _authService.refreshToken();
     var token = Urls.token;  //await _authService.getToken();
 
-    var response = await _apiClient.post(Urls.SHIPMENT_FINANCE, request.toJson(),
+    var response = await _apiClient.post(Urls.ADD_SHIPMENT_FINANCE, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = ShipmentFinanceResponse.fromJson(response!).statusCode;
     String? msg = ShipmentFinanceResponse.fromJson(response).msg;

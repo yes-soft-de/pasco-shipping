@@ -4,6 +4,7 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/repository/accep
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/measured_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/received_deliered_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipemnt_finance_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_finance_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/stored_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
@@ -27,7 +28,7 @@ class AcceptedShipmentManager{
 
   Future<ConfirmResponse?> createShipmentFinance(ShipmentFinanceRequest request) => _repository.createShipmentFinance(request);
   // Future<ConfirmResponse?> deleteProxy(String id) => _repository.deleteProxy(id);
-  Future<List<ShipmentFinanceModel>?> getShipmentFinance(String id , String trackNumber) => _repository.getShipmentFinance(id, trackNumber);
+  Future<DataFinance?> getShipmentFinance(ShipmentFilterFinanceRequest request) => _repository.getShipmentFinance(request);
 // Future<ConfirmResponse?> updateProxy(ProxyRequest request) => _repository.updateProxy(request);
 
 }

@@ -190,8 +190,8 @@ class _AddCountryInitState extends State<FilterContainerInit> {
       Category(id: 1, name: 'Not Full', description: 'notfull', isSelected: false),
     ];
     typeList = [
-      Category(id: 1, name: 'Private', description: 'private', isSelected: true),
-      Category(id: 1, name: 'Public', description: 'public', isSelected: false),
+      Category(id: 1, name: 'LCL', description: 'LCL', isSelected: true),
+      Category(id: 1, name: 'FCL', description: 'FCL', isSelected: false),
     ];
     // travelNumber =TextEditingController();
     // status=TravelStatusName[TravelStatus.CURRENT]!;

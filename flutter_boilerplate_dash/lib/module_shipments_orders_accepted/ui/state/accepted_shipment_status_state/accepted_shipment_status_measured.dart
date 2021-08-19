@@ -310,7 +310,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   AcceptedShipmentStatus.STORED]!,
                   holderID: holderID,
                   holderType: 'container',
-                  amount: int.parse(amountController.text), travelID: travelID, differentTravel: true);
+                  amount: int.parse(amountController.text), travelID: travelID);
               widget.onChangeStatus(request , separateShipment, widget.containers,widget.travels);
             },
             radius: 10),

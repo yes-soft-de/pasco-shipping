@@ -3,6 +3,7 @@ import 'package:pasco_shipping/abstracts/module/yes_module.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pasco_shipping/module_container/ui/screen/container_details_screen.dart';
 import 'package:pasco_shipping/module_container/ui/screen/container_filter_screen.dart';
+import 'package:pasco_shipping/module_container/ui/screen/container_finance_screen.dart';
 import 'package:pasco_shipping/module_container/ui/screen/container_new_screen.dart';
 import 'package:pasco_shipping/module_container/ui/screen/container_screen.dart';
 import 'package:pasco_shipping/module_container/ui/screen/container_shipment_review_screen.dart';
@@ -15,8 +16,9 @@ class ContainerModule extends YesModule {
   final ContainerFilterScreen _filterScreen;
   final ContainerDetailsScreen _detailsScreen;
   final ContainerShipmentReview _containerShipmentReview;
+  final ContainerFinanceScreen _financeScreen;
 
-  ContainerModule(this._screen, this._addNewContainer, this._filterScreen, this._detailsScreen, this._containerShipmentReview) {
+  ContainerModule(this._screen, this._addNewContainer, this._filterScreen, this._detailsScreen, this._containerShipmentReview, this._financeScreen) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
   Map<String, WidgetBuilder> getRoutes() {
@@ -26,6 +28,7 @@ class ContainerModule extends YesModule {
       ContainerRoutes.FILTER: (context) => _filterScreen,
       ContainerRoutes.DETAILS: (context) => _detailsScreen,
       ContainerRoutes.CONTAINER_SHIPMENT_REVIEW: (context) => _containerShipmentReview,
+      ContainerRoutes.CONTAINER_FINANCE: (context) => _financeScreen,
     };
   }
 }

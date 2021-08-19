@@ -56,10 +56,28 @@ class Urls {
   static const CONTAINER_STATUS = BASE_API + 'containerstatus';
   static const UPLOADED_CONTAINER_TO_TRAVEL = BASE_API + 'trackbyholder';
 
+  //container finance
+  static const GET_Container_FINANCE = BASE_API + 'filtercontainerfinance';
+  static const ADD_Container_FINANCE = BASE_API + 'containerfinance';
+
+
+  //airwaybill
+  static const AIRWAYBILL = BASE_API + 'airwaybill';
+  static const AIRWAYBILL_FILTER = BASE_API + 'filterairwaybills';
+  static const AIRWAYBILL_STATUS = BASE_API + 'airwaybillstatus';
+
+  //Air waybill finance
+  static const GET_Airwaybill_FINANCE = BASE_API + 'filterairwaybillfinance';
+  static const ADD_Airwaybill_FINANCE = BASE_API + 'airwaybillfinance';
+
 
   // specification
   static const CONTAINER_SPECIFICATIONS = BASE_API + 'containerspecifications';
   static const CONTAINER_SPECIFICATION = BASE_API + 'containerspecification';
+
+  static const AIRWABILL_SPECIFICATIONS = BASE_API + 'airwaybillspecifications';
+  static const AIRWABILL_SPECIFICATION = BASE_API + 'airwaybillspecification';
+
 
   //client
   static const CREATE_CLIENT_ACCOUNT = BASE_API + 'clientbydashboard';
@@ -94,7 +112,8 @@ class Urls {
   static const ADD_NEW_SHIPMENT=BASE_API+'ordershipment';
 
   //waitingShipment
-  static const WAITING_SHIPMENTS=BASE_API+'waitingshipmentsorders';
+  // static const WAITING_SHIPMENTS=BASE_API+'waitingshipmentsorders';
+  static const WAITING_SHIPMENTS_FILTER=BASE_API+'filterwaitingshipments';
   static const ACCEPTED_REJECTED_SHIPMENT=BASE_API+'shipmentorderstatus';
 
   //acceptedShipment
@@ -113,10 +132,17 @@ class Urls {
   //warehouses
   static const GET_WAREHOUSES=BASE_API+'warehouses';
   static const WAREHOUSE=BASE_API+'warehouse';
-
+  // warehouse finance
+  static const GET_WAREHOUSES_FINANCE=BASE_API+'filterwarehousefinance';
+  static const ADD_WAREHOUSE_FINANCE=BASE_API+'warehousefinance';
 
   //shipmentfinance
-  static const SHIPMENT_FINANCE = BASE_API + 'shipmentfinance';
+  static const GET_SHIPMENT_FINANCE = BASE_API + 'filtershipmentfinance';
+  static const ADD_SHIPMENT_FINANCE = BASE_API + 'shipmentfinance';
+
+//travel finance
+  static const GET_Travel_FINANCE = BASE_API + 'filtertravelfinance';
+  static const ADD_Travel_FINANCE = BASE_API + 'travelfinance';
 
 
   static const REPORT_API = BASE_API + '/report';
@@ -128,5 +154,5 @@ class Urls {
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
 
 
-  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2Mjg5ODAwOTcsImV4cCI6MTYyODk5ODA5Nywicm9sZXMiOlsiUk9MRV9FTVBMT1lFRSIsInVzZXIiXSwidXNlcm5hbWUiOiJlbTIifQ.K11rWh-dgJRQo7cyEA6BrLqPQQPbtrEUv_qC_jOVjM5n6AB4c0IpfxSopOwSGzrGk3B63OlohAVrRC9pj3jxIS_ScTmYXhPHfZLUbI1xWSDuGVPaF4kJCwLL9P8DbpNapOe_426nd0BDhE2mBTaWvii0ir93sNzsd_gw-d3Zbgy-030QDMM_IVhdI58HbF3Q7mqlSxq39jsxxcCxHflDbcziI0QGBjTuF3CAUeeutyFqZKBJjDpcm36guVR9SYxHqIpauZs9UTPE9UJqorn44KFgU2juVphWvBfnQR0-eYnMKY3RbAVUDiQzEW4womFxo9oOC1j86ZcapaH0tOt-HA';
+  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2Mjk0MDMxOTYsImV4cCI6MTYyOTQyMTE5Niwicm9sZXMiOlsiUk9MRV9FTVBMT1lFRSIsInVzZXIiXSwidXNlcm5hbWUiOiJlbTIifQ.qVKcPoexsumHbbWIQEeBZEOTN_bb_mOzLJopt5yR6PT6MUiByRAPodWP075WsJXChfcu-WNt_csBPn4dUOt-_QZOq0jaNNfyyJvbEPOBQWwb00Bk7TDfB3S4Hyr7KHUnB8LASsEPSxyEriFMm2cckb0ad1scxEaECkzJPFk_yXNC2zijnhD2SqvbyHWkgminBSfLYuGxWhi1JxjISvKadEI6qcIZTECji00P4ycBL2j6ybgVO5CGsHkY4aiDmhu7gpzE4mpqdRROampopuW7Eq1GSLdXTh8jG6zo1pkHdeNX9nYpeli5NvRMEO1TPkpjqRnVmMALlWdgmh6xrZhwfg';
 }

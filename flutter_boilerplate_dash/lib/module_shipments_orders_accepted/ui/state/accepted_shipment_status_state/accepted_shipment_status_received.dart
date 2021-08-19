@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/module_airwaybill/request/airwaybill_filter_request.dart';
 import 'package:pasco_shipping/module_container/enums/container_status.dart';
 import 'package:pasco_shipping/module_container/request/container_filter_request.dart';
 import 'package:pasco_shipping/module_container/widget/status_card.dart';
@@ -40,6 +41,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
   // late List<Category> stats;
   late int shipmentID;
   late String trackNumber;
+  late String transportation;
   late String holderType;
 
   TextEditingController editingController = TextEditingController();
@@ -94,6 +96,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     shipmentID =arguments['id'];
     trackNumber =arguments['trackNumber'].toString();
+    transportation =arguments['transportation'].toString();
 
     holderType =arguments['holderType'].toString();
   }
@@ -309,10 +312,22 @@ class _AcceptedShipmentDetailsSuccessfullyState
 
         RoundedButton(lable: 'Next', icon: '', color: blue, style: AppTextStyle.mediumWhite,
               go: (){
-          ContainerFilterRequest containerRequest = ContainerFilterRequest(status: ContainerStatusName[ContainerStatus.NOTFULL],type: holderType);
-          TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:'cruise');
-                MeasuredRequest request  = MeasuredRequest(shipmentStatus: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!,shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text),importWarehouseID: warehouseID,packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text),weight: double.parse(weightController.text) );
-                widget.onChangeStatus(request ,containerRequest,travelFilterRequest );
+          if(transportation =='sea'){
+            ContainerFilterRequest containerRequest = ContainerFilterRequest(status: ContainerStatusName[ContainerStatus.NOTFULL],type: holderType);
+            TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:TravelTypeName[TravelType.SEA]!);
+            MeasuredRequest request  = MeasuredRequest(shipmentStatus: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!,
+                shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text),importWarehouseID: warehouseID,
+                packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text),weight: double.parse(weightController.text) );
+            widget.onChangeStatus(request ,containerRequest,travelFilterRequest );
+          }else {
+            AirwaybillFilterRequest containerRequest = AirwaybillFilterRequest(status: ContainerStatusName[ContainerStatus.NOTFULL],type: holderType);
+            TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:TravelTypeName[TravelType.AIR]!);
+            MeasuredRequest request  = MeasuredRequest(shipmentStatus: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!,
+                shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text),importWarehouseID: warehouseID,
+                packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text),weight: double.parse(weightController.text) );
+            widget.onChangeStatus(request ,containerRequest,travelFilterRequest );
+          }
+
               }, radius: 10),
       ],
     );

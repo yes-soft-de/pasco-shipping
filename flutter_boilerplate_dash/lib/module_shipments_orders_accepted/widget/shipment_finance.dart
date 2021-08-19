@@ -41,7 +41,7 @@ class ShipmentFinanceCard extends StatelessWidget {
                       style: AppTextStyle.mediumBlack,
                     ),
                     Text(
-                      model.shipmentStatus ?? '',
+                      model.status ?? '',
                       style: AppTextStyle.mediumBlueBold,
                     ),
                   ],

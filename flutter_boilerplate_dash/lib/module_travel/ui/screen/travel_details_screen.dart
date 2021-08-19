@@ -6,6 +6,7 @@ import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/module_travel/response/travel_details_response.dart';
 import 'package:pasco_shipping/module_travel/state_manger/details_travel_state_manager.dart';
+import 'package:pasco_shipping/module_travel/travel_routes.dart';
 import 'package:pasco_shipping/module_travel/ui/state/details_state/details_state.dart';
 import 'package:pasco_shipping/module_travel/ui/state/details_state/travel_details_successfully.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
@@ -72,9 +73,11 @@ class _CountriesScreenState extends State<TravelDetailsScreen> {
     else if (currentState is SuccessfullyDetailsState){
       SuccessfullyDetailsState? state = currentState as SuccessfullyDetailsState?;
       items = state!.response;
-      return TravelDetailsSuccessfully(items,(request){
+      return TravelDetailsSuccessfully(model: items,onChangeStatus: (request){
         widget._stateManager.updateTravelStatus(request);
-      }
+      },onShowFinance: (id){
+       Navigator.pushNamed(context, TravelRoutes.FINANCE ,arguments: {'id' :id});
+      },
       );
     }
     // else if(currentState is SuccessfullyModifyMarkState){

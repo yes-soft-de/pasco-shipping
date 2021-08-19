@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_airwaybill/airwaybill_module.dart';
+import 'package:pasco_shipping/module_airwaybill/airwaybill_routes.dart';
+import 'package:pasco_shipping/module_airwaybill/request/airwaybill_filter_request.dart';
+import 'package:pasco_shipping/module_airwaybill_specification/airwaybill_specification_routes.dart';
 import 'package:pasco_shipping/module_chat/chat_routes.dart';
 import 'package:pasco_shipping/module_client/client_routes.dart';
 import 'package:pasco_shipping/module_container/container_routes.dart';
@@ -16,6 +20,7 @@ import 'package:pasco_shipping/module_proxies/proxies_routes.dart';
 import 'package:pasco_shipping/module_shipment_request/request_routes.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/accepted_shipment_routes.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_waiting/request/waiting_shipment_filter_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/waiting_shipment_routes.dart';
 import 'package:pasco_shipping/module_sub_contract/subcontract_routes.dart';
 import 'package:pasco_shipping/module_subcontract_services/sub_contract_service_routes.dart';
@@ -86,16 +91,16 @@ class DrawerMenu extends StatelessWidget {
                               ListTile(
                                   title: new Text('in External Warehouse'),
                                   onTap: () {
-                                    // AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',);
+                                   WaitingShipmentFilterRequest re = WaitingShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: true);
                                     Navigator.pushNamed(
-                                        context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'transportationType' : 'sea','isExternalWarehouse':true});
+                                        context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'waitingFilter' : re});
                                   }),
                               ListTile(
                                   title: new Text('in Local Warehouse'),
                                   onTap: () {
-                                    // AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',);
+                                    WaitingShipmentFilterRequest re = WaitingShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false);
                                     Navigator.pushNamed(
-                                        context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'transportationType' : 'air','isExternalWarehouse':false});
+                                        context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'waitingFilter' : re});
                                   }),
                             ],
                           ),
@@ -120,16 +125,16 @@ class DrawerMenu extends StatelessWidget {
                               ListTile(
                                   title: new Text('in External Warehouse'),
                                   onTap: () {
-                                    // AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',);
+                                    WaitingShipmentFilterRequest re = WaitingShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: true);
                                     Navigator.pushNamed(
-                                        context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'transportationType' : 'air','isExternalWarehouse':true});
+                                        context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'waitingFilter' : re});
                                   }),
                               ListTile(
                                   title: new Text('in Local Warehouse'),
                                   onTap: () {
-                                    // AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',);
+                                    WaitingShipmentFilterRequest re = WaitingShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false);
                                     Navigator.pushNamed(
-                                        context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'transportationType' : 'air','isExternalWarehouse':false});
+                                        context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'waitingFilter' : re});
                                   }),
                             ],
                           ),
@@ -255,7 +260,6 @@ class DrawerMenu extends StatelessWidget {
                     ListTile(
                         title: new Text(S.of(context).view),
                         onTap: () {
-                          ContainerFilterRequest re = ContainerFilterRequest(type: 'public');
                           Navigator.pushNamed(
                               context, ContainerRoutes.VIEW_ALL);
                         }),
@@ -299,6 +303,63 @@ class DrawerMenu extends StatelessWidget {
               ),
             ],
           ),
+
+
+          ExpansionTile(
+            title: new Text('Airway Bill'),
+            leading: Icon(Icons.inbox_outlined),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: new Text(S.of(context).view),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, AirwaybillRoutes.VIEW_ALL);
+                        }),
+                    ListTile(
+                        title: new Text(
+                          S.of(context).add,
+                        ),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, AirwaybillRoutes.ADD_NEW);
+                        }),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ExpansionTile(
+            title: new Text('Airway Bill Specification'),
+            leading: Icon(Icons.filter_list),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: new Text(S.of(context).view),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, AirwaybillSpecificationRoutes.VIEW_ALL);
+                        }),
+                    ListTile(
+                        title: new Text(
+                          S.of(context).add,
+                        ),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, AirwaybillSpecificationRoutes.ADD_NEW);
+                        }),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
           Divider(
             color: Colors.grey,
           ),

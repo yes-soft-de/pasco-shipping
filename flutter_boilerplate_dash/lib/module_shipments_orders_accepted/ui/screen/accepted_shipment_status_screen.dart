@@ -30,6 +30,8 @@ class AcceptedShipmentStatusScreen extends StatefulWidget {
 class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
   late AcceptedShipmentStatusState currentState;
 
+  late String transportation;
+
   @override
   Widget build(BuildContext context) {
     return Background(
@@ -50,7 +52,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
     String holderType =arguments['holderType'].toString();
     String status =arguments['status'].toString();
     String trackNumber =arguments['trackNumber'].toString();
-    String transportation =arguments['transportation'].toString();
+    transportation =arguments['transportation'].toString();
 
     ContainerFilterRequest containerFilterRequest =ContainerFilterRequest(status:ContainerStatusName[ContainerStatus.NOTFULL] ,type: holderType);
     TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:'cruise');

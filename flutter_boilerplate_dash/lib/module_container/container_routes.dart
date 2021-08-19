@@ -4,4 +4,5 @@ class ContainerRoutes{
   static const FILTER = '/filter_container';
   static const DETAILS = '/container_details';
   static const CONTAINER_SHIPMENT_REVIEW = '/container_shipment_review';
+  static const CONTAINER_FINANCE = '/container_finance';
 }

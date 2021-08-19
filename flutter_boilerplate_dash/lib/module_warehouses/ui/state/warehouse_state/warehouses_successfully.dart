@@ -8,7 +8,8 @@ class WarehousesSuccessfully extends StatelessWidget {
   final List<WarehousesModel> items;
   final Function onDelete;
   final Function onEdit;
-  const WarehousesSuccessfully({required  this.items,required this.onDelete,required this.onEdit});
+  final Function onShowFinance;
+  const WarehousesSuccessfully({required  this.items,required this.onDelete,required this.onEdit,required this.onShowFinance});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,9 @@ class WarehousesSuccessfully extends StatelessWidget {
       },
         onDelete: (id){
         onDelete(id);
-        }, isEdtiable: false,
+        }, isEdtiable: false, onShowFinance: (id){
+        onShowFinance(id);
+        },
       );
     },itemCount: items.length,
       shrinkWrap: true,
