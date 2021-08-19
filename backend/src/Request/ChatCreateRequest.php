@@ -2,13 +2,11 @@
 
 namespace App\Request;
 
-class MessageCreateRequest
+class ChatCreateRequest
 {
     private $roomID;
 
     private $userOneID;
-
-    private $userTwoID;
 
     public function setRoomID($roomID)
     {
@@ -23,16 +21,6 @@ class MessageCreateRequest
     public function getUserOneID()
     {
         return $this->userOneID;
-    }
-
-    public function setUserTwoID($userTwoID)
-    {
-        $this->userTwoID = $userTwoID;
-    }
-
-    public function getUserTwoID()
-    {
-        return $this->userTwoID;
     }
 
 }

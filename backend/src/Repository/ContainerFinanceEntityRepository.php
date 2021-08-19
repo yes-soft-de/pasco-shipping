@@ -79,4 +79,13 @@ class ContainerFinanceEntityRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function deleteAllContainersFinances()
+    {
+        return $this->createQueryBuilder('container_finance_entity')
+            ->delete()
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }

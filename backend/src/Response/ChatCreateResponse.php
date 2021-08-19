@@ -2,13 +2,11 @@
 
 namespace App\Response;
 
-class MessageCreateResponse
+class ChatCreateResponse
 {
     public $roomID;
 
     public $userOneID;
-
-    public $userTwoID;
 
     public $createdAt;
 

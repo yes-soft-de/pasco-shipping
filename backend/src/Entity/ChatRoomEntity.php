@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\MessageEntityRepository;
+use App\Repository\ChatRoomEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=MessageEntityRepository::class)
+ * @ORM\Entity(repositoryClass=ChatRoomEntityRepository::class)
  */
-class MessageEntity
+class ChatRoomEntity
 {
     /**
      * @ORM\Id
@@ -22,11 +22,6 @@ class MessageEntity
      * @ORM\Column(type="integer")
      */
     private $userOneID;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $userTwoID;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -52,18 +47,6 @@ class MessageEntity
     public function setUserOne(int $userOneID): self
     {
         $this->userOneID = $userOneID;
-
-        return $this;
-    }
-
-    public function getUserTwoID(): ?int
-    {
-        return $this->userTwoID;
-    }
-
-    public function setUserTwoID(int $userTwoID): self
-    {
-        $this->userTwoID = $userTwoID;
 
         return $this;
     }

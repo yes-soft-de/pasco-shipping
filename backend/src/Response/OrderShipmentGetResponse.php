@@ -28,6 +28,8 @@ class OrderShipmentGetResponse
 
     public $image;
 
+    public $images = [];
+
     public $createdAt;
 
     public $updatedAt;

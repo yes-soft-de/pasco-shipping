@@ -26,6 +26,8 @@ class OrderShipmentCreateRequest
 
     private $image;
 
+    private $images = [];
+
     private $productCategoryID;
 
     private $unit;
@@ -33,6 +35,8 @@ class OrderShipmentCreateRequest
     private $receiverName;
 
     private $receiverPhoneNumber;
+
+    private $receiverID;
 
     private $paymentTime;
 
@@ -71,6 +75,14 @@ class OrderShipmentCreateRequest
     public function getExternalWarehouseInfo()
     {
         return $this->externalWarehouseInfo;
+    }
+
+    /**
+     * @return array
+     */
+    public function getImages(): array
+    {
+        return $this->images;
     }
 
 }

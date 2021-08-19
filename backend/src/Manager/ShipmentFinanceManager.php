@@ -68,9 +68,18 @@ class ShipmentFinanceManager
     {
         $shipmentFinances['shipmentFinances'] = $this->shipmentFinanceEntityRepository->filterShipmentFinances($request->getShipmentID(), $request->getTrackNumber(), $request->getShipmentStatus(), 
         $request->getExportWarehouseID(), $request->getImportWarehouseID(), $request->getContainerID(), $request->getAirwaybillID(), $request->getTravelID());
-        
-        $shipmentFinances['currentTotalCost'] = $this->getCurrentTotalCostByFilterOptions($request->getShipmentID(), $request->getTrackNumber(), $request->getShipmentStatus(), 
+
+        $currentTotalCost = $this->getCurrentTotalCostByFilterOptions($request->getShipmentID(), $request->getTrackNumber(), $request->getShipmentStatus(),
         $request->getExportWarehouseID(), $request->getImportWarehouseID(), $request->getContainerID(), $request->getAirwaybillID(), $request->getTravelID())['currentTotalCost'];
+
+        if($currentTotalCost)
+        {
+            $shipmentFinances['currentTotalCost'] = $currentTotalCost;
+        }
+        else
+        {
+            $shipmentFinances['currentTotalCost'] = 0;
+        }
 
         return $shipmentFinances;
     }

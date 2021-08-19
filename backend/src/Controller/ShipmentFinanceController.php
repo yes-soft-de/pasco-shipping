@@ -209,4 +209,15 @@ class ShipmentFinanceController extends BaseController
         return $this->response($result, self::FETCH);
     }
 
+    /**
+     * @Route("deleteallshipmentsfinances", name="deleteAllShipmentsFinances", methods={"DELETE"})
+     * @return JsonResponse
+     */
+    public function deleteAllShipmentFinances()
+    {
+        $result = $this->shipmentFinanceService->deleteAllShipmentFinances();
+
+        return $this->response($result, self::DELETE);
+    }
+
 }

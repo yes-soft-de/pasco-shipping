@@ -10,6 +10,7 @@ use App\Request\AirwaybillFinanceCreateRequest;
 use App\Request\AirwaybillFinanceFilterRequest;
 use App\Response\AirwaybillFinanceCreateResponse;
 use App\Response\AirwaybillFinanceGetResponse;
+use App\Response\DeleteAllGetResponse;
 use App\Response\TrackByHolderTypeAndHolderIdGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -69,6 +70,15 @@ class AirwaybillFinanceService
         }
 
         return $tracks;
+    }
+
+    public function deleteAllAirwaybillsFinances()
+    {
+        $result = [];
+
+        $result['numbersOfItemDeleted'] = $this->airwaybillFinanceManager->deleteAllAirwaybillsFinances();
+
+        return $this->autoMapping->map('array', DeleteAllGetResponse::class, $result);
     }
 
 }

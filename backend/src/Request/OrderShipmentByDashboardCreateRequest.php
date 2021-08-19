@@ -26,6 +26,8 @@ class OrderShipmentByDashboardCreateRequest
 
     private $image;
 
+    private $images = [];
+
     private $productCategoryID;
 
     private $unit;
@@ -33,6 +35,8 @@ class OrderShipmentByDashboardCreateRequest
     private $receiverName;
 
     private $receiverPhoneNumber;
+
+    private $receiverID;
 
     private $paymentTime;
 
@@ -76,6 +80,14 @@ class OrderShipmentByDashboardCreateRequest
     public function getCreatedBy()
     {
         return $this->createdBy;
+    }
+
+    /**
+     * @return array
+     */
+    public function getImages(): array
+    {
+        return $this->images;
     }
 
 }

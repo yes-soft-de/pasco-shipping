@@ -8,6 +8,7 @@ use App\Constant\ShipmentStatusConstant;
 use App\Entity\OrderShipmentEntity;
 use App\Repository\OrderShipmentEntityRepository;
 use App\Request\DeleteRequest;
+use App\Request\ImageCreateRequest;
 use App\Request\OrderShipmentByDashboardCreateRequest;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateByClientRequest;
@@ -26,15 +27,17 @@ class ShipmentOrderManager
     private $orderShipmentEntityRepository;
     private $shipmentStatusManager;
     private $trackManager;
+    private $imageManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, OrderShipmentEntityRepository $orderShipmentEntityRepository,
-     ShipmentStatusManager $shipmentStatusManager, TrackManager $trackManager)
+     ShipmentStatusManager $shipmentStatusManager, TrackManager $trackManager, ImageManager $imageManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->orderShipmentEntityRepository = $orderShipmentEntityRepository;
         $this->shipmentStatusManager = $shipmentStatusManager;
         $this->trackManager = $trackManager;
+        $this->imageManager = $imageManager;
     }
 
     public function createShipmentOrder(OrderShipmentCreateRequest $request)
@@ -46,6 +49,9 @@ class ShipmentOrderManager
         $this->entityManager->persist($orderShipmentEntity);
         $this->entityManager->flush();
         $this->entityManager->clear();
+
+        // Insert the images of the shipment
+        $this->insertImagesOfShipment($request->getImages(), $orderShipmentEntity->getId());
 
         return $orderShipmentEntity;
     }
@@ -59,6 +65,9 @@ class ShipmentOrderManager
         $this->entityManager->persist($orderShipmentEntity);
         $this->entityManager->flush();
         $this->entityManager->clear();
+
+        // Insert the images of the shipment
+        $this->insertImagesOfShipment($request->getImages(), $orderShipmentEntity->getId());
 
         return $orderShipmentEntity;
     }
@@ -174,7 +183,14 @@ class ShipmentOrderManager
 
     public function getShipmentOrderById($id)
     {
-        return $this->orderShipmentEntityRepository->getShipmentOrderById($id);
+        $order = $this->orderShipmentEntityRepository->getShipmentOrderById($id);
+
+        if ($order)
+        {
+            $order['images'] = $this->imageManager->getImagesByShipmentID($id);
+        }
+
+        return $order;
     }
 
     public function getCountOfShipmentsOrdersByStatus($status)
@@ -252,6 +268,22 @@ class ShipmentOrderManager
     public function getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
         return $this->shipmentStatusManager->getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+    }
+
+    public function insertImagesOfShipment($imagesArray, $shipmentID)
+    {
+        if(is_array($imagesArray))
+        {
+            $imageRequest = new ImageCreateRequest();
+
+            foreach ($imagesArray as $image)
+            {
+                $imageRequest->setImage($image);
+                $imageRequest->setShipmentID($shipmentID);
+
+                $this->imageManager->create($imageRequest);
+            }
+        }
     }
 
     public function deleteShipmentOrder(DeleteRequest $request)

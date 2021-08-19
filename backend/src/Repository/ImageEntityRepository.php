@@ -22,7 +22,7 @@ class ImageEntityRepository extends ServiceEntityRepository
     public function getImagesByShipmentID($shipmentID)
     {
         return $this->createQueryBuilder('image')
-            ->select('image.id', 'image.shipmentID', 'image.createdAt', 'image.specialLink')
+            ->select('image.id', 'image.image', 'image.shipmentID', 'image.createdAt', 'image.specialLink')
 
             ->andWhere('image.shipmentID = :shipmentID')
             ->setParameter('shipmentID', $shipmentID)

@@ -175,6 +175,11 @@ class OrderShipmentEntity
      */
     private $volume;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $receiverID;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -548,6 +553,18 @@ class OrderShipmentEntity
     public function setVolume(?float $volume): self
     {
         $this->volume = $volume;
+
+        return $this;
+    }
+
+    public function getReceiverID(): ?int
+    {
+        return $this->receiverID;
+    }
+
+    public function setReceiverID(?int $receiverID): self
+    {
+        $this->receiverID = $receiverID;
 
         return $this;
     }
