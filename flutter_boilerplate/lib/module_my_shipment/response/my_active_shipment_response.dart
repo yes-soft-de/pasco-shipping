@@ -1,4 +1,6 @@
 
+import 'package:pasco_shipping/utils/logger/logger.dart';
+
 class MyShipmentResponse {
   MyShipmentResponse({
     this.statusCode,
@@ -10,11 +12,22 @@ class MyShipmentResponse {
   String? msg;
   List<MyShipment>? data;
 
-  factory MyShipmentResponse.fromJson(Map<String, dynamic> json) => MyShipmentResponse(
-    statusCode: json['status_code'],
-    msg: json['msg'],
-    data: List<MyShipment>.from(json['Data'].map((x) => MyShipment.fromJson(x))),
-  );
+  MyShipmentResponse.fromJson(Map<String, dynamic> json) {
+    try {
+      statusCode = json['status_code'];
+      msg = json['msg'];
+      if (json['Data'] != null) {
+        data =
+        List<MyShipment>.from(json['Data'].map((x) => MyShipment.fromJson(x)));
+      }
+    }catch (e) {
+      Logger()
+          .error('ActiveShipment Response', e.toString(), StackTrace.current);
+      statusCode = '-1';
+    }
+
+  }
+
 }
 
 class MyShipment {

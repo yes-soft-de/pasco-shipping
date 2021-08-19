@@ -19,6 +19,7 @@ class ReviewShipmentScreen extends StatelessWidget {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     MyHistoryShipment shipment =arguments['myHistoryShipment'];
     ScrollController controller = ScrollController();
+    print(shipment.imagePath);
     return Background(
       goBack: (){
         Navigator.pop(context);
@@ -43,6 +44,12 @@ class ReviewShipmentScreen extends StatelessWidget {
             ),
             Row(
               children: [
+                Expanded(child: ListTile(title: Text('Is External Warehouse: ' , style: white18text,), subtitle: Text(shipment.isExternalWarehouse.toString() ,style: basic14text,))),
+                Expanded(child: ListTile(title: Text('External Warehouse Info: ' , style: white18text,), subtitle: Text( shipment.externalWarehouseInfo??'',style: basic14text,))),
+              ],
+            ),
+            Row(
+              children: [
                 Expanded(child: ListTile(title: Text('Product type: ' , style: white18text,), subtitle: Text(shipment.productCategoryName??'' ,style: basic14text,))),
                 Expanded(child: ListTile(title: Text('Quantity ' , style: white18text,), subtitle: Text(shipment.quantity.toString() ,style: basic14text,))),
               ],
@@ -58,6 +65,7 @@ class ReviewShipmentScreen extends StatelessWidget {
                 Expanded(child: ListTile(title: Text('Phone: ' , style: white18text,), subtitle: Text(shipment.receiverPhoneNumber??'' ,style: basic14text,))),
               ],
             ),
+
             Row(
               children: [
                 Flexible(
@@ -90,7 +98,10 @@ class ReviewShipmentScreen extends StatelessWidget {
                       //     :
                       Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: IconButton(
+                        child:shipment.imagePath!.isNotEmpty? SizedBox(
+                          width: 75,
+                            height: 75,
+                            child: Image.network(shipment.imagePath!)): IconButton(
                           icon: Icon(Icons.camera_alt),
                           iconSize: 50.0,
                           onPressed: () {},

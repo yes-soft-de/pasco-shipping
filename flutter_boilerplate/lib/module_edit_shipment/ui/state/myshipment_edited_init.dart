@@ -164,6 +164,30 @@ class ReviewShipmentEditedScreen extends StatelessWidget {
         ),
         Row(
           children: [
+            Expanded(
+                child: ListTile(
+                    title: Text(
+                      'is External Warehouse: ',
+                      style: white18text,
+                    ),
+                    subtitle: Text(
+                      shipment.isExternalWarehouse.toString(),
+                      style: basic14text,
+                    ))),
+            Expanded(
+                child: ListTile(
+                    title: Text(
+                      'External Warehouse Info: ',
+                      style: white18text,
+                    ),
+                    subtitle: Text(
+                      shipment.externalWarehouseInfo ??'',
+                      style: basic14text,
+                    ))),
+          ],
+        ),
+        Row(
+          children: [
             Flexible(
               flex: 2,
               child: Column(
@@ -266,8 +290,9 @@ class ReviewShipmentEditedScreen extends StatelessWidget {
                     paymentTime: shipment.paymentTime,
                     vehicleIdentificationNumber: shipment.vehicleIdentificationNumber,
                     extraSpecification: shipment.extraSpecification,
-                    holderType: shipment.holderType
-                    ,imageFile: shipment.imageFilePath);
+                    holderType: shipment.holderType,
+                    externalWarehouseInfo: shipment.externalWarehouseInfo
+                    ,imageFile: shipment.imageFilePath, isExternalWarehouse: shipment.isExternalWarehouse);
                 _showConfirmDialog(context ,request);
               },
             )

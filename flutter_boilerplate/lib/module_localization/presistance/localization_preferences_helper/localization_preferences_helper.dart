@@ -1,15 +1,18 @@
+// import 'package:hive/hive.dart';
+// import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 @injectable
 class LocalizationPreferencesHelper {
-  Future<void> setLanguage(String lang) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('lang', lang);
+  var prefs = Hive.box('Localization');
+
+  void setLanguage(String lang) {
+    prefs.put('lang', lang);
   }
 
-  Future<String?> getLanguage() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('lang');
+  String? getLanguage() {
+    return prefs.get('lang');
   }
 }

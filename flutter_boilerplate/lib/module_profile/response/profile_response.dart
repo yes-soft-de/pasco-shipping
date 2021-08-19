@@ -35,11 +35,11 @@ class ProfileModel {
   String? phone;
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) => ProfileModel(
-    userName: json['userName'],
-    city: json['city'],
-    country: json['country'],
-    image: json['image'],
-    location: json['location'],
-    phone: json['phone'],
+    userName: json['userName']??'',
+    city: json['city']??'',
+    country: json['country']??'',
+    image: json['image'] ??'',
+    location: json['location']??'',
+    phone: json['phone']??'',
   );
 }

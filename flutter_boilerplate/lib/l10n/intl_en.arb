@@ -60,7 +60,7 @@
   "distributorName": "Distributor Name: ",
   "shipmentInfo": "Shipment Info",
   "reviewShipment": "Review Shipment",
-  "nameHere": "name here",
+  "nameHere": "Name here",
 
 
 
@@ -80,7 +80,20 @@
   "shippingTo": "Shipping to:",
   "productType": "Product type:",
   "quantity": "Quantity:",
-  "image": "Image:"
+  "image": "Image:",
+
+  "networkError": "There is problem with your connection , please try again",
+  "invalidCredentials": "Wrong username or password",
 
 
+  "statusCodeOk": "Data fetched succesfuly",
+  "statusCodeCreated": "The request has succeeded and a new resource has been created as a result",
+  "statusCodeBadRequest":"The server could not understand the request due to invalid syntax",
+  "statusCodeUnauthorized":"Unauthorized",
+  "StatusCodeNotFound":"Data not found",
+
+  "internalServerError": "Internal server error",
+  "dataDecodeError": "Error with Decoding Data",
+  "errorHappened": "Error Happened",
+  "registerSuccess": "Your account has been registered successfully"
 }

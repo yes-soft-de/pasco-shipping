@@ -25,5 +25,6 @@ class StaticImage{
   static final String userIcon2='assets/images/manager2.png';
   static final String waiting='assets/images/waiting.png';
   static final String noInternet='assets/images/noInternet.png';
+  static final String noData='assets/images/nodata.png';
 
 }

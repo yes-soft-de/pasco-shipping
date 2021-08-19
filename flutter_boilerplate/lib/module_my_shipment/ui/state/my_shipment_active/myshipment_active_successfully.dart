@@ -24,7 +24,7 @@ class MyShipmentActiveSuccessfully extends StatelessWidget {
               style: basic14text,
             ),
           ),
-          ListView.builder(
+         waitingShipments.isEmpty ?Text('No Waiting Shipment',style: greyWhite14text,): ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
               physics: NeverScrollableScrollPhysics(),
@@ -40,7 +40,7 @@ class MyShipmentActiveSuccessfully extends StatelessWidget {
               style: greyWhite14text,
             ),
           ),
-          ListView.builder(
+          activeShipments.isEmpty? Text('No Current Shipment',style: greyWhite14text,) : ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
               physics: NeverScrollableScrollPhysics(),

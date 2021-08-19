@@ -14,7 +14,7 @@ class ProfileRepository{
 
   Future<ProfileModel?> getProfile() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token = await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.MY_PROFILE,
           headers: {'Authorization': 'Bearer $token'});
@@ -28,7 +28,7 @@ class ProfileRepository{
 
   Future<ProfileModel?> updateProfile(ProfileRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.put(Urls.MY_PROFILE,request.toJson(),
           headers: {'Authorization': 'Bearer $token'});

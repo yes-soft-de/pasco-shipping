@@ -14,12 +14,16 @@ class MyShipmentRepository{
 
   Future<List<MyShipment>?> getMyActiveShipment() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token = await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.MY_SHIPMENT+'/'+'undelivered',
           headers: {'Authorization': 'Bearer $token'});
-      List<MyShipment>? myActiveShipments =
-          MyShipmentResponse.fromJson(response!).data;
+      MyShipmentResponse shipmentResponse =  MyShipmentResponse.fromJson(response!);
+      List<MyShipment>? myActiveShipments = [];
+      if(shipmentResponse.data != null) {
+        myActiveShipments =
+            MyShipmentResponse.fromJson(response).data;
+      }
       return myActiveShipments;
     } catch (_) {
       return null;
@@ -28,26 +32,35 @@ class MyShipmentRepository{
 
   Future<List<MyHistoryShipment>?> getMyDeliveredShipment() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token = await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.MY_SHIPMENT+'/'+'delivered',
           headers: {'Authorization': 'Bearer $token'});
-      List<MyHistoryShipment>? myDeliveredShipments =
-          MyHistoryShipmentResponse.fromJson(response!).data;
+      MyHistoryShipmentResponse historyShipmentResponse =  MyHistoryShipmentResponse.fromJson(response!);
+      List<MyHistoryShipment>? myDeliveredShipments = [];
+      if(historyShipmentResponse.data != null) {
+        myDeliveredShipments =
+            MyHistoryShipmentResponse.fromJson(response).data;
+      }
       return myDeliveredShipments;
-    } catch (_) {
+    } catch (e) {
+      print(e.toString());
       return null;
     }
   }
 
   Future<List<MyHistoryShipment>?> getMyWaitingShipment() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.MY_WAITING_SHIPMENT,
           headers: {'Authorization': 'Bearer $token'});
-      List<MyHistoryShipment>? myDeliveredShipments =
-          MyHistoryShipmentResponse.fromJson(response!).data;
+      MyHistoryShipmentResponse historyShipmentResponse =  MyHistoryShipmentResponse.fromJson(response!);
+      List<MyHistoryShipment>? myDeliveredShipments = [];
+      if(historyShipmentResponse.data != null) {
+        myDeliveredShipments =
+            MyHistoryShipmentResponse.fromJson(response).data;
+      }
       return myDeliveredShipments;
     } catch (_) {
       return null;

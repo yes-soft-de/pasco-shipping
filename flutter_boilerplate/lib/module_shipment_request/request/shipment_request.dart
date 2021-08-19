@@ -28,6 +28,9 @@ class ShipmentTempRequest {
   late String _extraSpecification;
 
   late String _holderType;
+
+  late bool _isExternalWarehouse;
+  late String? externalWarehouseInfo;
   late String? imageFilePath;
 
 
@@ -43,13 +46,15 @@ class ShipmentTempRequest {
         "receiverPhoneNumber": receiverPhoneNumber,
         "paymentTime": paymentTime,
         "exportWarehouseID": exportWarehouseID,
-        "markId": markId,
+        "markID": markId,
         "vehicleIdentificationNumber": vehicleIdentificationNumber,
         "extraSpecification": extraSpecification,
         'image':imageFilePath == null ?'': imageFilePath!,
     'exportWarehouseName':exportWarehouseName,
     'markName':markName,
-    'holderType':holderType
+    'holderType':holderType,
+    'isExternalWarehouse':isExternalWarehouse,
+    'externalWarehouseInfo':externalWarehouseInfo ?? ''
 
       };
   factory ShipmentTempRequest.fromJson(Map<String, dynamic> json) =>
@@ -68,7 +73,7 @@ class ShipmentTempRequest {
           json['receiverPhoneNumber']??'',
 
           json['unit']??'',
-          json['markId']??0,
+          json['markID']??0,
           json['markName'] ?? '',
 
           json['paymentTime']??'',
@@ -77,6 +82,8 @@ class ShipmentTempRequest {
           json['vehicleIdentificationNumber']??'',
           json['extraSpecification']??'',
           json['holderType']??'',
+          json['isExternalWarehouse']??false,
+          json['externalWarehouseInfo']??'',
           json['image']);
   ShipmentTempRequest(
       this._transportationType,
@@ -103,6 +110,8 @@ class ShipmentTempRequest {
       this._extraSpecification,
       this._vehicleIdentificationNumber,
       this._holderType,
+      this._isExternalWarehouse,
+      this.externalWarehouseInfo,
       this.imageFilePath);
 
   String get extraSpecification => _extraSpecification;
@@ -208,11 +217,15 @@ class ShipmentTempRequest {
     _holderType = value;
   }
 
+
+  bool get isExternalWarehouse => _isExternalWarehouse;
+
+  set isExternalWarehouse(bool value) {
+    _isExternalWarehouse = value;
+  }
+
   @override
   String toString() {
     return 'ShipmentRequest{_transportationType: $_transportationType, _exportWarehouseID: $_exportWarehouseID, _exportWarehouseName: $_exportWarehouseName, _target: $_target, _productCategoryID: $_productCategoryID, _productCategoryName: $_productCategoryName, _quantity: $_quantity, _supplierName: $_supplierName, _receiverName: $_receiverName, _receiverPhoneNumber: $_receiverPhoneNumber, _unit: $_unit, _markId: $_markId, _markName: $_markName, _paymentTime: $_paymentTime, _vehicleIdentificationNumber: $_vehicleIdentificationNumber, _extraSpecification: $_extraSpecification, imageFile: $imageFilePath}';
   }
-
-
-
 }

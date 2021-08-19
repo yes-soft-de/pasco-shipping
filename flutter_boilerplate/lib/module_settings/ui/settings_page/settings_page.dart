@@ -28,6 +28,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool loading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,30 +87,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(S.of(context).language),
-                      FutureBuilder(
-                        initialData: Platform.localeName.substring(0, 2),
-                        future: widget._localizationService.getLanguage(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<String> snapshot) {
-                          return DropdownButton(
-                              value: snapshot.data ??
-                                  Platform.localeName.substring(0, 2),
-                              items: [
-                                DropdownMenuItem(
-                                  child: Text('العربية'),
-                                  value: 'ar',
-                                ),
-                                DropdownMenuItem(
-                                  child: Text('English'),
-                                  value: 'en',
-                                ),
-                              ],
-                              onChanged: (newLang) {
-                                widget._localizationService
-                                    .setLanguage(newLang.toString());
-                              });
-                        },
-                      ),
+                      // FutureBuilder(
+                      //   initialData: Platform.localeName.substring(0, 2),
+                      //   future: widget._localizationService.getLanguage(),
+                      //   builder: (BuildContext context,
+                      //       AsyncSnapshot<String> snapshot) {
+                      //     return DropdownButton(
+                      //         value: snapshot.data ??
+                      //             Platform.localeName.substring(0, 2),
+                      //         items: [
+                      //           DropdownMenuItem(
+                      //             child: Text('العربية'),
+                      //             value: 'ar',
+                      //           ),
+                      //           DropdownMenuItem(
+                      //             child: Text('English'),
+                      //             value: 'en',
+                      //           ),
+                      //         ],
+                      //         onChanged: (newLang) {
+                      //           widget._localizationService
+                      //               .setLanguage(newLang.toString());
+                      //         });
+                      //   },
+                      // ),
                     ],
                   ),
                 ),
@@ -124,46 +125,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: FutureBuilder(
-                    future: widget._authService.isLoggedIn,
-                    initialData: false,
-                    builder:
-                        (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                      if (snapshot.data!) {
-                        return Flex(
-                          direction: Axis.horizontal,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(S.of(context).logout),
-                            IconButton(
-                                icon: Icon(Icons.logout),
-                                onPressed: () {
-                                  widget._authService.logout().then((value) {
-                                    Navigator.pushNamedAndRemoveUntil(
-                                        context,
-                                        AuthorizationRoutes.LOGIN_SCREEN,
-                                        (route) => false);
-                                  });
-                                })
-                          ],
-                        );
-                      } else {
-                        return Flex(
-                          direction: Axis.horizontal,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(S.of(context).signIn),
-                            IconButton(
-                                icon: Icon(Icons.login),
-                                onPressed: () {
-                                  Navigator.of(context).pushNamed(
-                                      AuthorizationRoutes.LOGIN_SCREEN);
-                                })
-                          ],
-                        );
-                      }
-                    },
-                  ),
+                  child: Container(),
                 ),
               ),
             ),

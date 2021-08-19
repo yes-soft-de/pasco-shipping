@@ -21,6 +21,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "StatusCodeNotFound": MessageLookupByLibrary.simpleMessage(
+            "لم يتمكن الخادم من العثور على طلبك"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("حول"),
         "air": MessageLookupByLibrary.simpleMessage("جوي"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
@@ -31,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "contactInfo": MessageLookupByLibrary.simpleMessage("معلومات التواصل "),
         "country": MessageLookupByLibrary.simpleMessage("البلد"),
         "darkMode": MessageLookupByLibrary.simpleMessage("الوضع الليلي"),
+        "dataDecodeError": MessageLookupByLibrary.simpleMessage(
+            "هناك مشكلة في تفسير البيانات"),
         "deletePreviousMark": MessageLookupByLibrary.simpleMessage(
             "لا يمكنك حذف العلامات المستخدمة سابقا"),
         "directSupport": MessageLookupByLibrary.simpleMessage("دعم مباشر"),
@@ -39,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterMark": MessageLookupByLibrary.simpleMessage("أدخل علامة جديدة"),
         "enterShipmentNumber":
             MessageLookupByLibrary.simpleMessage("أدخل رقم الشحنة"),
+        "errorHappened": MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
         "fillAllField":
             MessageLookupByLibrary.simpleMessage("إملئ جميع الحقول"),
         "getStarted": MessageLookupByLibrary.simpleMessage("البدء"),
@@ -49,6 +54,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("مدينة الإستلام: "),
         "importantNote": MessageLookupByLibrary.simpleMessage("ملاحظة مهمة"),
         "inHolder": MessageLookupByLibrary.simpleMessage("في حامل واحد: "),
+        "internalServerError":
+            MessageLookupByLibrary.simpleMessage("هناك مشكلة ما في الخادم"),
+        "invalidCredentials": MessageLookupByLibrary.simpleMessage(
+            "هناك خطأ في كلمة السر أو اسم المستخدم"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "loading": MessageLookupByLibrary.simpleMessage("جار التحميل"),
         "location": MessageLookupByLibrary.simpleMessage("الموقع"),
@@ -59,6 +68,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "myPrevious": MessageLookupByLibrary.simpleMessage("علاماتي السابقة"),
         "myShipment": MessageLookupByLibrary.simpleMessage("شحناتي"),
         "nameHere": MessageLookupByLibrary.simpleMessage("لأسم هنا"),
+        "networkError": MessageLookupByLibrary.simpleMessage(
+            "هناك مشكلة بالاتصال بالشبكة الرجاء إعادة المحاولة لاحقا"),
         "newShipmentRequest":
             MessageLookupByLibrary.simpleMessage("طلب شحنة جديد"),
         "noAccount":
@@ -79,6 +90,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "productType": MessageLookupByLibrary.simpleMessage("نوع المنتجات:"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "quantity": MessageLookupByLibrary.simpleMessage("الكمية:"),
+        "registerSuccess":
+            MessageLookupByLibrary.simpleMessage("تم تسجيل حسابك بنجاح"),
         "requestShipment": MessageLookupByLibrary.simpleMessage("طلب شحنة"),
         "required": MessageLookupByLibrary.simpleMessage("الحقل مطلوب"),
         "resultTrack": MessageLookupByLibrary.simpleMessage("نتائج التعقب"),
@@ -95,6 +108,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "signIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "signUp": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "startWriting": MessageLookupByLibrary.simpleMessage("أبدء بالكتابة"),
+        "statusCodeBadRequest":
+            MessageLookupByLibrary.simpleMessage("تعذر على الخادم فهم الطلب"),
+        "statusCodeCreated": MessageLookupByLibrary.simpleMessage(
+            "نجح الطلب وتم إنشاء تغيير جديد نتيجة لذلك "),
+        "statusCodeOk":
+            MessageLookupByLibrary.simpleMessage("تم جلب المعلومات بنجاح"),
+        "statusCodeUnauthorized": MessageLookupByLibrary.simpleMessage(
+            "أنت غير مخول بالقيام بهذا الطلب"),
         "success": MessageLookupByLibrary.simpleMessage("نجاح!!!"),
         "termOfService": MessageLookupByLibrary.simpleMessage("شروط الخدمة"),
         "trackShipment": MessageLookupByLibrary.simpleMessage("تعقب شحنة"),

@@ -26,8 +26,8 @@ class AppThemeDataService {
     return Color(0xFFF9AA05);
   }
 
-  Future<ThemeData> getActiveTheme() async {
-    var dark = await _preferencesHelper.isDarkMode();
+  ThemeData getActiveTheme()  {
+    var dark =  _preferencesHelper.isDarkMode();
     if (dark == true) {
       return ThemeData(
         brightness: Brightness.dark,

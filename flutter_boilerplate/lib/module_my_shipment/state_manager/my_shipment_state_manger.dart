@@ -34,6 +34,7 @@ class MyShipmentStateManger {
 
     _myShipmentService.getMyDeliveredShipment().then((shipments) {
       if (shipments == null) {
+        print('hello rahaf');
         _stateSubject.add(ErrorFetchingDataState('error connection'));
       } else {
         _stateSubject.add(SuccessfullyFetchHistoryShipmentState(shipments));

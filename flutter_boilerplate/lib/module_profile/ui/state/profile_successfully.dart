@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_intro/widget/roundedButton.dart';
 import 'package:pasco_shipping/module_profile/request/profile_request.dart';
@@ -33,6 +35,8 @@ class _ProfileSuccessfullyScreenState extends State<ProfileSuccessfullyScreen> {
   late ScrollController controller;
 
   late ProfileRequest _profileRequest;
+  final ImagePicker _imagePicker = ImagePicker();
+  File? imageFile;
 
   @override
   void initState() {
@@ -64,9 +68,35 @@ class _ProfileSuccessfullyScreenState extends State<ProfileSuccessfullyScreen> {
                 borderRadius: BorderRadius.all(Radius.circular(30)),
                 border: Border.all(color: white)),
             margin: EdgeInsets.only(top: 20),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child:Image.asset(StaticImage.profile),
+            child: InkWell(
+              onTap: (){
+                _imagePicker
+                    .getImage(
+                    source: ImageSource.gallery,
+                    imageQuality: 70)
+                    .then((value) {
+                  imageFile = File(value!.path);
+                  // final _imageFile = ImageProcess.decodeImage(
+                  //   b.readAsBytesSync(),
+                  // );
+                  // String base64Image = base64Encode(ImageProcess.encodePng(_imageFile!));
+                  // imageFile = Base64Decoder().convert(base64Image);
+                  setState(() {});
+                });
+
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child:imageFile == null ? ( widget.model.image!.isEmpty ? Image.asset(StaticImage.profile) : SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: Image.network(widget.model.image!))) : Image.file(
+                  imageFile!,
+                  fit: BoxFit.cover,
+                  width: 100,
+                  height: 100,
+                ),
+              ),
             )),
         Text(widget.model.userName??'' , style: greyWhite14text,),
         Padding(
@@ -249,7 +279,7 @@ class _ProfileSuccessfullyScreenState extends State<ProfileSuccessfullyScreen> {
     } else {
 
       _profileRequest =
-          ProfileRequest(userName: _userNameController.text, city: _cityController.text, country: _countryController.text, image: widget.model.image!, location: _locController.text, phone:_phoneController.text);
+          ProfileRequest(userName: _userNameController.text, city: _cityController.text, country: _countryController.text, image:imageFile ==null ?  widget.model.image! : imageFile!.path, location: _locController.text, phone:_phoneController.text ,);
       print(json.encode(_profileRequest));
       return true;
     }

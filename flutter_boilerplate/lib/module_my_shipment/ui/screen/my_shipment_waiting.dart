@@ -23,7 +23,7 @@ class _MyShipmentWaitingState extends State<MyShipmentWaiting> {
    super.initState();
    isEmptyData= false;
    shipmentRequest = ShipmentTempRequest(
-       '', 0,'', '', 0, '',0, '', '', '', '', 0, '', '', '','','',null);
+       '', 0,'', '', 0, '',0, '', '', '', '', 0, '', '', '','','',false,'',null);
   }
 
  @override

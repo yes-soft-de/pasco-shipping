@@ -26,10 +26,7 @@ class EditShipmentStateManager {
       _uploadService
           .uploadImage(request.imageFile!).then((value) {
         if (value != null) {
-          request.imageFile =
-          value.contains('http')
-              ? value
-              : Urls.IMAGES_ROOT + value;
+          request.imageFile = value;
           _editShipmentService.addNewShipment(request).then((model) {
             _stateSubject.add(ConfirmedState(model));
           });

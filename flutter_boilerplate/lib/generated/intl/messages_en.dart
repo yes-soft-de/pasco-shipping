@@ -21,6 +21,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "StatusCodeNotFound":
+            MessageLookupByLibrary.simpleMessage("Data not found"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About Us"),
         "air": MessageLookupByLibrary.simpleMessage("Air"),
         "cancel": MessageLookupByLibrary.simpleMessage("cancel"),
@@ -31,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "contactInfo": MessageLookupByLibrary.simpleMessage("Contact Info"),
         "country": MessageLookupByLibrary.simpleMessage("country"),
         "darkMode": MessageLookupByLibrary.simpleMessage("dark mode"),
+        "dataDecodeError":
+            MessageLookupByLibrary.simpleMessage("Error with Decoding Data"),
         "deletePreviousMark": MessageLookupByLibrary.simpleMessage(
             "You cannot delete previously used marks"),
         "directSupport": MessageLookupByLibrary.simpleMessage("Direct support"),
@@ -40,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterMark": MessageLookupByLibrary.simpleMessage("Enter new mark"),
         "enterShipmentNumber":
             MessageLookupByLibrary.simpleMessage("Enter the shipment number"),
+        "errorHappened": MessageLookupByLibrary.simpleMessage("Error Happened"),
         "fillAllField": MessageLookupByLibrary.simpleMessage("fill all filed"),
         "getStarted": MessageLookupByLibrary.simpleMessage("GET STARTED"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -50,6 +55,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Import warehouse city: "),
         "importantNote": MessageLookupByLibrary.simpleMessage("Important note"),
         "inHolder": MessageLookupByLibrary.simpleMessage("Is in one holder"),
+        "internalServerError":
+            MessageLookupByLibrary.simpleMessage("Internal server error"),
+        "invalidCredentials":
+            MessageLookupByLibrary.simpleMessage("Wrong username or password"),
         "language": MessageLookupByLibrary.simpleMessage("language"),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "location": MessageLookupByLibrary.simpleMessage("location"),
@@ -59,7 +68,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "mark": MessageLookupByLibrary.simpleMessage("Marks"),
         "myPrevious": MessageLookupByLibrary.simpleMessage("My Previous"),
         "myShipment": MessageLookupByLibrary.simpleMessage("My\n Shipments"),
-        "nameHere": MessageLookupByLibrary.simpleMessage("name here"),
+        "nameHere": MessageLookupByLibrary.simpleMessage("Name here"),
+        "networkError": MessageLookupByLibrary.simpleMessage(
+            "There is problem with your connection , please try again"),
         "newShipmentRequest":
             MessageLookupByLibrary.simpleMessage("Request a new\n shipment"),
         "noAccount":
@@ -79,6 +90,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "productType": MessageLookupByLibrary.simpleMessage("Product type:"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity:"),
+        "registerSuccess": MessageLookupByLibrary.simpleMessage(
+            "Your account has been registered successfully"),
         "requestShipment":
             MessageLookupByLibrary.simpleMessage("Request Shipment"),
         "required":
@@ -99,6 +112,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "startWriting": MessageLookupByLibrary.simpleMessage("start writing"),
+        "statusCodeBadRequest": MessageLookupByLibrary.simpleMessage(
+            "The server could not understand the request due to invalid syntax"),
+        "statusCodeCreated": MessageLookupByLibrary.simpleMessage(
+            "The request has succeeded and a new resource has been created as a result"),
+        "statusCodeOk":
+            MessageLookupByLibrary.simpleMessage("Data fetched succesfuly"),
+        "statusCodeUnauthorized":
+            MessageLookupByLibrary.simpleMessage("Unauthorized"),
         "success": MessageLookupByLibrary.simpleMessage("Success!!!"),
         "termOfService":
             MessageLookupByLibrary.simpleMessage("Term Of Service"),
