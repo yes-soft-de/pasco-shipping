@@ -36,6 +36,8 @@ class OrderShipmentCreateRequest
 
     private $receiverPhoneNumber;
 
+    private $receiverID;
+
     private $paymentTime;
 
     private $vehicleIdentificationNumber;

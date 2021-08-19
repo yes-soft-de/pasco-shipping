@@ -30,6 +30,8 @@ class OrderShipmentUpdateByClientRequest
 
     private $receiverPhoneNumber;
 
+    private $receiverID;
+
     private $paymentTime;
 
     private $vehicleIdentificationNumber;
