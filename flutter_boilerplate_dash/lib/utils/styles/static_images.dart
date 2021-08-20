@@ -34,4 +34,22 @@ class StaticImage{
   static final String dis='assets/images/dis.png';
   static final String noResult='assets/images/noresult.png';
 
+
+  static final String warehouse='assets/images/warehouse.png';
+  static final String airwaybill='assets/images/airwaybill.png';
+  static final String container='assets/images/container.png';
+  static final String distrbutors='assets/images/distrbutors.png';
+  static final String mark='assets/images/mark.png';
+  static final String category='assets/images/product.png';
+  static final String subcategory='assets/images/subproduct.png';
+  static final String service='assets/images/service.png';
+  static final String subcontract='assets/images/subcontract.png';
+  static final String supplier='assets/images/supplier.png';
+  static final String travel='assets/images/travel.png';
+  static final String wrapping='assets/images/wrapping.png';
+  static final String proxy='assets/images/proxy.png';
+
+
+  static final String accounting='assets/images/accounting.png';
+
 }

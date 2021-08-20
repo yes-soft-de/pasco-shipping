@@ -13,6 +13,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class ContainerDetailsSuccessfully extends StatefulWidget {
@@ -47,7 +48,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
                     onTap: (){
                       widget.onShowFinance(widget.model.id);
                     },
-                    child: Icon(Icons.money , color: blue,size: 40,))
+                    child: Image.asset(StaticImage.accounting))
               ],
             ),
           ),

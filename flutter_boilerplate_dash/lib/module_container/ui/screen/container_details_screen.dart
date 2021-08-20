@@ -126,6 +126,8 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
         }, travels: travels,
         onClearedOrArrived: (re){
         widget._stateManager.clearedOrArrived(re);
+        },onShowFinance: (id){
+          Navigator.pushNamed(context, ContainerRoutes.CONTAINER_FINANCE ,arguments: {'id' :id});
         },
       );
     }

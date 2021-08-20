@@ -35,7 +35,7 @@ class _AddCountryInitState extends State<AddDistributorInit> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(children: [
-              Image.asset(StaticImage.dis),
+              Image.asset(StaticImage.distrbutors),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [

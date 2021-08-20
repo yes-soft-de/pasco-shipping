@@ -33,7 +33,7 @@ class _AddCountryInitState extends State<AddProductInit> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(children: [
-              Image.asset(StaticImage.dis),
+              Image.asset(StaticImage.category),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [

@@ -83,7 +83,7 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(children: [
-              Image.asset(StaticImage.dis),
+              Image.asset(StaticImage.airwaybill),
 
 
               Padding(

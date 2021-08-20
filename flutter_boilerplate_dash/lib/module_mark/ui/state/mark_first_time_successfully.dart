@@ -3,6 +3,7 @@ import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/styles/static_images.dart';
 
 class MarkFirstTime extends StatefulWidget {
   final List<ClientModel> clients;
@@ -24,6 +25,7 @@ class _MarkFirstTimeState extends State<MarkFirstTime> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Image.asset(StaticImage.mark),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(

@@ -70,7 +70,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(children: [
-              Image.asset(StaticImage.dis),
+              Image.asset(StaticImage.travel),
 
 
               Padding(
