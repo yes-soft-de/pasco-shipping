@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill/request/airwaybill_filter_request.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/response/product_categories/product_categories_response.dart';
@@ -71,7 +72,7 @@ class _AddCountryInitState extends State<FilterAirwaybillInit> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-            Text('Status :' , style: AppTextStyle.mediumBlackBold,),
+            Text(S.of(context).status +': ' , style: AppTextStyle.mediumBlackBold,),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Wrap(
@@ -96,7 +97,7 @@ class _AddCountryInitState extends State<FilterAirwaybillInit> {
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Type :' , style: AppTextStyle.mediumBlackBold,),
+                child: Text(S.of(context).type+': ' , style: AppTextStyle.mediumBlackBold,),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -123,7 +124,7 @@ class _AddCountryInitState extends State<FilterAirwaybillInit> {
 
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Sub Contract' , style: AppTextStyle.mediumBlackBold,),
+              child: Text(S.of(context).subcontract , style: AppTextStyle.mediumBlackBold,),
             ),
             SelectDropList(
               this.optionItemSelectedSubContract,
@@ -139,7 +140,7 @@ class _AddCountryInitState extends State<FilterAirwaybillInit> {
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Shipper' , style: AppTextStyle.mediumBlackBold,),
+                child: Text(S.of(context).shipper , style: AppTextStyle.mediumBlackBold,),
               ),
               SelectDropList(
                 this.optionItemSelectedShipper,
@@ -155,7 +156,7 @@ class _AddCountryInitState extends State<FilterAirwaybillInit> {
 
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Consign' , style: AppTextStyle.mediumBlackBold,),
+              child: Text(S.of(context).consignee , style: AppTextStyle.mediumBlackBold,),
             ),
             SelectDropList(
               this.optionItemSelectedConsign,
@@ -166,7 +167,7 @@ class _AddCountryInitState extends State<FilterAirwaybillInit> {
                 setState(() {});
               },
             ),
-              RoundedButton(lable: 'Save', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
+              RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 widget.onSave(containerFilterRequest);
 
               }, radius: 15)
@@ -184,12 +185,12 @@ class _AddCountryInitState extends State<FilterAirwaybillInit> {
     entryShipper = <Entry>[];
     entryConsign =<Entry>[];
     status = [
-      Category(id: 1, name: 'Full', description: 'full', isSelected: true),
-      Category(id: 1, name: 'Not Full', description: 'notfull', isSelected: false),
+      Category(id: 1, name: S.of(context).full, description: 'full', isSelected: true),
+      Category(id: 1, name: S.of(context).notFull, description: 'notfull', isSelected: false),
     ];
     typeList = [
-      Category(id: 1, name: 'LCL', description: 'LCL', isSelected: true),
-      Category(id: 1, name: 'FCL', description: 'FCL', isSelected: false),
+      Category(id: 1, name: S.of(context).LCL, description: 'LCL', isSelected: true),
+      Category(id: 1, name: S.of(context).FCL, description: 'FCL', isSelected: false),
     ];
     // travelNumber =TextEditingController();
     // status=TravelStatusName[TravelStatus.CURRENT]!;

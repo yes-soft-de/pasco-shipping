@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
@@ -29,7 +30,7 @@ class _MarkFirstTimeState extends State<MarkFirstTime> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Clients',
+              S.of(context).clients,
               style: AppTextStyle.largeBlackBold,
             ),
           ),

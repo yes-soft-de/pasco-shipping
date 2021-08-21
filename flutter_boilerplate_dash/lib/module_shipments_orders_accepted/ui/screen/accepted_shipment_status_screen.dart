@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/enums/container_status.dart';
 import 'package:pasco_shipping/module_container/request/container_filter_request.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
@@ -39,7 +40,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         goBack: ()  {
         },
         child: Screen(),
-        title: 'Shipment Status'
+        title: S.of(context).shipmentStatus
     );
   }
 

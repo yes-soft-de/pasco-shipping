@@ -33,7 +33,7 @@ class _AddNewCountryState extends State<AirwaybillFilterScreen> {
         goBack: (){
         },
         child: Screen(),
-        title: 'Filter By'
+        title: S.of(context).filterBy
     );
   }
 

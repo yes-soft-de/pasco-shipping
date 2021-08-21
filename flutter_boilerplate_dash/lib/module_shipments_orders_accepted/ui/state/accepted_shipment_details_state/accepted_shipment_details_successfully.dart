@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_container/widget/status_card.dart';
 import 'package:pasco_shipping/module_shipment_request/response/product_categories/product_categories_response.dart';
@@ -60,7 +61,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                     child: Row(
                       children: [
                         Text(
-                          'Shipping type: ',
+                          S.of(context).shippingType,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -75,7 +76,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                     child: Row(
                       children: [
               Text(
-              'Client name: ',
+                S.of(context).client,
               style: AppTextStyle.mediumBlack,
             ),
                         Text(
@@ -95,7 +96,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               Expanded(
                   child: ListTile(
                       title: Text(
-                        'Shipment from: ',
+                        S.of(context).shippingFrom,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -105,7 +106,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               Expanded(
                   child: ListTile(
                       title: Text(
-                        'Shipment to: ',
+                        S.of(context).shippingTo,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -120,7 +121,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               Expanded(
                   child: ListTile(
                       title: Text(
-                        'Product type: ',
+                        S.of(context).category,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -130,7 +131,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               Expanded(
                   child: ListTile(
                       title: Text(
-                        'Quantity ',
+                        S.of(context).quantity,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -148,7 +149,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                     child: Row(
                       children: [
                         Text(
-                          'Supplier Name: ',
+                          S.of(context).supplierInfo,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -168,14 +169,14 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               Expanded(
                 child: ListTile(
                     title: Text(
-                      'Recipient Info: ',
+                      S.of(context).receiverInfo,
                       style: AppTextStyle.mediumBlack,
                     )),
               ),
               Expanded(
                   child: ListTile(
                       title: Text(
-                        'Name: ',
+                        S.of(context).name,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -185,7 +186,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               Expanded(
                   child: ListTile(
                       title: Text(
-                        'Phone: ',
+                        S.of(context).phone,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -200,7 +201,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               Expanded(
                 child: ListTile(
                     title: Text(
-                      'Unit: ',
+                      S.of(context).unit,
                       style: AppTextStyle.mediumBlack,
                     ),
                     subtitle: Text(
@@ -211,7 +212,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               Expanded(
                 child: ListTile(
                     title: Text(
-                      'Mark ',
+                      S.of(context).mark,
                       style: AppTextStyle.mediumBlack,
                     ),
                     subtitle: Text(
@@ -223,7 +224,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
           ),
           ListTile(
               title: Text(
-                'Payment time ',
+                S.of(context).paymentTime,
                 style: AppTextStyle.mediumBlack,
               ),
               subtitle: Text(
@@ -255,7 +256,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
 
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text('Shipment Status' , style: AppTextStyle.largeBlueBold,),
+            child: Text( S.of(context).shipmentStatus , style: AppTextStyle.largeBlueBold,),
           ),
           ListView.builder(itemBuilder:(context , index){
             return subShipmentCard(widget.shipment.subShipmentModelList![index]);
@@ -287,7 +288,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(children: [
-                    Text('Track Number: ' , style: AppTextStyle.mediumBlack,),
+                    Text( S.of(context).trackNumber , style: AppTextStyle.mediumBlack,),
                     Text(subShipmentModel.trackNumber?? '' , style: AppTextStyle.mediumBlueBold,),
                   ],),
                 ),
@@ -298,7 +299,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                     Text(subShipmentModel.shipmentStatus ??'' , style: AppTextStyle.mediumBlueBold,),
                   ],),
                 ),
-                RoundedButton(lable: 'Show Finance', icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
+                RoundedButton(lable: S.of(context).showFinance, icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
                   widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber);
                 }, radius: 12)
               ],

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill/enums/airwaybill_status.dart';
 import 'package:pasco_shipping/module_airwaybill/request/airwaybill_change_state_request.dart';
 import 'package:pasco_shipping/module_airwaybill/response/airwaybill_details_response.dart';
@@ -37,7 +38,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Air Waybill Information' , style: AppTextStyle.largeBlueBold,),
+                Text(S.of(context).airwaybillInformation , style: AppTextStyle.largeBlueBold,),
                 InkWell(
                     onTap: (){
                       widget.onShowFinance(widget.model.id);
@@ -57,7 +58,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Type'),
+                      Text(S.of(context).type),
                       Text(widget.model.type ?? ''),
                     ],
                   ),
@@ -68,7 +69,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Consignee Name'),
+                      Text(S.of(context).consignee),
                       Text(widget.model.consigneeName ?? ''),
                     ],
                   ),
@@ -79,7 +80,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('shipper Name'),
+                      Text(S.of(context).shipper),
                       Text(widget.model.shipperName ?? ''),
                     ],
                   ),
@@ -90,7 +91,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Subcontract Name'),
+                      Text(S.of(context).subcontract),
                       Text(widget.model.subcontractName ?? ''),
                     ],
                   ),
@@ -101,7 +102,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Air Waybill specification'),
+                      Text(S.of(context).specification),
                       Text(widget.model.specificationName ?? ''),
                     ],
                   ),
@@ -112,7 +113,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Requested by'),
+                      Text(S.of(context).RequestedBy),
                       Text(widget.model.updatedByUser ?? ''),
                     ],
                   ),
@@ -124,7 +125,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Requested at'),
+                      Text(S.of(context).RequestedAt),
                       Text(widget.model.createdAt.toString().split('.').first),
                     ],
                   ),
@@ -134,12 +135,12 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text('Shipment Information' , style: AppTextStyle.largeBlueBold,),
+            child: Text(S.of(context).shipmentInformation , style: AppTextStyle.largeBlueBold,),
           ),
            widget.model.shipments!.isEmpty?
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('No shipment has been added to this container' ,style: AppTextStyle.mediumRed,),
+              child: Text(S.of(context).noShipmentAdd ,style: AppTextStyle.mediumRed,),
             ) :
             ListView.builder(
               shrinkWrap: true,
@@ -185,10 +186,10 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                   color: Colors.yellow[800],
                   size: 40,
                 ),
-                Text('Not full yet' ,style: AppTextStyle.largeBlack,)
+                Text(S.of(context).notFull ,style: AppTextStyle.largeBlack,)
               ],),
             ) ,
-            Text('This AirWaybill has some space' , style: AppTextStyle.mediumBlack,),
+            Text(S.of(context).haveSpace, style: AppTextStyle.mediumBlack,),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -197,7 +198,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                 children:
 
               [
-                Text("AirWaybill Number: " , style: AppTextStyle.mediumBlackBold,),
+                Text(S.of(context).airwaybillNumber+': ' , style: AppTextStyle.mediumBlackBold,),
                 Text('#'+ widget.model.airwaybillNumber! , style: AppTextStyle.mediumBlackBold,),
 
               ],),
@@ -229,10 +230,10 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                         color: Colors.green[800],
                         size: 40,
                       ),
-                      Text('Full ' ,style: AppTextStyle.largeBlack,)
+                      Text(S.of(context).full ,style: AppTextStyle.largeBlack,)
                     ],),
                 ) ,
-                Text("This Airwaybill is full", style: AppTextStyle.mediumBlack,),
+                Text(S.of(context).noSpace, style: AppTextStyle.mediumBlack,),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -241,7 +242,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                     children:
 
                     [
-                      Text('Air Waybill Number: ' , style: AppTextStyle.mediumBlackBold,),
+                      Text(S.of(context).airwaybillNumber+': ' , style: AppTextStyle.mediumBlackBold,),
                       Text('#'+ widget.model.airwaybillNumber! , style: AppTextStyle.mediumBlackBold,),
 
                     ],),
@@ -269,35 +270,35 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Track Number: ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).trackNumber , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.trackNumber?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Weight: ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).weight , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.weight.toString() , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Product Category : ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).productCategory , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.productCategoryName ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('target Warehouse : ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).targetWarehouse , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.target ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Export Warehouse : ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).exportWarehouse , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.exportWarehouseName ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
@@ -323,18 +324,18 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
         children: [
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text('Air Waybill Status' , style: AppTextStyle.largeBlueBold,),
+            child: Text(S.of(context).airwaybillStatus , style: AppTextStyle.largeBlueBold,),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              StatusCard('not full' ,!isFull),
+              StatusCard(S.of(context).notFull ,!isFull),
               Icon(Icons.arrow_forward_outlined , color: Colors.grey,),
-              StatusCard('Full' ,isFull),
+              StatusCard(S.of(context).full ,isFull),
           ],),
-         isFull ? Container() :  RoundedButton(lable: 'Next Status', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
+         isFull ? Container() :  RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
           if (widget.model.shipments!.isEmpty){
-              Fluttertoast.showToast(msg: 'You have not added any shipment to this holder');
+              Fluttertoast.showToast(msg: S.of(context).noChangeStatus);
             }else {
             AirwaybillChangeStateRequest re1 = AirwaybillChangeStateRequest(id: widget.model.id!.toInt() ,status: AirwaybillStatusName[AirwaybillStatus.FULL]!);
               widget.onChangeStatus(re1);

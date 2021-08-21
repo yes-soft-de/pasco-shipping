@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_home/response/home_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:align_positioned/align_positioned.dart';
@@ -93,7 +94,7 @@ class OrderCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                      Text('Shipment',style: AppTextStyle.largeWhiteBold,),
+                      Text(S.of(context).shipment,style: AppTextStyle.largeWhiteBold,),
                       Text(orders.total.toString() + ' Total',style: AppTextStyle.mediumWhite,)
                     ],)
                   ],
@@ -107,11 +108,11 @@ class OrderCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Column(children: [
-                    Text('Waiting' , style: AppTextStyle.mediumWhite,),
+                    Text(S.of(context).waitingShipment , style: AppTextStyle.mediumWhite,),
                     Text(orders.waitingOrders.toString() ,style: AppTextStyle.mediumWhite,),
                   ],),
                   Column(children: [
-                    Text('Accepted' , style: AppTextStyle.mediumWhite,),
+                    Text(S.of(context).acceptedShipment , style: AppTextStyle.mediumWhite,),
                     Text(orders.acceptedOrders.toString() ,style: AppTextStyle.mediumWhite,),
                   ],),
                 ],)
@@ -170,15 +171,15 @@ class TravelCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Column(children: [
-                    Text('Arrived' , style: AppTextStyle.mediumWhite,),
+                    Text(S.of(context).arrived , style: AppTextStyle.mediumWhite,),
                     Text(cruise.arrived.toString() ,style: AppTextStyle.mediumWhite,),
                   ],),
                   Column(children: [
-                    Text('Started' , style: AppTextStyle.mediumWhite,),
+                    Text(S.of(context).started , style: AppTextStyle.mediumWhite,),
                     Text(cruise.started.toString() ,style: AppTextStyle.mediumWhite,),
                   ],),
                   Column(children: [
-                    Text('Current' , style: AppTextStyle.mediumWhite,),
+                    Text(S.of(context).currentt, style: AppTextStyle.mediumWhite,),
                     Text(cruise.current.toString() ,style: AppTextStyle.mediumWhite,),
                   ],),
                 ],)

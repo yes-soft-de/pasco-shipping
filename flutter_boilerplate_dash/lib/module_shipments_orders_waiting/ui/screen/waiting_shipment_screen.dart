@@ -35,7 +35,7 @@ class _CountriesScreenState extends State<WaitingShipmentScreen> {
         goBack: ()  {
         },
         child: Screen(),
-        title: 'Waiting Shipment'
+        title: S.of(context).waitingShipment
     );
   }
 

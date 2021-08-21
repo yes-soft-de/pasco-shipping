@@ -58,7 +58,7 @@ class _CountryCardState extends State<AirwaybillSpecificationCard> {
                     Row(
                       children: [
                         Text(
-                          'Name ',
+                         S.of(context).name,
                           style: AppTextStyle.mediumBlack,
                         ),
                          Expanded(child: widget.isEdtiable ?
@@ -74,7 +74,7 @@ class _CountryCardState extends State<AirwaybillSpecificationCard> {
                     Row(
                       children: [
                         Text(
-                          'Width: ',
+                          S.of(context).width,
                           style: AppTextStyle.mediumBlack,
                         ),
                       Expanded(child:   widget.isEdtiable ? TextField(controller: phone, keyboardType: TextInputType.phone,) :  Text(
@@ -91,7 +91,7 @@ class _CountryCardState extends State<AirwaybillSpecificationCard> {
                     Row(
                       children: [
                         Text(
-                          'Created By ',
+                          S.of(context).createdBy,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -106,7 +106,7 @@ class _CountryCardState extends State<AirwaybillSpecificationCard> {
                     Row(
                       children: [
                         Text(
-                          'Created At ',
+                          S.of(context).createdAt,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -119,7 +119,7 @@ class _CountryCardState extends State<AirwaybillSpecificationCard> {
                     Row(
                       children: [
                         Text(
-                          'Updated By ',
+                          S.of(context).updatedBy,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -134,7 +134,7 @@ class _CountryCardState extends State<AirwaybillSpecificationCard> {
                     Row(
                       children: [
                         Text(
-                          'Updated At ',
+                          S.of(context).updatedAt,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(

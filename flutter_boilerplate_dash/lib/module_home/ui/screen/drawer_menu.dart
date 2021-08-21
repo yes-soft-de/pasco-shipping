@@ -17,6 +17,7 @@ import 'package:pasco_shipping/module_mark/mark_routes.dart';
 import 'package:pasco_shipping/module_product_category/product_routes.dart';
 import 'package:pasco_shipping/module_product_sub_category/sub_product_routes.dart';
 import 'package:pasco_shipping/module_proxies/proxies_routes.dart';
+import 'package:pasco_shipping/module_settings/setting_routes.dart';
 import 'package:pasco_shipping/module_shipment_request/request_routes.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/accepted_shipment_routes.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
@@ -70,10 +71,10 @@ class DrawerMenu extends StatelessWidget {
           //shipment
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('Shipment' ,style: AppTextStyle.mediumDeepGrayBold,),
+            child: Text(S.of(context).shipment ,style: AppTextStyle.mediumDeepGrayBold,),
           ),
           ExpansionTile(
-            title: new Text('Waiting Shipment'),
+            title: new Text(S.of(context).waitingShipment),
             leading: Icon(Icons.local_shipping_rounded),
             children: <Widget>[
               Padding(
@@ -81,7 +82,7 @@ class DrawerMenu extends StatelessWidget {
                 child: Column(
                   children: [
                     ExpansionTile(
-                      title: new Text('Sea shipment'),
+                      title: new Text(S.of(context).seaShipment),
                       // leading: Icon(Icons.sea),
                       children: <Widget>[
                         Padding(
@@ -89,14 +90,14 @@ class DrawerMenu extends StatelessWidget {
                           child: Column(
                             children: [
                               ListTile(
-                                  title: new Text('in External Warehouse'),
+                                  title: new Text(S.of(context).inExternalWarehouse),
                                   onTap: () {
                                    WaitingShipmentFilterRequest re = WaitingShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: true);
                                     Navigator.pushNamed(
                                         context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'waitingFilter' : re});
                                   }),
                               ListTile(
-                                  title: new Text('in Local Warehouse'),
+                                  title: new Text(S.of(context).inLocalWarehouse),
                                   onTap: () {
                                     WaitingShipmentFilterRequest re = WaitingShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false);
                                     Navigator.pushNamed(
@@ -115,7 +116,7 @@ class DrawerMenu extends StatelessWidget {
                 child: Column(
                   children: [
                     ExpansionTile(
-                      title: new Text('Air shipment'),
+                      title: new Text(S.of(context).airShipment),
                       // leading: Icon(Icons.sea),
                       children: <Widget>[
                         Padding(
@@ -123,14 +124,14 @@ class DrawerMenu extends StatelessWidget {
                           child: Column(
                             children: [
                               ListTile(
-                                  title: new Text('in External Warehouse'),
+                                  title: new Text(S.of(context).inExternalWarehouse),
                                   onTap: () {
                                     WaitingShipmentFilterRequest re = WaitingShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: true);
                                     Navigator.pushNamed(
                                         context, WaitingShipmentRoutes.VIEW_ALL  ,arguments: {'waitingFilter' : re});
                                   }),
                               ListTile(
-                                  title: new Text('in Local Warehouse'),
+                                  title: new Text(S.of(context).inLocalWarehouse),
                                   onTap: () {
                                     WaitingShipmentFilterRequest re = WaitingShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false);
                                     Navigator.pushNamed(
@@ -148,7 +149,7 @@ class DrawerMenu extends StatelessWidget {
           ),
 
           ExpansionTile(
-            title: new Text('Accepted Shipment'),
+            title: new Text(S.of(context).acceptedShipment),
             leading: Icon(Icons.local_shipping_rounded),
             children: <Widget>[
               Padding(
@@ -156,7 +157,7 @@ class DrawerMenu extends StatelessWidget {
                 child: Column(
                   children: [
                     ExpansionTile(
-                      title: new Text('Sea shipment'),
+                      title: new Text(S.of(context).seaShipment),
                       // leading: Icon(Icons.sea),
                       children: <Widget>[
                         Padding(
@@ -164,14 +165,14 @@ class DrawerMenu extends StatelessWidget {
                           child: Column(
                             children: [
                               ListTile(
-                                  title: new Text('in External Warehouse'),
+                                  title: new Text(S.of(context).inExternalWarehouse),
                                   onTap: () {
                                     AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea' ,isExternalWarehouse: true);
                                     Navigator.pushNamed(
                                         context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
                                   }),
                               ListTile(
-                                  title: new Text('in Local Warehouse'),
+                                  title: new Text(S.of(context).inLocalWarehouse),
                                   onTap: () {
                                     AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false);
                                     Navigator.pushNamed(
@@ -190,7 +191,7 @@ class DrawerMenu extends StatelessWidget {
                 child: Column(
                   children: [
                     ExpansionTile(
-                      title: new Text('Air shipment'),
+                      title: new Text(S.of(context).airShipment),
                       // leading: Icon(Icons.sea),
                       children: <Widget>[
                         Padding(
@@ -198,14 +199,14 @@ class DrawerMenu extends StatelessWidget {
                           child: Column(
                             children: [
                               ListTile(
-                                  title: new Text('in External Warehouse'),
+                                  title: new Text(S.of(context).inExternalWarehouse),
                                   onTap: () {
                                     AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: true);
                                     Navigator.pushNamed(
                                         context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
                                   }),
                               ListTile(
-                                  title: new Text('in Local Warehouse'),
+                                  title: new Text(S.of(context).inLocalWarehouse),
                                   onTap: () {
                                     AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false);
                                     Navigator.pushNamed(
@@ -222,7 +223,7 @@ class DrawerMenu extends StatelessWidget {
             ],
           ),
           ExpansionTile(
-            title: new Text('Request shipment'),
+            title: new Text(S.of(context).requestShipment),
             leading: Icon(Icons.add),
             children: <Widget>[
               Padding(
@@ -250,7 +251,7 @@ class DrawerMenu extends StatelessWidget {
             child: Text('Holder' ,style: AppTextStyle.mediumDeepGrayBold,),
           ),
           ExpansionTile(
-            title: new Text('Containers'),
+            title: new Text(S.of(context).containers),
             leading: Icon(Icons.inbox_outlined),
             children: <Widget>[
               Padding(
@@ -277,7 +278,7 @@ class DrawerMenu extends StatelessWidget {
             ],
           ),
           ExpansionTile(
-            title: new Text('Container Specification'),
+            title: new Text(S.of(context).containerSpecification),
             leading: Icon(Icons.filter_list),
             children: <Widget>[
               Padding(
@@ -306,7 +307,7 @@ class DrawerMenu extends StatelessWidget {
 
 
           ExpansionTile(
-            title: new Text('Airway Bill'),
+            title: new Text(S.of(context).airWaybills),
             leading: Icon(Icons.inbox_outlined),
             children: <Widget>[
               Padding(
@@ -333,7 +334,7 @@ class DrawerMenu extends StatelessWidget {
             ],
           ),
           ExpansionTile(
-            title: new Text('Airway Bill Specification'),
+            title: new Text(S.of(context).airwaybillSpecification),
             leading: Icon(Icons.filter_list),
             children: <Widget>[
               Padding(
@@ -367,14 +368,14 @@ class DrawerMenu extends StatelessWidget {
           //travels
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('Travels' ,style: AppTextStyle.mediumDeepGrayBold,),
+            child: Text(S.of(context).travels ,style: AppTextStyle.mediumDeepGrayBold,),
           ),
           ExpansionTile(
             title: new Text(S.of(context).travels),
             leading: Icon(Icons.travel_explore),
             children: <Widget>[
               ListTile(
-                  title:Text('Sea Travel'),
+                  title:Text(S.of(context).seaTravel),
                   onTap: () {
                     TravelFilterRequest re = TravelFilterRequest(type:'cruise');
                     Navigator.pushNamed(context, TravelRoutes.VIEW_ALL,
@@ -382,7 +383,7 @@ class DrawerMenu extends StatelessWidget {
                   }),
               ListTile(
                   title:Text(
-                      'Air Travel'
+                      S.of(context).airTravel
                   ),
                   onTap: () {
                     TravelFilterRequest re = TravelFilterRequest(type:'flight');
@@ -405,7 +406,7 @@ class DrawerMenu extends StatelessWidget {
           // /BasicInfo
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('Basic Info',style: AppTextStyle.mediumDeepGrayBold,),
+            child: Text(S.of(context).basicInfo,style: AppTextStyle.mediumDeepGrayBold,),
           ),
           ExpansionTile(
             title: new Text(S.of(context).countries),
@@ -463,7 +464,7 @@ class DrawerMenu extends StatelessWidget {
             ],
           ),
           ExpansionTile(
-            title: new Text('Product Category'),
+            title: new Text(S.of(context).category),
             leading: Icon(Icons.closed_caption_off),
             children: <Widget>[
               Padding(
@@ -488,7 +489,7 @@ class DrawerMenu extends StatelessWidget {
             ],
           ),
           ExpansionTile(
-            title: new Text('Sub Product Category'),
+            title: new Text(S.of(context).subCategory),
             leading: Icon(Icons.closed_caption_off),
             children: <Widget>[
               Padding(
@@ -519,7 +520,7 @@ class DrawerMenu extends StatelessWidget {
           //extensional
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('Extensional Info',style: AppTextStyle.mediumDeepGrayBold,),
+            child: Text(S.of(context).extensionalInfo,style: AppTextStyle.mediumDeepGrayBold,),
           ),
           ExpansionTile(
             title: new Text(S.of(context).proxies),
@@ -599,7 +600,7 @@ class DrawerMenu extends StatelessWidget {
             ],
           ),
           ExpansionTile(
-            title: new Text(S.of(context).subcontracts),
+            title: new Text(S.of(context).subcontract),
             leading: Icon(Icons.subtitles_outlined),
             children: <Widget>[
               Padding(
@@ -632,7 +633,7 @@ class DrawerMenu extends StatelessWidget {
           //otherData
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('Other Data',style: AppTextStyle.mediumDeepGrayBold,),
+            child: Text(S.of(context).otherData,style: AppTextStyle.mediumDeepGrayBold,),
           ),
           ExpansionTile(
             title: new Text(S.of(context).distributors),
@@ -693,10 +694,10 @@ class DrawerMenu extends StatelessWidget {
           //User
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('Users',style: AppTextStyle.mediumDeepGrayBold,),
+            child: Text(S.of(context).users,style: AppTextStyle.mediumDeepGrayBold,),
           ),
           ExpansionTile(
-            title: new Text('Clients'),
+            title: new Text(S.of(context).clients),
             leading: Icon(Icons.supervised_user_circle),
             children: <Widget>[
               Padding(
@@ -721,7 +722,7 @@ class DrawerMenu extends StatelessWidget {
             ],
           ),
           ExpansionTile(
-            title: new Text('Employees'),
+            title: new Text(S.of(context).employees),
             leading: Icon(Icons.person),
             children: <Widget>[
               Padding(
@@ -746,7 +747,7 @@ class DrawerMenu extends StatelessWidget {
             ],
           ),
           ExpansionTile(
-            title: new Text('Marks'),
+            title: new Text(S.of(context).marks),
             leading: Icon(Icons.note),
             children: <Widget>[
               Padding(
@@ -820,17 +821,10 @@ class DrawerMenu extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
+              Navigator.pushNamed(context, SettingRoutes.ROUTE_SETTINGS);
             },
             title: Text(S.of(context).setting),
             leading: Icon(Icons.settings),
-          ),
-          ListTile(
-            onTap: () {
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
-            },
-            title: Text(S.of(context).logout),
-            leading: Icon(Icons.logout),
           ),
         ],
       ),

@@ -18,7 +18,7 @@ class UnitRepository{
 
   Future<List<UnitModel>?> getUnits() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.UNITS,
           headers: {'Authorization': 'Bearer $token'});
@@ -32,7 +32,7 @@ class UnitRepository{
 
   Future<ConfirmResponse?> createUnit(UnitRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.UNIT, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -47,7 +47,7 @@ class UnitRepository{
 
   Future<ConfirmResponse?> deleteUnit(String id) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
     var response = await _apiClient.delete(Urls.UNIT+'/'+id,
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = UnitResponse.fromJson(response!).statusCode;
@@ -61,7 +61,7 @@ class UnitRepository{
 
   Future<ConfirmResponse?> updateUnit(UnitRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.put(Urls.UNIT, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});

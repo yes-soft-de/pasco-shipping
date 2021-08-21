@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/response/waiting_shipment_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/state_manager/waiting_shipment_details_state_manager.dart';
@@ -32,7 +33,7 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
         goBack: ()  {
         },
         child: Screen(),
-        title: 'Waiting Shipment Details'
+        title: S.of(context).details
     );
   }
 

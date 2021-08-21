@@ -24,7 +24,7 @@ class TravelRepository{
 
   Future<List<TravelModel>?> getTravelsByTypeAndStatus(String type,String status) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token = await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.TRAVELS +'/'+type +'/'+status,
           headers: {'Authorization': 'Bearer $token'});
@@ -38,7 +38,7 @@ class TravelRepository{
 
   Future<ConfirmResponse?> createTravel(TravelRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.TRAVEL, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -53,7 +53,7 @@ class TravelRepository{
 
   Future<ConfirmResponse?> deleteTravel(String id) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
     var response = await _apiClient.delete(Urls.TRAVEL+'/'+id,
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode =TravelResponse.fromJson(response!).statusCode;
@@ -68,7 +68,7 @@ class TravelRepository{
 
   Future<TravelDetailsModel?> getTravelDetails(String id) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token =await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.TRAVEL + '/' + id,
           headers: {'Authorization': 'Bearer $token'});
@@ -84,7 +84,7 @@ class TravelRepository{
 
   Future<List<TravelModel>?> getTravelsWithFilter(TravelFilterRequest filters) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.post(Urls.FILTER_TRAVEL,filters.toJson(),
           headers: {'Authorization': 'Bearer $token'});
@@ -102,7 +102,7 @@ class TravelRepository{
 
   Future<ConfirmResponse?> updateTravelStatus(TravelChangeStateRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.put(Urls.TRAVEL_STATUS, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -118,7 +118,7 @@ class TravelRepository{
 
   Future<Data?> getTravelFinance(TravelFilterFinanceRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token = await _authService.getToken();
     try {
       var response = await _apiClient.post(Urls.GET_Travel_FINANCE,request.toJson(),
           headers: {'Authorization': 'Bearer $token'});
@@ -134,7 +134,7 @@ class TravelRepository{
 
   Future<ConfirmResponse?> createTravelFinance(TravelAddFinanceRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token =await _authService.getToken();
 
     var response = await _apiClient.post(Urls.ADD_Travel_FINANCE, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});

@@ -58,7 +58,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                     Row(
                       children: [
                         Text(
-                          'Name ',
+                          S.of(context).name,
                           style: AppTextStyle.mediumBlack,
                         ),
                          Expanded(child: widget.isEdtiable ?
@@ -74,7 +74,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                     Row(
                       children: [
                         Text(
-                          'capacityCPM: ',
+                          S.of(context).capacityCPM,
                           style: AppTextStyle.mediumBlack,
                         ),
                       Expanded(child:   widget.isEdtiable ? TextField(controller: phone, keyboardType: TextInputType.phone,) :  Text(
@@ -89,7 +89,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                     Row(
                       children: [
                         Text(
-                          'lengthInMeter: ',
+                          S.of(context).lengthInMeter,
                           style: AppTextStyle.mediumBlack,
                         ),
                          Expanded(
@@ -106,7 +106,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                     Row(
                       children: [
                         Text(
-                          'hightInMeter: ',
+                          S.of(context).heightInMeter,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Expanded(
@@ -123,7 +123,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                     Row(
                       children: [
                         Text(
-                          'widthInMeter: ',
+                          S.of(context).widthInMeter,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Expanded(
@@ -141,7 +141,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                     Row(
                       children: [
                         Text(
-                          'Created By ',
+                          S.of(context).createdBy,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -156,7 +156,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                     Row(
                       children: [
                         Text(
-                          'Created At ',
+                          S.of(context).createdAt,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -169,7 +169,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                     Row(
                       children: [
                         Text(
-                          'Updated By ',
+                          S.of(context).updatedBy,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -184,7 +184,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                     Row(
                       children: [
                         Text(
-                          'Updated At ',
+                          S.of(context).updatedAt,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(

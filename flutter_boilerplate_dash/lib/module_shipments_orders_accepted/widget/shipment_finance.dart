@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/shipment_finance_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 
@@ -37,7 +38,7 @@ class ShipmentFinanceCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      'shipment Status: ',
+                      S.of(context).shipmentStatus,
                       style: AppTextStyle.mediumBlack,
                     ),
                     Text(
@@ -52,7 +53,7 @@ class ShipmentFinanceCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      'Description: ',
+                      S.of(context).description,
                       style: AppTextStyle.mediumBlack,
                     ),
                     Text(

@@ -78,7 +78,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).travels + ' type', style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).travels + S.of(context).type, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Row(
@@ -106,7 +106,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
                           width: 5,
                         ),
                         Text(
-                          'Air',
+                        S.of(context).air,
                           style: AppTextStyle.mediumWhite,
                         ),
                       ],
@@ -133,7 +133,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
                           width: 5,
                         ),
                         Text(
-                          'Sea',
+                          S.of(context).sea,
                           style: AppTextStyle.mediumWhite,
                         ),
                       ],
@@ -147,7 +147,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Travel Number' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).travelNumber , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -184,7 +184,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Launch Country' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).launchCountry, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               SelectDropList(
@@ -206,7 +206,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Start Date' , style: AppTextStyle.mediumBlackBold,),
+                        child: Text(S.of(context).startDate, style: AppTextStyle.mediumBlackBold,),
                       ),
                       InkWell(
                         onTap: (){
@@ -240,7 +240,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Start Time' , style: AppTextStyle.mediumBlackBold,),
+                        child: Text(S.of(context).startTime , style: AppTextStyle.mediumBlackBold,),
                       ),
                       InkWell(
                         onTap: (){
@@ -280,7 +280,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Destination Country' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).destinationCountry , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               SelectDropList(
@@ -300,7 +300,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Arrival Date' , style: AppTextStyle.mediumBlackBold,),
+                        child: Text(S.of(context).arrivalDate , style: AppTextStyle.mediumBlackBold,),
                       ),
                       InkWell(
                         onTap: (){
@@ -334,7 +334,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Arrival Time' , style: AppTextStyle.mediumBlackBold,),
+                        child: Text(S.of(context).arrivalTime , style: AppTextStyle.mediumBlackBold,),
                       ),
                       InkWell(
                         onTap: (){
@@ -372,7 +372,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Shipper' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).shipper , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               SelectDropList(
@@ -385,7 +385,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
                 },
               ),
 
-              RoundedButton(lable: 'Save', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
+              RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 DateTime arrivalDate = DateTime(endDate.year , endDate.month ,endDate.day ,selectedTimeEnd.hour ,selectedTimeEnd.minute);
                 DateTime launchDate = DateTime(startDate.year , startDate.month ,startDate.day ,selectedTimeStart.hour ,selectedTimeStart.minute);
 

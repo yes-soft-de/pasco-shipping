@@ -18,7 +18,7 @@ class SubContractServiceRepository{
 
   Future<List<SubContractServiceModel>?> getSubContractServices() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.SUB_CONTRACT_SERVICES,
           headers: {'Authorization': 'Bearer $token'});
@@ -32,7 +32,7 @@ class SubContractServiceRepository{
 
   Future<ConfirmResponse?> createSubContractService(SubContractServiceRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.SUB_CONTRACT_SERVICE, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -47,7 +47,7 @@ class SubContractServiceRepository{
 
   Future<ConfirmResponse?> deleteSubContractService(String id) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
     var response = await _apiClient.delete(Urls.SUB_CONTRACT_SERVICE+'/'+id,
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = SubContractServiceResponse.fromJson(response!).statusCode;
@@ -61,7 +61,7 @@ class SubContractServiceRepository{
 
   Future<ConfirmResponse?> updateSubContractService(SubContractServiceRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.put(Urls.SUB_CONTRACT_SERVICE, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});

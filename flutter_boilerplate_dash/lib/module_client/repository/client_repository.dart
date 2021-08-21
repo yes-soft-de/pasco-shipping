@@ -18,7 +18,7 @@ class ClientRepository{
 
   Future<List<ClientModel>?> getClients() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token = await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.GET_CLIENTS,
           headers: {'Authorization': 'Bearer $token'});
@@ -32,7 +32,7 @@ class ClientRepository{
 
   Future<ConfirmResponse?> createClient(CreateClientRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.CREATE_CLIENT_ACCOUNT, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});

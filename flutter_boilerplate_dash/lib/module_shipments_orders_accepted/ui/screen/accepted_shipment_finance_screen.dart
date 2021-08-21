@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_finance_request.dart';
@@ -38,7 +39,7 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
         goBack: ()  {
         },
         child: Screen(),
-        title: 'Shipment Finance'
+        title: S.of(context).shipmentFinance
     );
   }
 

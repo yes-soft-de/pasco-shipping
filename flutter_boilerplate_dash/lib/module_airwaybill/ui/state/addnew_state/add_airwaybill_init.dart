@@ -91,7 +91,7 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Airwaybill' + ' type', style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).airwaybillType, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Row(
@@ -119,7 +119,7 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                           width: 5,
                         ),
                         Text(
-                          'FCL',
+                          S.of(context).FCL,
                           style: AppTextStyle.mediumWhite,
                         ),
                       ],
@@ -146,7 +146,7 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                           width: 5,
                         ),
                         Text(
-                          'LCL',
+                          S.of(context).LCL,
                           style: AppTextStyle.mediumWhite,
                         ),
                       ],
@@ -160,7 +160,7 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Airwaybill Number' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).airwaybillNumber , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -185,7 +185,7 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
 
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'number',
+                      hintText: S.of(context).number,
                     ),
                     controller: containerNumber,
                   ),
@@ -197,7 +197,7 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Provided By' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).provided , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               SelectDropList(
@@ -216,7 +216,7 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Consignee' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).consignee , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               SelectDropList(
@@ -234,7 +234,7 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Shipper' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).shipper , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               SelectDropList(
@@ -252,7 +252,7 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Carrier' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).carrier , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               SelectDropList(
@@ -271,7 +271,7 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Specification' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).specification , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               SelectDropList(
@@ -284,7 +284,7 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                 },
               ),
 
-              RoundedButton(lable: 'Save', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
+              RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 // DateTime arrivalDate = DateTime(endDate.year , endDate.month ,endDate.day ,selectedTimeEnd.hour ,selectedTimeEnd.minute);
                 // DateTime launchDate = DateTime(startDate.year , startDate.month ,startDate.day ,selectedTimeStart.hour ,selectedTimeStart.minute);
 

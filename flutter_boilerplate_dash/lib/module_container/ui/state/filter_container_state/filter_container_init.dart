@@ -73,7 +73,7 @@ class _AddCountryInitState extends State<FilterContainerInit> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-            Text('Status :' , style: AppTextStyle.mediumBlackBold,),
+            Text(S.of(context).status+': ' , style: AppTextStyle.mediumBlackBold,),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Wrap(
@@ -98,7 +98,7 @@ class _AddCountryInitState extends State<FilterContainerInit> {
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Type :' , style: AppTextStyle.mediumBlackBold,),
+                child: Text(S.of(context).type+': ' , style: AppTextStyle.mediumBlackBold,),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -125,7 +125,7 @@ class _AddCountryInitState extends State<FilterContainerInit> {
 
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Sub Contract' , style: AppTextStyle.mediumBlackBold,),
+              child: Text(S.of(context).subcontract , style: AppTextStyle.mediumBlackBold,),
             ),
             SelectDropList(
               this.optionItemSelectedSubContract,
@@ -141,7 +141,7 @@ class _AddCountryInitState extends State<FilterContainerInit> {
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Shipper' , style: AppTextStyle.mediumBlackBold,),
+                child: Text(S.of(context).shipper , style: AppTextStyle.mediumBlackBold,),
               ),
               SelectDropList(
                 this.optionItemSelectedShipper,
@@ -157,7 +157,7 @@ class _AddCountryInitState extends State<FilterContainerInit> {
 
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Consign' , style: AppTextStyle.mediumBlackBold,),
+              child: Text(S.of(context).consignee , style: AppTextStyle.mediumBlackBold,),
             ),
             SelectDropList(
               this.optionItemSelectedConsign,
@@ -168,7 +168,7 @@ class _AddCountryInitState extends State<FilterContainerInit> {
                 setState(() {});
               },
             ),
-              RoundedButton(lable: 'Save', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
+              RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 widget.onSave(containerFilterRequest);
 
               }, radius: 15)
@@ -186,12 +186,12 @@ class _AddCountryInitState extends State<FilterContainerInit> {
     entryShipper = <Entry>[];
     entryConsign =<Entry>[];
     status = [
-      Category(id: 1, name: 'Full', description: 'full', isSelected: true),
-      Category(id: 1, name: 'Not Full', description: 'notfull', isSelected: false),
+      Category(id: 1, name: S.of(context).full, description: 'full', isSelected: true),
+      Category(id: 1, name: S.of(context).notFull, description: 'notfull', isSelected: false),
     ];
     typeList = [
-      Category(id: 1, name: 'LCL', description: 'LCL', isSelected: true),
-      Category(id: 1, name: 'FCL', description: 'FCL', isSelected: false),
+      Category(id: 1, name: S.of(context).LCL, description: 'LCL', isSelected: true),
+      Category(id: 1, name: S.of(context).FCL, description: 'FCL', isSelected: false),
     ];
     // travelNumber =TextEditingController();
     // status=TravelStatusName[TravelStatus.CURRENT]!;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/filter_accepted_shipment_state/filter_accepted_shipment_init.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
@@ -28,7 +29,7 @@ class _CountriesScreenState extends State<AcceptedShipmentFilterScreen> {
           onSave: (request){
             Navigator.pop(context, {'filterRequest' : request});
         },),
-        title: 'Filter By'
+        title: S.of(context).filterBy
     );
   }
 

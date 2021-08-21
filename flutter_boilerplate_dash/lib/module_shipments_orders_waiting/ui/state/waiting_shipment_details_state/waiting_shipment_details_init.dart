@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/enums/waiting_shipment_status.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/request/accepted_rejected_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/response/waiting_shipment_response.dart';
@@ -25,7 +26,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 Expanded(
                     child: ListTile(
                         title: Text(
-                          'Shipping Type',
+                          S.of(context).shippingType,
                           style: AppTextStyle.mediumBlack,
                         ),
                         subtitle: Text(
@@ -39,7 +40,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 Expanded(
                     child: ListTile(
                         title: Text(
-                          'Shipment from: ',
+                          S.of(context).shippingFrom,
                           style: AppTextStyle.mediumBlack,
                         ),
                         subtitle: Text(
@@ -49,7 +50,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 Expanded(
                     child: ListTile(
                         title: Text(
-                          'Shipment to: ',
+                          S.of(context).shippingTo,
                           style: AppTextStyle.mediumBlack,
                         ),
                         subtitle: Text(
@@ -63,7 +64,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 Expanded(
                     child: ListTile(
                         title: Text(
-                          'Product type: ',
+                          S.of(context).category,
                           style: AppTextStyle.mediumBlack,
                         ),
                         subtitle: Text(
@@ -73,7 +74,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 Expanded(
                     child: ListTile(
                         title: Text(
-                          'Quantity ',
+                          S.of(context).quantity,
                           style: AppTextStyle.mediumBlack,
                         ),
                         subtitle: Text(
@@ -87,7 +88,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 Expanded(
                   child: ListTile(
                       title: Text(
-                        'Supplier Info: ',
+                        S.of(context).supplierInfo,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -102,14 +103,14 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 Expanded(
                   child: ListTile(
                       title: Text(
-                        'Recipient Info: ',
+                        S.of(context).receiverInfo,
                         style: AppTextStyle.mediumBlack,
                       )),
                 ),
                 Expanded(
                     child: ListTile(
                         title: Text(
-                          'Name: ',
+                          S.of(context).name,
                           style: AppTextStyle.mediumBlack,
                         ),
                         subtitle: Text(
@@ -119,7 +120,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 Expanded(
                     child: ListTile(
                         title: Text(
-                          'Phone: ',
+                          S.of(context).phone,
                           style: AppTextStyle.mediumBlack,
                         ),
                         subtitle: Text(
@@ -136,7 +137,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                     children: [
                       ListTile(
                           title: Text(
-                            'Unit: ',
+                            S.of(context).unit,
                             style: AppTextStyle.mediumBlack,
                           ),
                           subtitle: Text(
@@ -145,7 +146,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                           )),
                       ListTile(
                           title: Text(
-                            'Mark ',
+                            S.of(context).mark,
                             style: AppTextStyle.mediumBlack,
                           ),
                           subtitle: Text(
@@ -154,7 +155,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                           )),
                       ListTile(
                           title: Text(
-                            'Payment time ',
+                            S.of(context).paymentTime,
                             style: AppTextStyle.mediumBlack,
                           ),
                           subtitle: Text(
@@ -163,7 +164,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                           )),
                       ListTile(
                           title: Text(
-                            'Extra specification ',
+                            S.of(context).extraSpecification,
                             style: AppTextStyle.mediumBlack,
                           ),
                           subtitle: Text(
@@ -182,7 +183,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 RoundedButton(
                   radius: 12,
                   color: Colors.red,
-                  lable: 'Reject',
+                  lable: S.of(context).reject,
                   style: AppTextStyle.mediumWhite,
                   icon: '',
                   go: () {
@@ -193,7 +194,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 RoundedButton(
                   radius: 12,
                   color: Colors.green,
-                  lable: 'Accept',
+                  lable: S.of(context).accept,
                   style: AppTextStyle.mediumWhite,
                   icon: '',
                   go: () {

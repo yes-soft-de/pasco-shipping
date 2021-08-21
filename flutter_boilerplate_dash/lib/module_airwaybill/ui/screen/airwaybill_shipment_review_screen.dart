@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill/response/airwaybill_details_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
@@ -20,7 +21,7 @@ class _ContainerShipmentReviewState extends State<AirwaybillShipmentReview> {
   Widget build(BuildContext context) {
     return Background(
       showFilter: false,
-      title: 'shipment review',
+      title: S.of(context).shipmentReview,
       goBack: (){},
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -30,7 +31,7 @@ class _ContainerShipmentReviewState extends State<AirwaybillShipmentReview> {
               Expanded(
                   child: ListTile(
                       title: Text(
-                        'Shipment from: ',
+                        S.of(context).shippingFrom,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -40,7 +41,7 @@ class _ContainerShipmentReviewState extends State<AirwaybillShipmentReview> {
               Expanded(
                   child: ListTile(
                       title: Text(
-                        'Shipment to: ',
+                        S.of(context).shippingTo,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -55,7 +56,7 @@ class _ContainerShipmentReviewState extends State<AirwaybillShipmentReview> {
               Expanded(
                   child: ListTile(
                       title: Text(
-                        'Product type: ',
+                        S.of(context).productCategory,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -65,7 +66,7 @@ class _ContainerShipmentReviewState extends State<AirwaybillShipmentReview> {
               Expanded(
                   child: ListTile(
                       title: Text(
-                        'Quantity ',
+                        S.of(context).quantity,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -80,7 +81,7 @@ class _ContainerShipmentReviewState extends State<AirwaybillShipmentReview> {
               Expanded(
                 child: ListTile(
                     title: Text(
-                      'Supplier Info: ',
+                      S.of(context).supplierInfo,
                       style: AppTextStyle.mediumBlack,
                     ),
                     subtitle: Text(
@@ -91,7 +92,7 @@ class _ContainerShipmentReviewState extends State<AirwaybillShipmentReview> {
               Expanded(
                 child: ListTile(
                     title: Text(
-                      'Weight: ',
+                      S.of(context).weight,
                       style: AppTextStyle.mediumBlack,
                     ),
                     subtitle: Text(
@@ -107,14 +108,14 @@ class _ContainerShipmentReviewState extends State<AirwaybillShipmentReview> {
               Expanded(
                 child: ListTile(
                     title: Text(
-                      'Recipient Info: ',
+                      S.of(context).receiverInfo,
                       style: AppTextStyle.mediumBlack,
                     )),
               ),
               Expanded(
                   child: ListTile(
                       title: Text(
-                        'Name: ',
+                        S.of(context).name,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -124,7 +125,7 @@ class _ContainerShipmentReviewState extends State<AirwaybillShipmentReview> {
               Expanded(
                   child: ListTile(
                       title: Text(
-                        'Phone: ',
+                        S.of(context).phone,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -142,7 +143,7 @@ class _ContainerShipmentReviewState extends State<AirwaybillShipmentReview> {
                   children: [
                     ListTile(
                         title: Text(
-                          'Unit: ',
+                          S.of(context).unit,
                           style: AppTextStyle.mediumBlack,
                         ),
                         subtitle: Text(
@@ -151,7 +152,7 @@ class _ContainerShipmentReviewState extends State<AirwaybillShipmentReview> {
                         )),
                     ListTile(
                         title: Text(
-                          'Mark ',
+                          S.of(context).mark,
                           style: AppTextStyle.mediumBlack,
                         ),
                         subtitle: Text(
@@ -160,7 +161,7 @@ class _ContainerShipmentReviewState extends State<AirwaybillShipmentReview> {
                         )),
                     ListTile(
                         title: Text(
-                          'Payment time ',
+                          S.of(context).paymentTime,
                           style: AppTextStyle.mediumBlack,
                         ),
                         subtitle: Text(
@@ -169,7 +170,7 @@ class _ContainerShipmentReviewState extends State<AirwaybillShipmentReview> {
                         )),
                     ListTile(
                         title: Text(
-                          'Extra specification ',
+                          S.of(context).extraSpecification,
                           style: AppTextStyle.mediumBlack,
                         ),
                         subtitle: Text(

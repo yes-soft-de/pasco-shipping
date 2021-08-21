@@ -40,7 +40,7 @@ class _AddCountryInitState extends State<AddContainerSpecificationInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Name' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).name , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -76,7 +76,7 @@ class _AddCountryInitState extends State<AddContainerSpecificationInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('capacityCPM' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).capacityCPM , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -114,7 +114,7 @@ class _AddCountryInitState extends State<AddContainerSpecificationInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('lengthInMeter', style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).lengthInMeter, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -151,7 +151,7 @@ class _AddCountryInitState extends State<AddContainerSpecificationInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('widthInMeter', style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).widthInMeter, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -189,7 +189,7 @@ class _AddCountryInitState extends State<AddContainerSpecificationInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('hightInMeter', style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).heightInMeter, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -221,7 +221,7 @@ class _AddCountryInitState extends State<AddContainerSpecificationInit> {
                 ),
               ),
 
-              RoundedButton(lable: 'Save', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
+              RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(name.text.isEmpty || widthInMeter.text.isEmpty || hightInMeter.text.isEmpty  || lengthInMeter.text.isEmpty) {
                   Fluttertoast.showToast(msg: S.of(context).fillAllField);
                 }else {

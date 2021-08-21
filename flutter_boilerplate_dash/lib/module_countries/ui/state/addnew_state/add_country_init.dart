@@ -115,7 +115,7 @@ class _AddCountryInitState extends State<AddCountryInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).country + ' type', style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).country + S.of(context).type, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Row(
@@ -141,7 +141,7 @@ class _AddCountryInitState extends State<AddCountryInit> {
                           width: 5,
                         ),
                         Text(
-                          'Import',
+                          S.of(context).import,
                           style: AppTextStyle.mediumWhite,
                         ),
                       ],
@@ -167,7 +167,7 @@ class _AddCountryInitState extends State<AddCountryInit> {
                           width: 5,
                         ),
                         Text(
-                          'Export',
+                         S.of(context).export,
                           style: AppTextStyle.mediumWhite,
                         ),
                       ],
@@ -175,7 +175,7 @@ class _AddCountryInitState extends State<AddCountryInit> {
                   ),
                 ],
               ),
-              RoundedButton(lable: 'Save', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
+              RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(name.text.isEmpty || code.text.isEmpty || type.isEmpty) {
                   Fluttertoast.showToast(msg: S.of(context).fillAllField);
                 }else {

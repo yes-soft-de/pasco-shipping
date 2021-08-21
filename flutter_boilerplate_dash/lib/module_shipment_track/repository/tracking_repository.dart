@@ -13,7 +13,7 @@ class TrackingRepository{
 
   Future<TrackModel?> getTrackDetails(String trackNumber) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     var response;
     try {
       response = await _apiClient.get(Urls.TRACK_SHIPMENT + '/'+trackNumber,

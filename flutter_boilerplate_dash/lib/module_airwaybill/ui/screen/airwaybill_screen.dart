@@ -45,7 +45,7 @@ class _CountriesScreenState extends State<AirwaybillScreen> {
 
         },
         child: Screen(),
-        title: 'AirWaybills'
+        title:S.of(context).airWaybills
     );
   }
 

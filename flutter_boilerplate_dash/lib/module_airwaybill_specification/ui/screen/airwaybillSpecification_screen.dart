@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill_specification/response/airwaybill_specification_response.dart';
 import 'package:pasco_shipping/module_airwaybill_specification/state_manger/airwaybill_specification_state_manager.dart';
 import 'package:pasco_shipping/module_airwaybill_specification/ui/state/airwaybillSpecifications_state/airwaybillSpecification_state.dart';
@@ -29,7 +30,7 @@ class _CountriesScreenState extends State<AirwaybillSpecificationsScreen> {
         goBack: (){
         },
         child: Screen(),
-        title:'Container Specifications'
+        title:S.of(context).airwaybillSpecification
     );
   }
 

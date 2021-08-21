@@ -18,7 +18,7 @@ class DistributorRepository{
 
   Future<List<DistributorModel>?> getDistributors() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.DISTRIBUTORS,
           headers: {'Authorization': 'Bearer $token'});
@@ -32,7 +32,7 @@ class DistributorRepository{
 
   Future<ConfirmResponse?> createDistributor(DistributorRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.DISTRIBUTOR, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -47,7 +47,7 @@ class DistributorRepository{
 
   Future<ConfirmResponse?> deleteDistributor(String id) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
     var response = await _apiClient.delete(Urls.DISTRIBUTOR+'/'+id,
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = DistributorResponse.fromJson(response!).statusCode;
@@ -61,7 +61,7 @@ class DistributorRepository{
 
   Future<ConfirmResponse?> updateDistributor(DistributorRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.put(Urls.DISTRIBUTOR, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});

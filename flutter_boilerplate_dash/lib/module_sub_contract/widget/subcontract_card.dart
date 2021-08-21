@@ -57,7 +57,7 @@ class _CountryCardState extends State<SubcontractCard> {
                     Row(
                       children: [
                         Text(
-                          'Full name ',
+                          S.of(context).name,
                           style: AppTextStyle.mediumBlack,
                         ),
                          Expanded(child: widget.isEdtiable ?
@@ -73,7 +73,7 @@ class _CountryCardState extends State<SubcontractCard> {
                     Row(
                       children: [
                         Text(
-                          'Phone: ',
+                          S.of(context).phone,
                           style: AppTextStyle.mediumBlack,
                         ),
                       Expanded(child:   widget.isEdtiable ? TextField(controller: phone, keyboardType: TextInputType.phone,) :  Text(
@@ -89,7 +89,7 @@ class _CountryCardState extends State<SubcontractCard> {
                     Row(
                       children: [
                         Text(
-                          'Service Name: ',
+                         S.of(context).serviceName,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Expanded(child:  Text(
@@ -105,7 +105,7 @@ class _CountryCardState extends State<SubcontractCard> {
                     Row(
                       children: [
                         Text(
-                          'Created By ',
+                         S.of(context).createdBy,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -120,7 +120,7 @@ class _CountryCardState extends State<SubcontractCard> {
                     Row(
                       children: [
                         Text(
-                          'Created At ',
+                          S.of(context).createdAt,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -135,7 +135,7 @@ class _CountryCardState extends State<SubcontractCard> {
                     Row(
                       children: [
                         Text(
-                          'Updated By ',
+                          S.of(context).updatedBy,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -150,7 +150,7 @@ class _CountryCardState extends State<SubcontractCard> {
                     Row(
                       children: [
                         Text(
-                          'Updated At ',
+                          S.of(context).updatedAt,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -183,7 +183,7 @@ class _CountryCardState extends State<SubcontractCard> {
                             width: 5,
                           ),
                           Text(
-                            'delete',
+                            S.of(context).delete,
                             style: AppTextStyle.mediumWhite,
                           ),
                         ],
@@ -219,7 +219,7 @@ class _CountryCardState extends State<SubcontractCard> {
                               width: 5,
                             ),
                             Text(
-                              'save',
+                              S.of(context).save,
                               style: AppTextStyle.mediumWhite,
                             ),
                           ],
@@ -243,7 +243,7 @@ class _CountryCardState extends State<SubcontractCard> {
                               width: 5,
                             ),
                             Text(
-                              'edit',
+                              S.of(context).edit,
                               style: AppTextStyle.mediumWhite,
                             ),
                           ],

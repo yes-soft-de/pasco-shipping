@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/request/conatiner_filter_finance_request.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_container/state_manger/conatiner_finance_state_manager.dart';
@@ -35,7 +36,7 @@ class _CountriesScreenState extends State<ContainerFinanceScreen> {
         goBack: ()  {
         },
         child: Screen(),
-        title: 'Container Finance'
+        title: S.of(context).containerFinance
     );
   }
 

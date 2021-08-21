@@ -61,7 +61,7 @@ class _CountryCardState extends State<ProductCard> {
                     Row(
                       children: [
                         Text(
-                          'Name ',
+                          S.of(context).name,
                           style: AppTextStyle.mediumBlack,
                         ),
                          Expanded(child: widget.isEdtiable ?
@@ -77,7 +77,7 @@ class _CountryCardState extends State<ProductCard> {
                     Row(
                       children: [
                         Text(
-                          'Description: ',
+                         S.of(context).description,
                           style: AppTextStyle.mediumBlack,
                         ),
                       Expanded(child:   widget.isEdtiable ? TextField(controller: description) :  Text(
@@ -105,7 +105,7 @@ class _CountryCardState extends State<ProductCard> {
 
                     Padding(
                       padding: const EdgeInsetsDirectional.only(top: 10, bottom: 10),
-                      child: Text('SubProduct' , style: AppTextStyle.mediumBlueBold,),
+                      child: Text(S.of(context).subCategory , style: AppTextStyle.mediumBlueBold,),
                     ),
                     ListView.builder(itemBuilder:(context,index){
                       return Card(
@@ -116,7 +116,7 @@ class _CountryCardState extends State<ProductCard> {
                             children: [
                               Row(
                                 children: [
-                                  Text('Name: ' , style: AppTextStyle.mediumBlueBold,),
+                                  Text(S.of(context).name, style: AppTextStyle.mediumBlueBold,),
                                   Text(widget.model.subs![index].name ??'' ,
                                     style: AppTextStyle.mediumDeepGrayBold,),
                                 ],
@@ -144,7 +144,7 @@ class _CountryCardState extends State<ProductCard> {
                     Row(
                       children: [
                         Text(
-                          'Created By ',
+                          S.of(context).createdBy,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -159,7 +159,7 @@ class _CountryCardState extends State<ProductCard> {
                     Row(
                       children: [
                         Text(
-                          'Created At ',
+                          S.of(context).createdAt,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -174,7 +174,7 @@ class _CountryCardState extends State<ProductCard> {
                     Row(
                       children: [
                         Text(
-                          'Updated By ',
+                          S.of(context).updatedBy,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -189,7 +189,7 @@ class _CountryCardState extends State<ProductCard> {
                     Row(
                       children: [
                         Text(
-                          'Updated At ',
+                          S.of(context).updatedAt,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -219,7 +219,7 @@ class _CountryCardState extends State<ProductCard> {
                             color: Colors.white,
                           ),
                           Text(
-                            'delete',
+                            S.of(context).delete,
                             style: AppTextStyle.mediumWhite,
                           ),
                         ],
@@ -253,8 +253,8 @@ class _CountryCardState extends State<ProductCard> {
                             ),
 
                             Text(
-                              'save',
-                              style: AppTextStyle.mediumWhite,
+                              S.of(context).save,
+                               style: AppTextStyle.mediumWhite,
                             ),
                           ],
                         ),
@@ -277,7 +277,7 @@ class _CountryCardState extends State<ProductCard> {
                               width: 5,
                             ),
                             Text(
-                              'edit',
+                              S.of(context).edit,
                               style: AppTextStyle.mediumWhite,
                             ),
                           ],

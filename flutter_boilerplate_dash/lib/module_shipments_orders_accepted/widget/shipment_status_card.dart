@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
@@ -37,7 +38,7 @@ class AcceptedShipmentStatusCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('Changed At: ',style:AppTextStyle.mediumWhiteBold),
+                    Text(S.of(context).updatedAt,style:AppTextStyle.mediumWhiteBold),
                     Text(model.createdAt.toString().split('.').first, style:AppTextStyle.mediumWhite),
                   ],
                 ),
@@ -48,7 +49,7 @@ class AcceptedShipmentStatusCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('Changed By: ',style:AppTextStyle.mediumWhiteBold),
+                    Text(S.of(context).updatedBy,style:AppTextStyle.mediumWhiteBold),
                     Text(model.createdByUser  ??'', style:AppTextStyle.mediumWhite),
                   ],
                 ),

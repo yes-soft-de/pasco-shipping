@@ -15,6 +15,7 @@ import 'package:pasco_shipping/module_shipment_request/response/product_categori
 import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 import 'dart:io';
 import 'package:image/image.dart' as ImageProcess;
@@ -247,7 +248,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
               // mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                 'External Warehouse',
+                  S.of(context).externalWarehouse,
                   style: AppTextStyle.mediumBlackBold,
                 ),
                 Radio(
@@ -258,7 +259,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                   groupValue: selectedRadioWarehouse,
                 ),
                 Text(
-                  'True',
+                  S.of(context).truee,
                   style: TextStyle(
                     color: Colors.black,
                   ),
@@ -273,7 +274,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                   value: 2,
                   groupValue: selectedRadioWarehouse,
                 ),
-                Text('false',
+                Text( S.of(context).falsee,
                     style: TextStyle(
                       color: Colors.black,
                     ))
@@ -285,7 +286,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                 Text(
-                  'Warehouse Info : ',
+                  S.of(context).warehouseInfo,
                   style: AppTextStyle.mediumBlackBold,
                 ),
                 TextEdit('info', 50, (info) {
@@ -350,7 +351,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                           border: Border.all(color: Colors.grey),
                           borderRadius: BorderRadius.circular(6.0),
                           boxShadow: [
-                            BoxShadow(color: AppThemeDataService.AccentColor)
+                            BoxShadow(color:blue)
                           ]),
                       child: imageFile != null
                           ? Badge(
@@ -408,7 +409,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                     Icons.arrow_forward_outlined,
                     // color: bal,
                   ),
-                  label: Text('Continue'),
+                  label: Text(S.of(context).next),
                 ))
           ],
         ),

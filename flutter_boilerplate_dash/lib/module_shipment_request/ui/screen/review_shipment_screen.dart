@@ -33,7 +33,7 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReview> {
         goBack: (){
         },
         child: Screen(),
-        title: 'Shipment Review'
+        title: S.of(context).shipmentReview
     );
   }
 
@@ -73,7 +73,7 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReview> {
       });
     }
     else if (currentState is SuccessfullyAddedShipment){
-      Fluttertoast.showToast(msg: 'Shipment add successfully');
+      Fluttertoast.showToast(msg: S.of(context).shipmentAddSuccessfully);
       Navigator.pop(
           context,);
       // Navigator.pop(

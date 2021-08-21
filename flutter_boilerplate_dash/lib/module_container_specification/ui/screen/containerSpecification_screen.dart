@@ -30,7 +30,7 @@ class _CountriesScreenState extends State<ContainerSpecificationsScreen> {
         goBack: (){
         },
         child: Screen(),
-        title:'Container Specifications'
+        title:S.of(context).containerSpecification
     );
   }
 

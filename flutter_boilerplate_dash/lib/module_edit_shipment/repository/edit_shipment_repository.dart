@@ -17,7 +17,7 @@ class EditShipmentRepository{
 
   Future<ConfirmResponse> addNewShipment(AddShipmentRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.post(Urls.ADD_NEW_SHIPMENT, request.toJson(),
           headers: {'Authorization': 'Bearer $token'});

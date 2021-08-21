@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_home/state_manager/state_manager_home.dart';
 import 'package:pasco_shipping/module_home/ui/state/home_state.dart';
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Background(
       showFilter: false,
       goBack: () {},
-      title: 'Dashboard',
+      title: S.of(context).dashboard,
       child: Screen()
     );
   }

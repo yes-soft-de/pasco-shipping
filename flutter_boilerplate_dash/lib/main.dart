@@ -21,6 +21,7 @@ import 'package:pasco_shipping/module_settings/settings_module.dart';
 import 'package:pasco_shipping/module_shipment_track/tracking_module.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/accepted_shipment_module.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/waiting_shipment_module.dart';
+import 'package:pasco_shipping/module_splash/splash_routes.dart';
 import 'package:pasco_shipping/module_subcontract_services/response/sub_contract_service_response.dart';
 import 'package:pasco_shipping/module_subcontract_services/sub_contract_service_module.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
@@ -36,6 +37,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
+import 'hive/hive_init.dart';
 import 'module_airwaybill/airwaybill_module.dart';
 import 'module_auth/authorization_routes.dart';
 import 'module_client/client_module.dart';
@@ -51,6 +53,7 @@ import 'module_shipment_previous/shipment_previous_module.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'module_shipment_request/shipment_request_module.dart';
+import 'module_splash/splash_module.dart';
 import 'module_sub_contract/subcontract_module.dart';
 import 'module_suppliers/supplier_module.dart';
 import 'module_unit/unit_module.dart';
@@ -60,6 +63,8 @@ void main() async {
   timeago.setLocaleMessages('ar', timeago.ArMessages());
   timeago.setLocaleMessages('en', timeago.EnMessages());
   await Firebase.initializeApp();
+  await HiveSetUp.init();
+
   // await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   // FlutterError.onError = (FlutterErrorDetails details) {
   //   FirebaseCrashlytics.instance.recordFlutterError(details);
@@ -88,7 +93,7 @@ class MyApp extends StatefulWidget {
   final LocalizationService _localizationService;
   final FireNotificationService _fireNotificationService;
   // final LocalNotificationService _localNotificationService;
-  // final SplashModule _splashModule;
+  final SplashModule _splashModule;
   final AuthorizationModule _authorizationModule;
   final SettingsModule _settingsModule;
   final ChatModule _chatModule;
@@ -131,6 +136,7 @@ class MyApp extends StatefulWidget {
       this._localizationService,
       this._fireNotificationService,
       // this._localNotificationService,
+      this._splashModule,
       this._authorizationModule,
       this._chatModule,
       this._settingsModule,
@@ -228,7 +234,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: S.delegate.supportedLocales,
       title: 'pasco-shipping',
       routes: YesModule.RoutesMap,
-      initialRoute: AuthorizationRoutes.LOGIN_SCREEN,
+      initialRoute: SplashRoutes.SPLASH_SCREEN,
     );
     // return FutureBuilder(
     //   initialData: Container(),
@@ -253,14 +259,15 @@ class _MyAppState extends State<MyApp> {
       localizationsDelegates: [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
+
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
       theme: theme,
       supportedLocales: S.delegate.supportedLocales,
-      title: 'pasco-shipping',
-      routes: YesModule.RoutesMap,
-      initialRoute: AuthorizationRoutes.LOGIN_SCREEN,
+      title: 'Pasco',
+      routes: fullRoutesList,
+      initialRoute: SplashRoutes.SPLASH_SCREEN,
     );
   }
 }

@@ -15,7 +15,7 @@ class HomeRepository{
 
   Future<StatisticModel?> getStatistics() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.STATISTIC,
           headers: {'Authorization': 'Bearer $token'});

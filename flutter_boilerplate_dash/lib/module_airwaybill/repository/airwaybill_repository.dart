@@ -26,7 +26,7 @@ class AirwaybillRepository{
 
   Future<ConfirmResponse?> requestAirwaybill(AirwaybillRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.AIRWAYBILL, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -41,7 +41,7 @@ class AirwaybillRepository{
 
   Future<ConfirmResponse?> deleteAirwaybill(String id) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
     var response = await _apiClient.delete(Urls.AIRWAYBILL+'/'+id,
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode =AirwaybillResponse.fromJson(response!).statusCode;
@@ -56,7 +56,7 @@ class AirwaybillRepository{
 
   Future<AirwaybillDetailsModel?> getAirwaybillDetails(String id) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.AIRWAYBILL + '/' + id,
           headers: {'Authorization': 'Bearer $token'});
@@ -72,7 +72,7 @@ class AirwaybillRepository{
 
   Future<List<AirwaybillModel>?> getAirwaybillWithFilter(AirwaybillFilterRequest filters) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token = await _authService.getToken();
     try {
       var response = await _apiClient.post(Urls.AIRWAYBILL_FILTER,filters.toJson(),
           headers: {'Authorization': 'Bearer $token'});
@@ -90,7 +90,7 @@ class AirwaybillRepository{
 
   Future<ConfirmResponse?> updateAirwaybillStatus(AirwaybillChangeStateRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.put(Urls.CONTAINER_STATUS, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -106,7 +106,7 @@ class AirwaybillRepository{
 
   Future<ConfirmResponse?> uploadedAirwaybillToTravel(AddAirwaybillToTravelRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token =await _authService.getToken();
 
     var response = await _apiClient.put(Urls.UPLOADED_CONTAINER_TO_TRAVEL, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -121,7 +121,7 @@ class AirwaybillRepository{
 
   Future<Data?> getAirwaybillFinance(AirwaybillFilterFinanceRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token = await _authService.getToken();
     try {
       var response = await _apiClient.post(Urls.GET_Airwaybill_FINANCE,request.toJson(),
           headers: {'Authorization': 'Bearer $token'});
@@ -137,7 +137,7 @@ class AirwaybillRepository{
 
   Future<ConfirmResponse?> createAirwaybillFinance(AirwaybillAddFinanceRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.ADD_Airwaybill_FINANCE, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});

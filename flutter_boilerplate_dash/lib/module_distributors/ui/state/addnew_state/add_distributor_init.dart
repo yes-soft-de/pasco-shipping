@@ -41,7 +41,7 @@ class _AddCountryInitState extends State<AddDistributorInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Full name' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).name , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -115,7 +115,7 @@ class _AddCountryInitState extends State<AddDistributorInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Address', style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).address, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -146,7 +146,7 @@ class _AddCountryInitState extends State<AddDistributorInit> {
                   ),
                 ),
               ),
-              RoundedButton(lable: 'Save', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
+              RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(name.text.isEmpty || phone.text.isEmpty || address.text.isEmpty) {
                   Fluttertoast.showToast(msg: S.of(context).fillAllField);
                 }else {
