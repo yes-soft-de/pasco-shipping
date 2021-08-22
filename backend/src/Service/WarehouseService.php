@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\WarehouseEntity;
 use App\Manager\WarehouseManager;
 use App\Request\WarehouseCreateRequest;
+use App\Request\WarehouseFilterRequest;
 use App\Request\WarehouseUpdateRequest;
 use App\Response\WarehouseCreateResponse;
 use App\Response\WarehouseGetResponse;
@@ -43,6 +44,30 @@ class WarehouseService
         $warehousesResponse = [];
 
         $warehouses = $this->warehouseManager->getAllWarehouses();
+
+        foreach ($warehouses as $warehouse)
+        {
+            if($warehouse['createdByUserImage'])
+            {
+                $warehouse['createdByUserImage'] = $this->params . $warehouse['createdByUserImage'];
+            }
+
+            if($warehouse['updatedByUserImage'])
+            {
+                $warehouse['updatedByUserImage'] = $this->params . $warehouse['updatedByUserImage'];
+            }
+
+            $warehousesResponse[] = $this->autoMapping->map('array', WarehouseGetResponse::class, $warehouse);
+        }
+
+        return $warehousesResponse;
+    }
+
+    public function filterWarehouses(WarehouseFilterRequest $request)
+    {
+        $warehousesResponse = [];
+
+        $warehouses = $this->warehouseManager->filterWarehouses($request);
 
         foreach ($warehouses as $warehouse)
         {
