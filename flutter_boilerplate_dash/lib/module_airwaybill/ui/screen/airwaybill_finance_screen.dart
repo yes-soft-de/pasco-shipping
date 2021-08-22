@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill/request/airwaybill_filter_finance_request.dart';
 import 'package:pasco_shipping/module_airwaybill/state_manger/airwaybill_finance_state_manager.dart';
 import 'package:pasco_shipping/module_airwaybill/ui/state/airwaybill_finance_state/airwatbill_finance_state.dart';
@@ -34,7 +35,7 @@ class _CountriesScreenState extends State<AirwaybillFinanceScreen> {
         goBack: ()  {
         },
         child: Screen(),
-        title: 'Airwaybill Finance'
+        title: S.of(context).airwaybillFinance
     );
   }
 

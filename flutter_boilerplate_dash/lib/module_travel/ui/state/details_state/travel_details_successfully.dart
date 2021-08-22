@@ -1,6 +1,8 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_travel/request/travel_change_state_request.dart';
@@ -8,6 +10,7 @@ import 'package:pasco_shipping/module_travel/response/travel_details_response.da
 import 'package:pasco_shipping/module_travel/widget/status_card.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class TravelDetailsSuccessfully extends StatelessWidget {
@@ -34,7 +37,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                     onTap: (){
                       onShowFinance(model.id);
                     },
-                    child: Icon(Icons.money , color: blue,size: 40,))
+                    child: Image.asset(StaticImage.accounting)),
               ],
             ),
           ),
@@ -49,7 +52,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Launch Country'),
+                      Text(S.of(context).launchCountry),
                       Text(model.launchCountry ?? ''),
                     ],
                   ),
@@ -60,7 +63,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('launchDate'),
+                      Text(S.of(context).startDate),
                       Text(model.launchDate.toString().split('.').first),
                     ],
                   ),
@@ -71,7 +74,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Destination Country'),
+                      Text(S.of(context).destinationCountry),
                       Text(model.destinationCountry ?? ''),
                     ],
                   ),
@@ -82,7 +85,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Arrival Date'),
+                      Text(S.of(context).arrivalDate),
                       Text(model.arrivalDate.toString().split('.').first),
                     ],
                   ),
@@ -94,7 +97,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Subcontract Name'),
+                      Text(S.of(context).subcontract),
                       Text(model.subcontractName ?? ''),
                     ],
                   ),

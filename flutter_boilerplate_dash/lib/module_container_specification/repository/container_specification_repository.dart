@@ -18,7 +18,7 @@ class ContainerSpecificationRepository{
 
   Future<List<ContainerSpecificationModel>?> getContainerSpecification() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token = await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.CONTAINER_SPECIFICATIONS,
           headers: {'Authorization': 'Bearer $token'});
@@ -32,7 +32,7 @@ class ContainerSpecificationRepository{
 
   Future<ConfirmResponse?> createContainerSpecification(ContainerSpecificationRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token =await _authService.getToken();
 
     var response = await _apiClient.post(Urls.CONTAINER_SPECIFICATION, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});

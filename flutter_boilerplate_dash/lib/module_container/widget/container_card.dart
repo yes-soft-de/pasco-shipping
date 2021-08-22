@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/enums/container_status.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
@@ -54,7 +55,7 @@ class _CountryCardState extends State<ContainerCard> {
                       Row(
                         children: [
                           Text(
-                            'Container Number ',
+                            S.of(context).containerNumber+': ',
                             style: AppTextStyle.mediumBlack,
                           ),
                            Expanded(child: Text(
@@ -69,7 +70,7 @@ class _CountryCardState extends State<ContainerCard> {
                       Row(
                         children: [
                           Text(
-                            'SubContract Name: ',
+                            S.of(context).subcontract,
                             style: AppTextStyle.mediumBlack,
                           ),
                         Expanded(child:Text(
@@ -84,7 +85,7 @@ class _CountryCardState extends State<ContainerCard> {
                       Row(
                         children: [
                           Text(
-                            'Status: ',
+                            S.of(context).status+': ',
                             style: AppTextStyle.mediumBlack,
                           ),
                            Expanded(
@@ -101,7 +102,7 @@ class _CountryCardState extends State<ContainerCard> {
                       Row(
                         children: [
                           Text(
-                            'Type ',
+                            S.of(context).type,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Expanded(
@@ -118,7 +119,7 @@ class _CountryCardState extends State<ContainerCard> {
                       Row(
                         children: [
                           Text(
-                           'Consignee Name: ',
+                            S.of(context).consignee +': ',
                             style: AppTextStyle.mediumBlack,
                           ),
                           Expanded(
@@ -135,7 +136,7 @@ class _CountryCardState extends State<ContainerCard> {
                       Row(
                         children: [
                           Text(
-                            'Shipper Name: ',
+                            S.of(context).shipper+': ',
                             style: AppTextStyle.mediumBlack,
                           ),
                           Expanded(
@@ -151,7 +152,7 @@ class _CountryCardState extends State<ContainerCard> {
                       Row(
                         children: [
                           Text(
-                            'Created By ',
+                            S.of(context).createdBy,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Text(
@@ -166,7 +167,7 @@ class _CountryCardState extends State<ContainerCard> {
                       Row(
                         children: [
                           Text(
-                            'Created At ',
+                            S.of(context).createdAt,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Text(
@@ -181,7 +182,7 @@ class _CountryCardState extends State<ContainerCard> {
                       Row(
                         children: [
                           Text(
-                            'Updated By ',
+                            S.of(context).updatedBy,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Text(
@@ -196,7 +197,7 @@ class _CountryCardState extends State<ContainerCard> {
                       Row(
                         children: [
                           Text(
-                            'Updated At ',
+                            S.of(context).updatedAt,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Text(

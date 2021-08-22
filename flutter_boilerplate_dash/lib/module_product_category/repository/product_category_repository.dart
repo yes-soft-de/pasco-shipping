@@ -18,7 +18,7 @@ class ProductRepository{
 
   Future<List<ProductModel>?> getProduct() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.PRODUCT_CATEGORIES,
           headers: {'Authorization': 'Bearer $token'});
@@ -32,7 +32,7 @@ class ProductRepository{
 
   Future<ConfirmResponse?> createProductCat(ProductRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.ADD_PRODUCT_CATEGORY, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -47,7 +47,7 @@ class ProductRepository{
 
   Future<ConfirmResponse?> deleteProduct(String id) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
     var response = await _apiClient.delete(Urls.ADD_PRODUCT_CATEGORY+'/'+id,
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = ProductResponse.fromJson(response!).statusCode;
@@ -61,7 +61,7 @@ class ProductRepository{
 
   Future<ConfirmResponse?> updateProduct(ProductRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.put(Urls.ADD_PRODUCT_CATEGORY, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});

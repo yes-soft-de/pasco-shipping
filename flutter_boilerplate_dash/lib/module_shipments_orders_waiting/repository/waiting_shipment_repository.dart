@@ -19,7 +19,7 @@ class WaitingShipmentRepository{
 
   Future<List<WaitingShipmentModel>?> getWaitingShipmentFilter(WaitingShipmentFilterRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.post(Urls.WAITING_SHIPMENTS_FILTER ,request.toJson()
           ,headers: {'Authorization': 'Bearer $token'});
@@ -41,7 +41,7 @@ class WaitingShipmentRepository{
 
   Future<ConfirmResponse?> acceptedOrRejectedShipment(AcceptedOrRejectedRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.put(Urls.ACCEPTED_REJECTED_SHIPMENT, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});

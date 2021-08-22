@@ -41,7 +41,7 @@ class _CountriesScreenState extends State<AirwaybillDetailsScreen> {
         goBack: (){
         },
         child: Screen(),
-        title:'Details'
+        title:S.of(context).details
     );
   }
 

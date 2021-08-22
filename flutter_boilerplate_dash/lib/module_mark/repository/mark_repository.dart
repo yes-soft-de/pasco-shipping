@@ -19,7 +19,7 @@ class MarkRepository{
 
   Future<List<Mark>?> getUserMark(String userID) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.USER_MARKS + '/'+ userID,
           headers: {'Authorization': 'Bearer $token'});
@@ -37,7 +37,7 @@ class MarkRepository{
 
   Future<ConfirmResponse?> createMark(MarkRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.CREATE_MARK, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -52,7 +52,7 @@ class MarkRepository{
 
   Future<ConfirmResponse?> deleteMark(String id) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
     var response = await _apiClient.delete(Urls.MARK+'/'+id,
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = MarkResponse.fromJson(response!).statusCode;

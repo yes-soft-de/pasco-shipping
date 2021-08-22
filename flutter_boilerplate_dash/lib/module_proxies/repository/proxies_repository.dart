@@ -18,7 +18,7 @@ class ProxyRepository{
 
   Future<List<ProxyModel>?> getProxies() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.PROXIES,
           headers: {'Authorization': 'Bearer $token'});
@@ -34,7 +34,7 @@ class ProxyRepository{
 
   Future<ConfirmResponse?> createProxy(ProxyRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.PROXY, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -49,7 +49,7 @@ class ProxyRepository{
 
   Future<ConfirmResponse?> deleteProxy(String id) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
     var response = await _apiClient.delete(Urls.PROXY+'/'+id,
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = ProxyResponse.fromJson(response!).statusCode;
@@ -63,7 +63,7 @@ class ProxyRepository{
 
   Future<ConfirmResponse?> updateProxy(ProxyRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.put(Urls.PROXY, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});

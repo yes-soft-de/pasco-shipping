@@ -41,8 +41,10 @@ class _MarkSuccessfullyScreenState extends State<MarkSuccessfullyScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Image.asset(StaticImage.mark),
+
             Text(
-              'Clients',
+              S.of(context).clients,
               style: AppTextStyle.mediumBlackBold,
             ),
             SelectDropList(
@@ -58,7 +60,7 @@ class _MarkSuccessfullyScreenState extends State<MarkSuccessfullyScreen> {
               },
             ),
           widget.items.isEmpty ?
-          Text('No Mark Added yet' , style: AppTextStyle.mediumRedBold,)
+          Text(S.of(context).nothingAdded , style: AppTextStyle.mediumRedBold,)
           :ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,

@@ -32,7 +32,7 @@ class _CountriesScreenState extends State<TravelDetailsScreen> {
         goBack: (){
         },
         child: Screen(),
-        title:'Details'
+        title:S.of(context).details
     );
   }
 

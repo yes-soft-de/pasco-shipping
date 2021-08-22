@@ -14,6 +14,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class ContainerTravelDetailsSuccessfully extends StatefulWidget {
@@ -22,7 +23,8 @@ class ContainerTravelDetailsSuccessfully extends StatefulWidget {
   final Function onShipmentReview;
   final Function onUploadedToTravel;
   final Function onClearedOrArrived;
-  const ContainerTravelDetailsSuccessfully({required this.model,required this.onShipmentReview,required this.travels,required this.onUploadedToTravel,required this.onClearedOrArrived });
+  final Function onShowFinance;
+  const ContainerTravelDetailsSuccessfully({required this.model,required this.onShipmentReview,required this.travels,required this.onUploadedToTravel,required this.onClearedOrArrived ,required this.onShowFinance});
 
   @override
   _ContainerDetailsSuccessfullyState createState() => _ContainerDetailsSuccessfullyState();
@@ -63,7 +65,17 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
           firstCard(),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text('Container Information' , style: AppTextStyle.largeBlueBold,),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Container Information' , style: AppTextStyle.largeBlueBold,),
+                InkWell(
+                    onTap: (){
+                      widget.onShowFinance(widget.model.id);
+                    },
+                    child: Image.asset(StaticImage.accounting))
+              ],
+            ),
           ),
           Container(
             child: Column(

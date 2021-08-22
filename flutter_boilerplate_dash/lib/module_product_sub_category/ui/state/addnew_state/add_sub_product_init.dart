@@ -41,13 +41,13 @@ class _AddCountryInitState extends State<AddSubProductInit> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(children: [
-              Image.asset(StaticImage.dis),
+              Image.asset(StaticImage.subcategory),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Product' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).subCategory , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               SelectDropList(
@@ -65,7 +65,7 @@ class _AddCountryInitState extends State<AddSubProductInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Name' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).name , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -169,7 +169,7 @@ class _AddCountryInitState extends State<AddSubProductInit> {
                 ),
               ),
 
-              RoundedButton(lable: 'Save', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
+              RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(name.text.isEmpty || description.text.isEmpty || hscode.text.isEmpty) {
                   Fluttertoast.showToast(msg: S.of(context).fillAllField);
                 }else {

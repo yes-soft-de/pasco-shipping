@@ -156,13 +156,11 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                   padding: const EdgeInsets.all(16.0),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(AuthorizationRoutes.REGISTER_SCREEN);
                     },
                     child: Text(
                       loading == true
                           ? S.of(context).loading
-                          : S.of(context).noAccount,
+                          : '',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,

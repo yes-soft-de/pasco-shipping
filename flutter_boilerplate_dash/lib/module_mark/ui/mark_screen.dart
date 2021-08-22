@@ -51,7 +51,7 @@ class _MarkScreenState extends State<MarkScreen> {
       // controller: controller,
       // isHome: false,
         child: Screen(),
-        title: S.of(context).mark
+        title: S.of(context).marks
       // ,currentIndex: -1,
       // isResultScreen: false,
     );

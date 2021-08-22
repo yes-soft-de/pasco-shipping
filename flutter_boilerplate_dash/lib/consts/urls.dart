@@ -5,7 +5,7 @@ class Urls {
 
   static const SIGN_UP_API = BASE_API + '/user';
   // static const OWNER_PROFILE_API = BASE_API + '/userprofile';
-  static const CREATE_TOKEN_API = BASE_API + '/login_check';
+  static const CREATE_TOKEN_API = BASE_API + 'login_check';
 
   //home
   static const STATISTIC = BASE_API + 'statistics';
@@ -154,5 +154,5 @@ class Urls {
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
 
 
-  static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2Mjk0MDMxOTYsImV4cCI6MTYyOTQyMTE5Niwicm9sZXMiOlsiUk9MRV9FTVBMT1lFRSIsInVzZXIiXSwidXNlcm5hbWUiOiJlbTIifQ.qVKcPoexsumHbbWIQEeBZEOTN_bb_mOzLJopt5yR6PT6MUiByRAPodWP075WsJXChfcu-WNt_csBPn4dUOt-_QZOq0jaNNfyyJvbEPOBQWwb00Bk7TDfB3S4Hyr7KHUnB8LASsEPSxyEriFMm2cckb0ad1scxEaECkzJPFk_yXNC2zijnhD2SqvbyHWkgminBSfLYuGxWhi1JxjISvKadEI6qcIZTECji00P4ycBL2j6ybgVO5CGsHkY4aiDmhu7gpzE4mpqdRROampopuW7Eq1GSLdXTh8jG6zo1pkHdeNX9nYpeli5NvRMEO1TPkpjqRnVmMALlWdgmh6xrZhwfg';
+  // static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2Mjk0MDMxOTYsImV4cCI6MTYyOTQyMTE5Niwicm9sZXMiOlsiUk9MRV9FTVBMT1lFRSIsInVzZXIiXSwidXNlcm5hbWUiOiJlbTIifQ.qVKcPoexsumHbbWIQEeBZEOTN_bb_mOzLJopt5yR6PT6MUiByRAPodWP075WsJXChfcu-WNt_csBPn4dUOt-_QZOq0jaNNfyyJvbEPOBQWwb00Bk7TDfB3S4Hyr7KHUnB8LASsEPSxyEriFMm2cckb0ad1scxEaECkzJPFk_yXNC2zijnhD2SqvbyHWkgminBSfLYuGxWhi1JxjISvKadEI6qcIZTECji00P4ycBL2j6ybgVO5CGsHkY4aiDmhu7gpzE4mpqdRROampopuW7Eq1GSLdXTh8jG6zo1pkHdeNX9nYpeli5NvRMEO1TPkpjqRnVmMALlWdgmh6xrZhwfg';
 }

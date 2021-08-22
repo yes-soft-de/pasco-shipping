@@ -20,7 +20,7 @@ class CountryRepository{
 
   Future<List<CountryModel>?> getCountries() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.COUNTRIES,
           headers: {'Authorization': 'Bearer $token'});
@@ -40,7 +40,7 @@ class CountryRepository{
 
   Future<ConfirmResponse?> createCountry(CountryRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.COUNTRY, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -55,7 +55,7 @@ class CountryRepository{
 
   Future<ConfirmResponse?> deleteCountry(String id) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
     var response = await _apiClient.delete(Urls.COUNTRY+'/'+id,
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = CountryResponse.fromJson(response!).statusCode;
@@ -69,7 +69,7 @@ class CountryRepository{
 
   Future<ConfirmResponse?> updateCountry(CountryRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.put(Urls.COUNTRY, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});

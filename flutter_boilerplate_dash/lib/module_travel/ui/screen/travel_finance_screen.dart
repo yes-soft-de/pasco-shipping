@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
@@ -35,7 +36,7 @@ class _CountriesScreenState extends State<TravelFinanceScreen> {
         goBack: ()  {
         },
         child: Screen(),
-        title: 'Travel Finance'
+        title: S.of(context).travelFinance
     );
   }
 

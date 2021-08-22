@@ -66,7 +66,7 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
               ),
             ),
 
-              RoundedButton(lable: 'Save', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
+              RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 widget.onSave(widget.filterRequest);
 
               }, radius: 15)

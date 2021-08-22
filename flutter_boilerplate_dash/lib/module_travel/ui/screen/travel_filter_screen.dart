@@ -35,7 +35,7 @@ class _AddNewCountryState extends State<TravelFilterScreen> {
         goBack: (){
         },
         child: Screen(),
-        title: 'Filter By'
+        title: S.of(context).filterBy
     );
   }
 

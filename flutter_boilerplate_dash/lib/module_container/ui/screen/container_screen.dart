@@ -46,7 +46,7 @@ class _CountriesScreenState extends State<ContainerScreen> {
 
         },
         child: Screen(),
-        title: 'Containers'
+        title: S.of(context).containers
     );
   }
 

@@ -291,10 +291,10 @@ class S {
   }
 
   /// `Marks`
-  String get mark {
+  String get marks {
     return Intl.message(
       'Marks',
-      name: 'mark',
+      name: 'marks',
       desc: '',
       args: [],
     );
@@ -450,30 +450,30 @@ class S {
     );
   }
 
-  /// `city`
+  /// `City`
   String get city {
     return Intl.message(
-      'city',
+      'City',
       name: 'city',
       desc: '',
       args: [],
     );
   }
 
-  /// `phone`
+  /// `Phone`
   String get phone {
     return Intl.message(
-      'phone',
+      'Phone',
       name: 'phone',
       desc: '',
       args: [],
     );
   }
 
-  /// `location`
+  /// `Location`
   String get location {
     return Intl.message(
-      'location',
+      'Location',
       name: 'location',
       desc: '',
       args: [],
@@ -610,10 +610,10 @@ class S {
     );
   }
 
-  /// `save`
+  /// `Save`
   String get save {
     return Intl.message(
-      'save',
+      'Save',
       name: 'save',
       desc: '',
       args: [],
@@ -680,40 +680,40 @@ class S {
     );
   }
 
-  /// `Shipping from:`
+  /// `Shipping from: `
   String get shippingFrom {
     return Intl.message(
-      'Shipping from:',
+      'Shipping from: ',
       name: 'shippingFrom',
       desc: '',
       args: [],
     );
   }
 
-  /// `Shipping to:`
+  /// `Shipping to: `
   String get shippingTo {
     return Intl.message(
-      'Shipping to:',
+      'Shipping to: ',
       name: 'shippingTo',
       desc: '',
       args: [],
     );
   }
 
-  /// `Product type:`
+  /// `Product type: `
   String get productType {
     return Intl.message(
-      'Product type:',
+      'Product type: ',
       name: 'productType',
       desc: '',
       args: [],
     );
   }
 
-  /// `Quantity:`
+  /// `Quantity: `
   String get quantity {
     return Intl.message(
-      'Quantity:',
+      'Quantity: ',
       name: 'quantity',
       desc: '',
       args: [],
@@ -771,10 +771,10 @@ class S {
   }
 
   /// `Subcontract`
-  String get subcontracts {
+  String get subcontract {
     return Intl.message(
       'Subcontract',
-      name: 'subcontracts',
+      name: 'subcontract',
       desc: '',
       args: [],
     );
@@ -860,11 +860,1331 @@ class S {
     );
   }
 
-  /// `Description`
+  /// `Description: `
   String get description {
     return Intl.message(
-      'Description',
+      'Description: ',
       name: 'description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Air Waybill Type`
+  String get airwaybillType {
+    return Intl.message(
+      'Air Waybill Type',
+      name: 'airwaybillType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `LCL`
+  String get LCL {
+    return Intl.message(
+      'LCL',
+      name: 'LCL',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `FCL`
+  String get FCL {
+    return Intl.message(
+      'FCL',
+      name: 'FCL',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Air Waybill Number`
+  String get airwaybillNumber {
+    return Intl.message(
+      'Air Waybill Number',
+      name: 'airwaybillNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `number`
+  String get number {
+    return Intl.message(
+      'number',
+      name: 'number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Provided by`
+  String get provided {
+    return Intl.message(
+      'Provided by',
+      name: 'provided',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Consignee`
+  String get consignee {
+    return Intl.message(
+      'Consignee',
+      name: 'consignee',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipper`
+  String get shipper {
+    return Intl.message(
+      'Shipper',
+      name: 'shipper',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Carrier`
+  String get carrier {
+    return Intl.message(
+      'Carrier',
+      name: 'carrier',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Specification`
+  String get specification {
+    return Intl.message(
+      'Specification',
+      name: 'specification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `choose`
+  String get choose {
+    return Intl.message(
+      'choose',
+      name: 'choose',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Container Type`
+  String get containerType {
+    return Intl.message(
+      'Container Type',
+      name: 'containerType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Container Number`
+  String get containerNumber {
+    return Intl.message(
+      'Container Number',
+      name: 'containerNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Cost: `
+  String get totalCost {
+    return Intl.message(
+      'Total Cost: ',
+      name: 'totalCost',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nothing Added`
+  String get nothingAdded {
+    return Intl.message(
+      'Nothing Added',
+      name: 'nothingAdded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cost`
+  String get cost {
+    return Intl.message(
+      'Cost',
+      name: 'cost',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Details`
+  String get details {
+    return Intl.message(
+      'Details',
+      name: 'details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Uploaded`
+  String get uploaded {
+    return Intl.message(
+      'Uploaded',
+      name: 'uploaded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cleared`
+  String get cleared {
+    return Intl.message(
+      'Cleared',
+      name: 'cleared',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Arrived`
+  String get arrived {
+    return Intl.message(
+      'Arrived',
+      name: 'arrived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Air Waybill Information`
+  String get airwaybillInformation {
+    return Intl.message(
+      'Air Waybill Information',
+      name: 'airwaybillInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Container Information`
+  String get containerInformation {
+    return Intl.message(
+      'Container Information',
+      name: 'containerInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type`
+  String get type {
+    return Intl.message(
+      'Type',
+      name: 'type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Requested by`
+  String get RequestedBy {
+    return Intl.message(
+      'Requested by',
+      name: 'RequestedBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Requested at`
+  String get RequestedAt {
+    return Intl.message(
+      'Requested at',
+      name: 'RequestedAt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment Information`
+  String get shipmentInformation {
+    return Intl.message(
+      'Shipment Information',
+      name: 'shipmentInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No shipment has been added`
+  String get noShipmentAdd {
+    return Intl.message(
+      'No shipment has been added',
+      name: 'noShipmentAdd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not full yet`
+  String get notFull {
+    return Intl.message(
+      'Not full yet',
+      name: 'notFull',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full`
+  String get full {
+    return Intl.message(
+      'Full',
+      name: 'full',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You still have some space`
+  String get haveSpace {
+    return Intl.message(
+      'You still have some space',
+      name: 'haveSpace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You don't have any space`
+  String get noSpace {
+    return Intl.message(
+      'You don\'t have any space',
+      name: 'noSpace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Track Number: `
+  String get trackNumber {
+    return Intl.message(
+      'Track Number: ',
+      name: 'trackNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weight: `
+  String get weight {
+    return Intl.message(
+      'Weight: ',
+      name: 'weight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Product Category: `
+  String get productCategory {
+    return Intl.message(
+      'Product Category: ',
+      name: 'productCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Target Warehouse : `
+  String get targetWarehouse {
+    return Intl.message(
+      'Target Warehouse : ',
+      name: 'targetWarehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export Warehouse : `
+  String get exportWarehouse {
+    return Intl.message(
+      'Export Warehouse : ',
+      name: 'exportWarehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Air Waybill Status`
+  String get airwaybillStatus {
+    return Intl.message(
+      'Air Waybill Status',
+      name: 'airwaybillStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Container Status`
+  String get containerStatus {
+    return Intl.message(
+      'Container Status',
+      name: 'containerStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next Status`
+  String get nextStatus {
+    return Intl.message(
+      'Next Status',
+      name: 'nextStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You cannot change the state, the container is not full`
+  String get noChangeStatus {
+    return Intl.message(
+      'You cannot change the state, the container is not full',
+      name: 'noChangeStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Status`
+  String get status {
+    return Intl.message(
+      'Status',
+      name: 'status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Created At: `
+  String get createdAt {
+    return Intl.message(
+      'Created At: ',
+      name: 'createdAt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Updated At: `
+  String get updatedAt {
+    return Intl.message(
+      'Updated At: ',
+      name: 'updatedAt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Created By: `
+  String get createdBy {
+    return Intl.message(
+      'Created By: ',
+      name: 'createdBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Updated By: `
+  String get updatedBy {
+    return Intl.message(
+      'Updated By: ',
+      name: 'updatedBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stage Cost: `
+  String get stageCost {
+    return Intl.message(
+      'Stage Cost: ',
+      name: 'stageCost',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Filter By`
+  String get filterBy {
+    return Intl.message(
+      'Filter By',
+      name: 'filterBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Air Waybill Finances`
+  String get airwaybillFinance {
+    return Intl.message(
+      'Air Waybill Finances',
+      name: 'airwaybillFinance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Container Finances`
+  String get containerFinance {
+    return Intl.message(
+      'Container Finances',
+      name: 'containerFinance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Air Waybills`
+  String get airWaybills {
+    return Intl.message(
+      'Air Waybills',
+      name: 'airWaybills',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Containers`
+  String get containers {
+    return Intl.message(
+      'Containers',
+      name: 'containers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment Review`
+  String get shipmentReview {
+    return Intl.message(
+      'Shipment Review',
+      name: 'shipmentReview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Supplier Info: `
+  String get supplierInfo {
+    return Intl.message(
+      'Supplier Info: ',
+      name: 'supplierInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Receiver Info: `
+  String get receiverInfo {
+    return Intl.message(
+      'Receiver Info: ',
+      name: 'receiverInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name: `
+  String get name {
+    return Intl.message(
+      'Name: ',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unit: `
+  String get unit {
+    return Intl.message(
+      'Unit: ',
+      name: 'unit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mark: `
+  String get mark {
+    return Intl.message(
+      'Mark: ',
+      name: 'mark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment time: `
+  String get paymentTime {
+    return Intl.message(
+      'Payment time: ',
+      name: 'paymentTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Extra specification: `
+  String get extraSpecification {
+    return Intl.message(
+      'Extra specification: ',
+      name: 'extraSpecification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Container Specification`
+  String get containerSpecification {
+    return Intl.message(
+      'Container Specification',
+      name: 'containerSpecification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Air waybill Specification`
+  String get airwaybillSpecification {
+    return Intl.message(
+      'Air waybill Specification',
+      name: 'airwaybillSpecification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Width`
+  String get width {
+    return Intl.message(
+      'Width',
+      name: 'width',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Capacity CPM: `
+  String get capacityCPM {
+    return Intl.message(
+      'Capacity CPM: ',
+      name: 'capacityCPM',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Length In Meter: `
+  String get lengthInMeter {
+    return Intl.message(
+      'Length In Meter: ',
+      name: 'lengthInMeter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Height In Meter: `
+  String get heightInMeter {
+    return Intl.message(
+      'Height In Meter: ',
+      name: 'heightInMeter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Width In Meter: `
+  String get widthInMeter {
+    return Intl.message(
+      'Width In Meter: ',
+      name: 'widthInMeter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Calling code: `
+  String get callingCode {
+    return Intl.message(
+      'Calling code: ',
+      name: 'callingCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Import`
+  String get import {
+    return Intl.message(
+      'Import',
+      name: 'import',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export`
+  String get export {
+    return Intl.message(
+      'Export',
+      name: 'export',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Country Type: `
+  String get countryType {
+    return Intl.message(
+      'Country Type: ',
+      name: 'countryType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get edit {
+    return Intl.message(
+      'Edit',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Address`
+  String get address {
+    return Intl.message(
+      'Address',
+      name: 'address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clients`
+  String get clients {
+    return Intl.message(
+      'Clients',
+      name: 'clients',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Client: `
+  String get client {
+    return Intl.message(
+      'Client: ',
+      name: 'client',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sub Category`
+  String get subCategory {
+    return Intl.message(
+      'Sub Category',
+      name: 'subCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Category`
+  String get category {
+    return Intl.message(
+      'Category',
+      name: 'category',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment add successfully`
+  String get shipmentAddSuccessfully {
+    return Intl.message(
+      'Shipment add successfully',
+      name: 'shipmentAddSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `External Warehouse: `
+  String get externalWarehouse {
+    return Intl.message(
+      'External Warehouse: ',
+      name: 'externalWarehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `True`
+  String get truee {
+    return Intl.message(
+      'True',
+      name: 'truee',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `False`
+  String get falsee {
+    return Intl.message(
+      'False',
+      name: 'falsee',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Warehouse Info: `
+  String get warehouseInfo {
+    return Intl.message(
+      'Warehouse Info: ',
+      name: 'warehouseInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get back {
+    return Intl.message(
+      'Back',
+      name: 'back',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submit`
+  String get submit {
+    return Intl.message(
+      'Submit',
+      name: 'submit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Distributor`
+  String get distributor {
+    return Intl.message(
+      'Distributor',
+      name: 'distributor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Container / Air waybill Type`
+  String get holderType {
+    return Intl.message(
+      'Container / Air waybill Type',
+      name: 'holderType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vehicle identification number (if vehicle)`
+  String get vehicleNumber {
+    return Intl.message(
+      'Vehicle identification number (if vehicle)',
+      name: 'vehicleNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accepted Shipment`
+  String get acceptedShipment {
+    return Intl.message(
+      'Accepted Shipment',
+      name: 'acceptedShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment Status`
+  String get shipmentStatus {
+    return Intl.message(
+      'Shipment Status',
+      name: 'shipmentStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment Finance`
+  String get shipmentFinance {
+    return Intl.message(
+      'Shipment Finance',
+      name: 'shipmentFinance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show Finance`
+  String get showFinance {
+    return Intl.message(
+      'Show Finance',
+      name: 'showFinance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Measured`
+  String get measured {
+    return Intl.message(
+      'Measured',
+      name: 'measured',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Received`
+  String get received {
+    return Intl.message(
+      'Received',
+      name: 'received',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Waiting Shipment`
+  String get waitingShipment {
+    return Intl.message(
+      'Waiting Shipment',
+      name: 'waitingShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reject`
+  String get reject {
+    return Intl.message(
+      'Reject',
+      name: 'reject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `accept`
+  String get accept {
+    return Intl.message(
+      'accept',
+      name: 'accept',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service Name: `
+  String get serviceName {
+    return Intl.message(
+      'Service Name: ',
+      name: 'serviceName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Travel Finance`
+  String get travelFinance {
+    return Intl.message(
+      'Travel Finance',
+      name: 'travelFinance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Travel Number`
+  String get travelNumber {
+    return Intl.message(
+      'Travel Number',
+      name: 'travelNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Launch Country`
+  String get launchCountry {
+    return Intl.message(
+      'Launch Country',
+      name: 'launchCountry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start Date`
+  String get startDate {
+    return Intl.message(
+      'Start Date',
+      name: 'startDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start Time`
+  String get startTime {
+    return Intl.message(
+      'Start Time',
+      name: 'startTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Destination Country`
+  String get destinationCountry {
+    return Intl.message(
+      'Destination Country',
+      name: 'destinationCountry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Arrival Date`
+  String get arrivalDate {
+    return Intl.message(
+      'Arrival Date',
+      name: 'arrivalDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Arrival Time`
+  String get arrivalTime {
+    return Intl.message(
+      'Arrival Time',
+      name: 'arrivalTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There is problem with your connection , please try again`
+  String get networkError {
+    return Intl.message(
+      'There is problem with your connection , please try again',
+      name: 'networkError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong username or password`
+  String get invalidCredentials {
+    return Intl.message(
+      'Wrong username or password',
+      name: 'invalidCredentials',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data fetched succesfuly`
+  String get statusCodeOk {
+    return Intl.message(
+      'Data fetched succesfuly',
+      name: 'statusCodeOk',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The request has succeeded and a new resource has been created as a result`
+  String get statusCodeCreated {
+    return Intl.message(
+      'The request has succeeded and a new resource has been created as a result',
+      name: 'statusCodeCreated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The server could not understand the request due to invalid syntax`
+  String get statusCodeBadRequest {
+    return Intl.message(
+      'The server could not understand the request due to invalid syntax',
+      name: 'statusCodeBadRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unauthorized`
+  String get statusCodeUnauthorized {
+    return Intl.message(
+      'Unauthorized',
+      name: 'statusCodeUnauthorized',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data not found`
+  String get StatusCodeNotFound {
+    return Intl.message(
+      'Data not found',
+      name: 'StatusCodeNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Internal server error`
+  String get internalServerError {
+    return Intl.message(
+      'Internal server error',
+      name: 'internalServerError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error with Decoding Data`
+  String get dataDecodeError {
+    return Intl.message(
+      'Error with Decoding Data',
+      name: 'dataDecodeError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error Happened`
+  String get errorHappened {
+    return Intl.message(
+      'Error Happened',
+      name: 'errorHappened',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your account has been registered successfully`
+  String get registerSuccess {
+    return Intl.message(
+      'Your account has been registered successfully',
+      name: 'registerSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In External Warehouse`
+  String get inExternalWarehouse {
+    return Intl.message(
+      'In External Warehouse',
+      name: 'inExternalWarehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `In Local Warehouse`
+  String get inLocalWarehouse {
+    return Intl.message(
+      'In Local Warehouse',
+      name: 'inLocalWarehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Air shipment`
+  String get airShipment {
+    return Intl.message(
+      'Air shipment',
+      name: 'airShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sea shipment`
+  String get seaShipment {
+    return Intl.message(
+      'Sea shipment',
+      name: 'seaShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Air travel`
+  String get airTravel {
+    return Intl.message(
+      'Air travel',
+      name: 'airTravel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sea travel`
+  String get seaTravel {
+    return Intl.message(
+      'Sea travel',
+      name: 'seaTravel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Extensional Info`
+  String get extensionalInfo {
+    return Intl.message(
+      'Extensional Info',
+      name: 'extensionalInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Other Data`
+  String get otherData {
+    return Intl.message(
+      'Other Data',
+      name: 'otherData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Users`
+  String get users {
+    return Intl.message(
+      'Users',
+      name: 'users',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Employees`
+  String get employees {
+    return Intl.message(
+      'Employees',
+      name: 'employees',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Started`
+  String get started {
+    return Intl.message(
+      'Started',
+      name: 'started',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current`
+  String get currentt {
+    return Intl.message(
+      'Current',
+      name: 'currentt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dashboard`
+  String get dashboard {
+    return Intl.message(
+      'Dashboard',
+      name: 'dashboard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Basic Info`
+  String get basicInfo {
+    return Intl.message(
+      'Basic Info',
+      name: 'basicInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the Number`
+  String get enterNumber {
+    return Intl.message(
+      'Enter the Number',
+      name: 'enterNumber',
       desc: '',
       args: [],
     );

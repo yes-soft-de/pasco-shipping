@@ -13,46 +13,37 @@
   "confirmPass": "تأكيد كلمة السر",
   "required": "الحقل مطلوب",
   "noAccount": "ليس لديك حساب ؟ إنشاء حساب",
-
-
   "confirm": "تأكيد",
   "resend": "إعادة إرسال",
   "pleaseInputPhoneNumber": "أدخل الرقم",
   "confirmCode": "تأكيد الرمز",
-
   "success": "نجاح!!!",
   "loggedIn": "تم تسجيل الدخول بنجاح",
   "ok": "تم",
-
   "shipment": "الشحنات",
   "myShipment": "شحناتي",
   "newShipmentRequest": "طلب شحنة جديد",
   "profile": "الملف الشخصي",
-  "mark": "العلامات",
+  "marks": "العلامات",
   "home": "الرئيسية",
   "notification": "الإشعارت",
   "directSupport": "دعم مباشر",
   "enterShipmentNumber": "أدخل رقم الشحنة",
-
   "contactInfo": "معلومات التواصل ",
-  "aboutUs":"حول",
+  "aboutUs": "حول",
   "privacy": "سياسة الخصوصية",
   "termOfService": "شروط الخدمة",
   "setting": "الإعدادات",
   "logout": "تسجيل الخروج",
-
-
   "enterMark": "أدخل علامة جديدة",
   "previousMark": "العلامات السابقة",
   "deletePreviousMark": "لا يمكنك حذف العلامات المستخدمة سابقا",
   "myPrevious": "علاماتي السابقة",
-
   "country": "البلد",
   "city": "المدينة",
   "phone": "الهاتف",
   "location": "الموقع",
   "saveInfo": "حفظ المعلومات",
-
   "resultTrack": "نتائج التعقب",
   "trackShipment": "تعقب شحنة",
   "importantNote": "ملاحظة مهمة",
@@ -62,14 +53,12 @@
   "shipmentInfo": "معلومات الشحنة",
   "reviewShipment": "مراجعة الشحنة",
   "nameHere": "لأسم هنا",
-
   "startWriting": "أبدء بالكتابة",
   "language": "اللغة",
   "darkMode": "الوضع الليلي",
   "save": "حفظ",
   "cancel": "إلغاء",
   "fillAllField": "إملئ جميع الحقول",
-
   "requestShipment": "طلب شحنة",
   "shippingType": "نوع الشحن:",
   "sea": "بحري",
@@ -79,8 +68,6 @@
   "productType": "نوع المنتجات:",
   "quantity": "الكمية:",
   "image": "صورة:",
-
-
   "countries": "البلدان",
   "distributors": "الموزعين",
   "proxies": "الوكلاء",
@@ -88,11 +75,174 @@
   "subcontract": "مزودي الخدمة",
   "subcontractService": "الخدمات",
   "service": "الخدمة",
-  "supplier": "الموردين",
+  "suppliers": "الموردين",
   "travel": "الرحلات",
   "units": "الوحدات",
   "view": "عرض الكل",
   "add": "إضافة جديد",
   "addedSuccessfully": "تم إضافة العنصر بنجاح",
-  "description": "الوصف"
+  "description": "الوصف",
+
+  "airwaybillType": "نوع بوليصة الشحن",
+  "LCL": "LCL",
+  "FCL": "FCL",
+  "airwaybillNumber": "رقم بوليصة الشحن: ",
+  "number": "الرقم",
+  "provided": "مُفدمة من",
+  "consignee": "المرسل إليه",
+  "shipper": "الشاحن",
+  "carrier": "الناقل",
+  "specification": "المواصفات",
+  "choose":"اختر",
+
+  "containerType": "نوع الحاوية",
+  "containerNumber":"رقم الحاوية",
+
+  "totalCost":"الكلفة الكلية: ",
+  "nothingAdded": "لا شيء مضاف",
+  "cost": "الكلفة",
+  "details": "التفاصيل",
+  "uploaded": "تحميل",
+  "cleared": "جمركة",
+  "arrived": "تفريغ",
+
+  "airwaybillInformation": "معلومات بوليصة الشحن",
+  "containerInformation": "معلومات الحاوية",
+  "type": "النوع",
+  "RequestedBy": "بطلب من: ",
+  "RequestedAt": "طُلبت في: ",
+
+  "shipmentInformation": "معلومات الشحنات",
+  "noShipmentAdd": "لم يتم إضافة اي شحنة",
+  "notFull": "غير ممتلئة بعد",
+  "full": "ممتلئة",
+  "haveSpace": "مازلت تمتلك بعض المساحة",
+  "noSpace": "ليس لديك أي مساحة",
+
+  "trackNumber": "رقم التعقب: ",
+  "weight": "الوزن: ",
+  "productCategory": "نوع البضائع: ",
+  "targetWarehouse": "المستودع الهدف: ",
+  "exportWarehouse": "مستودع التصدير: ",
+
+  "airwaybillStatus": "حالة بوليصة الشحن",
+  "containerStatus": "حالة الحاوية",
+  "nextStatus": "الحالة التالية",
+  "noChangeStatus": "لا يمكنك تغير الحالة,الحاوية غير ممتلئة بعد",
+  "status": "الحالة",
+
+  "createdAt": "تم الإنشاء في: ",
+  "updatedAt": "تم التحديث في: ",
+  "createdBy": "تم إنشاؤه بواسطة: ",
+  "updatedBy": "تم تحديثه بواسطة: ",
+
+  "stageCost": "تكلفة المرحلة: ",
+
+  "filterBy": "تصنف بواسطة",
+  "airwaybillFinance": "مصاريف بوليصة الشحن",
+  "containerFinance": "مصاريف الحاوية",
+  "airWaybills": "بوليصات الشحن",
+  "containers": "الحاويات",
+
+  "shipmentReview": "مراجعة الشحنة",
+  "supplierInfo": "معلومات المورد: ",
+  "receiverInfo": "معلومات المستقبل: ",
+  "name": "الاسم: ",
+  "unit": "وحدة التغليف: ",
+  "mark": "العلامة: ",
+  "paymentTime": "وقت الدفع: ",
+  "extraSpecification": "تفاصيل إضافية: ",
+
+  "containerSpecification": "خصائص الحاوية",
+  "airwaybillSpecification": "خصائص بوليصة الشحن",
+  "width": "العرض",
+
+  "capacityCPM": "السعه CPM: ",
+  "lengthInMeter": "الطول بالمتر: ",
+  "heightInMeter": "الإرتفاع بالمتر: ",
+  "widthInMeter": "العرض بالمتر",
+
+  "callingCode": "رمز الاتصال: ",
+  "import": "استراد",
+  "export": "تصدير",
+  "countryType": "نمط الدولة: ",
+  "edit": "تعديل",
+  "delete": "حذف",
+
+  "address": "العنوان",
+  "clients": "العملاء",
+  "client": "العميل: ",
+  "subCategory": "فئة فرعية: ",
+  "category": "فئة رئيسية: ",
+
+  "shipmentAddSuccessfully": "تم طلب الشحنة بنجاح",
+
+  "externalWarehouse": "مستودع خارجي: ",
+  "truee": "صح",
+  "falsee": "خطأ",
+  "warehouseInfo": "معلومات المستودع: ",
+  "next": "التالي",
+  "back": "السابق",
+"submit": "تأكيد",
+
+
+  "distributor": "الموزع: ",
+  "holderType": "نوع الحاوية/بوليصة الشحن: ",
+  "vehicleNumber":"رقم  تعريف السيارة",
+
+  "acceptedShipment": "الشحنات المقبولة",
+  "shipmentStatus": "حالة الشحنة",
+  "shipmentFinance": "مصاريف شحنة",
+  "showFinance": "عرض المصاريف",
+  "measured": "القياس",
+  "received": "الإستلام",
+  "waitingShipment": "الشحنات المُنتظرة",
+  "reject": "رفض",
+  "accept": "قبول",
+  "serviceName": "نوع الخدمة",
+  "travelFinance": "مصاريف الرحلة",
+  "travelNumber": "رقم الرحلة",
+
+  "launchCountry": "دولة الإنطلاق",
+  "startDate": "تاريخ البداية",
+  "startTime": "وقت البداية",
+  "destinationCountry": "دولة الوصول",
+  "arrivalDate": "تاريخ الوصول",
+  "arrivalTime": "وقت الوصول",
+
+  "networkError": "هناك مشكلة بالاتصال بالشبكة الرجاء إعادة المحاولة لاحقا",
+  "invalidCredentials": "هناك خطأ في كلمة السر أو اسم المستخدم",
+
+  "statusCodeOk": "تم جلب المعلومات بنجاح",
+  "statusCodeCreated": "نجح الطلب وتم إنشاء تغيير جديد نتيجة لذلك ",
+  "statusCodeBadRequest":"تعذر على الخادم فهم الطلب",
+  "statusCodeUnauthorized":"أنت غير مخول بالقيام بهذا الطلب",
+  "StatusCodeNotFound":"لم يتمكن الخادم من العثور على طلبك",
+
+
+  "internalServerError": "هناك مشكلة ما في الخادم",
+  "dataDecodeError": "هناك مشكلة في تفسير البيانات",
+  "errorHappened": "حدث خطأ ما",
+  "registerSuccess": "تم تسجيل حسابك بنجاح",
+
+  "inExternalWarehouse": "في مستودع خارجي",
+  "inLocalWarehouse": "في مستودع محلي",
+
+  "airShipment": "شحنات جوية",
+  "seaShipment": "شحنات بحرية",
+
+  "airTravel": "رحلات جوية",
+  "seaTravel": "رحلات بحرية",
+  "extensionalInfo": "معلومات موسعة",
+  "otherData": "معلومات اخرى",
+  "users": "المستخدمين",
+  "employees": "الموظفيين",
+
+  "started": "المنطلقة",
+  "currentt": "الحالية",
+  "dashboard": "لوحة التحكم",
+  "travels": "الرحلات",
+  "basicInfo": "معلومات اساسية",
+  "warehouses": "المستودعات"
+
 }

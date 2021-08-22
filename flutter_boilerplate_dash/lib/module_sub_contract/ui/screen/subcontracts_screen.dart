@@ -30,7 +30,7 @@ class _CountriesScreenState extends State<SubcontractScreen> {
         goBack: (){
         },
         child: Screen(),
-        title: S.of(context).subcontracts
+        title: S.of(context).subcontract
     );
   }
 

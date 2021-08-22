@@ -28,7 +28,7 @@
   "myShipment": "My\n Shipments",
   "newShipmentRequest": "Request a new\n shipment",
   "profile": "Profile",
-  "mark": "Marks",
+  "marks": "Marks",
   "home": "Home",
   "notification": "Notification",
   "directSupport": "Direct support",
@@ -47,9 +47,9 @@
   "myPrevious": "My Previous",
 
   "country": "Country",
-  "city": "city",
-  "phone": "phone",
-  "location": "location",
+  "city": "City",
+  "phone": "Phone",
+  "location": "Location",
   "saveInfo": "Save Information",
 
   "resultTrack": "Result tracking",
@@ -67,7 +67,7 @@
   "startWriting": "start writing",
   "language": "language",
   "darkMode": "dark mode",
-  "save": "save",
+  "save": "Save",
   "cancel": "cancel",
   "fillAllField": "fill all filed",
 
@@ -76,17 +76,17 @@
   "shippingType": "Shipping type:",
   "sea": "Sea",
   "air": "Air",
-  "shippingFrom": "Shipping from:",
-  "shippingTo": "Shipping to:",
-  "productType": "Product type:",
-  "quantity": "Quantity:",
+  "shippingFrom": "Shipping from: ",
+  "shippingTo": "Shipping to: ",
+  "productType": "Product type: ",
+  "quantity": "Quantity: ",
   "image": "Image:",
 
   "countries": "Countries",
   "distributors": "Distributors",
   "proxies": "Proxies",
   "warehouses": "Warehouse",
-  "subcontracts": "Subcontract",
+  "subcontract": "Subcontract",
   "subcontractService": "Subcontract Services",
   "service": "Service",
   "suppliers": "Supplier",
@@ -95,8 +95,171 @@
   "view": "View all",
   "add": "Add new",
   "addedSuccessfully": "Item added successfully",
-  "description": "Description"
+  "description": "Description: ",
+
+  "airwaybillType": "Air Waybill Type",
+  "LCL": "LCL",
+  "FCL": "FCL",
+  "airwaybillNumber": "Air Waybill Number",
+  "number": "number",
+  "provided": "Provided by",
+  "consignee": "Consignee",
+  "shipper": "Shipper",
+  "carrier": "Carrier",
+  "specification": "Specification",
+  "choose":"choose",
+
+  "containerType": "Container Type",
+  "containerNumber":"Container Number",
 
 
+  "totalCost":"Total Cost: ",
+  "nothingAdded": "Nothing Added",
+  "cost": "Cost",
+  "details": "Details",
+  "uploaded": "Uploaded",
+  "cleared": "Cleared",
+  "arrived": "Arrived",
+
+  "airwaybillInformation": "Air Waybill Information",
+  "containerInformation": "Container Information",
+  "type": "Type",
+  "RequestedBy": "Requested by",
+  "RequestedAt": "Requested at",
+
+  "shipmentInformation": "Shipment Information",
+  "noShipmentAdd": "No shipment has been added",
+  "notFull": "Not full yet",
+  "full": "Full",
+  "haveSpace": "You still have some space",
+  "noSpace": "You don't have any space",
+
+  "trackNumber": "Track Number: ",
+  "weight": "Weight: ",
+  "productCategory": "Product Category: ",
+  "targetWarehouse": "Target Warehouse : ",
+  "exportWarehouse": "Export Warehouse : ",
+
+  "airwaybillStatus": "Air Waybill Status",
+  "containerStatus": "Container Status",
+  "nextStatus": "Next Status",
+  "noChangeStatus": "You cannot change the state, the container is not full",
+
+  "status": "Status",
+
+  "createdAt": "Created At: ",
+  "updatedAt": "Updated At: ",
+  "createdBy": "Created By: ",
+  "updatedBy": "Updated By: ",
+
+  "stageCost": "Stage Cost: ",
+
+  "filterBy": "Filter By",
+  "airwaybillFinance": "Air Waybill Finances",
+  "containerFinance": "Container Finances",
+  "airWaybills": "Air Waybills",
+  "containers": "Containers",
+
+  "shipmentReview": "Shipment Review",
+  "supplierInfo": "Supplier Info: ",
+  "receiverInfo": "Receiver Info: ",
+  "name": "Name: ",
+  "unit": "Unit: ",
+  "mark": "Mark: ",
+  "paymentTime": "Payment time: ",
+  "extraSpecification": "Extra specification: ",
+
+  "containerSpecification": "Container Specification",
+  "airwaybillSpecification": "Air waybill Specification",
+  "width": "Width",
+
+  "capacityCPM": "Capacity CPM: ",
+  "lengthInMeter": "Length In Meter: ",
+  "heightInMeter": "Height In Meter: ",
+  "widthInMeter": "Width In Meter: ",
+
+  "callingCode": "Calling code: ",
+  "import": "Import",
+  "export": "Export",
+  "countryType": "Country Type: ",
+  "edit": "Edit",
+  "delete": "Delete",
+
+  "address": "Address",
+  "clients": "Clients",
+  "client": "Client: ",
+  "subCategory": "Sub Category",
+  "category": "Category",
+
+  "shipmentAddSuccessfully": "Shipment add successfully",
+
+  "externalWarehouse": "External Warehouse: ",
+  "truee": "True",
+  "falsee": "False",
+  "warehouseInfo": "Warehouse Info: ",
+  "next": "Next",
+  "back": "Back",
+  "submit": "Submit",
+
+
+  "distributor": "Distributor",
+  "holderType": "Container / Air waybill Type",
+  "vehicleNumber":"Vehicle identification number (if vehicle)",
+
+  "acceptedShipment": "Accepted Shipment",
+  "shipmentStatus":"Shipment Status",
+  "shipmentFinance": "Shipment Finance",
+  "showFinance": "Show Finance",
+  "measured": "Measured",
+  "received": "Received",
+  "waitingShipment": "Waiting Shipment",
+  "reject": "Reject",
+  "accept": "accept",
+
+  "serviceName": "Service Name: ",
+  "travelFinance": "Travel Finance",
+  "travelNumber": "Travel Number",
+
+  "launchCountry": "Launch Country",
+  "startDate": "Start Date",
+  "startTime": "Start Time",
+  "destinationCountry": "Destination Country",
+  "arrivalDate": "Arrival Date",
+  "arrivalTime": "Arrival Time",
+
+
+  "networkError": "There is problem with your connection , please try again",
+  "invalidCredentials": "Wrong username or password",
+
+
+  "statusCodeOk": "Data fetched succesfuly",
+  "statusCodeCreated": "The request has succeeded and a new resource has been created as a result",
+  "statusCodeBadRequest":"The server could not understand the request due to invalid syntax",
+  "statusCodeUnauthorized":"Unauthorized",
+  "StatusCodeNotFound":"Data not found",
+
+  "internalServerError": "Internal server error",
+  "dataDecodeError": "Error with Decoding Data",
+  "errorHappened": "Error Happened",
+  "registerSuccess": "Your account has been registered successfully",
+
+  "inExternalWarehouse": "In External Warehouse",
+  "inLocalWarehouse": "In Local Warehouse",
+
+  "airShipment": "Air shipment",
+  "seaShipment": "Sea shipment",
+
+  "airTravel": "Air travel",
+  "seaTravel": "Sea travel",
+  "extensionalInfo": "Extensional Info",
+  "otherData": "Other Data",
+  "users": "Users",
+  "employees": "Employees",
+
+  "started": "Started",
+  "currentt": "Current",
+  "dashboard": "Dashboard",
+  "basicInfo": "Basic Info",
+  "enterNumber": "Enter the Number"
 
 }

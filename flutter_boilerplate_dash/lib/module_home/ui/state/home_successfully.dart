@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_home/response/home_response.dart';
 import 'package:pasco_shipping/module_home/ui/widget/chip_card.dart';
 import 'package:pasco_shipping/module_shipment_track/ui/widget/search_card.dart';

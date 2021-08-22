@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_distributors/response/distributors_response.dart';
 import 'package:pasco_shipping/module_home/home_routes.dart';
@@ -104,7 +105,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Mark: ',
+            S.of(context).mark,
             style: AppTextStyle.mediumBlackBold,
           ),
           Row(
@@ -133,7 +134,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
           ),
 
           Text(
-            'Distributor name : ',
+            S.of(context).distributor,
             style: AppTextStyle.mediumBlackBold,
           ),
           SelectDropList(
@@ -151,7 +152,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
           ),
 
           Text(
-            'Payment time : ',
+            S.of(context).paymentTime,
             style: AppTextStyle.mediumBlackBold,
           ),
           SelectDropList(
@@ -167,7 +168,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
             height: 15,
           ),
           Text(
-            'Holder type : ',
+            S.of(context).holderType,
             style: AppTextStyle.mediumBlackBold,
           ),
           SelectDropList(
@@ -188,7 +189,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Vehicle identification number (if vehicle)',
+                  S.of(context).vehicleNumber,
                   style: white18text,
                 ),
                 TextEdit(vehicle, 50, (number) {
@@ -202,7 +203,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
             height: 20,
           ),
           Text(
-            'Extra specifications',
+            S.of(context).extraSpecification,
             style: AppTextStyle.mediumBlackBold,
           ),
           TextEdit(extra, 200, (extra) {
@@ -212,7 +213,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
             padding: const EdgeInsetsDirectional.only(start: 25, end: 25),
             child: RoundedButton(
               radius: 15,
-              lable: 'Request',
+              lable: S.of(context).requestShipment,
               icon: '',
               color: Theme.of(context).accentColor,
               go: () {
@@ -234,7 +235,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
                         onPressed: () {
                           widget.goBackStep();
                         },
-                        label: Text('Back'),
+                        label: Text(S.of(context).back),
                         icon: Icon(
                           Icons.arrow_back,
                         ),

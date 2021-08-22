@@ -30,7 +30,7 @@ class _CountriesScreenState extends State<ProductScreen> {
         goBack: (){
         },
         child: Screen(),
-        title: 'Products'
+        title: S.of(context).category
     );
   }
 

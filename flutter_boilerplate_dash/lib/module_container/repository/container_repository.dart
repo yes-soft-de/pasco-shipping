@@ -26,7 +26,7 @@ class ContainerRepository{
 
   Future<ConfirmResponse?> requestContainer(ContainerRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.CONTAINER, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -41,7 +41,7 @@ class ContainerRepository{
 
   Future<ConfirmResponse?> deleteContainer(String id) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
     var response = await _apiClient.delete(Urls.CONTAINER+'/'+id,
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode =ContainerResponse.fromJson(response!).statusCode;
@@ -56,7 +56,7 @@ class ContainerRepository{
 
   Future<ContainerDetailsModel?> getContainerDetails(String id) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.CONTAINER + '/' + id,
           headers: {'Authorization': 'Bearer $token'});
@@ -72,7 +72,7 @@ class ContainerRepository{
 
   Future<List<ContainerModel>?> getContainerWithFilter(ContainerFilterRequest filters) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.post(Urls.CONTAINER_FILTER,filters.toJson(),
           headers: {'Authorization': 'Bearer $token'});
@@ -90,7 +90,7 @@ class ContainerRepository{
 
   Future<ConfirmResponse?> updateContainerStatus(ContainerChangeStateRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.put(Urls.CONTAINER_STATUS, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -106,7 +106,7 @@ class ContainerRepository{
 
   Future<ConfirmResponse?> uploadedContainerToTravel(AddContainerToTravelRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.put(Urls.UPLOADED_CONTAINER_TO_TRAVEL, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -120,7 +120,7 @@ class ContainerRepository{
   }
   Future<Data?> getContainerFinance(ContainerFilterFinanceRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.post(Urls.GET_Container_FINANCE,request.toJson(),
           headers: {'Authorization': 'Bearer $token'});
@@ -136,7 +136,7 @@ class ContainerRepository{
 
   Future<ConfirmResponse?> createContainerFinance(ContainerAddFinanceRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.ADD_Container_FINANCE, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});

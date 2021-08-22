@@ -18,7 +18,7 @@ class SupplierRepository{
 
   Future<List<SupplierModel>?> getSuppliers() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.SUPPLIERS,
           headers: {'Authorization': 'Bearer $token'});
@@ -32,7 +32,7 @@ class SupplierRepository{
 
   Future<ConfirmResponse?> createSupplier(SupplierRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.SUPPLIER, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -47,7 +47,7 @@ class SupplierRepository{
 
   Future<ConfirmResponse?> deleteSupplier(String id) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
     var response = await _apiClient.delete(Urls.SUPPLIER+'/'+id,
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = SupplierResponse.fromJson(response!).statusCode;
@@ -61,7 +61,7 @@ class SupplierRepository{
 
   Future<ConfirmResponse?> updateSupplier(SupplierRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.put(Urls.SUPPLIER, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});

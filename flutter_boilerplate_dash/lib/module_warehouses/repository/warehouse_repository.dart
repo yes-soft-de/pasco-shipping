@@ -21,7 +21,7 @@ class WarehousesRepository{
 
   Future<List<WarehousesModel>?> getWarehouses() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token = await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.GET_WAREHOUSES,
           headers: {'Authorization': 'Bearer $token'});
@@ -35,7 +35,7 @@ class WarehousesRepository{
 
   Future<ConfirmResponse?> createWarehouses(WarehouseRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.WAREHOUSE, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -50,7 +50,7 @@ class WarehousesRepository{
 
   Future<ConfirmResponse?> deleteWarehouses(String id) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token =await _authService.getToken();
     var response = await _apiClient.delete(Urls.WAREHOUSE+'/'+id,
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = WarehouseResponse.fromJson(response!).statusCode;
@@ -64,7 +64,7 @@ class WarehousesRepository{
 
   Future<ConfirmResponse?> updateWarehouses(WarehouseRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.put(Urls.WAREHOUSE, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
@@ -80,7 +80,7 @@ class WarehousesRepository{
 
   Future<List<WarehouseFinanceModel>?> getWarehouseFinance(WarehouseFilterFinanceRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.post(Urls.GET_WAREHOUSES_FINANCE,request.toJson(),
           headers: {'Authorization': 'Bearer $token'});
@@ -100,7 +100,7 @@ class WarehousesRepository{
 
   Future<ConfirmResponse?> createWarehouseFinance(WarehouseAddFinanceRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.ADD_WAREHOUSE_FINANCE, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});

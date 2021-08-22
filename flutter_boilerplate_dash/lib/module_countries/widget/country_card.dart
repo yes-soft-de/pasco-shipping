@@ -68,7 +68,7 @@ class _CountryCardState extends State<CountryCard> {
                   Row(
                     children: [
                       Text(
-                        'Country type: ',
+                        S.of(context).countryType,
                         style: AppTextStyle.mediumBlack,
                       ),
                       widget.isEdtiable ? Container(
@@ -85,7 +85,7 @@ class _CountryCardState extends State<CountryCard> {
                   Row(
                     children: [
                       Text(
-                        'Calling code: ',
+                        S.of(context).callingCode,
                         style: AppTextStyle.mediumBlack,
                       ),
                       widget.isEdtiable ? Container(
@@ -102,7 +102,7 @@ class _CountryCardState extends State<CountryCard> {
                   Row(
                     children: [
                       Text(
-                        'Created By ',
+                       S.of(context).createdBy,
                         style: AppTextStyle.mediumBlack,
                       ),
                       Text(
@@ -117,7 +117,7 @@ class _CountryCardState extends State<CountryCard> {
                   Row(
                     children: [
                       Text(
-                        'Created At ',
+                        S.of(context).createdAt,
                         style: AppTextStyle.mediumBlack,
                       ),
                       Text(
@@ -132,7 +132,7 @@ class _CountryCardState extends State<CountryCard> {
                   Row(
                     children: [
                       Text(
-                        'Updated By ',
+                        S.of(context).updatedBy,
                         style: AppTextStyle.mediumBlack,
                       ),
                       Text(
@@ -147,7 +147,7 @@ class _CountryCardState extends State<CountryCard> {
                   Row(
                     children: [
                       Text(
-                        'Updated At ',
+                        S.of(context).updatedAt,
                         style: AppTextStyle.mediumBlack,
                       ),
                       Text(
@@ -177,7 +177,7 @@ class _CountryCardState extends State<CountryCard> {
                           width: 5,
                         ),
                         Text(
-                          'delete',
+                          S.of(context).delete,
                           style: AppTextStyle.mediumWhite,
                         ),
                       ],
@@ -208,7 +208,7 @@ class _CountryCardState extends State<CountryCard> {
                             width: 5,
                           ),
                           Text(
-                            'save',
+                            S.of(context).save,
                             style: AppTextStyle.mediumWhite,
                           ),
                         ],
@@ -232,7 +232,7 @@ class _CountryCardState extends State<CountryCard> {
                             width: 5,
                           ),
                           Text(
-                            'edit',
+                           S.of(context).edit,
                             style: AppTextStyle.mediumWhite,
                           ),
                         ],

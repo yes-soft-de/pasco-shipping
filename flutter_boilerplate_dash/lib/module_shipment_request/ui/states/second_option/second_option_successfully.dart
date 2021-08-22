@@ -101,7 +101,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Supplier Info : ',
+          S.of(context).supplierInfo,
           style: AppTextStyle.mediumBlackBold,
         ),
         TextEdit(supplierName, 50, (supplierName) {
@@ -111,7 +111,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
           height: 25,
         ),
         Text(
-          'Receiver Info : ',
+          S.of(context).receiverInfo,
           style: AppTextStyle.mediumBlackBold,
         ),
         TextEdit(receiverName, 50, (receiverName) {
@@ -124,7 +124,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
           height: 15,
         ),
         Text(
-          'Unit : ',
+          S.of(context).unit,
           style: AppTextStyle.mediumBlackBold,
         ),
         SelectDropList(
@@ -140,7 +140,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
           height: 15,
         ),
         Text(
-          'Client: ',
+          S.of(context).client,
           style: AppTextStyle.mediumBlackBold,
         ),
         Row(
@@ -180,7 +180,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                           onPressed: () {
                             widget.goBackStep();
                           },
-                          label: Text('Back'),
+                          label: Text(S.of(context).back),
                           icon: Icon(
                             Icons.arrow_back,
                           ),
@@ -200,7 +200,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                   icon: Icon(
                     Icons.arrow_forward_outlined,
                   ),
-                  label: Text('Continue'),
+                  label: Text(S.of(context).next),
                 )),
           ],
         )

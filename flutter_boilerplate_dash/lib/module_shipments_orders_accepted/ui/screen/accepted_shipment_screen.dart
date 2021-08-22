@@ -39,7 +39,7 @@ class _CountriesScreenState extends State<AcceptedShipmentScreen> {
           });
         },
         child: Screen(),
-        title: 'Accepted Shipment'
+        title: S.of(context).acceptedShipment
     );
   }
 

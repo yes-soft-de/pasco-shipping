@@ -27,7 +27,7 @@ class AcceptedShipmentRepository{
 
   Future<List<AcceptedShipmentModel>?> getAcceptedShipment(AcceptedShipmentFilterRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.post(Urls.ACCEPTED_SHIPMENTS, request.toJson()
           ,headers: {'Authorization': 'Bearer $token'});
@@ -48,7 +48,7 @@ class AcceptedShipmentRepository{
 
   Future<AcceptedShipmentDetailsModel?> getShipmentDetails(String id) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.ACCEPTED_SHIPMENTS_DETAILS + '/' + id,
           headers: {'Authorization': 'Bearer $token'});
@@ -63,7 +63,7 @@ class AcceptedShipmentRepository{
 
   Future<List<AcceptedShipmentStatusModel>?> getAcceptedShipmentStatus(String id ,String trackNumber) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.ACCEPTED_SHIPMENTS_STATUS + '/'+ id+'/'+trackNumber,headers: {'Authorization': 'Bearer $token'});
 
@@ -82,7 +82,7 @@ class AcceptedShipmentRepository{
   }
   Future<List<WarehouseModel>?> getWarehouses(String cityName) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token = await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.WAREHOUSES ,headers: {'Authorization': 'Bearer $token'});
 
@@ -108,7 +108,7 @@ class AcceptedShipmentRepository{
 
   Future<ConfirmResponse?> recivedOrDeliverdShipment(ReceivedOrDeliveredRequest request) async{
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.put(Urls.CHANGE_SHIPMENTS_STATUS_RECEIVED, request.toJson()
           ,headers: {'Authorization': 'Bearer $token'});
@@ -128,7 +128,7 @@ class AcceptedShipmentRepository{
 
   Future<ConfirmResponse?> measuredShipment(MeasuredRequest request) async{
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.put(Urls.ACCEPTED_SHIPMENTS_DETAILS, request.toJson()
           ,headers: {'Authorization': 'Bearer $token'});
@@ -148,7 +148,7 @@ class AcceptedShipmentRepository{
 
   Future<ConfirmResponse?> storedShipment(StoredRequest request) async{
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.post(Urls.STORED_SHIPMENT, request.toJson()
           ,headers: {'Authorization': 'Bearer $token'});
@@ -170,7 +170,7 @@ class AcceptedShipmentRepository{
 
   Future<DataFinance?> getShipmentFinance(ShipmentFilterFinanceRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.post(Urls.GET_SHIPMENT_FINANCE,request.toJson()
         ,  headers: {'Authorization': 'Bearer $token'});
@@ -184,7 +184,7 @@ class AcceptedShipmentRepository{
 
   Future<ConfirmResponse?> createShipmentFinance(ShipmentFinanceRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.ADD_SHIPMENT_FINANCE, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});

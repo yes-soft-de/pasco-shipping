@@ -18,7 +18,7 @@ class AirwaybillSpecificationRepository{
 
   Future<List<AirwaybillSpecificationModel>?> getAirwaybillSpecification() async {
     // await _authService.refreshToken();
-    var token = Urls.token; // await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.AIRWABILL_SPECIFICATIONS,
           headers: {'Authorization': 'Bearer $token'});
@@ -32,7 +32,7 @@ class AirwaybillSpecificationRepository{
 
   Future<ConfirmResponse?> createAirwaybillSpecification(AirwaybillSpecificationRequest request) async {
     // await _authService.refreshToken();
-    var token = Urls.token;  //await _authService.getToken();
+    var token = await _authService.getToken();
 
     var response = await _apiClient.post(Urls.AIRWABILL_SPECIFICATION, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
