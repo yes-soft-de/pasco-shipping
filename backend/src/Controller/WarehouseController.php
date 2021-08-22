@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\DeleteRequest;
 use App\Request\WarehouseCreateRequest;
+use App\Request\WarehouseFilterRequest;
 use App\Request\WarehouseUpdateRequest;
 use App\Service\WarehouseService;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -199,6 +200,70 @@ class WarehouseController extends BaseController
     public function getAllWarehouses()
     {
         $result = $this->warehouseService->getAllWarehouses();
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("filterwarehouses", name="filterWarehouses", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Warehouse")
+     *
+     * @OA\RequestBody(
+     *      description="filtering options",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="typeOfCountry"),
+     *          @OA\Property(type="string", property="cityName")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the warehouse",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="name"),
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="countryName"),
+     *                  @OA\Property(type="string", property="city"),
+     *                  @OA\Property(type="string", property="location"),
+     *                  @OA\Property(type="number", property="rentingFee"),
+     *                  @OA\Property(type="string", property="proxyName"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage")
+     *              )
+     *         )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function filterWarehouses(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, WarehouseFilterRequest::class, (object)$data);
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->warehouseService->filterWarehouses($request);
 
         return $this->response($result, self::FETCH);
     }

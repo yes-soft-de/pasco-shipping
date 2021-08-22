@@ -41,8 +41,17 @@ class TravelFinanceManager
     public function filterTravelFinances(TravelFinanceFilterRequest $request)
     {
         $travelFinances['travelFinances'] = $this->travelFinanceEntityRepository->filterTravelFinances($request->getTravelID(), $request->getStatus());
-        
-        $travelFinances['currentTotalCost'] = $this->getCurrentTotalCostByFilterOptions($request->getTravelID(), $request->getStatus())['currentTotalCost'];
+
+        $currentTotalCost = $this->getCurrentTotalCostByFilterOptions($request->getTravelID(), $request->getStatus())['currentTotalCost'];
+
+        if($currentTotalCost)
+        {
+            $travelFinances['currentTotalCost'] = $currentTotalCost;
+        }
+        else
+        {
+            $travelFinances['currentTotalCost'] = 0;
+        }
 
         return $travelFinances;
     }

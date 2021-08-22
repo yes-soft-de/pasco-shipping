@@ -7,6 +7,7 @@ use App\Entity\DistributorEntity;
 use App\Entity\OrderShipmentEntity;
 use App\Entity\ProductCategoryEntity;
 use App\Entity\ShipmentStatusEntity;
+use App\Entity\SubProductCategoryEntity;
 use App\Entity\TrackEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\TravelEntity;
@@ -66,7 +67,7 @@ class TrackEntityRepository extends ServiceEntityRepository
             "orderShipmentEntity.quantity", "orderShipmentEntity.image", "orderShipmentEntity.createdAt as orderCreationDate", "orderShipmentEntity.isExternalWarehouse", "orderShipmentEntity.updatedAt as orderUpdatingDate", "orderShipmentEntity.productCategoryID", 
             "orderShipmentEntity.unit", "orderShipmentEntity.receiverName", "orderShipmentEntity.receiverPhoneNumber", "orderShipmentEntity.markID", "orderShipmentEntity.packetingBy", "orderShipmentEntity.externalWarehouseInfo", "orderShipmentEntity.paymentTime",
             "orderShipmentEntity.weight", "orderShipmentEntity.qrCode", "orderShipmentEntity.guniQuantity", "orderShipmentEntity.updatedBy as orderUpdatedByUser", "orderShipmentEntity.vehicleIdentificationNumber", "orderShipmentEntity.extraSpecification",
-             "travelEntity.status as travelStatus")
+             "travelEntity.status as travelStatus", "subProductCategory.name as subProductCategoryName", "exportWarehouseEntity.name as exportWarehouseName", "importWarehouseEntity.name as importWarehouseName", "productCategoryEntity.name as productCategoryName")
 
             ->leftJoin(
                 ShipmentStatusEntity::class,
@@ -87,6 +88,34 @@ class TrackEntityRepository extends ServiceEntityRepository
                 'travelEntity',
                 Join::WITH,
                 'travelEntity.id = track.travelID'
+            )
+
+            ->leftJoin(
+                SubProductCategoryEntity::class,
+                'subProductCategory',
+                Join::WITH,
+                'subProductCategory.id = orderShipmentEntity.productCategoryID'
+            )
+
+            ->leftJoin(
+                ProductCategoryEntity::class,
+                'productCategoryEntity',
+                Join::WITH,
+                'productCategoryEntity.id = subProductCategory.productCategoryID'
+            )
+
+            ->leftJoin(
+                WarehouseEntity::class,
+                'exportWarehouseEntity',
+                Join::WITH,
+                'exportWarehouseEntity.id = orderShipmentEntity.exportWarehouseID'
+            )
+
+            ->leftJoin(
+                WarehouseEntity::class,
+                'importWarehouseEntity',
+                Join::WITH,
+                'importWarehouseEntity.id = orderShipmentEntity.importWarehouseID'
             )
 
             ->andWhere('track.holderID = :holderID')
