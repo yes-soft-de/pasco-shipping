@@ -205,8 +205,18 @@ class ShipmentOrderManager
 
     public function filterWaitingShipmentsOrders(ShipmentWaitingFilterRequest $request)
     {
-        return $this->orderShipmentEntityRepository->filterWaitingShipmentsOrders($request->getTransportationType(), $request->getIsExternalWarehouse(), $request->getExportWarehouseID(), 
+        $shipments = $this->orderShipmentEntityRepository->filterWaitingShipmentsOrders($request->getTransportationType(), $request->getIsExternalWarehouse(), $request->getExportWarehouseID(),
         $request->getPaymentTime());
+
+        if($shipments)
+        {
+            foreach ($shipments as $key=>$val)
+            {
+                $shipments[$key]['images'] = $this->imageManager->getImagesByShipmentID($val['id']);
+            }
+        }
+
+        return $shipments;
     }
 
     public function filterAcceptedShipments(ShipmentFilterRequest $request)
