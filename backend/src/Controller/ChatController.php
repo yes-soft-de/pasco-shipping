@@ -31,7 +31,7 @@ class ChatController extends BaseController
     }
 
     /**
-     * @Route("/chat", name="createChatWithAdministration", methods={"POST"})
+     * @Route("chat", name="createChatWithAdministration", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      * 
@@ -42,6 +42,14 @@ class ChatController extends BaseController
      *      in="header",
      *      description="token to be passed as a header",
      *      required=true 
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Creates a new chat with administration",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="title"),
+     *          @OA\Property(type="string", property="description")
+     *      )
      * )
      * 
      * @OA\Response(
@@ -105,8 +113,8 @@ class ChatController extends BaseController
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="roomID"),
-     *                  @OA\Property(type="string", property="username"),
-     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="title"),
+     *                  @OA\Property(type="string", property="description"),
      *                  @OA\Property(type="object", property="createdAt")
      *              )
      *          )
@@ -123,7 +131,7 @@ class ChatController extends BaseController
     }
 
     /**
-     * @Route("/deleteallchats", name="deleteAllChats", methods={"DELETE"})
+     * @Route("deleteallchats", name="deleteAllChats", methods={"DELETE"})
      */
     public function deleteAllChats()
     {

@@ -48,9 +48,19 @@ class ChatService
 
     public function getChatByUser($userID)
     {
-        $chat = $this->chatManager->getChatByUser($userID);
+        $chatResponse = [];
 
-        return $this->autoMapping->map('array', ChatGetResponse::class, $chat);
+        $chats = $this->chatManager->getChatByUser($userID);
+
+        if ($chats)
+        {
+            foreach ($chats as $chat)
+            {
+                $chatResponse[] = $this->autoMapping->map('array', ChatGetResponse::class, $chat);
+            }
+        }
+
+        return $chatResponse;
     }
 
     public function deleteAllChats()
