@@ -217,24 +217,24 @@ class TrackManager
 
         $tracks = $this->trackEntityRepository->getTracksByTravelID($travelID);
         
-        // Get the containers/airwaybills information
-        if($tracks)
+        // Get the containers/air waybills information
+        if(isset($tracks))
         {
             // Call getUniqueHolders function to only get unique holders
-            $holders = $this->getUniqueHolders($holders, $tracks);
-            
+            $holders = $this->getUniqueHolders($tracks);
+
             foreach($holders as $key=>$val)
-            {  
-                if($holders[$key]['holderType'] == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
+            {
+                if($val['holderType'] == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
                 {
-                    $holders[$key] = array_merge($holders[$key], $this->containerManager->getContainerById($holders[$key]['holderID']));
+                    $holders[$key] = array_merge($val, $this->containerManager->getContainerById($holders[$key]['holderID']));
 
                     // Get the shipments stored in the container
                     $holders[$key]['shipments'] = $this->trackEntityRepository->getByHolderTypeAndHolderID($holders[$key]['holderType'], $holders[$key]['holderID']);
                 }
-                if($holders[$key]['holderType'] == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
+                if($val['holderType'] == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
                 {
-                    $holders[$key] = array_merge($holders[$key], $this->airwaybillManager->getAirwaybillById($holders[$key]['holderID']));
+                    $holders[$key] = array_merge($val, $this->airwaybillManager->getAirwaybillById($holders[$key]['holderID']));
 
                     // Get the shipments stored in the air waybill
                     $holders[$key]['shipments'] = $this->trackEntityRepository->getByHolderTypeAndHolderID($holders[$key]['holderType'], $holders[$key]['holderID']);
@@ -245,13 +245,15 @@ class TrackManager
         return $holders;
     }
 
-    public function getUniqueHolders($holders, $tracks)
+    public function getUniqueHolders($tracks)
     {
+        $holders = [];
+
         if($tracks)
         {
             foreach ($tracks as $key=>$val)
             {
-                if(!$holders)
+                if(empty($holders))
                 {
                     // added first holder
                     $holders[$key]['holderType'] = $val['holderType'];
