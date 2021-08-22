@@ -12,6 +12,7 @@
         "doctrine/orm": "^2.7",
         "gedmo/doctrine-extensions": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
+        "kreait/firebase-bundle": "^2.4",
         "league/flysystem": "2.0",
         "lexik/jwt-authentication-bundle": "^2.8",
         "liip/imagine-bundle": "2.x-dev",

@@ -108,11 +108,29 @@
     "egulias/email-validator": {
         "version": "2.1.25"
     },
+    "fig/http-message-util": {
+        "version": "1.1.5"
+    },
+    "firebase/php-jwt": {
+        "version": "v5.4.0"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
     },
     "gedmo/doctrine-extensions": {
         "version": "v3.0.3"
+    },
+    "google/auth": {
+        "version": "v1.17.0"
+    },
+    "google/cloud-core": {
+        "version": "v1.42.2"
+    },
+    "google/cloud-storage": {
+        "version": "v1.24.1"
+    },
+    "google/crc32": {
+        "version": "v0.1.0"
     },
     "guzzlehttp/guzzle": {
         "version": "7.2.0"
@@ -125,6 +143,18 @@
     },
     "imagine/imagine": {
         "version": "1.2.4"
+    },
+    "kreait/clock": {
+        "version": "1.1.0"
+    },
+    "kreait/firebase-bundle": {
+        "version": "2.4.0"
+    },
+    "kreait/firebase-php": {
+        "version": "5.22.0"
+    },
+    "kreait/firebase-tokens": {
+        "version": "1.16.0"
     },
     "laminas/laminas-code": {
         "version": "4.0.0"
@@ -177,6 +207,12 @@
     },
     "mark-gerarts/automapper-plus-bundle": {
         "version": "1.3.0"
+    },
+    "monolog/monolog": {
+        "version": "2.3.2"
+    },
+    "mtdowling/jmespath.php": {
+        "version": "2.6.1"
     },
     "namshi/jose": {
         "version": "7.2.3"
@@ -253,8 +289,17 @@
     "psr/log": {
         "version": "1.1.3"
     },
+    "psr/simple-cache": {
+        "version": "1.0.1"
+    },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
+    },
+    "riverline/multipart-parser": {
+        "version": "2.0.8"
+    },
+    "rize/uri-template": {
+        "version": "0.3.3"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
