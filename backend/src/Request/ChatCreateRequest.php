@@ -8,6 +8,10 @@ class ChatCreateRequest
 
     private $userOneID;
 
+    private $title;
+
+    private $description;
+
     public function setRoomID($roomID)
     {
         $this->roomID = $roomID;

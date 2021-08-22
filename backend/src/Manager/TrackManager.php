@@ -218,7 +218,7 @@ class TrackManager
         $tracks = $this->trackEntityRepository->getTracksByTravelID($travelID);
         
         // Get the containers/air waybills information
-        if(isset($tracks))
+        if($tracks)
         {
             // Call getUniqueHolders function to only get unique holders
             $holders = $this->getUniqueHolders($tracks);
@@ -227,14 +227,30 @@ class TrackManager
             {
                 if($val['holderType'] == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
                 {
-                    $holders[$key] = array_merge($val, $this->containerManager->getContainerById($holders[$key]['holderID']));
+                    // Get container info and added them to the holder record
+                    $container = $this->containerManager->getContainerById($holders[$key]['holderID']);
+                    if($container)
+                    {
+                        foreach ($container as $index=>$value)
+                        {
+                            $holders[$key][$index] = $value;
+                        }
+                    }
 
                     // Get the shipments stored in the container
                     $holders[$key]['shipments'] = $this->trackEntityRepository->getByHolderTypeAndHolderID($holders[$key]['holderType'], $holders[$key]['holderID']);
                 }
                 if($val['holderType'] == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
                 {
-                    $holders[$key] = array_merge($val, $this->airwaybillManager->getAirwaybillById($holders[$key]['holderID']));
+                    // Get air waybill info and added them to the holder record
+                    $airwaybill = $this->airwaybillManager->getAirwaybillById($holders[$key]['holderID']);
+                    if($airwaybill)
+                    {
+                        foreach ($airwaybill as $index=>$value)
+                        {
+                            $holders[$key][$index] = $value;
+                        }
+                    }
 
                     // Get the shipments stored in the air waybill
                     $holders[$key]['shipments'] = $this->trackEntityRepository->getByHolderTypeAndHolderID($holders[$key]['holderType'], $holders[$key]['holderID']);
@@ -251,27 +267,25 @@ class TrackManager
 
         if($tracks)
         {
-            foreach ($tracks as $key=>$val)
+            foreach ($tracks as $track)
             {
                 if(empty($holders))
                 {
                     // added first holder
-                    $holders[$key]['holderType'] = $val['holderType'];
-                    $holders[$key]['holderID'] = $val['holderID'];
+                    $holders[] = $track;
                 }
                 else
                 {
                     // there is already a holder. Check is the next one is the same
                     foreach ($holders as $holder)
                     {
-                        if($holder['holderType'] == $val['holderType'] && $holder['holderID'] == $val['holderID'])
+                        if($holder['holderType'] == $track['holderType'] && $holder['holderID'] == $track['holderID'])
                         {
                             // Do not add the holder
                         }
                         else
                         {
-                            $holders[$key]['holderType'] = $val['holderType'];
-                            $holders[$key]['holderID'] = $val['holderID'];
+                            $holders[] = $track;
                         }
                     }
                 }

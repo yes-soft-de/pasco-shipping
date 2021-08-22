@@ -8,6 +8,10 @@ class ChatGetResponse
     
     public $roomID;
 
+    public $title;
+
+    public $description;
+
     public $createdAt;
 
 }
