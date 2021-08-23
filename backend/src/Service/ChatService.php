@@ -29,7 +29,14 @@ class ChatService
 
         $result = $this->chatManager->chatWithAdministration($request);
 
-        return $this->autoMapping->map(ChatRoomEntity::class, ChatCreateResponse::class, $result);
+        if($result instanceof ChatRoomEntity)
+        {
+            return $this->autoMapping->map(ChatRoomEntity::class, ChatCreateResponse::class, $result);
+        }
+        elseif(is_array($result))
+        {
+            return $this->autoMapping->map('array', ChatCreateResponse::class, $result);
+        }
     }
 
     // for generate roomID
