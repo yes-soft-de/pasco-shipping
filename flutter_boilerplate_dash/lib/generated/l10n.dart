@@ -1100,20 +1100,20 @@ class S {
     );
   }
 
-  /// `Requested by`
+  /// `Requested by: `
   String get RequestedBy {
     return Intl.message(
-      'Requested by',
+      'Requested by: ',
       name: 'RequestedBy',
       desc: '',
       args: [],
     );
   }
 
-  /// `Requested at`
+  /// `Requested at: `
   String get RequestedAt {
     return Intl.message(
-      'Requested at',
+      'Requested at: ',
       name: 'RequestedAt',
       desc: '',
       args: [],
@@ -2185,6 +2185,36 @@ class S {
     return Intl.message(
       'Enter the Number',
       name: 'enterNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Company / Personal Name`
+  String get companyOrPersonalName {
+    return Intl.message(
+      'Company / Personal Name',
+      name: 'companyOrPersonalName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Was being modified by: `
+  String get modifiedBy {
+    return Intl.message(
+      'Was being modified by: ',
+      name: 'modifiedBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Arrived Shipment`
+  String get arrivedShipment {
+    return Intl.message(
+      'Arrived Shipment',
+      name: 'arrivedShipment',
       desc: '',
       args: [],
     );

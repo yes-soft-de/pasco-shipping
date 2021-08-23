@@ -25,6 +25,7 @@ class LoginStateSuccess extends LoginState {
           elevation: 5.0,
           color: Colors.white,
           child: EmailPasswordForm(
+            isLoading: false,
             onLoginRequest: (email ,pass){
               // screen.moveToNext();
             },

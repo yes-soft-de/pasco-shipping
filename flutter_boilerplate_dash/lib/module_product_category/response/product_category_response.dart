@@ -83,6 +83,7 @@ class SubProductModel {
     this.description,
     this.hscode,
     this.productCategoryID,
+   required this.isSelected,
     // this.subProduct,
 
 
@@ -102,6 +103,7 @@ class SubProductModel {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? updatedByUser;
+  bool isSelected;
 
   // List<SubProductModel>? subProduct;
 
@@ -110,8 +112,9 @@ class SubProductModel {
     id: json['id'],
     name: json['name'],
     description: json['description'],
-    hscode: json['hscode'],
+    hscode: json['hsCode'],
     productCategoryID: json['productCategoryID'],
+    isSelected: false,
     // subProduct:List<SubProductModel>.from(json['subProductCategories'].map((x) => SubProductModel.fromJson(x))) ,
 
     createdAt: DateTime.fromMillisecondsSinceEpoch(

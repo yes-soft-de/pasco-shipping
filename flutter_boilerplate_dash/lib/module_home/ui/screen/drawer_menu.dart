@@ -20,6 +20,7 @@ import 'package:pasco_shipping/module_proxies/proxies_routes.dart';
 import 'package:pasco_shipping/module_settings/setting_routes.dart';
 import 'package:pasco_shipping/module_shipment_request/request_routes.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/accepted_shipment_routes.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/request/waiting_shipment_filter_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/waiting_shipment_routes.dart';
@@ -30,6 +31,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/module_travel/request/travel_filter_request.dart';
 import 'package:pasco_shipping/module_travel/travel_routes.dart';
 import 'package:pasco_shipping/module_unit/unit_routes.dart';
+import 'package:pasco_shipping/module_warehouses/response/warhouse_response.dart';
 import 'package:pasco_shipping/module_warehouses/warehoue_routes.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
@@ -222,6 +224,85 @@ class DrawerMenu extends StatelessWidget {
               ),
             ],
           ),
+
+
+          ExpansionTile(
+            title: new Text(S.of(context).arrivedShipment),
+            leading: Icon(Icons.local_shipping_rounded),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    ExpansionTile(
+                      title: new Text(S.of(context).seaShipment),
+                      // leading: Icon(Icons.sea),
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              ListTile(
+                                  title: new Text(S.of(context).inExternalWarehouse),
+                                  onTap: () {
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea' ,isExternalWarehouse: true ,status: AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
+                                    Navigator.pushNamed(
+                                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
+                                  }),
+                              ListTile(
+                                  title: new Text(S.of(context).inLocalWarehouse),
+                                  onTap: () {
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false,status: AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
+                                    Navigator.pushNamed(
+                                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
+                                  }),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    ExpansionTile(
+                      title: new Text(S.of(context).airShipment),
+                      // leading: Icon(Icons.sea),
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              ListTile(
+                                  title: new Text(S.of(context).inExternalWarehouse),
+                                  onTap: () {
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: true,status: AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
+                                    Navigator.pushNamed(
+                                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
+                                  }),
+                              ListTile(
+                                  title: new Text(S.of(context).inLocalWarehouse),
+                                  onTap: () {
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false,status: AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
+                                    Navigator.pushNamed(
+                                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re});
+                                  }),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+
+
           ExpansionTile(
             title: new Text(S.of(context).requestShipment),
             leading: Icon(Icons.add),
@@ -801,20 +882,6 @@ class DrawerMenu extends StatelessWidget {
             },
             title: Text(S.of(context).aboutUs),
             leading: Icon(Icons.info_outlined),
-          ),
-          ListTile(
-            onTap: () {
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
-            },
-            title: Text(S.of(context).privacy),
-            leading: Icon(Icons.local_police_outlined),
-          ),
-          ListTile(
-            onTap: () {
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
-            },
-            title: Text(S.of(context).termOfService),
-            leading: Icon(Icons.policy_outlined),
           ),
           Divider(
             color: Colors.grey,

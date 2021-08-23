@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import '../../../authorization_routes.dart';
 
 class LoginStateInit extends LoginState {
+
   LoginStateInit(LoginScreenState screen, {String? error}) : super(screen){
     if (error != null) {
       Fluttertoast.showToast(msg: error);
@@ -18,7 +19,6 @@ class LoginStateInit extends LoginState {
 
   @override
   Widget getUI(BuildContext context) {
-
     return Column(
       children: [
         Card(
@@ -28,6 +28,7 @@ class LoginStateInit extends LoginState {
           elevation: 5.0,
           color: Colors.white,
           child: EmailPasswordForm(
+            isLoading: false,
             onLoginRequest: (email ,pass){
               screen.loginClient(
                   email, pass);

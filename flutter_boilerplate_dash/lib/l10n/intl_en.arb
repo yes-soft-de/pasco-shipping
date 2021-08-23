@@ -124,8 +124,8 @@
   "airwaybillInformation": "Air Waybill Information",
   "containerInformation": "Container Information",
   "type": "Type",
-  "RequestedBy": "Requested by",
-  "RequestedAt": "Requested at",
+  "RequestedBy": "Requested by: ",
+  "RequestedAt": "Requested at: ",
 
   "shipmentInformation": "Shipment Information",
   "noShipmentAdd": "No shipment has been added",
@@ -260,6 +260,10 @@
   "currentt": "Current",
   "dashboard": "Dashboard",
   "basicInfo": "Basic Info",
-  "enterNumber": "Enter the Number"
+  "enterNumber": "Enter the Number",
 
+
+  "companyOrPersonalName": "Company / Personal Name",
+  "modifiedBy": "Was being modified by: ",
+  "arrivedShipment": "Arrived Shipment"
 }

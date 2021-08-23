@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/module_warehouses/request/warehouse_filter_request.dart';
 import 'package:pasco_shipping/module_warehouses/response/warhouse_response.dart';
 import 'package:pasco_shipping/module_warehouses/state_manger/warehouse_state_manager.dart';
 import 'package:pasco_shipping/module_warehouses/ui/state/warehouse_state/warehouse_state.dart';
@@ -48,7 +49,8 @@ class _CountriesScreenState extends State<WarehouseScreen> {
         setState(() {});
       }
     });
-    widget._stateManager.getWarehouses();
+    WarehouseFilterRequest request =WarehouseFilterRequest(typeOfCountry: '', cityName: '');
+    widget._stateManager.getWarehouses(request);
   }
 
   Widget Screen(){

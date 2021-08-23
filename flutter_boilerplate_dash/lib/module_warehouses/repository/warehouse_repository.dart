@@ -8,6 +8,7 @@ import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_network/http_client/http_client.dart';
 import 'package:pasco_shipping/module_warehouses/request/warehouse_add_finance_request.dart';
 import 'package:pasco_shipping/module_warehouses/request/warehouse_filter_finance_request.dart';
+import 'package:pasco_shipping/module_warehouses/request/warehouse_filter_request.dart';
 import 'package:pasco_shipping/module_warehouses/request/warehouse_request.dart';
 import 'package:pasco_shipping/module_warehouses/response/warehouse_finance_response.dart';
 import 'package:pasco_shipping/module_warehouses/response/warhouse_response.dart';
@@ -19,12 +20,12 @@ class WarehousesRepository{
 
   WarehousesRepository(this._apiClient, this._authService);
 
-  Future<List<WarehousesModel>?> getWarehouses() async {
+  Future<List<WarehousesModel>?> getWarehouses(WarehouseFilterRequest request) async {
     // await _authService.refreshToken();
     var token = await _authService.getToken();
     try {
-      var response = await _apiClient.get(Urls.GET_WAREHOUSES,
-          headers: {'Authorization': 'Bearer $token'});
+      var response = await _apiClient.post(Urls.GET_FILTER_WAREHOUSES,request.toJson()
+          ,headers: {'Authorization': 'Bearer $token'});
       List<WarehousesModel>? marks =
           WarehouseResponse.fromJson(response!).data;
       return marks;

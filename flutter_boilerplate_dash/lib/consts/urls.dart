@@ -132,6 +132,9 @@ class Urls {
   //warehouses
   static const GET_WAREHOUSES=BASE_API+'warehouses';
   static const WAREHOUSE=BASE_API+'warehouse';
+  static const GET_FILTER_WAREHOUSES=BASE_API+'filterwarehouses';
+
+
   // warehouse finance
   static const GET_WAREHOUSES_FINANCE=BASE_API+'filterwarehousefinance';
   static const ADD_WAREHOUSE_FINANCE=BASE_API+'warehousefinance';

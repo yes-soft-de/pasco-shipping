@@ -243,6 +243,8 @@
   "dashboard": "لوحة التحكم",
   "travels": "الرحلات",
   "basicInfo": "معلومات اساسية",
-  "warehouses": "المستودعات"
-
+  "warehouses": "المستودعات",
+  "companyOrPersonalName": "اسم الفرد/شركة",
+  "modifiedBy": "تم تعديله بواسطة: ",
+  "arrivedShipment": "الشحنات الواصلة"
 }

@@ -4,6 +4,7 @@ import 'package:pasco_shipping/module_auth/service/auth_service/auth_service.dar
 import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_general/response/general_response.dart';
 import 'package:pasco_shipping/module_network/http_client/http_client.dart';
+import 'package:pasco_shipping/module_product_category/response/product_category_response.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_shipment_request/response/product_categories/product_categories_response.dart';
 import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
@@ -15,15 +16,15 @@ class FirstOptionRepository {
 
   FirstOptionRepository(this._apiClient, this._authService);
 
-  Future<List<Category>?> getProductCategories() async {
+  Future<List<ProductModel>?> getProduct() async {
     // await _authService.refreshToken();
-    var token =await _authService.getToken();
+    var token =  await _authService.getToken();
     try {
-      var response = await _apiClient.get(Urls.PRODUCT_CATEGORY,
+      var response = await _apiClient.get(Urls.PRODUCT_CATEGORIES,
           headers: {'Authorization': 'Bearer $token'});
-      List<Category>? categories =
-          ProductCategoriesResponse.fromJson(response!).data;
-      return categories;
+      List<ProductModel>? marks =
+          ProductResponse.fromJson(response!).data;
+      return marks;
     } catch (_) {
       return null;
     }

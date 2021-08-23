@@ -33,8 +33,15 @@ class WaitingShipmentCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(children: [
-                    Text(S.of(context).category , style: AppTextStyle.mediumBlack,),
+                    Text(S.of(context).category+": " , style: AppTextStyle.mediumBlack,),
                     Text(shipmentModel.productCategoryName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text(S.of(context).subCategory+': ' , style: AppTextStyle.mediumBlack,),
+                    Text(shipmentModel.subProductCategoryName ?? '' , style: AppTextStyle.mediumBlueBold,),
                   ],),
                 ),
                 Padding(

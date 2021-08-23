@@ -41,7 +41,6 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
-
     shipmentModel =arguments['shipmentModel'];
     // widget._stateManager.getWaitingShipment(transportationType);
   }

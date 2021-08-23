@@ -253,7 +253,22 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
             ),
           ),
           Divider(color: Colors.grey[300],thickness: 2,),
-
+          GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: 3,
+              children: List.generate(widget.shipment.imagePath!.length, (index){
+                return Padding(
+                  padding: const EdgeInsets.only(top: 10,right: 5 ,left: 5),
+                  child: Image.network(
+                    widget.shipment.imagePath![index].url,
+                    fit: BoxFit.cover,
+                    width: 100,
+                    height: 100,
+                  ),
+                );
+              })
+          ),
+          Divider(color: Colors.grey[300],thickness: 2,),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text( S.of(context).shipmentStatus , style: AppTextStyle.largeBlueBold,),
@@ -272,38 +287,41 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
   }
 
   Widget subShipmentCard(SubShipmentModel subShipmentModel){
-    return InkWell(
-      onTap: (){
-        widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,'public', subShipmentModel.shipmentStatus,widget.shipment.transportationType);
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          color: Colors.grey[200],
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(children: [
-                    Text( S.of(context).trackNumber , style: AppTextStyle.mediumBlack,),
-                    Text(subShipmentModel.trackNumber?? '' , style: AppTextStyle.mediumBlueBold,),
-                  ],),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(children: [
-                    Text('Status: ' , style: AppTextStyle.mediumBlack,),
-                    Text(subShipmentModel.shipmentStatus ??'' , style: AppTextStyle.mediumBlueBold,),
-                  ],),
-                ),
-                RoundedButton(lable: S.of(context).showFinance, icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
-                  widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber);
-                }, radius: 12)
-              ],
-            ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        color: Colors.grey[200],
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Text( S.of(context).trackNumber , style: AppTextStyle.mediumBlack,),
+                  Text(subShipmentModel.trackNumber?? '' , style: AppTextStyle.mediumBlueBold,),
+                ],),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Text('Status: ' , style: AppTextStyle.mediumBlack,),
+                  Text(subShipmentModel.shipmentStatus ??'' , style: AppTextStyle.mediumBlueBold,),
+                ],),
+              ),
+              Row(
+                children: [
+                  RoundedButton(lable: S.of(context).showFinance, icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
+                    widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber);
+                  }, radius: 12),
+                  RoundedButton(lable: 'Show Status', icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
+                    widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,'public', subShipmentModel.shipmentStatus,widget.shipment.transportationType);
+                  }, radius: 12),
+                ],
+              )
+
+            ],
           ),
         ),
       ),

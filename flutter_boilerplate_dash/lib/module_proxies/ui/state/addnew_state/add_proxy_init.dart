@@ -40,7 +40,7 @@ class _AddCountryInitState extends State<AddProxyInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).name , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).companyOrPersonalName , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(

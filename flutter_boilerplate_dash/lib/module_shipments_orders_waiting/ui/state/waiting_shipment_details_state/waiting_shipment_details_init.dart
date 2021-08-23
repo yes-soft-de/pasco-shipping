@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
@@ -5,8 +6,10 @@ import 'package:pasco_shipping/module_shipments_orders_waiting/enums/waiting_shi
 import 'package:pasco_shipping/module_shipments_orders_waiting/request/accepted_rejected_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/response/waiting_shipment_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class WaitingShipmentDetailsInit extends StatelessWidget {
   final WaitingShipmentModel shipment;
@@ -26,6 +29,16 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 Expanded(
                     child: ListTile(
                         title: Text(
+                          S.of(context).client,
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        subtitle: Text(
+                          shipment.clientUsername ?? '',
+                          style: AppTextStyle.smallBlueBold,
+                        ))),
+                Expanded(
+                    child: ListTile(
+                        title: Text(
                           S.of(context).shippingType,
                           style: AppTextStyle.mediumBlack,
                         ),
@@ -35,6 +48,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                         ))),
               ],
             ),
+
             Row(
               children: [
                 Expanded(
@@ -74,6 +88,21 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 Expanded(
                     child: ListTile(
                         title: Text(
+                          S.of(context).subCategory,
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        subtitle: Text(
+                          shipment.subProductCategoryName ?? '',
+                          style: AppTextStyle.smallBlueBold,
+                        ))),
+
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                    child: ListTile(
+                        title: Text(
                           S.of(context).quantity,
                           style: AppTextStyle.mediumBlack,
                         ),
@@ -81,10 +110,6 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                           shipment.quantity.toString(),
                           style: AppTextStyle.smallBlueBold,
                         ))),
-              ],
-            ),
-            Row(
-              children: [
                 Expanded(
                   child: ListTile(
                       title: Text(
@@ -129,6 +154,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                         ))),
               ],
             ),
+
             Row(
               children: [
                 Flexible(
@@ -174,6 +200,26 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                     ],
                   ),
                 ),
+                Flexible(
+                  flex: 2,
+                  child:  Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: (){
+                          _showQrAlert(context);
+                        },
+                        child: QrImage(
+                          data: shipment.toString(),
+                          // version: QrVersions.auto,
+                          size: 150,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),)
               ],
             ),
 
@@ -203,11 +249,54 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                   },
                 )
               ],
-            )
+            ),
 
+
+            GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 3,
+                children: List.generate(shipment.imagePath!.length, (index){
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 10,right: 5 ,left: 5),
+                    child: Image.network(
+                      shipment.imagePath![index].url,
+                      fit: BoxFit.cover,
+                      width: 100,
+                      height: 100,
+                    ),
+                  );
+                })
+            ),
           ],
         ),
       ),
     );
+
+  }
+  _showQrAlert(BuildContext context){
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            title: Text('Shipment QR'),
+            content: SizedBox(
+              width: 200,
+              height: 200,
+              child: QrImage(
+                data: shipment.toString(),
+                // version: QrVersions.auto,
+                size: 200,
+              ),
+            ),
+            actions: [
+              FlatButton(onPressed: (){}, child: Row(children: [
+                Icon(Icons.print, color: blue,size: 30,),
+              ],))
+            ],
+          );
+        });
   }
 }

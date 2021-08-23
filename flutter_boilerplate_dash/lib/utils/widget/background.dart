@@ -2,34 +2,41 @@ import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/module_chat/chat_routes.dart';
 import 'package:pasco_shipping/module_home/home_routes.dart';
+import 'package:pasco_shipping/module_home/presistance/profile_prefs_helper.dart';
 import 'package:pasco_shipping/module_home/ui/screen/drawer_menu.dart';
 import 'package:pasco_shipping/module_home/ui/screen/home_screen.dart';
 import 'package:pasco_shipping/module_notifications/notification_module.dart';
 import 'package:pasco_shipping/module_notifications/notification_routes.dart';
 import 'package:pasco_shipping/module_profile/service/profile_service.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/module_warehouses/response/warhouse_response.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
+
 class Background extends StatefulWidget {
- final Widget child;
- final String title;
- final bool showFilter;
- //  int currentIndex;
- //  final bool isResultScreen;
- //  final bool isHome;
- //  ScrollController controller;
+  final Widget child;
+  final String title;
+  final bool showFilter;
+  //  int currentIndex;
+  //  final bool isResultScreen;
+  //  final bool isHome;
+  //  ScrollController controller;
   final Function goBack;
-  Background({required this.child, required this.title, required this.goBack,required this.showFilter});
+  Background(
+      {required this.child,
+      required this.title,
+      required this.goBack,
+      required this.showFilter});
 
   @override
   _BackgroundState createState() => _BackgroundState();
 }
 
 class _BackgroundState extends State<Background> {
- GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 
- @override
+  @override
   Widget build(BuildContext context) {
    return Scaffold(
     key: globalKey,
@@ -42,7 +49,7 @@ class _BackgroundState extends State<Background> {
    );
   }
 
- @override
+  @override
   void initState() {
   super.initState();
 

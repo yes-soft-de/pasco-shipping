@@ -23,8 +23,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "FCL": MessageLookupByLibrary.simpleMessage("FCL"),
         "LCL": MessageLookupByLibrary.simpleMessage("LCL"),
-        "RequestedAt": MessageLookupByLibrary.simpleMessage("طُلبت في"),
-        "RequestedBy": MessageLookupByLibrary.simpleMessage("بطلب من"),
+        "RequestedAt": MessageLookupByLibrary.simpleMessage("طُلبت في: "),
+        "RequestedBy": MessageLookupByLibrary.simpleMessage("بطلب من: "),
         "StatusCodeNotFound": MessageLookupByLibrary.simpleMessage(
             "لم يتمكن الخادم من العثور على طلبك"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("حول"),
@@ -54,17 +54,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "arrivalDate": MessageLookupByLibrary.simpleMessage("تاريخ الوصول"),
         "arrivalTime": MessageLookupByLibrary.simpleMessage("وقت الوصول"),
         "arrived": MessageLookupByLibrary.simpleMessage("تفريغ"),
+        "arrivedShipment":
+            MessageLookupByLibrary.simpleMessage("الشحنات الواصلة"),
         "back": MessageLookupByLibrary.simpleMessage("السابق"),
+        "basicInfo": MessageLookupByLibrary.simpleMessage("معلومات اساسية"),
         "callingCode": MessageLookupByLibrary.simpleMessage("رمز الاتصال: "),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
         "capacityCPM": MessageLookupByLibrary.simpleMessage("السعه CPM: "),
         "carrier": MessageLookupByLibrary.simpleMessage("الناقل"),
-        "category": MessageLookupByLibrary.simpleMessage("فئة رئيسية"),
+        "category": MessageLookupByLibrary.simpleMessage("فئة رئيسية: "),
         "choose": MessageLookupByLibrary.simpleMessage("اختر"),
         "city": MessageLookupByLibrary.simpleMessage("المدينة"),
         "cleared": MessageLookupByLibrary.simpleMessage("جمركة"),
         "client": MessageLookupByLibrary.simpleMessage("العميل: "),
         "clients": MessageLookupByLibrary.simpleMessage("العملاء"),
+        "companyOrPersonalName":
+            MessageLookupByLibrary.simpleMessage("اسم الفرد/شركة"),
         "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
         "confirmCode": MessageLookupByLibrary.simpleMessage("تأكيد الرمز"),
         "confirmPass": MessageLookupByLibrary.simpleMessage("تأكيد كلمة السر"),
@@ -157,6 +162,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "mark": MessageLookupByLibrary.simpleMessage("العلامة: "),
         "marks": MessageLookupByLibrary.simpleMessage("العلامات"),
         "measured": MessageLookupByLibrary.simpleMessage("القياس"),
+        "modifiedBy":
+            MessageLookupByLibrary.simpleMessage("تم تعديله بواسطة: "),
         "myPrevious": MessageLookupByLibrary.simpleMessage("علاماتي السابقة"),
         "myShipment": MessageLookupByLibrary.simpleMessage("شحناتي"),
         "name": MessageLookupByLibrary.simpleMessage("الاسم: "),
@@ -248,13 +255,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تم جلب المعلومات بنجاح"),
         "statusCodeUnauthorized": MessageLookupByLibrary.simpleMessage(
             "أنت غير مخول بالقيام بهذا الطلب"),
-        "subCategory": MessageLookupByLibrary.simpleMessage("فئة فرعية"),
+        "subCategory": MessageLookupByLibrary.simpleMessage("فئة فرعية: "),
         "subcontract": MessageLookupByLibrary.simpleMessage("مزودي الخدمة"),
         "subcontractService": MessageLookupByLibrary.simpleMessage("الخدمات"),
         "submit": MessageLookupByLibrary.simpleMessage("تأكيد"),
         "success": MessageLookupByLibrary.simpleMessage("نجاح!!!"),
         "supplierInfo":
             MessageLookupByLibrary.simpleMessage("معلومات المورد: "),
+        "suppliers": MessageLookupByLibrary.simpleMessage("الموردين"),
         "targetWarehouse":
             MessageLookupByLibrary.simpleMessage("المستودع الهدف: "),
         "termOfService": MessageLookupByLibrary.simpleMessage("شروط الخدمة"),
@@ -263,6 +271,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "trackShipment": MessageLookupByLibrary.simpleMessage("تعقب شحنة"),
         "travelFinance": MessageLookupByLibrary.simpleMessage("مصاريف الرحلة"),
         "travelNumber": MessageLookupByLibrary.simpleMessage("رقم الرحلة"),
+        "travels": MessageLookupByLibrary.simpleMessage("الرحلات"),
         "truee": MessageLookupByLibrary.simpleMessage("صح"),
         "type": MessageLookupByLibrary.simpleMessage("النوع"),
         "unit": MessageLookupByLibrary.simpleMessage("وحدة التغليف: "),
@@ -278,6 +287,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الشحنات المُنتظرة"),
         "warehouseInfo":
             MessageLookupByLibrary.simpleMessage("معلومات المستودع: "),
+        "warehouses": MessageLookupByLibrary.simpleMessage("المستودعات"),
         "weight": MessageLookupByLibrary.simpleMessage("الوزن: "),
         "welcome": MessageLookupByLibrary.simpleMessage("أهلا"),
         "width": MessageLookupByLibrary.simpleMessage("العرض"),
