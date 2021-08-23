@@ -732,6 +732,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="string", property="holderType"),
      *                  @OA\Property(type="array", property="tracks", 
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),
@@ -1003,6 +1004,7 @@ class ShipmentOrderController extends BaseController
      *                          @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                          @OA\Property(type="string", property="extraSpecification"),
      *                          @OA\Property(type="string", property="status"),
+     *                          @OA\Property(type="string", property="holderType"),
      *                          @OA\Property(type="array", property="shipmentStatusInfo", 
      *                              @OA\Items(
      *                                  @OA\Property(type="integer", property="id"),

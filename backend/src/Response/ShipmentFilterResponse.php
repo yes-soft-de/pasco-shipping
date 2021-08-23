@@ -58,6 +58,8 @@ class ShipmentFilterResponse
 
     public $extraSpecification;
 
+    public $holderType;
+
     public $status;
 
     public $externalWarehouseInfo;
