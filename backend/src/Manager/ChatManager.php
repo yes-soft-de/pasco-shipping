@@ -23,7 +23,7 @@ class ChatManager
 
     public function chatWithAdministration(ChatCreateRequest $request)
     {
-        $chatEntity = $this->chatRoomEntityRepository->getChatByUser($request->getUserOneID());
+        $chatEntity = $this->chatRoomEntityRepository->getChatByRoomID($request->getRoomID());
 
         if($chatEntity)
         {

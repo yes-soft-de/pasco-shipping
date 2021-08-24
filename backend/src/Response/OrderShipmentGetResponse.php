@@ -62,6 +62,8 @@ class OrderShipmentGetResponse
 
     public $extraSpecification;
 
+    public $holderType;
+
     public $status;
 
     public $tracks = [];

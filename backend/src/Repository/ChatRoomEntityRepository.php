@@ -33,6 +33,18 @@ class ChatRoomEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getChatByRoomID($roomID)
+    {
+        return $this->createQueryBuilder('chat')
+            ->select('chat.id', 'chat.userOneID', 'chat.title', 'chat.description', 'chat.roomID', 'chat.createdAt')
+
+            ->andWhere('chat.roomID = :roomID')
+            ->setParameter('roomID', $roomID)
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function deleteAllChats()
     {
         return $this->createQueryBuilder('chat')
