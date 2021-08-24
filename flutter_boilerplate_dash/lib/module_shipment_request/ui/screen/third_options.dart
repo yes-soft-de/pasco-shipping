@@ -15,8 +15,8 @@ class ThirdOptions extends StatefulWidget {
   final ShipmentRequest shipmentRequest;
   final Function goBackStep;
   final Function goToMark;
-  // final Function goNextStep;
-  const ThirdOptions({required this.stateManger,required this.shipmentRequest,required this.goBackStep,required this.goToMark});
+  final Function goToReceiver;
+  const ThirdOptions({required this.stateManger,required this.shipmentRequest,required this.goBackStep,required this.goToMark,required this.goToReceiver});
 
   @override
   _SecondOptionState createState() => _SecondOptionState();
@@ -64,14 +64,18 @@ class _SecondOptionState extends State<ThirdOptions> {
       currentState as ThirdOptionFetchingDataState?;
       return ThirdOptionsSuccessfully(
           distributors: state!.distributors,
-          clients: state.clients,shipmentRequest: widget.shipmentRequest,
+          marks: state.marks,shipmentRequest: widget.shipmentRequest,
           goBackStep: () {
             widget.goBackStep();
           }, onRequest: (request){
             Navigator.pushNamed(context, NewShipmentRoutes.REVIEW_SHIPMENTS , arguments: request);
       }, goToMark: (){
             widget.goToMark();
-      },);
+      }, receiver: state.receivers,
+      goToReceiver: (){
+            widget.goToReceiver();
+      },
+      );
     } else {
       return Column(
         children: [

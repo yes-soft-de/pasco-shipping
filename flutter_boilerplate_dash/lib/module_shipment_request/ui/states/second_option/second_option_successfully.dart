@@ -26,6 +26,10 @@ class SecondOptionSuccessfully extends StatefulWidget {
 
 class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   DropListModel dropListModelUnit = DropListModel(dataUnit);
+  DropListModel dropListModelTime = DropListModel(dataTime);
+  DropListModel dropListModelHolderType = DropListModel(holderType);
+  late Entry optionItemSelectedTim = Entry('choose', 1, []);
+  late Entry optionItemSelectedType = Entry('choose', 1, []);
 
   late DropListModel dropListModelMark;
   late DropListModel dropListModelFromMark;
@@ -79,12 +83,23 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
     }else{
       optionItemSelectedU=Entry('choose', 1, []);
     }
+    if(widget.shipmentRequest.paymentTime.isNotEmpty){
+      optionItemSelectedTim = Entry(widget.shipmentRequest.paymentTime, 1, []);
+    }else {
+      optionItemSelectedTim = Entry('choose', 1, []);
+    }
 
+    if(widget.shipmentRequest.holderType.isNotEmpty){
+      optionItemSelectedType = Entry(widget.shipmentRequest.holderType, 1, []);
+    }else {
+      optionItemSelectedType = Entry('choose', 1, []);
+    }
   }
 
   @override
   void initState() {
     super.initState();
+
     isFromMarks = false;
     marksEntry = <Entry>[];
     marksBackEntry = <Entry>[];
@@ -110,16 +125,45 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
         SizedBox(
           height: 25,
         ),
+        // Text(
+        //   S.of(context).receiverInfo,
+        //   style: AppTextStyle.mediumBlackBold,
+        // ),
+        // TextEdit(receiverName, 50, (receiverName) {
+        //   widget.shipmentRequest.receiverName = receiverName;
+        // }),
+        // TextEdit(receiverPhone, 50, (receiverPhoneNumber) {
+        //   widget.shipmentRequest.receiverPhoneNumber = receiverPhoneNumber;
+        // }),
         Text(
-          S.of(context).receiverInfo,
+          S.of(context).paymentTime,
           style: AppTextStyle.mediumBlackBold,
         ),
-        TextEdit(receiverName, 50, (receiverName) {
-          widget.shipmentRequest.receiverName = receiverName;
-        }),
-        TextEdit(receiverPhone, 50, (receiverPhoneNumber) {
-          widget.shipmentRequest.receiverPhoneNumber = receiverPhoneNumber;
-        }),
+        SelectDropList(
+          this.optionItemSelectedTim,
+          this.dropListModelTime,
+              (optionItem) {
+            optionItemSelectedTim = optionItem;
+            widget.shipmentRequest.paymentTime = optionItem.title;
+            setState(() {});
+          },
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        Text(
+          S.of(context).holderType,
+          style: AppTextStyle.mediumBlackBold,
+        ),
+        SelectDropList(
+          this.optionItemSelectedType,
+          this.dropListModelHolderType,
+              (optionItem) {
+            optionItemSelectedType = optionItem;
+            widget.shipmentRequest.holderType = optionItem.title;
+            setState(() {});
+          },
+        ),
         SizedBox(
           height: 15,
         ),

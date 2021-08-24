@@ -209,6 +209,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "proxies": MessageLookupByLibrary.simpleMessage("الوكلاء"),
         "quantity": MessageLookupByLibrary.simpleMessage("الكمية:"),
         "received": MessageLookupByLibrary.simpleMessage("الإستلام"),
+        "receiver": MessageLookupByLibrary.simpleMessage("المستلمون"),
         "receiverInfo":
             MessageLookupByLibrary.simpleMessage("معلومات المستقبل: "),
         "registerSuccess":

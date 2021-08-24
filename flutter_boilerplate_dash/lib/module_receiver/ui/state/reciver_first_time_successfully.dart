@@ -6,16 +6,16 @@ import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_lis
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 
-class MarkFirstTime extends StatefulWidget {
+class ReceiverFirstTime extends StatefulWidget {
   final List<ClientModel> clients;
   final Function onClientSelect;
-  const MarkFirstTime({required this.clients,required this.onClientSelect});
+  const ReceiverFirstTime({required this.clients,required this.onClientSelect});
 
   @override
   _MarkFirstTimeState createState() => _MarkFirstTimeState();
 }
 
-class _MarkFirstTimeState extends State<MarkFirstTime> {
+class _MarkFirstTimeState extends State<ReceiverFirstTime> {
   late DropListModel dropListModelClient;
   late Entry optionItemSelectedClient ;
   late List<Entry> client;
@@ -26,7 +26,7 @@ class _MarkFirstTimeState extends State<MarkFirstTime> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(child: Image.asset(StaticImage.mark)),
+          Center(child: Image.asset(StaticImage.receiver)),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(

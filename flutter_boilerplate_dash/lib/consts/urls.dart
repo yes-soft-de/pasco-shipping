@@ -92,6 +92,10 @@ class Urls {
   static const MARK = BASE_API + 'mark';
   static const CREATE_MARK = BASE_API + 'markbydashboard';
 
+  //receiver
+  static const USER_RECEIVER = BASE_API + 'filterreceivers';
+  static const CREATE_RECEIVER = BASE_API + 'receiverbydashboard';
+
 
 
   //product

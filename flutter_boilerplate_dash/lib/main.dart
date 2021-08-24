@@ -49,6 +49,7 @@ import 'module_notifications/service/local_notification_service/local_notificati
 import 'module_product_category/product_module.dart';
 import 'module_product_sub_category/sub_product_module.dart';
 import 'module_proxies/proxies_module.dart';
+import 'module_receiver/recevier_module.dart';
 import 'module_shipment_previous/shipment_previous_module.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -130,6 +131,8 @@ class MyApp extends StatefulWidget {
 
   final WarehouseModule _warehouseModule;
 
+  final ReceiverModule _receiverModule;
+
 
   MyApp(
       this._themeDataService,
@@ -168,7 +171,8 @@ class MyApp extends StatefulWidget {
       this._clientModule,
       this._productModule,
       this._subProductModule,
-      this._warehouseModule
+      this._warehouseModule,
+      this._receiverModule
 
       );
 

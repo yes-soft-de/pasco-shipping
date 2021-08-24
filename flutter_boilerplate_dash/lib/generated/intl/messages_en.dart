@@ -215,6 +215,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "proxies": MessageLookupByLibrary.simpleMessage("Proxies"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity: "),
         "received": MessageLookupByLibrary.simpleMessage("Received"),
+        "receiver": MessageLookupByLibrary.simpleMessage("Receiver"),
         "receiverInfo": MessageLookupByLibrary.simpleMessage("Receiver Info: "),
         "registerSuccess": MessageLookupByLibrary.simpleMessage(
             "Your account has been registered successfully"),

@@ -17,6 +17,7 @@ import 'package:pasco_shipping/module_mark/mark_routes.dart';
 import 'package:pasco_shipping/module_product_category/product_routes.dart';
 import 'package:pasco_shipping/module_product_sub_category/sub_product_routes.dart';
 import 'package:pasco_shipping/module_proxies/proxies_routes.dart';
+import 'package:pasco_shipping/module_receiver/receiver_routes.dart';
 import 'package:pasco_shipping/module_settings/setting_routes.dart';
 import 'package:pasco_shipping/module_shipment_request/request_routes.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/accepted_shipment_routes.dart';
@@ -871,6 +872,25 @@ class DrawerMenu extends StatelessWidget {
                         onTap: () {
                           Navigator.pushNamed(
                               context, MarkRoutes.mark);
+                        }),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          ExpansionTile(
+            title: new Text(S.of(context).receiver),
+            leading: Icon(Icons.note),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsetsDirectional.only(start: 5),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: new Text(S.of(context).add),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, ReceiverRoutes.receiver);
                         }),
                   ],
                 ),

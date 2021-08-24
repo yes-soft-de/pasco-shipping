@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_client/client_routes.dart';
 import 'package:pasco_shipping/module_mark/mark_routes.dart';
+import 'package:pasco_shipping/module_receiver/receiver_routes.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_shipment_request/state_manager/request_shipment_state_manager/request_shipment_state_manager.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/screen/first_option.dart';
@@ -47,7 +48,7 @@ class _NewShipmentState extends State<NewShipment> {
     if(ModalRoute.of(context)!.settings.arguments == null){
       _shipmentRequestModel =
           ShipmentRequest(
-              '', 0,'', '', 0, '',0, '', '', '', '', 0, '', '', '','','',[],'',false,'',0,'',0);
+              '', 0,'', '', 0, '',0,'',0, '', '', '', 0, '', '', '','','',[],'',false,'',0,'',0);
     }else{
       final arguments = ModalRoute.of(context)!.settings.arguments as Map;
       _shipmentRequestModel = arguments['shipment'];
@@ -173,6 +174,13 @@ class _NewShipmentState extends State<NewShipment> {
                       });
                     } , goToMark: (){
                         Navigator.pushNamed(context, MarkRoutes.mark , arguments: {'userID' : _shipmentRequestModel.userID ,'userName':_shipmentRequestModel.userName}).then((value) {
+                          setState(() {
+                            activeStep = 0;
+                            _optionsStreamController.add(activeStep);
+                          });
+                        });
+                      }, goToReceiver: (){
+                        Navigator.pushNamed(context, ReceiverRoutes.receiver , arguments: {'userID' : _shipmentRequestModel.userID ,'userName':_shipmentRequestModel.userName}).then((value) {
                           setState(() {
                             activeStep = 0;
                             _optionsStreamController.add(activeStep);

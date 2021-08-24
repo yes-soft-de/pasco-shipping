@@ -9,6 +9,7 @@ import 'package:pasco_shipping/module_airwaybill/widget/status_card.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class AirwaybillDetailsSuccessfully extends StatefulWidget {
@@ -43,7 +44,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                     onTap: (){
                       widget.onShowFinance(widget.model.id);
                     },
-                    child: Icon(Icons.money , color: blue,size: 40,))
+                    child:  Image.asset(StaticImage.accounting))
               ],
             ),
           ),
@@ -122,7 +123,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                 Divider(color: Colors.grey[300],thickness: 2,),
 
 
-                Divider(color: Colors.grey[300],thickness: 2,),
+
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
@@ -133,6 +134,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                     ],
                   ),
                 ),
+                Divider(color: Colors.grey[300],thickness: 2,),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(

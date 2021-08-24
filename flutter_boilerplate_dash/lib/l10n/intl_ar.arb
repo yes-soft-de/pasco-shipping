@@ -249,5 +249,6 @@
   "arrivedShipment": "الشحنات الواصلة",
   "freeCapacity": "السعة الحرة",
   "freeWeight": "الوزن الحر",
-  "shipmentCost": "مصاريف الشحنة"
+  "shipmentCost": "مصاريف الشحنة",
+  "receiver": "المستلمون"
 }

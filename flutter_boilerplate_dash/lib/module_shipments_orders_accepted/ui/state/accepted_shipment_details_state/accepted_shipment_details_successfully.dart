@@ -255,7 +255,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                     _showQrAlert();
                   },
                   child: Icon(
-                    Icons.bloodtype_outlined,
+                    Icons.qr_code_scanner,
                     size: 50,
                     color: Colors.black,
                   ),

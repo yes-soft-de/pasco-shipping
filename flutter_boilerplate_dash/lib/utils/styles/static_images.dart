@@ -48,6 +48,7 @@ class StaticImage{
   static final String travel='assets/images/travel.png';
   static final String wrapping='assets/images/wrapping.png';
   static final String proxy='assets/images/proxy.png';
+  static final String receiver='assets/images/receiver.png';
 
 
   static final String accounting='assets/images/accounting.png';

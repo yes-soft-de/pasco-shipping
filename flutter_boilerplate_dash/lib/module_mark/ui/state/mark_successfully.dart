@@ -41,7 +41,7 @@ class _MarkSuccessfullyScreenState extends State<MarkSuccessfullyScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(StaticImage.mark),
+            Center(child: Image.asset(StaticImage.mark)),
 
             Text(
               S.of(context).clients,
