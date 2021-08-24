@@ -34,6 +34,8 @@ class ClientFullInfoGetResponse
 
     public $phone;
 
+    public $identificationNumber;
+
     public $marks;
 
 }

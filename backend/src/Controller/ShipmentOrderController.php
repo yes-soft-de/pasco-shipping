@@ -261,6 +261,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="clientIdentificationNumber"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
      *                  @OA\Property(type="string", property="orderUpdatedByUserImage")
      *              )
@@ -610,6 +611,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="clientIdentificationNumber"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
      *                  @OA\Property(type="string", property="orderUpdatedByUserImage"),
      *                  @OA\Property(type="string", property="shipmentStatusCreatedByUser"),
@@ -671,6 +673,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="clientIdentificationNumber"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
      *                  @OA\Property(type="string", property="orderUpdatedByUserImage"),
      *              )
@@ -759,6 +762,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="clientIdentificationNumber"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
      *                  @OA\Property(type="string", property="orderUpdatedByUserImage")
      *              )
@@ -840,6 +844,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="clientIdentificationNumber"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
      *                  @OA\Property(type="string", property="orderUpdatedByUserImage")
      *              )
@@ -915,6 +920,7 @@ class ShipmentOrderController extends BaseController
      *                          @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                          @OA\Property(type="string", property="clientUsername"),
      *                          @OA\Property(type="string", property="clientUserImage"),
+     *                          @OA\Property(type="string", property="clientIdentificationNumber"),
      *                          @OA\Property(type="string", property="orderUpdatedByUser"),
      *                          @OA\Property(type="string", property="orderUpdatedByUserImage")
      *                      )
@@ -1032,6 +1038,7 @@ class ShipmentOrderController extends BaseController
      *                          @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                          @OA\Property(type="string", property="clientUsername"),
      *                          @OA\Property(type="string", property="clientUserImage"),
+     *                          @OA\Property(type="string", property="clientIdentificationNumber"),
      *                          @OA\Property(type="string", property="orderUpdatedByUser"),
      *                          @OA\Property(type="string", property="orderUpdatedByUserImage")
      *                      )
@@ -1127,6 +1134,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="clientIdentificationNumber"),
      *                  @OA\Property(type="string", property="orderUpdatedByUser"),
      *                  @OA\Property(type="string", property="orderUpdatedByUserImage")
      *              )

@@ -88,6 +88,8 @@ class ShipmentByTrackNumberGetResponse
 
     public $clientUserImage;
 
+    public $clientIdentificationNumber;
+
     public $trackCreatedByUser;
 
     public $trackCreatedByUserImage;

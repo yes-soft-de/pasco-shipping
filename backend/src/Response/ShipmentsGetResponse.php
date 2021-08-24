@@ -63,6 +63,8 @@ class ShipmentsGetResponse
     public $clientUsername;
 
     public $clientUserImage;
+
+    public $clientIdentificationNumber;
     
     public $orderUpdatedByUser;
 
