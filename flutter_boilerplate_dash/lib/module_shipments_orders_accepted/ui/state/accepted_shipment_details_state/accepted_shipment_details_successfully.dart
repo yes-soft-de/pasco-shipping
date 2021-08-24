@@ -131,13 +131,14 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               Expanded(
                   child: ListTile(
                       title: Text(
-                        S.of(context).quantity,
+                        S.of(context).subCategory,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
-                        widget.shipment.quantity.toString(),
+                        widget.shipment.subProductCategoryName ?? '',
                         style: AppTextStyle.smallBlueBold,
                       ))),
+
             ],
           ),
           Divider(color: Colors.grey[300],thickness: 2,),
@@ -160,6 +161,16 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
 
 
                     )),
+                Expanded(
+                    child: ListTile(
+                        title: Text(
+                          S.of(context).quantity,
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        subtitle: Text(
+                          widget.shipment.quantity.toString(),
+                          style: AppTextStyle.smallBlueBold,
+                        ))),
               ],
             ),
           ),
@@ -244,7 +255,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                     _showQrAlert();
                   },
                   child: Icon(
-                    Icons.qr_code_scanner,
+                    Icons.bloodtype_outlined,
                     size: 50,
                     color: Colors.black,
                   ),
@@ -253,7 +264,11 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
             ),
           ),
           Divider(color: Colors.grey[300],thickness: 2,),
-          GridView.count(
+         Padding(
+           padding: const EdgeInsets.all(8.0),
+           child: Text('Attached documents' ,style: AppTextStyle.mediumBlack),
+         ),
+         widget.shipment.imagePath!.isEmpty?Container(): GridView.count(
               shrinkWrap: true,
               crossAxisCount: 3,
               children: List.generate(widget.shipment.imagePath!.length, (index){
@@ -261,14 +276,14 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                   padding: const EdgeInsets.only(top: 10,right: 5 ,left: 5),
                   child: Image.network(
                     widget.shipment.imagePath![index].url,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                     width: 100,
                     height: 100,
                   ),
                 );
               })
           ),
-          Divider(color: Colors.grey[300],thickness: 2,),
+          // Divider(color: Colors.grey[300],thickness: 2,),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text( S.of(context).shipmentStatus , style: AppTextStyle.largeBlueBold,),
@@ -306,17 +321,17 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Status: ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).status+': ' , style: AppTextStyle.mediumBlack,),
                   Text(subShipmentModel.shipmentStatus ??'' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Row(
                 children: [
-                  RoundedButton(lable: S.of(context).showFinance, icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
+                  RoundedButton(lable: S.of(context).shipmentCost, icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
                     widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber);
                   }, radius: 12),
                   RoundedButton(lable: 'Show Status', icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
-                    widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,'public', subShipmentModel.shipmentStatus,widget.shipment.transportationType);
+                    widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,'LCL', subShipmentModel.shipmentStatus,widget.shipment.transportationType);
                   }, radius: 12),
                 ],
               )

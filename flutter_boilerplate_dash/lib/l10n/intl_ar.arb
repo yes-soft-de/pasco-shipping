@@ -155,7 +155,7 @@
 
   "containerSpecification": "خصائص الحاوية",
   "airwaybillSpecification": "خصائص بوليصة الشحن",
-  "width": "العرض",
+  "width": "الوزن",
 
   "capacityCPM": "السعه CPM: ",
   "lengthInMeter": "الطول بالمتر: ",
@@ -246,5 +246,8 @@
   "warehouses": "المستودعات",
   "companyOrPersonalName": "اسم الفرد/شركة",
   "modifiedBy": "تم تعديله بواسطة: ",
-  "arrivedShipment": "الشحنات الواصلة"
+  "arrivedShipment": "الشحنات الواصلة",
+  "freeCapacity": "السعة الحرة",
+  "freeWeight": "الوزن الحر",
+  "shipmentCost": "مصاريف الشحنة"
 }

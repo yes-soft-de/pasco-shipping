@@ -28,20 +28,14 @@ class ContainerDetailsStateManager {
     });
   }
 
-  void updateContainerStatus(ContainerChangeStateRequest request , TravelFilterRequest travelFilterRequest) {
+  void updateContainerStatus(ContainerChangeStateRequest request) {
     _addStateSubject.add(LoadingDetailsState());
     _service.updateContainerStatus(request).then((value) {
       if (value != null) {
         if (value.isConfirmed) {
           _service.getContainerDetails(request.id.toString()).then((model) {
             if (model != null) {
-              _travelService.getTravelsWithFilter(travelFilterRequest).then((travels) {
-                if(travels != null) {
-                  _addStateSubject.add(SuccessfullyDetailsWithTravelsState(model ,travels));
-                } else {
-                  _addStateSubject.add(ErrorDetailsState('error'));
-                }
-              });
+              _addStateSubject.add(SuccessfullyDetailsWithTravelsState(model));
             }
             else {
               _addStateSubject.add(ErrorDetailsState('error'));
@@ -85,7 +79,7 @@ class ContainerDetailsStateManager {
         if (value.isConfirmed) {
           _service.getContainerDetails(request.holderID.toString()).then((value) {
             if(value != null) {
-              _addStateSubject.add(SuccessfullyDetailsWithTravelsState(value,[]));
+              _addStateSubject.add(SuccessfullyDetailsWithTravelsState(value));
             }
           });
         }
@@ -98,17 +92,12 @@ class ContainerDetailsStateManager {
     });
   }
 
-  void getContainerDetailsAndTravels(String id , TravelFilterRequest request) {
+  void getContainerDetailsAndTravels(String id) {
     _addStateSubject.add(LoadingDetailsState());
     _service.getContainerDetails(id).then((model) {
       if (model != null) {
-        _travelService.getTravelsWithFilter(request).then((travels) {
-          if(travels != null) {
-            _addStateSubject.add(SuccessfullyDetailsWithTravelsState(model ,travels));
-          } else {
-            _addStateSubject.add(ErrorDetailsState('error'));
-          }
-        });
+        print('InTravelDeta');
+        _addStateSubject.add(SuccessfullyDetailsWithTravelsState(model));
       } else {
         _addStateSubject.add(ErrorDetailsState('error'));
       }

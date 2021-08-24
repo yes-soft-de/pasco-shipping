@@ -1480,10 +1480,10 @@ class S {
     );
   }
 
-  /// `Width`
+  /// `Weight`
   String get width {
     return Intl.message(
-      'Width',
+      'Weight',
       name: 'width',
       desc: '',
       args: [],
@@ -2180,10 +2180,10 @@ class S {
     );
   }
 
-  /// `Enter the Number`
+  /// `Enter the track number`
   String get enterNumber {
     return Intl.message(
-      'Enter the Number',
+      'Enter the track number',
       name: 'enterNumber',
       desc: '',
       args: [],
@@ -2200,10 +2200,10 @@ class S {
     );
   }
 
-  /// `Was being modified by: `
+  /// `Status changed by: `
   String get modifiedBy {
     return Intl.message(
-      'Was being modified by: ',
+      'Status changed by: ',
       name: 'modifiedBy',
       desc: '',
       args: [],
@@ -2215,6 +2215,36 @@ class S {
     return Intl.message(
       'Arrived Shipment',
       name: 'arrivedShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Free Capacity`
+  String get freeCapacity {
+    return Intl.message(
+      'Free Capacity',
+      name: 'freeCapacity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Free Weight`
+  String get freeWeight {
+    return Intl.message(
+      'Free Weight',
+      name: 'freeWeight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment Cost`
+  String get shipmentCost {
+    return Intl.message(
+      'Shipment Cost',
+      name: 'shipmentCost',
       desc: '',
       args: [],
     );

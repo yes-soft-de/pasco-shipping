@@ -12,6 +12,8 @@ import 'package:pasco_shipping/module_subcontract_services/service/sub_contract_
 import 'package:pasco_shipping/module_travel/request/travel_filter_request.dart';
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
 import 'package:pasco_shipping/module_travel/service/travel_service.dart';
+import 'package:pasco_shipping/module_warehouses/request/warehouse_filter_request.dart';
+import 'package:pasco_shipping/module_warehouses/service/warehouse_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 @injectable
@@ -20,11 +22,12 @@ class AcceptedShipmentsStatusStateManager {
   final SubcontractService _subcontractService;
   final ContainerService _containerService;
   final TravelService _travelService;
+  final WarehouseService _warehouseService;
 
   final PublishSubject<AcceptedShipmentStatusState> _stateSubject = PublishSubject();
   Stream<AcceptedShipmentStatusState> get stateStream => _stateSubject.stream;
 
-  AcceptedShipmentsStatusStateManager(this._service, this._subcontractService, this._containerService, this._travelService);
+  AcceptedShipmentsStatusStateManager(this._service, this._subcontractService, this._containerService, this._travelService, this._warehouseService);
 
   void getShipmentStatus(String id ,String trackNumber) {
     _stateSubject.add(LoadingState());
@@ -52,12 +55,17 @@ class AcceptedShipmentsStatusStateManager {
               }else {
                 _subcontractService.getSubcontracts().then((subcontracts) {
                   if (subcontracts != null) {
-                    _service.getWarehouse(cityName).then((warehouses) {
+                    WarehouseFilterRequest request = WarehouseFilterRequest(cityName: cityName);
+                    _warehouseService.getWarehouses(request).then((warehouses) {
                       if (warehouses != null) {
                         _stateSubject.add(ReceivedStatusState(
                             model, subcontracts, warehouses));
+                      }else {
+                        _stateSubject.add(ErrorState('Error'));
                       }
                     });
+                  }else {
+                    _stateSubject.add(ErrorState('Error'));
                   }
                 });
               }}else {
@@ -128,7 +136,8 @@ class AcceptedShipmentsStatusStateManager {
       if (model != null) {
         _subcontractService.getSubcontracts().then((subcontracts) {
           if(subcontracts != null){
-            _service.getWarehouse(cityName).then((warehouses) {
+            WarehouseFilterRequest request = WarehouseFilterRequest(cityName: cityName);
+            _warehouseService.getWarehouses(request).then((warehouses) {
               if(warehouses != null) {
                 _stateSubject.add(ReceivedStatusState(model , subcontracts ,warehouses));
               }

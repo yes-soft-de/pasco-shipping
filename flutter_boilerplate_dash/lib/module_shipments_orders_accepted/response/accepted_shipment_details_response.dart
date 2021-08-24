@@ -31,6 +31,7 @@ class AcceptedShipmentDetailsModel {
     this.quantity,
     this.updatedAt,
     this.productCategoryName,
+    this.subProductCategoryName,
     this.unit,
     this.receiverName,
     this.receiverPhoneNumber,
@@ -55,6 +56,7 @@ class AcceptedShipmentDetailsModel {
   int? quantity;
   DateTime? updatedAt;
   String? productCategoryName;
+  String? subProductCategoryName;
   String? unit;
   String? receiverName;
   String? receiverPhoneNumber;
@@ -84,6 +86,7 @@ class AcceptedShipmentDetailsModel {
     updatedAt= DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json["updatedAt"]).timestamp! * 1000);
     productCategoryName= json["productCategoryName"];
+    subProductCategoryName= json["subProductCategoryName"];
     unit= json["unit"];
     receiverName= json["receiverName"];
     receiverPhoneNumber= json["receiverPhoneNumber"];

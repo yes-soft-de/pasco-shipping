@@ -13,13 +13,13 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/request/measured
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/received_deliered_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
-import 'package:pasco_shipping/module_shipments_orders_accepted/response/warehouse_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/widget/shipment_status_card.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_subcontract_services/response/sub_contract_service_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_travel/request/travel_filter_request.dart';
+import 'package:pasco_shipping/module_warehouses/response/warhouse_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
@@ -27,7 +27,7 @@ import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 class AcceptedShipmentStatusReceived extends StatefulWidget {
   final List<AcceptedShipmentStatusModel> statusModel;
   final List<SubcontractModel> subcontracts;
-  final List<WarehouseModel> warehouse;
+  final List<WarehousesModel> warehouse;
   final Function onChangeStatus;
   const AcceptedShipmentStatusReceived({required this.statusModel,required this.onChangeStatus,required this.subcontracts,required this.warehouse});
 
@@ -82,7 +82,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
    }
    dropListModelSubContract = DropListModel(entrySubContract);
 
-   for(WarehouseModel item in widget.warehouse){
+   for(WarehousesModel item in widget.warehouse){
      Entry v = Entry(item.name! ,item.id! ,[]);
      print("hhhhhhh" + item.name!);
      entryWarehouse.add(v);

@@ -48,7 +48,7 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(S.of(context).stageCost ,style: AppTextStyle.mediumBlackBold,),
+                      Text(S.of(context).totalCost ,style: AppTextStyle.mediumBlackBold,),
                       Text(widget.shipmentFinance.currentTotalCost ??'' ,style: AppTextStyle.mediumRedBold,),
                     ],
                   ),

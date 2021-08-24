@@ -4,4 +4,5 @@ class AcceptedShipmentRoutes{
   static const FILTER = '/acceptedshipment_filter';
   static const STATUS = '/acceptedshipment_status';
   static const FINANCE = '/acceptedshipment_finance';
+  static const SELECT_WAREHOUSE = '/view_select_warehouse';
 }

@@ -70,7 +70,7 @@ class _CountryCardState extends State<ContainerCard> {
                       Row(
                         children: [
                           Text(
-                            S.of(context).subcontract,
+                            S.of(context).subcontract+': ',
                             style: AppTextStyle.mediumBlack,
                           ),
                         Expanded(child:Text(
@@ -102,7 +102,7 @@ class _CountryCardState extends State<ContainerCard> {
                       Row(
                         children: [
                           Text(
-                            S.of(context).type,
+                            S.of(context).type+': ',
                             style: AppTextStyle.mediumBlack,
                           ),
                           Expanded(

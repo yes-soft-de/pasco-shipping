@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/enums/container_status.dart';
 import 'package:pasco_shipping/module_container/request/add_container_to_travel_request.dart';
 import 'package:pasco_shipping/module_container/request/container_change_state_request.dart';
@@ -19,42 +20,19 @@ import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class ContainerTravelDetailsSuccessfully extends StatefulWidget {
   final ContainerDetailsModel model;
-  final List<TravelModel> travels;
+  // final List<TravelModel> travels;
   final Function onShipmentReview;
   final Function onUploadedToTravel;
   final Function onClearedOrArrived;
   final Function onShowFinance;
-  const ContainerTravelDetailsSuccessfully({required this.model,required this.onShipmentReview,required this.travels,required this.onUploadedToTravel,required this.onClearedOrArrived ,required this.onShowFinance});
+  const ContainerTravelDetailsSuccessfully({required this.model,required this.onShipmentReview,required this.onUploadedToTravel,required this.onClearedOrArrived ,required this.onShowFinance});
 
   @override
   _ContainerDetailsSuccessfullyState createState() => _ContainerDetailsSuccessfullyState();
 }
 
 class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuccessfully> {
-  late DropListModel dropListModelTravels;
-  late Entry optionItemSelectedTravels;
-  late List<Entry> entryTravels;
-  late int travelID;
 
-
-  @override
-  void initState() {
-    super.initState();
-    entryTravels = <Entry>[];
-    optionItemSelectedTravels =  Entry('choose', 1, []);
-
-
-  }
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    for(TravelModel item in widget.travels){
-      Entry v = Entry(item.travelNumber! ,item.id! ,[]);
-      entryTravels.add(v);
-    }
-    dropListModelTravels = DropListModel(entryTravels);
-  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -68,7 +46,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Container Information' , style: AppTextStyle.largeBlueBold,),
+                Text(S.of(context).containerInformation , style: AppTextStyle.largeBlueBold,),
                 InkWell(
                     onTap: (){
                       widget.onShowFinance(widget.model.id);
@@ -88,7 +66,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Type'),
+                      Text(S.of(context).type),
                       Text(widget.model.type ?? ''),
                     ],
                   ),
@@ -99,7 +77,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Consignee Name'),
+                      Text(S.of(context).consignee),
                       Text(widget.model.consigneeName ?? ''),
                     ],
                   ),
@@ -110,7 +88,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('shipper Name'),
+                      Text(S.of(context).shipper),
                       Text(widget.model.shipperName ?? ''),
                     ],
                   ),
@@ -121,8 +99,30 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Provided By'),
+                      Text(S.of(context).subcontract),
                       Text(widget.model.subcontractName ?? ''),
+                    ],
+                  ),
+                ),
+                Divider(color: Colors.grey[300],thickness: 2,),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).carrier),
+                      Text(widget.model.carrierName ?? ''),
+                    ],
+                  ),
+                ),
+                Divider(color: Colors.grey[300],thickness: 2,),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).specification),
+                      Text(widget.model.specificationName ?? ''),
                     ],
                   ),
                 ),
@@ -133,7 +133,19 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Requested by'),
+                      Text(S.of(context).freeCapacity),
+                      Text(widget.model.freeCapacity ?? ''),
+                    ],
+                  ),
+                ),
+
+                Divider(color: Colors.grey[300],thickness: 2,),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).RequestedBy),
                       Text(widget.model.updatedByUser ?? ''),
                     ],
                   ),
@@ -145,7 +157,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Requested at'),
+                      Text(S.of(context).RequestedAt),
                       Text(widget.model.createdAt.toString().split('.').first),
                     ],
                   ),
@@ -155,12 +167,12 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text('Shipment Information' , style: AppTextStyle.largeBlueBold,),
+            child: Text(S.of(context).shipmentInformation, style: AppTextStyle.largeBlueBold,),
           ),
           widget.model.shipments!.isEmpty?
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('No shipment has been added to this container' ,style: AppTextStyle.mediumRed,),
+            child: Text(S.of(context).noShipmentAdd ,style: AppTextStyle.mediumRed,),
           ) :
           ListView.builder(
             shrinkWrap: true,
@@ -176,24 +188,15 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
             },
             itemCount: widget.model.shipments!.length,
           ),
-          (widget.model.shipments!.isNotEmpty && widget.model.shipments![0].travelStatus == null)?
-          selectTravel() :
-          (widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].travelStatus != null && widget.model.shipments![0].travelStatus == TravelStatusName[TravelStatus.CURRENT]) ?
-            Column(
-              children: [
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Text('This container is already included in an existing trip, do you want to change the trip' ,style: AppTextStyle.mediumRed,),
-                // ),
-                selectTravel()
-              ],
-            ):
+
+          (widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].shipmentStatus != null && widget.model.shipments![0].shipmentStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.STORED]) ?
+          uploadToTravel():
           (widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].travelStatus != null && widget.model.shipments![0].travelStatus == TravelStatusName[TravelStatus.RELEASED]) ?
           changeContainerStatus():
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('This container is already included in an existing trip ' , style: AppTextStyle.mediumRed,),
-          ),
+              Container(child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text('this Container uploaded to travel' , style: AppTextStyle.mediumRed,),
+              ),)
         ],
       ),
     );
@@ -262,35 +265,35 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Track Number: ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).trackNumber , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.trackNumber?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Weight: ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).weight , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.weight.toString() , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Product Category Name: ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).productCategory , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.productCategoryName ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('target Warehouse Name ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).targetWarehouse , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.target ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Export Warehouse Name: ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).exportWarehouse , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.exportWarehouseName ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
@@ -301,34 +304,9 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
     );
   }
 
-  Widget selectTravel(){
-    bool isFull;
-    if(widget.model.status == ContainerStatusName[ContainerStatus.FULL]){
-      isFull = true;
-    }else {
-      isFull = false;
-    }
-
+  Widget uploadToTravel(){
     return
     Column(children: [
-      // Padding(
-      //   padding: const EdgeInsets.all(8.0),
-      //   child: Row(children: [
-      //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-      //     SizedBox(width: 5,),
-      //     Text('Choose Travel' , style: AppTextStyle.mediumBlackBold,)
-      //   ],),
-      // ),
-      // SelectDropList(
-      //   this.optionItemSelectedTravels,
-      //   this.dropListModelTravels,
-      //       (optionItem) {
-      //     FocusScope.of(context).unfocus();
-      //     optionItemSelectedTravels = optionItem;
-      //     travelID = optionItem.id;
-      //     setState(() {});
-      //   },
-      // ),
       RoundedButton(lable: 'Upload container to travel', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
         AddContainerToTravelRequest re = AddContainerToTravelRequest( holderID: widget.model.id!, shipmentStatus: 'uploaded');
         widget.onUploadedToTravel(re);

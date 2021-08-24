@@ -39,8 +39,8 @@ class _AddCountryInitState extends State<FilterAirwaybillInit> {
   late Entry optionItemSelectedConsign;
   late List<Entry> entryConsign;
 
- // late String status;
- // late String type;
+ late String state;
+ late String type;
  // late int selectedRadioType;
  // late int shipperID;
 
@@ -184,23 +184,9 @@ class _AddCountryInitState extends State<FilterAirwaybillInit> {
     entrySub= <Entry>[];
     entryShipper = <Entry>[];
     entryConsign =<Entry>[];
-    status = [
-      Category(id: 1, name: S.of(context).full, description: 'full', isSelected: true),
-      Category(id: 1, name: S.of(context).notFull, description: 'notfull', isSelected: false),
-    ];
-    typeList = [
-      Category(id: 1, name: S.of(context).LCL, description: 'LCL', isSelected: true),
-      Category(id: 1, name: S.of(context).FCL, description: 'FCL', isSelected: false),
-    ];
-    // travelNumber =TextEditingController();
-    // status=TravelStatusName[TravelStatus.CURRENT]!;
+    containerFilterRequest.status='full';
+    containerFilterRequest.type='LCL';
 
-    // selectedRadioType = 1;
-    // type = TravelTypeName[TravelType.SEA]!;
-
-    optionItemSelectedSubContract =  Entry('choose', 1, []);
-    optionItemSelectedShipper =  Entry('choose', 1, []);
-    optionItemSelectedConsign =  Entry('choose', 1, []);
 
     initList();
 
@@ -218,5 +204,25 @@ class _AddCountryInitState extends State<FilterAirwaybillInit> {
     dropListModelShipper  =DropListModel(entryShipper);
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    status = [
+      Category(id: 1, name: S.of(context).full, description: 'full', isSelected: true),
+      Category(id: 1, name: S.of(context).notFull, description: 'notfull', isSelected: false),
+    ];
+    typeList = [
+      Category(id: 1, name: S.of(context).LCL, description: 'LCL', isSelected: true),
+      Category(id: 1, name: S.of(context).FCL, description: 'FCL', isSelected: false),
+    ];
+    // travelNumber =TextEditingController();
+    // status=TravelStatusName[TravelStatus.CURRENT]!;
 
+    // selectedRadioType = 1;
+    // type = TravelTypeName[TravelType.SEA]!;
+
+    optionItemSelectedSubContract =  Entry('choose', 1, []);
+    optionItemSelectedShipper =  Entry('choose', 1, []);
+    optionItemSelectedConsign =  Entry('choose', 1, []);
+  }
 }

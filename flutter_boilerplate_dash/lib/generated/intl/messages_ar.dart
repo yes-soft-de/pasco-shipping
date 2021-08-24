@@ -127,6 +127,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "fillAllField":
             MessageLookupByLibrary.simpleMessage("إملئ جميع الحقول"),
         "filterBy": MessageLookupByLibrary.simpleMessage("تصنف بواسطة"),
+        "freeCapacity": MessageLookupByLibrary.simpleMessage("السعة الحرة"),
+        "freeWeight": MessageLookupByLibrary.simpleMessage("الوزن الحر"),
         "full": MessageLookupByLibrary.simpleMessage("ممتلئة"),
         "getStarted": MessageLookupByLibrary.simpleMessage("البدء"),
         "haveSpace":
@@ -227,6 +229,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "shipment": MessageLookupByLibrary.simpleMessage("الشحنات"),
         "shipmentAddSuccessfully":
             MessageLookupByLibrary.simpleMessage("تم طلب الشحنة بنجاح"),
+        "shipmentCost": MessageLookupByLibrary.simpleMessage("مصاريف الشحنة"),
         "shipmentFinance": MessageLookupByLibrary.simpleMessage("مصاريف شحنة"),
         "shipmentInfo": MessageLookupByLibrary.simpleMessage("معلومات الشحنة"),
         "shipmentInformation":
@@ -290,7 +293,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "warehouses": MessageLookupByLibrary.simpleMessage("المستودعات"),
         "weight": MessageLookupByLibrary.simpleMessage("الوزن: "),
         "welcome": MessageLookupByLibrary.simpleMessage("أهلا"),
-        "width": MessageLookupByLibrary.simpleMessage("العرض"),
+        "width": MessageLookupByLibrary.simpleMessage("الوزن"),
         "widthInMeter": MessageLookupByLibrary.simpleMessage("العرض بالمتر")
       };
 }

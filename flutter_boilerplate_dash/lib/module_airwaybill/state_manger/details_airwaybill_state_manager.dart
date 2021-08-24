@@ -28,7 +28,7 @@ class AirwaybillDetailsStateManager {
     });
   }
 
-  void updateAirwaybillStatus(AirwaybillChangeStateRequest request , TravelFilterRequest travelFilterRequest) {
+  void updateAirwaybillStatus(AirwaybillChangeStateRequest request ) {
     _addStateSubject.add(LoadingDetailsState());
     _service.updateAirwaybillStatus(request).then((value) {
       if (value != null) {

@@ -67,7 +67,7 @@ class AcceptedShipmentStatusModel {
     if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.ACCEPTED]!) {
       return 'Shipment accepted successfully';
     }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]!){
-      return 'The shipment was received from the customer in the warehouse';}
+      return 'The shipment was received from the supplier in the warehouse';}
       else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!){
         return 'The packaging and measurement phase has been completed';
     }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.STORED]!){

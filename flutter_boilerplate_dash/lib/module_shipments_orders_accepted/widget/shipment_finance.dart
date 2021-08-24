@@ -23,7 +23,7 @@ class ShipmentFinanceCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      'stage Cost: ',
+                     S.of(context).stageCost,
                       style: AppTextStyle.mediumBlack,
                     ),
                     Text(
@@ -38,7 +38,7 @@ class ShipmentFinanceCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      S.of(context).shipmentStatus,
+                      S.of(context).shipmentStatus+': ',
                       style: AppTextStyle.mediumBlack,
                     ),
                     Text(
