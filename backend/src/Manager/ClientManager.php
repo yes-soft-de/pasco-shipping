@@ -250,7 +250,7 @@ class ClientManager
             // keep generating identification number while it is exist
             $found = false;
             $identificationNumber = "";
-            $identificationNumberResult = "";
+            $result = "";
 
             for ($i = 0; $i < 7; $i++)
             {
@@ -262,13 +262,9 @@ class ClientManager
 
             if($result)
             {
-                $identificationNumberResult = $result['identificationNumber'];
-            }
-
-            if((int)$identificationNumber == (int)$identificationNumberResult)
-            {
                 $found = true;
             }
+
         }
         while($found);
 
