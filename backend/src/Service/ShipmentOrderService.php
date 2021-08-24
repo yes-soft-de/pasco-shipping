@@ -281,21 +281,12 @@ class ShipmentOrderService
 
     public function filterAcceptedShipments(ShipmentFilterRequest $request)
     {
-        $ordersResponse = [];
-
         $orders = $this->shipmentOrderManager->filterAcceptedShipments($request);
 
         if($orders)
         {
-            $ordersResponse['totalCount'] = count($orders);
-            
-            foreach ($orders as $order)
+            foreach ($orders['shipments'] as $order)
             {
-                if($order['image'])
-                {
-                    $order['image'] = $this->params . $order['image'];
-                }
-
                 if($order['clientUserImage'])
                 {
                     $order['clientUserImage'] = $this->params . $order['clientUserImage'];
@@ -305,12 +296,10 @@ class ShipmentOrderService
                 {
                     $order['orderUpdatedByUserImage'] = $this->params . $order['orderUpdatedByUserImage'];
                 }
-                
-                $ordersResponse['shipments'][] = $this->autoMapping->map('array', ShipmentFilterResponse::class, $order);
             }
         }
 
-        return $ordersResponse;
+        return $this->autoMapping->map('array', ShipmentFilterResponse::class, $orders);
     }
 
     public function deleteShipmentOrder($request)

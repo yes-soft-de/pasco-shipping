@@ -982,6 +982,11 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="object", property="statistics",
+     *                      @OA\Property(type="integer", property="received"),
+     *                      @OA\Property(type="integer", property="notDelivered"),
+     *                      @OA\Property(type="integer", property="delivered")
+     *                  ),
      *                  @OA\Property(type="integer", property="totalCount"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items(
