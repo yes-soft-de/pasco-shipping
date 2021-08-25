@@ -248,6 +248,11 @@ class ShipmentOrderManager
 
             $response['shipments'] = $shipments;
         }
+        else
+        {
+            $response['shipments'] = [];
+            $response['totalCount'] = 0;
+        }
 
         $response['statistics']['received'] = $this->getShipmentsCountByTransportationTypeAndShipmentStatusAndWarehouseType($request->getTransportationType(), ShipmentStatusConstant::$RECEIVED_SHIPMENT_STATUS,
             $request->getIsExternalWarehouse());
@@ -268,20 +273,6 @@ class ShipmentOrderManager
     public function getShipmentsCountByTransportationTypeAndWarehouseTypeAndNotDelivered($transportationType, $isExternalWarehouse)
     {
         return count($this->orderShipmentEntityRepository->getShipmentsByTransportationTypeAndWarehouseTypeAndNotDelivered($transportationType, $isExternalWarehouse));
-    }
-
-    // Not used any more
-    // Get shimpment info from ShipmentStatuEntity
-    public function getAcceptedShipmentByShipmentID($shipmentID)
-    {
-        return $this->shipmentStatusManager->getByShipmentID($shipmentID);
-    }
-
-    // Not used any more
-    // Get shimpment info from TrackEntity
-    public function getByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
-    {
-        return $this->trackManager->getByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
     }
 
     public function getShipmentOrderByMarkID($markID)
@@ -351,4 +342,5 @@ class ShipmentOrderManager
     {
         return $this->orderShipmentEntityRepository->deleteAllOrders();
     }
+
 }
