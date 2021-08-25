@@ -162,7 +162,9 @@ class AdminController extends BaseController
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="string", property="userName"),
      *                  @OA\Property(type="string", property="image"),
-     *                  @OA\Property(type="string", property="phone")
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="array", property="roles",
+     *                      @OA\Items(example="user")),
      *          )
      *      )
      * )

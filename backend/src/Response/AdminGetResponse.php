@@ -15,5 +15,7 @@ class AdminGetResponse
     public $image;
     
     public $email;
+
+    public $roles;
     
 }

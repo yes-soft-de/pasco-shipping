@@ -25,10 +25,17 @@ class AdminProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('profile')
 
-            ->addSelect('profile.userName', 'profile.image', 'profile.phone')
+            ->addSelect('profile.userName', 'profile.image', 'profile.phone', 'userEntity.roles')
 
             ->andWhere('profile.userID = :userID')
             ->setParameter('userID', $userID)
+
+            ->leftJoin(
+                UserEntity::class,
+                'userEntity',
+                Join::WITH,
+                'userEntity.id = profile.userID'
+            )
 
             ->getQuery()
             ->getOneOrNullResult();
