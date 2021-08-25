@@ -25,7 +25,7 @@ class AdminProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('profile')
 
-            ->addSelect('profile.userName', 'profile.image', 'profile.phone', 'userEntity.roles')
+            ->addSelect('profile.id', 'profile.userName', 'profile.image', 'profile.phone', 'profile.userID', 'userEntity.roles')
 
             ->andWhere('profile.userID = :userID')
             ->setParameter('userID', $userID)
@@ -41,11 +41,22 @@ class AdminProfileEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function getAdminProfileByUserID($userID)
+    {
+        return $this->createQueryBuilder('profile')
+
+            ->andWhere('profile.userID = :userID')
+            ->setParameter('userID', $userID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function getAllEmployees()
     {
         return $this->createQueryBuilder('profile')
 
-        ->addSelect('profile.id', 'profile.userID', 'profile.userName', 'profile.image', 'profile.phone', 'userEntity.email')
+        ->addSelect('profile.id', 'profile.userID', 'profile.userName', 'profile.image', 'profile.phone', 'userEntity.roles')
 
         ->leftJoin(
             UserEntity::class,
@@ -54,8 +65,8 @@ class AdminProfileEntityRepository extends ServiceEntityRepository
             'userEntity.id = profile.userID'
         )
 
-        ->andWhere('userEntity.roles LIKE :role')
-        ->setParameter('role', '%'."ROLE_EMPLOYEE".'%')
+//        ->andWhere('userEntity.roles LIKE :role')
+//        ->setParameter('role', '%'."ROLE_EMPLOYEE".'%')
 
         ->orderBy('profile.id', 'DESC')
 

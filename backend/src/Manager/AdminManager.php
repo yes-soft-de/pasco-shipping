@@ -8,6 +8,7 @@ use App\Entity\UserEntity;
 use App\Repository\AdminProfileEntityRepository;
 use App\Repository\UserEntityRepository;
 use App\Request\AdminCreateRequest;
+use App\Request\AdminProfileUpdateRequest;
 use App\Request\DeleteRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -90,6 +91,21 @@ class AdminManager
             }
 
             return true;
+        }
+    }
+
+    public function adminProfileUpdate(AdminProfileUpdateRequest $request)
+    {
+        $adminProfileEntity = $this->adminProfileEntityRepository->getAdminProfileByUserID($request->getUserID());
+
+        if ($adminProfileEntity)
+        {
+            $adminProfileEntity = $this->autoMapping->mapToObject(AdminProfileUpdateRequest::class, AdminProfileEntity::class, $request, $adminProfileEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $adminProfileEntity;
         }
     }
 

@@ -3,9 +3,11 @@
 namespace App\Service;
 
 use App\AutoMapping;
+use App\Entity\AdminProfileEntity;
 use App\Entity\UserEntity;
 use App\Manager\AdminManager;
 use App\Request\AdminCreateRequest;
+use App\Request\AdminProfileUpdateRequest;
 use App\Response\AdminCreateResponse;
 use App\Response\AdminGetResponse;
 use App\Response\UserRegisterResponse;
@@ -41,6 +43,13 @@ class AdminService implements AdminServiceInterface
             
             return $user;
         }
+    }
+
+    public function adminProfileUpdate(AdminProfileUpdateRequest $request)
+    {
+        $adminProfileEntity = $this->adminManager->adminProfileUpdate($request);
+
+        return $this->autoMapping->map(AdminProfileEntity::class, AdminGetResponse::class, $adminProfileEntity);
     }
 
     public function getAllEmployees()
