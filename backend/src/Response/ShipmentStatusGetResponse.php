@@ -76,6 +76,8 @@ class ShipmentStatusGetResponse
 
     public $clientUserImage;
 
+    public $clientIdentificationNumber;
+
     public $orderUpdatedByUser;
 
     public $orderUpdatedByUserImage;

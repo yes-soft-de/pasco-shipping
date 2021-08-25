@@ -18,4 +18,6 @@ class ClientProfileResponse
 
     public $email;
 
+    public $identificationNumber;
+
 }

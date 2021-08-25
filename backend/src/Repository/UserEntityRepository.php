@@ -65,7 +65,7 @@ class UserEntityRepository extends ServiceEntityRepository implements PasswordUp
     {
         return $this->createQueryBuilder('user')
             ->select('user.id', 'user.roles', 'user.userID', 'user.createAt', 'user.createdBy', 'user.updatedBy', 'user.email', 'clientProfile.userName', 'clientProfile.image', 
-            'clientProfile.city', 'clientProfile.country', 'clientProfile.location', 'clientProfile.phone', 'adminProfile1.userName as createdByUser', 
+            'clientProfile.city', 'clientProfile.country', 'clientProfile.location', 'clientProfile.identificationNumber','clientProfile.phone', 'adminProfile1.userName as createdByUser',
             'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
             ->andWhere('user.id = :userID')
@@ -100,7 +100,7 @@ class UserEntityRepository extends ServiceEntityRepository implements PasswordUp
     {
         return $this->createQueryBuilder('user')
             ->select('user.id', 'user.userID', 'user.roles', 'user.email', 'user.createAt', 'user.createdBy', 'user.updatedBy', 'clientProfile.userName',
-             'clientProfile.city', 'clientProfile.image', 'clientProfile.country', 'clientProfile.location', 'clientProfile.phone', 'adminProfile1.userName as createdByUser', 
+             'clientProfile.identificationNumber', 'clientProfile.city', 'clientProfile.image', 'clientProfile.country', 'clientProfile.location', 'clientProfile.phone', 'adminProfile1.userName as createdByUser',
              'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
             ->andWhere('user.roles LIKE :clientRole')

@@ -53,6 +53,11 @@ class ClientProfileEntity
      */
     private $phone;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $identificationNumber;
+
 
     public function getId(): ?int
     {
@@ -139,6 +144,18 @@ class ClientProfileEntity
     public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getIdentificationNumber(): ?string
+    {
+        return $this->identificationNumber;
+    }
+
+    public function setIdentificationNumber(?string $identificationNumber): self
+    {
+        $this->identificationNumber = $identificationNumber;
 
         return $this;
     }

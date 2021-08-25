@@ -14,6 +14,8 @@ class ClientRegisterRequest
 
     private $userName;
 
+    private $identificationNumber;
+
     /**
      * @return mixed
      */
@@ -79,4 +81,13 @@ class ClientRegisterRequest
 
         return $this;
     }
+
+    /**
+     * @param mixed $identificationNumber
+     */
+    public function setIdentificationNumber($identificationNumber): void
+    {
+        $this->identificationNumber = $identificationNumber;
+    }
+
 }

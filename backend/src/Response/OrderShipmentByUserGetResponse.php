@@ -10,6 +10,8 @@ class OrderShipmentByUserGetResponse
 
     public $clientUserImage;
 
+    public $clientIdentificationNumber;
+
     public $transportationType;
 
     public $target;

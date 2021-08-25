@@ -26,9 +26,23 @@ class ClientProfileEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('profile')
 
-            ->addSelect('profile.userName', 'profile.image', 'profile.country', 'profile.city', 'profile.city', 'profile.location', 'profile.phone')
-            ->andWhere('profile.userID=:userID')
+            ->addSelect('profile.userName', 'profile.image', 'profile.country', 'profile.city', 'profile.city', 'profile.location', 'profile.phone', 'profile.identificationNumber')
+
+            ->andWhere('profile.userID = :userID')
             ->setParameter('userID', $userID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getClientByIdentificationNumber($identificationNumber)
+    {
+        return $this->createQueryBuilder('profile')
+
+            ->addSelect('profile.userName', 'profile.image', 'profile.country', 'profile.city', 'profile.city', 'profile.location', 'profile.phone', 'profile.identificationNumber')
+
+            ->andWhere('profile.identificationNumber = :identificationNumber')
+            ->setParameter('identificationNumber', $identificationNumber)
 
             ->getQuery()
             ->getOneOrNullResult();
@@ -67,7 +81,7 @@ class ClientProfileEntityRepository extends ServiceEntityRepository
     public function filterClients($name)
     {
         $query = $this->createQueryBuilder('profile')
-            ->select('profile.id', 'profile.userID', 'profile.phone', 'profile.city', 'profile.image', 'profile.userName', 'profile.location', 'userEntity.roles', 
+            ->select('profile.id', 'profile.userID', 'profile.phone', 'profile.city', 'profile.image', 'profile.userName', 'profile.location', 'profile.identificationNumber', 'userEntity.roles',
             'userEntity.email', 'userEntity.createAt', 'userEntity.createdBy', 'userEntity.updatedBy', 'adminProfile1.userName as createdByUser',
             'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 

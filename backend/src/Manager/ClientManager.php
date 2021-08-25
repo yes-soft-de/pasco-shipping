@@ -71,6 +71,7 @@ class ClientManager
                 $clientProfile = $this->autoMapping->map(ClientRegisterRequest::class, ClientProfileEntity::class, $request);
 
                 $clientProfile->setUserID($userRegister->getId());
+                $clientProfile->setIdentificationNumber($this->generateIdentificationNumber());
 
                 $this->entityManager->persist($clientProfile);
                 $this->entityManager->flush();
@@ -88,6 +89,7 @@ class ClientManager
                 $clientProfile = $this->autoMapping->map(ClientRegisterRequest::class, ClientProfileEntity::class, $request);
                 
                 $clientProfile->setUserID($userResult['id']);
+                $clientProfile->setIdentificationNumber($this->generateIdentificationNumber());
 
                 $this->entityManager->persist($clientProfile);
                 $this->entityManager->flush();
@@ -133,6 +135,7 @@ class ClientManager
                 $clientProfile = $this->autoMapping->map(ClientRegisterByDashboardRequest::class, ClientProfileEntity::class, $request);
 
                 $clientProfile->setUserID($userRegister->getId());
+                $clientProfile->setIdentificationNumber($this->generateIdentificationNumber());
 
                 $this->entityManager->persist($clientProfile);
                 $this->entityManager->flush();
@@ -150,6 +153,7 @@ class ClientManager
                 $clientProfile = $this->autoMapping->map(ClientRegisterByDashboardRequest::class, ClientProfileEntity::class, $request);
                 
                 $clientProfile->setUserID($userResult['id']);
+                $clientProfile->setIdentificationNumber($this->generateIdentificationNumber());
 
                 $this->entityManager->persist($clientProfile);
                 $this->entityManager->flush();
@@ -232,6 +236,39 @@ class ClientManager
     public function getCountOfAllClientsProfiles()
     {
         return count($this->clientProfileEntityRepository->findAll());
+    }
+
+    public function getClientByIdentificationNumber($identificationNumber)
+    {
+        return $this->clientProfileEntityRepository->getClientByIdentificationNumber($identificationNumber);
+    }
+
+    public function generateIdentificationNumber()
+    {
+        do
+        {
+            // keep generating identification number while it is exist
+            $found = false;
+            $identificationNumber = "";
+            $result = "";
+
+            for ($i = 0; $i < 7; $i++)
+            {
+                $identificationNumber .= random_int(0, 9);
+            }
+
+            // Check if it is exist
+            $result = $this->getClientByIdentificationNumber($identificationNumber);
+
+            if($result)
+            {
+                $found = true;
+            }
+
+        }
+        while($found);
+
+        return $identificationNumber;
     }
 
     public function deleteClientById(DeleteRequest $request)

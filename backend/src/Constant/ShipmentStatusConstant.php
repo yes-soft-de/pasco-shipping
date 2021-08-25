@@ -6,6 +6,8 @@ class ShipmentStatusConstant
 {
     static $ACCEPTED_SHIPMENT_STATUS = "accepted";
 
+    static $RECEIVED_SHIPMENT_STATUS = "received";
+
     static $UNDEFINED_SHIPMENT_STATUS = "undefined";
 
     static $MEASURED_SHIPMENT_STATUS = "measured";

@@ -34,7 +34,7 @@ class ClientController extends BaseController
     }
 
     /**
-     * @Route("/client", name="clientRegister", methods={"POST"})
+     * @Route("client", name="clientRegister", methods={"POST"})
      *
      * @OA\Tag(name="Client")
      *
@@ -83,7 +83,7 @@ class ClientController extends BaseController
     }
 
     /**
-     * @Route("/clientbydashboard", name="clientRegisterByDashboard", methods={"POST"})
+     * @Route("clientbydashboard", name="clientRegisterByDashboard", methods={"POST"})
      *
      * @OA\Tag(name="Client")
      *
@@ -240,7 +240,8 @@ class ClientController extends BaseController
      *                  @OA\Property(type="string", property="city"),
      *                  @OA\Property(type="string", property="country"),
      *                  @OA\Property(type="string", property="location"),
-     *                  @OA\Property(type="string", property="phone")
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="identificationNumber")
      *          )
      *      )
      * )
@@ -295,7 +296,8 @@ class ClientController extends BaseController
      *                  @OA\Property(type="string", property="city"),
      *                  @OA\Property(type="string", property="country"),
      *                  @OA\Property(type="string", property="location"),
-     *                  @OA\Property(type="string", property="phone")
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="identificationNumber")
      *          )
      *      )
      * )
@@ -335,7 +337,8 @@ class ClientController extends BaseController
      *                  @OA\Property(type="string", property="city"),
      *                  @OA\Property(type="string", property="country"),
      *                  @OA\Property(type="string", property="location"),
-     *                  @OA\Property(type="string", property="phone")
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="identificationNumber")
      *      )
      * )
      *
@@ -348,7 +351,7 @@ class ClientController extends BaseController
     }
 
     /**
-     * @Route("/filterclients", name="clientFilter", methods={"POST"})
+     * @Route("filterclients", name="clientFilter", methods={"POST"})
      *
      * @OA\Tag(name="Client")
      *
@@ -380,7 +383,8 @@ class ClientController extends BaseController
      *                  @OA\Property(type="string", property="city"),
      *                  @OA\Property(type="string", property="country"),
      *                  @OA\Property(type="string", property="location"),
-     *                  @OA\Property(type="string", property="phone")
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="identificationNumber")
      *          )
      *      )
      * )
