@@ -8,6 +8,10 @@ class AdminCreateRequest
 
     private $userName;
 
+    private $phone;
+
+    private $image;
+
     private $email;
 
     private $password;
