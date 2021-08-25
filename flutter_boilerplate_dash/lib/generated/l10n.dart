@@ -1100,20 +1100,20 @@ class S {
     );
   }
 
-  /// `Requested by`
+  /// `Requested by: `
   String get RequestedBy {
     return Intl.message(
-      'Requested by',
+      'Requested by: ',
       name: 'RequestedBy',
       desc: '',
       args: [],
     );
   }
 
-  /// `Requested at`
+  /// `Requested at: `
   String get RequestedAt {
     return Intl.message(
-      'Requested at',
+      'Requested at: ',
       name: 'RequestedAt',
       desc: '',
       args: [],
@@ -1480,10 +1480,10 @@ class S {
     );
   }
 
-  /// `Width`
+  /// `Weight`
   String get width {
     return Intl.message(
-      'Width',
+      'Weight',
       name: 'width',
       desc: '',
       args: [],
@@ -2180,11 +2180,71 @@ class S {
     );
   }
 
-  /// `Enter the Number`
+  /// `Enter the track number`
   String get enterNumber {
     return Intl.message(
-      'Enter the Number',
+      'Enter the track number',
       name: 'enterNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Company / Personal Name`
+  String get companyOrPersonalName {
+    return Intl.message(
+      'Company / Personal Name',
+      name: 'companyOrPersonalName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Status changed by: `
+  String get modifiedBy {
+    return Intl.message(
+      'Status changed by: ',
+      name: 'modifiedBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Arrived Shipment`
+  String get arrivedShipment {
+    return Intl.message(
+      'Arrived Shipment',
+      name: 'arrivedShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Free Capacity`
+  String get freeCapacity {
+    return Intl.message(
+      'Free Capacity',
+      name: 'freeCapacity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Free Weight`
+  String get freeWeight {
+    return Intl.message(
+      'Free Weight',
+      name: 'freeWeight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment Cost`
+  String get shipmentCost {
+    return Intl.message(
+      'Shipment Cost',
+      name: 'shipmentCost',
       desc: '',
       args: [],
     );

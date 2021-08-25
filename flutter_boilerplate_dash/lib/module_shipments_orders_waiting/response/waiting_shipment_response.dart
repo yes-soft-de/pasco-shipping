@@ -57,6 +57,7 @@ class WaitingShipmentModel {
     this.quantity,
     this.updatedAt,
     this.productCategoryName,
+    this.subProductCategoryName,
     this.unit,
     this.receiverName,
     this.receiverPhoneNumber,
@@ -84,6 +85,7 @@ class WaitingShipmentModel {
   int? quantity;
   DateTime? updatedAt;
   String? productCategoryName;
+  String? subProductCategoryName;
   String? unit;
   String? receiverName;
   String? receiverPhoneNumber;
@@ -97,7 +99,7 @@ class WaitingShipmentModel {
   String? extraSpecification;
 
   String? holderType;
-  String? imagePath;
+  List<ImagePa>? imagePath;
 
   bool isExternalWarehouse;
   String? externalWarehouseInfo;
@@ -119,6 +121,7 @@ class WaitingShipmentModel {
         updatedAt: DateTime.fromMillisecondsSinceEpoch(
             CreatedAt.fromJson(json["updatedAt"]).timestamp! * 1000),
         productCategoryName: json["productCategoryName"],
+          subProductCategoryName: json["subProductCategoryName"],
         unit: json["unit"],
         receiverName: json["receiverName"],
         receiverPhoneNumber: json["receiverPhoneNumber"],
@@ -129,7 +132,7 @@ class WaitingShipmentModel {
         transportationType : json['transportationType'],
         markNumber: json['markNumber'],
         holderType: json['holderType'],
-        imagePath:json['image'],
+        imagePath: List<ImagePa>.from(json['images'].map((x) => ImagePa.fromJson(x))),
         isExternalWarehouse: json['isExternalWarehouse'],
         externalWarehouseInfo: json['externalWarehouseInfo'] ??''
 
@@ -145,5 +148,18 @@ class CreatedAt {
 
   factory CreatedAt.fromJson(Map<String, dynamic> json) => CreatedAt(
     timestamp: json["timestamp"],
+  );
+}
+class ImagePa {
+  ImagePa({
+  required  this.id,
+    required this.url,
+  });
+  int id;
+  String url;
+
+  factory ImagePa.fromJson(Map<String, dynamic> json) => ImagePa(
+    id: json['id'],
+    url: json['image'],
   );
 }

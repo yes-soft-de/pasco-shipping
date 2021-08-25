@@ -23,18 +23,18 @@ class LoginScreen extends StatefulWidget {
 class LoginScreenState extends State<LoginScreen> {
 
   late LoginState _currentStates;
-  late AsyncSnapshot loadingSnapshot;
+  // late AsyncSnapshot loadingSnapshot;
   late StreamSubscription _stateSubscription;
-  bool deepLinkChecked = false;
+  // bool deepLinkChecked = false;
   void refresh() {
     if (mounted) setState(() {});
   }
-  int? returnToMainScreen;
-  bool? returnToPreviousScreen;
+  // int? returnToMainScreen;
+  // bool? returnToPreviousScreen;
   @override
   void initState() {
     super.initState();
-    loadingSnapshot = AsyncSnapshot.nothing();
+    // loadingSnapshot = AsyncSnapshot.nothing();
     _currentStates = LoginStateInit(this);
     _stateSubscription = widget._stateManager.stateStream.listen((event) {
       if (mounted) {
@@ -43,13 +43,13 @@ class LoginScreenState extends State<LoginScreen> {
         });
       }
     });
-    widget._stateManager.loadingStream.listen((event) {
-      if (this.mounted) {
-        setState(() {
-          loadingSnapshot = event;
-        });
-      }
-    });
+    // widget._stateManager.loadingStream.listen((event) {
+    //   if (this.mounted) {
+    //     setState(() {
+    //       loadingSnapshot = event;
+    //     });
+    //   }
+    // });
   }
   dynamic args;
   @override
@@ -109,15 +109,7 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   void moveToNext() {
-    if (returnToMainScreen != null) {
-      Navigator.of(context).pushNamedAndRemoveUntil(HomeRoutes.Home, (route) => false,arguments: returnToMainScreen);
-    }
-    else if (returnToPreviousScreen != null ){
-      Navigator.of(context).pop();
-    }
-    else {
       Navigator.of(context).pushNamedAndRemoveUntil(HomeRoutes.Home, (route) => false);
-    }
     // CustomFlushBarHelper.createSuccess(title:S.current.warnning, message: S.current.loginSuccess).show(context);
   }
 }

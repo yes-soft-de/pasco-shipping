@@ -102,12 +102,37 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Text(S.of(context).carrier),
+                      Text(widget.model.carrierName ?? ''),
+                    ],
+                  ),
+                ),
+                Divider(color: Colors.grey[300],thickness: 2,),
+
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
                       Text(S.of(context).specification),
                       Text(widget.model.specificationName ?? ''),
                     ],
                   ),
                 ),
                 Divider(color: Colors.grey[300],thickness: 2,),
+
+
+                Divider(color: Colors.grey[300],thickness: 2,),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).freeWeight),
+                      Text(widget.model.freeWeight ?? ''),
+                    ],
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(

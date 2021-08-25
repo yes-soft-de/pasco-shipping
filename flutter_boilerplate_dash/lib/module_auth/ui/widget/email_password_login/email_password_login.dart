@@ -10,11 +10,13 @@ class EmailPasswordForm extends StatefulWidget {
   final Function(String, String)? onLoginRequest;
   final String? email;
   final String? password;
+   bool isLoading;
 
   EmailPasswordForm({
     this.onLoginRequest,
     this.email,
     this.password,
+   required this.isLoading,
   });
 
   @override
@@ -27,7 +29,7 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
   final TextEditingController _loginPasswordController =
       TextEditingController();
 
-  bool loading = false;
+  // bool loading = false;
 
   @override
   void initState() {
@@ -134,14 +136,14 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                 Container(
                   child: RoundedButton(
                     radius: 15,
-                    lable: S.of(context).signIn,
+                    lable:widget.isLoading?S.of(context).loading : S.of(context).signIn,
                     icon: StaticImage.personRegister,
                     color: Theme.of(context).accentColor,
-                    go: loading == true
+                    go: widget.isLoading
                         ? () {}
                         : () {
                             if (_loginFormKey.currentState!.validate()) {
-                              loading = true;
+                              widget.isLoading  = true;
                               setState(() {});
                               widget.onLoginRequest!(
                                 _loginEmailController.text,
@@ -152,23 +154,23 @@ class _EmailPasswordLoginState extends State<EmailPasswordForm> {
                     style: white24text,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: GestureDetector(
-                    onTap: () {
-                    },
-                    child: Text(
-                      loading == true
-                          ? S.of(context).loading
-                          : '',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: AppThemeDataService.PrimaryDarker
-                      ),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(16.0),
+                //   child: GestureDetector(
+                //     onTap: () {
+                //     },
+                //     child: Text(
+                //       widget.isLoading  == true
+                //           ? S.of(context).loading
+                //           : '',
+                //       textAlign: TextAlign.center,
+                //       style: TextStyle(
+                //         fontWeight: FontWeight.bold,
+                //         color: AppThemeDataService.PrimaryDarker
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

@@ -28,7 +28,7 @@ class ShipmentRequest {
   late String _extraSpecification;
 
   late String _holderType;
-  late String? imageFilePath;
+  late List<String>? imageFilePath;
 
   late int userID;
   late String  userName;
@@ -55,7 +55,7 @@ class ShipmentRequest {
         "markID": markId,
         "vehicleIdentificationNumber": vehicleIdentificationNumber,
         "extraSpecification": extraSpecification,
-        'image':imageFilePath == null ?'': imageFilePath!,
+        'images':imageFilePath ?? [],
     'exportWarehouseName':exportWarehouseName,
     'markName':markName,
     'holderType':holderType,

@@ -37,7 +37,9 @@ class AirwaybillDetailsModel {
     this.subcontractName,
     this.shipperName,
     this.consigneeName,
+    this.carrierName,
     this.specificationName,
+    this.freeWeight,
 
 
     this.createdAt,
@@ -55,7 +57,9 @@ class AirwaybillDetailsModel {
   String? subcontractName;
   String? consigneeName;
   String? shipperName;
+  String? carrierName;
   String? specificationName;
+  String? freeWeight;
 
 
 
@@ -74,7 +78,9 @@ class AirwaybillDetailsModel {
     subcontractName: json['subcontractName'],
     consigneeName: json['consigneeName'],
     shipperName: json['shipperName'],
+    carrierName: json['carrierName'],
     specificationName: json['specificationName'],
+    freeWeight: json['freeWeight'].toString(),
 
 
 

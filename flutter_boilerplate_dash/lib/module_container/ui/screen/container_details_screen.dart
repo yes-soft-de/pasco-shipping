@@ -52,11 +52,12 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
     String id =arguments['id'].toString();
     bool isFull = arguments['isFull'];
     if(isFull){
-      TravelFilterRequest request = TravelFilterRequest(type: TravelTypeName[ TravelType.SEA]!);
-      widget._stateManager.getContainerDetailsAndTravels(id,request);
-
+      print('ISfULL');
+      widget._stateManager.getContainerDetailsAndTravels(id);
     }
-    widget._stateManager.getContainerDetails(id);
+   else {
+      widget._stateManager.getContainerDetails(id);
+    }
 
   }
 
@@ -90,9 +91,8 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
       SuccessfullyDetailsState? state = currentState as SuccessfullyDetailsState?;
       items = state!.response;
 
-      TravelFilterRequest travelRequest = TravelFilterRequest(type: TravelTypeName[TravelType.SEA]! ,status: TravelStatusName[TravelStatus.CURRENT]);
       return ContainerDetailsSuccessfully(model:items ,onChangeStatus:(request){
-        widget._stateManager.updateContainerStatus(request,travelRequest);
+        widget._stateManager.updateContainerStatus(request);
       },onShipmentReview: (model){
         Navigator.pushNamed(context, ContainerRoutes.CONTAINER_SHIPMENT_REVIEW , arguments:  model);
       }, onShowFinance: (id){
@@ -103,13 +103,15 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
     else if (currentState is SuccessfullyUploadedContainerState){
       // SuccessfullyUploadedContainerState? state = currentState as SuccessfullyUploadedContainerState?;
       Fluttertoast.showToast(msg: 'Holder has been loaded onto Trip successfully');
-      TravelFilterRequest travelRequest = TravelFilterRequest(type: TravelTypeName[TravelType.SEA]! ,status: TravelStatusName[TravelStatus.CURRENT]);
-      return ContainerDetailsSuccessfully(model:items ,
-        onChangeStatus:(request){
-        widget._stateManager.updateContainerStatus(request ,travelRequest);
-      },onShipmentReview: (model){
-        Navigator.pushNamed(context, ContainerRoutes.CONTAINER_SHIPMENT_REVIEW , arguments:  model);
-      }, onShowFinance: (id){
+      return ContainerTravelDetailsSuccessfully(model:items ,
+        onShipmentReview: (model){
+          Navigator.pushNamed(context, ContainerRoutes.CONTAINER_SHIPMENT_REVIEW , arguments:  model);
+        }, onUploadedToTravel: (addContainerToTravelRequest){
+          widget._stateManager.uploadedContainerToTravel(addContainerToTravelRequest);
+        },
+        onClearedOrArrived: (re){
+          widget._stateManager.clearedOrArrived(re);
+        },onShowFinance: (id){
           Navigator.pushNamed(context, ContainerRoutes.CONTAINER_FINANCE ,arguments: {'id' :id});
         },
       );
@@ -117,13 +119,12 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
     else if (currentState is SuccessfullyDetailsWithTravelsState){
       SuccessfullyDetailsWithTravelsState? state = currentState as SuccessfullyDetailsWithTravelsState?;
       items = state!.response;
-      travels = state.travels;
       return ContainerTravelDetailsSuccessfully(model:items ,
         onShipmentReview: (model){
           Navigator.pushNamed(context, ContainerRoutes.CONTAINER_SHIPMENT_REVIEW , arguments:  model);
         }, onUploadedToTravel: (addContainerToTravelRequest){
         widget._stateManager.uploadedContainerToTravel(addContainerToTravelRequest);
-        }, travels: travels,
+        },
         onClearedOrArrived: (re){
         widget._stateManager.clearedOrArrived(re);
         },onShowFinance: (id){

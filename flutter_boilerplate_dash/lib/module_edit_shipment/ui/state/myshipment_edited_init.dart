@@ -220,7 +220,7 @@ class ReviewShipmentEditedScreen extends StatelessWidget {
                       ]),
                   child: shipment.imageFilePath!.isNotEmpty
                       ? Image.file(
-                          File(shipment.imageFilePath!),
+                          File(shipment.imageFilePath![0]),
                           fit: BoxFit.cover,
                           width: 100,
                           height: 100,
@@ -269,7 +269,7 @@ class ReviewShipmentEditedScreen extends StatelessWidget {
                     vehicleIdentificationNumber: shipment.vehicleIdentificationNumber,
                     extraSpecification: shipment.extraSpecification,
                     holderType: shipment.holderType
-                    ,imageFile: shipment.imageFilePath);
+                    ,imageFile: shipment.imageFilePath![0]);
                 _showConfirmDialog(context ,request);
               },
             )

@@ -209,47 +209,23 @@ class _MyAppState extends State<MyApp> {
       activeTheme = event;
       setState(() {});
     });
-    initS();
+    // initS();
   }
 
-  initS()async {
-     activeLanguage = await widget._localizationService.getLanguage();
-     theme = await widget._themeDataService.getActiveTheme();
-  }
+  // initS()async {
+  //    activeLanguage = await widget._localizationService.getLanguage();
+  //    theme = await widget._themeDataService.getActiveTheme();
+  // }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      navigatorObservers: <NavigatorObserver>[observer],
-      locale: Locale.fromSubtags(
-        languageCode: 'en',
-      ),
-      localizationsDelegates: [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      theme: theme,
-      supportedLocales: S.delegate.supportedLocales,
-      title: 'pasco-shipping',
-      routes: YesModule.RoutesMap,
-      initialRoute: SplashRoutes.SPLASH_SCREEN,
-    );
-    // return FutureBuilder(
-    //   initialData: Container(),
-    //   future: getConfiguratedApp(YesModule.RoutesMap),
-    //   builder: (BuildContext context, AsyncSnapshot<Widget> scaffoldSnapshot) {
-    //     return scaffoldSnapshot.data!;
-    //   },
-    // );
+    return getConfiguratedApp(YesModule.RoutesMap);
   }
 
-  Future<Widget> getConfiguratedApp(
-    Map<String, WidgetBuilder> fullRoutesList,
-  ) async {
-    var activeLanguage = await widget._localizationService.getLanguage();
-    var theme = await widget._themeDataService.getActiveTheme();
+  Widget getConfiguratedApp(
+      Map<String, WidgetBuilder> fullRoutesList,
+      ) {
+    var activeLanguage = widget._localizationService.getLanguage();
+    var theme = widget._themeDataService.getActiveTheme();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorObservers: <NavigatorObserver>[observer],
@@ -265,7 +241,7 @@ class _MyAppState extends State<MyApp> {
       ],
       theme: theme,
       supportedLocales: S.delegate.supportedLocales,
-      title: 'Pasco',
+      title: 'Twaslna',
       routes: fullRoutesList,
       initialRoute: SplashRoutes.SPLASH_SCREEN,
     );

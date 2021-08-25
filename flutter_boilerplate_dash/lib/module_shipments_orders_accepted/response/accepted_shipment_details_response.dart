@@ -1,3 +1,4 @@
+import 'package:pasco_shipping/module_shipments_orders_waiting/response/waiting_shipment_response.dart';
 import 'package:pasco_shipping/utils/logger/logger.dart';
 
 class AcceptedShipmentDetailsResponse {
@@ -30,6 +31,7 @@ class AcceptedShipmentDetailsModel {
     this.quantity,
     this.updatedAt,
     this.productCategoryName,
+    this.subProductCategoryName,
     this.unit,
     this.receiverName,
     this.receiverPhoneNumber,
@@ -54,6 +56,7 @@ class AcceptedShipmentDetailsModel {
   int? quantity;
   DateTime? updatedAt;
   String? productCategoryName;
+  String? subProductCategoryName;
   String? unit;
   String? receiverName;
   String? receiverPhoneNumber;
@@ -65,7 +68,7 @@ class AcceptedShipmentDetailsModel {
 
   String? vehicleIdentificationNumber;
   String? extraSpecification;
-  String? imagePath;
+  List<ImagePa>? imagePath;
 
   DateTime? createdAt;
   String? updatedByUser;
@@ -83,6 +86,7 @@ class AcceptedShipmentDetailsModel {
     updatedAt= DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json["updatedAt"]).timestamp! * 1000);
     productCategoryName= json["productCategoryName"];
+    subProductCategoryName= json["subProductCategoryName"];
     unit= json["unit"];
     receiverName= json["receiverName"];
     receiverPhoneNumber= json["receiverPhoneNumber"];
@@ -93,7 +97,7 @@ class AcceptedShipmentDetailsModel {
     transportationType = json['transportationType'];
     markNumber=json['markNumber'];
 
-    imagePath=json['image'];
+    imagePath=List<ImagePa>.from(json['images'].map((x) => ImagePa.fromJson(x)));
     updatedByUser = json['orderUpdatedByUser'];
 
     if (json['tracks'] != null) {

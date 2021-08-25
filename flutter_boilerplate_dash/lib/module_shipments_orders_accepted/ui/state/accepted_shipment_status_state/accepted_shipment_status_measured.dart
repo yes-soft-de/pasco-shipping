@@ -295,6 +295,10 @@ class _AcceptedShipmentDetailsSuccessfullyState
             ),
           ),
         ) ,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text('You can leave the field blank, if the shipment is not divided' , style: AppTextStyle.mediumBlueBold,),
+        ),
         RoundedButton(
             lable: 'Save',
             icon: '',
@@ -311,7 +315,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   AcceptedShipmentStatus.STORED]!,
                   holderID: holderID,
                   holderType: 'container',
-                  amount: int.parse(amountController.text), travelID: travelID);
+                  amount:amountController.text.isEmpty?0: int.parse(amountController.text), travelID: travelID);
               widget.onChangeStatus(request , separateShipment, widget.containers,widget.travels);
             },
             radius: 10),

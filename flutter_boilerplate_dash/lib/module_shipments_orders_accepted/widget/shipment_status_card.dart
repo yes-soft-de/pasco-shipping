@@ -29,7 +29,7 @@ class AcceptedShipmentStatusCard extends StatelessWidget {
                 children: [
                  model.isPassed ? Icon(Icons.check_circle ,color: Colors.green):Container(),
                   SizedBox(width: 10,),
-                  Expanded(child: Text(model.shipmentStatus ??'' , style: model.isPassed ?  AppTextStyle.largeGreenBold :AppTextStyle.mediumWhite )),
+                  Expanded(child: Text(model.shipmentStatus ??'' , style: model.isPassed ?  AppTextStyle.largeBlue200 :AppTextStyle.mediumWhite )),
                 ],
               ),
               model.isPassed ? Padding(
@@ -49,7 +49,7 @@ class AcceptedShipmentStatusCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(S.of(context).updatedBy,style:AppTextStyle.mediumWhiteBold),
+                    Text(S.of(context).modifiedBy,style:AppTextStyle.mediumWhiteBold),
                     Text(model.createdByUser  ??'', style:AppTextStyle.mediumWhite),
                   ],
                 ),

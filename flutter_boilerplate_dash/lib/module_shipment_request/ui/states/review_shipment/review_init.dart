@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
@@ -44,7 +47,7 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
               Expanded(
                   child: ListTile(
                       title: Text(
-                        'Client name: ',
+                       S.of(context).client,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -54,7 +57,7 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
               Expanded(
                   child: ListTile(
                       title: Text(
-                        'distributorName: ',
+                       S.of(context).distributorName,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -121,7 +124,7 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
               Expanded(
                   child: ListTile(
                       title: Text(
-                        'Product type: ',
+                        S.of(context).category,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -191,52 +194,67 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
           Divider(color: Colors.grey[300],thickness: 2,),
           Row(
             children: [
-              Flexible(
-                flex: 2,
-                child: Column(
-                  children: [
-                    ListTile(
-                        title: Text(
-                          S.of(context).unit,
-                          style: AppTextStyle.mediumBlack,
-                        ),
-                        subtitle: Text(
-                          widget.shipment.unit ,
-                          style: AppTextStyle.smallBlueBold,
-                        )),
-                    ListTile(
-                        title: Text(
-                          'Mark ',
-                          style: AppTextStyle.mediumBlack,
-                        ),
-                        subtitle: Text(
-                          widget.shipment.markName,
-                          style: AppTextStyle.smallBlueBold,
-                        )),
-                    ListTile(
-                        title: Text(
-                          S.of(context).paymentTime,
-                          style: AppTextStyle.mediumBlack,
-                        ),
-                        subtitle: Text(
-                          widget.shipment.paymentTime ,
-                          style: AppTextStyle.smallBlueBold,
-                        )),
-                    ListTile(
-                        title: Text(
-                          S.of(context).extraSpecification,
-                          style: AppTextStyle.mediumBlack,
-                        ),
-                        subtitle: Text(
-                          widget.shipment.extraSpecification,
-                          style: AppTextStyle.smallBlueBold,
-                        )),
-                  ],
-                ),
+              Expanded(
+                child: ListTile(
+                    title: Text(
+                      S.of(context).unit,
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    subtitle: Text(
+                      widget.shipment.unit ,
+                      style: AppTextStyle.smallBlueBold,
+                    )),
+              ),
+              Expanded(
+                child: ListTile(
+                    title: Text(
+                      S.of(context).mark,
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    subtitle: Text(
+                      widget.shipment.markName,
+                      style: AppTextStyle.smallBlueBold,
+                    )),
+              ),
+
+              Expanded(
+                child: ListTile(
+                    title: Text(
+                      S.of(context).paymentTime,
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    subtitle: Text(
+                      widget.shipment.paymentTime ,
+                      style: AppTextStyle.smallBlueBold,
+                    )),
               ),
             ],
           ),
-
+          widget.shipment.imageFilePath!.isNotEmpty ?
+          GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: 5,
+              children: List.generate(widget.shipment.imageFilePath!.length, (index){
+                return Padding(
+                  padding: const EdgeInsets.only(top: 10,right: 5 ,left: 5),
+                  child: Image.file(
+                    File(widget.shipment.imageFilePath![index]),
+                    fit: BoxFit.cover,
+                    width: 100,
+                    height: 100,
+                  ),
+                );
+              })
+          ):Container(),
+          ListTile(
+              title: Text(
+                S.of(context).extraSpecification,
+                style: AppTextStyle.mediumBlack,
+              ),
+              subtitle: Text(
+                widget.shipment.extraSpecification,
+                style: AppTextStyle.smallBlueBold,
+              )),
           RoundedButton(lable: S.of(context).submit, icon: '', color: blue, style: AppTextStyle.largeWhiteBold, go: (){
             widget.onSubmit(widget.shipment);
           }, radius: 12)

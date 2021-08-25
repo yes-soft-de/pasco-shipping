@@ -5,6 +5,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_product_category/response/product_category_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/product_type.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/NumberInputWithIncrementDecrement.dart';
@@ -23,7 +24,7 @@ import 'package:pasco_shipping/utils/widget/text_edit.dart';
 
 class FirstOptionSuccessfully extends StatefulWidget {
   final List<Countries> countries;
-  final List<Category> categories;
+  final List<ProductModel> categories;
   final ShipmentRequest shipmentRequest;
   final Function goToSecondStep;
   FirstOptionSuccessfully(
@@ -53,8 +54,11 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
   late List<Entry> shippingFrom;
   late List<Entry> shippingTo;
  late TextEditingController controller;
- File? imageFile;
+ // File? imageFile;
   late String initQuantity;
+
+  List<File> imageArray=[];
+  var image;
 
   @override
   void initState() {
@@ -84,9 +88,13 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
      initQuantity = widget.shipmentRequest.quantity.toString();
    }
    if(widget.shipmentRequest.imageFilePath != null && widget.shipmentRequest.imageFilePath!.isNotEmpty){
-     imageFile = File(widget.shipmentRequest.imageFilePath!);
+     for(var i in widget.shipmentRequest.imageFilePath!){
+       imageArray.add(File(i));
+     }
+     // imageFile = File(widget.shipmentRequest.imageFilePath![0]);
    }else{
-     imageFile = null;
+     imageArray = [];
+     widget.shipmentRequest.imageFilePath = [];
    }
    if(widget.shipmentRequest.exportWarehouseID !=0){
      for (Countries item in widget.countries) {
@@ -104,11 +112,14 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
 
    if(widget.shipmentRequest.productCategoryID !=0){
      widget.categories.forEach((element) {
-       if(element.id == widget.shipmentRequest.productCategoryID) {
-         element.isSelected = true;
-       } else {
-         element.isSelected = false;
-       }
+       element.subs!.forEach((sub) {
+         if(sub.id == widget.shipmentRequest.productCategoryID) {
+           sub.isSelected = true;
+         } else {
+           sub.isSelected = false;
+         }
+       });
+
      });
 
    }
@@ -157,6 +168,17 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
       }
     }
     dropListModelTo = DropListModel(shippingTo);
+  }
+
+
+  void _openCamera() async {
+
+    image = await _imagePicker.getImage(source: ImageSource.camera ,imageQuality: 70);
+    var imageFile = File(image!.path);
+    imageArray.add(imageFile);
+    setState(() {
+      imageArray;
+    });
   }
 
   @override
@@ -301,25 +323,59 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
               S.of(context).productType,
               style: AppTextStyle.mediumBlackBold,
             ),
+            SizedBox(height: 15,),
             Wrap(
+              direction: Axis.vertical,
               spacing: 6.0,
               runSpacing: 6.0,
               children: widget.categories.map((item) {
                 var index = widget.categories.indexOf(item);
-                return InkWell(
-                    onTap: () {
-                      setState(() {
-                        widget.categories.forEach((element) {
-                          element.isSelected = false;
-                        });
-                      });
-                      widget.categories[index].isSelected = true;
-                      widget.shipmentRequest.productCategoryID = widget.categories[index].id;
-                      widget.shipmentRequest.productCategoryName = widget.categories[index].name;
-                    },
-                    child: ChoiceCard(item));
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(widget.categories[index].name!, style: AppTextStyle.mediumBlueBold,),
+                    Column(
+                      children: widget.categories[index].subs!.map((item) {
+                        var indexSub = widget.categories[index].subs!.indexOf(item);
+                        return InkWell(
+                            onTap: () {
+                              setState(() {
+                                widget.categories.forEach((category) {
+                                  category.subs!.forEach((element) {
+                                    element.isSelected = false;
+                                  });
+                                });
+                              });
+                              widget.categories[index].subs![indexSub].isSelected = true;
+                              widget.shipmentRequest.productCategoryID = widget.categories[index].subs![indexSub].id!;
+                              widget.shipmentRequest.productCategoryName = widget.categories[index].subs![indexSub].name!;
+                            },
+                            child: ChoiceCard2(item));
+                      }).toList(),
+                    ),
+                  ],
+                );
               }).toList(),
             ),
+            // Wrap(
+            //   spacing: 6.0,
+            //   runSpacing: 6.0,
+            //   children: widget.categories.map((item) {
+            //     var index = widget.categories.indexOf(item);
+            //     return InkWell(
+            //         onTap: () {
+            //           setState(() {
+            //             widget.categories.forEach((element) {
+            //               element.isSelected = false;
+            //             });
+            //           });
+            //           widget.categories[index].isSelected = true;
+            //           widget.shipmentRequest.productCategoryID = widget.categories[index].id;
+            //           widget.shipmentRequest.productCategoryName = widget.categories[index].name;
+            //         },
+            //         child: ChoiceCard(item));
+            //   }).toList(),
+            // ),
             SizedBox(
               height: 10,
             ),
@@ -338,71 +394,129 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
               height: 10,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   S.of(context).image,
                   style: AppTextStyle.mediumBlackBold,
                 ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 35),
-                  child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(6.0),
-                          boxShadow: [
-                            BoxShadow(color:blue)
-                          ]),
-                      child: imageFile != null
-                          ? Badge(
-                              badgeContent: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      imageFile = null;
-                                    });
-                                  },
-                                  child: Icon(
-                                    Icons.close,
-                                    color: Colors.white,
-                                    size: 15,
-                                  )),
-                              child: Image.file(
-                                imageFile!,
-                                fit: BoxFit.cover,
-                                width: 100,
-                                height: 100,
-                              ),
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: IconButton(
-                                icon: Icon(Icons.camera_alt),
-                                iconSize: 50.0,
-                                onPressed: () {
-                                  _imagePicker
-                                      .getImage(
-                                          source: ImageSource.gallery,
-                                          imageQuality: 70)
-                                      .then((value) {
-                                    imageFile = File(value!.path);
-                                    // final _imageFile = ImageProcess.decodeImage(
-                                    //   b.readAsBytesSync(),
-                                    // );
-                                    // String base64Image = base64Encode(ImageProcess.encodePng(_imageFile!));
-                                    // imageFile = Base64Decoder().convert(base64Image);
-                                    widget.shipmentRequest.imageFilePath =value.path;
-                                    setState(() {});
-                                  });
-                                },
-                              ),
-                            )),
-                )
+                imageArray.isNotEmpty ? InkWell(
+                    onTap: (){
+                      _openCamera();
+                    },
+                    child: Icon(Icons.add_circle ,size: 30, color: blue,)): Container(),
+
+                // Padding(
+                //   padding: const EdgeInsetsDirectional.only(start: 35),
+                //   child: Container(
+                //       decoration: BoxDecoration(
+                //           color: Colors.transparent,
+                //           border: Border.all(color: Colors.grey),
+                //           borderRadius: BorderRadius.circular(6.0),
+                //           boxShadow: [
+                //             BoxShadow(color:blue)
+                //           ]),
+                //       child: imageFile != null
+                //           ? Badge(
+                //               badgeContent: InkWell(
+                //                   onTap: () {
+                //                     setState(() {
+                //                       imageFile = null;
+                //                     });
+                //                   },
+                //                   child: Icon(
+                //                     Icons.close,
+                //                     color: Colors.white,
+                //                     size: 15,
+                //                   )),
+                //               child: Image.file(
+                //                 imageFile!,
+                //                 fit: BoxFit.cover,
+                //                 width: 100,
+                //                 height: 100,
+                //               ),
+                //             )
+                //           : Padding(
+                //               padding: const EdgeInsets.all(20.0),
+                //               child: IconButton(
+                //                 icon: Icon(Icons.camera_alt),
+                //                 iconSize: 50.0,
+                //                 onPressed: () {
+                //                   _imagePicker
+                //                       .getImage(
+                //                           source: ImageSource.camera,
+                //                           imageQuality: 70)
+                //                       .then((value) {
+                //                     imageFile = File(value!.path);
+                //                     // final _imageFile = ImageProcess.decodeImage(
+                //                     //   b.readAsBytesSync(),
+                //                     // );
+                //                     // String base64Image = base64Encode(ImageProcess.encodePng(_imageFile!));
+                //                     // imageFile = Base64Decoder().convert(base64Image);
+                //                     // widget.shipmentRequest.imageFilePath =value.path;
+                //                     setState(() {});
+                //                   });
+                //                 },
+                //               ),
+                //             )),
+                // )
+
               ],
+            ),
+            imageArray.isEmpty ? Container(
+              decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(6.0),
+                  boxShadow: [
+                    BoxShadow(color:blue)
+                  ]),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: IconButton(
+                  icon: Icon(Icons.camera_alt),
+                  iconSize: 50.0,
+                  onPressed: () {
+                    _openCamera();
+                  },
+                ),
+              ),
+            ) :
+            GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 5,
+                children: List.generate(imageArray.length, (index){
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 10,right: 5 ,left: 5),
+                    child: Badge(
+                      badgeContent: InkWell(
+                          onTap: () {
+                            setState(() {
+                              imageArray.remove(imageArray[index]);
+                            });
+                          },
+                          child: Icon(
+                            Icons.close,
+                            color: Colors.white,
+                            size: 15,
+                          )),
+                      child: Image.file(
+                        imageArray[index],
+                        fit: BoxFit.cover,
+                        width: 100,
+                        height: 100,
+                      ),
+                    ),
+                  );
+                })
             ),
             Align(
                 alignment: AlignmentDirectional.bottomEnd,
                 child: FloatingActionButton.extended(
                   onPressed: () {
+                    for(File i in imageArray ){
+                      widget.shipmentRequest.imageFilePath!.add(i.path);
+                    }
                    widget.goToSecondStep();
                   },
                   icon: Icon(
@@ -440,8 +554,5 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
      print(val);
    });
  }
- String parseImage(File imageFile){
-   List<int> imageBytes = imageFile.readAsBytesSync();
-   return  base64.encode(imageBytes);
- }
+
 }

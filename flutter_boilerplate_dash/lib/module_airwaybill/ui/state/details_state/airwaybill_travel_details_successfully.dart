@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill/enums/airwaybill_status.dart';
 import 'package:pasco_shipping/module_airwaybill/request/add_airwaybill_to_travel_request.dart';
 import 'package:pasco_shipping/module_airwaybill/response/airwaybill_details_response.dart';
@@ -10,6 +11,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class AirWaybillTravelDetailsSuccessfully extends StatefulWidget {
@@ -18,7 +20,8 @@ class AirWaybillTravelDetailsSuccessfully extends StatefulWidget {
   final Function onShipmentReview;
   final Function onUploadedToTravel;
   final Function onClearedOrArrived;
-  const AirWaybillTravelDetailsSuccessfully({required this.model,required this.onShipmentReview,required this.onUploadedToTravel,required this.onClearedOrArrived });
+  final Function onShowFinance;
+  const AirWaybillTravelDetailsSuccessfully({required this.model,required this.onShipmentReview,required this.onUploadedToTravel,required this.onClearedOrArrived,required this.onShowFinance });
 
   @override
   _ContainerDetailsSuccessfullyState createState() => _ContainerDetailsSuccessfullyState();
@@ -50,7 +53,17 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
           firstCard(),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text('AirWaybill Information' , style: AppTextStyle.largeBlueBold,),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(S.of(context).airwaybillInformation , style: AppTextStyle.largeBlueBold,),
+                InkWell(
+                    onTap: (){
+                      widget.onShowFinance(widget.model.id);
+                    },
+                    child: Icon(Icons.money , color: blue,size: 40,))
+              ],
+            ),
           ),
           Container(
             child: Column(
@@ -63,7 +76,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Type'),
+                      Text(S.of(context).type),
                       Text(widget.model.type ?? ''),
                     ],
                   ),
@@ -74,7 +87,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Consignee Name'),
+                      Text(S.of(context).consignee),
                       Text(widget.model.consigneeName ?? ''),
                     ],
                   ),
@@ -85,7 +98,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('shipper Name'),
+                      Text(S.of(context).shipper),
                       Text(widget.model.shipperName ?? ''),
                     ],
                   ),
@@ -96,11 +109,36 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Provided By'),
+                      Text(S.of(context).subcontract),
                       Text(widget.model.subcontractName ?? ''),
                     ],
                   ),
                 ),
+                Divider(color: Colors.grey[300],thickness: 2,),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).carrier),
+                      Text(widget.model.carrierName ?? ''),
+                    ],
+                  ),
+                ),
+                Divider(color: Colors.grey[300],thickness: 2,),
+
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).specification),
+                      Text(widget.model.specificationName ?? ''),
+                    ],
+                  ),
+                ),
+                Divider(color: Colors.grey[300],thickness: 2,),
+
 
                 Divider(color: Colors.grey[300],thickness: 2,),
                 Padding(
@@ -108,7 +146,17 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Requested by'),
+                      Text(S.of(context).freeWeight),
+                      Text(widget.model.freeWeight ?? ''),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).RequestedBy),
                       Text(widget.model.updatedByUser ?? ''),
                     ],
                   ),
@@ -120,7 +168,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Requested at'),
+                      Text(S.of(context).RequestedAt),
                       Text(widget.model.createdAt.toString().split('.').first),
                     ],
                   ),
@@ -130,12 +178,12 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text('Shipment Information' , style: AppTextStyle.largeBlueBold,),
+            child: Text(S.of(context).shipmentInformation , style: AppTextStyle.largeBlueBold,),
           ),
           widget.model.shipments!.isEmpty?
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('No shipment has been added to this AirWaybill' ,style: AppTextStyle.mediumRed,),
+            child: Text(S.of(context).noShipmentAdd ,style: AppTextStyle.mediumRed,),
           ) :
           ListView.builder(
             shrinkWrap: true,
@@ -151,31 +199,66 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
             },
             itemCount: widget.model.shipments!.length,
           ),
-          (widget.model.shipments!.isNotEmpty && widget.model.shipments![0].travelStatus == null)?
-          selectTravel() :
-          (widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].travelStatus != null && widget.model.shipments![0].travelStatus == TravelStatusName[TravelStatus.CURRENT]) ?
-            Column(
-              children: [
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Text('This container is already included in an existing trip, do you want to change the trip' ,style: AppTextStyle.mediumRed,),
-                // ),
-                selectTravel()
-              ],
-            ):
+
+          (widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].shipmentStatus != null && widget.model.shipments![0].shipmentStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.STORED]) ?
+          uploadToTravel():
           (widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].travelStatus != null && widget.model.shipments![0].travelStatus == TravelStatusName[TravelStatus.RELEASED]) ?
           changeContainerStatus():
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('This AirWaybill is already included in an existing trip ' , style: AppTextStyle.mediumRed,),
-          ),
+          Container(child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text('this Air Waybill uploaded to travel' , style: AppTextStyle.mediumRed,),
+          ),)
         ],
       ),
     );
   }
 
   Widget firstCard(){
-    if(widget.model.status == AirwaybillStatusName[AirwaybillStatus.FULL]){
+    if(widget.model.status == AirwaybillStatusName[AirwaybillStatus.NOTFULL]) {
+      return Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Card(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          color: Colors.blueGrey[100],
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.warning,
+                        color: Colors.yellow[800],
+                        size: 40,
+                      ),
+                      Text(S.of(context).notFull ,style: AppTextStyle.largeBlack,)
+                    ],),
+                ) ,
+                Text(S.of(context).haveSpace, style: AppTextStyle.mediumBlack,),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children:
+
+                    [
+                      Text(S.of(context).airwaybillNumber+': ' , style: AppTextStyle.mediumBlackBold,),
+                      Text('#'+ widget.model.airwaybillNumber! , style: AppTextStyle.mediumBlackBold,),
+
+                    ],),
+                ),
+              ],),
+          ),
+        ),
+      );
+    } else if(widget.model.status == AirwaybillStatusName[AirwaybillStatus.FULL]){
       return Padding(
         padding: const EdgeInsets.all(15.0),
         child: Card(
@@ -198,10 +281,10 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
                         color: Colors.green[800],
                         size: 40,
                       ),
-                      Text('Full ' ,style: AppTextStyle.largeBlack,)
+                      Text(S.of(context).full ,style: AppTextStyle.largeBlack,)
                     ],),
                 ) ,
-                Text("This AirWaybill is full", style: AppTextStyle.mediumBlack,),
+                Text(S.of(context).noSpace, style: AppTextStyle.mediumBlack,),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -210,7 +293,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
                     children:
 
                     [
-                      Text('AirWaybill Number: ' , style: AppTextStyle.mediumBlackBold,),
+                      Text(S.of(context).airwaybillNumber+': ' , style: AppTextStyle.mediumBlackBold,),
                       Text('#'+ widget.model.airwaybillNumber! , style: AppTextStyle.mediumBlackBold,),
 
                     ],),
@@ -222,6 +305,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
     }else {
       return Container();
     }
+
   }
 
   Widget shipmentCard(ShipmentModel shipmentModel){
@@ -237,35 +321,35 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Track Number: ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).trackNumber , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.trackNumber?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Weight: ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).weight , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.weight.toString() , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Product Category: ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).productCategory , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.productCategoryName ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('target Warehouse: ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).targetWarehouse , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.target ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Export Warehouse: ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).exportWarehouse , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.exportWarehouseName ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
@@ -276,40 +360,15 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
     );
   }
 
-  Widget selectTravel(){
-    bool isFull;
-    if(widget.model.status == AirwaybillStatusName[AirwaybillStatus.FULL]){
-      isFull = true;
-    }else {
-      isFull = false;
-    }
-
+  Widget uploadToTravel(){
     return
-    Column(children: [
-      // Padding(
-      //   padding: const EdgeInsets.all(8.0),
-      //   child: Row(children: [
-      //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-      //     SizedBox(width: 5,),
-      //     Text('Choose Travel' , style: AppTextStyle.mediumBlackBold,)
-      //   ],),
-      // ),
-      // SelectDropList(
-      //   this.optionItemSelectedTravels,
-      //   this.dropListModelTravels,
-      //       (optionItem) {
-      //     FocusScope.of(context).unfocus();
-      //     optionItemSelectedTravels = optionItem;
-      //     travelID = optionItem.id;
-      //     setState(() {});
-      //   },
-      // ),
-      RoundedButton(lable: 'Upload AirWaybill to travel', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
-        AddAirwaybillToTravelRequest re = AddAirwaybillToTravelRequest(holderID: widget.model.id!, shipmentStatus: AcceptedShipmentStatusName[AcceptedShipmentStatus.UPLOADED]!);
-        widget.onUploadedToTravel(re);
-      },radius: 12)
+      Column(children: [
+        RoundedButton(lable: 'Upload air waybill to travel', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
+          AddAirwaybillToTravelRequest re = AddAirwaybillToTravelRequest( holderID: widget.model.id!, shipmentStatus: 'uploaded');
+          widget.onUploadedToTravel(re);
+        },radius: 12)
 
-    ],);
+      ],);
   }
 
   Widget changeContainerStatus(){
@@ -350,7 +409,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Text('AirWaybill Status' , style: AppTextStyle.largeBlueBold,),
+                child: Text('Air Waybill Status' , style: AppTextStyle.largeBlueBold,),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -372,7 +431,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
         &&  widget.model.shipments![0].shipmentStatus != null && widget.model.shipments![0].shipmentStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]){
       return Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Text('this Container arrived to warehouse' , style: AppTextStyle.mediumRedBold,),
+        child: Text('this Air Waybill arrived to warehouse' , style: AppTextStyle.mediumRedBold,),
       );
     }
     else {

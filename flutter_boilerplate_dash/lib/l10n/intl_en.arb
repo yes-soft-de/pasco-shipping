@@ -124,8 +124,8 @@
   "airwaybillInformation": "Air Waybill Information",
   "containerInformation": "Container Information",
   "type": "Type",
-  "RequestedBy": "Requested by",
-  "RequestedAt": "Requested at",
+  "RequestedBy": "Requested by: ",
+  "RequestedAt": "Requested at: ",
 
   "shipmentInformation": "Shipment Information",
   "noShipmentAdd": "No shipment has been added",
@@ -171,7 +171,7 @@
 
   "containerSpecification": "Container Specification",
   "airwaybillSpecification": "Air waybill Specification",
-  "width": "Width",
+  "width": "Weight",
 
   "capacityCPM": "Capacity CPM: ",
   "lengthInMeter": "Length In Meter: ",
@@ -260,6 +260,13 @@
   "currentt": "Current",
   "dashboard": "Dashboard",
   "basicInfo": "Basic Info",
-  "enterNumber": "Enter the Number"
+  "enterNumber": "Enter the track number",
 
+
+  "companyOrPersonalName": "Company / Personal Name",
+  "modifiedBy": "Status changed by: ",
+  "arrivedShipment": "Arrived Shipment",
+  "freeCapacity": "Free Capacity",
+  "freeWeight": "Free Weight",
+  "shipmentCost": "Shipment Cost"
 }

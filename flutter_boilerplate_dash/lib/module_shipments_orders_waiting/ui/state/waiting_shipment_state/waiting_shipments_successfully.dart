@@ -16,40 +16,18 @@ class WaitingShipmentSuccessfully extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Card(
-            color: Colors.grey[200],
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text('Date: '+DateTime.now().toString().split(' ').first, style:  AppTextStyle.mediumRedBold),
-                  Text('Total Count : '+items.length.toString() , style:  AppTextStyle.mediumRedBold),
-                ],
-              ),
-            ),
-          ),
-        ),
-        ListView.builder(
-          itemBuilder: (context, index) {
-            return WaitingShipmentCard(
-              shipmentModel: items[index],
-              onDetails: (model) {
-                onDetails(model);
-              },
-            );
+    return ListView.builder(
+      physics: NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        return WaitingShipmentCard(
+          shipmentModel: items[index],
+          onDetails: (model) {
+            onDetails(model);
           },
-          itemCount: items.length,
-          shrinkWrap: true,
-        ),
-
-      ],
+        );
+      },
+      itemCount: items.length,
+      shrinkWrap: true,
     );
   }
 }

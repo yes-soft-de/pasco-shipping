@@ -289,7 +289,10 @@ abstract class AppTextStyle {
     color: blue,
     fontSize: AppFontsSize.getScaledFontSize(AppFontsSize.large_font_size),
   );
-
+  static final largeBlue200 = TextStyle(
+    color: Colors.blue[200],
+    fontSize: AppFontsSize.getScaledFontSize(AppFontsSize.large_font_size),
+  );
   /// yellow
   static final normalYellowBold = TextStyle(
         color: yellow,

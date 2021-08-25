@@ -33,7 +33,7 @@ class AirwaybillDetailsScreen extends StatefulWidget {
 class _CountriesScreenState extends State<AirwaybillDetailsScreen> {
   late AirwaybillDetailsState currentState;
   late AirwaybillDetailsModel items;
-  late List<TravelModel> travels;
+  // late List<TravelModel> travels;
   @override
   Widget build(BuildContext context) {
     return Background(
@@ -52,11 +52,12 @@ class _CountriesScreenState extends State<AirwaybillDetailsScreen> {
     String id =arguments['id'].toString();
     bool isFull = arguments['isFull'];
     if(isFull){
-      TravelFilterRequest request = TravelFilterRequest(type: TravelTypeName[ TravelType.SEA]!);
       widget._stateManager.getAirwaybillDetailsAndTravels(id);
-
     }
-    widget._stateManager.getAirwaybillDetails(id);
+
+    else {
+      widget._stateManager.getAirwaybillDetails(id);
+    }
 
   }
 
@@ -90,9 +91,9 @@ class _CountriesScreenState extends State<AirwaybillDetailsScreen> {
       SuccessfullyDetailsState? state = currentState as SuccessfullyDetailsState?;
       items = state!.response;
 
-      TravelFilterRequest travelRequest = TravelFilterRequest(type: TravelTypeName[TravelType.SEA]! ,status: TravelStatusName[TravelStatus.CURRENT]);
+      // TravelFilterRequest travelRequest = TravelFilterRequest(type: TravelTypeName[TravelType.SEA]! ,status: TravelStatusName[TravelStatus.CURRENT]);
       return AirwaybillDetailsSuccessfully(model:items ,onChangeStatus:(request){
-        widget._stateManager.updateAirwaybillStatus(request,travelRequest);
+        widget._stateManager.updateAirwaybillStatus(request);
       },onShipmentReview: (model){
         Navigator.pushNamed(context, AirwaybillRoutes.AIRWAYBILL_SHIPMENT_REVIEW, arguments:  model);
       }, onShowFinance: (id){
@@ -101,17 +102,17 @@ class _CountriesScreenState extends State<AirwaybillDetailsScreen> {
       );
     }
     else if (currentState is SuccessfullyUploadedContainerState){
-      // SuccessfullyUploadedContainerState? state = currentState as SuccessfullyUploadedContainerState?;
       Fluttertoast.showToast(msg: 'Holder has been loaded onto Trip successfully');
-      TravelFilterRequest travelRequest = TravelFilterRequest(type: TravelTypeName[TravelType.SEA]! ,status: TravelStatusName[TravelStatus.CURRENT]);
-      return AirwaybillDetailsSuccessfully(model:items ,
-        onChangeStatus:(request){
-        widget._stateManager.updateAirwaybillStatus(request ,travelRequest);
-      },onShipmentReview: (model){
-        Navigator.pushNamed(context, AirwaybillRoutes.AIRWAYBILL_SHIPMENT_REVIEW , arguments:  model);
-      }, onShowFinance: (id){
+      return AirWaybillTravelDetailsSuccessfully(model:items ,
+        onShipmentReview: (model){
+          Navigator.pushNamed(context, AirwaybillRoutes.AIRWAYBILL_SHIPMENT_REVIEW , arguments:  model);
+        }, onUploadedToTravel: (addContainerToTravelRequest){
+          widget._stateManager.uploadedAirwaybillToTravel(addContainerToTravelRequest);
+        },
+        onClearedOrArrived: (re){
+          widget._stateManager.clearedOrArrived(re);
+        },onShowFinance: (id){
           Navigator.pushNamed(context, AirwaybillRoutes.FINANCE ,arguments: {'id' :id});
-
         },
       );
     }
@@ -127,6 +128,8 @@ class _CountriesScreenState extends State<AirwaybillDetailsScreen> {
         },
         onClearedOrArrived: (re){
         widget._stateManager.clearedOrArrived(re);
+        },onShowFinance: (id){
+          Navigator.pushNamed(context, AirwaybillRoutes.FINANCE ,arguments: {'id' :id});
         },
       );
     }

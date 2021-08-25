@@ -13,8 +13,8 @@ class SuccessfullyDetailsState extends ContainerDetailsState{
 }
 class SuccessfullyDetailsWithTravelsState extends ContainerDetailsState{
   ContainerDetailsModel response;
-  List<TravelModel> travels;
-  SuccessfullyDetailsWithTravelsState(this.response , this.travels);
+  // List<TravelModel> travels;
+  SuccessfullyDetailsWithTravelsState(this.response);
 }
 class SuccessfullyUploadedContainerState extends ContainerDetailsState{
   ConfirmResponse response;

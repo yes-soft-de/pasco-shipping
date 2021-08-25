@@ -28,21 +28,21 @@ class LoginStateManager {
           break;
       }
     }).onError((err) {
-      _loadingStateSubject.add(AsyncSnapshot.nothing());
+      // _loadingStateSubject.add(AsyncSnapshot.nothing());
       _loginStateSubject.add(LoginStateInit(_screenState, error: err));
     });
   }
 
   Stream<LoginState> get stateStream => _loginStateSubject.stream;
 
-  Stream<AsyncSnapshot> get loadingStream => _loadingStateSubject.stream;
+  // Stream<AsyncSnapshot> get loadingStream => _loadingStateSubject.stream;
 
   void loginClient(
       String username, String password,
       LoginScreenState _loginScreenState,
       ) {
     _screenState = _loginScreenState;
-    _loadingStateSubject.add(AsyncSnapshot.waiting());
+    // _loadingStateSubject.add(AsyncSnapshot.waiting());
     _authService.loginApi(username, password);
   }
 }

@@ -1,5 +1,6 @@
 
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/module_warehouses/request/warehouse_filter_request.dart';
 import 'package:pasco_shipping/module_warehouses/request/warehouse_request.dart';
 import 'package:pasco_shipping/module_warehouses/service/warehouse_service.dart';
 import 'package:pasco_shipping/module_warehouses/ui/state/warehouse_state/warehouse_state.dart';
@@ -14,9 +15,9 @@ class WarehouseStateManager{
 
   WarehouseStateManager(this._service);
 
-  void getWarehouses(){
+  void getWarehouses(WarehouseFilterRequest request){
     _stateSubject.add(LoadingState());
-    _service.getWarehouses().then((marks) {
+    _service.getWarehouses(request).then((marks) {
       print(marks);
       if(marks != null) {
         _stateSubject.add(SuccessfullyFetchState(marks));
@@ -32,7 +33,8 @@ class WarehouseStateManager{
     _service.deleteWarehouses(id).then((value) {
       if(value != null){
         if(value.isConfirmed){
-          _service.getWarehouses().then((marks) {
+          WarehouseFilterRequest request =WarehouseFilterRequest(typeOfCountry: '', cityName: '');
+          _service.getWarehouses(request).then((marks) {
             if(marks != null) {
               _stateSubject.add(SuccessfullyFetchState(marks));
             }else {
@@ -51,7 +53,9 @@ class WarehouseStateManager{
     _service.updateWarehouses(request).then((value) {
       if(value != null){
         if(value.isConfirmed){
-          _service.getWarehouses().then((marks) {
+          WarehouseFilterRequest request =WarehouseFilterRequest(typeOfCountry: '', cityName: '');
+
+          _service.getWarehouses(request).then((marks) {
             if(marks != null) {
               _stateSubject.add(SuccessfullyFetchState(marks));
             }else {

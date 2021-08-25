@@ -23,8 +23,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "FCL": MessageLookupByLibrary.simpleMessage("FCL"),
         "LCL": MessageLookupByLibrary.simpleMessage("LCL"),
-        "RequestedAt": MessageLookupByLibrary.simpleMessage("Requested at"),
-        "RequestedBy": MessageLookupByLibrary.simpleMessage("Requested by"),
+        "RequestedAt": MessageLookupByLibrary.simpleMessage("Requested at: "),
+        "RequestedBy": MessageLookupByLibrary.simpleMessage("Requested by: "),
         "StatusCodeNotFound":
             MessageLookupByLibrary.simpleMessage("Data not found"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About Us"),
@@ -54,7 +54,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "arrivalDate": MessageLookupByLibrary.simpleMessage("Arrival Date"),
         "arrivalTime": MessageLookupByLibrary.simpleMessage("Arrival Time"),
         "arrived": MessageLookupByLibrary.simpleMessage("Arrived"),
+        "arrivedShipment":
+            MessageLookupByLibrary.simpleMessage("Arrived Shipment"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
+        "basicInfo": MessageLookupByLibrary.simpleMessage("Basic Info"),
         "callingCode": MessageLookupByLibrary.simpleMessage("Calling code: "),
         "cancel": MessageLookupByLibrary.simpleMessage("cancel"),
         "capacityCPM": MessageLookupByLibrary.simpleMessage("Capacity CPM: "),
@@ -65,6 +68,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cleared": MessageLookupByLibrary.simpleMessage("Cleared"),
         "client": MessageLookupByLibrary.simpleMessage("Client: "),
         "clients": MessageLookupByLibrary.simpleMessage("Clients"),
+        "companyOrPersonalName":
+            MessageLookupByLibrary.simpleMessage("Company / Personal Name"),
         "confirm": MessageLookupByLibrary.simpleMessage("confirm"),
         "confirmCode": MessageLookupByLibrary.simpleMessage("confirm Code"),
         "confirmPass": MessageLookupByLibrary.simpleMessage("Confirm Password"),
@@ -109,6 +114,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "employees": MessageLookupByLibrary.simpleMessage("Employees"),
         "enterMark": MessageLookupByLibrary.simpleMessage("Enter new mark"),
+        "enterNumber":
+            MessageLookupByLibrary.simpleMessage("Enter the track number"),
         "enterShipmentNumber":
             MessageLookupByLibrary.simpleMessage("Enter the shipment number"),
         "errorHappened": MessageLookupByLibrary.simpleMessage("Error Happened"),
@@ -124,6 +131,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "falsee": MessageLookupByLibrary.simpleMessage("False"),
         "fillAllField": MessageLookupByLibrary.simpleMessage("fill all filed"),
         "filterBy": MessageLookupByLibrary.simpleMessage("Filter By"),
+        "freeCapacity": MessageLookupByLibrary.simpleMessage("Free Capacity"),
+        "freeWeight": MessageLookupByLibrary.simpleMessage("Free Weight"),
         "full": MessageLookupByLibrary.simpleMessage("Full"),
         "getStarted": MessageLookupByLibrary.simpleMessage("GET STARTED"),
         "haveSpace":
@@ -161,6 +170,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "mark": MessageLookupByLibrary.simpleMessage("Mark: "),
         "marks": MessageLookupByLibrary.simpleMessage("Marks"),
         "measured": MessageLookupByLibrary.simpleMessage("Measured"),
+        "modifiedBy":
+            MessageLookupByLibrary.simpleMessage("Status changed by: "),
         "myPrevious": MessageLookupByLibrary.simpleMessage("My Previous"),
         "myShipment": MessageLookupByLibrary.simpleMessage("My\n Shipments"),
         "name": MessageLookupByLibrary.simpleMessage("Name: "),
@@ -227,6 +238,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "shipment": MessageLookupByLibrary.simpleMessage("Shipments"),
         "shipmentAddSuccessfully":
             MessageLookupByLibrary.simpleMessage("Shipment add successfully"),
+        "shipmentCost": MessageLookupByLibrary.simpleMessage("Shipment Cost"),
         "shipmentFinance":
             MessageLookupByLibrary.simpleMessage("Shipment Finance"),
         "shipmentInfo": MessageLookupByLibrary.simpleMessage("Shipment Info"),
@@ -295,7 +307,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "warehouses": MessageLookupByLibrary.simpleMessage("Warehouse"),
         "weight": MessageLookupByLibrary.simpleMessage("Weight: "),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
-        "width": MessageLookupByLibrary.simpleMessage("Width"),
+        "width": MessageLookupByLibrary.simpleMessage("Weight"),
         "widthInMeter": MessageLookupByLibrary.simpleMessage("Width In Meter: ")
       };
 }
