@@ -257,6 +257,13 @@ class ShipmentOrderService
             
             foreach ($orders as $order)
             {
+                if($order['images'])
+                {
+                    foreach ($order['images'] as $key=>$val)
+                    {
+                        $order['images'][$key]['image'] = $this->params . $val['image'];
+                    }
+                }
                 if($order['image'])
                 {
                     $order['image'] = $this->params . $order['image'];
