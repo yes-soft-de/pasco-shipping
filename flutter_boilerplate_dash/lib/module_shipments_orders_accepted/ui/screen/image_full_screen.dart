@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:injectable/injectable.dart';
-import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:photo_view/photo_view.dart';
+import 'dart:io';
 
-// class FullImageView extends StatelessWidget {
-//   FullImageView({required String url ,required String tag});
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return PhotoView(
-//      imageProvider: NetworkImage(url),
-//      heroAttributes:  PhotoViewHeroAttributes(tag: tage),
-//    );
-//  }
-// }
-
+class FullImageScreen extends StatelessWidget {
+  // final String tage;
+  var url;
+  final bool isFile;
+  FullImageScreen(this.url, this.isFile);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: isFile
+            ? PhotoView(imageProvider: FileImage(File(url)))
+            : PhotoView(imageProvider: NetworkImage(url)),
+      ),
+    );
+  }
+}

@@ -224,6 +224,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sea": MessageLookupByLibrary.simpleMessage("بحري"),
         "seaShipment": MessageLookupByLibrary.simpleMessage("شحنات بحرية"),
         "seaTravel": MessageLookupByLibrary.simpleMessage("رحلات بحرية"),
+        "serialNumber": MessageLookupByLibrary.simpleMessage("الرقم السري: "),
         "service": MessageLookupByLibrary.simpleMessage("الخدمة"),
         "serviceName": MessageLookupByLibrary.simpleMessage("نوع الخدمة"),
         "setting": MessageLookupByLibrary.simpleMessage("الإعدادات"),

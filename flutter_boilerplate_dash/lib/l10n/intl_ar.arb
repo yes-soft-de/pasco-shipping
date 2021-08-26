@@ -250,5 +250,6 @@
   "freeCapacity": "السعة الحرة",
   "freeWeight": "الوزن الحر",
   "shipmentCost": "مصاريف الشحنة",
-  "receiver": "المستلمون"
+  "receiver": "المستلمون",
+  "serialNumber": "الرقم السري: "
 }

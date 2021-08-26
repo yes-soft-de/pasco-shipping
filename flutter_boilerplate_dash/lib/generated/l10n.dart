@@ -2250,11 +2250,21 @@ class S {
     );
   }
 
-  /// `Receiver`
+  /// `Receivers`
   String get receiver {
     return Intl.message(
-      'Receiver',
+      'Receivers',
       name: 'receiver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Serial Number: `
+  String get serialNumber {
+    return Intl.message(
+      'Serial Number: ',
+      name: 'serialNumber',
       desc: '',
       args: [],
     );

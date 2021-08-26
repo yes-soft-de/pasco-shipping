@@ -213,97 +213,97 @@ class _CountryCardState extends State<WarehouseCard> {
                     ],
                   ),
                 ),
-                // Flexible(
-                //   flex: 1,
-                //   child: Column(
-                //     children: [
-                //       ElevatedButton(
-                //         style: ElevatedButton.styleFrom(
-                //           primary: Colors.red,
-                //         ),
-                //         onPressed: () {
-                //           widget.onDelete(widget.model.id);
-                //         },
-                //         child: Row(
-                //           children: [
-                //             Icon(
-                //               Icons.delete,
-                //               color: Colors.white,
-                //             ),
-                //             SizedBox(
-                //               width: 5,
-                //             ),
-                //             Text(
-                //               'delete',
-                //               style: AppTextStyle.mediumWhite,
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //       SizedBox(
-                //         height: 10,
-                //       ),
-                //       Container(
-                //         width: 100,
-                //         child:
-                //
-                //         widget.isEdtiable ? ElevatedButton(
-                //           style: ElevatedButton.styleFrom(
-                //             primary: Colors.green,
-                //           ),
-                //           onPressed: () {
-                //             if(name.text.isEmpty || description.text.isEmpty){
-                //               Fluttertoast.showToast(msg: S.of(context).fillAllField);
-                //             }else {
-                //               // UnitRequest re = UnitRequest(id: widget.model.id ,name: name.text,description: description.text);
-                //               // widget.onEdit(re);
-                //             }
-                //
-                //           },
-                //           child: Row(
-                //             children: [
-                //               Icon(
-                //                 Icons.save,
-                //                 color: Colors.white,
-                //               ),
-                //               SizedBox(
-                //                 width: 5,
-                //               ),
-                //               Text(
-                //                 'save',
-                //                 style: AppTextStyle.mediumWhite,
-                //               ),
-                //             ],
-                //           ),
-                //         ) : ElevatedButton(
-                //           style: ElevatedButton.styleFrom(
-                //             primary: Colors.green,
-                //           ),
-                //           onPressed: () {
-                //             setState(() {
-                //               widget.isEdtiable= true;
-                //             });
-                //           },
-                //           child: Row(
-                //             children: [
-                //               Icon(
-                //                 Icons.edit,
-                //                 color: Colors.white,
-                //               ),
-                //               SizedBox(
-                //                 width: 5,
-                //               ),
-                //               Text(
-                //                 'edit',
-                //                 style: AppTextStyle.mediumWhite,
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // )
+                Flexible(
+                  flex: 1,
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.red,
+                        ),
+                        onPressed: () {
+                          widget.onDelete(widget.model.id);
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'delete',
+                              style: AppTextStyle.mediumWhite,
+                            ),
+                          ],
+                        ),
+                      ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      // Container(
+                      //   width: 100,
+                      //   child:
+                      //
+                      //   widget.isEdtiable ? ElevatedButton(
+                      //     style: ElevatedButton.styleFrom(
+                      //       primary: Colors.green,
+                      //     ),
+                      //     onPressed: () {
+                      //       if(name.text.isEmpty || description.text.isEmpty){
+                      //         Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                      //       }else {
+                      //         // UnitRequest re = UnitRequest(id: widget.model.id ,name: name.text,description: description.text);
+                      //         // widget.onEdit(re);
+                      //       }
+                      //
+                      //     },
+                      //     child: Row(
+                      //       children: [
+                      //         Icon(
+                      //           Icons.save,
+                      //           color: Colors.white,
+                      //         ),
+                      //         SizedBox(
+                      //           width: 5,
+                      //         ),
+                      //         Text(
+                      //           'save',
+                      //           style: AppTextStyle.mediumWhite,
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ) : ElevatedButton(
+                      //     style: ElevatedButton.styleFrom(
+                      //       primary: Colors.green,
+                      //     ),
+                      //     onPressed: () {
+                      //       setState(() {
+                      //         widget.isEdtiable= true;
+                      //       });
+                      //     },
+                      //     child: Row(
+                      //       children: [
+                      //         Icon(
+                      //           Icons.edit,
+                      //           color: Colors.white,
+                      //         ),
+                      //         SizedBox(
+                      //           width: 5,
+                      //         ),
+                      //         Text(
+                      //           'edit',
+                      //           style: AppTextStyle.mediumWhite,
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),

@@ -17,9 +17,9 @@ class AcceptedShipmentsStateManager {
     _stateSubject.add(LoadingState());
     _service.getAcceptedShipment(type).then((value) {
       print(value);
-      if (value != null && value.isNotEmpty) {
+      if (value != null ) {
         _stateSubject.add(SuccessfullyFetchState(value));
-      } else if(value !=null  && value.isEmpty) {
+      } else if(value !=null  && value.data!.isEmpty) {
         _stateSubject.add(ErrorState('No Data' , true));
       }else {
         _stateSubject.add(ErrorState('Error' , false));

@@ -6,7 +6,7 @@ class AcceptedShipmentsState{}
 class LoadingState extends AcceptedShipmentsState{}
 
 class SuccessfullyFetchState extends AcceptedShipmentsState{
-  List<AcceptedShipmentModel> waitingShipments;
+  Data waitingShipments;
 
   SuccessfullyFetchState(this.waitingShipments);
 }

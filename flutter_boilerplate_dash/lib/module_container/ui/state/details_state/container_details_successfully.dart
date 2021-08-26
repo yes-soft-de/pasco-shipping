@@ -7,6 +7,7 @@ import 'package:pasco_shipping/module_container/request/add_container_to_travel_
 import 'package:pasco_shipping/module_container/request/container_change_state_request.dart';
 import 'package:pasco_shipping/module_container/response/container_details_response.dart';
 import 'package:pasco_shipping/module_container/widget/status_card.dart';
+import 'package:pasco_shipping/module_employees/enums/employee_role.dart';
 import 'package:pasco_shipping/module_my_shipment/ui/widget/shipment_card.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
@@ -16,6 +17,7 @@ import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
+import 'package:collection/collection.dart';
 
 class ContainerDetailsSuccessfully extends StatefulWidget {
   final ContainerDetailsModel model;
@@ -45,11 +47,12 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(S.of(context).containerInformation , style: AppTextStyle.largeBlueBold,),
+                (ListEquality().equals ( ConstVar.Roles , EmployeeRoleName['Accountant']) || ListEquality().equals ( ConstVar.Roles , EmployeeRoleName['Super Admin']))?
                 InkWell(
                     onTap: (){
                       widget.onShowFinance(widget.model.id);
                     },
-                    child: Image.asset(StaticImage.accounting))
+                    child: Image.asset(StaticImage.accounting)) :Container()
               ],
             ),
           ),

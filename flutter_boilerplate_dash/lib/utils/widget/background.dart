@@ -1,6 +1,7 @@
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/module_chat/chat_routes.dart';
+import 'package:pasco_shipping/module_employees/enums/employee_role.dart';
 import 'package:pasco_shipping/module_home/home_routes.dart';
 import 'package:pasco_shipping/module_home/presistance/profile_prefs_helper.dart';
 import 'package:pasco_shipping/module_home/ui/screen/drawer_menu.dart';
@@ -27,7 +28,8 @@ class Background extends StatefulWidget {
       {required this.child,
       required this.title,
       required this.goBack,
-      required this.showFilter});
+      required this.showFilter,
+      });
 
   @override
   _BackgroundState createState() => _BackgroundState();
@@ -41,7 +43,7 @@ class _BackgroundState extends State<Background> {
    return Scaffold(
     key: globalKey,
     appBar: AppBar(title: Text(widget.title)),
-    drawer: DrawerMenu(),
+    drawer: DrawerMenu(ConstVar.Roles),
     floatingActionButton:widget.showFilter ? FloatingActionButton(onPressed: () { widget.goBack(); },child: Icon(Icons.filter_list_alt ,color: Colors.white,),) :Container(),
     body: SafeArea(
      child:widget.child
@@ -52,6 +54,5 @@ class _BackgroundState extends State<Background> {
   @override
   void initState() {
   super.initState();
-
  }
 }

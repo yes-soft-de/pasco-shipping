@@ -8,6 +8,7 @@ import 'package:pasco_shipping/module_shipment_request/ui/widget/choice_card.dar
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/image_full_screen.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
@@ -53,6 +54,33 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Text(S.of(context).serialNumber , style: AppTextStyle.mediumBlack, ),
+                    Text( widget.shipment.clientIdentificationNumber ??''),
+                  ],
+                ),
+                InkWell(
+                  onTap: (){
+                    _showSerAlert();
+                  },
+                  child: Icon(
+                    Icons.print,
+                    size: 50,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Divider(color: Colors.grey[300],thickness: 2,),
+
+
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Row(
@@ -272,13 +300,19 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               shrinkWrap: true,
               crossAxisCount: 3,
               children: List.generate(widget.shipment.imagePath!.length, (index){
-                return Padding(
-                  padding: const EdgeInsets.only(top: 10,right: 5 ,left: 5),
-                  child: Image.network(
-                    widget.shipment.imagePath![index].url,
-                    fit: BoxFit.fill,
-                    width: 100,
-                    height: 100,
+                return InkWell(
+                  onTap: (){
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => FullImageScreen(widget.shipment.imagePath![index].url , false)));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10,right: 5 ,left: 5),
+                    child: Image.network(
+                      widget.shipment.imagePath![index].url,
+                      fit: BoxFit.fill,
+                      width: 100,
+                      height: 100,
+                    ),
                   ),
                 );
               })
@@ -369,6 +403,64 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
       ],
     );
   });
+  }
+
+  _showSerAlert(){
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            title: Text('Shipment Sticker'),
+            content: SizedBox(
+              width: 200,
+              height: 100,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        S.of(context).shippingFrom,
+                        style: AppTextStyle.mediumBlack,
+                      ),
+                      Text(
+                        widget.shipment.exportWarehouseName.toString(),
+                        style: AppTextStyle.smallBlueBold,
+                      )
+
+                    ],
+                  ),
+                  SizedBox(height: 15,),
+                  Row(
+                    children: [
+                      Text(
+                        S.of(context).shippingTo,
+                        style: AppTextStyle.mediumBlack,
+                      ),
+                      Text(
+                        widget.shipment.target ??'',
+                        style: AppTextStyle.smallBlueBold,
+                      )
+
+                    ],
+                  ),
+                  SizedBox(height: 15,),
+                  Row(children: [
+                    Text(S.of(context).serialNumber, style: AppTextStyle.mediumBlack,),
+                    Text(widget.shipment.clientIdentificationNumber ??'')
+                  ],)
+                ],
+              ),
+            ),
+            actions: [
+              FlatButton(onPressed: (){}, child: Row(children: [
+                Icon(Icons.print, color: blue,size: 30,),
+              ],))
+            ],
+          );
+        });
   }
   // Widget selectContainer(){
   //   return

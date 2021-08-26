@@ -45,6 +45,7 @@ import 'module_container/container_module.dart';
 import 'module_container_specification/container_specification_module.dart';
 import 'module_countries/country_module.dart';
 import 'module_distributors/distributors_module.dart';
+import 'module_employees/employe_module.dart';
 import 'module_notifications/service/local_notification_service/local_notification_service.dart';
 import 'module_product_category/product_module.dart';
 import 'module_product_sub_category/sub_product_module.dart';
@@ -132,6 +133,7 @@ class MyApp extends StatefulWidget {
   final WarehouseModule _warehouseModule;
 
   final ReceiverModule _receiverModule;
+  final EmployeeModule _employeeModule;
 
 
   MyApp(
@@ -172,7 +174,8 @@ class MyApp extends StatefulWidget {
       this._productModule,
       this._subProductModule,
       this._warehouseModule,
-      this._receiverModule
+      this._receiverModule,
+      this._employeeModule
 
       );
 

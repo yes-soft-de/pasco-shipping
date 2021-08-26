@@ -29,6 +29,22 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 Expanded(
                     child: ListTile(
                         title: Text(
+                          S.of(context).serialNumber,
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        subtitle: Text(
+                          shipment.clientIdentificationNumber ?? '',
+                          style: AppTextStyle.smallBlueBold,
+                        ))),
+              ],
+            ),
+
+
+            Row(
+              children: [
+                Expanded(
+                    child: ListTile(
+                        title: Text(
                           S.of(context).client,
                           style: AppTextStyle.mediumBlack,
                         ),

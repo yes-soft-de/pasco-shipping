@@ -75,7 +75,13 @@ class AcceptedShipmentCard extends StatelessWidget {
                 ),
 
 
-
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text(S.of(context).serialNumber , style: AppTextStyle.mediumBlack,),
+                    Text(shipmentModel.clientIdentificationNumber ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(children: [

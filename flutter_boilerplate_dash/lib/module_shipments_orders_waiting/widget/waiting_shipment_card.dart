@@ -29,6 +29,13 @@ class WaitingShipmentCard extends StatelessWidget {
                     Text(shipmentModel.clientUsername ?? '' , style: AppTextStyle.mediumBlueBold,),
                   ],),
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text(S.of(context).serialNumber , style: AppTextStyle.mediumBlack,),
+                    Text(shipmentModel.clientIdentificationNumber ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
 
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -42,6 +49,13 @@ class WaitingShipmentCard extends StatelessWidget {
                   child: Row(children: [
                     Text(S.of(context).subCategory+': ' , style: AppTextStyle.mediumBlack,),
                     Text(shipmentModel.subProductCategoryName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text(S.of(context).receiverInfo , style: AppTextStyle.mediumBlack,),
+                    Text(shipmentModel.receiverName ?? '' , style: AppTextStyle.mediumBlueBold,),
                   ],),
                 ),
                 Padding(

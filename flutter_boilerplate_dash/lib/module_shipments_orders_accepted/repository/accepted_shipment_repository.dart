@@ -25,7 +25,7 @@ class AcceptedShipmentRepository{
 
   AcceptedShipmentRepository(this._apiClient, this._authService);
 
-  Future<List<AcceptedShipmentModel>?> getAcceptedShipment(AcceptedShipmentFilterRequest request) async {
+  Future<Data?> getAcceptedShipment(AcceptedShipmentFilterRequest request) async {
     // await _authService.refreshToken();
     var token =  await _authService.getToken();
     try {
@@ -33,13 +33,13 @@ class AcceptedShipmentRepository{
           ,headers: {'Authorization': 'Bearer $token'});
 
       AcceptedShipmentResponse waitingShipmentResponse =  AcceptedShipmentResponse.fromJson(response!);
-      List<AcceptedShipmentModel> marks = [];
-      if(waitingShipmentResponse.data != null) {
-        marks =
-        AcceptedShipmentResponse.fromJson(response).data!.data!;
-      }
-      print(marks.length);
-      return marks;
+      // List<AcceptedShipmentModel> marks = [];
+      // if(waitingShipmentResponse.data != null) {
+      //   marks =
+      //   AcceptedShipmentResponse.fromJson(response).data!;
+      // }
+
+      return waitingShipmentResponse.data;
     } catch (e) {
       print(e);
       return null;

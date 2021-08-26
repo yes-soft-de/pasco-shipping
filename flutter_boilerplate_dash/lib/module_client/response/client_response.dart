@@ -63,27 +63,32 @@ this.marks,
   String? createdByUser;
 
 
-  factory ClientModel.fromJson(Map<String, dynamic> json) => ClientModel(
-    id: json['id'],
-    userName: json['userName'],
-    userID: json['userID'],
-    location: json['location'],
-    country: json['country'],
-    city: json['city'],
-    phone: json['phone'],
-    image: json['image'],
-    marks: List<MarkNumber>.from(json['marks'].map((x) => MarkNumber.fromJson(x))),
+   ClientModel.fromJson(Map<String, dynamic> json) {
+        id = json['id'];
+        userName= json['userName'];
+        userID= json['userID'];
+        location= json['location'];
+        country= json['country'];
+        city= json['city'];
+        phone= json['phone'];
+        image=json['image'];
+       if(json['marks'] != null){
+        marks = List<MarkNumber>.from(json['marks'].map((x) => MarkNumber.fromJson(x)));
+       }else{
+        marks= [];
+       }
 
 
-    createdAt: DateTime.fromMillisecondsSinceEpoch(
-        CreatedAt.fromJson(json['createAt'] ?? 0).timestamp! * 1000),
-    updatedAt:DateTime.now(),
+
+    createdAt= DateTime.fromMillisecondsSinceEpoch(
+        CreatedAt.fromJson(json['createAt'] ?? 0).timestamp! * 1000);
+    updatedAt=DateTime.now();
     // DateTime.fromMillisecondsSinceEpoch(
     //     CreatedAt.fromJson(json['updatedAt'] ?? 0).timestamp! * 1000),
-    createdByUser: json['createdByUser'],
-    updatedByUser: json['updatedByUser'],
+    createdByUser= json['createdByUser'];
+    updatedByUser= json['updatedByUser'];
+  }
 
-  );
 }
 class MarkNumber{
   MarkNumber({this.markNumber});

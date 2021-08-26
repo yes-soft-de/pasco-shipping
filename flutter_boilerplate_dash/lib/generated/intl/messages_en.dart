@@ -215,7 +215,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "proxies": MessageLookupByLibrary.simpleMessage("Proxies"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity: "),
         "received": MessageLookupByLibrary.simpleMessage("Received"),
-        "receiver": MessageLookupByLibrary.simpleMessage("Receiver"),
+        "receiver": MessageLookupByLibrary.simpleMessage("Receivers"),
         "receiverInfo": MessageLookupByLibrary.simpleMessage("Receiver Info: "),
         "registerSuccess": MessageLookupByLibrary.simpleMessage(
             "Your account has been registered successfully"),
@@ -233,6 +233,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sea": MessageLookupByLibrary.simpleMessage("Sea"),
         "seaShipment": MessageLookupByLibrary.simpleMessage("Sea shipment"),
         "seaTravel": MessageLookupByLibrary.simpleMessage("Sea travel"),
+        "serialNumber": MessageLookupByLibrary.simpleMessage("Serial Number: "),
         "service": MessageLookupByLibrary.simpleMessage("Service"),
         "serviceName": MessageLookupByLibrary.simpleMessage("Service Name: "),
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),

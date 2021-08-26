@@ -25,7 +25,7 @@ class AcceptedShipmentScreen extends StatefulWidget {
 
 class _CountriesScreenState extends State<AcceptedShipmentScreen> {
   late AcceptedShipmentsState currentState;
-  late List<AcceptedShipmentModel> items;
+  late Data items;
   late AcceptedShipmentFilterRequest filterRequest;
   late bool withFilter;
   @override

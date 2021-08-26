@@ -25,12 +25,14 @@ class AcceptedShipmentResponse {
   }
 }
 class Data{
-  Data({this.data , this.totalCount});
+  Data({this.data ,this.statistics, this.totalCount});
   int? totalCount;
+  Statistics? statistics;
   List<AcceptedShipmentModel>? data;
 
   Data.fromJson(Map<String, dynamic> json) {
     totalCount = json['totalCount'];
+    statistics = Statistics.fromJson(json['statistics']);
     if (json['shipments'] != null) {
       data = <AcceptedShipmentModel>[];
       try {
@@ -58,6 +60,7 @@ class AcceptedShipmentModel {
     this.unit,
     this.receiverName,
     this.receiverPhoneNumber,
+    this.clientIdentificationNumber,
     this.paymentTime,
     this.vehicleIdentificationNumber,
     this.extraSpecification,
@@ -83,6 +86,7 @@ class AcceptedShipmentModel {
   String? unit;
   String? receiverName;
   String? receiverPhoneNumber;
+  String? clientIdentificationNumber;
 
   String? paymentTime;
 
@@ -113,6 +117,7 @@ class AcceptedShipmentModel {
         unit= json["unit"];
         receiverName= json["receiverName"];
         receiverPhoneNumber= json["receiverPhoneNumber"];
+        clientIdentificationNumber= json["clientIdentificationNumber"];
         paymentTime= json["paymentTime"];
         vehicleIdentificationNumber= json["vehicleIdentificationNumber"];
         extraSpecification= json["extraSpecification"];
@@ -126,6 +131,17 @@ class AcceptedShipmentModel {
 
 }
 
+class Statistics{
+  Statistics({this.received , this.notDelivered , this.delivered});
+  int? received;
+  int? notDelivered;
+  int? delivered;
+  factory Statistics.fromJson(Map<String, dynamic> json) => Statistics(
+    received: json['received'],
+    notDelivered: json['notDelivered'],
+    delivered: json['delivered'],
+  );
+}
 
 class CreatedAt {
   CreatedAt({

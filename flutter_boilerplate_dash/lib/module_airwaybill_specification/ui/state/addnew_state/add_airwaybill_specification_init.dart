@@ -100,7 +100,7 @@ class _AddCountryInitState extends State<AddAirwaybillSpecificationInit> {
                     controller: width,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'width',
+                      hintText: S.of(context).width,
 
                     ),
                   ),
