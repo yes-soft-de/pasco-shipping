@@ -246,7 +246,7 @@ class ShipmentStatusManager
             {
                 $index = rand(0, strlen($characters));
 
-                $randomCode .= $characters[$index];
+                $randomCode .= $characters[$index-1];
             }
 
             for ($i = 3; $i < 7; $i++)
