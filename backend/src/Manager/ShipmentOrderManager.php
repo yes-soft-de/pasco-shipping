@@ -254,25 +254,26 @@ class ShipmentOrderManager
             $response['totalCount'] = 0;
         }
 
-        $response['statistics']['received'] = $this->getShipmentsCountByTransportationTypeAndShipmentStatusAndWarehouseType($request->getTransportationType(), ShipmentStatusConstant::$RECEIVED_SHIPMENT_STATUS,
-            $request->getIsExternalWarehouse());
+        $response['statistics']['received'] = $this->getShipmentsCountByTransportationTypeAndShipmentStatusAndWarehouseTypeAndWarehousesIDs($request->getTransportationType(), ShipmentStatusConstant::$RECEIVED_SHIPMENT_STATUS,
+            $request->getIsExternalWarehouse(), $request->getExportWarehouseID(), $request->getImportWarehouseID());
 
-        $response['statistics']['notDelivered'] = $this->getShipmentsCountByTransportationTypeAndWarehouseTypeAndNotDelivered($request->getTransportationType(), $request->getIsExternalWarehouse());
+        $response['statistics']['notDelivered'] = $this->getShipmentsCountByTransportationTypeAndWarehouseTypeAndWarehousesIDsAndNotDelivered($request->getTransportationType(), $request->getIsExternalWarehouse(), $request->getExportWarehouseID(),
+            $request->getImportWarehouseID());
 
-        $response['statistics']['delivered'] = $this->getShipmentsCountByTransportationTypeAndShipmentStatusAndWarehouseType($request->getTransportationType(), ShipmentStatusConstant::$DELIVERED_SHIPMENT_STATUS,
-            $request->getIsExternalWarehouse());
+        $response['statistics']['delivered'] = $this->getShipmentsCountByTransportationTypeAndShipmentStatusAndWarehouseTypeAndWarehousesIDs($request->getTransportationType(), ShipmentStatusConstant::$DELIVERED_SHIPMENT_STATUS,
+            $request->getIsExternalWarehouse(), $request->getExportWarehouseID(), $request->getImportWarehouseID());
         
         return $response;
     }
 
-    public function getShipmentsCountByTransportationTypeAndShipmentStatusAndWarehouseType($transportationType, $shipmentStatus, $isExternalWarehouse)
+    public function getShipmentsCountByTransportationTypeAndShipmentStatusAndWarehouseTypeAndWarehousesIDs($transportationType, $shipmentStatus, $isExternalWarehouse, $exportWarehouseID, $importWarehouseID)
     {
-        return count($this->orderShipmentEntityRepository->getShipmentsByTransportationTypeAndShipmentStatusAndWarehouseType($transportationType, $shipmentStatus, $isExternalWarehouse));
+        return count($this->orderShipmentEntityRepository->getShipmentsByTransportationTypeAndShipmentStatusAndWarehouseTypeAndWarehousesIDs($transportationType, $shipmentStatus, $isExternalWarehouse, $exportWarehouseID, $importWarehouseID));
     }
 
-    public function getShipmentsCountByTransportationTypeAndWarehouseTypeAndNotDelivered($transportationType, $isExternalWarehouse)
+    public function getShipmentsCountByTransportationTypeAndWarehouseTypeAndWarehousesIDsAndNotDelivered($transportationType, $isExternalWarehouse, $exportWarehouseID, $importWarehouseID)
     {
-        return count($this->orderShipmentEntityRepository->getShipmentsByTransportationTypeAndWarehouseTypeAndNotDelivered($transportationType, $isExternalWarehouse));
+        return count($this->orderShipmentEntityRepository->getShipmentsByTransportationTypeAndWarehouseTypeAndWarehousesIDsAndNotDelivered($transportationType, $isExternalWarehouse, $exportWarehouseID, $importWarehouseID));
     }
 
     public function getShipmentOrderByMarkID($markID)
