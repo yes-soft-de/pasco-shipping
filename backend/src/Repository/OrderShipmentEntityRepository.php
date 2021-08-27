@@ -634,9 +634,9 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             return $query->getQuery()->getResult();
     }
 
-    public function getShipmentsByTransportationTypeAndShipmentStatusAndWarehouseType($transportationType, $shipmentStatus, $isExternalWarehouse)
+    public function getShipmentsByTransportationTypeAndShipmentStatusAndWarehouseTypeAndWarehousesIDs($transportationType, $shipmentStatus, $isExternalWarehouse, $exportWarehouseID, $importWarehouseID)
     {
-        return $this->createQueryBuilder('shipmentOrder')
+        $query = $this->createQueryBuilder('shipmentOrder')
             ->select("shipmentOrder.id", "shipmentOrder.transportationType")
 
             ->andWhere("shipmentOrder.status = 'accepted'")
@@ -657,15 +657,26 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             ->andWhere('shipmentStatusEntity.shipmentStatus = :shipmentStatus')
             ->setParameter('shipmentStatus', $shipmentStatus)
 
-            ->orderBy('shipmentOrder.id', 'DESC')
+            ->orderBy('shipmentOrder.id', 'DESC');
 
-            ->getQuery()
-            ->getResult();
+        if($exportWarehouseID)
+        {
+            $query->andWhere('shipmentOrder.exportWarehouseID = :exportWarehouseID');
+            $query->setParameter('exportWarehouseID', $exportWarehouseID);
+        }
+
+        if($importWarehouseID)
+        {
+            $query->andWhere('shipmentOrder.importWarehouseID = :importWarehouseID');
+            $query->setParameter('importWarehouseID', $importWarehouseID);
+        }
+
+        return $query->getQuery()->getResult();
     }
 
-    public function getShipmentsByTransportationTypeAndWarehouseTypeAndNotDelivered($transportationType, $isExternalWarehouse)
+    public function getShipmentsByTransportationTypeAndWarehouseTypeAndWarehousesIDsAndNotDelivered($transportationType, $isExternalWarehouse, $exportWarehouseID, $importWarehouseID)
     {
-        return $this->createQueryBuilder('shipmentOrder')
+        $query = $this->createQueryBuilder('shipmentOrder')
             ->select("shipmentOrder.id", "shipmentOrder.transportationType")
 
             ->andWhere("shipmentOrder.status = 'accepted'")
@@ -686,14 +697,22 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             ->andWhere("shipmentStatusEntity.shipmentStatus != 'accepted'")
             ->andWhere("shipmentStatusEntity.shipmentStatus != 'received'")
             ->andWhere("shipmentStatusEntity.shipmentStatus != 'delivered'")
-//            ->orWhere("shipmentStatusEntity.shipmentStatus = 'started'")
-//            ->orWhere("shipmentStatusEntity.shipmentStatus = 'released'")
-//            ->orWhere("shipmentStatusEntity.shipmentStatus = 'cleared'")
 
-            ->orderBy('shipmentOrder.id', 'DESC')
+            ->orderBy('shipmentOrder.id', 'DESC');
 
-            ->getQuery()
-            ->getResult();
+        if($exportWarehouseID)
+        {
+            $query->andWhere('shipmentOrder.exportWarehouseID = :exportWarehouseID');
+            $query->setParameter('exportWarehouseID', $exportWarehouseID);
+        }
+
+        if($importWarehouseID)
+        {
+            $query->andWhere('shipmentOrder.importWarehouseID = :importWarehouseID');
+            $query->setParameter('importWarehouseID', $importWarehouseID);
+        }
+
+        return $query->getQuery()->getResult();
     }
 
     public function filterWaitingShipmentsOrders($transportationType, $isExternalWarehouse, $exportWarehouseID, $paymentTime)
