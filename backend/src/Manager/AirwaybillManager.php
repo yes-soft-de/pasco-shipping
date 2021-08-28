@@ -10,6 +10,7 @@ use App\Request\AirwaybillCreateRequest;
 use App\Request\AirwaybillFilterRequest;
 use App\Request\AirwaybillStatusUpdateRequest;
 use App\Request\AirwaybillUpdateRequest;
+use App\Request\DeleteRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class AirwaybillManager
@@ -138,6 +139,32 @@ class AirwaybillManager
     public function getAirwaybillsBySpecificationID($specificationID)
     {
         return $this->airwaybillEntityRepository->getAirwaybillsBySpecificationID($specificationID);
+    }
+
+    public function deleteAirWaybillById(DeleteRequest $request, $isUsed)
+    {
+        $item = $this->airwaybillEntityRepository->find($request->getId());
+
+        if(!$item)
+        {
+            return $item;
+        }
+        else
+        {
+            //Check if the air waybill isn't being used yet
+            if(!$isUsed)
+            {
+                //its safe to delete the air waybill
+                $this->entityManager->remove($item);
+                $this->entityManager->flush();
+            }
+            else
+            {
+                return "The air waybill is being used. We can not delete it!";
+            }
+        }
+
+        return $item;
     }
 
     public function deleteAllAirwaybills()

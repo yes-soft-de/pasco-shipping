@@ -3,11 +3,13 @@
 namespace App\Service;
 
 use App\AutoMapping;
+use App\Constant\HolderTypeConstant;
 use App\Entity\AirwaybillEntity;
 use App\Manager\AirwaybillManager;
 use App\Request\AirwaybillCreateRequest;
 use App\Request\AirwaybillStatusUpdateRequest;
 use App\Request\AirwaybillUpdateRequest;
+use App\Request\DeleteRequest;
 use App\Response\AirwaybillCreateResponse;
 use App\Response\AirwaybillGetResponse;
 use App\Response\DeleteAllGetResponse;
@@ -117,6 +119,23 @@ class AirwaybillService
         }
 
         return $airwaybillsResponse;
+    }
+
+    public function deleteAirWaybillById(DeleteRequest $request)
+    {
+        // First, check if the air waybill is being used (shipments are stored in it)
+        $isUsed = $this->trackService->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $request->getId());
+
+        $result = $this->airwaybillManager->deleteAirWaybillById($request, $isUsed);
+
+        if($result instanceof AirwaybillEntity)
+        {
+            return $this->autoMapping->map(AirwaybillEntity::class, AirwaybillGetResponse::class, $result);
+        }
+        else
+        {
+            return $result;
+        }
     }
 
     public function deleteAllAirwaybills()
