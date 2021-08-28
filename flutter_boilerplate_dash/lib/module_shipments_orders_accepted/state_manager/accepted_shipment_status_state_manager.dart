@@ -53,11 +53,13 @@ class AcceptedShipmentsStatusStateManager {
                 print(isDelivred);
                 _stateSubject.add(AcceptedStatusState(model));
               }else {
+                print('received_status');
                 _subcontractService.getSubcontracts().then((subcontracts) {
                   if (subcontracts != null) {
                     WarehouseFilterRequest request = WarehouseFilterRequest(cityName: cityName);
                     _warehouseService.getWarehouses(request).then((warehouses) {
                       if (warehouses != null) {
+
                         _stateSubject.add(ReceivedStatusState(
                             model, subcontracts, warehouses));
                       }else {
@@ -73,6 +75,8 @@ class AcceptedShipmentsStatusStateManager {
             }
           });
         }
+      }else {
+        _stateSubject.add(ErrorState('Error'));
       }
     });
   }

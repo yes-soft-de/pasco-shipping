@@ -10,9 +10,9 @@ class SubProductCard extends StatefulWidget {
   final SubProductModel model;
   final Function onDelete;
   final Function onEdit;
-  late bool isEdtiable;
+  // late bool isEdtiable;
   SubProductCard(
-      {required this.model, required this.onDelete, required this.onEdit,required this.isEdtiable});
+      {required this.model, required this.onDelete, required this.onEdit});
 
   @override
   _CountryCardState createState() => _CountryCardState();
@@ -35,7 +35,7 @@ class _CountryCardState extends State<SubProductCard> {
 
    hsCode =TextEditingController();
    hsCode..text = widget.model.hscode ??'';
-   widget.isEdtiable = false;
+   // widget.isEdtiable = false;
   }
 
   @override
@@ -62,8 +62,7 @@ class _CountryCardState extends State<SubProductCard> {
                           'Name ',
                           style: AppTextStyle.mediumBlack,
                         ),
-                         Expanded(child: widget.isEdtiable ?
-                        TextField(controller: name,):  Text(
+                         Expanded(child:   Text(
                           widget.model.name ?? '',
                           style: AppTextStyle.mediumBlueBold,
                         ),
@@ -80,8 +79,7 @@ class _CountryCardState extends State<SubProductCard> {
                           'HsCode: ',
                           style: AppTextStyle.mediumBlack,
                         ),
-                        Expanded(child: widget.isEdtiable ?
-                        TextField(controller: hsCode,):  Text(
+                        Expanded(child:   Text(
                           widget.model.hscode ?? '',
                           style: AppTextStyle.mediumBlueBold,
                         ),
@@ -110,7 +108,7 @@ class _CountryCardState extends State<SubProductCard> {
                           'Description: ',
                           style: AppTextStyle.mediumBlack,
                         ),
-                        Expanded(child:   widget.isEdtiable ? TextField(controller: description) :  Text(
+                        Expanded(child: Text(
                           widget.model.description ?? '',
                           style: AppTextStyle.mediumBlueBold,
                         ),
@@ -211,41 +209,12 @@ class _CountryCardState extends State<SubProductCard> {
                     Container(
                       width: 100,
                       child:
-
-                      widget.isEdtiable ? ElevatedButton(
+                      ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           primary: Colors.green,
                         ),
                         onPressed: () {
-                          if(name.text.isEmpty || description.text.isEmpty){
-                            Fluttertoast.showToast(msg: S.of(context).fillAllField);
-                          }else {
-                            SubProductRequest re = SubProductRequest(id: widget.model.id ,name: name.text,description: description.text, hscode: hsCode.text, productCategoryID:widget.model.id!);
-                            widget.onEdit(re);
-                          }
-
-                        },
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.save,
-                              color: Colors.white,
-                            ),
-
-                            Text(
-                              'save',
-                              style: AppTextStyle.mediumWhite,
-                            ),
-                          ],
-                        ),
-                      ) : ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            widget.isEdtiable= true;
-                          });
+                         widget.onEdit(widget.model);
                         },
                         child: Row(
                           children: [

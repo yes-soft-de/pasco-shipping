@@ -92,8 +92,10 @@ class _CountriesScreenState extends State<TravelScreen> {
       return TravelSuccessfully(items: items ,onDelete: (id){
         widget._stateManager.deleteTravel(id.toString() ,travelFilterRequest);
       },
-        onEdit: (request){
-          // widget._stateManager.updateSupplier(request);
+        onEdit: (model){
+        Navigator.pushNamed(context, TravelRoutes.UPDATE ,arguments: {'travelModel':model}).then((value) {
+          widget._stateManager.getTravelWithFilter(travelFilterRequest);
+        });
         },
         onDetails: (id){
         Navigator.pushNamed(context, TravelRoutes.DETAILS , arguments: {'id' : id}).then((value){

@@ -49,7 +49,7 @@ class ProductModel {
   String? name;
   String? description;
   String? hscode;
-  List<SubProductModel>? subs;
+  List<SubbProductModel>? subs;
 
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -62,7 +62,7 @@ class ProductModel {
     name: json['name'],
     description: json['description'],
     hscode: json['hsCode'],
-    subs:List<SubProductModel>.from(json['subProductCategories'].map((x) => SubProductModel.fromJson(x))) ,
+    subs:List<SubbProductModel>.from(json['subProductCategories'].map((x) => SubbProductModel.fromJson(x))) ,
 
 
     createdAt: DateTime.fromMillisecondsSinceEpoch(
@@ -76,8 +76,8 @@ class ProductModel {
 }
 
 
-class SubProductModel {
-  SubProductModel({
+class SubbProductModel {
+  SubbProductModel({
     this.id,
     this.name,
     this.description,
@@ -108,7 +108,7 @@ class SubProductModel {
   // List<SubProductModel>? subProduct;
 
 
-  factory SubProductModel.fromJson(Map<String, dynamic> json) => SubProductModel(
+  factory SubbProductModel.fromJson(Map<String, dynamic> json) => SubbProductModel(
     id: json['id'],
     name: json['name'],
     description: json['description'],

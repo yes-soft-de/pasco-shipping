@@ -4,4 +4,5 @@ class TravelRoutes{
   static const FILTER = '/filter_travel';
   static const DETAILS = '/travel_details';
   static const FINANCE = '/travel_finance';
+  static const UPDATE = '/travel_update';
 }

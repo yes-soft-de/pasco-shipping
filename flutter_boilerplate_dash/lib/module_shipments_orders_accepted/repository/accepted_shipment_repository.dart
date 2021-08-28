@@ -116,12 +116,14 @@ class AcceptedShipmentRepository{
       String? statusCode = AcceptedShipmentDetailsResponse.fromJson(response!).statusCode;
       String? msg = AcceptedShipmentDetailsResponse.fromJson(response).msg;
       if(statusCode =='204'){
+        print('confirm');
         return ConfirmResponse(true, msg!);
       }else {
         return ConfirmResponse(false, msg!);
       }
 
-  }catch(_){
+  }catch(e){
+      print(e);
       return null;
     }
     }

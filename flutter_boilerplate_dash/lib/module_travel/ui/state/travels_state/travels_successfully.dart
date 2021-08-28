@@ -22,8 +22,8 @@ class TravelSuccessfully extends StatelessWidget {
       itemBuilder: (context, index) {
         return TravelsCard(
           model: items[index],
-          onEdit: (re) {
-            onEdit(re);
+          onEdit: (model) {
+            onEdit(model);
           },
           onDelete: (id) {
             onDelete(id);

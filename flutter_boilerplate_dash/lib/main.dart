@@ -248,7 +248,7 @@ class _MyAppState extends State<MyApp> {
       ],
       theme: theme,
       supportedLocales: S.delegate.supportedLocales,
-      title: 'Twaslna',
+      title: 'Pasco-Dash',
       routes: fullRoutesList,
       initialRoute: SplashRoutes.SPLASH_SCREEN,
     );

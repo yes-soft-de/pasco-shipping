@@ -299,7 +299,8 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
          widget.shipment.imagePath!.isEmpty?Container(): GridView.count(
               shrinkWrap: true,
               crossAxisCount: 3,
-              children: List.generate(widget.shipment.imagePath!.length, (index){
+             physics: NeverScrollableScrollPhysics(),
+             children: List.generate(widget.shipment.imagePath!.length, (index){
                 return InkWell(
                   onTap: (){
                     Navigator.push(context,
@@ -365,7 +366,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                     widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber);
                   }, radius: 12),
                   RoundedButton(lable: 'Show Status', icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
-                    widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,'LCL', subShipmentModel.shipmentStatus,widget.shipment.transportationType);
+                    widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,widget.shipment.holderType, subShipmentModel.shipmentStatus,widget.shipment.transportationType);
                   }, radius: 12),
                 ],
               )

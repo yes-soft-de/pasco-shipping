@@ -37,7 +37,21 @@ class AddWarehouseStateManager{
       }
     });
   }
-
+  void updateWarehouses(WarehouseRequest request){
+    _addStateSubject.add(LoadingAddState());
+    _service.updateWarehouses(request).then((value) {
+      if(value != null){
+        if(value.isConfirmed){
+          _addStateSubject.add(SuccessfullyAddState(value));
+        }
+        else{
+          _addStateSubject.add(ErrorAddState('error'));
+        }
+      }else {
+        _addStateSubject.add(ErrorAddState('error'));
+      }
+    });
+  }
   void getSubContractAndProxyAndCountry(){
     _subcontractService.getSubcontracts().then((subcontracts){
       if(subcontracts != null){

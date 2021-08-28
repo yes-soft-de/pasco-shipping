@@ -209,7 +209,7 @@ late  TextEditingController fullName;
               ),
             ),
             RoundedButton(lable: S.of(context).save, icon: '', color: blue, style: AppTextStyle.largeWhiteBold, go: (){
-              if(phone.text.isEmpty || email.text.isEmpty || address.text.isEmpty ||fullName.text.isEmpty) {
+              if(phone.text.isEmpty ||fullName.text.isEmpty) {
                 Fluttertoast.showToast(msg: S.of(context).fillAllField);
               }
               else {

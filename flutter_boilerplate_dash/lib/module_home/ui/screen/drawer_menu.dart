@@ -337,64 +337,71 @@ class DrawerMenu extends StatelessWidget {
           ),
 
           //holder
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('Holder' ,style: AppTextStyle.mediumDeepGrayBold,),
-          ),
-          ExpansionTile(
-            title: new Text(S.of(context).containers),
-            leading: Icon(Icons.inbox_outlined),
-            children: <Widget>[
+          (ListEquality().equals ( role , EmployeeRoleName['Receiving Employee']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin']) ||ListEquality().equals ( role , EmployeeRoleName['Admin SubContract']) ) ?
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    ListTile(
-                        title: new Text(S.of(context).view),
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, ContainerRoutes.VIEW_ALL);
-                        }),
-                    ListTile(
-                        title: new Text(
-                          S.of(context).add,
-                        ),
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, ContainerRoutes.ADD_NEW);
-                        }),
-                  ],
-                ),
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Holder' ,style: AppTextStyle.mediumDeepGrayBold,),
+              ),
+              ExpansionTile(
+                title: new Text(S.of(context).containers),
+                leading: Icon(Icons.inbox_outlined),
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                            title: new Text(S.of(context).view),
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, ContainerRoutes.VIEW_ALL);
+                            }),
+                        ListTile(
+                            title: new Text(
+                              S.of(context).add,
+                            ),
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, ContainerRoutes.ADD_NEW);
+                            }),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              ExpansionTile(
+                title: new Text(S.of(context).airWaybills),
+                leading: Icon(Icons.inbox_outlined),
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                            title: new Text(S.of(context).view),
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, AirwaybillRoutes.VIEW_ALL);
+                            }),
+                        ListTile(
+                            title: new Text(
+                              S.of(context).add,
+                            ),
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, AirwaybillRoutes.ADD_NEW);
+                            }),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
-          ),
-          ExpansionTile(
-            title: new Text(S.of(context).airWaybills),
-            leading: Icon(Icons.inbox_outlined),
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    ListTile(
-                        title: new Text(S.of(context).view),
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, AirwaybillRoutes.VIEW_ALL);
-                        }),
-                    ListTile(
-                        title: new Text(
-                          S.of(context).add,
-                        ),
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, AirwaybillRoutes.ADD_NEW);
-                        }),
-                  ],
-                ),
-              ),
-            ],
-          ),
+          ) :Container(),
+
 
 
           //Specification
@@ -489,13 +496,15 @@ class DrawerMenu extends StatelessWidget {
                     Navigator.pushNamed(context, TravelRoutes.VIEW_ALL,
                         arguments: {'travelFilter': re});
                   }),
+
+              (ListEquality().equals ( role , EmployeeRoleName['Admin Data Entry']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin']))?
               ListTile(
                   title: new Text(
                       S.of(context).add
                   ),
                   onTap: () {
                     Navigator.pushNamed(context, TravelRoutes.ADD_NEW,);
-                  }),
+                  }) : Container(),
             ],
           ),
           Divider(
@@ -878,17 +887,19 @@ class DrawerMenu extends StatelessWidget {
                           Navigator.pushNamed(
                               context, EmployeeRoutes.VIEW_ALL);
                         }),
+                    (ListEquality().equals ( role , EmployeeRoleName['HR employee']) ||ListEquality().equals ( role , EmployeeRoleName['Super Admin']) )?
                     ListTile(
                         title: new Text(S.of(context).add),
                         onTap: () {
                           Navigator.pushNamed(
                               context, EmployeeRoutes.ADD_NEW);
-                        }),
+                        }) :Container(),
                   ],
                 ),
               ),
             ],
           ),
+
           ExpansionTile(
             title: new Text(S.of(context).marks),
             leading: Icon(Icons.note),

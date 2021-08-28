@@ -63,7 +63,7 @@ class SubProductRepository{
     // await _authService.refreshToken();
     var token =await _authService.getToken();
 
-    var response = await _apiClient.put(Urls.ADD_PRODUCT_CATEGORY, request.toJson(),
+    var response = await _apiClient.put(Urls.ADD_SUB_PRODUCT_CATEGORY, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = SubProductResponse.fromJson(response!).statusCode;
     String? msg = SubProductResponse.fromJson(response).msg;

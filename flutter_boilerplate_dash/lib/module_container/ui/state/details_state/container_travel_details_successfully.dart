@@ -189,7 +189,10 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
             itemCount: widget.model.shipments!.length,
           ),
 
-          (widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].shipmentStatus != null && widget.model.shipments![0].shipmentStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.STORED]) ?
+          (widget.model.shipments!.isNotEmpty
+              &&  widget.model.shipments![0].shipmentStatus != null
+              &&  widget.model.shipments![0].shipmentStatus
+                  == AcceptedShipmentStatusName[AcceptedShipmentStatus.STORED]) ?
           uploadToTravel():
           (widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].travelStatus != null && widget.model.shipments![0].travelStatus == TravelStatusName[TravelStatus.RELEASED]) ?
           changeContainerStatus():

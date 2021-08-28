@@ -562,6 +562,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                 alignment: AlignmentDirectional.bottomEnd,
                 child: FloatingActionButton.extended(
                   onPressed: () {
+                    widget.shipmentRequest.imageFilePath =[];
                     for(File i in imageArray ){
                       widget.shipmentRequest.imageFilePath!.add(i.path);
                     }
