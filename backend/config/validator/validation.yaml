@@ -447,4 +447,45 @@ App\Request\ReceiverCreateByDashboardRequest:
       - NotBlank: ~
     createdBy:
       - NotBlank: ~
+
+App\Request\ShipmentFinanceCreateRequest:
+  properties:
+    shipmentID:
+      - NotBlank: ~
+    trackNumber:
+      - NotBlank: ~
+    stageCost:
+      - NotBlank: ~
+    currency:
+      - NotBlank: ~
+    shipmentStatus:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\AirwaybillFinanceCreateRequest:
+  properties:
+    airwaybillID:
+      - NotBlank: ~
+    stageCost:
+      - NotBlank: ~
+    currency:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\ContainerFinanceCreateRequest:
+  properties:
+    containerID:
+      - NotBlank: ~
+    stageCost:
+      - NotBlank: ~
+    currency:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
       

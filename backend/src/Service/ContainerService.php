@@ -3,11 +3,13 @@
 namespace App\Service;
 
 use App\AutoMapping;
+use App\Constant\HolderTypeConstant;
 use App\Entity\ContainerEntity;
 use App\Manager\ContainerManager;
 use App\Request\ContainerCreateRequest;
 use App\Request\ContainerStatusUpdateRequest;
 use App\Request\ContainerUpdateRequest;
+use App\Request\DeleteRequest;
 use App\Response\ContainerCreateResponse;
 use App\Response\ContainerGetResponse;
 use App\Response\DeleteAllGetResponse;
@@ -117,6 +119,23 @@ class ContainerService
         }
 
         return $containersResponse;
+    }
+
+    public function deleteContainerById(DeleteRequest $request)
+    {
+        // First, check if the air waybill is being used (shipments are stored in it)
+        $isUsed = $this->trackService->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $request->getId());
+
+        $result = $this->containerManager->deleteContainerById($request, $isUsed);
+
+        if($result instanceof ContainerEntity)
+        {
+            return $this->autoMapping->map(ContainerEntity::class, ContainerGetResponse::class, $result);
+        }
+        else
+        {
+            return $result;
+        }
     }
 
     public function deleteAllContainers()

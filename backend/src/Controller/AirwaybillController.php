@@ -7,6 +7,7 @@ use App\Request\AirwaybillCreateRequest;
 use App\Request\AirwaybillFilterRequest;
 use App\Request\AirwaybillStatusUpdateRequest;
 use App\Request\AirwaybillUpdateRequest;
+use App\Request\DeleteRequest;
 use App\Service\AirwaybillService;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -472,6 +473,51 @@ class AirwaybillController extends BaseController
     public function deleteAllAirwaybills()
     {
         $result = $this->airwaybillService->deleteAllAirwaybills();
+
+        return $this->response($result, self::DELETE);
+    }
+
+    /**
+     * @Route("airwaybill/{id}", name="deleteAirwaybill", methods={"DELETE"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Airwaybill")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the deleted air waybill",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="airwaybillNumber"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="consigneeName"),
+     *                  @OA\Property(type="string", property="shipperName"),
+     *                  @OA\Property(type="string", property="carrierName"),
+     *                  @OA\Property(type="string", property="specificationName"),
+     *                  @OA\Property(type="array", property="shipments",
+     *                      @OA\Items()
+     *                  )
+     *          )
+     *      )
+     * )
+     */
+    public function deleteAirWaybillById(Request $request)
+    {
+        $request = new DeleteRequest($request->get('id'));
+
+        $result = $this->airwaybillService->deleteAirWaybillById($request);
 
         return $this->response($result, self::DELETE);
     }

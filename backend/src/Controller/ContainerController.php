@@ -7,6 +7,7 @@ use App\Request\ContainerCreateRequest;
 use App\Request\ContainerFilterRequest;
 use App\Request\ContainerStatusUpdateRequest;
 use App\Request\ContainerUpdateRequest;
+use App\Request\DeleteRequest;
 use App\Service\ContainerService;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -454,6 +455,51 @@ class ContainerController extends BaseController
         $result = $this->containerService->filterContainers($request);
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("container/{id}", name="deleteContainer", methods={"DELETE"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Container")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the deleted container",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="containerNumber"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="consigneeName"),
+     *                  @OA\Property(type="string", property="shipperName"),
+     *                  @OA\Property(type="string", property="carrierName"),
+     *                  @OA\Property(type="string", property="specificationName"),
+     *                  @OA\Property(type="array", property="shipments",
+     *                      @OA\Items()
+     *                  )
+     *          )
+     *      )
+     * )
+     */
+    public function deleteContainerById(Request $request)
+    {
+        $request = new DeleteRequest($request->get('id'));
+
+        $result = $this->containerService->deleteContainerById($request);
+
+        return $this->response($result, self::DELETE);
     }
 
     /**

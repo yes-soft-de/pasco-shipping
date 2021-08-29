@@ -10,6 +10,7 @@ use App\Request\ContainerCreateRequest;
 use App\Request\ContainerFilterRequest;
 use App\Request\ContainerStatusUpdateRequest;
 use App\Request\ContainerUpdateRequest;
+use App\Request\DeleteRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ContainerManager
@@ -138,6 +139,32 @@ class ContainerManager
     public function getContainersBySpecificationID($specificationID)
     {
         return $this->containerEntityRepository->getContainersBySpecificationID($specificationID);
+    }
+
+    public function deleteContainerById(DeleteRequest $request, $isUsed)
+    {
+        $item = $this->containerEntityRepository->find($request->getId());
+
+        if(!$item)
+        {
+            return $item;
+        }
+        else
+        {
+            //Check if the container isn't being used yet
+            if(!$isUsed)
+            {
+                //its safe to delete the container
+                $this->entityManager->remove($item);
+                $this->entityManager->flush();
+            }
+            else
+            {
+                return "The container is being used. We can not delete it!";
+            }
+        }
+
+        return $item;
     }
 
     public function deleteAllContainers()
