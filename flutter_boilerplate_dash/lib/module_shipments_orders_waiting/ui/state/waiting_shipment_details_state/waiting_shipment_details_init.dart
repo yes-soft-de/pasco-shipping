@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/image_full_screen.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/enums/waiting_shipment_status.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/request/accepted_rejected_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/response/waiting_shipment_response.dart';
@@ -24,6 +25,22 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Row(
+              children: [
+                Expanded(
+                    child: ListTile(
+                        title: Text(
+                          S.of(context).serialNumber,
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        subtitle: Text(
+                          shipment.clientIdentificationNumber ?? '',
+                          style: AppTextStyle.smallBlueBold,
+                        ))),
+              ],
+            ),
+
+
             Row(
               children: [
                 Expanded(
@@ -222,7 +239,29 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 ),)
               ],
             ),
-
+            Text('Attached file' ,style: AppTextStyle.mediumBlack, ),
+            GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 3,
+                physics: NeverScrollableScrollPhysics(),
+                children: List.generate(shipment.imagePath!.length, (index){
+                  return InkWell(
+                    onTap: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => FullImageScreen(shipment.imagePath![index].url , false)));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10,right: 5 ,left: 5),
+                      child: Image.network(
+                        shipment.imagePath![index].url,
+                        fit: BoxFit.cover,
+                        width: 100,
+                        height: 100,
+                      ),
+                    ),
+                  );
+                })
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -252,21 +291,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
             ),
 
 
-            GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 3,
-                children: List.generate(shipment.imagePath!.length, (index){
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 10,right: 5 ,left: 5),
-                    child: Image.network(
-                      shipment.imagePath![index].url,
-                      fit: BoxFit.cover,
-                      width: 100,
-                      height: 100,
-                    ),
-                  );
-                })
-            ),
+
           ],
         ),
       ),

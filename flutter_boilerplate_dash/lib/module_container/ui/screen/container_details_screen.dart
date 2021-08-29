@@ -101,9 +101,9 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
       );
     }
     else if (currentState is SuccessfullyUploadedContainerState){
-      // SuccessfullyUploadedContainerState? state = currentState as SuccessfullyUploadedContainerState?;
+      SuccessfullyUploadedContainerState? state = currentState as SuccessfullyUploadedContainerState?;
       Fluttertoast.showToast(msg: 'Holder has been loaded onto Trip successfully');
-      return ContainerTravelDetailsSuccessfully(model:items ,
+      return ContainerTravelDetailsSuccessfully(model:state!.containerDetailsModel ,
         onShipmentReview: (model){
           Navigator.pushNamed(context, ContainerRoutes.CONTAINER_SHIPMENT_REVIEW , arguments:  model);
         }, onUploadedToTravel: (addContainerToTravelRequest){

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/image_full_screen.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
@@ -124,7 +125,7 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
               Expanded(
                   child: ListTile(
                       title: Text(
-                        S.of(context).category,
+                        S.of(context).subCategory,
                         style: AppTextStyle.mediumBlack,
                       ),
                       subtitle: Text(
@@ -235,13 +236,19 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
               shrinkWrap: true,
               crossAxisCount: 5,
               children: List.generate(widget.shipment.imageFilePath!.length, (index){
-                return Padding(
-                  padding: const EdgeInsets.only(top: 10,right: 5 ,left: 5),
-                  child: Image.file(
-                    File(widget.shipment.imageFilePath![index]),
-                    fit: BoxFit.cover,
-                    width: 100,
-                    height: 100,
+                return InkWell(
+                  onTap: (){
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => FullImageScreen(widget.shipment.imageFilePath![index],true)));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10,right: 5 ,left: 5),
+                    child: Image.file(
+                      File(widget.shipment.imageFilePath![index]),
+                      fit: BoxFit.cover,
+                      width: 100,
+                      height: 100,
+                    ),
                   ),
                 );
               })

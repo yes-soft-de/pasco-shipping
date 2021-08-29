@@ -5,4 +5,5 @@ class AcceptedShipmentRoutes{
   static const STATUS = '/acceptedshipment_status';
   static const FINANCE = '/acceptedshipment_finance';
   static const SELECT_WAREHOUSE = '/view_select_warehouse';
+  // static const FULL_IMAGE = '/FullImageView';
 }

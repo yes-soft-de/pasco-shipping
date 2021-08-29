@@ -168,7 +168,34 @@ class ClientCard extends StatelessWidget {
                             )],
                         ),
                       ],
-                    ):Container()
+                    ):Container(),
+
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.red,
+                      ),
+                      onPressed: () {
+                        // widget.onDelete(widget.model.id);
+                      },
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'delete',
+                              style: AppTextStyle.mediumWhite,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
 
                   ],
                 ),

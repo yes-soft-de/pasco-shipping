@@ -86,7 +86,7 @@ class _ChipCardState extends State<ChoiceCard> {
 
 
 class ChoiceCard2 extends StatefulWidget {
-  final SubProductModel type;
+  final SubbProductModel type;
   const ChoiceCard2(this.type);
 
   @override

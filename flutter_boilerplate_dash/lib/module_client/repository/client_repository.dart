@@ -45,19 +45,19 @@ class ClientRepository{
     }
   }
 
-  // Future<ConfirmResponse?> deleteUnit(String id) async {
-  //   // await _authService.refreshToken();
-  //   var token = Urls.token;  //await _authService.getToken();
-  //   var response = await _apiClient.delete(Urls.UNIT+'/'+id,
-  //       headers: {'Authorization': 'Bearer $token'});
-  //   String? statusCode = UnitResponse.fromJson(response!).statusCode;
-  //   String? msg = UnitResponse.fromJson(response).msg;
-  //   if(statusCode =='401'){
-  //     return ConfirmResponse(true, msg!);
-  //   }else {
-  //     return ConfirmResponse(false, msg!);
-  //   }
-  // }
+  Future<ConfirmResponse?> deleteClient(String id) async {
+    // await _authService.refreshToken();
+    var token = await _authService.getToken();
+    var response = await _apiClient.delete(Urls.CLIENT+'/'+id,
+        headers: {'Authorization': 'Bearer $token'});
+    String? statusCode = ClientResponse.fromJson(response!).statusCode;
+    String? msg = ClientResponse.fromJson(response).msg;
+    if(statusCode =='401'){
+      return ConfirmResponse(true, msg!);
+    }else {
+      return ConfirmResponse(false, msg!);
+    }
+  }
   //
   // Future<ConfirmResponse?> updateUnit(UnitRequest request) async {
   //   // await _authService.refreshToken();

@@ -19,9 +19,9 @@ import 'package:pasco_shipping/module_travel/response/travel_response.dart';
   Future<ConfirmResponse?> createTravel(TravelRequest request) {
     return _manager.createTravel(request);
   }
-  // Future<ConfirmResponse?> updateSupplier(SupplierRequest request) {
-  //   return _manager.updateSupplier(request);
-  // }
+  Future<ConfirmResponse?> updateTravelInfo(TravelRequest request) {
+    return _manager.updateTravelInfo(request);
+  }
   Future<ConfirmResponse?> deleteTravel(String id) {
     return _manager.deleteTravel(id);
   }

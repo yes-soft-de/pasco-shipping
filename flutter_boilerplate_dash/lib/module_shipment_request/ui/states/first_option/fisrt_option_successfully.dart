@@ -14,6 +14,7 @@ import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_lis
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_shipment_request/response/product_categories/product_categories_response.dart';
 import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/image_full_screen.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
@@ -180,7 +181,45 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
       imageArray;
     });
   }
+ void _openGallery() async {
 
+   image = await _imagePicker.getImage(source: ImageSource.gallery ,imageQuality: 70);
+   var imageFile = File(image!.path);
+   imageArray.add(imageFile);
+   setState(() {
+     imageArray;
+   });
+ }
+ void _showPicker(context) {
+   showModalBottomSheet(
+       context: context,
+       builder: (BuildContext bc) {
+         return SafeArea(
+           child: Container(
+             child: new Wrap(
+               children: <Widget>[
+                 new ListTile(
+                     leading: new Icon(Icons.photo_library),
+                     title: new Text('Photo Library'),
+                     onTap: () {
+                       _openGallery();
+                       Navigator.of(context).pop();
+                     }),
+                 new ListTile(
+                   leading: new Icon(Icons.photo_camera),
+                   title: new Text('Camera'),
+                   onTap: () {
+                     _openCamera();
+                     Navigator.of(context).pop();
+                   },
+                 ),
+               ],
+             ),
+           ),
+         );
+       }
+   );
+ }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -266,40 +305,48 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              // mainAxisAlignment: MainAxisAlignment.center,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  S.of(context).externalWarehouse,
+                  S.of(context).warehouseInfo,
                   style: AppTextStyle.mediumBlackBold,
                 ),
-                Radio(
-                  onChanged: (value) {
-                    _setSelectedRadioWarehouse(1);
-                  },
-                  value: 1,
-                  groupValue: selectedRadioWarehouse,
+
+               Row(
+                 children: [
+                   Radio(
+                     onChanged: (value) {
+                       _setSelectedRadioWarehouse(2);
+                     },
+                     value: 2,
+                     groupValue: selectedRadioWarehouse,
+                   ),
+                   Text( S.of(context).inLocalWarehouse,
+                       style: TextStyle(
+                         color: Colors.black,
+                       ))
+                 ],
+               ),
+                Row(
+                  children: [
+                    Radio(
+                      onChanged: (value) {
+                        _setSelectedRadioWarehouse(1);
+                      },
+                      value: 1,
+                      groupValue: selectedRadioWarehouse,
+                    ),
+                    Text(
+                      S.of(context).inExternalWarehouse,
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  S.of(context).truee,
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-                SizedBox(
-                  width: 50,
-                ),
-                Radio(
-                  onChanged: (value) {
-                    _setSelectedRadioWarehouse(2);
-                  },
-                  value: 2,
-                  groupValue: selectedRadioWarehouse,
-                ),
-                Text( S.of(context).falsee,
-                    style: TextStyle(
-                      color: Colors.black,
-                    ))
+
               ],
             ),
             Visibility(
@@ -402,7 +449,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                 ),
                 imageArray.isNotEmpty ? InkWell(
                     onTap: (){
-                      _openCamera();
+                      _showPicker(context);
                     },
                     child: Icon(Icons.add_circle ,size: 30, color: blue,)): Container(),
 
@@ -477,7 +524,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                   icon: Icon(Icons.camera_alt),
                   iconSize: 50.0,
                   onPressed: () {
-                    _openCamera();
+                    _showPicker(context);
                   },
                 ),
               ),
@@ -488,23 +535,24 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                 children: List.generate(imageArray.length, (index){
                   return Padding(
                     padding: const EdgeInsets.only(top: 10,right: 5 ,left: 5),
-                    child: Badge(
-                      badgeContent: InkWell(
-                          onTap: () {
-                            setState(() {
-                              imageArray.remove(imageArray[index]);
-                            });
-                          },
-                          child: Icon(
-                            Icons.close,
-                            color: Colors.white,
-                            size: 15,
-                          )),
-                      child: Image.file(
-                        imageArray[index],
-                        fit: BoxFit.cover,
-                        width: 100,
-                        height: 100,
+                    child: InkWell(
+                      onTap: (){
+                        setState(() {
+                          imageArray.remove(imageArray[index]);
+                        });
+                      },
+                      child: Badge(
+                        badgeContent: Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 15,
+                        ),
+                        child: Image.file(
+                          imageArray[index],
+                          fit: BoxFit.cover,
+                          width: 100,
+                          height: 100,
+                        ),
                       ),
                     ),
                   );
@@ -514,6 +562,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                 alignment: AlignmentDirectional.bottomEnd,
                 child: FloatingActionButton.extended(
                   onPressed: () {
+                    widget.shipmentRequest.imageFilePath =[];
                     for(File i in imageArray ){
                       widget.shipmentRequest.imageFilePath!.add(i.path);
                     }

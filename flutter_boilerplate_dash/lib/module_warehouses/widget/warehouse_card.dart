@@ -11,9 +11,9 @@ class WarehouseCard extends StatefulWidget {
   final Function onDelete;
   final Function onEdit;
   final Function onShowFinance;
-  late bool isEdtiable;
+  // late bool isEdtiable;
   WarehouseCard(
-      {required this.model, required this.onDelete, required this.onEdit,required this.isEdtiable,required this.onShowFinance});
+      {required this.model, required this.onDelete, required this.onEdit,required this.onShowFinance});
 
   @override
   _CountryCardState createState() => _CountryCardState();
@@ -34,7 +34,7 @@ class _CountryCardState extends State<WarehouseCard> {
    // description..text = widget.model.description!;
 
 
-   widget.isEdtiable = false;
+   // widget.isEdtiable = false;
   }
 
   @override
@@ -65,8 +65,7 @@ class _CountryCardState extends State<WarehouseCard> {
                             'Name ',
                             style: AppTextStyle.mediumBlack,
                           ),
-                           Expanded(child: widget.isEdtiable ?
-                          TextField(controller: name,):  Text(
+                           Expanded(child:   Text(
                             widget.model.name ?? '',
                             style: AppTextStyle.mediumBlueBold,
                           ),
@@ -81,7 +80,7 @@ class _CountryCardState extends State<WarehouseCard> {
                             'Country: ',
                             style: AppTextStyle.mediumBlack,
                           ),
-                        Expanded(child:   widget.isEdtiable ? TextField(controller: description) :  Text(
+                        Expanded(child:Text(
                             widget.model.countryName ?? '',
                             style: AppTextStyle.mediumBlueBold,
                           ),
@@ -96,7 +95,7 @@ class _CountryCardState extends State<WarehouseCard> {
                             'City: ',
                             style: AppTextStyle.mediumBlack,
                           ),
-                          Expanded(child:   widget.isEdtiable ? TextField(controller: description) :  Text(
+                          Expanded(child:   Text(
                             widget.model.city ?? '',
                             style: AppTextStyle.mediumBlueBold,
                           ),
@@ -111,7 +110,7 @@ class _CountryCardState extends State<WarehouseCard> {
                             'Location: ',
                             style: AppTextStyle.mediumBlack,
                           ),
-                          Expanded(child:   widget.isEdtiable ? TextField(controller: description) :  Text(
+                          Expanded(child:  Text(
                             widget.model.location ?? '',
                             style: AppTextStyle.mediumBlueBold,
                           ),
@@ -127,7 +126,7 @@ class _CountryCardState extends State<WarehouseCard> {
                             'Proxy: ',
                             style: AppTextStyle.mediumBlack,
                           ),
-                          Expanded(child:   widget.isEdtiable ? TextField(controller: description) :  Text(
+                          Expanded(child:  Text(
                             widget.model.proxyName ?? '',
                             style: AppTextStyle.mediumBlueBold,
                           ),
@@ -143,7 +142,7 @@ class _CountryCardState extends State<WarehouseCard> {
                             'SubContract: ',
                             style: AppTextStyle.mediumBlack,
                           ),
-                          Expanded(child:   widget.isEdtiable ? TextField(controller: description) :  Text(
+                          Expanded(child:  Text(
                             widget.model.subContractName ?? '',
                             style: AppTextStyle.mediumBlueBold,
                           ),
@@ -213,97 +212,66 @@ class _CountryCardState extends State<WarehouseCard> {
                     ],
                   ),
                 ),
-                // Flexible(
-                //   flex: 1,
-                //   child: Column(
-                //     children: [
-                //       ElevatedButton(
-                //         style: ElevatedButton.styleFrom(
-                //           primary: Colors.red,
-                //         ),
-                //         onPressed: () {
-                //           widget.onDelete(widget.model.id);
-                //         },
-                //         child: Row(
-                //           children: [
-                //             Icon(
-                //               Icons.delete,
-                //               color: Colors.white,
-                //             ),
-                //             SizedBox(
-                //               width: 5,
-                //             ),
-                //             Text(
-                //               'delete',
-                //               style: AppTextStyle.mediumWhite,
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //       SizedBox(
-                //         height: 10,
-                //       ),
-                //       Container(
-                //         width: 100,
-                //         child:
-                //
-                //         widget.isEdtiable ? ElevatedButton(
-                //           style: ElevatedButton.styleFrom(
-                //             primary: Colors.green,
-                //           ),
-                //           onPressed: () {
-                //             if(name.text.isEmpty || description.text.isEmpty){
-                //               Fluttertoast.showToast(msg: S.of(context).fillAllField);
-                //             }else {
-                //               // UnitRequest re = UnitRequest(id: widget.model.id ,name: name.text,description: description.text);
-                //               // widget.onEdit(re);
-                //             }
-                //
-                //           },
-                //           child: Row(
-                //             children: [
-                //               Icon(
-                //                 Icons.save,
-                //                 color: Colors.white,
-                //               ),
-                //               SizedBox(
-                //                 width: 5,
-                //               ),
-                //               Text(
-                //                 'save',
-                //                 style: AppTextStyle.mediumWhite,
-                //               ),
-                //             ],
-                //           ),
-                //         ) : ElevatedButton(
-                //           style: ElevatedButton.styleFrom(
-                //             primary: Colors.green,
-                //           ),
-                //           onPressed: () {
-                //             setState(() {
-                //               widget.isEdtiable= true;
-                //             });
-                //           },
-                //           child: Row(
-                //             children: [
-                //               Icon(
-                //                 Icons.edit,
-                //                 color: Colors.white,
-                //               ),
-                //               SizedBox(
-                //                 width: 5,
-                //               ),
-                //               Text(
-                //                 'edit',
-                //                 style: AppTextStyle.mediumWhite,
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // )
+                Flexible(
+                  flex: 1,
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.red,
+                        ),
+                        onPressed: () {
+                          widget.onDelete(widget.model.id);
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              'delete',
+                              style: AppTextStyle.mediumWhite,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: 100,
+                        child:
+                       ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.green,
+                          ),
+                          onPressed: () {
+                            widget.onEdit(widget.model);
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.edit,
+                                color: Colors.white,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'edit',
+                                style: AppTextStyle.mediumWhite,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),

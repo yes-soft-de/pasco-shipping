@@ -15,12 +15,12 @@ class WarehousesSuccessfully extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(itemBuilder: (context , index){
       return WarehouseCard(model: items[index],
-      onEdit: (re){
-        onEdit(re);
+      onEdit: (model){
+        onEdit(model);
       },
         onDelete: (id){
         onDelete(id);
-        }, isEdtiable: false, onShowFinance: (id){
+        }, onShowFinance: (id){
         onShowFinance(id);
         },
       );

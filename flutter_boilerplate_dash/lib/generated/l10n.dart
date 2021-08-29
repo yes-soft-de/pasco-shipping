@@ -2249,6 +2249,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Receivers`
+  String get receiver {
+    return Intl.message(
+      'Receivers',
+      name: 'receiver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Serial Number: `
+  String get serialNumber {
+    return Intl.message(
+      'Serial Number: ',
+      name: 'serialNumber',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

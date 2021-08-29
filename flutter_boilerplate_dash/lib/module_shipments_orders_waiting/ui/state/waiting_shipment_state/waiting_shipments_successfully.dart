@@ -17,7 +17,6 @@ class WaitingShipmentSuccessfully extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return WaitingShipmentCard(
           shipmentModel: items[index],

@@ -10,6 +10,8 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
+import '../../sub_product_routes.dart';
+
 @injectable
 class SubProductScreen extends StatefulWidget {
   final SubProductStateManager _stateManager;
@@ -68,8 +70,10 @@ class _CountriesScreenState extends State<SubProductScreen> {
       return SubProductsSuccessfully(items: items ,onDelete: (id){
         widget._stateManager.deleteProduct(id.toString());
       },
-        onEdit: (request){
-          widget._stateManager.updateProduct(request);
+        onEdit: (model){
+        Navigator.pushNamed(context, SubProductRoutes.UPDATE,arguments: {'subProductModel':model}).then((value) {
+          widget._stateManager.getProduct();
+        });
         },
       );
     }

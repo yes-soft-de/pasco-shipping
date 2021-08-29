@@ -26,7 +26,7 @@ class _MarkFirstTimeState extends State<MarkFirstTime> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(StaticImage.mark),
+          Center(child: Image.asset(StaticImage.mark)),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(

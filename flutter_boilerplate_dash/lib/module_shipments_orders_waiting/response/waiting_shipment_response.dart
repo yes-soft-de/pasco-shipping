@@ -61,6 +61,7 @@ class WaitingShipmentModel {
     this.unit,
     this.receiverName,
     this.receiverPhoneNumber,
+    this.clientIdentificationNumber,
     this.paymentTime,
     this.vehicleIdentificationNumber,
     this.extraSpecification,
@@ -89,6 +90,7 @@ class WaitingShipmentModel {
   String? unit;
   String? receiverName;
   String? receiverPhoneNumber;
+  String? clientIdentificationNumber;
 
   String? paymentTime;
 
@@ -125,6 +127,7 @@ class WaitingShipmentModel {
         unit: json["unit"],
         receiverName: json["receiverName"],
         receiverPhoneNumber: json["receiverPhoneNumber"],
+          clientIdentificationNumber: json["clientIdentificationNumber"],
         paymentTime: json["paymentTime"],
         vehicleIdentificationNumber: json["vehicleIdentificationNumber"],
         extraSpecification: json["extraSpecification"],

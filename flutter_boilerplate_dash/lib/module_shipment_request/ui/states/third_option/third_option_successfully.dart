@@ -6,6 +6,7 @@ import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_distributors/response/distributors_response.dart';
 import 'package:pasco_shipping/module_home/home_routes.dart';
 import 'package:pasco_shipping/module_mark/response/mark_response.dart';
+import 'package:pasco_shipping/module_receiver/response/reciver_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
@@ -19,41 +20,45 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 class ThirdOptionsSuccessfully extends StatefulWidget {
   final List<DistributorModel> distributors;
-  final List<Mark> clients;
+  final List<Mark> marks;
+  final List<ReceiverModel> receiver;
   final ShipmentRequest shipmentRequest;
   final Function goBackStep;
   final Function goToMark;
+  final Function goToReceiver;
   final Function onRequest;
-  const ThirdOptionsSuccessfully({required this.shipmentRequest,required this.goBackStep,required this.distributors, required this.clients,required this.onRequest,required this.goToMark});
+  const ThirdOptionsSuccessfully({required this.shipmentRequest,required this.goBackStep,required this.distributors, required this.marks,required this.onRequest,required this.goToMark,required this.receiver,required this.goToReceiver});
 
   @override
   _ThirdOptionsState createState() => _ThirdOptionsState();
 }
 
 class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
-  DropListModel dropListModelTime = DropListModel(dataTime);
-  DropListModel dropListModelHolderType = DropListModel(holderType);
+
 
   late DropListModel dropListModelDist;
 
-  late DropListModel dropListModelClient;
+  late DropListModel dropListModelMarks;
+  late DropListModel dropListModelReceiver;
 
 
   late String vehicle;
   late String extra;
-  late Entry optionItemSelectedTim = Entry('choose', 1, []);
-  late Entry optionItemSelectedType = Entry('choose', 1, []);
+
 
   late Entry optionItemSelectedDist = Entry('choose', 1, []);
-  late Entry optionItemSelectedClient = Entry('choose', 1, []);
+  late Entry optionItemSelectedMarks = Entry('choose', 1, []);
+  late Entry optionItemSelectedReceiver = Entry('choose', 1, []);
 
-  late List<Entry> clientsEntry;
+  late List<Entry> marksEntry;
   late List<Entry> distrbutorEntry;
+  late List<Entry> receiverEntry;
   @override
   void initState() {
     super.initState();
-    clientsEntry= <Entry>[];
+    marksEntry= <Entry>[];
     distrbutorEntry = <Entry>[];
+    receiverEntry = <Entry>[];
 
     if (widget.shipmentRequest.vehicleIdentificationNumber.isNotEmpty) {
       vehicle = widget.shipmentRequest.vehicleIdentificationNumber;
@@ -67,17 +72,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
       extra = 'Text...';
     }
 
-    if(widget.shipmentRequest.paymentTime.isNotEmpty){
-      optionItemSelectedTim = Entry(widget.shipmentRequest.paymentTime, 1, []);
-    }else {
-      optionItemSelectedTim = Entry('choose', 1, []);
-    }
 
-    if(widget.shipmentRequest.holderType.isNotEmpty){
-      optionItemSelectedType = Entry(widget.shipmentRequest.holderType, 1, []);
-    }else {
-      optionItemSelectedType = Entry('choose', 1, []);
-    }
   }
 
 
@@ -85,17 +80,23 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    for(Mark item in widget.clients){
-      Entry v = Entry(item.markNumber! ,item.id??1 ,[]);
-      clientsEntry.add(v);
+    for(Mark item in widget.marks){
+      Entry v = Entry(item.markNumber! ,item.id??0 ,[]);
+      marksEntry.add(v);
     }
-    dropListModelClient = DropListModel(clientsEntry);
+    dropListModelMarks = DropListModel(marksEntry);
 
     for(DistributorModel item in widget.distributors){
-      Entry v = Entry(item.fullName! ,item.id??1 ,[]);
+      Entry v = Entry(item.fullName! ,item.id??0 ,[]);
       distrbutorEntry.add(v);
     }
     dropListModelDist = DropListModel(distrbutorEntry);
+
+    for(ReceiverModel item in widget.receiver){
+      Entry v = Entry(item.fullName! ,item.id??0 ,[Entry(item.phone! ,item.id??0,[])]);
+      receiverEntry.add(v);
+    }
+    dropListModelReceiver = DropListModel(receiverEntry);
   }
 
   @override
@@ -105,6 +106,37 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
+            S.of(context).receiverInfo,
+            style: AppTextStyle.mediumBlackBold,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: SelectDropList(
+                  this.optionItemSelectedReceiver,
+                  this.dropListModelReceiver,
+                      (optionItem) {
+                    optionItemSelectedReceiver = optionItem;
+                    widget.shipmentRequest.receiverName = optionItem.title;
+                    widget.shipmentRequest.receiverID = optionItem.id;
+                    widget.shipmentRequest.receiverPhoneNumber = optionItem.children[0].title;
+                    setState(() {});
+                  },
+                ),
+              ),
+              InkWell(
+                  onTap: (){
+                    widget.goToReceiver();
+                  },
+                  child: Icon(Icons.add_circle , color: blue , size: 40,)),
+            ],
+          ),
+          SizedBox(
+            height: 15,
+          ),
+
+
+          Text(
             S.of(context).mark,
             style: AppTextStyle.mediumBlackBold,
           ),
@@ -112,10 +144,10 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
             children: [
               Expanded(
                 child: SelectDropList(
-                  this.optionItemSelectedClient,
-                  this.dropListModelClient,
+                  this.optionItemSelectedMarks,
+                  this.dropListModelMarks,
                       (optionItem) {
-                    optionItemSelectedClient = optionItem;
+                    optionItemSelectedMarks = optionItem;
                     widget.shipmentRequest.markName = optionItem.title;
                     widget.shipmentRequest.markId = optionItem.id;
                     setState(() {});
@@ -151,35 +183,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
             height: 15,
           ),
 
-          Text(
-            S.of(context).paymentTime,
-            style: AppTextStyle.mediumBlackBold,
-          ),
-          SelectDropList(
-            this.optionItemSelectedTim,
-            this.dropListModelTime,
-                (optionItem) {
-              optionItemSelectedTim = optionItem;
-              widget.shipmentRequest.paymentTime = optionItem.title;
-              setState(() {});
-            },
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Text(
-            S.of(context).holderType,
-            style: AppTextStyle.mediumBlackBold,
-          ),
-          SelectDropList(
-            this.optionItemSelectedType,
-            this.dropListModelHolderType,
-                (optionItem) {
-              optionItemSelectedType = optionItem;
-              widget.shipmentRequest.holderType = optionItem.title;
-              setState(() {});
-            },
-          ),
+
           SizedBox(
             height: 20,
           ),

@@ -5,6 +5,7 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/accept
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/accepted_shipment_screen.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/accepted_shipment_status_screen.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/filter_accepted_shipment_screen.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/image_full_screen.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/view_warehouse_screen.dart';
 
 import 'accepted_shipment_routes.dart';
@@ -18,6 +19,7 @@ class AcceptedShipmentModule extends YesModule {
   final AcceptedShipmentFilterScreen _filterScreen;
   final AcceptedShipmentFinanceScreen _financeScreen;
   final ViewWarehouseScreen _viewWarehouseScreen;
+  // final FullImageView _fullImageView;
 
 
   AcceptedShipmentModule(this._acceptedShipmentScreen,this._detailsScreen, this._filterScreen, this._statusScreen, this._financeScreen, this._viewWarehouseScreen) {
@@ -31,6 +33,8 @@ class AcceptedShipmentModule extends YesModule {
       AcceptedShipmentRoutes.STATUS: (context) => _statusScreen,
       AcceptedShipmentRoutes.FINANCE: (context) => _financeScreen,
       AcceptedShipmentRoutes.SELECT_WAREHOUSE: (context) => _viewWarehouseScreen,
+      // AcceptedShipmentRoutes.FULL_IMAGE: (context) => _fullImageView,
+
 
     };
   }

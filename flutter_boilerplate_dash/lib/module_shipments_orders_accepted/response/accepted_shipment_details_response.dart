@@ -15,7 +15,16 @@ class AcceptedShipmentDetailsResponse {
   AcceptedShipmentDetailsResponse.fromJson(Map<String, dynamic> json) {
     statusCode = json['status_code'];
     msg = json['msg'];
-    acceptedShipmentModel = AcceptedShipmentDetailsModel.fromJson(json['Data']);
+    if(json['Data'] != null){
+      try{
+        acceptedShipmentModel = AcceptedShipmentDetailsModel.fromJson(json['Data']);
+      }
+      catch (e, stack) {
+        Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
+            StackTrace.current);
+      }
+
+    }
   }
 }
 
@@ -35,9 +44,11 @@ class AcceptedShipmentDetailsModel {
     this.unit,
     this.receiverName,
     this.receiverPhoneNumber,
+    this.clientIdentificationNumber,
     this.paymentTime,
     this.vehicleIdentificationNumber,
     this.extraSpecification,
+    this.holderType,
     this.transportationType,
     this.markNumber,
     this.imagePath,
@@ -60,6 +71,7 @@ class AcceptedShipmentDetailsModel {
   String? unit;
   String? receiverName;
   String? receiverPhoneNumber;
+  String? clientIdentificationNumber;
 
   String? paymentTime;
 
@@ -68,6 +80,7 @@ class AcceptedShipmentDetailsModel {
 
   String? vehicleIdentificationNumber;
   String? extraSpecification;
+  String? holderType;
   List<ImagePa>? imagePath;
 
   DateTime? createdAt;
@@ -90,9 +103,11 @@ class AcceptedShipmentDetailsModel {
     unit= json["unit"];
     receiverName= json["receiverName"];
     receiverPhoneNumber= json["receiverPhoneNumber"];
+    clientIdentificationNumber= json["clientIdentificationNumber"];
     paymentTime= json["paymentTime"];
     vehicleIdentificationNumber= json["vehicleIdentificationNumber"];
     extraSpecification= json["extraSpecification"];
+    holderType = json['holderType'];
 
     transportationType = json['transportationType'];
     markNumber=json['markNumber'];

@@ -268,5 +268,7 @@
   "arrivedShipment": "Arrived Shipment",
   "freeCapacity": "Free Capacity",
   "freeWeight": "Free Weight",
-  "shipmentCost": "Shipment Cost"
+  "shipmentCost": "Shipment Cost",
+  "receiver": "Receivers",
+  "serialNumber": "Serial Number: "
 }

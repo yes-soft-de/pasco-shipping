@@ -14,6 +14,7 @@ class ShipmentRequest {
 
   late String _supplierName;
 
+  late int _receiverID;
   late String _receiverName;
   late String _receiverPhoneNumber;
 
@@ -48,6 +49,7 @@ class ShipmentRequest {
         "productCategoryID": productCategoryID,
         'productCategoryName': productCategoryName,
         "unit": unit,
+        'receiverID':receiverID,
         "receiverName": receiverName,
         "receiverPhoneNumber": receiverPhoneNumber,
         "paymentTime": paymentTime,
@@ -81,6 +83,7 @@ class ShipmentRequest {
 
       this._supplierName,
 
+      this._receiverID,
       this._receiverName,
       this._receiverPhoneNumber,
 
@@ -204,6 +207,12 @@ class ShipmentRequest {
 
   set holderType(String value) {
     _holderType = value;
+  }
+
+  int get receiverID => _receiverID;
+
+  set receiverID(int value) {
+    _receiverID = value;
   }
 
   @override

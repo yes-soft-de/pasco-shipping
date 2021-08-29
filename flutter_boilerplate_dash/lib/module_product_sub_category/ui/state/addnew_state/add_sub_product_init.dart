@@ -47,7 +47,7 @@ class _AddCountryInitState extends State<AddSubProductInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).subCategory , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).category , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               SelectDropList(

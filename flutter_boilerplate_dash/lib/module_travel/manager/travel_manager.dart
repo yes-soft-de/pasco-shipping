@@ -27,7 +27,7 @@ class TravelManager{
   Future<Data?> getTravelFinance(TravelFilterFinanceRequest request) => _repository.getTravelFinance(request);
   Future<ConfirmResponse?> createTravelFinance(TravelAddFinanceRequest request) => _repository.createTravelFinance(request);
 
-// Future<ConfirmResponse?> updateSupplier(SupplierRequest request) => _repository.updateSupplier(request);
+Future<ConfirmResponse?> updateTravelInfo(TravelRequest request) => _repository.updateTravelInfo(request);
 
 
 }

@@ -263,7 +263,7 @@ class _CountryCardState extends State<TravelsCard> {
                             primary: Colors.green,
                           ),
                           onPressed: () {
-                            widget.onEdit(widget.model.id);
+                            widget.onEdit(widget.model);
                           },
                           child: Row(
                             children: [

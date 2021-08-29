@@ -12,6 +12,7 @@ import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class AirWaybillTravelDetailsSuccessfully extends StatefulWidget {
@@ -61,7 +62,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
                     onTap: (){
                       widget.onShowFinance(widget.model.id);
                     },
-                    child: Icon(Icons.money , color: blue,size: 40,))
+                    child: Image.asset(StaticImage.accounting))
               ],
             ),
           ),
@@ -140,7 +141,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
                 Divider(color: Colors.grey[300],thickness: 2,),
 
 
-                Divider(color: Colors.grey[300],thickness: 2,),
+
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
@@ -151,6 +152,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
                     ],
                   ),
                 ),
+                Divider(color: Colors.grey[300],thickness: 2,),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(

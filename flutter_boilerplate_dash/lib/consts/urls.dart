@@ -31,6 +31,11 @@ class Urls {
   static const SUPPLIERS = BASE_API + 'suppliers';
   static const SUPPLIER = BASE_API + 'supplier';
 
+  //employee
+  static const EMPLOYEES = BASE_API + 'employees';
+  static const EMPLOYEE = BASE_API + 'employee';
+  static const EMPLOYEE_PROFILE = BASE_API + 'adminprofile';
+
 
   //service
   static const SUB_CONTRACT_SERVICES = BASE_API + 'subcontractservices';
@@ -84,6 +89,7 @@ class Urls {
   static const CREATE_CLIENT_MARK = BASE_API + 'markbydashboard';
   static const GET_CLIENT_MARK = BASE_API + 'marks';
   static const GET_CLIENTS = BASE_API + 'clientprofileall';
+  static const CLIENT = BASE_API + 'client';
 
 
 
@@ -91,6 +97,10 @@ class Urls {
   static const USER_MARKS = BASE_API + 'marks';
   static const MARK = BASE_API + 'mark';
   static const CREATE_MARK = BASE_API + 'markbydashboard';
+
+  //receiver
+  static const USER_RECEIVER = BASE_API + 'filterreceivers';
+  static const CREATE_RECEIVER = BASE_API + 'receiverbydashboard';
 
 
 

@@ -18,8 +18,8 @@ class SuccessfullyDetailsWithTravelsState extends ContainerDetailsState{
 }
 class SuccessfullyUploadedContainerState extends ContainerDetailsState{
   ConfirmResponse response;
-
-  SuccessfullyUploadedContainerState(this.response);
+  ContainerDetailsModel containerDetailsModel;
+  SuccessfullyUploadedContainerState(this.response,this.containerDetailsModel);
 }
 class ErrorDetailsState extends ContainerDetailsState{
   String error;

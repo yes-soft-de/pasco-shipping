@@ -62,7 +62,13 @@ class ContainerDetailsStateManager {
     _service.uploadedContainerToTravelRequest(request).then((value) {
       if (value != null) {
         if (value.isConfirmed) {
-          _addStateSubject.add(SuccessfullyUploadedContainerState(value));
+          _service.getContainerDetails(request.holderID.toString()).then((model) {
+            if(model != null) {
+              _addStateSubject.add(SuccessfullyUploadedContainerState(value ,model));
+            } else {
+              _addStateSubject.add(ErrorDetailsState('error'));
+            }
+          });
         }
           else {
               _addStateSubject.add(ErrorDetailsState('error'));

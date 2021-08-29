@@ -25,6 +25,7 @@ class WarehouseScreen extends StatefulWidget {
 class _CountriesScreenState extends State<WarehouseScreen> {
   late WarehousesState currentState;
   late List<WarehousesModel> items;
+  late   WarehouseFilterRequest request;
   @override
   Widget build(BuildContext context) {
     return Background(
@@ -49,7 +50,7 @@ class _CountriesScreenState extends State<WarehouseScreen> {
         setState(() {});
       }
     });
-    WarehouseFilterRequest request =WarehouseFilterRequest(typeOfCountry: '', cityName: '');
+    request =WarehouseFilterRequest(typeOfCountry: '', cityName: '');
     widget._stateManager.getWarehouses(request);
   }
 
@@ -71,8 +72,11 @@ class _CountriesScreenState extends State<WarehouseScreen> {
       return WarehousesSuccessfully(items: items ,onDelete: (id){
         widget._stateManager.deleteWarehouses(id.toString());
       },
-        onEdit: (request){
-          widget._stateManager.updateWarehouses(request);
+        onEdit: (model){
+        Navigator.pushNamed(context, WarehouseRoutes.UPDATE , arguments: {'warehouseModel': model}).then((value) {
+          widget._stateManager.getWarehouses(request);
+
+        });
         }, onShowFinance: (id){
           Navigator.pushNamed(context, WarehouseRoutes.FINANCE ,arguments: {'id':id});
         },
