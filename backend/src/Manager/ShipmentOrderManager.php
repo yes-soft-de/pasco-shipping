@@ -26,17 +26,19 @@ class ShipmentOrderManager
     private $entityManager;
     private $orderShipmentEntityRepository;
     private $shipmentStatusManager;
-    private $trackManager;
+    private $containerManager;
+    private $airWaybillManager;
     private $imageManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, OrderShipmentEntityRepository $orderShipmentEntityRepository,
-     ShipmentStatusManager $shipmentStatusManager, TrackManager $trackManager, ImageManager $imageManager)
+                                ShipmentStatusManager $shipmentStatusManager, ContainerManager $containerManager, ImageManager $imageManager, AirwaybillManager $airWaybillManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->orderShipmentEntityRepository = $orderShipmentEntityRepository;
         $this->shipmentStatusManager = $shipmentStatusManager;
-        $this->trackManager = $trackManager;
+        $this->containerManager = $containerManager;
+        $this->airWaybillManager = $airWaybillManager;
         $this->imageManager = $imageManager;
     }
 
@@ -223,9 +225,13 @@ class ShipmentOrderManager
     {
         $response = [];
 
+        $containerID = $this->containerManager->getContainerByNumber($request->getContainerNumber());
+
+        $airWaybillID = $this->airWaybillManager->getAirWaybillByNumber($request->getAirWaybillNumber());
+
         $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipments($request->getTransportationType(), $request->getIsExternalWarehouse(), $request->getTrackNumber(), 
         $request->getStatus(), $request->getExportWarehouseID(), $request->getImportWarehouseID(), $request->getPaymentTime(), $request->getLaunchCountry(), $request->getTargetCountry(), 
-        $request->getDateOne(), $request->getDateTwo());
+        $request->getDateOne(), $request->getDateTwo(), $containerID, $airWaybillID);
 
         if($shipments)
         {

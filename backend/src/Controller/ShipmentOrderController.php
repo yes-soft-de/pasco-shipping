@@ -970,8 +970,10 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="boolean", property="isExternalWarehouse"),
      *          @OA\Property(type="integer", property="exportWarehouseID"),
      *          @OA\Property(type="integer", property="importWarehouseID"),
-     *          @OA\Property(type="string", property="dateOne", example="2021-05-10"),
-     *          @OA\Property(type="string", property="dateTwo", example="2021-05-10")
+     *          @OA\Property(type="string", property="dateOne"),
+     *          @OA\Property(type="string", property="dateTwo"),
+     *          @OA\Property(type="string", property="containerNumber"),
+     *          @OA\Property(type="string", property="airWaybillNumber")
      *      )
      * )
      *

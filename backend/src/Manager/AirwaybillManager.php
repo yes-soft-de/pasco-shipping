@@ -87,6 +87,11 @@ class AirwaybillManager
         return $this->airwaybillEntityRepository->getAirwaybillById($id);
     }
 
+    public function getAirWaybillByNumber($airWaybillNumber)
+    {
+        return $this->airwaybillEntityRepository->getAirwaybillByNumber($airWaybillNumber);
+    }
+
     public function filterAirwaybills(AirwaybillFilterRequest $request)
     {
         if($request->getType() != null && $request->getAirwaybillNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 

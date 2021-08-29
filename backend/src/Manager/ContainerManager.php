@@ -87,6 +87,11 @@ class ContainerManager
         return $this->containerEntityRepository->getContainerById($id);
     }
 
+    public function getContainerByNumber($containerNumber)
+    {
+        return $this->containerEntityRepository->getContainerByNumber($containerNumber);
+    }
+
     public function filterContainers(ContainerFilterRequest $request)
     {
         if($request->getType() != null && $request->getContainerNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
