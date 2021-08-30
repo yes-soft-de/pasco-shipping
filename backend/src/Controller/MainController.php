@@ -15,6 +15,7 @@ use App\Entity\OrderShipmentEntity;
 use App\Entity\ProductCategoryEntity;
 use App\Entity\ProxyEntity;
 use App\Entity\ResetPasswordRequestEntity;
+use App\Entity\SettingEntity;
 use App\Entity\ShipmentLogEntity;
 use App\Entity\ShipmentStatusEntity;
 use App\Entity\SubcontractEntity;
@@ -25,6 +26,8 @@ use App\Entity\UserEntity;
 use App\Entity\WarehouseEntity;
 use App\Request\UserUpdateRequest;
 use App\Service\MainService;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\SchemaTool;
 use OpenApi\Annotations as OA;
 use stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -267,6 +270,25 @@ class MainController extends BaseController
         }
 
         return new Response("All Database information were being deleted");
+    }
+
+    /**
+     * @Route("dropalltables", name="deleteAllDatabaseTables", methods={"DELETE"})
+     */
+    public function dropAllTablesOfDB()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entitiesArray = $this->getDoctrine()->getManager()->getMetadataFactory()->getAllMetadata();
+
+        $tool = new SchemaTool($em);
+
+        $tool->dropSchema($entitiesArray);
+        $tool->createSchema($entitiesArray);
+
+        if($tool)
+        {
+            return $this->response("ِAll data were being deleted", self::DELETE);
+        }
     }
 
 }
