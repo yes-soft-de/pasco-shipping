@@ -26,6 +26,10 @@ class ShipmentFilterRequest
 
     private $dateTwo;
 
+    private $containerNumber;
+
+    private $airWaybillNumber;
+
     public function getStatus()
     {
         return $this->status;
@@ -80,4 +84,15 @@ class ShipmentFilterRequest
     {
         return $this->dateTwo;
     }
+
+    public function getContainerNumber()
+    {
+        return $this->containerNumber;
+    }
+
+    public function getAirWaybillNumber()
+    {
+        return $this->airWaybillNumber;
+    }
+
 }

@@ -14,6 +14,7 @@ use App\Entity\ShipmentLogEntity;
 use App\Entity\ShipmentStatusEntity;
 use App\Entity\SubcontractEntity;
 use App\Entity\SubProductCategoryEntity;
+use App\Entity\TrackEntity;
 use App\Entity\WarehouseEntity;
 use DateInterval;
 use DateTime;
@@ -443,7 +444,7 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
     }
 
     public function filterAcceptedShipments($transportationType, $isExternalWarehouse, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID, 
-    $paymentTime, $launchCountry, $targetCountry, $dateOne, $dateTwo)
+    $paymentTime, $launchCountry, $targetCountry, $dateOne, $dateTwo, $containerID, $airWaybillID)
     {
         $query = $this->createQueryBuilder('shipmentOrder')
             ->select("DISTINCT(shipmentOrder.id) as id", "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.supplierName", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.receiverID",
@@ -459,6 +460,13 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
                 'shipmentStatusEntity',
                 Join::WITH,
                 'shipmentStatusEntity.shipmentID = shipmentOrder.id'
+            )
+
+            ->leftJoin(
+                TrackEntity::class,
+                'trackEntity',
+                Join::WITH,
+                'trackEntity.shipmentID = shipmentOrder.id AND trackEntity.trackNumber = shipmentStatusEntity.trackNumber'
             )
             
             ->leftJoin(
@@ -629,6 +637,20 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
 
                 $query->andWhere('shipmentLogEntity.shipmentStatus = :shipmentStatus');
                 $query->setParameter('shipmentStatus', $shipmentStatus);
+            }
+
+            if($containerID)
+            {
+                $query->andWhere("trackEntity.holderType = 'container'");
+                $query->andWhere('trackEntity.holderID = :containerID');
+                $query->setParameter('containerID', $containerID);
+            }
+
+            if($airWaybillID)
+            {
+                $query->andWhere("trackEntity.holderType = 'airwaybill'");
+                $query->andWhere('trackEntity.holderID = :airWaybillID');
+                $query->setParameter('airWaybillID', $airWaybillID);
             }
 
             return $query->getQuery()->getResult();
