@@ -7,6 +7,7 @@ use App\Entity\ChatRoomEntity;
 use App\Repository\ChatRoomEntityRepository;
 use App\Request\ChatCreateRequest;
 use App\Request\ChatFilterRequest;
+use App\Request\ChatStateUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ChatManager
@@ -40,6 +41,25 @@ class ChatManager
             $this->entityManager->clear();
 
             return $chatEntity;
+        }
+    }
+
+    public function updateState(ChatStateUpdateRequest $request)
+    {
+        $chatRoomEntity = $this->chatRoomEntityRepository->find($request->getId());
+
+        if(!$chatRoomEntity)
+        {
+            return  $chatRoomEntity;
+        }
+        else
+        {
+            $chatRoomEntity = $this->autoMapping->mapToObject(ChatStateUpdateRequest::class, ChatRoomEntity::class, $request, $chatRoomEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $chatRoomEntity;
         }
     }
 
