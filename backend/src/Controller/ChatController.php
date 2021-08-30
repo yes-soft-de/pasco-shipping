@@ -116,7 +116,10 @@ class ChatController extends BaseController
      *                  @OA\Property(type="string", property="roomID"),
      *                  @OA\Property(type="string", property="title"),
      *                  @OA\Property(type="string", property="description"),
-     *                  @OA\Property(type="object", property="createdAt")
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="string", property="state"),
+     *                  @OA\Property(type="string", property="clientUsername"),
+     *                  @OA\Property(type="string", property="clientUserImage")
      *              )
      *          )
      *      )
@@ -157,6 +160,7 @@ class ChatController extends BaseController
      *                  @OA\Property(type="string", property="roomID"),
      *                  @OA\Property(type="string", property="title"),
      *                  @OA\Property(type="string", property="description"),
+     *                  @OA\Property(type="string", property="state"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage")

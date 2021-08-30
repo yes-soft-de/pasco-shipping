@@ -25,7 +25,7 @@ class ChatRoomEntityRepository extends ServiceEntityRepository
     public function getChatByUser($userOneID)
     {
         return $this->createQueryBuilder('chat')
-            ->select('chat.id', 'chat.userOneID', 'chat.title', 'chat.description', 'chat.roomID', 'chat.createdAt')
+            ->select('chat.id', 'chat.userOneID', 'chat.title', 'chat.description', 'chat.roomID', 'chat.createdAt', 'chat.state')
 
             ->andWhere('chat.userOneID = :userOneID')
             ->setParameter('userOneID', $userOneID)
