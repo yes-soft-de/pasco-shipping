@@ -6,6 +6,8 @@ use App\AutoMapping;
 use App\Entity\ChatRoomEntity;
 use App\Manager\ChatManager;
 use App\Request\ChatCreateRequest;
+use App\Request\ChatFilterRequest;
+use App\Request\ChatStateUpdateRequest;
 use App\Response\ChatCreateResponse;
 use App\Response\ChatGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -39,6 +41,13 @@ class ChatService
         }
     }
 
+    public function updateState(ChatStateUpdateRequest $request)
+    {
+        $chatRoomEntity = $this->chatManager->updateState($request);
+
+        return $this->autoMapping->map(ChatRoomEntity::class, ChatGetResponse::class, $chatRoomEntity);
+    }
+
     // for generate roomID
     public function roomID()
     {
@@ -63,6 +72,28 @@ class ChatService
         {
             foreach ($chats as $chat)
             {
+                $chatResponse[] = $this->autoMapping->map('array', ChatGetResponse::class, $chat);
+            }
+        }
+
+        return $chatResponse;
+    }
+
+    public function filterChats(ChatFilterRequest $request)
+    {
+        $chatResponse = [];
+
+        $chats = $this->chatManager->filterChats($request);
+
+        if ($chats)
+        {
+            foreach ($chats as $chat)
+            {
+                if ($chat['clientUserImage'])
+                {
+                    $chat['clientUserImage'] = $this->params . $chat['clientUserImage'];
+                }
+
                 $chatResponse[] = $this->autoMapping->map('array', ChatGetResponse::class, $chat);
             }
         }
