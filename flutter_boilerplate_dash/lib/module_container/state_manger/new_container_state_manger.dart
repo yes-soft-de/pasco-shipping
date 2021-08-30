@@ -33,7 +33,20 @@ class AddContainerStateManager {
       }
     });
   }
-
+  void updateContainer(ContainerRequest request) {
+    _addStateSubject.add(LoadingAddState());
+    _service.updateContainer(request).then((value) {
+      if (value != null) {
+        if (value.isConfirmed) {
+          _addStateSubject.add(SuccessfullyAddState(value));
+        } else {
+          _addStateSubject.add(ErrorAddState('error'));
+        }
+      } else {
+        _addStateSubject.add(ErrorAddState('error'));
+      }
+    });
+  }
   void getSubContractAndSpecification() {
     _addStateSubject.add(LoadingAddState());
         _subcontractService.getSubcontracts().then((subs) {

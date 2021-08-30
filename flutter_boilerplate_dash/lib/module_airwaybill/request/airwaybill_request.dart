@@ -46,6 +46,7 @@ class AirwaybillRequest {
         'providedBy': providedBy,
         'consigneeID': consigneeID,
         'shipperID': shipperID,
+        'carrierID': carrierID,
         'status': status
       };
     }

@@ -93,7 +93,22 @@ class _CountriesScreenState extends State<AirwaybillDetailsScreen> {
 
       // TravelFilterRequest travelRequest = TravelFilterRequest(type: TravelTypeName[TravelType.SEA]! ,status: TravelStatusName[TravelStatus.CURRENT]);
       return AirwaybillDetailsSuccessfully(model:items ,onChangeStatus:(request){
-        widget._stateManager.updateAirwaybillStatus(request);
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.info,
+          title:  S.of(context).careful,
+          confirmBtnText: S.of(context).ok,
+          backgroundColor:AppThemeDataService.PrimaryColor,
+          confirmBtnColor:AppThemeDataService.AccentColor,
+          onConfirmBtnTap: (){
+            Navigator.pop(context);
+            widget._stateManager.updateAirwaybillStatus(request);
+          },
+          text: S.of(context).changeStatusConfirm,
+        );
+
+
+
       },onShipmentReview: (model){
         Navigator.pushNamed(context, AirwaybillRoutes.AIRWAYBILL_SHIPMENT_REVIEW, arguments:  model);
       }, onShowFinance: (id){
@@ -107,7 +122,19 @@ class _CountriesScreenState extends State<AirwaybillDetailsScreen> {
         onShipmentReview: (model){
           Navigator.pushNamed(context, AirwaybillRoutes.AIRWAYBILL_SHIPMENT_REVIEW , arguments:  model);
         }, onUploadedToTravel: (addContainerToTravelRequest){
-          widget._stateManager.uploadedAirwaybillToTravel(addContainerToTravelRequest);
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.uploadedAirwaybillToTravel(addContainerToTravelRequest);
+            },
+            text: S.of(context).changeStatusConfirm,
+          );
         },
         onClearedOrArrived: (re){
           widget._stateManager.clearedOrArrived(re);
@@ -124,10 +151,35 @@ class _CountriesScreenState extends State<AirwaybillDetailsScreen> {
         onShipmentReview: (model){
           Navigator.pushNamed(context, AirwaybillRoutes.AIRWAYBILL_SHIPMENT_REVIEW , arguments:  model);
         }, onUploadedToTravel: (addContainerToTravelRequest){
-        widget._stateManager.uploadedAirwaybillToTravel(addContainerToTravelRequest);
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.uploadedAirwaybillToTravel(addContainerToTravelRequest);
+            },
+            text: S.of(context).changeStatusConfirm,
+          );
+
         },
         onClearedOrArrived: (re){
-        widget._stateManager.clearedOrArrived(re);
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.clearedOrArrived(re);            },
+            text: S.of(context).changeStatusConfirm,
+          );
+
         },onShowFinance: (id){
           Navigator.pushNamed(context, AirwaybillRoutes.FINANCE ,arguments: {'id' :id});
         },

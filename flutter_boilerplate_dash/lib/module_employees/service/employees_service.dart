@@ -19,9 +19,9 @@ import 'package:pasco_shipping/module_general/response/confirm_response.dart';
   // Future<ConfirmResponse?> updateSupplier(SupplierRequest request) {
   //   return _manager.updateSupplier(request);
   // }
-  // Future<ConfirmResponse?> deleteSupplier(String id) {
-  //   return _manager.deleteSupplier(id);
-  // }
+  Future<ConfirmResponse?> deleteEmployee(String id) {
+    return _manager.deleteEmployee(id);
+  }
   Future<List<EmployeeModel>?> getEmployees() {
     return _manager.getEmployees();
   }

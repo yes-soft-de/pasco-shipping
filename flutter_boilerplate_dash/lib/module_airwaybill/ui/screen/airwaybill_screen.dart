@@ -90,10 +90,12 @@ class _CountriesScreenState extends State<AirwaybillScreen> {
       SuccessfullyFetchState? state = currentState as SuccessfullyFetchState?;
       items = state!.travels;
       return AirwaybillSuccessfully(items: items ,onDelete: (id){
-        // widget._stateManager.deleteContainer(id.toString() ,containerFilterRequest);
+        widget._stateManager.deleteAirwaybill(id.toString() ,containerFilterRequest);
       },
-        onEdit: (request){
-          // widget._stateManager.updateSupplier(request);
+        onEdit: (model){
+          Navigator.pushNamed(context, AirwaybillRoutes.UPDATE ,arguments: {'airwaybillModel':model}).then((value) {
+            widget._stateManager.getAirwaybillsWithFilter(containerFilterRequest);
+          });
         },
         onDetails: (id , isFull){
         Navigator.pushNamed(context, AirwaybillRoutes.DETAILS , arguments: {'id' : id,'isFull':isFull}).then((value){

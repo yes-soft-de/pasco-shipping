@@ -26,18 +26,23 @@ class TravelDetailsSuccessfully extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          firstCard(),
+          firstCard(context),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Travel Information' , style: AppTextStyle.largeBlueBold,),
+                Text(S.of(context).travelInformation , style: AppTextStyle.largeBlueBold,),
                 InkWell(
                     onTap: (){
                       onShowFinance(model.id);
                     },
-                    child: Image.asset(StaticImage.accounting)),
+                    child: Column(
+                      children: [
+                        Image.asset(StaticImage.accounting),
+                        Text(S.of(context).cost ,style: AppTextStyle.mediumBlackBold,)
+                      ],
+                    )),
               ],
             ),
           ),
@@ -107,30 +112,30 @@ class TravelDetailsSuccessfully extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text('Holder Information' , style: AppTextStyle.largeBlueBold,),
+            child: Text(S.of(context).holderInfo , style: AppTextStyle.largeBlueBold,),
           ),
           model.holders!.isEmpty?
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('No holder has been added to this trip',style: AppTextStyle.mediumRed,),
+                child: Text(S.of(context).noHolder,style: AppTextStyle.mediumRed,),
               ):
           ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (context , index){
-            return holderCard(model.holders![index]);
+            return holderCard(model.holders![index] ,context);
           },
             itemCount: model.holders!.length,
 
           ),
-          statusCard()
+          statusCard(context)
 
         ],
       ),
     );
   }
 
-  Widget firstCard(){
+  Widget firstCard(BuildContext context){
     if(model.status == TravelStatusName[TravelStatus.CURRENT]) {
       return Padding(
         padding: const EdgeInsets.all(15.0),
@@ -154,10 +159,10 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                   color: Colors.yellow[800],
                   size: 40,
                 ),
-                Text('the Trip waiting ' ,style: AppTextStyle.largeBlack,)
+                Text(S.of(context).waitingTrip ,style: AppTextStyle.largeBlack,)
               ],),
             ) ,
-            Text("This trip hasn't started yet" , style: AppTextStyle.mediumBlack,),
+            Text(S.of(context).notStartedTrip , style: AppTextStyle.mediumBlack,),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -166,7 +171,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                 children:
 
               [
-                Text("Travel Number: " , style: AppTextStyle.mediumBlackBold,),
+                Text(S.of(context).travelNumber , style: AppTextStyle.mediumBlackBold,),
                 Text('#'+ model.travelNumber! , style: AppTextStyle.mediumBlackBold,),
 
               ],),
@@ -198,10 +203,10 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                         color: Colors.blue[800],
                         size: 40,
                       ),
-                      Text('the Trip started ' ,style: AppTextStyle.largeBlack,)
+                      Text(S.of(context).startedTrip ,style: AppTextStyle.largeBlack,)
                     ],),
                 ) ,
-                Text('This trip has started at ' + model.launchDate.toString().split('.').first , style: AppTextStyle.mediumBlack,),
+                Text(S.of(context).startTrip + model.launchDate.toString().split('.').first , style: AppTextStyle.mediumBlack,),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -209,7 +214,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children:
                     [
-                      Text("Travel Number: " , style: AppTextStyle.mediumBlackBold,),
+                      Text(S.of(context).travelNumber, style: AppTextStyle.mediumBlackBold,),
                       Text('#'+ model.travelNumber! , style: AppTextStyle.mediumBlackBold,),
 
                     ],),
@@ -241,10 +246,10 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                         color: Colors.green[800],
                         size: 40,
                       ),
-                      Text('the Trip released ' ,style: AppTextStyle.largeBlack,)
+                      Text(S.of(context).releasedTrip ,style: AppTextStyle.largeBlack,)
                     ],),
                 ) ,
-                Text("This trip has arravied at " + model.arrivalDate.toString().split('.').first , style: AppTextStyle.mediumBlack,),
+                Text(S.of(context).arriveTrip+ model.arrivalDate.toString().split('.').first , style: AppTextStyle.mediumBlack,),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -253,7 +258,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                     children:
 
                     [
-                      Text("Travel Number: " , style: AppTextStyle.mediumBlackBold,),
+                      Text(S.of(context).travelNumber, style: AppTextStyle.mediumBlackBold,),
                       Text('#'+ model.travelNumber! , style: AppTextStyle.mediumBlackBold,),
 
                     ],),
@@ -268,7 +273,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
 
   }
 
-  Widget holderCard(HolderModel holderModel){
+  Widget holderCard(HolderModel holderModel ,BuildContext context){
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Card(
@@ -288,28 +293,28 @@ class TravelDetailsSuccessfully extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Container Number: ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).containerNumber+': ', style: AppTextStyle.mediumBlack,),
                   Text(holderModel.containerNumber ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Status: ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).status+': ', style: AppTextStyle.mediumBlack,),
                   Text(holderModel.status ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Type: ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).type+": " , style: AppTextStyle.mediumBlack,),
                   Text(holderModel.type ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text('Subcontract Name: ' , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).subcontract+': ' , style: AppTextStyle.mediumBlack,),
                   Text(holderModel.subcontractName ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
@@ -320,14 +325,14 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text('Consignee Name: ' , style: AppTextStyle.mediumBlack,),
+                        Text(S.of(context).consignee+': ' , style: AppTextStyle.mediumBlack,),
                         Text(holderModel.consigneeName ?? '' , style: AppTextStyle.mediumBlueBold,),
                       ],
                     ),
 
 
                     Row(children: [
-                      Text('shipper Name: ' , style: AppTextStyle.mediumBlack,),
+                      Text(S.of(context).shipper+': ', style: AppTextStyle.mediumBlack,),
                       Text(holderModel.shipperName ?? '' , style: AppTextStyle.mediumBlueBold,),
                     ],)
 
@@ -340,7 +345,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
     );
   }
 
-  Widget statusCard(){
+  Widget statusCard(BuildContext context){
     bool isCurrent;
     if(model.status == TravelStatusName[TravelStatus.CURRENT]){
       isCurrent = true;
@@ -356,18 +361,18 @@ class TravelDetailsSuccessfully extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text('Travel Status' , style: AppTextStyle.largeBlueBold,),
+              child: Text(S.of(context).travelStatus , style: AppTextStyle.largeBlueBold,),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-              StatusCard('Current' ,isCurrent),
+              StatusCard(S.of(context).currentt ,isCurrent),
               Icon(Icons.arrow_forward_outlined , color: Colors.grey,),
-              StatusCard('Started' ,!isCurrent),
+              StatusCard(S.of(context).started ,!isCurrent),
                 Icon(Icons.arrow_forward_outlined ,color: Colors.grey,),
-              StatusCard('Released' , false),
+              StatusCard(S.of(context).released , false),
             ],),
-            RoundedButton(lable: 'Next Status', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
+            RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
               if(isCurrent){
                 if(model.holders!.isEmpty){
                   Fluttertoast.showToast(msg: 'No holder has been added to this trip');

@@ -103,7 +103,7 @@ class _AddCountryInitState extends State<FilterTravelInit> {
 
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Launch Country' , style: AppTextStyle.mediumBlackBold,),
+              child: Text(S.of(context).launchCountry , style: AppTextStyle.mediumBlackBold,),
             ),
             SelectDropList(
               this.optionItemSelectedFrom,
@@ -126,7 +126,7 @@ class _AddCountryInitState extends State<FilterTravelInit> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('Start Date' , style: AppTextStyle.mediumBlackBold,),
+                      child: Text(S.of(context).startDate , style: AppTextStyle.mediumBlackBold,),
                     ),
                     InkWell(
                       onTap: (){
@@ -160,7 +160,7 @@ class _AddCountryInitState extends State<FilterTravelInit> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('Start Time' , style: AppTextStyle.mediumBlackBold,),
+                      child: Text(S.of(context).startTime  , style: AppTextStyle.mediumBlackBold,),
                     ),
                     InkWell(
                       onTap: (){
@@ -197,7 +197,7 @@ class _AddCountryInitState extends State<FilterTravelInit> {
 
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Destination Country' , style: AppTextStyle.mediumBlackBold,),
+              child: Text(S.of(context).destinationCountry , style: AppTextStyle.mediumBlackBold,),
             ),
             SelectDropList(
               this.optionItemSelectedTo,
@@ -217,7 +217,7 @@ class _AddCountryInitState extends State<FilterTravelInit> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('Arrival Date' , style: AppTextStyle.mediumBlackBold,),
+                      child: Text(S.of(context).arrivalDate, style: AppTextStyle.mediumBlackBold,),
                     ),
                     InkWell(
                       onTap: (){
@@ -251,7 +251,7 @@ class _AddCountryInitState extends State<FilterTravelInit> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('Arrival Time' , style: AppTextStyle.mediumBlackBold,),
+                      child: Text(S.of(context).arrivalTime , style: AppTextStyle.mediumBlackBold,),
                     ),
                     InkWell(
                       onTap: (){
@@ -284,7 +284,7 @@ class _AddCountryInitState extends State<FilterTravelInit> {
 
               ],
             ),
-              RoundedButton(lable: 'Save', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
+              RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 widget.onSave(travelFilterRequest);
 
               }, radius: 15)

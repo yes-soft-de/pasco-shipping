@@ -149,22 +149,25 @@ class ContainerRepository{
     }
   }
 
+
+
+Future<ConfirmResponse?> updateContainer(ContainerRequest request) async {
+  // await _authService.refreshToken();
+  var token = await _authService.getToken();
+
+  var response = await _apiClient.put(Urls.CONTAINER, request.toJson(),
+      headers: {'Authorization': 'Bearer $token'});
+  String? statusCode = ContainerResponse.fromJson(response!).statusCode;
+  String? msg = ContainerResponse.fromJson(response).msg;
+  if(statusCode =='204'){
+    return ConfirmResponse(true, msg!);
+  }else {
+    return ConfirmResponse(false, msg!);
+  }
+}
   }
 
 
 
 //
-  // Future<ConfirmResponse?> updateTravel(TravelRequest request) async {
-  //   // await _authService.refreshToken();
-  //   var token = Urls.token;  //await _authService.getToken();
-  //
-  //   var response = await _apiClient.put(Urls.SUPPLIER, request.toJson(),
-  //       headers: {'Authorization': 'Bearer $token'});
-  //   String? statusCode = TravelResponse.fromJson(response!).statusCode;
-  //   String? msg = TravelResponse.fromJson(response).msg;
-  //   if(statusCode =='204'){
-  //     return ConfirmResponse(true, msg!);
-  //   }else {
-  //     return ConfirmResponse(false, msg!);
-  //   }
-  // }
+

@@ -17,6 +17,7 @@ class ContainerManager{
   ContainerManager(this._repository);
 
   Future<ConfirmResponse?> requestContainer(ContainerRequest request) => _repository.requestContainer(request);
+  Future<ConfirmResponse?> updateContainer(ContainerRequest request) => _repository.updateContainer(request);
   Future<ConfirmResponse?> deleteContainer(String id) => _repository.deleteContainer(id);
   Future<ConfirmResponse?> updateContainerStatus(ContainerChangeStateRequest request) => _repository.updateContainerStatus(request);
   Future<ConfirmResponse?> uploadedContainerToTravel(AddContainerToTravelRequest request) => _repository.uploadedContainerToTravel(request);

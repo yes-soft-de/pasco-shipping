@@ -36,7 +36,7 @@ void initState() {
 
   expandController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 350)
+      duration: Duration(milliseconds: 100)
   );
   animation = CurvedAnimation(
     parent: expandController,
@@ -70,7 +70,7 @@ Widget build(BuildContext context) {
                 padding: const EdgeInsets.symmetric(
                     horizontal: 12, vertical: 15),
                 decoration: new BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
+                  borderRadius: BorderRadius.circular(15.0),
                   color: Colors.grey[200],
                   boxShadow: [
                     BoxShadow(
@@ -81,10 +81,8 @@ Widget build(BuildContext context) {
                 ),
                 child: new Row(
                   mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.card_travel, color: AppThemeDataService.AccentColor,),
-                    SizedBox(width: 10,),
                     Expanded(
                         child: GestureDetector(
                           onTap: () {
@@ -93,9 +91,15 @@ Widget build(BuildContext context) {
                             setState(() {
                             });
                           },
-                          child:optionItemSelected.title=='choose' ?Text('choose' ,style: TextStyle(color: Colors.blueGrey),): Text(optionItemSelected.title, style: TextStyle(
-                              color: AppThemeDataService.AccentColor,
-                              fontSize: 16),),
+                          child:optionItemSelected.title=='choose' ?Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text('choose' ,style: TextStyle(color: Colors.blueGrey),),
+                          ): Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(optionItemSelected.title, style: TextStyle(
+                                color: AppThemeDataService.AccentColor,
+                                fontSize: 16),),
+                          ),
                         )
                     ),
                     Align(
@@ -260,6 +264,7 @@ class _SelectDropListState extends State<SelectDropList> {
                       mode: Mode.BOTTOM_SHEET,
                       showSelectedItem: false,
                       showSearchBox: true,
+
                       itemAsString: (Entry u) => u.title,
                       items: dropListModel.listOptionItems,
                       popupItemDisabled: (Entry s) => s.title.isEmpty,
@@ -270,12 +275,8 @@ class _SelectDropListState extends State<SelectDropList> {
                       searchBoxDecoration: InputDecoration(
                         icon: Icon(Icons.search_outlined ,color: blue,)
                       ),
-                      // dropdownSearchDecoration: InputDecoration(
-                      //   focusedBorder: InputBorder.none,
-                      //   enabledBorder: InputBorder.none,
-                      //   errorBorder: InputBorder.none,
-                      //   disabledBorder: InputBorder.none,
-                      // ),
+                      // contentPadding:
+                      dropdownSearchTextAlign: TextAlign.start,
                       emptyBuilder: (context, string) {
                         return Container(
                             child: Padding(

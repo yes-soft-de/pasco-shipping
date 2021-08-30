@@ -65,7 +65,7 @@ class _SecondOptionState extends State<SecondOption> {
         widget.goNextStep();
       }, goToAddClient: (shipmentRequest){
         widget.goToAddClient(shipmentRequest);
-        },);
+        }, units: state.units,);
     } else {
       return Column(
         children: [

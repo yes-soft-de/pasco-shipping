@@ -31,8 +31,8 @@ class AirwaybillSuccessfully extends StatelessWidget {
             itemBuilder: (context, index) {
               return AirwaybillCard(
                 model: items[index],
-                onEdit: (re) {
-                  onEdit(re);
+                onEdit: (model) {
+                  onEdit(model);
                 },
                 onDelete: (id) {
                   onDelete(id);

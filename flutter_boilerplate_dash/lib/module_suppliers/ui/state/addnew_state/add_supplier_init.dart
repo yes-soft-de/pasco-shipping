@@ -39,7 +39,7 @@ class _AddCountryInitState extends State<AddSupplierInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Full name' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).name , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -63,7 +63,7 @@ class _AddCountryInitState extends State<AddSupplierInit> {
                   child: TextField(
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'name',
+                      hintText: S.of(context).name,
                     ),
                     controller: name,
                   ),
@@ -101,7 +101,7 @@ class _AddCountryInitState extends State<AddSupplierInit> {
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'phone',
+                      hintText: S.of(context).phone,
 
                     ),
                   ),
@@ -113,7 +113,7 @@ class _AddCountryInitState extends State<AddSupplierInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Address', style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).address, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -138,13 +138,13 @@ class _AddCountryInitState extends State<AddSupplierInit> {
                     controller: address,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'address',
+                      hintText: S.of(context).address,
 
                     ),
                   ),
                 ),
               ),
-              RoundedButton(lable: 'Save', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
+              RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(name.text.isEmpty || phone.text.isEmpty || address.text.isEmpty) {
                   Fluttertoast.showToast(msg: S.of(context).fillAllField);
                 }else {

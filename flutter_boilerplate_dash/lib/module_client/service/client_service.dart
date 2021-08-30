@@ -16,9 +16,9 @@ class ClientService {
   // Future<ConfirmResponse?> updateUnit(UnitRequest request) {
   //   return _manager.updateUnit(request);
   // }
-  // Future<ConfirmResponse?> deleteUnit(String id) {
-  //   return _manager.deleteUnit(id);
-  // }
+  Future<ConfirmResponse?> deleteClient(String id) {
+    return _manager.deleteClient(id);
+  }
   Future<List<ClientModel>?> getClients() {
     return _manager.getClient();
   }

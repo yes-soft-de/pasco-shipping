@@ -31,7 +31,7 @@ class _MarkSuccessfullyScreenState extends State<WarehouseFinanceSuccessfullyScr
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             widget.warehouseFinances!.isEmpty ?
-            Text('No thing Added yet' , style: AppTextStyle.mediumRedBold,)
+            Text(S.of(context).nothingAdded , style: AppTextStyle.mediumRedBold,)
                 :ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
@@ -107,7 +107,7 @@ class _MarkSuccessfullyScreenState extends State<WarehouseFinanceSuccessfullyScr
                         ),
                       ),
                     ),
-                    RoundedButton(lable: 'Add', icon: '', color: blue, style: AppTextStyle.mediumWhiteBold, go: (){
+                    RoundedButton(lable: S.of(context).add, icon: '', color: blue, style: AppTextStyle.mediumWhiteBold, go: (){
                       if(cost.text.isEmpty) {
                         Fluttertoast.showToast(msg: S.of(context).fillAllField);
                       }

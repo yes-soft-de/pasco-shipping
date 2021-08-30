@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/enums/container_status.dart';
 import 'package:pasco_shipping/module_container/request/container_request.dart';
+import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
@@ -14,64 +15,65 @@ import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
-class RequestContainerInit extends StatefulWidget {
+class UpdateContainerInit extends StatefulWidget {
   final List<SubcontractModel> subContracts;
   final List<ContainerSpecificationModel> specifications;
-  final Function onSave;
-  const RequestContainerInit({ required this.onSave , required this.subContracts,required this.specifications});
+  final ContainerModel model;
+  final Function onUpdate;
+  const UpdateContainerInit({ required this.onUpdate , required this.subContracts,required this.specifications,required this.model});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
 }
 
-class _AddCountryInitState extends State<RequestContainerInit> {
- late TextEditingController containerNumber ;
+class _AddCountryInitState extends State<UpdateContainerInit> {
+  late TextEditingController containerNumber ;
 
- late DropListModel dropListModelProvidedBy;
- late Entry optionItemSelectedProvidedBy;
+  late DropListModel dropListModelProvidedBy;
+  late Entry optionItemSelectedProvidedBy;
 
- late DropListModel dropListModelConsignee;
- late Entry optionItemSelectedConsignee;
+  late DropListModel dropListModelConsignee;
+  late Entry optionItemSelectedConsignee;
 
- late DropListModel dropListModelShipper;
- late Entry optionItemSelectedShipper;
+  late DropListModel dropListModelShipper;
+  late Entry optionItemSelectedShipper;
 
- late DropListModel dropListModelSpecification;
- late Entry optionItemSelectedSpecification;
+  late DropListModel dropListModelSpecification;
+  late Entry optionItemSelectedSpecification;
 
- late DropListModel dropListModelCarrier;
- late Entry optionItemSelectedCarrier;
+  late DropListModel dropListModelCarrier;
+  late Entry optionItemSelectedCarrier;
 
- late List<Entry> entryProvidedBy;
- late List<Entry> entryConsignee;
- late List<Entry> entryShipper;
- late List<Entry> entryCarrier;
- late List<Entry> entrySpecification;
+  late List<Entry> entryProvidedBy;
+  late List<Entry> entryConsignee;
+  late List<Entry> entryShipper;
+  late List<Entry> entryCarrier;
+  late List<Entry> entrySpecification;
 
- late String status;
- late String type;
- late int selectedRadioType;
+  late String status;
+  late String type;
+  late int selectedRadioType;
 
- late int shipperID;
- late int consigneeID;
- late int providedByID;
- late int specificationID;
+  late int shipperID;
+  late int consigneeID;
+  late int providedByID;
+  late int specificationID;
 
- late int carrierID;
+  late int carrierID;
 
- // TimeOfDay selectedTimeStart = TimeOfDay.now();
- // TimeOfDay selectedTimeEnd = TimeOfDay.now();
- //
- // DateTime now = DateTime.now();
- //
- // DateTime startDate = DateTime.now();
- // DateTime endDate = DateTime.now();
- // var formatter = new DateFormat('dd-MM-yyyy');
- // late String formattedDateStart;
- // late String formattedDateEnd;
- //
- // late String formattedTimeStart;
- // late String formattedTimeEnd;
+  // TimeOfDay selectedTimeStart = TimeOfDay.now();
+  // TimeOfDay selectedTimeEnd = TimeOfDay.now();
+  //
+  // DateTime now = DateTime.now();
+  //
+  // DateTime startDate = DateTime.now();
+  // DateTime endDate = DateTime.now();
+  // var formatter = new DateFormat('dd-MM-yyyy');
+  // late String formattedDateStart;
+  // late String formattedDateEnd;
+  //
+  // late String formattedTimeStart;
+  // late String formattedTimeEnd;
   @override
   Widget build(BuildContext context) {
 
@@ -83,7 +85,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(children: [
-              Image.asset(StaticImage.container),
+              Image.asset(StaticImage.airwaybill),
 
 
               Padding(
@@ -91,7 +93,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).containerType, style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).airwaybillType, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Row(
@@ -99,7 +101,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: AppThemeDataService.AccentColor,
+                        primary: AppThemeDataService.AccentColor,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
 
                     ),
@@ -127,8 +129,8 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: AppThemeDataService.AccentColor,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+                        primary: AppThemeDataService.AccentColor,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
                     ),
                     onPressed: () {
                     },
@@ -160,7 +162,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).containerNumber , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).airwaybillNumber , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -204,9 +206,9 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 this.optionItemSelectedProvidedBy,
                 this.dropListModelProvidedBy,
                     (optionItem) {
-                      FocusScope.of(context).unfocus();
+                  FocusScope.of(context).unfocus();
                   optionItemSelectedProvidedBy = optionItem;
-                      providedByID = optionItem.id;
+                  providedByID = optionItem.id;
                   setState(() {});
                 },
               ),
@@ -223,7 +225,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 this.optionItemSelectedConsignee,
                 this.dropListModelConsignee,
                     (optionItem) {
-                      optionItemSelectedConsignee = optionItem;
+                  optionItemSelectedConsignee = optionItem;
                   consigneeID = optionItem.id;
                   setState(() {});
                 },
@@ -292,11 +294,12 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                     ,specificationID: optionItemSelectedSpecification.id ,
                     consigneeID: optionItemSelectedConsignee.id ,
                     shipperID: optionItemSelectedShipper.id,
-                    carrierID: optionItemSelectedCarrier.id
+                    carrierID:optionItemSelectedCarrier.id
                     ,containerNumber: containerNumber.text,
-                  providedBy: optionItemSelectedProvidedBy.id
+                    providedBy: optionItemSelectedProvidedBy.id,
+                    id: widget.model.id
                 );
-                  widget.onSave(re);
+                widget.onUpdate(re);
 
               }, radius: 15)
             ],),
@@ -318,11 +321,18 @@ class _AddCountryInitState extends State<RequestContainerInit> {
     entrySpecification = <Entry>[];
 
     containerNumber=TextEditingController();
+    containerNumber..text = widget.model.containerNumber??'';
 
     status= ContainerStatusName[ContainerStatus.NOTFULL]!;
 
-    selectedRadioType = 1;
-    type = ContainerTypeName[ContainerType.PUBLIC]!;
+    if(widget.model.type =='LCL'){
+      selectedRadioType = 1;
+      type = ContainerTypeName[ContainerType.PUBLIC]!;
+    }else{
+      selectedRadioType = 2;
+      type = ContainerTypeName[ContainerType.PRIVATE]!;
+    }
+
 
     optionItemSelectedProvidedBy =  Entry('choose', 1, []);
     optionItemSelectedShipper =  Entry('choose', 1, []);
@@ -336,6 +346,19 @@ class _AddCountryInitState extends State<RequestContainerInit> {
 
   void initList(){
     for(SubcontractModel item in widget.subContracts){
+      if(widget.model.subcontractName == item.fullName){
+        optionItemSelectedProvidedBy = Entry(item.fullName! ,item.id! ,[]);
+      }
+      if(widget.model.consigneeName == item.fullName){
+        optionItemSelectedConsignee = Entry(item.fullName! ,item.id! ,[]);
+      }
+      if(widget.model.shipperName == item.fullName){
+        optionItemSelectedShipper = Entry(item.fullName! ,item.id! ,[]);
+      }if(widget.model.carrierName == item.fullName){
+        optionItemSelectedCarrier = Entry(item.fullName! ,item.id! ,[]);
+      }
+
+
       Entry v = Entry(item.fullName! ,item.id! ,[]);
       entryProvidedBy.add(v);
       entryShipper.add(v);
@@ -349,22 +372,25 @@ class _AddCountryInitState extends State<RequestContainerInit> {
 
 
     for(ContainerSpecificationModel  item in widget.specifications){
+      if(widget.model.specificationName == item.name){
+        optionItemSelectedSpecification = Entry(item.name! ,item.id! ,[]);
+      }
       Entry v = Entry(item.name! ,item.id! ,[]);
       entrySpecification.add(v);
     }
     dropListModelSpecification = DropListModel(entrySpecification);
   }
 
- void _setSelectedRadioGender(int val) {
-   setState(() {
-     selectedRadioType = val;
-     if (val == 1) {
-       type = ContainerTypeName[ContainerType.PUBLIC]!;
-     } else if (val == 2) {
-       type = ContainerTypeName[ContainerType.PRIVATE]!;
-     }
-     print(val);
-   });
- }
+  void _setSelectedRadioGender(int val) {
+    setState(() {
+      selectedRadioType = val;
+      if (val == 1) {
+        type = ContainerTypeName[ContainerType.PUBLIC]!;
+      } else if (val == 2) {
+        type = ContainerTypeName[ContainerType.PRIVATE]!;
+      }
+      print(val);
+    });
+  }
 
 }

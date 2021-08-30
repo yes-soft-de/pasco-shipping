@@ -172,8 +172,8 @@
   "address": "العنوان",
   "clients": "العملاء",
   "client": "العميل: ",
-  "subCategory": "فئة فرعية: ",
-  "category": "فئة رئيسية: ",
+  "subCategory": "فئة فرعية ",
+  "category": "فئة رئيسية ",
 
   "shipmentAddSuccessfully": "تم طلب الشحنة بنجاح",
 
@@ -251,5 +251,102 @@
   "freeWeight": "الوزن الحر",
   "shipmentCost": "مصاريف الشحنة",
   "receiver": "المستلمون",
-  "serialNumber": "الرقم السري: "
+  "serialNumber": "الرقم السري: ",
+
+
+
+  "holder": "الحاملات",
+  "shipmentReport": "تقارير الشحنات",
+  "reports": "التقارير",
+  "flight": "الرحلات الجوية",
+  "cruise": "الرحلات البحرية",
+  "total": " الكلي ",
+  "airwaybillUploaded": "تم تحميل بوليصة الشحن الى الرحلة",
+  "uploadAirwaybill": "تحميل البوليصة الى الرحلة",
+  "uploadContainer": "تحميل الحاوية الى الرحلة",
+  "airwaybillArrived": "تم الوصول الى المستودع الهدف",
+  "containerArrived": "تم وصول الحاوية الى المستودع الهدف",
+  "emailOrPhone": "رقم الهاتف أو البريد الإلكتروني",
+
+  "jobDescription": "وصف العمل",
+
+
+  "showLibrary": "المعرض",
+  "camera": "الكاميرا",
+  "attached": "الوثائق المرفقة",
+  "showStatus": "الحالة",
+
+  "shipmentQR": "رمز الشحنة",
+  "showQR": "إظهار الرمز",
+  "shipmentSticker": "ملصق الشحنة",
+
+  "shipmentReceived": "الشحنات المستلمة",
+  "shipmentNotDelivered": "الشحنات غير المُسلمة الى الزيون",
+  "shipmentDelivered": "الشحنات المُسلمة الى الزبون",
+
+  "writeDetails": "اكتب ملاحظة عن المرحلة التالية",
+  "amount": "الكمية",
+  "shipmentSeparation": "فصل الشحنة",
+  "chooseTravel": "اختر الرحلة",
+  "chooseContainer": "اختر حاوية",
+
+  "guniQuantity": "عدد الجوني",
+  "volume": "حجم",
+  "importWarehouse": "مستودع التسلم",
+  "packingBy": "غُلفت",
+
+  "date": "التاريخ",
+  "from": "من",
+  "to": "الى",
+
+  "searchHere": "ابحث هنا...",
+  "selectWarehouse": "اختر المستودع",
+  "updateTravel": "تعديل رحلة",
+
+  "travelInformation": "معلومات الرحلة",
+  "holderInfo": "معلومات الحاملة",
+  "noHolder": "لا يوجد حاملات داخل الرحلة",
+
+  "waitingTrip": "الرحلة تنتظر",
+  "notStartedTrip": "لم تبدأهذه الرحلة بعد",
+
+  "startedTrip": "بدات الرحلة",
+  "startTrip": "بدأت هذه الرحلة في ",
+
+  "releasedTrip": "الرحلة وصلت",
+  "arriveTrip": "وصلت هذه الرحلة في ",
+
+  "travelStatus": "حالة الرحلة",
+  "released": "وصلت",
+  "shipping": "الشحن",
+
+  "warehouseFinance": "مصاريف مستودع",
+  "updateWarehouse": "تعديل مستودع",
+  "local": "محلي",
+  "proxy": "وكيل",
+  "enterNumber": "ادخل رقم التتبع",
+
+  "shipmentAccepted": "تم قبول الشحنة بنجاح",
+  "shipmentReceivedS": "تم استلام الشحنة من المورد في المستودع",
+  "shipmentMeasurement": "تم الانتهاء من مرحلة التعبئة والقياس",
+  "shipmentUploadedHolder": "تم تحميل الشحنة في حامل",
+  "shipmentUploadedToTravel": "تم تحميل الشحنة في رحلة",
+  "travelStarted": "لقد بدأت الرحلة",
+  "travelArrived": "وصلت الرحلة إلى بلد الهدف",
+  "containerCleared": "تم جمركة الحاملة",
+  "shipmentArrived": "وصلت الشحنة إلى المستودع الهدف",
+  "shipmentWaiting": "الشحنة في انتظار القبول",
+
+  "updateAirwaybill": "تعديل بوصيلة الشحن",
+  "updateContainer": "تعديل الحاوية",
+
+
+  "changeStatusConfirm": "هل تريد حقا الإنتقال الى الحالة التالية ؟",
+  "careful": "رجاءا كن حذر",
+  "emptyAmount": "يمكنك ترك الحقل فارغًا ، إذا لم يتم تقسيم الشحنة",
+
+  "acceptedConfirm": "هل تريد حقا قبول الشحنة؟",
+  "rejectConfirm": "هل تريد حقا رفض الشحنة؟"
+
+
 }

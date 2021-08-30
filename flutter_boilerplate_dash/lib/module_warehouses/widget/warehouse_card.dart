@@ -62,7 +62,7 @@ class _CountryCardState extends State<WarehouseCard> {
                       Row(
                         children: [
                           Text(
-                            'Name ',
+                           S.of(context).name,
                             style: AppTextStyle.mediumBlack,
                           ),
                            Expanded(child:   Text(
@@ -77,7 +77,7 @@ class _CountryCardState extends State<WarehouseCard> {
                       Row(
                         children: [
                           Text(
-                            'Country: ',
+                            S.of(context).country,
                             style: AppTextStyle.mediumBlack,
                           ),
                         Expanded(child:Text(
@@ -92,7 +92,7 @@ class _CountryCardState extends State<WarehouseCard> {
                       Row(
                         children: [
                           Text(
-                            'City: ',
+                            S.of(context).city,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Expanded(child:   Text(
@@ -107,7 +107,7 @@ class _CountryCardState extends State<WarehouseCard> {
                       Row(
                         children: [
                           Text(
-                            'Location: ',
+                            S.of(context).location,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Expanded(child:  Text(
@@ -123,7 +123,7 @@ class _CountryCardState extends State<WarehouseCard> {
                       Row(
                         children: [
                           Text(
-                            'Proxy: ',
+                            S.of(context).proxy+': ',
                             style: AppTextStyle.mediumBlack,
                           ),
                           Expanded(child:  Text(
@@ -139,7 +139,7 @@ class _CountryCardState extends State<WarehouseCard> {
                       Row(
                         children: [
                          Text(
-                            'SubContract: ',
+                            S.of(context).subcontract+': ',
                             style: AppTextStyle.mediumBlack,
                           ),
                           Expanded(child:  Text(
@@ -155,7 +155,7 @@ class _CountryCardState extends State<WarehouseCard> {
                       Row(
                         children: [
                           Text(
-                            'Created By ',
+                            S.of(context).createdBy,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Text(
@@ -170,7 +170,7 @@ class _CountryCardState extends State<WarehouseCard> {
                       Row(
                         children: [
                           Text(
-                            'Created At ',
+                            S.of(context).createdAt,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Text(
@@ -185,7 +185,7 @@ class _CountryCardState extends State<WarehouseCard> {
                       Row(
                         children: [
                           Text(
-                            'Updated By ',
+                            S.of(context).updatedBy,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Text(
@@ -200,7 +200,7 @@ class _CountryCardState extends State<WarehouseCard> {
                       Row(
                         children: [
                           Text(
-                            'Updated At ',
+                            S.of(context).updatedAt,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Text(
@@ -223,52 +223,26 @@ class _CountryCardState extends State<WarehouseCard> {
                         onPressed: () {
                           widget.onDelete(widget.model.id);
                         },
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.delete,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'delete',
-                              style: AppTextStyle.mediumWhite,
-                            ),
-                          ],
+                        child: Text(
+                          S.of(context).delete,
+                          style: AppTextStyle.mediumWhite,
                         ),
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        width: 100,
-                        child:
-                       ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.green,
-                          ),
-                          onPressed: () {
-                            widget.onEdit(widget.model);
-                          },
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.edit,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'edit',
-                                style: AppTextStyle.mediumWhite,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      ElevatedButton(
+                         style: ElevatedButton.styleFrom(
+                           primary: Colors.green,
+                         ),
+                         onPressed: () {
+                           widget.onEdit(widget.model);
+                         },
+                         child: Text(
+                           S.of(context).edit,
+                           style: AppTextStyle.mediumWhite,
+                         ),
+                       ),
                     ],
                   ),
                 )

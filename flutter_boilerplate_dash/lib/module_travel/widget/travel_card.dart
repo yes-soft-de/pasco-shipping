@@ -54,7 +54,7 @@ class _CountryCardState extends State<TravelsCard> {
                       Row(
                         children: [
                           Text(
-                            'Travel Number ',
+                            S.of(context).travelNumber,
                             style: AppTextStyle.mediumBlack,
                           ),
                            Expanded(child: Text(
@@ -69,7 +69,7 @@ class _CountryCardState extends State<TravelsCard> {
                       Row(
                         children: [
                           Text(
-                            'SubContract Name: ',
+                           S.of(context).subcontract+': ',
                             style: AppTextStyle.mediumBlack,
                           ),
                         Expanded(child:Text(
@@ -84,7 +84,7 @@ class _CountryCardState extends State<TravelsCard> {
                       Row(
                         children: [
                           Text(
-                            'Status: ',
+                            S.of(context).status+': ',
                             style: AppTextStyle.mediumBlack,
                           ),
                            Expanded(
@@ -101,7 +101,7 @@ class _CountryCardState extends State<TravelsCard> {
                       Row(
                         children: [
                           Text(
-                            'launch Country: ',
+                            S.of(context).launchCountry+': ',
                             style: AppTextStyle.mediumBlack,
                           ),
                           Expanded(
@@ -118,7 +118,7 @@ class _CountryCardState extends State<TravelsCard> {
                       Row(
                         children: [
                           Text(
-                            'launch Date: ',
+                            S.of(context).startDate,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Expanded(
@@ -135,7 +135,7 @@ class _CountryCardState extends State<TravelsCard> {
                       Row(
                         children: [
                           Text(
-                            'Destination Country: ',
+                            S.of(context).destinationCountry+': ',
                             style: AppTextStyle.mediumBlack,
                           ),
                           Expanded(
@@ -152,7 +152,7 @@ class _CountryCardState extends State<TravelsCard> {
                       Row(
                         children: [
                           Text(
-                            'Arrival Date: ',
+                           S.of(context).arrivalDate,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Expanded(
@@ -169,7 +169,7 @@ class _CountryCardState extends State<TravelsCard> {
                       Row(
                         children: [
                           Text(
-                            'Created By ',
+                            S.of(context).createdBy,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Text(
@@ -184,7 +184,7 @@ class _CountryCardState extends State<TravelsCard> {
                       Row(
                         children: [
                           Text(
-                            'Created At ',
+                            S.of(context).createdAt,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Text(
@@ -199,7 +199,7 @@ class _CountryCardState extends State<TravelsCard> {
                       Row(
                         children: [
                           Text(
-                            'Updated By ',
+                            S.of(context).updatedBy,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Text(
@@ -214,7 +214,7 @@ class _CountryCardState extends State<TravelsCard> {
                       Row(
                         children: [
                           Text(
-                            'Updated At ',
+                            S.of(context).updatedAt,
                             style: AppTextStyle.mediumBlack,
                           ),
                           Text(
@@ -226,6 +226,7 @@ class _CountryCardState extends State<TravelsCard> {
                     ],
                   ),
                 ),
+                SizedBox(width: 10,),
                 Visibility(
                   visible: widget.model.status == 'current' ? true :false,
                   child: Flexible(
@@ -239,20 +240,9 @@ class _CountryCardState extends State<TravelsCard> {
                           onPressed: () {
                             widget.onDelete(widget.model.id);
                           },
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.delete,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'delete',
-                                style: AppTextStyle.mediumWhite,
-                              ),
-                            ],
+                          child: Text(
+                            S.of(context).delete,
+                            style: AppTextStyle.mediumWhite,
                           ),
                         ),
                         SizedBox(
@@ -265,20 +255,9 @@ class _CountryCardState extends State<TravelsCard> {
                           onPressed: () {
                             widget.onEdit(widget.model);
                           },
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.edit,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'edit',
-                                style: AppTextStyle.mediumWhite,
-                              ),
-                            ],
+                          child: Text(
+                           S.of(context).edit,
+                            style: AppTextStyle.mediumWhite,
                           ),
                         ),
 

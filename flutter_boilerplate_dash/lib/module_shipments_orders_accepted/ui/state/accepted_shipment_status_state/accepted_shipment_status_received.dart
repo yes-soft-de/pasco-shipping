@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill/request/airwaybill_filter_request.dart';
 import 'package:pasco_shipping/module_container/enums/container_status.dart';
 import 'package:pasco_shipping/module_container/request/container_filter_request.dart';
@@ -142,7 +143,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   child: Row(children: [
                     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                     SizedBox(width: 5,),
-                    Text('Write a Details about next status' , style: AppTextStyle.mediumBlackBold,)
+                    Text(S.of(context).writeDetails , style: AppTextStyle.mediumBlackBold,)
                   ],),
                 ),
                 Padding(
@@ -166,7 +167,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                     child: TextField(
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'details',
+                        hintText: S.of(context).details,
                       ),
                       controller: editingController,
                     ),
@@ -191,7 +192,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
           child: Row(children: [
             Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
             SizedBox(width: 5,),
-            Text('Packing By' , style: AppTextStyle.mediumBlackBold,)
+            Text(S.of(context).packingBy , style: AppTextStyle.mediumBlackBold,)
           ],),
         ),
         SelectDropList(
@@ -210,7 +211,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
           child: Row(children: [
             Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
             SizedBox(width: 5,),
-            Text('Import Warehouse' , style: AppTextStyle.mediumBlackBold,)
+            Text(S.of(context).importWarehouse , style: AppTextStyle.mediumBlackBold,)
           ],),
         ),
         SelectDropList(
@@ -246,7 +247,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'weight',
+                hintText: S.of(context).width,
               ),
               controller: weightController,
             ),
@@ -274,7 +275,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'volume',
+                hintText:S.of(context).volume,
               ),
               controller: volumeController,
             ),
@@ -303,14 +304,14 @@ class _AcceptedShipmentDetailsSuccessfullyState
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'guni Quantity',
+                hintText: S.of(context).guniQuantity,
               ),
               controller: guniQuantityController,
             ),
           ),
         ),
 
-        RoundedButton(lable: 'Next', icon: '', color: blue, style: AppTextStyle.mediumWhite,
+        RoundedButton(lable:S.of(context).next, icon: '', color: blue, style: AppTextStyle.mediumWhite,
               go: (){
           if(transportation =='sea'){
             ContainerFilterRequest containerRequest = ContainerFilterRequest(status: ContainerStatusName[ContainerStatus.NOTFULL],type: holderType);

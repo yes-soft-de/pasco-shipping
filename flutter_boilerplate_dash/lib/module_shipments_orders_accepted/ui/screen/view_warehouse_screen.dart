@@ -38,7 +38,7 @@ class _CountriesScreenState extends State<ViewWarehouseScreen> {
 
         },
         child: Screen(),
-        title: 'Select Warehouse'
+        title: S.of(context).selectWarehouse
     );
   }
 

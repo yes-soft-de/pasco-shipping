@@ -7,6 +7,7 @@ import 'package:pasco_shipping/module_container/ui/screen/container_finance_scre
 import 'package:pasco_shipping/module_container/ui/screen/container_new_screen.dart';
 import 'package:pasco_shipping/module_container/ui/screen/container_screen.dart';
 import 'package:pasco_shipping/module_container/ui/screen/container_shipment_review_screen.dart';
+import 'package:pasco_shipping/module_container/ui/screen/containerl_update_screen.dart';
 
 import 'container_routes.dart';
 @injectable
@@ -17,8 +18,9 @@ class ContainerModule extends YesModule {
   final ContainerDetailsScreen _detailsScreen;
   final ContainerShipmentReview _containerShipmentReview;
   final ContainerFinanceScreen _financeScreen;
+  final UpdateContainer _updateContainer;
 
-  ContainerModule(this._screen, this._addNewContainer, this._filterScreen, this._detailsScreen, this._containerShipmentReview, this._financeScreen) {
+  ContainerModule(this._screen, this._addNewContainer, this._filterScreen, this._detailsScreen, this._containerShipmentReview, this._financeScreen, this._updateContainer) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
   Map<String, WidgetBuilder> getRoutes() {
@@ -27,6 +29,7 @@ class ContainerModule extends YesModule {
       ContainerRoutes.ADD_NEW: (context) => _addNewContainer,
       ContainerRoutes.FILTER: (context) => _filterScreen,
       ContainerRoutes.DETAILS: (context) => _detailsScreen,
+      ContainerRoutes.UPDATE: (context) => _updateContainer,
       ContainerRoutes.CONTAINER_SHIPMENT_REVIEW: (context) => _containerShipmentReview,
       ContainerRoutes.CONTAINER_FINANCE: (context) => _financeScreen,
     };

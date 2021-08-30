@@ -44,7 +44,12 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                     onTap: (){
                       widget.onShowFinance(widget.model.id);
                     },
-                    child:  Image.asset(StaticImage.accounting))
+                    child:  Column(
+                      children: [
+                        Image.asset(StaticImage.accounting),
+                        Text(S.of(context).cost)
+                      ],
+                    ))
               ],
             ),
           ),

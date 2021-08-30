@@ -1,13 +1,13 @@
 class AcceptedShipmentFilterRequest{
   String? trackNumber;
-  String transportationType;
+  String? transportationType;
   String? status;
   bool? isExternalWarehouse;
   int? exportWarehouseID;
   int? importWarehouseID;
 
 
-  AcceptedShipmentFilterRequest({required  this.transportationType, this.trackNumber , this.status ,required this.isExternalWarehouse , this.exportWarehouseID , this.importWarehouseID});
+  AcceptedShipmentFilterRequest({  this.transportationType, this.trackNumber , this.status , this.isExternalWarehouse , this.exportWarehouseID , this.importWarehouseID});
 
   Map<String, dynamic> toJson() => {
     'trackNumber':trackNumber ??'',

@@ -39,6 +39,8 @@ class ContainerModel {
     this.subcontractName,
     this.shipperName,
     this.consigneeName,
+    this.specificationName,
+    this.carrierName,
 
 
     this.createdAt,
@@ -55,6 +57,8 @@ class ContainerModel {
   String? subcontractName;
   String? consigneeName;
   String? shipperName;
+  String? specificationName;
+  String? carrierName;
 
 
 
@@ -74,6 +78,8 @@ class ContainerModel {
     subcontractName: json['subcontractName'],
     shipperName: json['shipperName'],
     consigneeName: json['consigneeName'],
+    carrierName: json['carrierName'],
+    specificationName: json['specificationName'],
 
 
 

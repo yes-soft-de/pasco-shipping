@@ -209,66 +209,41 @@ class _CountryCardState extends State<AirwaybillCard> {
                     ],
                   ),
                 ),
-                // Visibility(
-                //   visible: widget.model.status == 'current' ? true :false,
-                //   child: Flexible(
-                //     flex: 1,
-                //     child: Column(
-                //       children: [
-                //         ElevatedButton(
-                //           style: ElevatedButton.styleFrom(
-                //             primary: Colors.red,
-                //           ),
-                //           onPressed: () {
-                //             widget.onDelete(widget.model.id);
-                //           },
-                //           child: Row(
-                //             children: [
-                //               Icon(
-                //                 Icons.delete,
-                //                 color: Colors.white,
-                //               ),
-                //               SizedBox(
-                //                 width: 5,
-                //               ),
-                //               Text(
-                //                 'delete',
-                //                 style: AppTextStyle.mediumWhite,
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //         SizedBox(
-                //           height: 10,
-                //         ),
-                //         ElevatedButton(
-                //           style: ElevatedButton.styleFrom(
-                //             primary: Colors.green,
-                //           ),
-                //           onPressed: () {
-                //             widget.onEdit(widget.model.id);
-                //           },
-                //           child: Row(
-                //             children: [
-                //               Icon(
-                //                 Icons.edit,
-                //                 color: Colors.white,
-                //               ),
-                //               SizedBox(
-                //                 width: 5,
-                //               ),
-                //               Text(
-                //                 'edit',
-                //                 style: AppTextStyle.mediumWhite,
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //
-                //       ],
-                //     ),
-                //   ),
-                // )
+                Flexible(
+                  flex: 1,
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.red,
+                        ),
+                        onPressed: () {
+                          widget.onDelete(widget.model.id);
+                        },
+                        child: Text(
+                          S.of(context).delete,
+                          style: AppTextStyle.mediumWhite,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green,
+                        ),
+                        onPressed: () {
+                          widget.onEdit(widget.model);
+                        },
+                        child: Text(
+                          S.of(context).edit,
+                          style: AppTextStyle.mediumWhite,
+                        ),
+                      ),
+
+                    ],
+                  ),
+                )
               ],
             ),
           ),

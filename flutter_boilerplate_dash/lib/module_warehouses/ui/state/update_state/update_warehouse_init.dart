@@ -67,7 +67,7 @@ class _AddCountryInitState extends State<UpdateWarehouseInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Name' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).name , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -91,7 +91,7 @@ class _AddCountryInitState extends State<UpdateWarehouseInit> {
                   child: TextField(
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'name',
+                      hintText: S.of(context).name,
                     ),
                     controller: name,
                   ),
@@ -121,7 +121,7 @@ class _AddCountryInitState extends State<UpdateWarehouseInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Type' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).type+': ' , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Row(
@@ -147,7 +147,7 @@ class _AddCountryInitState extends State<UpdateWarehouseInit> {
                           width: 5,
                         ),
                         Text(
-                          'Local',
+                          S.of(context).local,
                           style: AppTextStyle.mediumWhite,
                         ),
                       ],
@@ -173,7 +173,7 @@ class _AddCountryInitState extends State<UpdateWarehouseInit> {
                           width: 5,
                         ),
                         Text(
-                          'SubContract',
+                          S.of(context).subcontract,
                           style: AppTextStyle.mediumWhite,
                         ),
                       ],
@@ -190,7 +190,7 @@ class _AddCountryInitState extends State<UpdateWarehouseInit> {
                     child: Row(children: [
                       Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                       SizedBox(width: 5,),
-                      Text('SubContract' , style: AppTextStyle.mediumBlackBold,)
+                      Text(S.of(context).subcontract , style: AppTextStyle.mediumBlackBold,)
                     ],),
                   ),
                   SelectDropList(
@@ -231,7 +231,7 @@ class _AddCountryInitState extends State<UpdateWarehouseInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('City' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).city , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -257,7 +257,7 @@ class _AddCountryInitState extends State<UpdateWarehouseInit> {
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'City',
+                      hintText: S.of(context).city,
 
                     ),
                   ),
@@ -269,7 +269,7 @@ class _AddCountryInitState extends State<UpdateWarehouseInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Location' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).location , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -295,14 +295,14 @@ class _AddCountryInitState extends State<UpdateWarehouseInit> {
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'Location',
+                      hintText: S.of(context).location,
 
                     ),
                   ),
                 ),
               ),
 
-              RoundedButton(lable: 'Update', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
+              RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(name.text.isEmpty || city.text.isEmpty || location.text.isEmpty ||type.isEmpty) {
                   Fluttertoast.showToast(msg: S.of(context).fillAllField);
                 }else {

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/module_warehouses/request/warehouse_filter_finance_request.dart';
@@ -34,7 +35,7 @@ class _CountriesScreenState extends State<WarehouseFinanceScreen> {
         goBack: ()  {
         },
         child: Screen(),
-        title: 'Warehouse Finance'
+        title: S.of(context).warehouseFinance
     );
   }
 

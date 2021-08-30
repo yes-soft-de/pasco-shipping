@@ -72,7 +72,7 @@ class _AddCountryInitState extends State<AddSubcontractInit> {
                   child: TextField(
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'name',
+                      hintText: S.of(context).name,
                     ),
                     controller: name,
                   ),
@@ -110,7 +110,7 @@ class _AddCountryInitState extends State<AddSubcontractInit> {
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'phone',
+                      hintText: S.of(context).phone,
 
                     ),
                   ),

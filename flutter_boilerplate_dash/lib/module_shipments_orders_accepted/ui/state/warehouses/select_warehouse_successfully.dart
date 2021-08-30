@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/widget/select_warehouse_card.dart';
 import 'package:pasco_shipping/module_warehouses/response/warhouse_response.dart';
 
@@ -48,7 +49,7 @@ late TextEditingController _textController ;
             child: TextField(
               controller: _textController,
               decoration: InputDecoration(
-                hintText: 'Search Here...',
+                hintText: S.of(context).searchHere,
                 icon: Icon(Icons.search_outlined)
               ),
               onChanged: onItemChanged,

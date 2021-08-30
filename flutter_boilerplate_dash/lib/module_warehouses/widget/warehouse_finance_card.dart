@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/response/container_finance_response.dart';
 import 'package:pasco_shipping/module_warehouses/response/warehouse_finance_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
@@ -23,7 +24,7 @@ class WarehouseFinanceCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      'Cost: ',
+                      S.of(context).cost+': ',
                       style: AppTextStyle.mediumBlack,
                     ),
                     Text(
@@ -38,7 +39,7 @@ class WarehouseFinanceCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      'Description: ',
+                      S.of(context).description+': ',
                       style: AppTextStyle.mediumBlack,
                     ),
                     Text(

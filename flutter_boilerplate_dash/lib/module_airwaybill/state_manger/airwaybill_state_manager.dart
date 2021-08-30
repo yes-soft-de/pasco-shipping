@@ -38,7 +38,7 @@ class AirwaybillStateManager {
     });
   }
 
-  void deleteContainer(String id, AirwaybillFilterRequest request) {
+  void deleteAirwaybill(String id, AirwaybillFilterRequest request) {
     _stateSubject.add(LoadingState());
     _service.deleteAirwaybill(id).then((value) {
       if (value != null) {

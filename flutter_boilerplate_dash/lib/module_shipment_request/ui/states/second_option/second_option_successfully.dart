@@ -5,6 +5,7 @@ import 'package:pasco_shipping/module_mark/mark_routes.dart';
 import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
+import 'package:pasco_shipping/module_unit/response/unit_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/text_edit.dart';
@@ -14,26 +15,29 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 class SecondOptionSuccessfully extends StatefulWidget {
   final List<ClientModel> marks;
+  final List<UnitModel> units;
   final ShipmentRequest shipmentRequest;
   final Function goBackStep;
   final Function goNextPage;
   final Function goToAddClient;
-  SecondOptionSuccessfully({required this.marks,required this.shipmentRequest,required this.goBackStep,required this.goNextPage,required this.goToAddClient});
+  SecondOptionSuccessfully({required this.marks,required this.shipmentRequest,required this.goBackStep,required this.goNextPage,required this.goToAddClient,required this.units});
 
   @override
   _SecondOptionSuccessfullyState createState() => _SecondOptionSuccessfullyState();
 }
 
 class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
-  DropListModel dropListModelUnit = DropListModel(dataUnit);
+
   DropListModel dropListModelTime = DropListModel(dataTime);
   DropListModel dropListModelHolderType = DropListModel(holderType);
   late Entry optionItemSelectedTim = Entry('choose', 1, []);
   late Entry optionItemSelectedType = Entry('choose', 1, []);
 
   late DropListModel dropListModelMark;
+ late DropListModel dropListModelUnit;
   late DropListModel dropListModelFromMark;
   late List<Entry> marksEntry;
+  late List<Entry> unitsEntry;
   late List<Entry> marksBackEntry;
 
   late Entry optionItemSelectedU;
@@ -102,13 +106,22 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
 
     isFromMarks = false;
     marksEntry = <Entry>[];
+    unitsEntry = <Entry>[];
     marksBackEntry = <Entry>[];
     for(ClientModel item in widget.marks){
       Entry v = Entry(item.userName! ,item.id! ,[]);
       marksEntry.add(v);
     }
     dropListModelMark = DropListModel(marksEntry);
+
+
+    for(UnitModel item in widget.units){
+      Entry v = Entry(item.name! ,item.id! ,[]);
+      unitsEntry.add(v);
+    }
+    dropListModelUnit = DropListModel(unitsEntry);
   }
+
 
   @override
   Widget build(BuildContext context) {

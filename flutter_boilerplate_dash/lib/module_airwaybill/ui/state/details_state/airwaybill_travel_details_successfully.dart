@@ -62,7 +62,12 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
                     onTap: (){
                       widget.onShowFinance(widget.model.id);
                     },
-                    child: Image.asset(StaticImage.accounting))
+                    child: Column(
+                      children: [
+                        Image.asset(StaticImage.accounting),
+                        Text(S.of(context).cost)
+                      ],
+                    ))
               ],
             ),
           ),
@@ -208,7 +213,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
           changeContainerStatus():
           Container(child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text('this Air Waybill uploaded to travel' , style: AppTextStyle.mediumRed,),
+            child: Text(S.of(context).airwaybillUploaded , style: AppTextStyle.mediumRed,),
           ),)
         ],
       ),
@@ -365,7 +370,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
   Widget uploadToTravel(){
     return
       Column(children: [
-        RoundedButton(lable: 'Upload air waybill to travel', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
+        RoundedButton(lable: S.of(context).uploadAirwaybill, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
           AddAirwaybillToTravelRequest re = AddAirwaybillToTravelRequest( holderID: widget.model.id!, shipmentStatus: 'uploaded');
           widget.onUploadedToTravel(re);
         },radius: 12)
@@ -384,16 +389,16 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
         children: [
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text('AirWaybill Status' , style: AppTextStyle.largeBlueBold,),
+            child: Text(S.of(context).airwaybillStatus , style: AppTextStyle.largeBlueBold,),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              StatusCard('cleared' ,false),
+              StatusCard(S.of(context).cleared ,false),
               Icon(Icons.arrow_forward_outlined , color: Colors.grey,),
-              StatusCard('arrived' ,false),
+              StatusCard(S.of(context).arrived,false),
             ],),
-         RoundedButton(lable: 'Next Status', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
+         RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
            AddAirwaybillToTravelRequest re1 = AddAirwaybillToTravelRequest(holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]!);
               widget.onClearedOrArrived(re1);
 
@@ -411,16 +416,16 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Text('Air Waybill Status' , style: AppTextStyle.largeBlueBold,),
+                child: Text(S.of(context).airwaybillStatus , style: AppTextStyle.largeBlueBold,),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  StatusCard('cleared' ,true),
+                  StatusCard(S.of(context).cleared ,true),
                   Icon(Icons.arrow_forward_outlined , color: Colors.grey,),
-                  StatusCard('arrived' ,false),
+                  StatusCard(S.of(context).arrived ,false),
                 ],),
-              RoundedButton(lable: 'Next Status', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
+              RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
                 AddAirwaybillToTravelRequest re1 = AddAirwaybillToTravelRequest(holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
                 widget.onClearedOrArrived(re1);
 
@@ -433,7 +438,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
         &&  widget.model.shipments![0].shipmentStatus != null && widget.model.shipments![0].shipmentStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]){
       return Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Text('this Air Waybill arrived to warehouse' , style: AppTextStyle.mediumRedBold,),
+        child: Text(S.of(context).airwaybillArrived , style: AppTextStyle.mediumRedBold,),
       );
     }
     else {

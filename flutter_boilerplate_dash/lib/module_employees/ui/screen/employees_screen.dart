@@ -66,7 +66,7 @@ class _CountriesScreenState extends State<EmployeesScreen> {
       SuccessfullyFetchState? state = currentState as SuccessfullyFetchState?;
       items = state!.distributors;
       return EmployeesSuccessfully(items: items ,onDelete: (id){
-        // widget._stateManager.deleteSupplier(id.toString());
+        widget._stateManager.deleteEmployee(id.toString());
       },
         onEdit: (request){
           // widget._stateManager.updateSupplier(request);

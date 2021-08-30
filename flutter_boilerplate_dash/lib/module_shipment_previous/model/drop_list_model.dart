@@ -25,41 +25,6 @@ class Entry {
   List<Entry> get children => _children;
 }
 
-// This is the entire multi-level list displayed by this app
-final List<Entry> dataFrom = <Entry>[
-  Entry(
-    'UAE', 1,
-    <Entry>[
-      Entry('Dubai' ,1,[]),
-      Entry('Abu Dhabi' ,1 ,[]),
-      Entry('Ajman' ,1, []),
-    ],
-  ),
-  Entry(
-    'Turkey', 1,
-    <Entry>[
-      Entry('Istanbul' ,1,[]),
-      Entry('İzmir' ,1,[]),
-      Entry('Ankara' ,1,[]),
-    ],
-  ),
-  ];
-final List<Entry> dataTo = <Entry>[
-  Entry(
-    'LIBYA', 1,
-    <Entry>[
-      Entry('Tripoli' ,1,[]),
-      Entry('Benghazi' ,1,[]),
-      Entry('Sirte' ,1,[]),
-    ],
-  ),
-  Entry(
-    'British Territory', 1,
-    <Entry>[
-      Entry('Gibraltar' ,1,[]),
-    ],
-  ),
-];
 final List<Entry> dataUnit = <Entry>[
   Entry(
     'Carton', 1,[]
@@ -85,16 +50,5 @@ final List<Entry> holderType = <Entry>[
   ),
   Entry(
       'FCL', 1,[]
-  ),
-];
-final List<Entry> dataMark = <Entry>[
-  Entry(
-      'RONI SY312', 1,[]
-  ),
-  Entry(
-    'JONI SY252', 1,[]
-  ),
-  Entry(
-    'TONI SY252', 1,[]
   ),
 ];

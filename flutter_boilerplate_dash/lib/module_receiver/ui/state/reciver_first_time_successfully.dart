@@ -23,33 +23,36 @@ class _MarkFirstTimeState extends State<ReceiverFirstTime> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(child: Image.asset(StaticImage.receiver)),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              S.of(context).clients,
-              style: AppTextStyle.largeBlackBold,
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(child: Image.asset(StaticImage.receiver)),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                S.of(context).clients,
+                style: AppTextStyle.largeBlackBold,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SelectDropList(
-              this.optionItemSelectedClient,
-              this.dropListModelClient,
-                  (optionItem) {
-                optionItemSelectedClient = optionItem;
-                widget.onClientSelect(optionItem);
-                // widget.shipmentRequest.exportWarehouseID =optionItem.id;
-                // widget.shipmentRequest.exportWarehouseName =optionItem.title;
-                // print("nameWear"  +  optionItem.title);
-                // setState(() {});
-              },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SelectDropList(
+                this.optionItemSelectedClient,
+                this.dropListModelClient,
+                    (optionItem) {
+                  optionItemSelectedClient = optionItem;
+                  widget.onClientSelect(optionItem);
+                  // widget.shipmentRequest.exportWarehouseID =optionItem.id;
+                  // widget.shipmentRequest.exportWarehouseName =optionItem.title;
+                  // print("nameWear"  +  optionItem.title);
+                  // setState(() {});
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
