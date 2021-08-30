@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\ChatRoomEntity;
 use App\Repository\ChatRoomEntityRepository;
 use App\Request\ChatCreateRequest;
+use App\Request\ChatFilterRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ChatManager
@@ -45,6 +46,11 @@ class ChatManager
     public function getChatByUser($userID)
     {
         return $this->chatRoomEntityRepository->getChatByUser($userID);
+    }
+
+    public function filterChats(ChatFilterRequest $request)
+    {
+        return $this->chatRoomEntityRepository->filterChats($request->getUserOneID());
     }
 
     public function deleteAllChats()

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
 use App\Entity\ChatRoomEntity;
+use App\Entity\ClientProfileEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -43,6 +44,30 @@ class ChatRoomEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getResult();
+    }
+
+    public function filterChats($userID)
+    {
+        $query = $this->createQueryBuilder('chat')
+            ->select('chat.id', 'chat.userOneID', 'chat.title', 'chat.description', 'chat.roomID', 'chat.createdAt', 'chat.state', 'clientProfileEntity.userName as clientUsername',
+             'clientProfileEntity.image as clientUserImage')
+
+            ->leftJoin(
+                ClientProfileEntity::class,
+                'clientProfileEntity',
+                Join::WITH,
+                'clientProfileEntity.userID = chat.userOneID'
+            )
+
+            ->orderBy('chat.id', 'DESC');
+
+        if($userID)
+        {
+            $query->andWhere('chat.userOneID = :userID');
+            $query->setParameter('userID', $userID);
+        }
+
+        return $query->getQuery()->getResult();
     }
 
     public function deleteAllChats()

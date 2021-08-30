@@ -14,4 +14,8 @@ class ChatGetResponse
 
     public $createdAt;
 
+    public $clientUsername;
+
+    public $clientUserImage;
+
 }
