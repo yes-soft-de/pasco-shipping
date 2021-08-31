@@ -8,6 +8,7 @@ use App\Manager\ChatManager;
 use App\Request\ChatCreateRequest;
 use App\Request\ChatFilterRequest;
 use App\Request\ChatStateUpdateRequest;
+use App\Response\ChatByDashboardGetResponse;
 use App\Response\ChatCreateResponse;
 use App\Response\ChatGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -94,7 +95,12 @@ class ChatService
                     $chat['clientUserImage'] = $this->params . $chat['clientUserImage'];
                 }
 
-                $chatResponse[] = $this->autoMapping->map('array', ChatGetResponse::class, $chat);
+                if ($chat['updatedByUserImage'])
+                {
+                    $chat['updatedByUserImage'] = $this->params . $chat['updatedByUserImage'];
+                }
+
+                $chatResponse[] = $this->autoMapping->map('array', ChatByDashboardGetResponse::class, $chat);
             }
         }
 

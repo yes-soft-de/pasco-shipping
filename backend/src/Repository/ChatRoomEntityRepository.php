@@ -25,7 +25,7 @@ class ChatRoomEntityRepository extends ServiceEntityRepository
     public function getChatByUser($userOneID)
     {
         return $this->createQueryBuilder('chat')
-            ->select('chat.id', 'chat.userOneID', 'chat.title', 'chat.description', 'chat.roomID', 'chat.createdAt', 'chat.state')
+            ->select('chat.id', 'chat.userOneID', 'chat.title', 'chat.description', 'chat.roomID', 'chat.createdAt', 'chat.state', 'chat.updatedAt')
 
             ->andWhere('chat.userOneID = :userOneID')
             ->setParameter('userOneID', $userOneID)
@@ -50,13 +50,20 @@ class ChatRoomEntityRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('chat')
             ->select('chat.id', 'chat.userOneID', 'chat.title', 'chat.description', 'chat.roomID', 'chat.createdAt', 'chat.state', 'clientProfileEntity.userName as clientUsername',
-             'clientProfileEntity.image as clientUserImage')
+             'clientProfileEntity.image as clientUserImage', 'chat.updatedBy', 'chat.updatedAt', 'adminProfileEntity.userName as updatedByUser', 'adminProfileEntity.image as updatedByUserImage')
 
             ->leftJoin(
                 ClientProfileEntity::class,
                 'clientProfileEntity',
                 Join::WITH,
                 'clientProfileEntity.userID = chat.userOneID'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfileEntity',
+                Join::WITH,
+                'adminProfileEntity.userID = chat.updatedBy'
             )
 
             ->orderBy('chat.id', 'DESC');
