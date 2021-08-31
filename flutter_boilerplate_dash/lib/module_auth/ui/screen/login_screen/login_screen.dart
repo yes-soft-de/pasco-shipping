@@ -109,7 +109,7 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   void moveToNext() {
-      Navigator.of(context).pushNamedAndRemoveUntil(HomeRoutes.Home, (route) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil(HomeRoutes.controller, (route) => false);
     // CustomFlushBarHelper.createSuccess(title:S.current.warnning, message: S.current.loginSuccess).show(context);
   }
 }

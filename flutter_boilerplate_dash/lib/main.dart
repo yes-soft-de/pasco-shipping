@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:analyzer_plugin/protocol/protocol.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/abstracts/module/yes_module.dart';
 import 'package:pasco_shipping/di/di_config.dart';
@@ -81,7 +82,7 @@ void main() async {
     await runZoned<Future<void>>(() async {
       configureDependencies();
       // Your App Here
-      runApp(getIt<MyApp>());
+      runApp(ProviderScope(child: getIt<MyApp>()));
     }, onError: (error, stackTrace) {
       new Logger().error(
           'Main', error.toString() + stackTrace.toString(), StackTrace.current);
@@ -95,11 +96,12 @@ class MyApp extends StatefulWidget {
   final LocalizationService _localizationService;
   final FireNotificationService _fireNotificationService;
   // final LocalNotificationService _localNotificationService;
+  final HomeModule _homeModule;
   final SplashModule _splashModule;
   final AuthorizationModule _authorizationModule;
   final SettingsModule _settingsModule;
   final ChatModule _chatModule;
-  final HomeModule _homeModule;
+
   // final PreviousShipmentsModule _previousShipmentsModule;
   final ProfileModule _profileModule;
   final MarkModule _markModule;
@@ -141,11 +143,12 @@ class MyApp extends StatefulWidget {
       this._localizationService,
       this._fireNotificationService,
       // this._localNotificationService,
+      this._homeModule,
       this._splashModule,
       this._authorizationModule,
       this._chatModule,
       this._settingsModule,
-      this._homeModule,
+
       // this._previousShipmentsModule,
       this._profileModule,
       this._markModule,

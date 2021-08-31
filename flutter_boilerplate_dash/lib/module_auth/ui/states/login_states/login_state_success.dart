@@ -45,7 +45,7 @@ class LoginStateSuccess extends LoginState {
       onConfirmBtnTap: (){
         Navigator.pushNamedAndRemoveUntil(
             context,
-            HomeRoutes.Home,
+            HomeRoutes.controller,
                 (route) => false);
       },
       text: S.of(context).loggedIn,

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
@@ -9,8 +10,10 @@ import 'package:pasco_shipping/module_home/ui/state/home_successfully.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/accepted_shipment_routes.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/utils/widget/app_menu.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
+import 'package:pasco_shipping/utils/widget/split_view.dart';
 
 @injectable
 class HomeScreen extends StatefulWidget {
@@ -25,12 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
   late HomeState currentState;
   @override
   Widget build(BuildContext context) {
-    return Background(
-      showFilter: false,
-      goBack: () {},
-      title: S.of(context).dashboard,
-      child: Screen()
-    );
+    return
+      Background(
+        showFilter: false,
+        goBack: () {},
+        title: S.of(context).dashboard,
+        child: Screen()
+      );
   }
 
   @override
@@ -91,4 +95,19 @@ class _HomeScreenState extends State<HomeScreen> {
   //     setProfile(request);
   //   });
   // }
+}
+
+
+@injectable
+class MyFirstApp extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    print('hihihihhiiiii');
+    // 3. watch selectedPageBuilderProvider
+    final selectedPageBuilder = ref.watch(selectedPageBuilderProvider);
+    return  SplitView(
+      menu: AppMenu(),
+      content: selectedPageBuilder(context),
+    );
+  }
 }

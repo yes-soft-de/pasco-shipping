@@ -95,7 +95,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<String> _getNextRoute(bool isLoggin) async {
     await Future.delayed(Duration(seconds: 3));
     if (isLoggin) {
-      return HomeRoutes.Home;
+      return HomeRoutes.controller;
     } else {
       return  AuthorizationRoutes.LOGIN_SCREEN;
     }
