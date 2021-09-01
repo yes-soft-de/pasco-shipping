@@ -184,7 +184,7 @@ App\Request\ContainerCreateRequest:
   properties:
     specificationID:
       - NotBlank: ~
-    containerNumber:
+    type:
       - NotBlank: ~
     createdBy:
       - NotBlank: ~
@@ -280,7 +280,7 @@ App\Request\AirwaybillCreateRequest:
   properties:
     specificationID:
       - NotBlank: ~
-    airwaybillNumber:
+    type:
       - NotBlank: ~
     createdBy:
       - NotBlank: ~
