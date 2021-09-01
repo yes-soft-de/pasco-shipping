@@ -48,8 +48,10 @@ class OrderShipmentByDashboardCreateRequest
 
     private $createdBy;
 
-    // public | private
+    // lcl | fcl
     private $holderType;
+
+    private $holderCount;
 
     // external warehouse info
     private $externalWarehouseInfo;
@@ -88,6 +90,16 @@ class OrderShipmentByDashboardCreateRequest
     public function getImages(): array
     {
         return $this->images;
+    }
+
+    public function getHolderCount()
+    {
+        return $this->holderCount;
+    }
+
+    public function setHolderCount($holderCount)
+    {
+        $this->holderCount = $holderCount;
     }
 
 }
