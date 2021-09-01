@@ -80,6 +80,11 @@ class TravelEntity
      */
     private $status;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $carrierID;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -225,6 +230,18 @@ class TravelEntity
     public function setStatus(?string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCarrierID(): ?int
+    {
+        return $this->carrierID;
+    }
+
+    public function setCarrierID(?int $carrierID): self
+    {
+        $this->carrierID = $carrierID;
 
         return $this;
     }

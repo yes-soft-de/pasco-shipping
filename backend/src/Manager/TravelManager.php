@@ -130,67 +130,8 @@ class TravelManager
 
     public function filterTravels(TravelFilterRequest $request)
     {
-        if($request->getType() != null && $request->getLaunchCountry() == null && $request->getDestinationCountry() == null && $request->getLaunchDate() == null && 
-        $request->getArrivalDate() == null && $request->getTravelNumber() == null && $request->getShipperID() == null && $request->getStatus() == null)
-        {
-            return $this->travelEntityRepository->getTravelsByType($request->getType());
-        }
-        elseif($request->getType() == null && $request->getLaunchCountry() == null && $request->getDestinationCountry() == null && $request->getLaunchDate() == null && 
-        $request->getArrivalDate() == null && $request->getTravelNumber() == null && $request->getShipperID() == null && $request->getStatus() != null)
-        {
-            return $this->travelEntityRepository->getTravelsByStatus($request->getStatus());
-        }
-        elseif($request->getType() == null && $request->getLaunchCountry() != null && $request->getDestinationCountry() == null && $request->getLaunchDate() == null && 
-        $request->getArrivalDate() == null && $request->getTravelNumber() == null && $request->getShipperID() == null && $request->getStatus() == null)
-        {
-            return $this->travelEntityRepository->getTravelsByLaunchCountry($request->getLaunchCountry());
-        }
-        elseif($request->getType() == null && $request->getLaunchCountry() == null && $request->getDestinationCountry() != null && $request->getLaunchDate() == null && 
-        $request->getArrivalDate() == null && $request->getTravelNumber() == null && $request->getShipperID() == null && $request->getStatus() == null)
-        {
-            return $this->travelEntityRepository->getTravelsByDestinationCountry($request->getDestinationCountry());
-        }
-        elseif($request->getType() == null && $request->getLaunchCountry() == null && $request->getDestinationCountry() == null && $request->getLaunchDate() != null && 
-        $request->getArrivalDate() == null && $request->getTravelNumber() == null && $request->getShipperID() == null && $request->getStatus() == null)
-        {
-            return $this->travelEntityRepository->getTravelsByLaunchDate($request->getLaunchDate());
-        }
-        elseif($request->getType() == null && $request->getLaunchCountry() == null && $request->getDestinationCountry() == null && $request->getLaunchDate() == null && 
-        $request->getArrivalDate() != null && $request->getTravelNumber() == null && $request->getShipperID() == null && $request->getStatus() == null)
-        {
-            return $this->travelEntityRepository->getTravelsByArrivalDate($request->getArrivalDate());
-        }
-        elseif($request->getType() == null && $request->getLaunchCountry() == null && $request->getDestinationCountry() == null && $request->getLaunchDate() == null && 
-        $request->getArrivalDate() == null && $request->getTravelNumber() == null && $request->getShipperID() != null && $request->getStatus() == null)
-        {
-            return $this->travelEntityRepository->getTravelsByShipperID($request->getShipperID());
-        }
-        elseif($request->getType() != null && $request->getLaunchCountry() == null && $request->getDestinationCountry() == null && $request->getLaunchDate() == null && 
-        $request->getArrivalDate() == null && $request->getTravelNumber() == null && $request->getShipperID() == null && $request->getStatus() != null)
-        {
-            return $this->travelEntityRepository->getTravelsByTypeAndStatus($request->getType(), $request->getStatus());
-        }
-        elseif($request->getType() != null && $request->getLaunchCountry() != null && $request->getDestinationCountry() == null && $request->getLaunchDate() == null && 
-        $request->getArrivalDate() == null && $request->getTravelNumber() == null && $request->getShipperID() == null && $request->getStatus() == null)
-        {
-            return $this->travelEntityRepository->getTravelsByTypeAndLaunchCountry($request->getType(), $request->getLaunchCountry());
-        }
-        elseif($request->getType() != null && $request->getLaunchCountry() != null && $request->getDestinationCountry() != null && $request->getLaunchDate() == null && 
-        $request->getArrivalDate() == null && $request->getTravelNumber() == null && $request->getShipperID() == null && $request->getStatus() == null)
-        {
-            return $this->travelEntityRepository->getTravelsByTypeAndLaunchAndDestinationCountry($request->getType(), $request->getLaunchCountry(), $request->getDestinationCountry());
-        }
-        elseif($request->getType() != null && $request->getLaunchCountry() != null && $request->getDestinationCountry() != null && $request->getLaunchDate() != null && 
-        $request->getArrivalDate() == null && $request->getTravelNumber() == null && $request->getShipperID() == null && $request->getStatus() == null)
-        {
-            return $this->travelEntityRepository->getTravelsByTypeAndLaunchAndDestinationCountriesAndLaunchDate($request->getType(), $request->getLaunchCountry(), 
-            $request->getDestinationCountry(), $request->getLaunchDate());
-        }
-        elseif($request->getType() == null && $request->getLaunchCountry() == null && $request->getDestinationCountry() == null && $request->getLaunchDate() == null && 
-        $request->getArrivalDate() == null && $request->getTravelNumber() != null && $request->getShipperID() == null && $request->getStatus() == null)
-        {
-            return $this->travelEntityRepository->getTravelByNumber($request->getTravelNumber());
-        }
+        return $this->travelEntityRepository->filterTravels($request->getType(), $request->getLaunchCountry(), $request->getDestinationCountry(), $request->getLaunchDate(), $request->getArrivalDate(), $request->getTravelNumber(),
+            $request->getShipperID(), $request->getStatus(), $request->getCarrierID());
     }
 
     public function delete(DeleteRequest $request)

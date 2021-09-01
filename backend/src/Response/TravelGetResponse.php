@@ -24,6 +24,8 @@ class TravelGetResponse
 
     public $subcontractName;
 
+    public $carrierName;
+
     public $createdByUser;
 
     public $updatedByUser;
