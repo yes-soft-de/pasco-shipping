@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\OrderShipmentEntity;
 use App\Manager\ShipmentOrderManager;
 use App\Request\OrderShipmentByDashboardCreateRequest;
+use App\Request\OrderShipmentByDashboardUpdateRequest;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
@@ -141,6 +142,7 @@ class ShipmentOrderService
         return $this->autoMapping->map(OrderShipmentEntity::class, OrderShipmentGetResponse::class, $orderShipmentResult);
     }
 
+    // Used when shipment is measured
     public function updateShipmentOrder(OrderShipmentUpdateRequest $request)
     {
         $orderShipmentResult = $this->shipmentOrderManager->updateShipmentOrder($request);
@@ -151,6 +153,13 @@ class ShipmentOrderService
     public function updateShipmentOrderByClient(OrderShipmentUpdateByClientRequest $request)
     {
         $orderShipmentResult = $this->shipmentOrderManager->updateShipmentOrderByClient($request);
+
+        return $this->autoMapping->map(OrderShipmentEntity::class, OrderShipmentGetResponse::class, $orderShipmentResult);
+    }
+
+    public function updateShipmentOrderByDashboard(OrderShipmentByDashboardUpdateRequest $request)
+    {
+        $orderShipmentResult = $this->shipmentOrderManager->updateShipmentOrderByDashboard($request);
 
         return $this->autoMapping->map(OrderShipmentEntity::class, OrderShipmentGetResponse::class, $orderShipmentResult);
     }

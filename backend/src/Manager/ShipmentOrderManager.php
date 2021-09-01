@@ -14,6 +14,7 @@ use App\Request\ContainerCreateRequest;
 use App\Request\DeleteRequest;
 use App\Request\ImageCreateRequest;
 use App\Request\OrderShipmentByDashboardCreateRequest;
+use App\Request\OrderShipmentByDashboardUpdateRequest;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
@@ -134,6 +135,7 @@ class ShipmentOrderManager
         }
     }
 
+    // Used when shipment is measured
     public function updateShipmentOrder(OrderShipmentUpdateRequest $request)
     {
         $shipmentOrderEntity = $this->orderShipmentEntityRepository->find($request->getId());
@@ -178,6 +180,26 @@ class ShipmentOrderManager
         else
         {
             $shipmentOrderEntity = $this->autoMapping->mapToObject(OrderShipmentUpdateByClientRequest::class, OrderShipmentEntity::class,
+                $request, $shipmentOrderEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $shipmentOrderEntity;
+        }
+    }
+
+    public function updateShipmentOrderByDashboard(OrderShipmentByDashboardUpdateRequest $request)
+    {
+        $shipmentOrderEntity = $this->orderShipmentEntityRepository->find($request->getId());
+
+        if(!$shipmentOrderEntity)
+        {
+            return  $shipmentOrderEntity;
+        }
+        else
+        {
+            $shipmentOrderEntity = $this->autoMapping->mapToObject(OrderShipmentByDashboardUpdateRequest::class, OrderShipmentEntity::class,
                 $request, $shipmentOrderEntity);
 
             $this->entityManager->flush();

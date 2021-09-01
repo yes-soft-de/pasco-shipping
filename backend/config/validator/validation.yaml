@@ -66,6 +66,13 @@ App\Request\OrderShipmentByDashboardCreateRequest:
     createdBy:
       - NotBlank: ~
 
+App\Request\OrderShipmentByDashboardUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
 App\Request\ShipmentOrderStatusUpdateRequest:
   properties:
     id:
