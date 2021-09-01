@@ -5,11 +5,16 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Constant\ShipmentOrderStatusConstant;
 use App\Constant\ShipmentStatusConstant;
+use App\Constant\ShippingTypeConstant;
+use App\Constant\ShippingWayConstant;
 use App\Entity\OrderShipmentEntity;
 use App\Repository\OrderShipmentEntityRepository;
+use App\Request\AirwaybillCreateRequest;
+use App\Request\ContainerCreateRequest;
 use App\Request\DeleteRequest;
 use App\Request\ImageCreateRequest;
 use App\Request\OrderShipmentByDashboardCreateRequest;
+use App\Request\OrderShipmentByDashboardUpdateRequest;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
@@ -61,6 +66,11 @@ class ShipmentOrderManager
     public function createShipmentOrderByDashboard(OrderShipmentByDashboardCreateRequest $request)
     {
         $orderShipmentEntity = $this->autoMapping->map(OrderShipmentByDashboardCreateRequest::class, OrderShipmentEntity::class, $request);
+
+        if($request->getHolderCount() == null || $request->getHolderCount() == 0)
+        {
+            $orderShipmentEntity->setHolderCount(1);
+        }
 
         $orderShipmentEntity->setStatus(ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS);
 
@@ -115,11 +125,17 @@ class ShipmentOrderManager
 
                 $this->shipmentStatusManager->create($shipmentStatusRequest);
             }
-            
+
+            /**
+             * Thirdly, create new holder if its type is FCL and the export warehouse is External
+             */
+            $this->checkRequestedHolderTypeAndWarehouseType($shipmentOrderEntity);
+
             return $shipmentOrderEntity;
         }
     }
 
+    // Used when shipment is measured
     public function updateShipmentOrder(OrderShipmentUpdateRequest $request)
     {
         $shipmentOrderEntity = $this->orderShipmentEntityRepository->find($request->getId());
@@ -164,6 +180,26 @@ class ShipmentOrderManager
         else
         {
             $shipmentOrderEntity = $this->autoMapping->mapToObject(OrderShipmentUpdateByClientRequest::class, OrderShipmentEntity::class,
+                $request, $shipmentOrderEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $shipmentOrderEntity;
+        }
+    }
+
+    public function updateShipmentOrderByDashboard(OrderShipmentByDashboardUpdateRequest $request)
+    {
+        $shipmentOrderEntity = $this->orderShipmentEntityRepository->find($request->getId());
+
+        if(!$shipmentOrderEntity)
+        {
+            return  $shipmentOrderEntity;
+        }
+        else
+        {
+            $shipmentOrderEntity = $this->autoMapping->mapToObject(OrderShipmentByDashboardUpdateRequest::class, OrderShipmentEntity::class,
                 $request, $shipmentOrderEntity);
 
             $this->entityManager->flush();
@@ -300,6 +336,50 @@ class ShipmentOrderManager
     public function getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
         return $this->shipmentStatusManager->getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+    }
+
+    public function checkRequestedHolderTypeAndWarehouseType(OrderShipmentEntity $orderShipmentEntity)
+    {
+        // This function creates holder depending on the type of the warehouse and the requested holder
+        if($orderShipmentEntity->getHolderType() == ShippingTypeConstant::$FCL_SHIPPING_TYPE && $orderShipmentEntity->getIsExternalWarehouse() == true)
+        {
+            if($orderShipmentEntity->getTransportationType() == ShippingWayConstant::$AIR_SHIPPING_WAY)
+            {
+                // Create new air waybills as client requested
+                for ($counter = 0; $counter < $orderShipmentEntity->getHolderCount(); $counter++)
+                {
+                    $this->createAirWaybill($orderShipmentEntity->getId(), ShippingTypeConstant::$FCL_SHIPPING_TYPE);
+                }
+            }
+            elseif($orderShipmentEntity->getTransportationType() == ShippingWayConstant::$SEA_SHIPPING_WAY)
+            {
+                // Create new containers as client requested
+                for ($counter = 0; $counter < $orderShipmentEntity->getHolderCount(); $counter++)
+                {
+                    $this->createContainer($orderShipmentEntity->getId(), ShippingTypeConstant::$FCL_SHIPPING_TYPE);
+                }
+            }
+        }
+    }
+
+    public function createContainer($shipmentID, $type)
+    {
+        $containerCreateRequest = new ContainerCreateRequest();
+
+        $containerCreateRequest->setShipmentID($shipmentID);
+        $containerCreateRequest->setType($type);
+
+        $this->containerManager->create($containerCreateRequest);
+    }
+
+    public function createAirWaybill($shipmentID, $type)
+    {
+        $airWaybillCreateRequest = new AirwaybillCreateRequest();
+
+        $airWaybillCreateRequest->setShipmentID($shipmentID);
+        $airWaybillCreateRequest->setType($type);
+
+        $this->airWaybillManager->create($airWaybillCreateRequest);
     }
 
     public function insertImagesOfShipment($imagesArray, $shipmentID)

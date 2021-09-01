@@ -66,6 +66,13 @@ App\Request\OrderShipmentByDashboardCreateRequest:
     createdBy:
       - NotBlank: ~
 
+App\Request\OrderShipmentByDashboardUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
 App\Request\ShipmentOrderStatusUpdateRequest:
   properties:
     id:
@@ -184,7 +191,7 @@ App\Request\ContainerCreateRequest:
   properties:
     specificationID:
       - NotBlank: ~
-    containerNumber:
+    type:
       - NotBlank: ~
     createdBy:
       - NotBlank: ~
@@ -280,7 +287,7 @@ App\Request\AirwaybillCreateRequest:
   properties:
     specificationID:
       - NotBlank: ~
-    airwaybillNumber:
+    type:
       - NotBlank: ~
     createdBy:
       - NotBlank: ~

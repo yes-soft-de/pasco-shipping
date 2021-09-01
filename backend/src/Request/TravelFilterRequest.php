@@ -18,6 +18,8 @@ class TravelFilterRequest
 
     private $shipperID;
 
+    private $carrierID;
+
     private $status;
 
     public function getType()
@@ -53,6 +55,11 @@ class TravelFilterRequest
     public function getShipperID()
     {
         return $this->shipperID;
+    }
+
+    public function getCarrierID()
+    {
+        return $this->carrierID;
     }
 
     public function getStatus()

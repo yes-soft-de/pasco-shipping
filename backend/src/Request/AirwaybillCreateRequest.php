@@ -22,9 +22,21 @@ class AirwaybillCreateRequest
 
     private $createdBy;
 
+    private $shipmentID;
+
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
     public function setCreatedBy($userID)
     {
         $this->createdBy = $userID;
+    }
+
+    public function setShipmentID($shipmentID)
+    {
+        $this->shipmentID = $shipmentID;
     }
 
 }

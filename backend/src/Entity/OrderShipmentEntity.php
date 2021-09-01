@@ -180,6 +180,11 @@ class OrderShipmentEntity
      */
     private $receiverID;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $holderCount;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -565,6 +570,18 @@ class OrderShipmentEntity
     public function setReceiverID(?int $receiverID): self
     {
         $this->receiverID = $receiverID;
+
+        return $this;
+    }
+
+    public function getHolderCount(): ?int
+    {
+        return $this->holderCount;
+    }
+
+    public function setHolderCount(?int $holderCount): self
+    {
+        $this->holderCount = $holderCount;
 
         return $this;
     }

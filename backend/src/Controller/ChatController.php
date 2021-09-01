@@ -183,9 +183,8 @@ class ChatController extends BaseController
      *                  @OA\Property(type="string", property="title"),
      *                  @OA\Property(type="string", property="description"),
      *                  @OA\Property(type="object", property="createdAt"),
-     *                  @OA\Property(type="string", property="state"),
-     *                  @OA\Property(type="string", property="clientUsername"),
-     *                  @OA\Property(type="string", property="clientUserImage")
+     *                  @OA\Property(type="object", property="updateddAt"),
+     *                  @OA\Property(type="string", property="state")
      *              )
      *          )
      *      )
@@ -216,7 +215,7 @@ class ChatController extends BaseController
      *
      * @OA\Response(
      *      response=200,
-     *      description="Returns the info of the new chat",
+     *      description="Returns required chats according to filters",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
@@ -228,8 +227,11 @@ class ChatController extends BaseController
      *                  @OA\Property(type="string", property="description"),
      *                  @OA\Property(type="string", property="state"),
      *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updateddAt"),
      *                  @OA\Property(type="string", property="clientUsername"),
-     *                  @OA\Property(type="string", property="clientUserImage")
+     *                  @OA\Property(type="string", property="clientUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage")
      *              )
      *          )
      *      )

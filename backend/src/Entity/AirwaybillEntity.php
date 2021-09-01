@@ -19,7 +19,7 @@ class AirwaybillEntity
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $specificationID;
 
@@ -61,7 +61,7 @@ class AirwaybillEntity
     private $type;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $providedBy;
 
@@ -79,6 +79,11 @@ class AirwaybillEntity
      * @ORM\Column(type="integer", nullable=true)
      */
     private $carrierID;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $shipmentID;
 
     public function getId(): ?int
     {
@@ -225,6 +230,18 @@ class AirwaybillEntity
     public function setCarrierID(?int $carrierID): self
     {
         $this->carrierID = $carrierID;
+
+        return $this;
+    }
+
+    public function getShipmentID(): ?int
+    {
+        return $this->shipmentID;
+    }
+
+    public function setShipmentID(?int $shipmentID): self
+    {
+        $this->shipmentID = $shipmentID;
 
         return $this;
     }

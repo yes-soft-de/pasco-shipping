@@ -16,8 +16,6 @@ class ChatGetResponse
 
     public $state;
 
-    public $clientUsername;
-
-    public $clientUserImage;
+    public $updatedAt;
 
 }

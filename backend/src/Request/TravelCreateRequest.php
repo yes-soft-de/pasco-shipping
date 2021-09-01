@@ -18,6 +18,8 @@ class TravelCreateRequest
 
     private $shipperID;
 
+    private $carrierID;
+
     private $createdBy;
 
     private $status;

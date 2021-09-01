@@ -50,7 +50,8 @@ class TravelController extends BaseController
      *          @OA\Property(type="string", property="launchDate"),
      *          @OA\Property(type="string", property="arrivalDate"),
      *          @OA\Property(type="string", property="travelNumber"),
-     *          @OA\Property(type="integer", property="shipperID")
+     *          @OA\Property(type="integer", property="shipperID"),
+     *          @OA\Property(type="integer", property="carrierID")
      *      )
      * )
      * 
@@ -107,7 +108,8 @@ class TravelController extends BaseController
      *          @OA\Property(type="string", property="launchDate"),
      *          @OA\Property(type="string", property="arrivalDate"),
      *          @OA\Property(type="string", property="travelNumber"),
-     *          @OA\Property(type="integer", property="shipperID")
+     *          @OA\Property(type="integer", property="shipperID"),
+     *          @OA\Property(type="integer", property="carrierID")
      *      )
      * )
      * 
@@ -133,6 +135,7 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="array", property="holders",
      *                      @OA\Items()
      *                  )
@@ -201,6 +204,7 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="array", property="holders",
      *                      @OA\Items()
      *                  )
@@ -268,6 +272,7 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="array", property="holders",
      *                      @OA\Items()
      *                  )
@@ -327,6 +332,7 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="array", property="holders",
      *                      @OA\Items()
      *                  )
@@ -378,6 +384,7 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="array", property="holders",
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),
@@ -448,6 +455,7 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="array", property="holders",
      *                      @OA\Items()
      *                  )
@@ -505,6 +513,7 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="array", property="holders",
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),
