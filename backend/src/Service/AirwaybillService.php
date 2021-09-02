@@ -80,18 +80,19 @@ class AirwaybillService
     {
         $airwaybill = $this->airwaybillManager->getAirwaybillById($id);
 
-        $airwaybill['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID("airwaybill", $id);
-
-        $airwaybill['freeWeight'] = $this->trackService->getCurrentWeightOfAirwaybill($airwaybill);
-        
-        if($airwaybill['createdByUserImage'])
+        if($airwaybill)
         {
-            $airwaybill['createdByUserImage'] = $this->params . $airwaybill['createdByUserImage'];
-        }
+            $airwaybill['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID("airwaybill", $id);
 
-        if($airwaybill['updatedByUserImage'])
-        {
-            $airwaybill['updatedByUserImage'] = $this->params . $airwaybill['updatedByUserImage'];
+            $airwaybill['freeWeight'] = $this->trackService->getCurrentWeightOfAirwaybill($airwaybill);
+
+            if ($airwaybill['createdByUserImage']) {
+                $airwaybill['createdByUserImage'] = $this->params . $airwaybill['createdByUserImage'];
+            }
+
+            if ($airwaybill['updatedByUserImage']) {
+                $airwaybill['updatedByUserImage'] = $this->params . $airwaybill['updatedByUserImage'];
+            }
         }
 
         return $this->autoMapping->map('array', AirwaybillGetResponse::class, $airwaybill);

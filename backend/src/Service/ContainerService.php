@@ -80,18 +80,19 @@ class ContainerService
     {
         $container = $this->containerManager->getContainerById($id);
 
-        $container['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID("container", $id);
-        
-        $container['freeCapacity'] = $this->trackService->getCurrentCapacityOfContainer($container);
-
-        if($container['createdByUserImage'])
+        if($container)
         {
-            $container['createdByUserImage'] = $this->params . $container['createdByUserImage'];
-        }
+            $container['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID("container", $id);
 
-        if($container['updatedByUserImage'])
-        {
-            $container['updatedByUserImage'] = $this->params . $container['updatedByUserImage'];
+            $container['freeCapacity'] = $this->trackService->getCurrentCapacityOfContainer($container);
+
+            if ($container['createdByUserImage']) {
+                $container['createdByUserImage'] = $this->params . $container['createdByUserImage'];
+            }
+
+            if ($container['updatedByUserImage']) {
+                $container['updatedByUserImage'] = $this->params . $container['updatedByUserImage'];
+            }
         }
 
         return $this->autoMapping->map('array', ContainerGetResponse::class, $container);
