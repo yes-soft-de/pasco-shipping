@@ -154,7 +154,7 @@ class ChatController extends BaseController
 
         $result = $this->chatService->updateState($request);
 
-        return $this->response($result, self::CREATE);
+        return $this->response($result, self::UPDATE);
     }
 
     /**
@@ -256,7 +256,7 @@ class ChatController extends BaseController
 
         $result = $this->chatService->filterChats($request);
 
-        return $this->response($result, self::CREATE);
+        return $this->response($result, self::FETCH);
     }
 
     /**
