@@ -9,12 +9,14 @@ import 'package:pasco_shipping/module_splash/ui/screen/splash_screen.dart';
 @injectable
 class HomeModule extends YesModule {
   final HomeScreen _homeScreen;
+  final MyFirstApp _firstApp;
   // final MainNavigationScreen _mainNavigationScreen;
 
 
-  HomeModule( this._homeScreen) {
+  HomeModule( this._homeScreen, this._firstApp) {
     YesModule.RoutesMap.addAll({
       HomeRoutes.Home: (context) => _homeScreen,
+      HomeRoutes.controller: (context) => _firstApp,
       // HomeRoutes.MAIN_NAVIGATION: (context) => _mainNavigationScreen,
       // HomeRoutes.PREVIOUS_SHIPMENTS: (context) => homeScreen,
       // HomeRoutes.SHIPMENTS_DETAILS: (context) => homeScreen,
