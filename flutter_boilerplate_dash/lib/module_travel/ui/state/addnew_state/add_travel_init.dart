@@ -172,7 +172,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
 
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'number',
+                      hintText: S.of(context).number,
                     ),
                     controller: travelNumber,
                   ),

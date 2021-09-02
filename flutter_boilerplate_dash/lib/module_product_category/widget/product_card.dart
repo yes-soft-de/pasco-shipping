@@ -77,7 +77,7 @@ class _CountryCardState extends State<ProductCard> {
                     Row(
                       children: [
                         Text(
-                         S.of(context).description,
+                         S.of(context).description+': ',
                           style: AppTextStyle.mediumBlack,
                         ),
                       Expanded(child:   widget.isEdtiable ? TextField(controller: description) :  Text(
@@ -121,6 +121,7 @@ class _CountryCardState extends State<ProductCard> {
                                     style: AppTextStyle.mediumDeepGrayBold,),
                                 ],
                               ),
+                              SizedBox(height: 5,),
                               Row(
                                 children: [
                                   Text('HsCode: ' , style: AppTextStyle.mediumBlueBold,),
@@ -135,6 +136,7 @@ class _CountryCardState extends State<ProductCard> {
                     },itemCount: widget.model.subs!.length,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
+                      physics: NeverScrollableScrollPhysics(),
                     ),
 
 
@@ -201,6 +203,7 @@ class _CountryCardState extends State<ProductCard> {
                   ],
                 ),
               ),
+              SizedBox(width: 20,),
               Flexible(
                 flex: 1,
                 child: Column(
@@ -212,76 +215,43 @@ class _CountryCardState extends State<ProductCard> {
                       onPressed: () {
                         widget.onDelete(widget.model.id);
                       },
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.delete,
-                            color: Colors.white,
-                          ),
-                          Text(
-                            S.of(context).delete,
-                            style: AppTextStyle.mediumWhite,
-                          ),
-                        ],
+                      child: Text(
+                        S.of(context).delete,
+                        style: AppTextStyle.mediumWhite,
                       ),
                     ),
                     SizedBox(
                       height: 10,
                     ),
-                    Container(
-                      width: 100,
-                      child:
+                    widget.isEdtiable ? ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                      ),
+                      onPressed: () {
+                        if(name.text.isEmpty || description.text.isEmpty){
+                          Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                        }else {
+                          ProductRequest re = ProductRequest(id: widget.model.id ,name: name.text,description: description.text, hscode: hsCode.text);
+                          widget.onEdit(re);
+                        }
 
-                      widget.isEdtiable ? ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
-                        ),
-                        onPressed: () {
-                          if(name.text.isEmpty || description.text.isEmpty){
-                            Fluttertoast.showToast(msg: S.of(context).fillAllField);
-                          }else {
-                            ProductRequest re = ProductRequest(id: widget.model.id ,name: name.text,description: description.text, hscode: hsCode.text);
-                            widget.onEdit(re);
-                          }
-
-                        },
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.save,
-                              color: Colors.white,
-                            ),
-
-                            Text(
-                              S.of(context).save,
-                               style: AppTextStyle.mediumWhite,
-                            ),
-                          ],
-                        ),
-                      ) : ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            widget.isEdtiable= true;
-                          });
-                        },
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.edit,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              S.of(context).edit,
-                              style: AppTextStyle.mediumWhite,
-                            ),
-                          ],
-                        ),
+                      },
+                      child: Text(
+                        S.of(context).save,
+                         style: AppTextStyle.mediumWhite,
+                      ),
+                    ) : ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          widget.isEdtiable= true;
+                        });
+                      },
+                      child: Text(
+                        S.of(context).edit,
+                        style: AppTextStyle.mediumWhite,
                       ),
                     ),
                   ],

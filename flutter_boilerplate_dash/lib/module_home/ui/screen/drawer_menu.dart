@@ -343,7 +343,7 @@ class DrawerMenu extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Holder' ,style: AppTextStyle.mediumDeepGrayBold,),
+                child: Text(S.of(context).holder ,style: AppTextStyle.mediumDeepGrayBold,),
               ),
               ExpansionTile(
                 title: new Text(S.of(context).containers),
@@ -518,10 +518,10 @@ class DrawerMenu extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Reports' ,style: AppTextStyle.mediumDeepGrayBold,),
+                child: Text(S.of(context).reports ,style: AppTextStyle.mediumDeepGrayBold,),
               ),
               ExpansionTile(
-                title: new Text('Shipment Reports'),
+                title: new Text(S.of(context).shipmentReport),
                 leading: Icon(Icons.task_alt),
                 children: <Widget>[
                   ListTile(

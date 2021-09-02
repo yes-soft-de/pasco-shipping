@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
@@ -97,8 +98,19 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
       List<AcceptedShipmentStatusModel> statusModels = state.model;
       return AcceptedShipmentStatusSuccessfully(
       statusModel: statusModels, onChangeStatus: (re , cityName , isDelivred){
-        print("jjjjjjjjj" + isDelivred.toString());
-        widget._stateManager.receivedOrDelevired(re,cityName,isDelivred);
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.info,
+          title:  S.of(context).careful,
+          confirmBtnText: S.of(context).ok,
+          backgroundColor:AppThemeDataService.PrimaryColor,
+          confirmBtnColor:AppThemeDataService.AccentColor,
+          onConfirmBtnTap: (){
+            Navigator.pop(context);
+            widget._stateManager.receivedOrDelevired(re,cityName,isDelivred);
+          },
+          text: S.of(context).changeStatusConfirm,
+        );
       },
       );
     }
@@ -111,7 +123,19 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         subcontracts:state.subContracts ,
         warehouse: state.warehouse,
         onChangeStatus: (re , containerFilterRequest ,travelFilterRequest){
-        widget._stateManager.measuredShipment(re, containerFilterRequest,travelFilterRequest);
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.measuredShipment(re, containerFilterRequest,travelFilterRequest);
+            },
+            text: S.of(context).changeStatusConfirm,
+          );
       },
       );
     }
@@ -123,7 +147,19 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         containers:state.containers,
         travels: state.travels,
         onChangeStatus: (request , isSeperate,containers ,travels){
-            widget._stateManager.storedShipment(request,isSeperate,containers ,travels);
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.storedShipment(request,isSeperate,containers ,travels);
+            },
+            text: S.of(context).changeStatusConfirm,
+          );
         },
         // onChangeStatus: (re , containerFilterRequest){
         // },

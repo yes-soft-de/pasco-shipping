@@ -31,8 +31,8 @@ class ContainerSuccessfully extends StatelessWidget {
             itemBuilder: (context, index) {
               return ContainerCard(
                 model: items[index],
-                onEdit: (re) {
-                  onEdit(re);
+                onEdit: (model) {
+                  onEdit(model);
                 },
                 onDelete: (id) {
                   onDelete(id);

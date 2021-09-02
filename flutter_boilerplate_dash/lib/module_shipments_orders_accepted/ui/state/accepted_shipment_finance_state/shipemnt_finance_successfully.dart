@@ -99,7 +99,7 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'cost',
+                            hintText: S.of(context).cost,
                           ),
                           controller: cost,
                         ),
@@ -126,7 +126,7 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                         child: TextField(
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'details',
+                            hintText: S.of(context).details,
                           ),
                           controller: description,
                         ),

@@ -10,7 +10,7 @@ class ClientManager{
   ClientManager(this._repository);
 
   Future<ConfirmResponse?> createClient(CreateClientRequest request) => _repository.createClient(request);
-  // Future<ConfirmResponse?> deleteUnit(String id) => _repository.deleteUnit(id);
+  Future<ConfirmResponse?> deleteClient(String id) => _repository.deleteClient(id);
   Future<List<ClientModel>?> getClient() => _repository.getClients();
   // Future<ConfirmResponse?> updateUnit(UnitRequest request) => _repository.updateUnit(request);
 

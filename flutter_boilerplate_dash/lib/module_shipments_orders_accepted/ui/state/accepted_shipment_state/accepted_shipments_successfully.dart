@@ -34,7 +34,7 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Shipments received in warehouse'+': ' ,style: AppTextStyle.mediumBlackBold,),
+                    Text(S.of(context).shipmentReceived+': ' ,style: AppTextStyle.mediumBlackBold,),
                     Text(items.statistics!.received.toString() ,style: AppTextStyle.mediumRedBold,),
                   ],
                 ),
@@ -52,7 +52,7 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text('Ready to measure'+': ' ,style: AppTextStyle.mediumBlackBold,),
+                        Text(S.of(context).shipmentNotDelivered+': ' ,style: AppTextStyle.mediumBlackBold,),
                         Text(items.statistics!.notDelivered.toString() ,style: AppTextStyle.mediumRedBold,),
                       ],
                     ),
@@ -72,7 +72,7 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text('Delivered shipments to receiver'+': ' ,style: AppTextStyle.mediumBlackBold,),
+                        Text(S.of(context).shipmentDelivered+': ' ,style: AppTextStyle.mediumBlackBold,),
                         Text(items.statistics!.delivered.toString() ,style: AppTextStyle.mediumRedBold,),
                       ],
                     ),

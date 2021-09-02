@@ -45,15 +45,21 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
   late DropListModel dropListModelFrom;
 
   late DropListModel dropListModelTo;
+  late DropListModel dropListModelCat;
+  late DropListModel dropListModelSubCat;
 
   late Entry optionItemSelectedF;
 
   late Entry optionItemSelectedT ;
+  late Entry optionItemSelectedCategory ;
+  late Entry optionItemSelectedSubCategory ;
 
   final ImagePicker _imagePicker = ImagePicker();
 
   late List<Entry> shippingFrom;
   late List<Entry> shippingTo;
+  late List<Entry>  categories;
+  late List<Entry>  subCategories;
  late TextEditingController controller;
  // File? imageFile;
   late String initQuantity;
@@ -108,27 +114,39 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
            }
          }}}
    }else{
-     optionItemSelectedF = Entry('choose', 1, []);
+     optionItemSelectedF = Entry('choose', 0, []);
    }
 
-   if(widget.shipmentRequest.productCategoryID !=0){
-     widget.categories.forEach((element) {
-       element.subs!.forEach((sub) {
-         if(sub.id == widget.shipmentRequest.productCategoryID) {
-           sub.isSelected = true;
-         } else {
-           sub.isSelected = false;
-         }
-       });
-
-     });
-
-   }
-
+   // if(widget.shipmentRequest.productCategoryID !=0){
+   //   widget.categories.forEach((element) {
+   //     element.subs!.forEach((sub) {
+   //       if(sub.id == widget.shipmentRequest.productCategoryID) {
+   //         // sub.isSelected = true;
+   //         optionItemSelectedCategory = Entry(sub.name!, sub.id!, []);
+   //         // optionItemSelectedSubCategory =
+   //       } else {
+   //         // sub.isSelected = false;
+   //         optionItemSelectedCategory = Entry('choose', 0, []);
+   //
+   //       }
+   //     });
+   //
+   //   });
+   //
+   // } else {
+   //   // sub.isSelected = false;
+   //
+   //
+   // }
+    optionItemSelectedCategory = Entry('choose', 0, []);
+    optionItemSelectedSubCategory= Entry('choose', 0, []);
     shippingFrom = <Entry>[];
     shippingTo = <Entry>[];
+    categories = <Entry>[];
+    subCategories = <Entry>[];
     initShippingFrom();
     initShippingTo();
+    category();
   }
 
   void initShippingFrom() {
@@ -171,6 +189,23 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
     dropListModelTo = DropListModel(shippingTo);
   }
 
+ void category() {
+   List<Entry> children = <Entry>[];
+   for (ProductModel item in widget.categories) {
+     if (item.subs!.isNotEmpty ) {
+       Entry country = Entry(item.name!, item.id!, children);
+       print(country.id);
+       children = [];
+       for (SubbProductModel warehouseItem in item.subs!) {
+         Entry warehouse = Entry(warehouseItem.name!, warehouseItem.id!, []);
+         children.add(warehouse);
+       }
+       country.children = children;
+       categories.add(country);
+     }
+   }
+   dropListModelCat = DropListModel(categories);
+ }
 
   void _openCamera() async {
 
@@ -200,14 +235,14 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                children: <Widget>[
                  new ListTile(
                      leading: new Icon(Icons.photo_library),
-                     title: new Text('Photo Library'),
+                     title: new Text(S.of(context).showLibrary),
                      onTap: () {
                        _openGallery();
                        Navigator.of(context).pop();
                      }),
                  new ListTile(
                    leading: new Icon(Icons.photo_camera),
-                   title: new Text('Camera'),
+                   title: new Text(S.of(context).camera),
                    onTap: () {
                      _openCamera();
                      Navigator.of(context).pop();
@@ -371,39 +406,49 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
               style: AppTextStyle.mediumBlackBold,
             ),
             SizedBox(height: 15,),
-            Wrap(
-              direction: Axis.vertical,
-              spacing: 6.0,
-              runSpacing: 6.0,
-              children: widget.categories.map((item) {
-                var index = widget.categories.indexOf(item);
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(widget.categories[index].name!, style: AppTextStyle.mediumBlueBold,),
-                    Column(
-                      children: widget.categories[index].subs!.map((item) {
-                        var indexSub = widget.categories[index].subs!.indexOf(item);
-                        return InkWell(
-                            onTap: () {
-                              setState(() {
-                                widget.categories.forEach((category) {
-                                  category.subs!.forEach((element) {
-                                    element.isSelected = false;
-                                  });
-                                });
-                              });
-                              widget.categories[index].subs![indexSub].isSelected = true;
-                              widget.shipmentRequest.productCategoryID = widget.categories[index].subs![indexSub].id!;
-                              widget.shipmentRequest.productCategoryName = widget.categories[index].subs![indexSub].name!;
-                            },
-                            child: ChoiceCard2(item));
-                      }).toList(),
-                    ),
-                  ],
-                );
-              }).toList(),
+
+            SelectDropListl(
+              this.optionItemSelectedCategory,
+              this.dropListModelCat,
+                  (optionItem) {
+                optionItemSelectedCategory= optionItem;
+                setState(() {});
+              },
             ),
+
+            // Wrap(
+            //   direction: Axis.vertical,
+            //   spacing: 6.0,
+            //   runSpacing: 6.0,
+            //   children: widget.categories.map((item) {
+            //     var index = widget.categories.indexOf(item);
+            //     return Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         Text(widget.categories[index].name!, style: AppTextStyle.mediumBlueBold,),
+            //         Column(
+            //           children: widget.categories[index].subs!.map((item) {
+            //             var indexSub = widget.categories[index].subs!.indexOf(item);
+            //             return InkWell(
+            //                 onTap: () {
+            //                   setState(() {
+            //                     widget.categories.forEach((category) {
+            //                       category.subs!.forEach((element) {
+            //                         element.isSelected = false;
+            //                       });
+            //                     });
+            //                   });
+            //                   widget.categories[index].subs![indexSub].isSelected = true;
+            //                   widget.shipmentRequest.productCategoryID = widget.categories[index].subs![indexSub].id!;
+            //                   widget.shipmentRequest.productCategoryName = widget.categories[index].subs![indexSub].name!;
+            //                 },
+            //                 child: ChoiceCard2(item));
+            //           }).toList(),
+            //         ),
+            //       ],
+            //     );
+            //   }).toList(),
+            // ),
             // Wrap(
             //   spacing: 6.0,
             //   runSpacing: 6.0,

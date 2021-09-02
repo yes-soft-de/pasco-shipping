@@ -1,4 +1,5 @@
 
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
@@ -74,7 +75,20 @@ class _CountriesScreenState extends State<TravelDetailsScreen> {
       SuccessfullyDetailsState? state = currentState as SuccessfullyDetailsState?;
       items = state!.response;
       return TravelDetailsSuccessfully(model: items,onChangeStatus: (request){
-        widget._stateManager.updateTravelStatus(request);
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.info,
+          title:  S.of(context).careful,
+          backgroundColor:AppThemeDataService.PrimaryColor,
+          confirmBtnColor:AppThemeDataService.AccentColor,
+          confirmBtnText: S.of(context).ok,
+          onConfirmBtnTap: (){
+            Navigator.pop(context);
+            widget._stateManager.updateTravelStatus(request);
+          },
+          text: S.of(context).changeStatusConfirm,
+        );
+
       },onShowFinance: (id){
        Navigator.pushNamed(context, TravelRoutes.FINANCE ,arguments: {'id' :id});
       },
@@ -83,7 +97,7 @@ class _CountriesScreenState extends State<TravelDetailsScreen> {
     // else if(currentState is SuccessfullyModifyMarkState){
     //   SuccessfullyModifyMarkState state = currentState as SuccessfullyModifyMarkState;
     //   items = state.marks;
-    //   // Future.delayed(Duration.zero, () => _showDialog(context,state.response.message));
+    //   Future.delayed(Duration.zero, () => _showDialog(context,state.response.message));
     //   _markNumberController.clear();
     //   return MarkSuccessfullyScreen(deleteMark: (id){
     //     widget._stateManager.deleteMark(id.toString());

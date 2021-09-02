@@ -20,9 +20,9 @@ import 'package:pasco_shipping/module_general/response/confirm_response.dart';
   Future<ConfirmResponse?> requestContainer(ContainerRequest request) {
     return _manager.requestContainer(request);
   }
-  // Future<ConfirmResponse?> updateSupplier(SupplierRequest request) {
-  //   return _manager.updateSupplier(request);
-  // }
+  Future<ConfirmResponse?> updateContainer(ContainerRequest request) {
+    return _manager.updateContainer(request);
+  }
   Future<ConfirmResponse?> deleteContainer(String id) {
     return _manager.deleteContainer(id);
   }

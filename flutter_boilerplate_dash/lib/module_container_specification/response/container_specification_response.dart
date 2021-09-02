@@ -48,10 +48,10 @@ class ContainerSpecificationModel {
   int? id;
   String? name;
 
-  int? capacityCPM;
+  String? capacityCPM;
   String? widthInMeter;
-  int? hightInMeter;
-  int? lengthInMeter;
+  String? hightInMeter;
+  String? lengthInMeter;
 
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -63,10 +63,10 @@ class ContainerSpecificationModel {
     id: json['id'],
     name: json['name'],
 
-    capacityCPM: json['capacityCPM'] ?? 0,
+    capacityCPM: json['capacityCPM'].toString(),
     widthInMeter: json['widthInMeter'].toString(),
-    hightInMeter: json['hightInMeter'] ?? 0,
-    lengthInMeter: json['lengthInMeter'] ?? 0,
+    hightInMeter: json['hightInMeter'].toString(),
+    lengthInMeter: json['lengthInMeter'].toString(),
 
     createdAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),

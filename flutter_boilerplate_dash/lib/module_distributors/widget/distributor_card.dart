@@ -175,81 +175,43 @@ class _CountryCardState extends State<DistributorCard> {
                       onPressed: () {
                         widget.onDelete(widget.model.id);
                       },
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.delete,
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            S.of(context).delete,
-                            style: AppTextStyle.mediumWhite,
-                          ),
-                        ],
+                      child: Text(
+                        S.of(context).delete,
+                        style: AppTextStyle.mediumWhite,
                       ),
                     ),
                     SizedBox(
                       height: 10,
                     ),
-                    Container(
-                      width: 100,
-                      child:
+                    widget.isEdtiable ? ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                      ),
+                      onPressed: () {
+                        if(fullName.text.isEmpty || address.text.isEmpty || phone.text.isEmpty){
+                          Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                        }else {
+                          DistributorRequest re = DistributorRequest(id: widget.model.id ,fullName: fullName.text,phone: phone.text,address: address.text);
+                          widget.onEdit(re);
+                        }
 
-                      widget.isEdtiable ? ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
-                        ),
-                        onPressed: () {
-                          if(fullName.text.isEmpty || address.text.isEmpty || phone.text.isEmpty){
-                            Fluttertoast.showToast(msg: S.of(context).fillAllField);
-                          }else {
-                            DistributorRequest re = DistributorRequest(id: widget.model.id ,fullName: fullName.text,phone: phone.text,address: address.text);
-                            widget.onEdit(re);
-                          }
-
-                        },
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.save,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                             S.of(context).save,
-                              style: AppTextStyle.mediumWhite,
-                            ),
-                          ],
-                        ),
-                      ) : ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            widget.isEdtiable= true;
-                          });
-                        },
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.edit,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              S.of(context).edit,
-                              style: AppTextStyle.mediumWhite,
-                            ),
-                          ],
-                        ),
+                      },
+                      child: Text(
+                       S.of(context).save,
+                        style: AppTextStyle.mediumWhite,
+                      ),
+                    ) : ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          widget.isEdtiable= true;
+                        });
+                      },
+                      child: Text(
+                        S.of(context).edit,
+                        style: AppTextStyle.mediumWhite,
                       ),
                     ),
                   ],

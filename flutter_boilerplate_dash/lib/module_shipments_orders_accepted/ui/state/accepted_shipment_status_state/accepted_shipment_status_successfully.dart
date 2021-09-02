@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/widget/status_card.dart';
 import 'package:pasco_shipping/module_shipment_request/response/product_categories/product_categories_response.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/choice_card.dart';
@@ -109,7 +110,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                           width: 5,
                         ),
                         Text(
-                          'Write a Details about next status',
+                         S.of(context).writeDetails,
                           style: AppTextStyle.mediumBlackBold,
                         )
                       ],
@@ -129,14 +130,14 @@ class _AcceptedShipmentDetailsSuccessfullyState
                       child: TextField(
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'details',
+                          hintText: S.of(context).details,
                         ),
                         controller: editingController,
                       ),
                     ),
                   ),
                   RoundedButton(
-                      lable: 'Next',
+                      lable: S.of(context).next,
                       icon: '',
                       color: blue,
                       style: AppTextStyle.mediumWhite,
@@ -182,7 +183,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                           width: 5,
                         ),
                         Text(
-                          'Write a Details about next status',
+                          S.of(context).writeDetails,
                           style: AppTextStyle.mediumBlackBold,
                         )
                       ],
@@ -202,14 +203,14 @@ class _AcceptedShipmentDetailsSuccessfullyState
                       child: TextField(
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'details',
+                          hintText: S.of(context).details,
                         ),
                         controller: editingController,
                       ),
                     ),
                   ),
                   RoundedButton(
-                      lable: 'Next',
+                      lable: S.of(context).next,
                       icon: '',
                       color: blue,
                       style: AppTextStyle.mediumWhite,

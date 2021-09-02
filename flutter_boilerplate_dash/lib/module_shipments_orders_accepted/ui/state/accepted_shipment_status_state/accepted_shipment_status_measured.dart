@@ -158,7 +158,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                           width: 5,
                         ),
                         Text(
-                          'Write a Details about next status',
+                          S.of(context).writeDetails,
                           style: AppTextStyle.mediumBlackBold,
                         )
                       ],
@@ -178,7 +178,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                       child: TextField(
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'details',
+                          hintText: S.of(context).details,
                         ),
                         controller: editingController,
                       ),
@@ -209,7 +209,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                 width: 5,
               ),
               Text(
-                'Choose Container',
+                S.of(context).chooseContainer,
                 style: AppTextStyle.mediumBlackBold,
               )
             ],
@@ -238,7 +238,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                 width: 5,
               ),
               Text(
-                'Choose Travel',
+                S.of(context).chooseTravel,
                 style: AppTextStyle.mediumBlackBold,
               )
             ],
@@ -267,7 +267,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
               SizedBox(
                 width: 5,
               ),
-              Text('Shipment separation' ,style: AppTextStyle.mediumBlackBold,),
+              Text(S.of(context).shipmentSeparation ,style: AppTextStyle.mediumBlackBold,),
               Checkbox(onChanged: (bool? value) {
                 setState(() {
                   separateShipment = value!;
@@ -289,7 +289,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'amount',
+                hintText: S.of(context).amount,
               ),
               controller: amountController,
             ),
@@ -297,10 +297,10 @@ class _AcceptedShipmentDetailsSuccessfullyState
         ) ,
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text('You can leave the field blank, if the shipment is not divided' , style: AppTextStyle.mediumBlueBold,),
+          child: Text(S.of(context).emptyAmount , style: AppTextStyle.mediumBlueBold,),
         ),
         RoundedButton(
-            lable: 'Save',
+            lable: S.of(context).save,
             icon: '',
             color: blue,
             style: AppTextStyle.mediumWhite,

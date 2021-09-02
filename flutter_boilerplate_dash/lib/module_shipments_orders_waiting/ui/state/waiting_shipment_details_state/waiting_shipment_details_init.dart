@@ -239,7 +239,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 ),)
               ],
             ),
-            Text('Attached file' ,style: AppTextStyle.mediumBlack, ),
+            Text(S.of(context).attached ,style: AppTextStyle.mediumBlack, ),
             GridView.count(
                 shrinkWrap: true,
                 crossAxisCount: 3,
@@ -306,7 +306,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),
             ),
-            title: Text('Shipment QR'),
+            title: Text(S.of(context).shipmentQR),
             content: SizedBox(
               width: 200,
               height: 200,

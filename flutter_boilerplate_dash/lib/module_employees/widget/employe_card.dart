@@ -61,7 +61,7 @@ class _CountryCardState extends State<EmployeeCard> {
             children: [
               // widget.model.image ==null ? Image.asset(StaticImage.profile , width: 100,height: 100,): Image.network(widget.model.image!,width: 100,height: 100,),
               // SizedBox(width: 20,),
-              Expanded(
+              Flexible(flex: 3,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +69,7 @@ class _CountryCardState extends State<EmployeeCard> {
                     Row(
                       children: [
                         Text(
-                          'Full name ',
+                          S.of(context).name,
                           style: AppTextStyle.mediumBlack,
                         ),
                          Expanded(child: widget.isEdtiable ?
@@ -85,7 +85,7 @@ class _CountryCardState extends State<EmployeeCard> {
                     Row(
                       children: [
                         Text(
-                          'Phone: ',
+                          S.of(context).phone+': ',
                           style: AppTextStyle.mediumBlack,
                         ),
                       Expanded(child:   widget.isEdtiable ? TextField(controller: phone, keyboardType: TextInputType.phone,) :  Text(
@@ -100,7 +100,7 @@ class _CountryCardState extends State<EmployeeCard> {
                     Row(
                       children: [
                         Text(
-                          'Job Description: ',
+                          S.of(context).jobDescription+": ",
                           style: AppTextStyle.mediumBlack,
                         ),
                         Expanded(child:   widget.isEdtiable ?
@@ -115,97 +115,86 @@ class _CountryCardState extends State<EmployeeCard> {
                   ],
                 ),
               ),
-              // Flexible(
-              //   flex: 1,
-              //   child: Column(
-              //     children: [
-              //       ElevatedButton(
-              //         style: ElevatedButton.styleFrom(
-              //           primary: Colors.red,
-              //         ),
-              //         onPressed: () {
-              //           widget.onDelete(widget.model.id);
-              //         },
-              //         child: Row(
-              //           children: [
-              //             Icon(
-              //               Icons.delete,
-              //               color: Colors.white,
-              //             ),
-              //             SizedBox(
-              //               width: 5,
-              //             ),
-              //             Text(
-              //               'delete',
-              //               style: AppTextStyle.mediumWhite,
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //       SizedBox(
-              //         height: 10,
-              //       ),
-              //       Container(
-              //         width: 100,
-              //         child:
-              //
-              //         widget.isEdtiable ? ElevatedButton(
-              //           style: ElevatedButton.styleFrom(
-              //             primary: Colors.green,
-              //           ),
-              //           onPressed: () {
-              //             if(fullName.text.isEmpty  || phone.text.isEmpty){
-              //               Fluttertoast.showToast(msg: S.of(context).fillAllField);
-              //             }else {
-              //               SupplierRequest re = SupplierRequest(id: widget.model.id ,fullName: fullName.text,phone: phone.text,address: address.text);
-              //               widget.onEdit(re);
-              //             }
-              //
-              //           },
-              //           child: Row(
-              //             children: [
-              //               Icon(
-              //                 Icons.save,
-              //                 color: Colors.white,
-              //               ),
-              //               SizedBox(
-              //                 width: 5,
-              //               ),
-              //               Text(
-              //                 'save',
-              //                 style: AppTextStyle.mediumWhite,
-              //               ),
-              //             ],
-              //           ),
-              //         ) : ElevatedButton(
-              //           style: ElevatedButton.styleFrom(
-              //             primary: Colors.green,
-              //           ),
-              //           onPressed: () {
-              //             setState(() {
-              //               widget.isEdtiable= true;
-              //             });
-              //           },
-              //           child: Row(
-              //             children: [
-              //               Icon(
-              //                 Icons.edit,
-              //                 color: Colors.white,
-              //               ),
-              //               SizedBox(
-              //                 width: 5,
-              //               ),
-              //               Text(
-              //                 'edit',
-              //                 style: AppTextStyle.mediumWhite,
-              //               ),
-              //             ],
-              //           ),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // )
+              Flexible(
+                flex: 1,
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.red,
+                      ),
+                      onPressed: () {
+                        widget.onDelete(widget.model.UserID);
+                      },
+                      child: Text(
+                        S.of(context).delete,
+                        style: AppTextStyle.mediumWhite,
+                      ),
+                    ),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    // Container(
+                    //   width: 100,
+                    //   child:
+                    //
+                    //   widget.isEdtiable ? ElevatedButton(
+                    //     style: ElevatedButton.styleFrom(
+                    //       primary: Colors.green,
+                    //     ),
+                    //     onPressed: () {
+                    //       if(fullName.text.isEmpty  || phone.text.isEmpty){
+                    //         Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                    //       }else {
+                    //         SupplierRequest re = SupplierRequest(id: widget.model.id ,fullName: fullName.text,phone: phone.text,address: address.text);
+                    //         widget.onEdit(re);
+                    //       }
+                    //
+                    //     },
+                    //     child: Row(
+                    //       children: [
+                    //         Icon(
+                    //           Icons.save,
+                    //           color: Colors.white,
+                    //         ),
+                    //         SizedBox(
+                    //           width: 5,
+                    //         ),
+                    //         Text(
+                    //           'save',
+                    //           style: AppTextStyle.mediumWhite,
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ) : ElevatedButton(
+                    //     style: ElevatedButton.styleFrom(
+                    //       primary: Colors.green,
+                    //     ),
+                    //     onPressed: () {
+                    //       setState(() {
+                    //         widget.isEdtiable= true;
+                    //       });
+                    //     },
+                    //     child: Row(
+                    //       children: [
+                    //         Icon(
+                    //           Icons.edit,
+                    //           color: Colors.white,
+                    //         ),
+                    //         SizedBox(
+                    //           width: 5,
+                    //         ),
+                    //         Text(
+                    //           'edit',
+                    //           style: AppTextStyle.mediumWhite,
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
+                ),
+              )
             ],
           ),
         ),

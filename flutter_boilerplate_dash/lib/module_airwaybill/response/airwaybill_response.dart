@@ -39,6 +39,8 @@ class AirwaybillModel {
     this.subcontractName,
     this.shipperName,
     this.consigneeName,
+    this.carrierName,
+    this.specificationName,
 
 
     this.createdAt,
@@ -55,6 +57,8 @@ class AirwaybillModel {
   String? subcontractName;
   String? consigneeName;
   String? shipperName;
+  String? carrierName;
+  String? specificationName;
 
 
 
@@ -74,6 +78,8 @@ class AirwaybillModel {
     subcontractName: json['subcontractName'],
     shipperName: json['shipperName'],
     consigneeName: json['consigneeName'],
+    carrierName: json['carrierName'],
+    specificationName: json['specificationName'],
 
 
 

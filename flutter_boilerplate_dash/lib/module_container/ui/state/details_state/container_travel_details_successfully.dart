@@ -51,7 +51,12 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                     onTap: (){
                       widget.onShowFinance(widget.model.id);
                     },
-                    child: Image.asset(StaticImage.accounting))
+                    child: Column(
+                      children: [
+                        Image.asset(StaticImage.accounting),
+                        Text(S.of(context).cost,style: AppTextStyle.mediumBlackBold)
+                      ],
+                    ))
               ],
             ),
           ),
@@ -206,7 +211,51 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
   }
 
   Widget firstCard(){
-    if(widget.model.status == ContainerStatusName[ContainerStatus.FULL]){
+    if(widget.model.status == ContainerStatusName[ContainerStatus.NOTFULL]) {
+      return Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Card(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          color: Colors.blueGrey[100],
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.warning,
+                        color: Colors.yellow[800],
+                        size: 40,
+                      ),
+                      Text(S.of(context).notFull ,style: AppTextStyle.largeBlack,)
+                    ],),
+                ) ,
+                Text(S.of(context).haveSpace , style: AppTextStyle.mediumBlack,),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children:
+
+                    [
+                      Text(S.of(context).containerNumber , style: AppTextStyle.mediumBlackBold,),
+                      Text('#'+ widget.model.containerNumber! , style: AppTextStyle.mediumBlackBold,),
+
+                    ],),
+                ),
+              ],),
+          ),
+        ),
+      );
+    } else if(widget.model.status == ContainerStatusName[ContainerStatus.FULL]){
       return Padding(
         padding: const EdgeInsets.all(15.0),
         child: Card(
@@ -229,10 +278,10 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                         color: Colors.green[800],
                         size: 40,
                       ),
-                      Text('Full ' ,style: AppTextStyle.largeBlack,)
+                      Text(S.of(context).full ,style: AppTextStyle.largeBlack,)
                     ],),
                 ) ,
-                Text("This container is full", style: AppTextStyle.mediumBlack,),
+                Text(S.of(context).noSpace, style: AppTextStyle.mediumBlack,),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -241,7 +290,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                     children:
 
                     [
-                      Text("Container Number: " , style: AppTextStyle.mediumBlackBold,),
+                      Text(S.of(context).containerNumber , style: AppTextStyle.mediumBlackBold,),
                       Text('#'+ widget.model.containerNumber! , style: AppTextStyle.mediumBlackBold,),
 
                     ],),
@@ -253,6 +302,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
     }else {
       return Container();
     }
+
   }
 
   Widget shipmentCard(ShipmentModel shipmentModel){
@@ -310,7 +360,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
   Widget uploadToTravel(){
     return
     Column(children: [
-      RoundedButton(lable: 'Upload container to travel', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
+      RoundedButton(lable: S.of(context).uploadContainer, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
         AddContainerToTravelRequest re = AddContainerToTravelRequest( holderID: widget.model.id!, shipmentStatus: 'uploaded');
         widget.onUploadedToTravel(re);
       },radius: 12)
@@ -329,16 +379,16 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
         children: [
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Text('Container Status' , style: AppTextStyle.largeBlueBold,),
+            child: Text(S.of(context).containerStatus , style: AppTextStyle.largeBlueBold,),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              StatusCard('cleared' ,false),
+              StatusCard(S.of(context).cleared ,false),
               Icon(Icons.arrow_forward_outlined , color: Colors.grey,),
-              StatusCard('arrived' ,false),
+              StatusCard(S.of(context).arrived ,false),
             ],),
-         RoundedButton(lable: 'Next Status', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
+         RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
            AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]!);
               widget.onClearedOrArrived(re1);
 
@@ -356,16 +406,16 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Text('Container Status' , style: AppTextStyle.largeBlueBold,),
+                child: Text(S.of(context).containerStatus , style: AppTextStyle.largeBlueBold,),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  StatusCard('cleared' ,true),
+                  StatusCard(S.of(context).cleared ,true),
                   Icon(Icons.arrow_forward_outlined , color: Colors.grey,),
-                  StatusCard('arrived' ,false),
+                  StatusCard(S.of(context).arrived ,false),
                 ],),
-              RoundedButton(lable: 'Next Status', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
+              RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
                 AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
                 widget.onClearedOrArrived(re1);
 
@@ -378,7 +428,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
         &&  widget.model.shipments![0].shipmentStatus != null && widget.model.shipments![0].shipmentStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]){
       return Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Text('this Container arrived to warehouse' , style: AppTextStyle.mediumRedBold,),
+        child: Text(S.of(context).containerArrived , style: AppTextStyle.mediumRedBold,),
       );
     }
     else {

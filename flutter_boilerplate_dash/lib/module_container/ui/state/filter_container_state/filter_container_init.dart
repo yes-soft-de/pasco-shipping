@@ -185,14 +185,7 @@ class _AddCountryInitState extends State<FilterContainerInit> {
     entrySub= <Entry>[];
     entryShipper = <Entry>[];
     entryConsign =<Entry>[];
-    status = [
-      Category(id: 1, name: S.of(context).full, description: 'full', isSelected: true),
-      Category(id: 1, name: S.of(context).notFull, description: 'notfull', isSelected: false),
-    ];
-    typeList = [
-      Category(id: 1, name: S.of(context).LCL, description: 'LCL', isSelected: true),
-      Category(id: 1, name: S.of(context).FCL, description: 'FCL', isSelected: false),
-    ];
+
     // travelNumber =TextEditingController();
     // status=TravelStatusName[TravelStatus.CURRENT]!;
 
@@ -219,5 +212,16 @@ class _AddCountryInitState extends State<FilterContainerInit> {
     dropListModelShipper  =DropListModel(entryShipper);
   }
 
-
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    status = [
+      Category(id: 1, name: S.of(context).full, description: 'full', isSelected: true),
+      Category(id: 1, name: S.of(context).notFull, description: 'notfull', isSelected: false),
+    ];
+    typeList = [
+      Category(id: 1, name: S.of(context).LCL, description: 'LCL', isSelected: true),
+      Category(id: 1, name: S.of(context).FCL, description: 'FCL', isSelected: false),
+    ];
+  }
 }

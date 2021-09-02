@@ -92,7 +92,20 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
       items = state!.response;
 
       return ContainerDetailsSuccessfully(model:items ,onChangeStatus:(request){
-        widget._stateManager.updateContainerStatus(request);
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.info,
+          title:  S.of(context).careful,
+          confirmBtnText: S.of(context).ok,
+          backgroundColor:AppThemeDataService.PrimaryColor,
+          confirmBtnColor:AppThemeDataService.AccentColor,
+          onConfirmBtnTap: (){
+            Navigator.pop(context);
+            widget._stateManager.updateContainerStatus(request);
+          },
+          text: S.of(context).changeStatusConfirm,
+        );
+
       },onShipmentReview: (model){
         Navigator.pushNamed(context, ContainerRoutes.CONTAINER_SHIPMENT_REVIEW , arguments:  model);
       }, onShowFinance: (id){
@@ -107,10 +120,34 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
         onShipmentReview: (model){
           Navigator.pushNamed(context, ContainerRoutes.CONTAINER_SHIPMENT_REVIEW , arguments:  model);
         }, onUploadedToTravel: (addContainerToTravelRequest){
-          widget._stateManager.uploadedContainerToTravel(addContainerToTravelRequest);
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.uploadedContainerToTravel(addContainerToTravelRequest);
+            },
+            text: S.of(context).changeStatusConfirm,
+          );
         },
         onClearedOrArrived: (re){
-          widget._stateManager.clearedOrArrived(re);
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.clearedOrArrived(re);
+            },
+            text: S.of(context).changeStatusConfirm,
+          );
         },onShowFinance: (id){
           Navigator.pushNamed(context, ContainerRoutes.CONTAINER_FINANCE ,arguments: {'id' :id});
         },
@@ -123,10 +160,34 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
         onShipmentReview: (model){
           Navigator.pushNamed(context, ContainerRoutes.CONTAINER_SHIPMENT_REVIEW , arguments:  model);
         }, onUploadedToTravel: (addContainerToTravelRequest){
-        widget._stateManager.uploadedContainerToTravel(addContainerToTravelRequest);
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.uploadedContainerToTravel(addContainerToTravelRequest);
+            },
+            text: S.of(context).changeStatusConfirm,
+          );
         },
         onClearedOrArrived: (re){
-        widget._stateManager.clearedOrArrived(re);
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.clearedOrArrived(re);
+            },
+            text: S.of(context).changeStatusConfirm,
+          );
         },onShowFinance: (id){
           Navigator.pushNamed(context, ContainerRoutes.CONTAINER_FINANCE ,arguments: {'id' :id});
         },

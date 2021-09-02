@@ -52,7 +52,12 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
                     onTap: (){
                       widget.onShowFinance(widget.model.id);
                     },
-                    child: Image.asset(StaticImage.accounting)) :Container()
+                    child: Column(
+                      children: [
+                        Image.asset(StaticImage.accounting),
+                        Text(S.of(context).cost,style: AppTextStyle.mediumBlackBold)
+                      ],
+                    )) :Container()
               ],
             ),
           ),

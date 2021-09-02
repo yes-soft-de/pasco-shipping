@@ -77,7 +77,7 @@ class _AddCountryInitState extends State<AddCountryInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('International calling code' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).callingCode , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(

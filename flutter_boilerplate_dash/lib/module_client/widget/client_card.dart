@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
@@ -30,7 +31,7 @@ class ClientCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'UserID: ',
+                          S.of(context).emailOrPhone+': ',
                           style: AppTextStyle.mediumBlack,
                         ),
                         Expanded(child: Text(
@@ -45,7 +46,7 @@ class ClientCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Full name ',
+                          S.of(context).name,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Expanded(child: Text(
@@ -60,7 +61,7 @@ class ClientCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Country: ',
+                          S.of(context).country+': ',
                           style: AppTextStyle.mediumBlack,
                         ),
                         Expanded(child:Text(
@@ -75,7 +76,7 @@ class ClientCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'City: ',
+                          S.of(context).city+': ',
                           style: AppTextStyle.mediumBlack,
                         ),
                         Expanded(
@@ -92,7 +93,7 @@ class ClientCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Address: ',
+                          S.of(context).address+': ',
                           style: AppTextStyle.mediumBlack,
                         ),
                         Expanded(
@@ -105,7 +106,7 @@ class ClientCard extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Text('Marks' , style: AppTextStyle.mediumBlueBold,),
+                    Text(S.of(context).marks+': ' , style: AppTextStyle.mediumBlueBold,),
                     ListView.builder(itemBuilder:(context,index){
                       return Text(model.marks![index].markNumber!+',' , style: AppTextStyle.mediumDeepGrayBold,);
                     },itemCount: model.marks!.length,
@@ -119,7 +120,7 @@ class ClientCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Created By: ',
+                          S.of(context).createdBy,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Expanded(child: Text(
@@ -131,7 +132,7 @@ class ClientCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Created At: ',
+                          S.of(context).createdAt,
                           style: AppTextStyle.mediumBlack,
                         ),
                         Expanded(child: Text(
@@ -146,7 +147,7 @@ class ClientCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              'Updated By: ',
+                              S.of(context).updatedBy,
                               style: AppTextStyle.mediumBlack,
                             ),
                             Expanded(child: Text(
@@ -158,7 +159,7 @@ class ClientCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              'Update At: ',
+                              S.of(context).updatedAt,
                               style: AppTextStyle.mediumBlack,
                             ),
                             Expanded(child: Text(
@@ -175,7 +176,7 @@ class ClientCard extends StatelessWidget {
                         primary: Colors.red,
                       ),
                       onPressed: () {
-                        // widget.onDelete(widget.model.id);
+                        onDelete(model.id);
                       },
                       child: Center(
                         child: Row(
@@ -189,7 +190,7 @@ class ClientCard extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              'delete',
+                              S.of(context).delete,
                               style: AppTextStyle.mediumWhite,
                             ),
                           ],

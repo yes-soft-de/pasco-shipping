@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
@@ -74,10 +75,34 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
     else if (currentState is initDetailsState) {
       return WaitingShipmentDetailsInit(shipment: shipmentModel,
         onAccepted: (request) {
-        widget._stateManager.acceptedOrRejectedShipment(request);
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            confirmBtnText: S.of(context).ok,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.acceptedOrRejectedShipment(request);
+            },
+            text: S.of(context).acceptedConfirm,
+          );
         },
         onRejected: (request) {
-        widget._stateManager.acceptedOrRejectedShipment(request);
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            confirmBtnText: S.of(context).ok,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.acceptedOrRejectedShipment(request);
+            },
+            text: S.of(context).rejectConfirm,
+          );
         },
       );
     }

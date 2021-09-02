@@ -2,37 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
-import 'package:pasco_shipping/module_countries/response/country_response.dart';
+import 'package:pasco_shipping/module_container/response/container_response.dart';
+import 'package:pasco_shipping/module_container/state_manger/new_container_state_manger.dart';
+import 'package:pasco_shipping/module_container/ui/state/addnew_state/add_state.dart';
+import 'package:pasco_shipping/module_container/ui/state/update_state/update_container_init.dart';
+import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
-import 'package:pasco_shipping/module_proxies/response/proxies_response.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
-import 'package:pasco_shipping/module_warehouses/response/warhouse_response.dart';
-import 'package:pasco_shipping/module_warehouses/state_manger/new_warehouse_state_manger.dart';
-import 'package:pasco_shipping/module_warehouses/ui/state/addnew_state/add_state.dart';
-import 'package:pasco_shipping/module_warehouses/ui/state/addnew_state/add_warehouse_init.dart';
-import 'package:pasco_shipping/module_warehouses/ui/state/update_state/update_warehouse_init.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
 @injectable
-class UpdateWarehouse extends StatefulWidget {
-  final AddWarehouseStateManager _stateManager;
+class UpdateContainer extends StatefulWidget {
+  final AddContainerStateManager _stateManager;
 
-  const UpdateWarehouse(this._stateManager);
+  const UpdateContainer(this._stateManager);
 
   @override
   _AddNewCountryState createState() => _AddNewCountryState();
 }
 
-class _AddNewCountryState extends State<UpdateWarehouse> {
-  late AddWarehouseState currentState;
-
-  late List<ProxyModel> proxies;
-  late List<SubcontractModel> subcontract;
-  late List<CountryModel> countries;
-
-  late WarehousesModel model;
+class _AddNewCountryState extends State<UpdateContainer> {
+  late AddContainerState currentState;
+  late List<SubcontractModel> subs;
+  late List<ContainerSpecificationModel> specification;
+  late ContainerModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +36,7 @@ class _AddNewCountryState extends State<UpdateWarehouse> {
         goBack: (){
         },
         child: Screen(),
-        title: S.of(context).updateWarehouse
+        title: S.of(context).updateContainer
     );
   }
 
@@ -61,16 +56,14 @@ class _AddNewCountryState extends State<UpdateWarehouse> {
         }
       }
     });
-    widget._stateManager.getSubContractAndProxyAndCountry();
+    widget._stateManager.getSubContractAndSpecification();
   }
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
-    model =arguments['warehouseModel'];
+    model =arguments['containerModel'];
   }
-
   Widget Screen(){
     if(currentState is LoadingAddState){
       return Center(
@@ -85,13 +78,15 @@ class _AddNewCountryState extends State<UpdateWarehouse> {
     }
     else if (currentState is InitAddState){
       InitAddState? state = currentState as InitAddState?;
-      proxies = state!.proxies;
-      subcontract = state.subcontracts;
-      countries = state.country;
-      return UpdateWarehouseInit(onUpdate: (request){
-        widget._stateManager.updateWarehouses(request);
-      },proxies: proxies,subcontract: subcontract,countries: countries, model: model,
-      );
+      specification = state!.specifications;
+      subs = state.subcontracts;
+      return UpdateContainerInit(
+        specifications: specification,
+        subContracts: subs,
+        model: model,
+        onUpdate: (request){
+        widget._stateManager.updateContainer(request);
+      },);
     }
     else {
       return Center(

@@ -45,7 +45,7 @@ class _MarkSuccessfullyScreenState extends State<TravelFinanceSuccessfullyScreen
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Total Cost: ' ,style: AppTextStyle.mediumBlackBold,),
+                      Text(S.of(context).totalCost ,style: AppTextStyle.mediumBlackBold,),
                       Text(widget.travelFinances.currentTotalCost ??'' ,style: AppTextStyle.mediumRedBold,),
                     ],
                   ),
@@ -55,7 +55,7 @@ class _MarkSuccessfullyScreenState extends State<TravelFinanceSuccessfullyScreen
 
 
             widget.travelFinances.data!.isEmpty ?
-            Text('No thing Added yet' , style: AppTextStyle.mediumRedBold,)
+            Text(S.of(context).nothingAdded , style: AppTextStyle.mediumRedBold,)
                 :ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
@@ -98,7 +98,7 @@ class _MarkSuccessfullyScreenState extends State<TravelFinanceSuccessfullyScreen
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'cost',
+                            hintText: S.of(context).cost,
                           ),
                           controller: cost,
                         ),
@@ -125,7 +125,7 @@ class _MarkSuccessfullyScreenState extends State<TravelFinanceSuccessfullyScreen
                         child: TextField(
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'details',
+                            hintText: S.of(context).details,
                           ),
                           controller: description,
                         ),
@@ -157,7 +157,7 @@ class _MarkSuccessfullyScreenState extends State<TravelFinanceSuccessfullyScreen
                                 width: 5,
                               ),
                               Text(
-                                'Shipping',
+                                S.of(context).shipping,
                                 style: AppTextStyle.mediumWhite,
                               ),
                             ],
@@ -167,7 +167,7 @@ class _MarkSuccessfullyScreenState extends State<TravelFinanceSuccessfullyScreen
                     ),
 
 
-                    RoundedButton(lable: 'Add', icon: '', color: blue, style: AppTextStyle.mediumWhiteBold, go: (){
+                    RoundedButton(lable: S.of(context).add, icon: '', color: blue, style: AppTextStyle.mediumWhiteBold, go: (){
                       if(cost.text.isEmpty) {
                         Fluttertoast.showToast(msg: S.of(context).fillAllField);
                       }

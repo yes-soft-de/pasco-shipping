@@ -5,6 +5,7 @@ import 'package:pasco_shipping/module_product_category/response/product_category
 import 'package:pasco_shipping/module_receiver/response/reciver_response.dart';
 import 'package:pasco_shipping/module_shipment_request/response/product_categories/product_categories_response.dart';
 import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
+import 'package:pasco_shipping/module_unit/response/unit_response.dart';
 
 class RequestShipmentState{}
 
@@ -21,7 +22,8 @@ class FirstOptionFetchingDataState extends RequestShipmentState{
 
 class SecondOptionFetchingDataState extends RequestShipmentState{
   List<ClientModel> marks;
-  SecondOptionFetchingDataState(this.marks);
+  List<UnitModel> units;
+  SecondOptionFetchingDataState(this.marks , this.units);
 }
 class ThirdOptionFetchingDataState extends RequestShipmentState{
   List<DistributorModel> distributors;

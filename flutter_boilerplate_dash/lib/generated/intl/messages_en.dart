@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Data not found"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About Us"),
         "accept": MessageLookupByLibrary.simpleMessage("accept"),
+        "acceptedConfirm": MessageLookupByLibrary.simpleMessage(
+            "Do you really want to accept the shipment ?"),
         "acceptedShipment":
             MessageLookupByLibrary.simpleMessage("Accepted Shipment"),
         "add": MessageLookupByLibrary.simpleMessage("Add new"),
@@ -39,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "airShipment": MessageLookupByLibrary.simpleMessage("Air shipment"),
         "airTravel": MessageLookupByLibrary.simpleMessage("Air travel"),
         "airWaybills": MessageLookupByLibrary.simpleMessage("Air Waybills"),
+        "airwaybillArrived": MessageLookupByLibrary.simpleMessage(
+            "this Air Waybill arrived to target warehouse"),
         "airwaybillFinance":
             MessageLookupByLibrary.simpleMessage("Air Waybill Finances"),
         "airwaybillInformation":
@@ -51,19 +55,32 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Air Waybill Status"),
         "airwaybillType":
             MessageLookupByLibrary.simpleMessage("Air Waybill Type"),
+        "airwaybillUploaded": MessageLookupByLibrary.simpleMessage(
+            "this Air waybill has been uploaded to travel"),
+        "amount": MessageLookupByLibrary.simpleMessage("Amount"),
         "arrivalDate": MessageLookupByLibrary.simpleMessage("Arrival Date"),
         "arrivalTime": MessageLookupByLibrary.simpleMessage("Arrival Time"),
+        "arriveTrip":
+            MessageLookupByLibrary.simpleMessage("This trip has arrived at "),
         "arrived": MessageLookupByLibrary.simpleMessage("Arrived"),
         "arrivedShipment":
             MessageLookupByLibrary.simpleMessage("Arrived Shipment"),
+        "attached": MessageLookupByLibrary.simpleMessage("Document Attached"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "basicInfo": MessageLookupByLibrary.simpleMessage("Basic Info"),
         "callingCode": MessageLookupByLibrary.simpleMessage("Calling code: "),
+        "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("cancel"),
         "capacityCPM": MessageLookupByLibrary.simpleMessage("Capacity CPM: "),
+        "careful": MessageLookupByLibrary.simpleMessage("Please be careful"),
         "carrier": MessageLookupByLibrary.simpleMessage("Carrier"),
         "category": MessageLookupByLibrary.simpleMessage("Category"),
+        "changeStatusConfirm": MessageLookupByLibrary.simpleMessage(
+            "Do you really want to move to the next state ?"),
         "choose": MessageLookupByLibrary.simpleMessage("choose"),
+        "chooseContainer":
+            MessageLookupByLibrary.simpleMessage("Choose Container"),
+        "chooseTravel": MessageLookupByLibrary.simpleMessage("Choose Travel"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
         "cleared": MessageLookupByLibrary.simpleMessage("Cleared"),
         "client": MessageLookupByLibrary.simpleMessage("Client: "),
@@ -75,6 +92,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirmPass": MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "consignee": MessageLookupByLibrary.simpleMessage("Consignee"),
         "contactInfo": MessageLookupByLibrary.simpleMessage("Contact Info"),
+        "containerArrived": MessageLookupByLibrary.simpleMessage(
+            "this Container arrived to target warehouse"),
+        "containerCleared":
+            MessageLookupByLibrary.simpleMessage("The container has cleared"),
         "containerFinance":
             MessageLookupByLibrary.simpleMessage("Container Finances"),
         "containerInformation":
@@ -93,11 +114,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "countryType": MessageLookupByLibrary.simpleMessage("Country Type: "),
         "createdAt": MessageLookupByLibrary.simpleMessage("Created At: "),
         "createdBy": MessageLookupByLibrary.simpleMessage("Created By: "),
+        "cruise": MessageLookupByLibrary.simpleMessage("Cruise Travels"),
         "currentt": MessageLookupByLibrary.simpleMessage("Current"),
         "darkMode": MessageLookupByLibrary.simpleMessage("dark mode"),
         "dashboard": MessageLookupByLibrary.simpleMessage("Dashboard"),
         "dataDecodeError":
             MessageLookupByLibrary.simpleMessage("Error with Decoding Data"),
+        "date": MessageLookupByLibrary.simpleMessage("Date"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deletePreviousMark": MessageLookupByLibrary.simpleMessage(
             "You cannot delete previously used marks"),
@@ -112,7 +135,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "distributors": MessageLookupByLibrary.simpleMessage("Distributors"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "emailOrPhone": MessageLookupByLibrary.simpleMessage("Email Or Phone"),
         "employees": MessageLookupByLibrary.simpleMessage("Employees"),
+        "emptyAmount": MessageLookupByLibrary.simpleMessage(
+            "You can leave the field blank, if the shipment is not divided"),
         "enterMark": MessageLookupByLibrary.simpleMessage("Enter new mark"),
         "enterNumber":
             MessageLookupByLibrary.simpleMessage("Enter the track number"),
@@ -131,14 +157,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "falsee": MessageLookupByLibrary.simpleMessage("False"),
         "fillAllField": MessageLookupByLibrary.simpleMessage("fill all filed"),
         "filterBy": MessageLookupByLibrary.simpleMessage("Filter By"),
+        "flight": MessageLookupByLibrary.simpleMessage("Flight Travels"),
         "freeCapacity": MessageLookupByLibrary.simpleMessage("Free Capacity"),
         "freeWeight": MessageLookupByLibrary.simpleMessage("Free Weight"),
+        "from": MessageLookupByLibrary.simpleMessage("From"),
         "full": MessageLookupByLibrary.simpleMessage("Full"),
         "getStarted": MessageLookupByLibrary.simpleMessage("GET STARTED"),
+        "guniQuantity": MessageLookupByLibrary.simpleMessage("Guni Quantity"),
         "haveSpace":
             MessageLookupByLibrary.simpleMessage("You still have some space"),
         "heightInMeter":
             MessageLookupByLibrary.simpleMessage("Height In Meter: "),
+        "holder": MessageLookupByLibrary.simpleMessage("Holders"),
+        "holderInfo":
+            MessageLookupByLibrary.simpleMessage("Holder Information"),
         "holderType": MessageLookupByLibrary.simpleMessage(
             "Container / Air waybill Type"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -146,6 +178,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("I have an account"),
         "image": MessageLookupByLibrary.simpleMessage("Image:"),
         "import": MessageLookupByLibrary.simpleMessage("Import"),
+        "importWarehouse":
+            MessageLookupByLibrary.simpleMessage("Import Warehouse"),
         "importWarehouseCity":
             MessageLookupByLibrary.simpleMessage("Import warehouse city: "),
         "importantNote": MessageLookupByLibrary.simpleMessage("Important note"),
@@ -158,11 +192,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Internal server error"),
         "invalidCredentials":
             MessageLookupByLibrary.simpleMessage("Wrong username or password"),
+        "jobDescription":
+            MessageLookupByLibrary.simpleMessage("Job Description"),
         "language": MessageLookupByLibrary.simpleMessage("language"),
         "launchCountry": MessageLookupByLibrary.simpleMessage("Launch Country"),
         "lengthInMeter":
             MessageLookupByLibrary.simpleMessage("Length In Meter: "),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
+        "local": MessageLookupByLibrary.simpleMessage("Local"),
         "location": MessageLookupByLibrary.simpleMessage("Location"),
         "loggedIn": MessageLookupByLibrary.simpleMessage(
             "You are logged in successfully"),
@@ -186,16 +223,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("I have no account? sign up"),
         "noChangeStatus": MessageLookupByLibrary.simpleMessage(
             "You cannot change the state, the container is not full"),
+        "noHolder": MessageLookupByLibrary.simpleMessage(
+            "No holder has been added to this trip"),
         "noShipmentAdd":
             MessageLookupByLibrary.simpleMessage("No shipment has been added"),
         "noSpace":
             MessageLookupByLibrary.simpleMessage("You don\'t have any space"),
         "notFull": MessageLookupByLibrary.simpleMessage("Not full yet"),
+        "notStartedTrip": MessageLookupByLibrary.simpleMessage(
+            "This trip hasn\'t started yet"),
         "nothingAdded": MessageLookupByLibrary.simpleMessage("Nothing Added"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "number": MessageLookupByLibrary.simpleMessage("number"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "otherData": MessageLookupByLibrary.simpleMessage("Other Data"),
+        "packingBy": MessageLookupByLibrary.simpleMessage("packing By"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordIsTooShort":
             MessageLookupByLibrary.simpleMessage("Password is too short"),
@@ -213,6 +255,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "provided": MessageLookupByLibrary.simpleMessage("Provided by"),
         "proxies": MessageLookupByLibrary.simpleMessage("Proxies"),
+        "proxy": MessageLookupByLibrary.simpleMessage("Proxy"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity: "),
         "received": MessageLookupByLibrary.simpleMessage("Received"),
         "receiver": MessageLookupByLibrary.simpleMessage("Receivers"),
@@ -220,6 +263,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "registerSuccess": MessageLookupByLibrary.simpleMessage(
             "Your account has been registered successfully"),
         "reject": MessageLookupByLibrary.simpleMessage("Reject"),
+        "rejectConfirm": MessageLookupByLibrary.simpleMessage(
+            "Do you really want to reject the shipment ?"),
+        "released": MessageLookupByLibrary.simpleMessage("Released"),
+        "releasedTrip":
+            MessageLookupByLibrary.simpleMessage("the Trip released "),
+        "reports": MessageLookupByLibrary.simpleMessage("Reports"),
         "requestShipment":
             MessageLookupByLibrary.simpleMessage("Request Shipment"),
         "required":
@@ -233,36 +282,73 @@ class MessageLookup extends MessageLookupByLibrary {
         "sea": MessageLookupByLibrary.simpleMessage("Sea"),
         "seaShipment": MessageLookupByLibrary.simpleMessage("Sea shipment"),
         "seaTravel": MessageLookupByLibrary.simpleMessage("Sea travel"),
+        "searchHere": MessageLookupByLibrary.simpleMessage("Search Here..."),
+        "selectWarehouse":
+            MessageLookupByLibrary.simpleMessage("Select Warehouse"),
         "serialNumber": MessageLookupByLibrary.simpleMessage("Serial Number: "),
         "service": MessageLookupByLibrary.simpleMessage("Service"),
         "serviceName": MessageLookupByLibrary.simpleMessage("Service Name: "),
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "shipment": MessageLookupByLibrary.simpleMessage("Shipments"),
+        "shipmentAccepted": MessageLookupByLibrary.simpleMessage(
+            "Shipment accepted successfully"),
         "shipmentAddSuccessfully":
             MessageLookupByLibrary.simpleMessage("Shipment add successfully"),
+        "shipmentArrived": MessageLookupByLibrary.simpleMessage(
+            "The shipment has arrived to warehouse"),
         "shipmentCost": MessageLookupByLibrary.simpleMessage("Shipment Cost"),
+        "shipmentDelivered": MessageLookupByLibrary.simpleMessage(
+            "Shipments delivered to client"),
         "shipmentFinance":
             MessageLookupByLibrary.simpleMessage("Shipment Finance"),
         "shipmentInfo": MessageLookupByLibrary.simpleMessage("Shipment Info"),
         "shipmentInformation":
             MessageLookupByLibrary.simpleMessage("Shipment Information"),
+        "shipmentMeasurement": MessageLookupByLibrary.simpleMessage(
+            "The packaging and measurement phase has been completed"),
+        "shipmentNotDelivered": MessageLookupByLibrary.simpleMessage(
+            "Shipments not delivered to client yet"),
+        "shipmentQR": MessageLookupByLibrary.simpleMessage("Shipment QR"),
+        "shipmentReceived": MessageLookupByLibrary.simpleMessage(
+            "Shipments received in warehouse"),
+        "shipmentReceivedS": MessageLookupByLibrary.simpleMessage(
+            "The shipment was received from the supplier in the warehouse"),
+        "shipmentReport":
+            MessageLookupByLibrary.simpleMessage("Shipments Reports"),
         "shipmentReview":
             MessageLookupByLibrary.simpleMessage("Shipment Review"),
+        "shipmentSeparation":
+            MessageLookupByLibrary.simpleMessage("Shipment separation"),
         "shipmentStatus":
             MessageLookupByLibrary.simpleMessage("Shipment Status"),
+        "shipmentSticker":
+            MessageLookupByLibrary.simpleMessage("Shipment Sticker"),
+        "shipmentUploadedHolder": MessageLookupByLibrary.simpleMessage(
+            "The shipment was loaded into a holder"),
+        "shipmentUploadedToTravel": MessageLookupByLibrary.simpleMessage(
+            "The shipment was loaded into a travel"),
+        "shipmentWaiting": MessageLookupByLibrary.simpleMessage(
+            "Shipment waiting for acceptance"),
         "shipper": MessageLookupByLibrary.simpleMessage("Shipper"),
+        "shipping": MessageLookupByLibrary.simpleMessage("shipping"),
         "shippingFrom": MessageLookupByLibrary.simpleMessage("Shipping from: "),
         "shippingTo": MessageLookupByLibrary.simpleMessage("Shipping to: "),
         "shippingType": MessageLookupByLibrary.simpleMessage("Shipping type:"),
         "showFinance": MessageLookupByLibrary.simpleMessage("Show Finance"),
+        "showLibrary": MessageLookupByLibrary.simpleMessage("Show Library"),
+        "showQR": MessageLookupByLibrary.simpleMessage("Show QR"),
+        "showStatus": MessageLookupByLibrary.simpleMessage("Show status"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "specification": MessageLookupByLibrary.simpleMessage("Specification"),
         "stageCost": MessageLookupByLibrary.simpleMessage("Stage Cost: "),
         "startDate": MessageLookupByLibrary.simpleMessage("Start Date"),
         "startTime": MessageLookupByLibrary.simpleMessage("Start Time"),
+        "startTrip":
+            MessageLookupByLibrary.simpleMessage("This trip has started at "),
         "startWriting": MessageLookupByLibrary.simpleMessage("start writing"),
         "started": MessageLookupByLibrary.simpleMessage("Started"),
+        "startedTrip": MessageLookupByLibrary.simpleMessage("the Trip started"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "statusCodeBadRequest": MessageLookupByLibrary.simpleMessage(
             "The server could not understand the request due to invalid syntax"),
@@ -284,32 +370,59 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Target Warehouse : "),
         "termOfService":
             MessageLookupByLibrary.simpleMessage("Term Of Service"),
+        "to": MessageLookupByLibrary.simpleMessage("To"),
+        "total": MessageLookupByLibrary.simpleMessage(" Total "),
         "totalCost": MessageLookupByLibrary.simpleMessage("Total Cost: "),
         "trackNumber": MessageLookupByLibrary.simpleMessage("Track Number: "),
         "trackShipment":
             MessageLookupByLibrary.simpleMessage("Tracking the shipment"),
+        "travelArrived": MessageLookupByLibrary.simpleMessage(
+            "the travel has arrived the destination country"),
         "travelFinance": MessageLookupByLibrary.simpleMessage("Travel Finance"),
+        "travelInformation":
+            MessageLookupByLibrary.simpleMessage("Travel Information"),
         "travelNumber": MessageLookupByLibrary.simpleMessage("Travel Number"),
+        "travelStarted":
+            MessageLookupByLibrary.simpleMessage("The travel has started"),
+        "travelStatus": MessageLookupByLibrary.simpleMessage("Travel Status"),
         "travels": MessageLookupByLibrary.simpleMessage("Travels"),
         "truee": MessageLookupByLibrary.simpleMessage("True"),
         "type": MessageLookupByLibrary.simpleMessage("Type"),
         "unit": MessageLookupByLibrary.simpleMessage("Unit: "),
         "units": MessageLookupByLibrary.simpleMessage("Units"),
+        "updateAirwaybill":
+            MessageLookupByLibrary.simpleMessage("Update Air waybill"),
+        "updateContainer":
+            MessageLookupByLibrary.simpleMessage("Update Container"),
+        "updateTravel": MessageLookupByLibrary.simpleMessage("Update Travel"),
+        "updateWarehouse":
+            MessageLookupByLibrary.simpleMessage("Update warehouse"),
         "updatedAt": MessageLookupByLibrary.simpleMessage("Updated At: "),
         "updatedBy": MessageLookupByLibrary.simpleMessage("Updated By: "),
+        "uploadAirwaybill": MessageLookupByLibrary.simpleMessage(
+            "Upload Air waybill to travel"),
+        "uploadContainer":
+            MessageLookupByLibrary.simpleMessage("Upload Container to travel"),
         "uploaded": MessageLookupByLibrary.simpleMessage("Uploaded"),
         "users": MessageLookupByLibrary.simpleMessage("Users"),
         "vehicleNumber": MessageLookupByLibrary.simpleMessage(
             "Vehicle identification number (if vehicle)"),
         "view": MessageLookupByLibrary.simpleMessage("View all"),
+        "volume": MessageLookupByLibrary.simpleMessage("Volume"),
         "waitingShipment":
             MessageLookupByLibrary.simpleMessage("Waiting Shipment"),
+        "waitingTrip": MessageLookupByLibrary.simpleMessage("the Trip waiting"),
+        "warehouseFinance":
+            MessageLookupByLibrary.simpleMessage("Warehouse Finance"),
         "warehouseInfo":
             MessageLookupByLibrary.simpleMessage("Warehouse Info: "),
         "warehouses": MessageLookupByLibrary.simpleMessage("Warehouse"),
         "weight": MessageLookupByLibrary.simpleMessage("Weight: "),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
         "width": MessageLookupByLibrary.simpleMessage("Weight"),
-        "widthInMeter": MessageLookupByLibrary.simpleMessage("Width In Meter: ")
+        "widthInMeter":
+            MessageLookupByLibrary.simpleMessage("Width In Meter: "),
+        "writeDetails": MessageLookupByLibrary.simpleMessage(
+            "Write a Details about next status")
       };
 }

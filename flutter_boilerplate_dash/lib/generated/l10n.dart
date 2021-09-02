@@ -2269,6 +2269,716 @@ class S {
       args: [],
     );
   }
+
+  /// `Holders`
+  String get holder {
+    return Intl.message(
+      'Holders',
+      name: 'holder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipments Reports`
+  String get shipmentReport {
+    return Intl.message(
+      'Shipments Reports',
+      name: 'shipmentReport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reports`
+  String get reports {
+    return Intl.message(
+      'Reports',
+      name: 'reports',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Flight Travels`
+  String get flight {
+    return Intl.message(
+      'Flight Travels',
+      name: 'flight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cruise Travels`
+  String get cruise {
+    return Intl.message(
+      'Cruise Travels',
+      name: 'cruise',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` Total `
+  String get total {
+    return Intl.message(
+      ' Total ',
+      name: 'total',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `this Air waybill has been uploaded to travel`
+  String get airwaybillUploaded {
+    return Intl.message(
+      'this Air waybill has been uploaded to travel',
+      name: 'airwaybillUploaded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload Air waybill to travel`
+  String get uploadAirwaybill {
+    return Intl.message(
+      'Upload Air waybill to travel',
+      name: 'uploadAirwaybill',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload Container to travel`
+  String get uploadContainer {
+    return Intl.message(
+      'Upload Container to travel',
+      name: 'uploadContainer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `this Air Waybill arrived to target warehouse`
+  String get airwaybillArrived {
+    return Intl.message(
+      'this Air Waybill arrived to target warehouse',
+      name: 'airwaybillArrived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `this Container arrived to target warehouse`
+  String get containerArrived {
+    return Intl.message(
+      'this Container arrived to target warehouse',
+      name: 'containerArrived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email Or Phone`
+  String get emailOrPhone {
+    return Intl.message(
+      'Email Or Phone',
+      name: 'emailOrPhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Job Description`
+  String get jobDescription {
+    return Intl.message(
+      'Job Description',
+      name: 'jobDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show Library`
+  String get showLibrary {
+    return Intl.message(
+      'Show Library',
+      name: 'showLibrary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Camera`
+  String get camera {
+    return Intl.message(
+      'Camera',
+      name: 'camera',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Document Attached`
+  String get attached {
+    return Intl.message(
+      'Document Attached',
+      name: 'attached',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show status`
+  String get showStatus {
+    return Intl.message(
+      'Show status',
+      name: 'showStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment QR`
+  String get shipmentQR {
+    return Intl.message(
+      'Shipment QR',
+      name: 'shipmentQR',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show QR`
+  String get showQR {
+    return Intl.message(
+      'Show QR',
+      name: 'showQR',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment Sticker`
+  String get shipmentSticker {
+    return Intl.message(
+      'Shipment Sticker',
+      name: 'shipmentSticker',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipments received in warehouse`
+  String get shipmentReceived {
+    return Intl.message(
+      'Shipments received in warehouse',
+      name: 'shipmentReceived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipments not delivered to client yet`
+  String get shipmentNotDelivered {
+    return Intl.message(
+      'Shipments not delivered to client yet',
+      name: 'shipmentNotDelivered',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write a Details about next status`
+  String get writeDetails {
+    return Intl.message(
+      'Write a Details about next status',
+      name: 'writeDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Amount`
+  String get amount {
+    return Intl.message(
+      'Amount',
+      name: 'amount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment separation`
+  String get shipmentSeparation {
+    return Intl.message(
+      'Shipment separation',
+      name: 'shipmentSeparation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Travel`
+  String get chooseTravel {
+    return Intl.message(
+      'Choose Travel',
+      name: 'chooseTravel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Container`
+  String get chooseContainer {
+    return Intl.message(
+      'Choose Container',
+      name: 'chooseContainer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Guni Quantity`
+  String get guniQuantity {
+    return Intl.message(
+      'Guni Quantity',
+      name: 'guniQuantity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Volume`
+  String get volume {
+    return Intl.message(
+      'Volume',
+      name: 'volume',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Import Warehouse`
+  String get importWarehouse {
+    return Intl.message(
+      'Import Warehouse',
+      name: 'importWarehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `packing By`
+  String get packingBy {
+    return Intl.message(
+      'packing By',
+      name: 'packingBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message(
+      'Date',
+      name: 'date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `From`
+  String get from {
+    return Intl.message(
+      'From',
+      name: 'from',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To`
+  String get to {
+    return Intl.message(
+      'To',
+      name: 'to',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search Here...`
+  String get searchHere {
+    return Intl.message(
+      'Search Here...',
+      name: 'searchHere',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Warehouse`
+  String get selectWarehouse {
+    return Intl.message(
+      'Select Warehouse',
+      name: 'selectWarehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update Travel`
+  String get updateTravel {
+    return Intl.message(
+      'Update Travel',
+      name: 'updateTravel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Travel Information`
+  String get travelInformation {
+    return Intl.message(
+      'Travel Information',
+      name: 'travelInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Holder Information`
+  String get holderInfo {
+    return Intl.message(
+      'Holder Information',
+      name: 'holderInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No holder has been added to this trip`
+  String get noHolder {
+    return Intl.message(
+      'No holder has been added to this trip',
+      name: 'noHolder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the Trip waiting`
+  String get waitingTrip {
+    return Intl.message(
+      'the Trip waiting',
+      name: 'waitingTrip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This trip hasn't started yet`
+  String get notStartedTrip {
+    return Intl.message(
+      'This trip hasn\'t started yet',
+      name: 'notStartedTrip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the Trip started`
+  String get startedTrip {
+    return Intl.message(
+      'the Trip started',
+      name: 'startedTrip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This trip has started at `
+  String get startTrip {
+    return Intl.message(
+      'This trip has started at ',
+      name: 'startTrip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the Trip released `
+  String get releasedTrip {
+    return Intl.message(
+      'the Trip released ',
+      name: 'releasedTrip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This trip has arrived at `
+  String get arriveTrip {
+    return Intl.message(
+      'This trip has arrived at ',
+      name: 'arriveTrip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Travel Status`
+  String get travelStatus {
+    return Intl.message(
+      'Travel Status',
+      name: 'travelStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Released`
+  String get released {
+    return Intl.message(
+      'Released',
+      name: 'released',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `shipping`
+  String get shipping {
+    return Intl.message(
+      'shipping',
+      name: 'shipping',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Warehouse Finance`
+  String get warehouseFinance {
+    return Intl.message(
+      'Warehouse Finance',
+      name: 'warehouseFinance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update warehouse`
+  String get updateWarehouse {
+    return Intl.message(
+      'Update warehouse',
+      name: 'updateWarehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Local`
+  String get local {
+    return Intl.message(
+      'Local',
+      name: 'local',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Proxy`
+  String get proxy {
+    return Intl.message(
+      'Proxy',
+      name: 'proxy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment accepted successfully`
+  String get shipmentAccepted {
+    return Intl.message(
+      'Shipment accepted successfully',
+      name: 'shipmentAccepted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The shipment was received from the supplier in the warehouse`
+  String get shipmentReceivedS {
+    return Intl.message(
+      'The shipment was received from the supplier in the warehouse',
+      name: 'shipmentReceivedS',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The packaging and measurement phase has been completed`
+  String get shipmentMeasurement {
+    return Intl.message(
+      'The packaging and measurement phase has been completed',
+      name: 'shipmentMeasurement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The shipment was loaded into a holder`
+  String get shipmentUploadedHolder {
+    return Intl.message(
+      'The shipment was loaded into a holder',
+      name: 'shipmentUploadedHolder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The shipment was loaded into a travel`
+  String get shipmentUploadedToTravel {
+    return Intl.message(
+      'The shipment was loaded into a travel',
+      name: 'shipmentUploadedToTravel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The travel has started`
+  String get travelStarted {
+    return Intl.message(
+      'The travel has started',
+      name: 'travelStarted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `the travel has arrived the destination country`
+  String get travelArrived {
+    return Intl.message(
+      'the travel has arrived the destination country',
+      name: 'travelArrived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The container has cleared`
+  String get containerCleared {
+    return Intl.message(
+      'The container has cleared',
+      name: 'containerCleared',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The shipment has arrived to warehouse`
+  String get shipmentArrived {
+    return Intl.message(
+      'The shipment has arrived to warehouse',
+      name: 'shipmentArrived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipments delivered to client`
+  String get shipmentDelivered {
+    return Intl.message(
+      'Shipments delivered to client',
+      name: 'shipmentDelivered',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment waiting for acceptance`
+  String get shipmentWaiting {
+    return Intl.message(
+      'Shipment waiting for acceptance',
+      name: 'shipmentWaiting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update Air waybill`
+  String get updateAirwaybill {
+    return Intl.message(
+      'Update Air waybill',
+      name: 'updateAirwaybill',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update Container`
+  String get updateContainer {
+    return Intl.message(
+      'Update Container',
+      name: 'updateContainer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you really want to move to the next state ?`
+  String get changeStatusConfirm {
+    return Intl.message(
+      'Do you really want to move to the next state ?',
+      name: 'changeStatusConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please be careful`
+  String get careful {
+    return Intl.message(
+      'Please be careful',
+      name: 'careful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can leave the field blank, if the shipment is not divided`
+  String get emptyAmount {
+    return Intl.message(
+      'You can leave the field blank, if the shipment is not divided',
+      name: 'emptyAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you really want to accept the shipment ?`
+  String get acceptedConfirm {
+    return Intl.message(
+      'Do you really want to accept the shipment ?',
+      name: 'acceptedConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you really want to reject the shipment ?`
+  String get rejectConfirm {
+    return Intl.message(
+      'Do you really want to reject the shipment ?',
+      name: 'rejectConfirm',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

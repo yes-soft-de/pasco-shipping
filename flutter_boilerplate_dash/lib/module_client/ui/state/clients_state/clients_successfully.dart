@@ -16,7 +16,7 @@ class ClientsSuccessfully extends StatelessWidget {
           // onEdit(re);
         },
         onDelete: (id){
-          // onDelete(id);
+          onDelete(id);
         }
       );
     },itemCount: items.length,

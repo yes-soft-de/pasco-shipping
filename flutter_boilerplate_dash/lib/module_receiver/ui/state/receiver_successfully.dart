@@ -112,7 +112,7 @@ late  TextEditingController fullName;
                           controller: fullName,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'name',
+                            hintText: S.of(context).name,
 
                           ),
                         ),
@@ -140,7 +140,7 @@ late  TextEditingController fullName;
                           controller: email,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'email',
+                            hintText:S.of(context).email,
 
                           ),
                         ),
@@ -169,7 +169,7 @@ late  TextEditingController fullName;
                           keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'phone',
+                            hintText: S.of(context).phone,
 
                           ),
                         ),
@@ -197,7 +197,7 @@ late  TextEditingController fullName;
                           controller: address,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'address',
+                            hintText: S.of(context).address,
 
                           ),
                         ),

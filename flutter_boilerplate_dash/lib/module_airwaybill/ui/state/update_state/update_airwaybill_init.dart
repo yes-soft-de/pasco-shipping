@@ -3,9 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
-import 'package:pasco_shipping/module_container/enums/container_status.dart';
-import 'package:pasco_shipping/module_container/request/container_request.dart';
-import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
+import 'package:pasco_shipping/module_airwaybill/enums/airwaybill_status.dart';
+import 'package:pasco_shipping/module_airwaybill/request/airwaybill_request.dart';
+import 'package:pasco_shipping/module_airwaybill/response/airwaybill_response.dart';
+import 'package:pasco_shipping/module_airwaybill_specification/response/airwaybill_specification_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
@@ -14,17 +15,18 @@ import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
-class RequestContainerInit extends StatefulWidget {
+class UpdateAirwaybillInit extends StatefulWidget {
   final List<SubcontractModel> subContracts;
-  final List<ContainerSpecificationModel> specifications;
-  final Function onSave;
-  const RequestContainerInit({ required this.onSave , required this.subContracts,required this.specifications});
+  final List<AirwaybillSpecificationModel> specifications;
+  final AirwaybillModel model;
+  final Function onUpdate;
+  const UpdateAirwaybillInit({ required this.onUpdate , required this.subContracts,required this.specifications,required this.model});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
 }
 
-class _AddCountryInitState extends State<RequestContainerInit> {
+class _AddCountryInitState extends State<UpdateAirwaybillInit> {
  late TextEditingController containerNumber ;
 
  late DropListModel dropListModelProvidedBy;
@@ -83,7 +85,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(children: [
-              Image.asset(StaticImage.container),
+              Image.asset(StaticImage.airwaybill),
 
 
               Padding(
@@ -91,7 +93,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).containerType, style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).airwaybillType, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Row(
@@ -160,7 +162,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).containerNumber , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).airwaybillNumber , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -288,15 +290,16 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 // DateTime arrivalDate = DateTime(endDate.year , endDate.month ,endDate.day ,selectedTimeEnd.hour ,selectedTimeEnd.minute);
                 // DateTime launchDate = DateTime(startDate.year , startDate.month ,startDate.day ,selectedTimeStart.hour ,selectedTimeStart.minute);
 
-                ContainerRequest re = ContainerRequest(status: status ,type: type
+                AirwaybillRequest re = AirwaybillRequest(status: status ,type: type
                     ,specificationID: optionItemSelectedSpecification.id ,
                     consigneeID: optionItemSelectedConsignee.id ,
                     shipperID: optionItemSelectedShipper.id,
-                    carrierID: optionItemSelectedCarrier.id
-                    ,containerNumber: containerNumber.text,
-                  providedBy: optionItemSelectedProvidedBy.id
+                    carrierID:optionItemSelectedCarrier.id
+                    ,airwaybillNumber: containerNumber.text,
+                  providedBy: optionItemSelectedProvidedBy.id,
+                  id: widget.model.id
                 );
-                  widget.onSave(re);
+                  widget.onUpdate(re);
 
               }, radius: 15)
             ],),
@@ -318,11 +321,18 @@ class _AddCountryInitState extends State<RequestContainerInit> {
     entrySpecification = <Entry>[];
 
     containerNumber=TextEditingController();
+    containerNumber..text = widget.model.airwaybillNumber??'';
 
-    status= ContainerStatusName[ContainerStatus.NOTFULL]!;
+    status= AirwaybillStatusName[AirwaybillStatus.NOTFULL]!;
 
-    selectedRadioType = 1;
-    type = ContainerTypeName[ContainerType.PUBLIC]!;
+    if(widget.model.type =='LCL'){
+      selectedRadioType = 1;
+      type = AirwaybillTypeName[AirwaybillType.PUBLIC]!;
+    }else{
+      selectedRadioType = 2;
+      type = AirwaybillTypeName[AirwaybillType.PRIVATE]!;
+    }
+
 
     optionItemSelectedProvidedBy =  Entry('choose', 1, []);
     optionItemSelectedShipper =  Entry('choose', 1, []);
@@ -336,6 +346,19 @@ class _AddCountryInitState extends State<RequestContainerInit> {
 
   void initList(){
     for(SubcontractModel item in widget.subContracts){
+      if(widget.model.subcontractName == item.fullName){
+        optionItemSelectedProvidedBy = Entry(item.fullName! ,item.id! ,[]);
+      }
+      if(widget.model.consigneeName == item.fullName){
+        optionItemSelectedConsignee = Entry(item.fullName! ,item.id! ,[]);
+      }
+      if(widget.model.shipperName == item.fullName){
+        optionItemSelectedShipper = Entry(item.fullName! ,item.id! ,[]);
+      }if(widget.model.carrierName == item.fullName){
+        optionItemSelectedCarrier = Entry(item.fullName! ,item.id! ,[]);
+      }
+
+
       Entry v = Entry(item.fullName! ,item.id! ,[]);
       entryProvidedBy.add(v);
       entryShipper.add(v);
@@ -348,7 +371,10 @@ class _AddCountryInitState extends State<RequestContainerInit> {
     dropListModelCarrier= DropListModel(entryCarrier);
 
 
-    for(ContainerSpecificationModel  item in widget.specifications){
+    for(AirwaybillSpecificationModel  item in widget.specifications){
+      if(widget.model.specificationName == item.name){
+        optionItemSelectedSpecification = Entry(item.name! ,item.id! ,[]);
+      }
       Entry v = Entry(item.name! ,item.id! ,[]);
       entrySpecification.add(v);
     }
@@ -359,9 +385,9 @@ class _AddCountryInitState extends State<RequestContainerInit> {
    setState(() {
      selectedRadioType = val;
      if (val == 1) {
-       type = ContainerTypeName[ContainerType.PUBLIC]!;
+       type = AirwaybillTypeName[AirwaybillType.PUBLIC]!;
      } else if (val == 2) {
-       type = ContainerTypeName[ContainerType.PRIVATE]!;
+       type = AirwaybillTypeName[AirwaybillType.PRIVATE]!;
      }
      print(val);
    });

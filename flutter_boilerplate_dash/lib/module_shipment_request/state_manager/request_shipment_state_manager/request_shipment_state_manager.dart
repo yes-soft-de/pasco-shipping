@@ -6,6 +6,7 @@ import 'package:pasco_shipping/module_receiver/request/receiver_filter_request.d
 import 'package:pasco_shipping/module_receiver/service/receiver_service.dart';
 import 'package:pasco_shipping/module_shipment_request/service/shipment_request_service/first_option_service.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/states/request_shipment_state.dart';
+import 'package:pasco_shipping/module_unit/service/unit_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 @injectable
@@ -16,11 +17,14 @@ class RequestShipmentStateManger {
 
   final ClientService _clientService;
   final DistributorService _distributorService;
+
+  final UnitService _unitService;
+
   final PublishSubject<RequestShipmentState> _stateSubject = PublishSubject();
   Stream<RequestShipmentState> get stateStream => _stateSubject.stream;
 
   RequestShipmentStateManger(this._firstOptionService, this._markService,
-      this._clientService, this._distributorService, this._receiverService);
+      this._clientService, this._distributorService, this._receiverService, this._unitService);
 
   void getFirstOption() {
     _stateSubject.add(LoadingState());
@@ -47,7 +51,13 @@ class RequestShipmentStateManger {
       if (marks == null) {
         _stateSubject.add(errorState('error connection'));
       } else {
-        _stateSubject.add(SecondOptionFetchingDataState(marks));
+        _unitService.getUnits().then((units) {
+          if(units != null){
+            _stateSubject.add(SecondOptionFetchingDataState(marks,units));
+          }else{
+            _stateSubject.add(errorState('error connection'));
+          }
+        });
       }
     });
   }

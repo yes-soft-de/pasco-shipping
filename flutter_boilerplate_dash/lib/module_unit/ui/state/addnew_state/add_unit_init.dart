@@ -38,7 +38,7 @@ class _AddCountryInitState extends State<AddUnitInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Name' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).name, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -62,7 +62,7 @@ class _AddCountryInitState extends State<AddUnitInit> {
                   child: TextField(
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'name',
+                      hintText: S.of(context).name,
                     ),
                     controller: name,
                   ),
@@ -100,14 +100,14 @@ class _AddCountryInitState extends State<AddUnitInit> {
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'description',
+                      hintText: S.of(context).description,
 
                     ),
                   ),
                 ),
               ),
 
-              RoundedButton(lable: 'Save', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
+              RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(name.text.isEmpty || description.text.isEmpty) {
                   Fluttertoast.showToast(msg: S.of(context).fillAllField);
                 }else {

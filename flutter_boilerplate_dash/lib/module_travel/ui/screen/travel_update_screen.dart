@@ -37,7 +37,7 @@ class _AddNewCountryState extends State<UpdateTravel> {
         goBack: (){
         },
         child: Screen(),
-        title: 'Update Travel'
+        title:S.of(context).updateTravel
     );
   }
 

@@ -64,7 +64,7 @@ class _AddCountryInitState extends State<AddProxyInit> {
                   child: TextField(
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'name',
+                      hintText:S.of(context).name,
                     ),
                     controller: name,
                   ),
@@ -102,7 +102,7 @@ class _AddCountryInitState extends State<AddProxyInit> {
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'phone',
+                      hintText: S.of(context).phone,
 
                     ),
                   ),
@@ -139,7 +139,7 @@ class _AddCountryInitState extends State<AddProxyInit> {
                     controller: address,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'address',
+                      hintText: S.of(context).address,
 
                     ),
                   ),
@@ -176,7 +176,7 @@ class _AddCountryInitState extends State<AddProxyInit> {
                     controller: email,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'email',
+                      hintText: S.of(context).email,
 
                     ),
                   ),

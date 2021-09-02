@@ -89,7 +89,7 @@ class _AddCountryInitState extends State<AddSubProductInit> {
                   child: TextField(
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'name',
+                      hintText: S.of(context).name,
                     ),
                     controller: name,
                   ),
@@ -126,7 +126,7 @@ class _AddCountryInitState extends State<AddSubProductInit> {
                     controller: description,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'description',
+                      hintText: S.of(context).description,
 
                     ),
                   ),

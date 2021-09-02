@@ -26,24 +26,24 @@ class ClientsStateManager{
 
   }
 
-  // void deleteSupplier(String id){
-  //   _stateSubject.add(LoadingState());
-  //   _service.deleteSupplier(id).then((value) {
-  //     if(value != null){
-  //       if(value.isConfirmed){
-  //         _service.getSuppliers().then((marks) {
-  //           if(marks != null) {
-  //             _stateSubject.add(SuccessfullyFetchState(marks));
-  //           }else {
-  //             _stateSubject.add(ErrorState('error'));
-  //           }
-  //         });
-  //       }
-  //     }else {
-  //       _stateSubject.add(ErrorState('error'));
-  //     }
-  //   });
-  // }
+  void deleteClient(String id){
+    _stateSubject.add(LoadingState());
+    _service.deleteClient(id).then((value) {
+      if(value != null){
+        if(value.isConfirmed){
+          _service.getClients().then((marks) {
+            if(marks != null) {
+              _stateSubject.add(SuccessfullyFetchState(marks));
+            }else {
+              _stateSubject.add(ErrorState('error'));
+            }
+          });
+        }
+      }else {
+        _stateSubject.add(ErrorState('error'));
+      }
+    });
+  }
   //
   // void updateSupplier(SupplierRequest request){
   //   _stateSubject.add(LoadingState());

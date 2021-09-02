@@ -61,7 +61,7 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-            Text('Status :' , style: AppTextStyle.mediumBlackBold,),
+            Text(S.of(context).status+': ' , style: AppTextStyle.mediumBlackBold,),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Wrap(
@@ -88,12 +88,12 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text('Date: ', style: AppTextStyle.mediumBlackBold,),
+                  Text(S.of(context).date, style: AppTextStyle.mediumBlackBold,),
                   Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('From' , style: AppTextStyle.mediumBlackBold,),
+                        child: Text(S.of(context).from , style: AppTextStyle.mediumBlackBold,),
                       ),
                       InkWell(
                         onTap: (){
@@ -127,7 +127,7 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('To' , style: AppTextStyle.mediumBlackBold,),
+                        child: Text(S.of(context).to , style: AppTextStyle.mediumBlackBold,),
                       ),
                       InkWell(
                         onTap: (){
@@ -161,7 +161,7 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Launch Country' , style: AppTextStyle.mediumBlackBold,),
+                child: Text(S.of(context).launchCountry , style: AppTextStyle.mediumBlackBold,),
               ),
               SelectDropList(
                 this.optionItemSelectedFrom,
@@ -178,7 +178,7 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Destination Country' , style: AppTextStyle.mediumBlackBold,),
+                child: Text(S.of(context).destinationCountry, style: AppTextStyle.mediumBlackBold,),
               ),
               SelectDropList(
                 this.optionItemSelectedTo,

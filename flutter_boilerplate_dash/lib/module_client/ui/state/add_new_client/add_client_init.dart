@@ -113,7 +113,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Email Or Phone' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).emailOrPhone , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -137,7 +137,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                   child: TextField(
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'email Or phone',
+                      hintText: S.of(context).emailOrPhone,
                     ),
                     controller: userID,
                   ),
@@ -149,7 +149,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Full name' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).name , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -175,7 +175,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'full name',
+                      hintText: S.of(context).name,
 
                     ),
                   ),
@@ -187,7 +187,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Password' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).password, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -214,57 +214,21 @@ class _AddCountryInitState extends State<AddClientInit> {
                     obscureText: true,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'password',
+                      hintText: S.of(context).password,
 
                     ),
                   ),
                 ),
               ),
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text('Email' , style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  padding: EdgeInsets.only(
-                      top: 4,left: 16, right: 16, bottom: 4
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(15)
-                      ),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 5
-                        )
-                      ]
-                  ),
-                  child: TextField(
-                    controller: email,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'email',
 
-                    ),
-                  ),
-                ),
-              ),
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('City' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).city , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -290,7 +254,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'city',
+                      hintText: S.of(context).city,
 
                     ),
                   ),
@@ -302,7 +266,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Country' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).country , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -328,7 +292,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'country',
+                      hintText: S.of(context).country,
 
                     ),
                   ),
@@ -340,7 +304,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text('Location' , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).location , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -366,14 +330,14 @@ class _AddCountryInitState extends State<AddClientInit> {
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'location',
+                      hintText: S.of(context).location,
 
                     ),
                   ),
                 ),
               ),
 
-              RoundedButton(lable: 'Save', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
+              RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(userName.text.isEmpty || userID.text.isEmpty || password.text.isEmpty) {
                   Fluttertoast.showToast(msg: S.of(context).fillAllField);
                 }else {

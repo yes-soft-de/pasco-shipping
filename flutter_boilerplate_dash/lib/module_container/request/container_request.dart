@@ -46,7 +46,8 @@ class ContainerRequest {
         'providedBy': providedBy,
         'consigneeID': consigneeID,
         'shipperID': shipperID,
-        'status': status
+        'status': status,
+        'carrierID': carrierID,
       };
     }
   }

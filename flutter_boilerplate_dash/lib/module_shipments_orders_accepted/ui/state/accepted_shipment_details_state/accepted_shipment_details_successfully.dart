@@ -277,7 +277,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Show QR'),
+                Text(S.of(context).showQR),
                 InkWell(
                   onTap: (){
                     _showQrAlert();
@@ -294,7 +294,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
           Divider(color: Colors.grey[300],thickness: 2,),
          Padding(
            padding: const EdgeInsets.all(8.0),
-           child: Text('Attached documents' ,style: AppTextStyle.mediumBlack),
+           child: Text(S.of(context).attached ,style: AppTextStyle.mediumBlack),
          ),
          widget.shipment.imagePath!.isEmpty?Container(): GridView.count(
               shrinkWrap: true,
@@ -365,7 +365,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                   RoundedButton(lable: S.of(context).shipmentCost, icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
                     widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber);
                   }, radius: 12),
-                  RoundedButton(lable: 'Show Status', icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
+                  RoundedButton(lable: S.of(context).showStatus, icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
                     widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,widget.shipment.holderType, subShipmentModel.shipmentStatus,widget.shipment.transportationType);
                   }, radius: 12),
                 ],
@@ -387,7 +387,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
-      title: Text('Shipment QR'),
+      title: Text(S.of(context).shipmentQR),
       content: SizedBox(
         width: 200,
         height: 200,
@@ -414,7 +414,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),
             ),
-            title: Text('Shipment Sticker'),
+            title: Text(S.of(context).shipmentSticker),
             content: SizedBox(
               width: 200,
               height: 100,

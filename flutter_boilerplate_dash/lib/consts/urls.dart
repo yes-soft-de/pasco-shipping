@@ -34,6 +34,7 @@ class Urls {
   //employee
   static const EMPLOYEES = BASE_API + 'employees';
   static const EMPLOYEE = BASE_API + 'employee';
+  static const ADMIN = BASE_API + 'admin';
   static const EMPLOYEE_PROFILE = BASE_API + 'adminprofile';
 
 

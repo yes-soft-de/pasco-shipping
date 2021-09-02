@@ -6,6 +6,8 @@ import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.
 import 'package:pasco_shipping/module_home/state_manager/state_manager_home.dart';
 import 'package:pasco_shipping/module_home/ui/state/home_state.dart';
 import 'package:pasco_shipping/module_home/ui/state/home_successfully.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/accepted_shipment_routes.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
@@ -58,7 +60,11 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     else if (currentState is FetchedHomeSuccessfullyState){
       FetchedHomeSuccessfullyState? state = currentState as FetchedHomeSuccessfullyState?;
-      return HomeSuccessfully(model: state!.model,);
+      return HomeSuccessfully(model: state!.model, onSearch: (trackNumber){
+        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(trackNumber:trackNumber);
+        Navigator.pushNamed(
+            context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':false});
+      },);
     }
     else {
       return Center(

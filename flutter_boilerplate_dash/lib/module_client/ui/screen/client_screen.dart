@@ -30,7 +30,7 @@ class _CountriesScreenState extends State<ClientsScreen> {
         goBack: (){
         },
         child: Screen(),
-        title: 'Clients'
+        title: S.of(context).clients
     );
   }
 
@@ -66,7 +66,7 @@ class _CountriesScreenState extends State<ClientsScreen> {
       SuccessfullyFetchState? state = currentState as SuccessfullyFetchState?;
       items = state!.distributors;
       return ClientsSuccessfully(items: items ,onDelete: (id){
-        // widget._stateManager.deleteSupplier(id.toString());
+        widget._stateManager.deleteClient(id.toString());
       },
         onEdit: (request){
           // widget._stateManager.updateSupplier(request);

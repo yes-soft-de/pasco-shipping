@@ -46,7 +46,7 @@ class UserCard extends StatelessWidget {
                       children: [
                       Text(label,style: AppTextStyle.largeWhiteBold,),
                       SizedBox(height: 5,),
-                      Text(label == 'Customers' ? users.customers.toString()+ ' Total' : users.employees.toString() + ' Total' ,style: AppTextStyle.mediumWhite,)
+                      Text((label == 'Clients' || label == 'العملاء') ? users.customers.toString()+ S.of(context).total : users.employees.toString() + S.of(context).total ,style: AppTextStyle.mediumWhite,)
                     ],)
                   ],
                 ),
@@ -95,7 +95,7 @@ class OrderCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                       Text(S.of(context).shipment,style: AppTextStyle.largeWhiteBold,),
-                      Text(orders.total.toString() + ' Total',style: AppTextStyle.mediumWhite,)
+                      Text(orders.total.toString() + S.of(context).total,style: AppTextStyle.mediumWhite,)
                     ],)
                   ],
                 ),
@@ -154,11 +154,11 @@ class TravelCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(name=='Flight'?StaticImage.flight:StaticImage.shipment,height: MediaQuery.of(context).size.height*0.06,),
+                    Image.asset((name=='Flight Travels' || name == 'الرحلات الجوية' )?StaticImage.flight:StaticImage.shipment,height: MediaQuery.of(context).size.height*0.06,),
                     // SizedBox(width: 10,),
                     Column(children: [
                       Text(name,style: AppTextStyle.largeWhiteBold,),
-                      Text(cruise.total.toString() + ' Total',style: AppTextStyle.mediumWhite,)
+                      Text(cruise.total.toString() + S.of(context).total,style: AppTextStyle.mediumWhite,)
                     ],)
                   ],
                 ),

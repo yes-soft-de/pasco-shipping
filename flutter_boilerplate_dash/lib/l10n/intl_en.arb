@@ -270,5 +270,104 @@
   "freeWeight": "Free Weight",
   "shipmentCost": "Shipment Cost",
   "receiver": "Receivers",
-  "serialNumber": "Serial Number: "
+  "serialNumber": "Serial Number: ",
+
+
+
+  "holder": "Holders",
+  "shipmentReport": "Shipments Reports",
+  "reports": "Reports",
+  "flight": "Flight Travels",
+  "cruise": "Cruise Travels",
+  "total": " Total ",
+  "airwaybillUploaded": "this Air waybill has been uploaded to travel",
+  "uploadAirwaybill": "Upload Air waybill to travel",
+  "uploadContainer": "Upload Container to travel",
+  "airwaybillArrived": "this Air Waybill arrived to target warehouse",
+  "containerArrived": "this Container arrived to target warehouse",
+
+  "emailOrPhone": "Email Or Phone",
+  "jobDescription": "Job Description",
+
+  "showLibrary": "Show Library",
+  "camera": "Camera",
+
+  "attached" : "Document Attached",
+  "showStatus": "Show status",
+
+  "shipmentQR": "Shipment QR",
+  "showQR": "Show QR",
+  "shipmentSticker": "Shipment Sticker",
+
+  "shipmentReceived": "Shipments received in warehouse",
+  "shipmentNotDelivered": "Shipments not delivered to client yet",
+
+  "writeDetails": "Write a Details about next status",
+  "amount": "Amount",
+  "shipmentSeparation": "Shipment separation",
+  "chooseTravel": "Choose Travel",
+  "chooseContainer": "Choose Container",
+
+  "guniQuantity": "Guni Quantity",
+  "volume": "Volume",
+  "importWarehouse": "Import Warehouse",
+  "packingBy": "packing By",
+
+
+  "date": "Date",
+  "from":"From",
+  "to": "To",
+
+  "searchHere": "Search Here...",
+  "selectWarehouse": "Select Warehouse",
+  "updateTravel": "Update Travel",
+
+
+  "travelInformation": "Travel Information",
+  "holderInfo": "Holder Information",
+  "noHolder": "No holder has been added to this trip",
+
+  "waitingTrip": "the Trip waiting",
+  "notStartedTrip": "This trip hasn't started yet",
+
+  "startedTrip": "the Trip started",
+  "startTrip": "This trip has started at ",
+
+  "releasedTrip": "the Trip released ",
+  "arriveTrip": "This trip has arrived at ",
+
+  "travelStatus": "Travel Status",
+  "released": "Released",
+  "shipping": "shipping",
+
+
+  "warehouseFinance": "Warehouse Finance",
+  "updateWarehouse": "Update warehouse",
+  "local": "Local",
+  "proxy": "Proxy",
+
+
+  "shipmentAccepted": "Shipment accepted successfully",
+  "shipmentReceivedS": "The shipment was received from the supplier in the warehouse",
+  "shipmentMeasurement": "The packaging and measurement phase has been completed",
+  "shipmentUploadedHolder": "The shipment was loaded into a holder",
+  "shipmentUploadedToTravel": "The shipment was loaded into a travel",
+  "travelStarted": "The travel has started",
+  "travelArrived": "the travel has arrived the destination country",
+  "containerCleared": "The container has cleared",
+  "shipmentArrived": "The shipment has arrived to warehouse",
+  "shipmentDelivered": "Shipments delivered to client",
+  "shipmentWaiting": "Shipment waiting for acceptance",
+
+  "updateAirwaybill": "Update Air waybill",
+  "updateContainer": "Update Container",
+  "changeStatusConfirm": "Do you really want to move to the next state ?",
+  "careful": "Please be careful",
+
+  "emptyAmount": "You can leave the field blank, if the shipment is not divided",
+
+
+  "acceptedConfirm": "Do you really want to accept the shipment ?",
+  "rejectConfirm": "Do you really want to reject the shipment ?"
+
 }

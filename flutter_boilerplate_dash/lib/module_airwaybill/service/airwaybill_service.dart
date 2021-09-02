@@ -20,9 +20,9 @@ import 'package:pasco_shipping/module_general/response/confirm_response.dart';
   Future<ConfirmResponse?> requestAirwaybill(AirwaybillRequest request) {
     return _manager.requestAirwaybill(request);
   }
-  // Future<ConfirmResponse?> updateSupplier(SupplierRequest request) {
-  //   return _manager.updateSupplier(request);
-  // }
+  Future<ConfirmResponse?> updateAirwaybill(AirwaybillRequest request) {
+    return _manager.updateAirwaybill(request);
+  }
   Future<ConfirmResponse?> deleteAirwaybill(String id) {
     return _manager.deleteAirwaybill(id);
   }

@@ -91,10 +91,12 @@ class _CountriesScreenState extends State<ContainerScreen> {
       SuccessfullyFetchState? state = currentState as SuccessfullyFetchState?;
       items = state!.travels;
       return ContainerSuccessfully(items: items ,onDelete: (id){
-        // widget._stateManager.deleteContainer(id.toString() ,containerFilterRequest);
+        widget._stateManager.deleteContainer(id.toString() ,containerFilterRequest);
       },
-        onEdit: (request){
-          // widget._stateManager.updateSupplier(request);
+        onEdit: (model){
+          Navigator.pushNamed(context, ContainerRoutes.UPDATE ,arguments: {'containerModel':model}).then((value) {
+            widget._stateManager.getContainersWithFilter(containerFilterRequest);
+          });
         },
         onDetails: (id , isFull){
         Navigator.pushNamed(context, ContainerRoutes.DETAILS , arguments: {'id' : id,'isFull':isFull}).then((value){

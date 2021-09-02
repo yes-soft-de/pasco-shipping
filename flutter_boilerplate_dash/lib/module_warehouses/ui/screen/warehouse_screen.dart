@@ -33,7 +33,7 @@ class _CountriesScreenState extends State<WarehouseScreen> {
         goBack: (){
         },
         child: Screen(),
-        title: 'Warehouses'
+        title: S.of(context).warehouses
     );
   }
 

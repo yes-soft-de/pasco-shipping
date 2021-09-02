@@ -64,7 +64,7 @@ class EmployeeRepository{
   Future<ConfirmResponse?> deleteEmployees(String id) async {
     // await _authService.refreshToken();
     var token = await _authService.getToken();
-    var response = await _apiClient.delete(Urls.EMPLOYEE+'/'+id,
+    var response = await _apiClient.delete(Urls.ADMIN+'/'+id,
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = EmployeeResponse.fromJson(response!).statusCode;
     String? msg = EmployeeResponse.fromJson(response).msg;
