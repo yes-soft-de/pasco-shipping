@@ -18,6 +18,8 @@ class ContainerFilterRequest
 
     private $consigneeID;
 
+    private $isExternalWarehouse;
+
     public function getSpecificationID()
     {
         return $this->specificationID;
@@ -51,6 +53,11 @@ class ContainerFilterRequest
     public function getStatus()
     {
         return $this->status;
+    }
+
+    public function getIsExternalWarehouse()
+    {
+        return $this->isExternalWarehouse;
     }
 
 }
