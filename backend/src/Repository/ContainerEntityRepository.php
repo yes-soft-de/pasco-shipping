@@ -154,7 +154,8 @@ class ContainerEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function filterContainers($specificationID, $containerNumber, $status, $type, $providedBy, $shipperID, $consigneeID, $isExternalWarehouse)
+    public function filterContainers($specificationID, $containerNumber, $status, $type, $providedBy, $shipperID, $consigneeID,
+                                     $isExternalWarehouse, $shipmentID)
     {
         $query = $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID',
@@ -260,6 +261,12 @@ class ContainerEntityRepository extends ServiceEntityRepository
         {
             $query->andWhere('container.consigneeID = :consigneeID');
             $query->setParameter('consigneeID', $consigneeID);
+        }
+
+        if($shipmentID)
+        {
+            $query->andWhere('container.shipmentID = :shipmentID');
+            $query->setParameter('shipmentID', $shipmentID);
         }
 
         if($isExternalWarehouse == true)

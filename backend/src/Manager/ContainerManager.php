@@ -95,7 +95,7 @@ class ContainerManager
     public function filterContainers(ContainerFilterRequest $request)
     {
         return $this->containerEntityRepository->filterContainers($request->getSpecificationID(), $request->getContainerNumber(), $request->getStatus(), $request->getType(),
-        $request->getProvidedBy(), $request->getShipperID(), $request->getConsigneeID(), $request->getIsExternalWarehouse());
+        $request->getProvidedBy(), $request->getShipperID(), $request->getConsigneeID(), $request->getIsExternalWarehouse(), $request->getShipmentID());
     }
 
     public function getContainersBySpecificationID($specificationID)

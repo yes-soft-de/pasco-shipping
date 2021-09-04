@@ -401,7 +401,8 @@ class ContainerController extends BaseController
      *          @OA\Property(type="integer", property="providedBy"),
      *          @OA\Property(type="integer", property="shipperID"),
      *          @OA\Property(type="integer", property="consigneeID"),
-     *          @OA\Property(type="integer", property="specificationID")
+     *          @OA\Property(type="integer", property="specificationID"),
+     *          @OA\Property(type="integer", property="shipmentID")
      *      )
      * )
      *
