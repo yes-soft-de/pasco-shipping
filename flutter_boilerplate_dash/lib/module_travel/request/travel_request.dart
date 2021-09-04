@@ -12,6 +12,7 @@ class TravelRequest {
   String? arrivalDate;
 
   int shipperID;
+  int carrierID;
 
   TravelRequest(
       {this.id,
@@ -22,6 +23,7 @@ class TravelRequest {
       required this.arrivalDate,
       required this.launchDate,
       required this.status,
+        required this.carrierID,
       required this.shipperID});
 
   Map<String, dynamic> toJson() {
@@ -34,6 +36,7 @@ class TravelRequest {
         'arrivalDate': arrivalDate,
         'travelNumber': travelNumber,
         'shipperID': shipperID,
+        'carrierID': carrierID,
         'status': status
       };
     } else {
@@ -46,6 +49,7 @@ class TravelRequest {
         'arrivalDate': arrivalDate,
         'travelNumber': travelNumber,
         'shipperID': shipperID,
+        'carrierID': carrierID,
         'status': status
       };
     }

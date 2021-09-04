@@ -818,8 +818,9 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       get<_i87.EmployeesScreen>(), get<_i168.AddNewEmployee>()));
   gh.factory<_i197.FilterAirwaybillStateManager>(() =>
       _i197.FilterAirwaybillStateManager(get<_i126.SubcontractService>()));
-  gh.factory<_i198.FilterContainerStateManager>(
-      () => _i198.FilterContainerStateManager(get<_i126.SubcontractService>()));
+  gh.factory<_i198.FilterContainerStateManager>(() =>
+      _i198.FilterContainerStateManager(get<_i126.SubcontractService>(),
+          get<_i69.ContainerSpecificationService>()));
   gh.factory<_i199.FilterTravelStateManager>(() =>
       _i199.FilterTravelStateManager(get<_i136.TravelService>(),
           get<_i74.CountryService>(), get<_i126.SubcontractService>()));

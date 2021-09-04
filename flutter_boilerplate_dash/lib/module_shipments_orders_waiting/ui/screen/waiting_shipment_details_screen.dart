@@ -55,7 +55,12 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
       print("newEvent"+event.toString());
       currentState = event;
       if (this.mounted) {
-        setState(() {});
+        if(currentState is SuccessfullyModifyState){
+          Fluttertoast.showToast(msg: S.of(context).shipmentAddSuccessfully);
+          Navigator.pop(context);
+        }else {
+          setState(() {});
+        }
       }
     });
   }
@@ -106,24 +111,24 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
         },
       );
     }
-    else if(currentState is SuccessfullyModifyState){
-      SuccessfullyModifyState state = currentState as SuccessfullyModifyState;
-      if(state.response.isConfirmed){
-        Fluttertoast.showToast(msg: 'The operation was completed successfully');
-        Navigator.pop(context);
-        return Container();
-      }else{
-        Fluttertoast.showToast(msg: 'some thing wrong');
-        return WaitingShipmentDetailsInit(shipment: shipmentModel,
-          onAccepted: (request) {
-            widget._stateManager.acceptedOrRejectedShipment(request);
-          },
-          onRejected: (request) {
-            widget._stateManager.acceptedOrRejectedShipment(request);
-          },
-        );
-      }
-    }
+    // else if(currentState is SuccessfullyModifyState){
+    //   SuccessfullyModifyState state = currentState as SuccessfullyModifyState;
+    //   if(state.response.isConfirmed){
+    //     Fluttertoast.showToast(msg: 'The operation was completed successfully');
+    //     Navigator.pop(context);
+    //     return Container();
+    //   }else{
+    //     Fluttertoast.showToast(msg: 'some thing wrong');
+    //     return WaitingShipmentDetailsInit(shipment: shipmentModel,
+    //       onAccepted: (request) {
+    //         widget._stateManager.acceptedOrRejectedShipment(request);
+    //       },
+    //       onRejected: (request) {
+    //         widget._stateManager.acceptedOrRejectedShipment(request);
+    //       },
+    //     );
+    //   }
+    // }
     else if(currentState is ErrorState) {
       ErrorState? state = currentState as ErrorState?;
       return Center(

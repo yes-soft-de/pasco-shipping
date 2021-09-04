@@ -352,7 +352,7 @@ class _AddCountryInitState extends State<FilterTravelInit> {
        initialTime: selectedTimeStart,
        builder: (BuildContext context, Widget? child) {
          return MediaQuery(
-           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
            child: child!,
          );
        });
@@ -360,7 +360,8 @@ class _AddCountryInitState extends State<FilterTravelInit> {
    if (picked_s != null && picked_s != selectedTimeStart) {
      setState(() {
        selectedTimeStart = picked_s;
-       formattedTimeStart = selectedTimeEnd.format(context);
+       travelFilterRequest.launchDate = DateTime(startDate.year , startDate.month , startDate.day , selectedTimeStart.hour ,selectedTimeStart.minute).toUtc().toString();
+       formattedTimeStart = selectedTimeStart.format(context);
        print(selectedTimeStart);
      });
    }
@@ -371,7 +372,7 @@ class _AddCountryInitState extends State<FilterTravelInit> {
        initialTime: selectedTimeEnd,
        builder: (BuildContext context, Widget? child) {
          return MediaQuery(
-           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
            child: child!,
          );
        });
@@ -379,6 +380,7 @@ class _AddCountryInitState extends State<FilterTravelInit> {
      setState(() {
        selectedTimeEnd = picked_s;
        formattedTimeEnd = selectedTimeEnd.format(context);
+       travelFilterRequest.arrivalDate = DateTime(endDate.year , endDate.month , endDate.day , selectedTimeEnd.hour ,selectedTimeEnd.minute).toUtc().toString();
      });
    }
  }
@@ -393,6 +395,7 @@ class _AddCountryInitState extends State<FilterTravelInit> {
      setState(() {
        startDate = picked;
        travelFilterRequest.launchDate = DateTime(startDate.year , startDate.month , startDate.day , selectedTimeStart.hour ,selectedTimeStart.minute).toUtc().toString();
+       print(travelFilterRequest.launchDate);
        formattedDateStart = formatter.format(startDate);
      });
    }

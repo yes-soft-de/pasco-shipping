@@ -25,6 +25,14 @@ class WaitingShipmentCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(children: [
+                    // Text('Order Number' , style: AppTextStyle.largeBlackBold,),
+
+                    Text('#'+shipmentModel.shipmentId.toString() , style: AppTextStyle.largeBlackBold,),
+                  ],),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
                     Text(S.of(context).client , style: AppTextStyle.mediumBlack,),
                     Text(shipmentModel.clientUsername ?? '' , style: AppTextStyle.mediumBlueBold,),
                   ],),

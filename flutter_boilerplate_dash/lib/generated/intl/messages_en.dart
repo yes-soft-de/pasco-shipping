@@ -50,7 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "airwaybillNumber":
             MessageLookupByLibrary.simpleMessage("Air Waybill Number"),
         "airwaybillSpecification":
-            MessageLookupByLibrary.simpleMessage("Air waybill Specification"),
+            MessageLookupByLibrary.simpleMessage("Air waybill Type"),
         "airwaybillStatus":
             MessageLookupByLibrary.simpleMessage("Air Waybill Status"),
         "airwaybillType":
@@ -103,10 +103,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "containerNumber":
             MessageLookupByLibrary.simpleMessage("Container Number"),
         "containerSpecification":
-            MessageLookupByLibrary.simpleMessage("Container Specification"),
+            MessageLookupByLibrary.simpleMessage("Container Type"),
         "containerStatus":
             MessageLookupByLibrary.simpleMessage("Container Status"),
-        "containerType": MessageLookupByLibrary.simpleMessage("Container Type"),
         "containers": MessageLookupByLibrary.simpleMessage("Containers"),
         "cost": MessageLookupByLibrary.simpleMessage("Cost"),
         "countries": MessageLookupByLibrary.simpleMessage("Countries"),
@@ -169,6 +168,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "heightInMeter":
             MessageLookupByLibrary.simpleMessage("Height In Meter: "),
         "holder": MessageLookupByLibrary.simpleMessage("Holders"),
+        "holderCount": MessageLookupByLibrary.simpleMessage("Holder count"),
         "holderInfo":
             MessageLookupByLibrary.simpleMessage("Holder Information"),
         "holderType": MessageLookupByLibrary.simpleMessage(
@@ -269,12 +269,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "releasedTrip":
             MessageLookupByLibrary.simpleMessage("the Trip released "),
         "reports": MessageLookupByLibrary.simpleMessage("Reports"),
+        "requestContainer":
+            MessageLookupByLibrary.simpleMessage("Request Container"),
         "requestShipment":
             MessageLookupByLibrary.simpleMessage("Request Shipment"),
         "required":
             MessageLookupByLibrary.simpleMessage("this filed is required"),
         "resendCode": MessageLookupByLibrary.simpleMessage("resend code"),
         "resultTrack": MessageLookupByLibrary.simpleMessage("Result tracking"),
+        "reviewInformation":
+            MessageLookupByLibrary.simpleMessage("Review Information"),
         "reviewShipment":
             MessageLookupByLibrary.simpleMessage("Review Shipment"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
@@ -333,14 +337,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "shipping": MessageLookupByLibrary.simpleMessage("shipping"),
         "shippingFrom": MessageLookupByLibrary.simpleMessage("Shipping from: "),
         "shippingTo": MessageLookupByLibrary.simpleMessage("Shipping to: "),
-        "shippingType": MessageLookupByLibrary.simpleMessage("Shipping type:"),
+        "shippingType": MessageLookupByLibrary.simpleMessage("Shipping Type"),
+        "shippingWay": MessageLookupByLibrary.simpleMessage("Shipping way:"),
         "showFinance": MessageLookupByLibrary.simpleMessage("Show Finance"),
         "showLibrary": MessageLookupByLibrary.simpleMessage("Show Library"),
         "showQR": MessageLookupByLibrary.simpleMessage("Show QR"),
         "showStatus": MessageLookupByLibrary.simpleMessage("Show status"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
-        "specification": MessageLookupByLibrary.simpleMessage("Specification"),
+        "specification": MessageLookupByLibrary.simpleMessage("Types"),
         "stageCost": MessageLookupByLibrary.simpleMessage("Stage Cost: "),
         "startDate": MessageLookupByLibrary.simpleMessage("Start Date"),
         "startTime": MessageLookupByLibrary.simpleMessage("Start Time"),

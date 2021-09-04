@@ -30,6 +30,10 @@ class _AddCountryInitState extends State<AddTravelInit> {
  late DropListModel dropListModelSubContract;
  late Entry optionItemSelectedSubContract;
 
+ late DropListModel dropListModelCarrier;
+ late Entry optionItemSelectedCarrier;
+
+
  late DropListModel dropListModelFromCountries;
  late DropListModel dropListModelToCountries;
  late Entry optionItemSelectedFrom;
@@ -38,6 +42,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
  late List<Entry> entryFrom;
  late List<Entry> entryTo;
  late List<Entry> entrySub;
+ late List<Entry> entryCarrier;
 
  late String status;
  late String type;
@@ -372,6 +377,25 @@ class _AddCountryInitState extends State<AddTravelInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
+                  Text(S.of(context).carrier , style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              SelectDropList(
+                this.optionItemSelectedCarrier,
+                this.dropListModelCarrier,
+                    (optionItem) {
+                  optionItemSelectedCarrier = optionItem;
+
+                  setState(() {});
+                },
+              ),
+
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
                   Text(S.of(context).shipper , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
@@ -392,7 +416,8 @@ class _AddCountryInitState extends State<AddTravelInit> {
                   TravelRequest re = TravelRequest(status: status ,type: type
                     ,destinationCountry: destinationCountry ,
                     launchCountry: launchCountry ,
-                    shipperID: shipperID
+                    shipperID: shipperID,
+                    carrierID: optionItemSelectedCarrier.id
                     ,travelNumber: travelNumber.text
                     ,arrivalDate:arrivalDate.toUtc().toString()
                     ,launchDate: launchDate.toUtc().toString(),);
@@ -418,6 +443,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
     entryTo = <Entry>[];
     entryFrom= <Entry>[];
     entrySub= <Entry>[];
+    entryCarrier= <Entry>[];
 
     travelNumber =TextEditingController();
     status=TravelStatusName[TravelStatus.CURRENT]!;
@@ -428,6 +454,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
     optionItemSelectedFrom =  Entry('choose', 1, []);
     optionItemSelectedTo =  Entry('choose', 1, []);
     optionItemSelectedSubContract =  Entry('choose', 1, []);
+    optionItemSelectedCarrier =  Entry('choose', 1, []);
 
     initList();
 
@@ -437,8 +464,10 @@ class _AddCountryInitState extends State<AddTravelInit> {
     for(SubcontractModel item in widget.subContracts){
       Entry v = Entry(item.fullName! ,item.id! ,[]);
       entrySub.add(v);
+      entryCarrier.add(v);
     }
     dropListModelSubContract = DropListModel(entrySub);
+    dropListModelCarrier = DropListModel(entryCarrier);
 
 
     for(CountryModel item in widget.countries){
@@ -468,7 +497,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
        initialTime: selectedTimeStart,
        builder: (BuildContext context, Widget? child) {
          return MediaQuery(
-           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
            child: child!,
          );
        });
@@ -487,7 +516,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
        initialTime: selectedTimeEnd,
        builder: (BuildContext context, Widget? child) {
          return MediaQuery(
-           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
            child: child!,
          );
        });

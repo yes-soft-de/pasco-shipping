@@ -29,6 +29,7 @@ class _CountriesScreenState extends State<ContainerScreen> {
   late ContainersState currentState;
   late List<ContainerModel> items;
   late String type;
+  late bool isExternalWarehouse;
   late ContainerFilterRequest containerFilterRequest;
   @override
   Widget build(BuildContext context) {
@@ -53,8 +54,9 @@ class _CountriesScreenState extends State<ContainerScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // final arguments = ModalRoute.of(context)!.settings.arguments as Map;
-    // containerFilterRequest =arguments['containerFilter'];
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    isExternalWarehouse =arguments['isExternalWarehouse'];
+    containerFilterRequest.isExternalWarehouse = isExternalWarehouse;
     // type = containerFilterRequest.type!;
     widget._stateManager.getContainersWithFilter(containerFilterRequest);
 

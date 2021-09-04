@@ -237,7 +237,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
 
               [
                 Text(S.of(context).containerNumber , style: AppTextStyle.mediumBlackBold,),
-                Text('#'+ widget.model.containerNumber! , style: AppTextStyle.mediumBlackBold,),
+                Text( widget.model.containerNumber ??'' , style: AppTextStyle.mediumBlackBold,),
 
               ],),
             ),

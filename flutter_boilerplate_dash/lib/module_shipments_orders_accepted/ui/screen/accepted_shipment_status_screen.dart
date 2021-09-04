@@ -1,5 +1,6 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
@@ -16,6 +17,7 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepte
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_travel/request/travel_filter_request.dart';
+import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
@@ -102,6 +104,35 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
           context: context,
           type: CoolAlertType.info,
           title:  S.of(context).careful,
+          widget: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Scrollbar(
+              isAlwaysShown: true,
+              showTrackOnHover: true,
+              child: SingleChildScrollView(
+                child: Container(
+                  color: Colors.grey[200],
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(S.of(context).reviewInformation , style: AppTextStyle.mediumRedBold,),
+                        Row(
+                          children: [
+                            Text(S.of(context).details + ': ' , style: AppTextStyle.mediumBlackBold,),
+                            Expanded
+                              (child: Text( re.statusDetails , style: AppTextStyle.mediumBlack,))
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
           confirmBtnText: S.of(context).ok,
           backgroundColor:AppThemeDataService.PrimaryColor,
           confirmBtnColor:AppThemeDataService.AccentColor,
@@ -127,6 +158,81 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
             context: context,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
+            widget: Container(
+              height: 230,
+              child: Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: Scrollbar(
+                  isAlwaysShown: true,
+                  showTrackOnHover: true,
+                  child: SingleChildScrollView(
+                    child: Container(
+                      color: Colors.grey[200],
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(S.of(context).reviewInformation , style: AppTextStyle.mediumRedBold,),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).details + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text( re.statusDetails , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).packingBy + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text( re.packetingBy , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).weight + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text( re.weight.toString() , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).volume + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text( re.volume.toString() , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).guniQuantity + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text( re.guniQuantity.toString() , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             confirmBtnText: S.of(context).ok,
             backgroundColor:AppThemeDataService.PrimaryColor,
             confirmBtnColor:AppThemeDataService.AccentColor,
@@ -151,6 +257,81 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
             context: context,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
+            widget: Container(
+              height: 230,
+              child: Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: Scrollbar(
+                  isAlwaysShown: true,
+                  showTrackOnHover: true,
+                  child: SingleChildScrollView(
+                    child: Container(
+                      color: Colors.grey[200],
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(S.of(context).reviewInformation , style: AppTextStyle.mediumRedBold,),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).details + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text( request.statusDetails , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).travelNumber + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text( request.travelNumber , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).containerNumber + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text( request.holderNumber.toString() , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).amount + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text(request.amount.toString() , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).shipmentSeparation + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text(isSeperate.toString() , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             confirmBtnText: S.of(context).ok,
             backgroundColor:AppThemeDataService.PrimaryColor,
             confirmBtnColor:AppThemeDataService.AccentColor,

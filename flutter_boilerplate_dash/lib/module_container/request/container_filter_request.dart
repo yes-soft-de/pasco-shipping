@@ -6,6 +6,9 @@ class ContainerFilterRequest {
   int? providedBy;
   int? shipperID;
   int? consigneeID;
+  int? specificationID;
+
+  bool? isExternalWarehouse;
 
   ContainerFilterRequest({
     this.type,
@@ -14,16 +17,21 @@ class ContainerFilterRequest {
     this.providedBy,
     this.consigneeID,
     this.shipperID,
+    this.specificationID,
+    this.isExternalWarehouse
+
   });
 
   Map<String, dynamic> toJson() {
     return {
       'type': type ?? '',
       'status': status ?? '',
-      'shipperID': shipperID ?? '',
-      'consigneeID': consigneeID ?? '',
-      'providedBy': providedBy ?? '',
-      'containerNumber':containerNumber ??''
+      'shipperID': shipperID ?? 0,
+      'consigneeID': consigneeID ?? 0,
+      'providedBy': providedBy ?? 0,
+      'specificationID': specificationID ?? 0,
+      'containerNumber':containerNumber ??'',
+      'isExternalWarehouse':isExternalWarehouse
     };
   }
 }

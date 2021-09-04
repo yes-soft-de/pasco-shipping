@@ -62,6 +62,10 @@ class _AcceptedShipmentDetailsSuccessfullyState
 
   late int holderID;
   late int travelID;
+
+  late String travelNumber;
+  late String holderNumber;
+
   late bool separateShipment;
   late bool isDifferentTravel;
 
@@ -77,6 +81,8 @@ class _AcceptedShipmentDetailsSuccessfullyState
 
     holderID = 0;
     travelID = 0;
+    travelNumber = '';
+    holderNumber='';
     separateShipment = false;
     isDifferentTravel = false;
 
@@ -124,7 +130,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   children: [
                     Icon(Icons.warning ,color: Colors.red),
                     SizedBox(width: 10,),
-                    Text(widget.statusModel[3].statusDetails ??'' , style:  AppTextStyle.mediumRedBold),
+                    Expanded(child: Text(widget.statusModel[3].statusDetails ??'' , style:  AppTextStyle.mediumRedBold)),
                   ],
                 ),
               ),
@@ -222,6 +228,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
             FocusScope.of(context).unfocus();
             optionItemSelectedContainer = optionItem;
             holderID = optionItem.id;
+            holderNumber = optionItem.title;
             setState(() {});
           },
         ),
@@ -251,6 +258,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
             FocusScope.of(context).unfocus();
             optionItemSelectedTravel = optionItem;
             travelID = optionItem.id;
+            travelNumber = optionItem.title;
             setState(() {});
           },
         ),
@@ -315,6 +323,8 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   AcceptedShipmentStatus.STORED]!,
                   holderID: holderID,
                   holderType: 'container',
+                  holderNumber: holderNumber,
+                  travelNumber: travelNumber,
                   amount:amountController.text.isEmpty?0: int.parse(amountController.text), travelID: travelID);
               widget.onChangeStatus(request , separateShipment, widget.containers,widget.travels);
             },

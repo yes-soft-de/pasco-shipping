@@ -85,7 +85,7 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(children: [
-              Image.asset(StaticImage.airwaybill),
+              Image.asset(StaticImage.container),
 
 
               Padding(
@@ -93,40 +93,12 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).airwaybillType, style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).shippingType, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: AppThemeDataService.AccentColor,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
-
-                    ),
-                    onPressed: () {
-                    },
-                    child: Row(
-                      children: [
-                        Radio(
-                          onChanged: (value) {
-                            _setSelectedRadioGender(2);
-                          },
-                          value: 2,
-                          groupValue: selectedRadioType,
-                          activeColor: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          S.of(context).FCL,
-                          style: AppTextStyle.mediumWhite,
-                        ),
-                      ],
-                    ),
-                  ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         primary: AppThemeDataService.AccentColor,
@@ -162,7 +134,7 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).airwaybillNumber , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).containerNumber , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(

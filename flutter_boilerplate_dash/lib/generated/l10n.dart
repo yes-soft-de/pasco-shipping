@@ -650,11 +650,11 @@ class S {
     );
   }
 
-  /// `Shipping type:`
-  String get shippingType {
+  /// `Shipping way:`
+  String get shippingWay {
     return Intl.message(
-      'Shipping type:',
-      name: 'shippingType',
+      'Shipping way:',
+      name: 'shippingWay',
       desc: '',
       args: [],
     );
@@ -960,10 +960,10 @@ class S {
     );
   }
 
-  /// `Specification`
+  /// `Types`
   String get specification {
     return Intl.message(
-      'Specification',
+      'Types',
       name: 'specification',
       desc: '',
       args: [],
@@ -980,11 +980,11 @@ class S {
     );
   }
 
-  /// `Container Type`
-  String get containerType {
+  /// `Shipping Type`
+  String get shippingType {
     return Intl.message(
-      'Container Type',
-      name: 'containerType',
+      'Shipping Type',
+      name: 'shippingType',
       desc: '',
       args: [],
     );
@@ -1460,20 +1460,20 @@ class S {
     );
   }
 
-  /// `Container Specification`
+  /// `Container Type`
   String get containerSpecification {
     return Intl.message(
-      'Container Specification',
+      'Container Type',
       name: 'containerSpecification',
       desc: '',
       args: [],
     );
   }
 
-  /// `Air waybill Specification`
+  /// `Air waybill Type`
   String get airwaybillSpecification {
     return Intl.message(
-      'Air waybill Specification',
+      'Air waybill Type',
       name: 'airwaybillSpecification',
       desc: '',
       args: [],
@@ -2975,6 +2975,36 @@ class S {
     return Intl.message(
       'Do you really want to reject the shipment ?',
       name: 'rejectConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request Container`
+  String get requestContainer {
+    return Intl.message(
+      'Request Container',
+      name: 'requestContainer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Review Information`
+  String get reviewInformation {
+    return Intl.message(
+      'Review Information',
+      name: 'reviewInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Holder count`
+  String get holderCount {
+    return Intl.message(
+      'Holder count',
+      name: 'holderCount',
       desc: '',
       args: [],
     );

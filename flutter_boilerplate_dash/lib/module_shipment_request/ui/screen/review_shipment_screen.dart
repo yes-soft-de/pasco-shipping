@@ -47,7 +47,12 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReview> {
       print("newEvent"+event.toString());
       currentState = event;
       if (this.mounted) {
-        setState(() {});
+        if(currentState is SuccessfullyAddedShipment){
+       Fluttertoast.showToast(msg: S.of(context).shipmentAddSuccessfully);
+        Navigator.pop(context);
+        }else {
+          setState(() {});
+        }
       }
     });
     // widget._stateManger.();
@@ -72,15 +77,7 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReview> {
         widget._stateManger.addShipment(request);
       });
     }
-    else if (currentState is SuccessfullyAddedShipment){
-      Fluttertoast.showToast(msg: S.of(context).shipmentAddSuccessfully);
-      Navigator.pop(
-          context,);
-      // Navigator.pop(
-      //     context,);
-        // Future.delayed(Duration.zero, () => _showDialog(context));
-      return Container();
-    }
+
     // else if(currentState is SuccessfullyModifyMarkState){
     //   SuccessfullyModifyMarkState state = currentState as SuccessfullyModifyMarkState;
     //   items = state.marks;

@@ -76,6 +76,7 @@ class _AddNewCountryState extends State<ContainerFilterScreen> {
       InitFilterState? state = currentState as InitFilterState?;
       subs = state!.subcontracts;
       return FilterContainerInit(
+        specification: state.specification,
         subContracts: subs,
         onSave: (request){
           Navigator.pop(context , {'filter' : request});

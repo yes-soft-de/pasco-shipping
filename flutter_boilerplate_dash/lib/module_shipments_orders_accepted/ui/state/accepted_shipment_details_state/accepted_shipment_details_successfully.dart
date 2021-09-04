@@ -10,6 +10,7 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_s
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/image_full_screen.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/utils/helpers/pdf_paragraph_api.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
@@ -62,7 +63,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                 Row(
                   children: [
                     Text(S.of(context).serialNumber , style: AppTextStyle.mediumBlack, ),
-                    Text( widget.shipment.clientIdentificationNumber ??''),
+                    Text( widget.shipment.clientIdentificationNumber ??'' ,style: AppTextStyle.mediumBlueBold, ),
                   ],
                 ),
                 InkWell(
@@ -89,7 +90,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                     child: Row(
                       children: [
                         Text(
-                          S.of(context).shippingType,
+                          S.of(context).shippingType+': ',
                           style: AppTextStyle.mediumBlack,
                         ),
                         Text(
@@ -292,7 +293,27 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
             ),
           ),
           Divider(color: Colors.grey[300],thickness: 2,),
-         Padding(
+
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(S.of(context).shipmentReport),
+                InkWell(
+                  onTap: () async {
+                    final pdfFile = await PdfParagraphApi.generate(widget.shipment);
+
+                    PdfParagraphApi.openFile(pdfFile);
+                  },
+                  child: Icon(Icons.file_present ,size: 50,),
+                ),
+              ],
+            ),
+          ),
+          Divider(color: Colors.grey[300],thickness: 2,),
+
+          Padding(
            padding: const EdgeInsets.all(8.0),
            child: Text(S.of(context).attached ,style: AppTextStyle.mediumBlack),
          ),
@@ -398,9 +419,17 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
         ),
       ),
       actions: [
-        FlatButton(onPressed: (){}, child: Row(children: [
-          Icon(Icons.print, color: blue,size: 30,),
-        ],))
+        Row(children: [
+          FlatButton(onPressed: (){}, child: Row(children: [
+            Icon(Icons.print, color: blue,size: 30,),
+          ],)),
+          Text('1' +'\\'+ '20'),
+          Text(' Copy')
+        ],
+
+
+        )
+
       ],
     );
   });
@@ -450,15 +479,22 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                   SizedBox(height: 15,),
                   Row(children: [
                     Text(S.of(context).serialNumber, style: AppTextStyle.mediumBlack,),
-                    Text(widget.shipment.clientIdentificationNumber ??'')
+                    Text(widget.shipment.clientIdentificationNumber ??'' , style: AppTextStyle.mediumBlue,)
                   ],)
                 ],
               ),
             ),
             actions: [
-              FlatButton(onPressed: (){}, child: Row(children: [
-                Icon(Icons.print, color: blue,size: 30,),
-              ],))
+              Row(
+                children: [
+                  FlatButton(onPressed: (){}, child: Row(children: [
+                    Icon(Icons.print, color: blue,size: 30,),
+                  ],)),
+                  Text('1' +'\\'+ '12'),
+                  Text(' Copy')
+                ],
+              )
+
             ],
           );
         });

@@ -107,6 +107,18 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                     ],
                   ),
                 ),
+
+                Divider(color: Colors.grey[300],thickness: 2,),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).carrier),
+                      Text(model.carrierName ?? ''),
+                    ],
+                  ),
+                ),
             ],
             ),
           ),
@@ -171,7 +183,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                 children:
 
               [
-                Text(S.of(context).travelNumber , style: AppTextStyle.mediumBlackBold,),
+                Text(S.of(context).travelNumber+': ' , style: AppTextStyle.mediumBlackBold,),
                 Text('#'+ model.travelNumber! , style: AppTextStyle.mediumBlackBold,),
 
               ],),

@@ -51,10 +51,11 @@ class _CountryCardState extends State<TravelsCard> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text('#' + widget.model.id.toString() , style: AppTextStyle.largeBlackBold,),
                       Row(
                         children: [
                           Text(
-                            S.of(context).travelNumber,
+                            S.of(context).travelNumber+': ',
                             style: AppTextStyle.mediumBlack,
                           ),
                            Expanded(child: Text(
@@ -81,6 +82,23 @@ class _CountryCardState extends State<TravelsCard> {
                       SizedBox(
                         height: 10,
                       ),
+
+                      Row(
+                        children: [
+                          Text(
+                            S.of(context).type+': ',
+                            style: AppTextStyle.mediumBlack,
+                          ),
+                          Expanded(child:Text(
+                            widget.model.type ?? '',
+                            style: AppTextStyle.mediumBlueBold,
+                          ),
+                          )],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+
                       Row(
                         children: [
                           Text(
@@ -118,7 +136,7 @@ class _CountryCardState extends State<TravelsCard> {
                       Row(
                         children: [
                           Text(
-                            S.of(context).startDate,
+                            S.of(context).startDate+': ',
                             style: AppTextStyle.mediumBlack,
                           ),
                           Expanded(
@@ -152,7 +170,7 @@ class _CountryCardState extends State<TravelsCard> {
                       Row(
                         children: [
                           Text(
-                           S.of(context).arrivalDate,
+                           S.of(context).arrivalDate+': ',
                             style: AppTextStyle.mediumBlack,
                           ),
                           Expanded(

@@ -46,9 +46,9 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
   late String extra;
 
 
-  late Entry optionItemSelectedDist = Entry('choose', 1, []);
-  late Entry optionItemSelectedMarks = Entry('choose', 1, []);
-  late Entry optionItemSelectedReceiver = Entry('choose', 1, []);
+  late Entry optionItemSelectedDist = Entry('choose', 0, []);
+  late Entry optionItemSelectedMarks = Entry('choose', 0, []);
+  late Entry optionItemSelectedReceiver = Entry('choose', 0, []);
 
   late List<Entry> marksEntry;
   late List<Entry> distrbutorEntry;
@@ -194,7 +194,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
               children: [
                 Text(
                   S.of(context).vehicleNumber,
-                  style: white18text,
+                  style: AppTextStyle.mediumBlackBold,
                 ),
                 TextEdit(vehicle, 50, (number) {
                   widget.shipmentRequest.vehicleIdentificationNumber = number ?? "";

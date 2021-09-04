@@ -40,21 +40,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "air": MessageLookupByLibrary.simpleMessage("جوي"),
         "airShipment": MessageLookupByLibrary.simpleMessage("شحنات جوية"),
         "airTravel": MessageLookupByLibrary.simpleMessage("رحلات جوية"),
-        "airWaybills": MessageLookupByLibrary.simpleMessage("بوليصات الشحن"),
+        "airWaybills":
+            MessageLookupByLibrary.simpleMessage("بوليصات الشحن الجوي"),
         "airwaybillArrived": MessageLookupByLibrary.simpleMessage(
             "تم الوصول الى المستودع الهدف"),
         "airwaybillFinance":
-            MessageLookupByLibrary.simpleMessage("مصاريف بوليصة الشحن"),
+            MessageLookupByLibrary.simpleMessage("مصاريف بوليصة الشحن الجوي"),
         "airwaybillInformation":
-            MessageLookupByLibrary.simpleMessage("معلومات بوليصة الشحن"),
+            MessageLookupByLibrary.simpleMessage("معلومات بوليصة الشحن الجوي"),
         "airwaybillNumber":
-            MessageLookupByLibrary.simpleMessage("رقم بوليصة الشحن: "),
+            MessageLookupByLibrary.simpleMessage("رقم بوليصة الشحن الجوي: "),
         "airwaybillSpecification":
-            MessageLookupByLibrary.simpleMessage("خصائص بوليصة الشحن"),
+            MessageLookupByLibrary.simpleMessage("أنواع بوليصة الشحن الجوي"),
         "airwaybillStatus":
-            MessageLookupByLibrary.simpleMessage("حالة بوليصة الشحن"),
+            MessageLookupByLibrary.simpleMessage("حالة بوليصة الشحن الجوي"),
         "airwaybillType":
-            MessageLookupByLibrary.simpleMessage("نوع بوليصة الشحن"),
+            MessageLookupByLibrary.simpleMessage("نوع بوليصة الشحن الجوي"),
         "airwaybillUploaded": MessageLookupByLibrary.simpleMessage(
             "تم تحميل بوليصة الشحن الى الرحلة"),
         "amount": MessageLookupByLibrary.simpleMessage("الكمية"),
@@ -101,9 +102,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("معلومات الحاوية"),
         "containerNumber": MessageLookupByLibrary.simpleMessage("رقم الحاوية"),
         "containerSpecification":
-            MessageLookupByLibrary.simpleMessage("خصائص الحاوية"),
+            MessageLookupByLibrary.simpleMessage("أنواع الحاوية"),
         "containerStatus": MessageLookupByLibrary.simpleMessage("حالة الحاوية"),
-        "containerType": MessageLookupByLibrary.simpleMessage("نوع الحاوية"),
         "containers": MessageLookupByLibrary.simpleMessage("الحاويات"),
         "cost": MessageLookupByLibrary.simpleMessage("الكلفة"),
         "countries": MessageLookupByLibrary.simpleMessage("البلدان"),
@@ -166,9 +166,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "heightInMeter":
             MessageLookupByLibrary.simpleMessage("الإرتفاع بالمتر: "),
         "holder": MessageLookupByLibrary.simpleMessage("الحاملات"),
+        "holderCount": MessageLookupByLibrary.simpleMessage("عدد الحاملات"),
         "holderInfo": MessageLookupByLibrary.simpleMessage("معلومات الحاملة"),
-        "holderType":
-            MessageLookupByLibrary.simpleMessage("نوع الحاوية/بوليصة الشحن: "),
+        "holderType": MessageLookupByLibrary.simpleMessage(
+            "نوع الحاوية/بوليصة الشحن الجوي: "),
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "iHaveAnAccount": MessageLookupByLibrary.simpleMessage("لدي حساب"),
         "image": MessageLookupByLibrary.simpleMessage("صورة:"),
@@ -262,9 +263,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "released": MessageLookupByLibrary.simpleMessage("وصلت"),
         "releasedTrip": MessageLookupByLibrary.simpleMessage("الرحلة وصلت"),
         "reports": MessageLookupByLibrary.simpleMessage("التقارير"),
+        "requestContainer": MessageLookupByLibrary.simpleMessage("طلب حاوية"),
         "requestShipment": MessageLookupByLibrary.simpleMessage("طلب شحنة"),
         "required": MessageLookupByLibrary.simpleMessage("الحقل مطلوب"),
         "resultTrack": MessageLookupByLibrary.simpleMessage("نتائج التعقب"),
+        "reviewInformation":
+            MessageLookupByLibrary.simpleMessage("مراجعة المعلومات"),
         "reviewShipment": MessageLookupByLibrary.simpleMessage("مراجعة الشحنة"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "saveInfo": MessageLookupByLibrary.simpleMessage("حفظ المعلومات"),
@@ -318,14 +322,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "shipping": MessageLookupByLibrary.simpleMessage("الشحن"),
         "shippingFrom": MessageLookupByLibrary.simpleMessage("شحن من:"),
         "shippingTo": MessageLookupByLibrary.simpleMessage("شحن إلى:"),
-        "shippingType": MessageLookupByLibrary.simpleMessage("نوع الشحن:"),
+        "shippingType": MessageLookupByLibrary.simpleMessage("نوع الشحن"),
+        "shippingWay": MessageLookupByLibrary.simpleMessage("طريقة الشحن"),
         "showFinance": MessageLookupByLibrary.simpleMessage("عرض المصاريف"),
         "showLibrary": MessageLookupByLibrary.simpleMessage("المعرض"),
         "showQR": MessageLookupByLibrary.simpleMessage("إظهار الرمز"),
         "showStatus": MessageLookupByLibrary.simpleMessage("الحالة"),
         "signIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "signUp": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
-        "specification": MessageLookupByLibrary.simpleMessage("المواصفات"),
+        "specification": MessageLookupByLibrary.simpleMessage("أنواع"),
         "stageCost": MessageLookupByLibrary.simpleMessage("تكلفة المرحلة: "),
         "startDate": MessageLookupByLibrary.simpleMessage("تاريخ البداية"),
         "startTime": MessageLookupByLibrary.simpleMessage("وقت البداية"),

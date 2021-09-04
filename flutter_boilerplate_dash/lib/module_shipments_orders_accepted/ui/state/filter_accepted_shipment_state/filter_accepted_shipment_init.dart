@@ -15,6 +15,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/module_travel/request/travel_filter_request.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
+import 'package:pasco_shipping/utils/widget/text_edit.dart';
 
 class FilterAcceptedShipmentInit extends StatefulWidget {
   final List<CountryModel> countries;
@@ -33,10 +34,11 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
 
  late DropListModel dropListModelFromCountries;
  late DropListModel dropListModelToCountries;
- late Entry optionItemSelectedFrom;
+ late Entry optionItemSelectedTim;
  late Entry optionItemSelectedTo;
+ DropListModel dropListModelTime = DropListModel(dataTime);
 
- late List<Entry> entryFrom;
+
  late List<Entry> entryTo;
 
  late String launchCountry;
@@ -61,6 +63,39 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+            widget.filterRequest.transportationType=='sea'?  Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      S.of(context).containerNumber,
+                      style: AppTextStyle.mediumBlackBold,
+                    ),
+                  ),
+                  TextEdit('', 50, (containerNumber) {
+                    widget.filterRequest.containerNumber = containerNumber;
+                  }),
+
+                ],
+              )
+             : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      S.of(context).airwaybillNumber,
+                      style: AppTextStyle.mediumBlackBold,
+                    ),
+                  ),
+                  TextEdit('', 50, (airWaybillNumber) {
+                    widget.filterRequest.airWaybillNumber = airWaybillNumber;
+                  }),
+
+                ],
+              ),
+
             Text(S.of(context).status+': ' , style: AppTextStyle.mediumBlackBold,),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -88,7 +123,7 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text(S.of(context).date, style: AppTextStyle.mediumBlackBold,),
+                  Text(S.of(context).date+': ', style: AppTextStyle.mediumBlackBold,),
                   Column(
                     children: [
                       Padding(
@@ -159,22 +194,7 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(S.of(context).launchCountry , style: AppTextStyle.mediumBlackBold,),
-              ),
-              SelectDropList(
-                this.optionItemSelectedFrom,
-                this.dropListModelFromCountries,
-                    (optionItem) {
-                  FocusScope.of(context).unfocus();
-                  optionItemSelectedFrom = optionItem;
-                  launchCountry = optionItem.title;
-                  // travelFilterRequest.launchCountry = optionItem.title;
 
-                  setState(() {});
-                },
-              ),
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -185,12 +205,29 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
                 this.dropListModelToCountries,
                     (optionItem) {
                   optionItemSelectedTo = optionItem;
+                  widget.filterRequest.targetCountry = optionItem.title;
                   // destinationCountry = optionItem.title;
                   // travelFilterRequest.destinationCountry = optionItem.title;
                   setState(() {});
                 },
               ),
 
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  S.of(context).paymentTime,
+                  style: AppTextStyle.mediumBlackBold,
+                ),
+              ),
+              SelectDropList(
+                this.optionItemSelectedTim,
+                this.dropListModelTime,
+                    (optionItem) {
+                  optionItemSelectedTim = optionItem;
+                  widget.filterRequest.paymentTime = optionItem.title;
+                  setState(() {});
+                },
+              ),
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 widget.onSave(widget.filterRequest);
@@ -224,15 +261,15 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
    formattedDateStart = ''; //formatter.format(startDate);
    formattedDateEnd =''; //  formatter.format(endDate);
    entryTo = <Entry>[];
-   entryFrom= <Entry>[];
-   optionItemSelectedFrom =  Entry('choose', 1, []);
+
+   optionItemSelectedTim =  Entry('choose', 1, []);
    optionItemSelectedTo =  Entry('choose', 1, []);
    for(CountryModel item in widget.countries){
      Entry v = Entry(item.name! ,item.id! ,[]);
-     entryFrom.add(v);
+     // entryFrom.add(v);
      entryTo.add(v);
    }
-   dropListModelFromCountries = DropListModel(entryFrom);
+   // dropListModelFromCountries = DropListModel(entryFrom);
    dropListModelToCountries = DropListModel(entryTo);
  }
  Future<void> _selectStartDate(BuildContext context) async {
@@ -244,7 +281,7 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
    if (picked != null && picked != now) {
      setState(() {
        startDate = picked;
-       // travelFilterRequest.launchDate = DateTime(startDate.year , startDate.month , startDate.day , selectedTimeStart.hour ,selectedTimeStart.minute).toUtc().toString();
+       widget.filterRequest.dateOne = DateTime(startDate.year , startDate.month , startDate.day).toUtc().toString();
        formattedDateStart = formatter.format(startDate);
      });
    }
@@ -258,7 +295,7 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
    if (picked != null && picked != now) {
      setState(() {
        endDate = picked;
-       // travelFilterRequest.arrivalDate = DateTime(endDate.year , endDate.month , endDate.day , selectedTimeEnd.hour ,selectedTimeEnd.minute).toUtc().toString();
+       widget.filterRequest.dateTow = DateTime(endDate.year , endDate.month , endDate.day).toUtc().toString();
        formattedDateEnd = formatter.format(endDate);
      });
    }

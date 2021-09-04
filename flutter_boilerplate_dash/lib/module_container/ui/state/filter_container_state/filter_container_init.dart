@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/request/container_filter_request.dart';
+import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
 import 'package:pasco_shipping/module_countries/response/country_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/response/product_categories/product_categories_response.dart';
@@ -16,9 +17,10 @@ import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class FilterContainerInit extends StatefulWidget {
   final List<SubcontractModel> subContracts;
+  final List<ContainerSpecificationModel> specification;
   final Function onSave;
   // final String type;
-  const FilterContainerInit({ required this.onSave , required this.subContracts});
+  const FilterContainerInit({ required this.onSave , required this.subContracts,required this.specification});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
@@ -27,6 +29,10 @@ class FilterContainerInit extends StatefulWidget {
 class _AddCountryInitState extends State<FilterContainerInit> {
  // late TextEditingController travelNumber ;
   late ContainerFilterRequest containerFilterRequest;
+
+  late DropListModel dropListModelSpecification;
+  late Entry optionItemSelectedSpecification;
+  late List<Entry> entrySpecification;
 
  late DropListModel dropListModelSubContract;
  late Entry optionItemSelectedSubContract;
@@ -125,7 +131,7 @@ class _AddCountryInitState extends State<FilterContainerInit> {
 
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(S.of(context).subcontract , style: AppTextStyle.mediumBlackBold,),
+              child: Text(S.of(context).provided , style: AppTextStyle.mediumBlackBold,),
             ),
             SelectDropList(
               this.optionItemSelectedSubContract,
@@ -168,6 +174,23 @@ class _AddCountryInitState extends State<FilterContainerInit> {
                 setState(() {});
               },
             ),
+
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(S.of(context).specification , style: AppTextStyle.mediumBlackBold,),
+              ),
+              SelectDropList(
+                this.optionItemSelectedSpecification,
+                this.dropListModelSpecification,
+                    (optionItem) {
+                  optionItemSelectedSpecification= optionItem;
+                  containerFilterRequest.specificationID = optionItem.id;
+                  setState(() {});
+                },
+              ),
+
+
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 widget.onSave(containerFilterRequest);
 
@@ -183,6 +206,7 @@ class _AddCountryInitState extends State<FilterContainerInit> {
     super.initState();
     containerFilterRequest = ContainerFilterRequest();
     entrySub= <Entry>[];
+    entrySpecification= <Entry>[];
     entryShipper = <Entry>[];
     entryConsign =<Entry>[];
 
@@ -192,10 +216,12 @@ class _AddCountryInitState extends State<FilterContainerInit> {
     // selectedRadioType = 1;
     // type = TravelTypeName[TravelType.SEA]!;
 
-    optionItemSelectedSubContract =  Entry('choose', 1, []);
-    optionItemSelectedShipper =  Entry('choose', 1, []);
-    optionItemSelectedConsign =  Entry('choose', 1, []);
-
+    optionItemSelectedSubContract =  Entry('choose', 0, []);
+    optionItemSelectedShipper =  Entry('choose', 0, []);
+    optionItemSelectedConsign =  Entry('choose', 0, []);
+    optionItemSelectedSpecification =  Entry('choose', 0, []);
+    containerFilterRequest.status='full';
+    containerFilterRequest.type='LCL';
     initList();
 
   }
@@ -210,6 +236,15 @@ class _AddCountryInitState extends State<FilterContainerInit> {
     dropListModelSubContract = DropListModel(entrySub);
     dropListModelConsign  =DropListModel(entryConsign);
     dropListModelShipper  =DropListModel(entryShipper);
+
+
+
+    for(ContainerSpecificationModel item in widget.specification){
+      Entry v = Entry(item.name! ,item.id! ,[]);
+      entrySpecification.add(v);
+    }
+    dropListModelSpecification  =DropListModel(entrySpecification);
+
   }
 
   @override

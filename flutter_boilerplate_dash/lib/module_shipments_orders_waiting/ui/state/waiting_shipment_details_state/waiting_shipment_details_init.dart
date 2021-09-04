@@ -56,7 +56,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 Expanded(
                     child: ListTile(
                         title: Text(
-                          S.of(context).shippingType,
+                          S.of(context).shippingWay,
                           style: AppTextStyle.mediumBlack,
                         ),
                         subtitle: Text(

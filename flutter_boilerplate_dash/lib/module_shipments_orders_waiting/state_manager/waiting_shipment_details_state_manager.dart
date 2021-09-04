@@ -17,7 +17,9 @@ class WaitingShipmentsDetailsStateManager {
     _stateSubject.add(LoadingState());
     _service.acceptedOrRejectedShipment(type).then((value) {
       if (value != null) {
-        _stateSubject.add(SuccessfullyModifyState(value));
+        if(value.isConfirmed){
+          _stateSubject.add(SuccessfullyModifyState(value));
+        }
       }else {
         _stateSubject.add(ErrorState('Error'));
       }
