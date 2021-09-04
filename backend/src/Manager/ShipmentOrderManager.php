@@ -361,20 +361,19 @@ class ShipmentOrderManager
                 // Create new containers as client requested
                 for ($counter = 0; $counter < $orderShipmentEntity->getHolderCount(); $counter++)
                 {
-                    $this->createContainer($orderShipmentEntity->getId(), ShippingTypeConstant::$FCL_SHIPPING_TYPE);
+                    $this->createFCLContainer($orderShipmentEntity->getId());
                 }
             }
         }
     }
 
-    public function createContainer($shipmentID, $type)
+    public function createFCLContainer($shipmentID)
     {
         $containerCreateRequest = new ContainerCreateRequest();
 
         $containerCreateRequest->setShipmentID($shipmentID);
-        $containerCreateRequest->setType($type);
 
-        $this->containerManager->create($containerCreateRequest);
+        $this->containerManager->createFCLContainer($containerCreateRequest);
     }
 
     public function createFCLAirWaybill($shipmentID)

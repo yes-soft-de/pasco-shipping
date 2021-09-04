@@ -4,6 +4,7 @@ namespace App\Manager;
 
 use App\AutoMapping;
 use App\Constant\ContainerStatusConstant;
+use App\Constant\ShippingTypeConstant;
 use App\Entity\ContainerEntity;
 use App\Repository\ContainerEntityRepository;
 use App\Request\ContainerCreateRequest;
@@ -31,6 +32,20 @@ class ContainerManager
         $containerEntity = $this->autoMapping->map(ContainerCreateRequest::class, ContainerEntity::class, $request);
 
         $containerEntity->setStatus(ContainerStatusConstant::$NOTFULL_CONTAINER_STATUS);
+
+        $this->entityManager->persist($containerEntity);
+        $this->entityManager->flush();
+        $this->entityManager->clear();
+
+        return $containerEntity;
+    }
+
+    public function createFCLContainer(ContainerCreateRequest $request)
+    {
+        $containerEntity = $this->autoMapping->map(ContainerCreateRequest::class, ContainerEntity::class, $request);
+
+        $containerEntity->setStatus(ContainerStatusConstant::$FULL_CONTAINER_STATUS);
+        $containerEntity->setType(ShippingTypeConstant::$FCL_SHIPPING_TYPE);
 
         $this->entityManager->persist($containerEntity);
         $this->entityManager->flush();
