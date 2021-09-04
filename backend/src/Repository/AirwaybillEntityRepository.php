@@ -155,7 +155,8 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function filterAirWaybills($specificationID, $airwaybillNumber, $status, $type, $providedBy, $shipperID, $consigneeID, $isExternalWarehouse)
+    public function filterAirWaybills($specificationID, $airwaybillNumber, $status, $type, $providedBy, $shipperID, $consigneeID,
+                                      $isExternalWarehouse, $shipmentID)
     {
         $query = $this->createQueryBuilder('airwaybill')
             ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID',
@@ -271,6 +272,12 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
         elseif (isset($isExternalWarehouse) AND $isExternalWarehouse == false)
         {
             $query->andWhere("airwaybill.shipmentID IS NULL");
+        }
+
+        if($shipmentID)
+        {
+            $query->andWhere('airwaybill.shipmentID = :shipmentID');
+            $query->setParameter('shipmentID', $shipmentID);
         }
 
         return $query->getQuery()->getResult();
