@@ -32,9 +32,7 @@ App\Request\OrderShipmentCreateRequest:
       - NotBlank: ~
     unit:
       - NotBlank: ~
-    receiverName:
-      - NotBlank: ~
-    receiverPhoneNumber:
+    receiverID:
       - NotBlank: ~
     paymentTime:
       - NotBlank: ~

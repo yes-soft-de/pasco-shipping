@@ -95,7 +95,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.createdBy', 'container.carrierID',
-            'container.shipperID', 'container.type', 'container.providedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
+            'container.shipperID', 'container.type', 'container.providedBy', 'container.shipmentID', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
             'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName')
 
             ->andWhere('container.id = :id')
@@ -154,7 +154,8 @@ class ContainerEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function filterContainers($specificationID, $containerNumber, $status, $type, $providedBy, $shipperID, $consigneeID, $isExternalWarehouse)
+    public function filterContainers($specificationID, $containerNumber, $status, $type, $providedBy, $shipperID, $consigneeID,
+                                     $isExternalWarehouse, $shipmentID)
     {
         $query = $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID',
@@ -260,6 +261,12 @@ class ContainerEntityRepository extends ServiceEntityRepository
         {
             $query->andWhere('container.consigneeID = :consigneeID');
             $query->setParameter('consigneeID', $consigneeID);
+        }
+
+        if($shipmentID)
+        {
+            $query->andWhere('container.shipmentID = :shipmentID');
+            $query->setParameter('shipmentID', $shipmentID);
         }
 
         if($isExternalWarehouse == true)

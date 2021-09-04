@@ -4,6 +4,8 @@ namespace App\Manager;
 
 use App\AutoMapping;
 use App\Constant\AirwaybillStatusConstant;
+use App\Constant\ShippingTypeConstant;
+use App\Constant\ShippingWayConstant;
 use App\Entity\AirwaybillEntity;
 use App\Repository\AirwaybillEntityRepository;
 use App\Request\AirwaybillCreateRequest;
@@ -31,6 +33,20 @@ class AirwaybillManager
         $airwaybillEntity = $this->autoMapping->map(AirwaybillCreateRequest::class, AirwaybillEntity::class, $request);
 
         $airwaybillEntity->setStatus(AirwaybillStatusConstant::$NOTFULL_AIRWAYBILL_STATUS);
+
+        $this->entityManager->persist($airwaybillEntity);
+        $this->entityManager->flush();
+        $this->entityManager->clear();
+
+        return $airwaybillEntity;
+    }
+
+    public function createFCLAirWaybill(AirwaybillCreateRequest $request)
+    {
+        $airwaybillEntity = $this->autoMapping->map(AirwaybillCreateRequest::class, AirwaybillEntity::class, $request);
+
+        $airwaybillEntity->setStatus(AirwaybillStatusConstant::$FULL_AIRWAYBILL_STATUS);
+        $airwaybillEntity->setType(ShippingTypeConstant::$FCL_SHIPPING_TYPE);
 
         $this->entityManager->persist($airwaybillEntity);
         $this->entityManager->flush();
@@ -95,7 +111,7 @@ class AirwaybillManager
     public function filterAirwaybills(AirwaybillFilterRequest $request)
     {
         return $this->airwaybillEntityRepository->filterAirWaybills($request->getSpecificationID(), $request->getAirwaybillNumber(), $request->getStatus(), $request->getType(),
-            $request->getProvidedBy(), $request->getShipperID(), $request->getConsigneeID(), $request->getIsExternalWarehouse());
+            $request->getProvidedBy(), $request->getShipperID(), $request->getConsigneeID(), $request->getIsExternalWarehouse(), $request->getShipmentID());
     }
 
     public function getAirwaybillsBySpecificationID($specificationID)

@@ -20,6 +20,8 @@ class AirwaybillFilterRequest
 
     private $isExternalWarehouse;
 
+    private $shipmentID;
+
     public function getSpecificationID()
     {
         return $this->specificationID;
@@ -58,6 +60,11 @@ class AirwaybillFilterRequest
     public function getIsExternalWarehouse()
     {
         return $this->isExternalWarehouse;
+    }
+
+    public function getShipmentID()
+    {
+        return $this->shipmentID;
     }
 
 }

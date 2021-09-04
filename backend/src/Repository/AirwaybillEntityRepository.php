@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\AdminProfileEntity;
 use App\Entity\AirwaybillEntity;
 use App\Entity\AirwaybillSpecificationEntity;
+use App\Entity\OrderShipmentEntity;
 use App\Entity\SubcontractEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
@@ -94,8 +95,8 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('airwaybill')
             ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.type', 'airwaybill.consigneeID',
-            'airwaybill.shipperID', 'airwaybill.providedBy', 'airwaybill.carrierID', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'airwaybillSepcification.name as specificationName', 'adminProfile1.userName as createdByUser', 
-            'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage', 'subcontractEntity.fullName as subcontractName', 
+            'airwaybill.shipperID', 'airwaybill.providedBy', 'airwaybill.carrierID', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'airwaybillSepcification.name as specificationName', 'airwaybill.shipmentID',
+            'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage', 'subcontractEntity.fullName as subcontractName',
             'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName')
 
             ->andWhere('airwaybill.id = :id')
@@ -154,7 +155,8 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function filterAirWaybills($specificationID, $airwaybillNumber, $status, $type, $providedBy, $shipperID, $consigneeID, $isExternalWarehouse)
+    public function filterAirWaybills($specificationID, $airwaybillNumber, $status, $type, $providedBy, $shipperID, $consigneeID,
+                                      $isExternalWarehouse, $shipmentID)
     {
         $query = $this->createQueryBuilder('airwaybill')
             ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID',
@@ -211,6 +213,13 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
                 'subcontractEntity4.id = airwaybill.carrierID'
             )
 
+            ->leftJoin(
+                OrderShipmentEntity::class,
+                'orderShipmentEntity',
+                Join::WITH,
+                'orderShipmentEntity.id = airwaybill.shipmentID'
+            )
+
             ->orderBy('airwaybill.id', 'DESC')
             ->setMaxResults(30);
 
@@ -263,6 +272,12 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
         elseif (isset($isExternalWarehouse) AND $isExternalWarehouse == false)
         {
             $query->andWhere("airwaybill.shipmentID IS NULL");
+        }
+
+        if($shipmentID)
+        {
+            $query->andWhere('airwaybill.shipmentID = :shipmentID');
+            $query->setParameter('shipmentID', $shipmentID);
         }
 
         return $query->getQuery()->getResult();

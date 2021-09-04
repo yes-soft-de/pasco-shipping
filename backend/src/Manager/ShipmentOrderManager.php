@@ -51,6 +51,11 @@ class ShipmentOrderManager
     {
         $orderShipmentEntity = $this->autoMapping->map(OrderShipmentCreateRequest::class, OrderShipmentEntity::class, $request);
 
+        if($request->getHolderCount() == null || $request->getHolderCount() == 0)
+        {
+            $orderShipmentEntity->setHolderCount(1);
+        }
+
         $orderShipmentEntity->setStatus(ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS);
 
         $this->entityManager->persist($orderShipmentEntity);
@@ -348,7 +353,7 @@ class ShipmentOrderManager
                 // Create new air waybills as client requested
                 for ($counter = 0; $counter < $orderShipmentEntity->getHolderCount(); $counter++)
                 {
-                    $this->createAirWaybill($orderShipmentEntity->getId(), ShippingTypeConstant::$FCL_SHIPPING_TYPE);
+                    $this->createFCLAirWaybill($orderShipmentEntity->getId());
                 }
             }
             elseif($orderShipmentEntity->getTransportationType() == ShippingWayConstant::$SEA_SHIPPING_WAY)
@@ -356,30 +361,28 @@ class ShipmentOrderManager
                 // Create new containers as client requested
                 for ($counter = 0; $counter < $orderShipmentEntity->getHolderCount(); $counter++)
                 {
-                    $this->createContainer($orderShipmentEntity->getId(), ShippingTypeConstant::$FCL_SHIPPING_TYPE);
+                    $this->createFCLContainer($orderShipmentEntity->getId());
                 }
             }
         }
     }
 
-    public function createContainer($shipmentID, $type)
+    public function createFCLContainer($shipmentID)
     {
         $containerCreateRequest = new ContainerCreateRequest();
 
         $containerCreateRequest->setShipmentID($shipmentID);
-        $containerCreateRequest->setType($type);
 
-        $this->containerManager->create($containerCreateRequest);
+        $this->containerManager->createFCLContainer($containerCreateRequest);
     }
 
-    public function createAirWaybill($shipmentID, $type)
+    public function createFCLAirWaybill($shipmentID)
     {
         $airWaybillCreateRequest = new AirwaybillCreateRequest();
 
         $airWaybillCreateRequest->setShipmentID($shipmentID);
-        $airWaybillCreateRequest->setType($type);
 
-        $this->airWaybillManager->create($airWaybillCreateRequest);
+        $this->airWaybillManager->createFCLAirWaybill($airWaybillCreateRequest);
     }
 
     public function insertImagesOfShipment($imagesArray, $shipmentID)
