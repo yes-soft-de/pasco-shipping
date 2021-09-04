@@ -51,6 +51,8 @@ class OrderShipmentCreateRequest
     // public | private
     private $holderType;
 
+    private $holderCount;
+
     // external warehouse info
     private $externalWarehouseInfo;
 
@@ -83,6 +85,11 @@ class OrderShipmentCreateRequest
     public function getImages(): array
     {
         return $this->images;
+    }
+
+    public function getHolderCount()
+    {
+        return $this->holderCount;
     }
 
 }

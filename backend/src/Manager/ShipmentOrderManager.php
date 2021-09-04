@@ -51,6 +51,11 @@ class ShipmentOrderManager
     {
         $orderShipmentEntity = $this->autoMapping->map(OrderShipmentCreateRequest::class, OrderShipmentEntity::class, $request);
 
+        if($request->getHolderCount() == null || $request->getHolderCount() == 0)
+        {
+            $orderShipmentEntity->setHolderCount(1);
+        }
+
         $orderShipmentEntity->setStatus(ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS);
 
         $this->entityManager->persist($orderShipmentEntity);

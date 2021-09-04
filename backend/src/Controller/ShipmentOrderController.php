@@ -73,6 +73,7 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *          @OA\Property(type="string", property="extraSpecification"),
      *          @OA\Property(type="string", property="holderType", description="public or private container"),
+     *          @OA\Property(type="integer", property="holderCount"),
      *          @OA\Property(type="text", property="externalWarehouseInfo"),
      *          @OA\Property(type="boolean", property="isExternalWarehouse")
      *      )
