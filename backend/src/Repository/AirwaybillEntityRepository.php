@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\AdminProfileEntity;
 use App\Entity\AirwaybillEntity;
 use App\Entity\AirwaybillSpecificationEntity;
+use App\Entity\OrderShipmentEntity;
 use App\Entity\SubcontractEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
@@ -209,6 +210,13 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
                 'subcontractEntity4',
                 Join::WITH,
                 'subcontractEntity4.id = airwaybill.carrierID'
+            )
+
+            ->leftJoin(
+                OrderShipmentEntity::class,
+                'orderShipmentEntity',
+                Join::WITH,
+                'orderShipmentEntity.id = airwaybill.shipmentID'
             )
 
             ->orderBy('airwaybill.id', 'DESC')
