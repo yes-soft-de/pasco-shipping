@@ -353,7 +353,7 @@ class ShipmentOrderManager
                 // Create new air waybills as client requested
                 for ($counter = 0; $counter < $orderShipmentEntity->getHolderCount(); $counter++)
                 {
-                    $this->createAirWaybill($orderShipmentEntity->getId(), ShippingTypeConstant::$FCL_SHIPPING_TYPE);
+                    $this->createFCLAirWaybill($orderShipmentEntity->getId());
                 }
             }
             elseif($orderShipmentEntity->getTransportationType() == ShippingWayConstant::$SEA_SHIPPING_WAY)
@@ -377,14 +377,13 @@ class ShipmentOrderManager
         $this->containerManager->create($containerCreateRequest);
     }
 
-    public function createAirWaybill($shipmentID, $type)
+    public function createFCLAirWaybill($shipmentID)
     {
         $airWaybillCreateRequest = new AirwaybillCreateRequest();
 
         $airWaybillCreateRequest->setShipmentID($shipmentID);
-        $airWaybillCreateRequest->setType($type);
 
-        $this->airWaybillManager->create($airWaybillCreateRequest);
+        $this->airWaybillManager->createFCLAirWaybill($airWaybillCreateRequest);
     }
 
     public function insertImagesOfShipment($imagesArray, $shipmentID)
