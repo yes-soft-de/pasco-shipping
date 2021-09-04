@@ -394,6 +394,10 @@ class TrackManager
         {
             $capacity = $specification['capacityCPM'];
         }
+        else
+        {
+            $capacity = 0;
+        }
         
         // First, get all shipments' volumes that stored in the container
         $tracks = $this->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $container['id']);
@@ -431,6 +435,10 @@ class TrackManager
         if($specification)
         {
             $weight = $specification['weight'];
+        }
+        else
+        {
+            $weight = 0;
         }
         
         // First, get all shipments' weight that stored in the air waybill

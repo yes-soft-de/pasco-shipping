@@ -94,51 +94,8 @@ class AirwaybillManager
 
     public function filterAirwaybills(AirwaybillFilterRequest $request)
     {
-        if($request->getType() != null && $request->getAirwaybillNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
-        $request->getStatus() == null && $request->getSpecificationID() == null)
-        {
-            return $this->airwaybillEntityRepository->getAirwaybillsByType($request->getType());
-        }
-        elseif($request->getType() == null && $request->getAirwaybillNumber() != null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
-        $request->getStatus() == null && $request->getSpecificationID() == null)
-        {
-            return $this->airwaybillEntityRepository->getAirwaybillByNumber($request->getAirwaybillNumber());
-        }
-        elseif($request->getType() == null && $request->getAirwaybillNumber() == null && $request->getConsigneeID() != null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
-        $request->getStatus() == null && $request->getSpecificationID() == null)
-        {
-            return $this->airwaybillEntityRepository->getAirwaybillsByConsigneeID($request->getConsigneeID());
-        }
-        elseif($request->getType() == null && $request->getAirwaybillNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() != null && $request->getShipperID() == null && 
-        $request->getStatus() == null && $request->getSpecificationID() == null)
-        {
-            return $this->airwaybillEntityRepository->getAirwaybillsByProvidedBy($request->getProvidedBy());
-        }
-        elseif($request->getType() == null && $request->getAirwaybillNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() != null && 
-        $request->getStatus() == null && $request->getSpecificationID() == null)
-        {
-            return $this->airwaybillEntityRepository->getAirwaybillsByShipperID($request->getShipperID());
-        }
-        elseif($request->getType() == null && $request->getAirwaybillNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
-        $request->getStatus() != null && $request->getSpecificationID() == null)
-        {
-            return $this->airwaybillEntityRepository->getAirwaybillsByStatus($request->getStatus());
-        }
-        elseif($request->getType() == null && $request->getAirwaybillNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
-        $request->getStatus() == null && $request->getSpecificationID() != null)
-        {
-            return $this->airwaybillEntityRepository->getAirwaybillsBySpecificationID($request->getSpecificationID());
-        }
-        elseif($request->getType() == null && $request->getAirwaybillNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
-        $request->getStatus() == null && $request->getSpecificationID() == null)
-        {
-            return $this->airwaybillEntityRepository->getAllAirwaybills();
-        }
-        elseif($request->getType() != null && $request->getAirwaybillNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
-        $request->getStatus() != null && $request->getSpecificationID() == null)
-        {
-            return $this->airwaybillEntityRepository->getAirwaybillsByStatusAndType($request->getStatus(), $request->getType());
-        }
+        return $this->airwaybillEntityRepository->filterAirWaybills($request->getSpecificationID(), $request->getAirwaybillNumber(), $request->getStatus(), $request->getType(),
+            $request->getProvidedBy(), $request->getShipperID(), $request->getConsigneeID(), $request->getIsExternalWarehouse());
     }
 
     public function getAirwaybillsBySpecificationID($specificationID)

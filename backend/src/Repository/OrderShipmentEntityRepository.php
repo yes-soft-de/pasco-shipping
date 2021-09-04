@@ -666,18 +666,12 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             ->andWhere('shipmentOrder.transportationType = :transportationType')
             ->setParameter('transportationType', $transportationType)
 
-            ->andWhere('shipmentOrder.isExternalWarehouse = :isExternalWarehouse')
-            ->setParameter('isExternalWarehouse', $isExternalWarehouse)
-
             ->leftJoin(
                 ShipmentStatusEntity::class,
                 'shipmentStatusEntity',
                 Join::WITH,
                 'shipmentStatusEntity.shipmentID = shipmentOrder.id'
             )
-
-            ->andWhere('shipmentStatusEntity.shipmentStatus = :shipmentStatus')
-            ->setParameter('shipmentStatus', $shipmentStatus)
 
             ->orderBy('shipmentOrder.id', 'DESC');
 
@@ -693,6 +687,18 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             $query->setParameter('importWarehouseID', $importWarehouseID);
         }
 
+        if(isset($isExternalWarehouse))
+        {
+            $query->andWhere('shipmentOrder.isExternalWarehouse = :isExternalWarehouse');
+            $query->setParameter('isExternalWarehouse', $isExternalWarehouse);
+        }
+
+        if($shipmentStatus)
+        {
+            $query->andWhere('shipmentStatusEntity.shipmentStatus = :shipmentStatus');
+            $query->setParameter('shipmentStatus', $shipmentStatus);
+        }
+
         return $query->getQuery()->getResult();
     }
 
@@ -705,9 +711,6 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
 
             ->andWhere('shipmentOrder.transportationType = :transportationType')
             ->setParameter('transportationType', $transportationType)
-
-            ->andWhere('shipmentOrder.isExternalWarehouse = :isExternalWarehouse')
-            ->setParameter('isExternalWarehouse', $isExternalWarehouse)
 
             ->leftJoin(
                 ShipmentStatusEntity::class,
@@ -732,6 +735,12 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
         {
             $query->andWhere('shipmentOrder.importWarehouseID = :importWarehouseID');
             $query->setParameter('importWarehouseID', $importWarehouseID);
+        }
+
+        if(isset($isExternalWarehouse))
+        {
+            $query->andWhere('shipmentOrder.isExternalWarehouse = :isExternalWarehouse');
+            $query->setParameter('isExternalWarehouse', $isExternalWarehouse);
         }
 
         return $query->getQuery()->getResult();

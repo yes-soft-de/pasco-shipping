@@ -94,51 +94,8 @@ class ContainerManager
 
     public function filterContainers(ContainerFilterRequest $request)
     {
-        if($request->getType() != null && $request->getContainerNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
-        $request->getStatus() == null && $request->getSpecificationID() == null)
-        {
-            return $this->containerEntityRepository->getContainersByType($request->getType());
-        }
-        elseif($request->getType() == null && $request->getContainerNumber() != null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
-        $request->getStatus() == null && $request->getSpecificationID() == null)
-        {
-            return $this->containerEntityRepository->getContainerByNumber($request->getContainerNumber());
-        }
-        elseif($request->getType() == null && $request->getContainerNumber() == null && $request->getConsigneeID() != null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
-        $request->getStatus() == null && $request->getSpecificationID() == null)
-        {
-            return $this->containerEntityRepository->getContainersByConsigneeID($request->getConsigneeID());
-        }
-        elseif($request->getType() == null && $request->getContainerNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() != null && $request->getShipperID() == null && 
-        $request->getStatus() == null && $request->getSpecificationID() == null)
-        {
-            return $this->containerEntityRepository->getContainersByProvidedBy($request->getProvidedBy());
-        }
-        elseif($request->getType() == null && $request->getContainerNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() != null && 
-        $request->getStatus() == null && $request->getSpecificationID() == null)
-        {
-            return $this->containerEntityRepository->getContainersByShipperID($request->getShipperID());
-        }
-        elseif($request->getType() == null && $request->getContainerNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
-        $request->getStatus() != null && $request->getSpecificationID() == null)
-        {
-            return $this->containerEntityRepository->getByStatus($request->getStatus());
-        }
-        elseif($request->getType() == null && $request->getContainerNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
-        $request->getStatus() == null && $request->getSpecificationID() != null)
-        {
-            return $this->containerEntityRepository->getContainersBySpecificationID($request->getSpecificationID());
-        }
-        elseif($request->getType() == null && $request->getContainerNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
-        $request->getStatus() == null && $request->getSpecificationID() == null)
-        {
-            return $this->containerEntityRepository->getAllContainers();
-        }
-        elseif($request->getType() != null && $request->getContainerNumber() == null && $request->getConsigneeID() == null && $request->getProvidedBy() == null && $request->getShipperID() == null && 
-        $request->getStatus() != null && $request->getSpecificationID() == null)
-        {
-            return $this->containerEntityRepository->getContainersByStatusAndType($request->getStatus(), $request->getType());
-        }
+        return $this->containerEntityRepository->filterContainers($request->getSpecificationID(), $request->getContainerNumber(), $request->getStatus(), $request->getType(),
+        $request->getProvidedBy(), $request->getShipperID(), $request->getConsigneeID(), $request->getIsExternalWarehouse());
     }
 
     public function getContainersBySpecificationID($specificationID)

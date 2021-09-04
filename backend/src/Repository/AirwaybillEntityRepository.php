@@ -154,16 +154,13 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function getAirwaybillsByType($type)
+    public function filterAirWaybills($specificationID, $airwaybillNumber, $status, $type, $providedBy, $shipperID, $consigneeID, $isExternalWarehouse)
     {
-        return $this->createQueryBuilder('airwaybill')
+        $query = $this->createQueryBuilder('airwaybill')
             ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID',
                 'airwaybill.createdBy', 'airwaybill.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
                 'airwaybill.shipperID', 'airwaybill.carrierID', 'adminProfile2.userName as updatedByUserImage', 'airwaybill.providedBy', 'airwaybill.type', 'airwaybillSepcification.name as specificationName',
                 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName')
-
-            ->andWhere('airwaybill.type = :type')
-            ->setParameter('type', $type)
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -215,77 +212,60 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('airwaybill.id', 'DESC')
-            ->setMaxResults(30)
+            ->setMaxResults(30);
 
-            ->getQuery()
-            ->getResult();
-    }
+        if($specificationID)
+        {
+            $query->andWhere('airwaybill.specificationID = :specificationID');
+            $query->setParameter('specificationID', $specificationID);
+        }
 
-    public function getAirwaybillsByConsigneeID($consigneeID)
-    {
-        return $this->createQueryBuilder('airwaybill')
-            ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID',
-                'airwaybill.createdBy', 'airwaybill.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
-                'airwaybill.shipperID', 'airwaybill.carrierID', 'adminProfile2.userName as updatedByUserImage', 'airwaybill.providedBy', 'airwaybill.type', 'airwaybillSepcification.name as specificationName',
-                'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName')
+        if($airwaybillNumber)
+        {
+            $query->andWhere('airwaybill.airwaybillNumber = :airwaybillNumber');
+            $query->setParameter('airwaybillNumber', $airwaybillNumber);
+        }
 
-            ->andWhere('airwaybill.consigneeID = :consigneeID')
-            ->setParameter('consigneeID', $consigneeID)
+        if($status)
+        {
+            $query->andWhere('airwaybill.status = :status');
+            $query->setParameter('status', $status);
+        }
 
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile1',
-                Join::WITH,
-                'adminProfile1.userID = airwaybill.createdBy'
-            )
+        if($type)
+        {
+            $query->andWhere('airwaybill.type = :type');
+            $query->setParameter('type', $type);
+        }
 
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile2',
-                Join::WITH,
-                'adminProfile2.userID = airwaybill.updatedBy'
-            )
+        if($providedBy)
+        {
+            $query->andWhere('airwaybill.providedBy = :providedBy');
+            $query->setParameter('providedBy', $providedBy);
+        }
 
-            ->leftJoin(
-                AirwaybillSpecificationEntity::class,
-                'airwaybillSepcification',
-                Join::WITH,
-                'airwaybillSepcification.id = airwaybill.specificationID'
-            )
+        if($shipperID)
+        {
+            $query->andWhere('airwaybill.shipperID = :shipperID');
+            $query->setParameter('shipperID', $shipperID);
+        }
 
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity',
-                Join::WITH,
-                'subcontractEntity.id = airwaybill.providedBy'
-            )
+        if($consigneeID)
+        {
+            $query->andWhere('airwaybill.consigneeID = :consigneeID');
+            $query->setParameter('consigneeID', $consigneeID);
+        }
 
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity2',
-                Join::WITH,
-                'subcontractEntity2.id = airwaybill.consigneeID'
-            )
+        if($isExternalWarehouse == true)
+        {
+            $query->andWhere("orderShipmentEntity.isExternalWarehouse = 1");
+        }
+        elseif (isset($isExternalWarehouse) AND $isExternalWarehouse == false)
+        {
+            $query->andWhere("airwaybill.shipmentID IS NULL");
+        }
 
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity3',
-                Join::WITH,
-                'subcontractEntity3.id = airwaybill.shipperID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity4',
-                Join::WITH,
-                'subcontractEntity4.id = airwaybill.carrierID'
-            )
-
-            ->orderBy('airwaybill.id', 'DESC')
-            ->setMaxResults(30)
-
-            ->getQuery()
-            ->getResult();
+        return $query->getQuery()->getResult();
     }
 
     public function getAirwaybillByNumber($airwaybillNumber)
@@ -355,140 +335,6 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getAirwaybillsByShipperID($shipperID)
-    {
-        return $this->createQueryBuilder('airwaybill')
-            ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID',
-                'airwaybill.createdBy', 'airwaybill.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
-                'airwaybill.shipperID', 'airwaybill.carrierID', 'adminProfile2.userName as updatedByUserImage', 'airwaybill.providedBy', 'airwaybill.type', 'airwaybillSepcification.name as specificationName',
-                'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName')
-
-            ->andWhere('airwaybill.shipperID = :shipperID')
-            ->setParameter('shipperID', $shipperID)
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile1',
-                Join::WITH,
-                'adminProfile1.userID = airwaybill.createdBy'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile2',
-                Join::WITH,
-                'adminProfile2.userID = airwaybill.updatedBy'
-            )
-
-            ->leftJoin(
-                AirwaybillSpecificationEntity::class,
-                'airwaybillSepcification',
-                Join::WITH,
-                'airwaybillSepcification.id = airwaybill.specificationID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity',
-                Join::WITH,
-                'subcontractEntity.id = airwaybill.providedBy'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity2',
-                Join::WITH,
-                'subcontractEntity2.id = airwaybill.consigneeID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity3',
-                Join::WITH,
-                'subcontractEntity3.id = airwaybill.shipperID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity4',
-                Join::WITH,
-                'subcontractEntity4.id = airwaybill.carrierID'
-            )
-
-            ->orderBy('airwaybill.id', 'DESC')
-            ->setMaxResults(30)
-
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function getAirwaybillsByProvidedBy($providedBy)
-    {
-        return $this->createQueryBuilder('airwaybill')
-            ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID',
-                'airwaybill.createdBy', 'airwaybill.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
-                'airwaybill.shipperID', 'airwaybill.carrierID', 'adminProfile2.userName as updatedByUserImage', 'airwaybill.providedBy', 'airwaybill.type', 'airwaybillSepcification.name as specificationName',
-                'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName')
-
-            ->andWhere('airwaybill.providedBy = :providedBy')
-            ->setParameter('providedBy', $providedBy)
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile1',
-                Join::WITH,
-                'adminProfile1.userID = airwaybill.createdBy'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile2',
-                Join::WITH,
-                'adminProfile2.userID = airwaybill.updatedBy'
-            )
-
-            ->leftJoin(
-                AirwaybillSpecificationEntity::class,
-                'airwaybillSepcification',
-                Join::WITH,
-                'airwaybillSepcification.id = airwaybill.specificationID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity',
-                Join::WITH,
-                'subcontractEntity.id = airwaybill.providedBy'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity2',
-                Join::WITH,
-                'subcontractEntity2.id = airwaybill.consigneeID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity3',
-                Join::WITH,
-                'subcontractEntity3.id = airwaybill.shipperID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity4',
-                Join::WITH,
-                'subcontractEntity4.id = airwaybill.carrierID'
-            )
-
-            ->orderBy('airwaybill.id', 'DESC')
-            ->setMaxResults(30)
-
-            ->getQuery()
-            ->getResult();
-    }
-
     public function getAirwaybillsBySpecificationID($specificationID)
     {
         return $this->createQueryBuilder('airwaybill')
@@ -499,139 +345,6 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
 
             ->andWhere('airwaybill.specificationID = :specificationID')
             ->setParameter('specificationID', $specificationID)
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile1',
-                Join::WITH,
-                'adminProfile1.userID = airwaybill.createdBy'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile2',
-                Join::WITH,
-                'adminProfile2.userID = airwaybill.updatedBy'
-            )
-
-            ->leftJoin(
-                AirwaybillSpecificationEntity::class,
-                'airwaybillSepcification',
-                Join::WITH,
-                'airwaybillSepcification.id = airwaybill.specificationID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity',
-                Join::WITH,
-                'subcontractEntity.id = airwaybill.providedBy'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity2',
-                Join::WITH,
-                'subcontractEntity2.id = airwaybill.consigneeID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity3',
-                Join::WITH,
-                'subcontractEntity3.id = airwaybill.shipperID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity4',
-                Join::WITH,
-                'subcontractEntity4.id = airwaybill.carrierID'
-            )
-
-            ->orderBy('airwaybill.id', 'DESC')
-            ->setMaxResults(30)
-
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function getAllAirwaybills()
-    {
-        return $this->createQueryBuilder('airwaybill')
-            ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID',
-                'airwaybill.createdBy', 'airwaybill.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
-                'airwaybill.shipperID', 'airwaybill.carrierID', 'adminProfile2.userName as updatedByUserImage', 'airwaybill.providedBy', 'airwaybill.type', 'airwaybillSepcification.name as specificationName',
-                'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName')
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile1',
-                Join::WITH,
-                'adminProfile1.userID = airwaybill.createdBy'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile2',
-                Join::WITH,
-                'adminProfile2.userID = airwaybill.updatedBy'
-            )
-
-            ->leftJoin(
-                AirwaybillSpecificationEntity::class,
-                'airwaybillSepcification',
-                Join::WITH,
-                'airwaybillSepcification.id = airwaybill.specificationID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity',
-                Join::WITH,
-                'subcontractEntity.id = airwaybill.providedBy'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity2',
-                Join::WITH,
-                'subcontractEntity2.id = airwaybill.consigneeID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity3',
-                Join::WITH,
-                'subcontractEntity3.id = airwaybill.shipperID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity4',
-                Join::WITH,
-                'subcontractEntity4.id = airwaybill.carrierID'
-            )
-
-            ->orderBy('airwaybill.id', 'DESC')
-            ->setMaxResults(30)
-
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function getAirwaybillsByStatusAndType($status, $type)
-    {
-        return $this->createQueryBuilder('airwaybill')
-            ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.type', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID',
-                'airwaybill.createdBy', 'airwaybill.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
-                'airwaybill.shipperID', 'airwaybill.carrierID', 'adminProfile2.userName as updatedByUserImage', 'airwaybill.providedBy', 'airwaybill.type', 'airwaybillSepcification.name as specificationName',
-                'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName')
-
-            ->andWhere('airwaybill.status = :status')
-            ->setParameter('status', $status)
-
-            ->andWhere('airwaybill.type = :type')
-            ->setParameter('type', $type)
 
             ->leftJoin(
                 AdminProfileEntity::class,
