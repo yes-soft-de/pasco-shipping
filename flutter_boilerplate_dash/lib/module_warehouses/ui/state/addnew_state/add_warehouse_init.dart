@@ -39,9 +39,9 @@ class _AddCountryInitState extends State<AddWarehouseInit> {
  late DropListModel dropListModelProxy;
  late DropListModel dropListModelCountry;
 
- late Entry optionItemSelectedSub = Entry('choose', 1, []);
- late Entry optionItemSelectedProxy = Entry('choose', 1, []);
- late Entry optionItemSelectedCountry = Entry('choose', 1, []);
+ late Entry optionItemSelectedSub = Entry('choose', 0, []);
+ late Entry optionItemSelectedProxy = Entry('choose', 0, []);
+ late Entry optionItemSelectedCountry = Entry('choose', 0, []);
 
  late List<Entry> countryEntry;
  late List<Entry> proxyEntry;

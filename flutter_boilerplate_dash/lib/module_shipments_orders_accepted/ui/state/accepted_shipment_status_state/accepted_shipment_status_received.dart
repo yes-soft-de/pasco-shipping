@@ -43,6 +43,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
   late int shipmentID;
   late String trackNumber;
   late String transportation;
+  late bool isExternalWarehouse;
   late String holderType;
 
   TextEditingController editingController = TextEditingController();
@@ -70,8 +71,8 @@ class _AcceptedShipmentDetailsSuccessfullyState
     entrySubContract = <Entry>[];
     entryWarehouse= <Entry>[];
 
-    optionItemSelectedSubContract =  Entry('choose', 1, []);
-    optionItemSelectedWarehouse =  Entry('choose', 1, []);
+    optionItemSelectedSubContract =  Entry('choose', 0, []);
+    optionItemSelectedWarehouse =  Entry('choose', 0, []);
     warehouseID = 0;
     packetingBy='';
     iniList();
@@ -98,6 +99,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
     shipmentID =arguments['id'];
     trackNumber =arguments['trackNumber'].toString();
     transportation =arguments['transportation'].toString();
+    isExternalWarehouse =arguments['isExternalWarehouse'];
 
     holderType =arguments['holderType'].toString();
   }
@@ -313,21 +315,46 @@ class _AcceptedShipmentDetailsSuccessfullyState
 
         RoundedButton(lable:S.of(context).next, icon: '', color: blue, style: AppTextStyle.mediumWhite,
               go: (){
-          if(transportation =='sea'){
-            ContainerFilterRequest containerRequest = ContainerFilterRequest(status: ContainerStatusName[ContainerStatus.NOTFULL],type: holderType);
+          if(transportation =='sea' && isExternalWarehouse){
+            ContainerFilterRequest containerRequest = ContainerFilterRequest(status: ContainerStatusName[ContainerStatus.FULL],type: 'FCL',shipmentID: shipmentID);
             TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:TravelTypeName[TravelType.SEA]!);
             MeasuredRequest request  = MeasuredRequest(shipmentStatus: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!,
                 shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text),importWarehouseID: warehouseID,
                 packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text),weight: double.parse(weightController.text) );
             widget.onChangeStatus(request ,containerRequest,travelFilterRequest );
-          }else {
-            AirwaybillFilterRequest containerRequest = AirwaybillFilterRequest(status: ContainerStatusName[ContainerStatus.NOTFULL],type: holderType);
+          }else if (transportation =='sea' && !isExternalWarehouse) {
+            ContainerFilterRequest containerRequest = ContainerFilterRequest(status: ContainerStatusName[ContainerStatus.NOTFULL],type: holderType,isExternalWarehouse: false);
+            TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:TravelTypeName[TravelType.SEA]!);
+            MeasuredRequest request  = MeasuredRequest(shipmentStatus: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!,
+                shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text),importWarehouseID: warehouseID,
+                packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text),weight: double.parse(weightController.text) );
+            widget.onChangeStatus(request ,containerRequest,travelFilterRequest );
+          }
+
+          if(transportation =='air' && isExternalWarehouse){
+            AirwaybillFilterRequest containerRequest = AirwaybillFilterRequest(status: ContainerStatusName[ContainerStatus.FULL],type: 'FCL',shipmentID: shipmentID);
+            TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:TravelTypeName[TravelType.AIR]!);
+            MeasuredRequest request  = MeasuredRequest(shipmentStatus: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!,
+                shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text),importWarehouseID: warehouseID,
+                packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text),weight: double.parse(weightController.text) );
+            widget.onChangeStatus(request ,containerRequest,travelFilterRequest );
+          }else if (transportation =='air' && !isExternalWarehouse) {
+            AirwaybillFilterRequest containerRequest = AirwaybillFilterRequest(status: ContainerStatusName[ContainerStatus.NOTFULL],type: holderType,isExternalWarehouse: false);
             TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:TravelTypeName[TravelType.AIR]!);
             MeasuredRequest request  = MeasuredRequest(shipmentStatus: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!,
                 shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text),importWarehouseID: warehouseID,
                 packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text),weight: double.parse(weightController.text) );
             widget.onChangeStatus(request ,containerRequest,travelFilterRequest );
           }
+
+          // else {
+          //   AirwaybillFilterRequest containerRequest = AirwaybillFilterRequest(status: ContainerStatusName[ContainerStatus.NOTFULL],type: holderType);
+          //   TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:TravelTypeName[TravelType.AIR]!);
+          //   MeasuredRequest request  = MeasuredRequest(shipmentStatus: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!,
+          //       shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text),importWarehouseID: warehouseID,
+          //       packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text),weight: double.parse(weightController.text) );
+          //   widget.onChangeStatus(request ,containerRequest,travelFilterRequest );
+          // }
 
               }, radius: 10),
       ],

@@ -41,6 +41,7 @@ class AirwaybillModel {
     this.consigneeName,
     this.carrierName,
     this.specificationName,
+    this.shipmentID,
 
 
     this.createdAt,
@@ -59,6 +60,7 @@ class AirwaybillModel {
   String? shipperName;
   String? carrierName;
   String? specificationName;
+  int? shipmentID;
 
 
 
@@ -80,6 +82,7 @@ class AirwaybillModel {
     consigneeName: json['consigneeName'],
     carrierName: json['carrierName'],
     specificationName: json['specificationName'],
+    shipmentID: json['shipmentID'],
 
 
 

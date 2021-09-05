@@ -116,9 +116,10 @@ class _CountriesScreenState extends State<AirwaybillDetailsScreen> {
       },
       );
     }
-    else if (currentState is SuccessfullyUploadedContainerState){
+    else if (currentState is SuccessfullyUploadedAirwaybillState){
+      SuccessfullyUploadedAirwaybillState? state = currentState as SuccessfullyUploadedAirwaybillState?;
       Fluttertoast.showToast(msg: 'Holder has been loaded onto Trip successfully');
-      return AirWaybillTravelDetailsSuccessfully(model:items ,
+      return AirWaybillTravelDetailsSuccessfully(model:state!.model ,
         onShipmentReview: (model){
           Navigator.pushNamed(context, AirwaybillRoutes.AIRWAYBILL_SHIPMENT_REVIEW , arguments:  model);
         }, onUploadedToTravel: (addContainerToTravelRequest){

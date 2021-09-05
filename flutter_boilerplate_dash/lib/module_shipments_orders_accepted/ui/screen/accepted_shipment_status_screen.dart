@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_airwaybill/request/airwaybill_filter_request.dart';
 import 'package:pasco_shipping/module_container/enums/container_status.dart';
 import 'package:pasco_shipping/module_container/request/container_filter_request.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/state_manager/accepted_shipment_status_state_manager.dart';
-import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_status_state/accepted_shipment_status_measured.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_status_state/accepted_shipment_status_measured_airwaybill.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_status_state/accepted_shipment_status_measured_container.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_status_state/accepted_shipment_status_received.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_status_state/accepted_shipment_status_state.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_status_state/accepted_shipment_status_successfully.dart';
@@ -35,7 +37,9 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
   late AcceptedShipmentStatusState currentState;
 
   late String transportation;
-
+  late bool isExternalWarehouse;
+ late  ContainerFilterRequest containerFilterRequest;
+ late  AirwaybillFilterRequest airwaybillFilterRequest;
   @override
   Widget build(BuildContext context) {
     return Background(
@@ -52,21 +56,36 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
     super.didChangeDependencies();
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     String id =arguments['id'].toString();
+    int shipmentID =arguments['id'];
     String cityName =arguments['cityName'].toString();
     String holderType =arguments['holderType'].toString();
     String status =arguments['status'].toString();
     String trackNumber =arguments['trackNumber'].toString();
     transportation =arguments['transportation'].toString();
+    isExternalWarehouse =arguments['isExternalWarehouse'];
 
-    ContainerFilterRequest containerFilterRequest =ContainerFilterRequest(status:ContainerStatusName[ContainerStatus.NOTFULL] ,type: holderType);
-    TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:'cruise');
+    if(isExternalWarehouse){
+      containerFilterRequest =ContainerFilterRequest(status:ContainerStatusName[ContainerStatus.FULL] ,type: 'FCL',isExternalWarehouse: true,shipmentID: shipmentID);
+      airwaybillFilterRequest =AirwaybillFilterRequest(status:ContainerStatusName[ContainerStatus.FULL] ,type: 'FCL',isExternalWarehouse: true,shipmentID: shipmentID);
+    }else{
+      containerFilterRequest =ContainerFilterRequest(status:ContainerStatusName[ContainerStatus.NOTFULL] ,type: holderType,isExternalWarehouse: false);
+      airwaybillFilterRequest =AirwaybillFilterRequest(status:ContainerStatusName[ContainerStatus.NOTFULL] ,type: holderType,isExternalWarehouse: false);
+    }
+
+    TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:transportation=='sea' ?'cruise':'flight');
     if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.ACCEPTED]!) {
       widget._stateManager.getShipmentStatus(id,trackNumber);
     }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]!){
       widget._stateManager.getReceivedStatus(id,cityName,trackNumber);
-    }else if (status == AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!){
-      widget._stateManager.getMeasuredStatus(id,containerFilterRequest,trackNumber,travelFilterRequest);
-    }else {
+    }
+
+    else if (status == AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]! && transportation=='sea'){
+      widget._stateManager.getMeasuredContainerStatus(id,containerFilterRequest,trackNumber,travelFilterRequest);
+    }else if (status == AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]! && transportation=='air'){
+      widget._stateManager.getMeasuredAirwaybillStatus(id,airwaybillFilterRequest,trackNumber,travelFilterRequest);
+    }
+
+    else {
       widget._stateManager.getShipmentStatus(id,trackNumber);
     }
   }
@@ -153,7 +172,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         statusModel: statusModels,
         subcontracts:state.subContracts ,
         warehouse: state.warehouse,
-        onChangeStatus: (re , containerFilterRequest ,travelFilterRequest){
+        onChangeStatus: (re , holderFilterRequest ,travelFilterRequest){
           CoolAlert.show(
             context: context,
             type: CoolAlertType.info,
@@ -238,17 +257,21 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
             confirmBtnColor:AppThemeDataService.AccentColor,
             onConfirmBtnTap: (){
               Navigator.pop(context);
-              widget._stateManager.measuredShipment(re, containerFilterRequest,travelFilterRequest);
+              if(transportation =='sea'){
+                widget._stateManager.measuredContainerShipment(re, holderFilterRequest,travelFilterRequest);
+              }else{
+                widget._stateManager.measuredAirwaybillShipment(re, holderFilterRequest,travelFilterRequest);
+              }
             },
             text: S.of(context).changeStatusConfirm,
           );
       },
       );
     }
-    else if (currentState is MeasuredStatusState) {
-      MeasuredStatusState state = currentState as MeasuredStatusState;
+    else if (currentState is MeasuredContainerStatusState) {
+      MeasuredContainerStatusState state = currentState as MeasuredContainerStatusState;
       List<AcceptedShipmentStatusModel> statusModels = state.model;
-      return AcceptedShipmentStatusMeasured(
+      return AcceptedShipmentStatusMeasuredContainer(
         statusModel: statusModels,
         containers:state.containers,
         travels: state.travels,
@@ -337,7 +360,110 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
             confirmBtnColor:AppThemeDataService.AccentColor,
             onConfirmBtnTap: (){
               Navigator.pop(context);
-              widget._stateManager.storedShipment(request,isSeperate,containers ,travels);
+              widget._stateManager.storedContainerShipment(request,isSeperate,containers ,travels);
+            },
+            text: S.of(context).changeStatusConfirm,
+          );
+        },
+        // onChangeStatus: (re , containerFilterRequest){
+        // },
+      );
+    }
+
+
+    else if (currentState is MeasuredAirwaybillStatusState) {
+      MeasuredAirwaybillStatusState state = currentState as MeasuredAirwaybillStatusState;
+      List<AcceptedShipmentStatusModel> statusModels = state.model;
+      return AcceptedShipmentStatusMeasuredAirwaybill(
+        statusModel: statusModels,
+        containers:state.airwaybills,
+        travels: state.travels,
+        onChangeStatus: (request , isSeperate,containers ,travels){
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            widget: Container(
+              height: 230,
+              child: Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: Scrollbar(
+                  isAlwaysShown: true,
+                  showTrackOnHover: true,
+                  child: SingleChildScrollView(
+                    child: Container(
+                      color: Colors.grey[200],
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(S.of(context).reviewInformation , style: AppTextStyle.mediumRedBold,),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).details + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text( request.statusDetails , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).travelNumber + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text( request.travelNumber , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).containerNumber + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text( request.holderNumber.toString() , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).amount + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text(request.amount.toString() , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).shipmentSeparation + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text(isSeperate.toString() , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.storedAirwaybillShipment(request,isSeperate,containers ,travels);
             },
             text: S.of(context).changeStatusConfirm,
           );

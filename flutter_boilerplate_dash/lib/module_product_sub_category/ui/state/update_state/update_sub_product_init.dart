@@ -198,7 +198,7 @@ class _AddCountryInitState extends State<UpdateSubProductInit> {
     hscode = TextEditingController();
     hscode..text = widget.subProductModel.hscode??'';
 
-    optionItemSelectedProducts =  Entry('choose', 1, []);
+    optionItemSelectedProducts =  Entry('choose', 0, []);
     entryProducts = <Entry>[];
 
 

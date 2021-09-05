@@ -39,7 +39,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
   void initState() {
     super.initState();
     // entryTravels = <Entry>[];
-    // optionItemSelectedTravels =  Entry('choose', 1, []);
+    // optionItemSelectedTravels =  Entry('choose', 0, []);
 
 
   }
@@ -206,7 +206,12 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
             },
             itemCount: widget.model.shipments!.length,
           ),
-
+          (widget.model.shipmentID !=null  && widget.model.shipments!.isEmpty)?(
+              Container(child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text('this Air waybill requested for specific shipment' , style: AppTextStyle.mediumRed,),
+              ),)
+          ):
           (widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].shipmentStatus != null && widget.model.shipments![0].shipmentStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.STORED]) ?
           uploadToTravel():
           (widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].travelStatus != null && widget.model.shipments![0].travelStatus == TravelStatusName[TravelStatus.RELEASED]) ?
@@ -300,8 +305,8 @@ class _ContainerDetailsSuccessfullyState extends State<AirWaybillTravelDetailsSu
                     children:
 
                     [
-                      Text(S.of(context).airwaybillNumber+': ' , style: AppTextStyle.mediumBlackBold,),
-                      Text('#'+ widget.model.airwaybillNumber! , style: AppTextStyle.mediumBlackBold,),
+                      Text(S.of(context).airwaybillNumber+': '+'#' , style: AppTextStyle.mediumBlackBold,),
+                      Text(widget.model.airwaybillNumber??'' , style: AppTextStyle.mediumBlackBold,),
 
                     ],),
                 ),

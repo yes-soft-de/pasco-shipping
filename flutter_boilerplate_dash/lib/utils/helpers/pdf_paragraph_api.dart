@@ -5,14 +5,16 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:open_file/open_file.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_response.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 
 class PdfParagraphApi {
-  static Future<File> generate(AcceptedShipmentDetailsModel model) async {
+  static Future<File> generate(List<AcceptedShipmentModel> model) async {
     final pdf = Document();
     final customFont =
     Font.ttf(await rootBundle.load('assets/OpenSans-Regular.ttf'));
@@ -20,11 +22,23 @@ class PdfParagraphApi {
     final ByteData bytes =
     await rootBundle.load(StaticImage.logo);
     final Uint8List byteList = bytes.buffer.asUint8List();
+    final headers =
+    ['ID',S.current.client,S.current.serialNumber,
+     S.current.shippingWay
+      ,S.current.shippingFrom , S.current.shippingTo
+      ,S.current.mark ,
+    S.current.category,
+      S.current.subCategory,
+    ];
 
+    final data = model.map((user) => [user.shipmentId, user.clientUsername,user.clientIdentificationNumber,
+      user.transportationType , user.exportWarehouseName , user.target,user.markNumber
+    ,user.productCategoryName , user.subProductCategoryName
+    ]).toList();
     pdf.addPage(
       MultiPage(
         build: (context) => <Widget>[
-      Container(
+           Container(
       padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
       decoration: BoxDecoration(
         border: Border(bottom: BorderSide(width: 2, color: PdfColors.blue)),
@@ -38,178 +52,56 @@ class PdfParagraphApi {
               height: 150,
               width: 150,
               fit: BoxFit.contain),
-          SizedBox(width: 0.5 * PdfPageFormat.cm),
-          Text(
-           'Shipment Report',
-            style: TextStyle( fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: PdfColors.blue,),
-          ),
+          SizedBox(width: 5 * PdfPageFormat.cm),
+         Column(
+           children: [
+             Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+             Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
+           ]
+         )
         ],
       ),
     ),
           SizedBox(height: 0.5 * PdfPageFormat.cm),
-          Paragraph(
-            text:
-            'This is my custom font that displays also characters such as €, Ł, ...',
-            style: TextStyle(font: customFont, fontSize: 20),
+          Text(
+            'Shipment Report',
+            style: TextStyle( fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: PdfColors.blue,),
           ),
-          buildCustomHeadline(),
-          Header(child: Text('Shipment Information' , style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: PdfColors.blue,
-          ))),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:   Row(
-                  children: [
-                    Text('#' , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),),
-                    Text( model.shipmentId.toString() , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:    Row(
-                  children: [
-                    Text(S.current.shippingWay , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),),
-                    Text( model.transportationType ??'', style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: PdfColors.blue,
-                    ),),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:    Row(
-                  children: [
-                    Text(S.current.shippingFrom , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),),
-                    Text( model.exportWarehouseName ??'' , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: PdfColors.blue,
-                    ),),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:   Row(
-                  children: [
-                    Text(S.current.shippingTo , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),),
-                    Text( model.target ??'' , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: PdfColors.blue,
-                    ),),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:   Row(
-                  children: [
-                    Text(S.current.serialNumber , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),),
-                    Text( model.clientIdentificationNumber ??'' , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: PdfColors.blue,
-                    ),),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:   Row(
-                  children: [
-                    Text(S.current.category , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),),
-                    Text( model.productCategoryName ??'' , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: PdfColors.blue,
-                    ),),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:   Row(
-                  children: [
-                    Text(S.current.subCategory , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),),
-                    Text( model.subProductCategoryName ??'' , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: PdfColors.blue,
-                    ),),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:   Row(
-                  children: [
-                    Text(S.current.mark , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),),
-                    Text( model.markNumber ??'' , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: PdfColors.blue,
-                    ),),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:     Row(
-                  children: [
-                    Text(S.current.supplierInfo , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),),
-                    Text( model.supplierName ??'' , style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: PdfColors.blue,
-                    ),),
-                  ],
-                ),
-              ),
-            ],
+          SizedBox(height: 0.5 * PdfPageFormat.cm),
+          Table.fromTextArray(
+            headers: headers,
+            data: data,
+            headerStyle: TextStyle(fontWeight: FontWeight.bold),
+            headerDecoration: BoxDecoration(color: PdfColors.grey300),
+            cellHeight: 30,
+
+              columnWidths: {
+                0: FixedColumnWidth(30),
+                1: FixedColumnWidth(30),
+                2: FixedColumnWidth(30),
+                3: FixedColumnWidth(30),
+                4: FixedColumnWidth(30),
+                5: FixedColumnWidth(30),
+                6: FixedColumnWidth(30),
+                7: FixedColumnWidth(30),
+                8: FixedColumnWidth(30),
+              },
+            cellAlignments: {
+              0: Alignment.center,
+              1: Alignment.center,
+              2: Alignment.center,
+              3: Alignment.center,
+              4: Alignment.center,
+              5: Alignment.center,
+              6: Alignment.center,
+              7: Alignment.center,
+              8: Alignment.center,
+            },
+              // headerPadding: Padding(padding: 12)
           ),
-          Paragraph(text: LoremText().paragraph(60)),
+          // Paragraph(text: LoremText().paragraph(60)),
           // Paragraph(text: LoremText().paragraph(60)),
           // Paragraph(text: LoremText().paragraph(60)),
           // Paragraph(text: LoremText().paragraph(60)),
@@ -289,7 +181,6 @@ class PdfParagraphApi {
     Bullet(text: 'Second Bullet'),
     Bullet(text: 'Third Bullet'),
   ];
-
   static Future<File> saveDocument({
     required String name,
     required Document pdf,

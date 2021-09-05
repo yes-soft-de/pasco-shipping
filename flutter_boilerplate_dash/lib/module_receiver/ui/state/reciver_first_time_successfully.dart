@@ -61,7 +61,7 @@ class _MarkFirstTimeState extends State<ReceiverFirstTime> {
   void initState() {
     super.initState();
     client = <Entry>[];
-    optionItemSelectedClient =  Entry('choose', 1, []);
+    optionItemSelectedClient =  Entry('choose', 0, []);
 
     for(ClientModel item in widget.clients){
       Entry v = Entry(item.userName! ,item.id! ,[]);

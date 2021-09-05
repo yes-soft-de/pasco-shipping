@@ -457,10 +457,10 @@ class _AddCountryInitState extends State<UpdateTravelInit> {
     }
     type = widget.model.type ??'';
 
-    optionItemSelectedFrom =  Entry('choose', 1, []);
-    optionItemSelectedTo =  Entry('choose', 1, []);
-    optionItemSelectedSubContract =  Entry('choose', 1, []);
-    optionItemSelectedCarrier =  Entry('choose', 1, []);
+    optionItemSelectedFrom =  Entry('choose', 0, []);
+    optionItemSelectedTo =  Entry('choose', 0, []);
+    optionItemSelectedSubContract =  Entry('choose', 0, []);
+    optionItemSelectedCarrier =  Entry('choose', 0, []);
 
 
 

@@ -294,24 +294,24 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
           ),
           Divider(color: Colors.grey[300],thickness: 2,),
 
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(S.of(context).shipmentReport),
-                InkWell(
-                  onTap: () async {
-                    final pdfFile = await PdfParagraphApi.generate(widget.shipment);
-
-                    PdfParagraphApi.openFile(pdfFile);
-                  },
-                  child: Icon(Icons.file_present ,size: 50,),
-                ),
-              ],
-            ),
-          ),
-          Divider(color: Colors.grey[300],thickness: 2,),
+          // Padding(
+          //   padding: const EdgeInsets.all(10.0),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       Text(S.of(context).shipmentReport),
+          //       InkWell(
+          //         onTap: () async {
+          //           final pdfFile = await PdfParagraphApi.generate(widget.shipment);
+          //
+          //           PdfParagraphApi.openFile(pdfFile);
+          //         },
+          //         child: Icon(Icons.file_present ,size: 50,),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // Divider(color: Colors.grey[300],thickness: 2,),
 
           Padding(
            padding: const EdgeInsets.all(8.0),
@@ -383,11 +383,11 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               ),
               Row(
                 children: [
-                  RoundedButton(lable: S.of(context).shipmentCost, icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
+                  RoundedButton(lable: S.of(context).shipmentCost, icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
                     widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber);
                   }, radius: 12),
-                  RoundedButton(lable: S.of(context).showStatus, icon: '', color: blue, style: AppTextStyle.mediumWhite, go: (){
-                    widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,widget.shipment.holderType, subShipmentModel.shipmentStatus,widget.shipment.transportationType);
+                  RoundedButton(lable: S.of(context).showStatus, icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
+                    widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,widget.shipment.holderType, subShipmentModel.shipmentStatus,widget.shipment.transportationType ,widget.shipment.isExternalWarehouse);
                   }, radius: 12),
                 ],
               )

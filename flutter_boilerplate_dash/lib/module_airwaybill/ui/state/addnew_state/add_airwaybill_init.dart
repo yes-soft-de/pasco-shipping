@@ -124,6 +124,33 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                       ],
                     ),
                   ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: AppThemeDataService.AccentColor,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+                    ),
+                    onPressed: () {
+                    },
+                    child: Row(
+                      children: [
+                        Radio(
+                          onChanged: (value) {
+                            _setSelectedRadioGender(2);
+                          },
+                          value: 2,
+                          groupValue: selectedRadioType,
+                          activeColor: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          S.of(context).FCL,
+                          style: AppTextStyle.mediumWhite,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
 
@@ -296,11 +323,11 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
     selectedRadioType = 1;
     type = AirwaybillTypeName[AirwaybillType.PUBLIC]!;
 
-    optionItemSelectedProvidedBy =  Entry('choose', 1, []);
-    optionItemSelectedShipper =  Entry('choose', 1, []);
-    optionItemSelectedConsignee =  Entry('choose', 1, []);
-    optionItemSelectedSpecification =  Entry('choose', 1, []);
-    optionItemSelectedCarrier =  Entry('choose', 1, []);
+    optionItemSelectedProvidedBy =  Entry('choose', 0, []);
+    optionItemSelectedShipper =  Entry('choose', 0, []);
+    optionItemSelectedConsignee =  Entry('choose', 0, []);
+    optionItemSelectedSpecification =  Entry('choose', 0, []);
+    optionItemSelectedCarrier =  Entry('choose', 0, []);
 
     initList();
 

@@ -40,6 +40,7 @@ class AirwaybillDetailsModel {
     this.carrierName,
     this.specificationName,
     this.freeWeight,
+    this.shipmentID,
 
 
     this.createdAt,
@@ -60,6 +61,7 @@ class AirwaybillDetailsModel {
   String? carrierName;
   String? specificationName;
   String? freeWeight;
+  int? shipmentID;
 
 
 
@@ -81,6 +83,7 @@ class AirwaybillDetailsModel {
     carrierName: json['carrierName'],
     specificationName: json['specificationName'],
     freeWeight: json['freeWeight'].toString(),
+    shipmentID: json['shipmentID'],
 
 
 

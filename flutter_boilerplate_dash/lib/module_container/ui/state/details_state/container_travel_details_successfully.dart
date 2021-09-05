@@ -193,14 +193,19 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
             },
             itemCount: widget.model.shipments!.length,
           ),
-
-          (widget.model.shipments!.isNotEmpty
+          (widget.model.shipmentID !=null  && widget.model.shipments!.isEmpty)?(
+              Container(child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text('this container requested for specific shipment' , style: AppTextStyle.mediumRed,),
+              ),)
+          ):          (widget.model.shipments!.isNotEmpty
               &&  widget.model.shipments![0].shipmentStatus != null
               &&  widget.model.shipments![0].shipmentStatus
                   == AcceptedShipmentStatusName[AcceptedShipmentStatus.STORED]) ?
           uploadToTravel():
           (widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].travelStatus != null && widget.model.shipments![0].travelStatus == TravelStatusName[TravelStatus.RELEASED]) ?
           changeContainerStatus():
+
               Container(child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Text('this Container uploaded to travel' , style: AppTextStyle.mediumRed,),
@@ -290,8 +295,8 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                     children:
 
                     [
-                      Text(S.of(context).containerNumber , style: AppTextStyle.mediumBlackBold,),
-                      Text('#'+ widget.model.containerNumber! , style: AppTextStyle.mediumBlackBold,),
+                      Text(S.of(context).containerNumber +'#', style: AppTextStyle.mediumBlackBold,),
+                      Text(widget.model.containerNumber??'' , style: AppTextStyle.mediumBlackBold,),
 
                     ],),
                 ),

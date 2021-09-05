@@ -1,3 +1,4 @@
+import 'package:pasco_shipping/module_airwaybill/response/airwaybill_response.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
@@ -23,12 +24,21 @@ class ReceivedStatusState extends AcceptedShipmentStatusState{
   List<WarehousesModel> warehouse;
   ReceivedStatusState(this.model , this.subContracts , this.warehouse);
 }
-class MeasuredStatusState extends AcceptedShipmentStatusState{
+class MeasuredContainerStatusState extends AcceptedShipmentStatusState{
   List<AcceptedShipmentStatusModel> model;
   List<ContainerModel> containers;
   List<TravelModel> travels;
-  MeasuredStatusState(this.model , this.containers , this.travels);
+  MeasuredContainerStatusState({required this.model ,required this.containers ,required this.travels});
 }
+
+class MeasuredAirwaybillStatusState extends AcceptedShipmentStatusState{
+  List<AcceptedShipmentStatusModel> model;
+  List<AirwaybillModel> airwaybills;
+  List<TravelModel> travels;
+  MeasuredAirwaybillStatusState({required this.model ,required this.airwaybills ,required this.travels});
+}
+
+
 class DetailsStatusState extends AcceptedShipmentStatusState{
   List<AcceptedShipmentStatusModel> model;
   DetailsStatusState(this.model);

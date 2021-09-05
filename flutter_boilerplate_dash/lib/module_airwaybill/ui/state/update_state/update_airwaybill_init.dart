@@ -99,61 +99,96 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: AppThemeDataService.AccentColor,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
-
-                    ),
-                    onPressed: () {
-                    },
-                    child: Row(
-                      children: [
-                        Radio(
-                          onChanged: (value) {
-                            _setSelectedRadioGender(2);
-                          },
-                          value: 2,
-                          groupValue: selectedRadioType,
-                          activeColor: Colors.white,
+                  widget.model.shipmentID != null ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: AppThemeDataService.AccentColor,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
                         ),
-                        SizedBox(
-                          width: 5,
+                        onPressed: () {
+                        },
+                        child: Row(
+                          children: [
+                            Radio(
+                              onChanged: (value) {
+                                _setSelectedRadioGender(2);
+                              },
+                              value: 2,
+                              groupValue: selectedRadioType,
+                              activeColor: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              S.of(context).FCL,
+                              style: AppTextStyle.mediumWhite,
+                            ),
+                          ],
                         ),
-                        Text(
-                          S.of(context).FCL,
-                          style: AppTextStyle.mediumWhite,
+                      ),
+                    ],
+                  ):
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: AppThemeDataService.AccentColor,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
                         ),
-                      ],
-                    ),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: AppThemeDataService.AccentColor,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
-                    ),
-                    onPressed: () {
-                    },
-                    child: Row(
-                      children: [
-                        Radio(
-                          onChanged: (value) {
-                            _setSelectedRadioGender(1);
-                          },
-                          value: 1,
-                          groupValue: selectedRadioType,
-                          activeColor: Colors.white,
+                        onPressed: () {
+                        },
+                        child: Row(
+                          children: [
+                            Radio(
+                              onChanged: (value) {
+                                _setSelectedRadioGender(2);
+                              },
+                              value: 2,
+                              groupValue: selectedRadioType,
+                              activeColor: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              S.of(context).FCL,
+                              style: AppTextStyle.mediumWhite,
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          width: 5,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: AppThemeDataService.AccentColor,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
                         ),
-                        Text(
-                          S.of(context).LCL,
-                          style: AppTextStyle.mediumWhite,
+                        onPressed: () {
+                        },
+                        child: Row(
+                          children: [
+                            Radio(
+                              onChanged: (value) {
+                                _setSelectedRadioGender(1);
+                              },
+                              value: 1,
+                              groupValue: selectedRadioType,
+                              activeColor: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              S.of(context).LCL,
+                              style: AppTextStyle.mediumWhite,
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    ],),
                 ],
               ),
 
@@ -323,7 +358,7 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
     containerNumber=TextEditingController();
     containerNumber..text = widget.model.airwaybillNumber??'';
 
-    status= AirwaybillStatusName[AirwaybillStatus.NOTFULL]!;
+    status= widget.model.status!;
 
     if(widget.model.type =='LCL'){
       selectedRadioType = 1;
@@ -334,11 +369,11 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
     }
 
 
-    optionItemSelectedProvidedBy =  Entry('choose', 1, []);
-    optionItemSelectedShipper =  Entry('choose', 1, []);
-    optionItemSelectedConsignee =  Entry('choose', 1, []);
-    optionItemSelectedSpecification =  Entry('choose', 1, []);
-    optionItemSelectedCarrier =  Entry('choose', 1, []);
+    optionItemSelectedProvidedBy =  Entry('choose', 0, []);
+    optionItemSelectedShipper =  Entry('choose', 0, []);
+    optionItemSelectedConsignee =  Entry('choose', 0, []);
+    optionItemSelectedSpecification =  Entry('choose', 0, []);
+    optionItemSelectedCarrier =  Entry('choose', 0, []);
 
     initList();
 

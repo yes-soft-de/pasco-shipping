@@ -75,9 +75,9 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
    controller.text = '0';
 
    if(widget.shipmentRequest.target.isEmpty){
-     optionItemSelectedT =  Entry('choose', 1, []);
+     optionItemSelectedT =  Entry('choose', 0, []);
    }else {
-     optionItemSelectedT = Entry(widget.shipmentRequest.target, 1, []);
+     optionItemSelectedT = Entry(widget.shipmentRequest.target, 0, []);
    }
    if(widget.shipmentRequest.transportationType =='sea'){
      selectedRadioGender = 1;

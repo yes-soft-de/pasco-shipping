@@ -428,7 +428,7 @@ class AppMenu extends ConsumerWidget {
                         ListTile(
                             title: new Text(S.of(context).inExternalWarehouse),
                             onTap: () {
-                              Navigator.pushNamed(context, AirwaybillRoutes.VIEW_ALL ,arguments: {'isExternalWarehouse ':true});
+                              Navigator.pushNamed(context, AirwaybillRoutes.VIEW_ALL ,arguments: {'isExternalWarehouse':true});
                               // selectPage(context, ref, AirwaybillRoutes.VIEW_ALL);
                             }),
                         ListTile(
