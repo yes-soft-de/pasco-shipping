@@ -9,6 +9,14 @@ A PASCO Shipping project created in flutter . PASCO supports both web and mobile
 
 This project is a starting point for a Flutter application.
 
+## Requirements
+
+* Android Studio 4.2+ 
+* Android sdk
+* Flutter sdk 2.2 ~ 2.3
+
+(If your flutter sdk is above 2.3 you may need to migrate the project to your preference by following this link (https://flutter.dev/docs/development/androidx-migration)
+
 ## How to Use 
 
 **Step 1:**
@@ -16,8 +24,9 @@ This project is a starting point for a Flutter application.
 Download or clone this repo by using the link below:
 
 ```
-https://github.com/yes-soft-de/pasco-shipping.git
+git clone --single-branch --branch dev-dashboard https://github.com/yes-soft-de/pasco-shipping.git
 ```
+
 
 **Step 2:**
 
@@ -65,13 +74,14 @@ In Visual Studio Code, navigate to `Preferences` -> `Settings` and search for `F
 * User shipmentes
 * Track User Shipments
 * add suppliers,client ,countries.... 
+* Multilingual Support
 * Code Generation
 * Dependency Injection
 
 
 ### Up-Coming Features:
 
-* Multilingual Support
+
 * User Notifications
 * Chat
 
@@ -89,6 +99,7 @@ flutter-app/
 |- build
 |- ios
 |- lib
+|- web
 |- test
 ```
 
