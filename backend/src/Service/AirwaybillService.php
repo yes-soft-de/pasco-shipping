@@ -82,6 +82,16 @@ class AirwaybillService
 
         if($airwaybill)
         {
+            if($airwaybill['shipmentID'] != null && $airwaybill['createdByUser'] == null)
+            {
+                $airwaybill['createdByUser'] = $airwaybill['clientUserName'];
+
+                if($airwaybill['clientUserImage'])
+                {
+                    $airwaybill['createdByUserImage'] = $airwaybill['clientUserImage'];
+                }
+            }
+
             $airwaybill['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID("airwaybill", $id);
 
             $airwaybill['freeWeight'] = $this->trackService->getCurrentWeightOfAirwaybill($airwaybill);
@@ -106,6 +116,16 @@ class AirwaybillService
 
         foreach($airwaybills as $airwaybill)
         {
+            if($airwaybill['shipmentID'] != null && $airwaybill['createdByUser'] == null)
+            {
+                $airwaybill['createdByUser'] = $airwaybill['clientUserName'];
+
+                if($airwaybill['clientUserImage'])
+                {
+                    $airwaybill['createdByUserImage'] = $airwaybill['clientUserImage'];
+                }
+            }
+
             if($airwaybill['createdByUserImage'])
             {
                 $airwaybill['createdByUserImage'] = $this->params . $airwaybill['createdByUserImage'];
