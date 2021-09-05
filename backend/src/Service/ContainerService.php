@@ -82,6 +82,16 @@ class ContainerService
 
         if($container)
         {
+            if($container['shipmentID'] != null && $container['createdByUser'] == null)
+            {
+                $container['createdByUser'] = $container['clientUserName'];
+
+                if($container['clientUserImage'])
+                {
+                    $container['createdByUserImage'] = $container['clientUserImage'];
+                }
+            }
+
             $container['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID("container", $id);
 
             $container['freeCapacity'] = $this->trackService->getCurrentCapacityOfContainer($container);
@@ -106,6 +116,16 @@ class ContainerService
 
         foreach($containers as $container)
         {
+            if($container['shipmentID'] != null && $container['createdByUser'] == null)
+            {
+                $container['createdByUser'] = $container['clientUserName'];
+
+                if($container['clientUserImage'])
+                {
+                    $container['createdByUserImage'] = $container['clientUserImage'];
+                }
+            }
+
             if($container['createdByUserImage'])
             {
                 $container['createdByUserImage'] = $this->params . $container['createdByUserImage'];

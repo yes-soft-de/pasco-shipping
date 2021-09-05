@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
+use App\Entity\ClientProfileEntity;
 use App\Entity\ContainerEntity;
 use App\Entity\ContainerSpecificationEntity;
 use App\Entity\OrderShipmentEntity;
@@ -96,71 +97,11 @@ class ContainerEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.createdBy', 'container.carrierID',
             'container.shipperID', 'container.type', 'container.providedBy', 'container.shipmentID', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
-            'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName')
+            'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName',
+            'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage')
 
             ->andWhere('container.id = :id')
             ->setParameter('id', $id)
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile1',
-                Join::WITH,
-                'adminProfile1.userID = container.createdBy'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile2',
-                Join::WITH,
-                'adminProfile2.userID = container.updatedBy'
-            )
-
-            ->leftJoin(
-                ContainerSpecificationEntity::class,
-                'containerSpecification',
-                Join::WITH,
-                'containerSpecification.id = container.specificationID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity',
-                Join::WITH,
-                'subcontractEntity.id = container.providedBy'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity2',
-                Join::WITH,
-                'subcontractEntity2.id = container.consigneeID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity3',
-                Join::WITH,
-                'subcontractEntity3.id = container.providedBy'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity4',
-                Join::WITH,
-                'subcontractEntity4.id = container.carrierID'
-            )
-
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
-    public function filterContainers($specificationID, $containerNumber, $status, $type, $providedBy, $shipperID, $consigneeID,
-                                     $isExternalWarehouse, $shipmentID)
-    {
-        $query = $this->createQueryBuilder('container')
-            ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.shipmentID',
-                'container.shipperID', 'container.carrierID', 'container.type', 'container.providedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
-                'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName')
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -216,6 +157,89 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 'orderShipmentEntity',
                 Join::WITH,
                 'orderShipmentEntity.id = container.shipmentID'
+            )
+
+            ->leftJoin(
+                ClientProfileEntity::class,
+                'clientProfileEntity',
+                Join::WITH,
+                'clientProfileEntity.userID = orderShipmentEntity.clientUserID'
+            )
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function filterContainers($specificationID, $containerNumber, $status, $type, $providedBy, $shipperID, $consigneeID,
+                                     $isExternalWarehouse, $shipmentID)
+    {
+        $query = $this->createQueryBuilder('container')
+            ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.shipmentID',
+                'container.shipperID', 'container.carrierID', 'container.type', 'container.providedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
+                'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName',
+                'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage')
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = container.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = container.updatedBy'
+            )
+
+            ->leftJoin(
+                ContainerSpecificationEntity::class,
+                'containerSpecification',
+                Join::WITH,
+                'containerSpecification.id = container.specificationID'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = container.providedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity2',
+                Join::WITH,
+                'subcontractEntity2.id = container.consigneeID'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity3',
+                Join::WITH,
+                'subcontractEntity3.id = container.providedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity4',
+                Join::WITH,
+                'subcontractEntity4.id = container.carrierID'
+            )
+
+            ->leftJoin(
+                OrderShipmentEntity::class,
+                'orderShipmentEntity',
+                Join::WITH,
+                'orderShipmentEntity.id = container.shipmentID'
+            )
+
+            ->leftJoin(
+                ClientProfileEntity::class,
+                'clientProfileEntity',
+                Join::WITH,
+                'clientProfileEntity.userID = orderShipmentEntity.clientUserID'
             )
 
             ->orderBy('container.id', 'DESC')
