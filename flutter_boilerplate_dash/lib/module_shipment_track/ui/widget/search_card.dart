@@ -18,7 +18,7 @@ class SearchCard extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController trackNumberController = TextEditingController();
     return Padding(
-      padding: const EdgeInsets.all(30.0),
+      padding: const EdgeInsets.all(10.0),
       child: Container(
         decoration: BoxDecoration(
             border:

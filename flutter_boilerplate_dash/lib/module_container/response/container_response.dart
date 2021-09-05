@@ -71,15 +71,15 @@ class ContainerModel {
 
   factory ContainerModel.fromJson(Map<String, dynamic> json) => ContainerModel(
     id: json['id'],
-    type: json['type'],
-    status: json['status'],
-    containerNumber:json['containerNumber'] ,
+    type: json['type']??'',
+    status: json['status']??'',
+    containerNumber:json['containerNumber'] ??'',
 
-    subcontractName: json['subcontractName'],
-    shipperName: json['shipperName'],
-    consigneeName: json['consigneeName'],
-    carrierName: json['carrierName'],
-    specificationName: json['specificationName'],
+    subcontractName: json['subcontractName']??'',
+    shipperName: json['shipperName']??'',
+    consigneeName: json['consigneeName']??'',
+    carrierName: json['carrierName']??'',
+    specificationName: json['specificationName']??'',
 
 
 

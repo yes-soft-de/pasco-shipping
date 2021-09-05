@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_airwaybill/airwaybill_routes.dart';
+import 'package:pasco_shipping/module_container/container_routes.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/state_manager/accepted_shipment_state_manager.dart';
@@ -28,6 +31,7 @@ class _CountriesScreenState extends State<AcceptedShipmentScreen> {
   late Data items;
   late AcceptedShipmentFilterRequest filterRequest;
   late bool withFilter;
+  late String title;
   @override
   Widget build(BuildContext context) {
     return Background(
@@ -40,7 +44,7 @@ class _CountriesScreenState extends State<AcceptedShipmentScreen> {
           });
         },
         child: Screen(),
-        title: S.of(context).acceptedShipment
+        title: title
     );
   }
 
@@ -50,6 +54,12 @@ class _CountriesScreenState extends State<AcceptedShipmentScreen> {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     filterRequest =arguments['filterRequest'];
     withFilter =arguments['withFilter'];
+    if(filterRequest.status == AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]){
+      title =S.of(context).arrivedShipment;
+    }else{
+      title =S.of(context).acceptedShipment;
+    }
+
     widget._stateManager.getAcceptedShipment(filterRequest);
   }
 
@@ -82,6 +92,8 @@ class _CountriesScreenState extends State<AcceptedShipmentScreen> {
       items = state!.waitingShipments;
       return AcceptedShipmentSuccessfully(
         items: items,
+        hideAddButton: withFilter,
+        filterRequest: filterRequest,
         onDetails: (id){
           Navigator.pushNamed(context,AcceptedShipmentRoutes.DETAILS , arguments: {'id' : id} ).then((value){
             widget._stateManager.getAcceptedShipment(filterRequest);
@@ -90,7 +102,14 @@ class _CountriesScreenState extends State<AcceptedShipmentScreen> {
         onSearch: (number){
           filterRequest.trackNumber = number;
           widget._stateManager.getAcceptedShipment(filterRequest);
-        },
+        }, addContainer: (){
+          if(filterRequest.transportationType == 'sea'){
+            Navigator.popAndPushNamed(context, ContainerRoutes.ADD_NEW);
+          }else {
+            Navigator.popAndPushNamed(context, AirwaybillRoutes.ADD_NEW);
+
+          }
+      },
       );
     }
     else if(currentState is ErrorState) {

@@ -47,6 +47,8 @@ import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 //a map of ("page name", WidgetBuilder) pairs
 final _availablePages =   YesModule.RoutesMap;
 // <String, WidgetBuilder>{
@@ -74,20 +76,25 @@ final selectedPageBuilderProvider = Provider<WidgetBuilder>((ref) {
 class AppMenu extends ConsumerWidget {
   void selectPage(BuildContext context, WidgetRef ref, String pageName) {
     print(pageName);
-    if (ref.read(selectedPageNameProvider).state != pageName) {
-      print(pageName);
-      ref.read(selectedPageNameProvider).state = pageName;
-      // dismiss the drawer of the ancestor Scaffold if we have one
-      if (Scaffold.maybeOf(context)?.hasDrawer ?? false) {
-        Navigator.of(context).pop();
+    if(kIsWeb){
+      if (ref.read(selectedPageNameProvider).state != pageName) {
+        print(pageName);
+        ref.read(selectedPageNameProvider).state = pageName;
+        // dismiss the drawer of the ancestor Scaffold if we have one
+        if (Scaffold.maybeOf(context)?.hasDrawer ?? false) {
+          Navigator.of(context).pop();
+        }
       }
+    }else{
+      Navigator.pushNamed(context, pageName);
     }
+
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // 2. watch the provider's state
-    final selectedPageName = ref.watch(selectedPageNameProvider).state;
+    // final selectedPageName = ref.watch(selectedPageNameProvider).;
    List<String> role =  ConstVar.Roles;
     return Scaffold(
       // appBar: AppBar(title: Text(selectedPageName)),
@@ -362,7 +369,8 @@ class AppMenu extends ConsumerWidget {
                     ListTile(
                         title: new Text(S.of(context).add),
                         onTap: () {
-                          selectPage(context, ref, NewShipmentRoutes.NEW_SHIPMENTS);
+                          Navigator.pushNamed(context, NewShipmentRoutes.NEW_SHIPMENTS);
+                          // selectPage(context, ref, NewShipmentRoutes.NEW_SHIPMENTS);
                         }),
                   ],
                 ),
@@ -391,16 +399,18 @@ class AppMenu extends ConsumerWidget {
                     child: Column(
                       children: [
                         ListTile(
-                            title: new Text(S.of(context).view),
+                            title: new Text(S.of(context).inExternalWarehouse),
                             onTap: () {
-                              selectPage(context, ref, ContainerRoutes.VIEW_ALL);
+                              Navigator.pushNamed(context, ContainerRoutes.VIEW_ALL ,arguments: {'isExternalWarehouse' : true});
+                              // selectPage(context, ref, ContainerRoutes.VIEW_ALL ,ar);
                             }),
                         ListTile(
                             title: new Text(
-                              S.of(context).add,
+                              S.of(context).inLocalWarehouse,
                             ),
                             onTap: () {
-                              selectPage(context, ref, ContainerRoutes.ADD_NEW);
+                              Navigator.pushNamed(context, ContainerRoutes.VIEW_ALL ,arguments: {'isExternalWarehouse' : false});
+                              // selectPage(context, ref, ContainerRoutes.VIEW_ALL);
                             }),
                       ],
                     ),
@@ -416,17 +426,17 @@ class AppMenu extends ConsumerWidget {
                     child: Column(
                       children: [
                         ListTile(
-                            title: new Text(S.of(context).view),
+                            title: new Text(S.of(context).inExternalWarehouse),
                             onTap: () {
-                              selectPage(context, ref, AirwaybillRoutes.VIEW_ALL);
-
+                              Navigator.pushNamed(context, AirwaybillRoutes.VIEW_ALL ,arguments: {'isExternalWarehouse ':true});
+                              // selectPage(context, ref, AirwaybillRoutes.VIEW_ALL);
                             }),
                         ListTile(
                             title: new Text(
-                              S.of(context).add,
+                              S.of(context).inLocalWarehouse,
                             ),
                             onTap: () {
-                              selectPage(context, ref, AirwaybillRoutes.ADD_NEW);
+                              Navigator.pushNamed(context, AirwaybillRoutes.VIEW_ALL ,arguments: {'isExternalWarehouse' : false});
                             }),
                       ],
                     ),

@@ -97,7 +97,6 @@ class _AddCountryInitState extends State<AddSubContractServiceInit> {
                   ),
                   child: TextField(
                     controller: description,
-                    keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: S.of(context).description,

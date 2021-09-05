@@ -73,7 +73,7 @@
 
 
   "requestShipment": "Request Shipment",
-  "shippingType": "Shipping type:",
+  "shippingWay": "Shipping way:",
   "sea": "Sea",
   "air": "Air",
   "shippingFrom": "Shipping from: ",
@@ -106,10 +106,10 @@
   "consignee": "Consignee",
   "shipper": "Shipper",
   "carrier": "Carrier",
-  "specification": "Specification",
+  "specification": "Types",
   "choose":"choose",
 
-  "containerType": "Container Type",
+  "shippingType": "Shipping Type",
   "containerNumber":"Container Number",
 
 
@@ -169,8 +169,8 @@
   "paymentTime": "Payment time: ",
   "extraSpecification": "Extra specification: ",
 
-  "containerSpecification": "Container Specification",
-  "airwaybillSpecification": "Air waybill Specification",
+  "containerSpecification": "Container Type",
+  "airwaybillSpecification": "Air waybill Type",
   "width": "Weight",
 
   "capacityCPM": "Capacity CPM: ",
@@ -368,6 +368,10 @@
 
 
   "acceptedConfirm": "Do you really want to accept the shipment ?",
-  "rejectConfirm": "Do you really want to reject the shipment ?"
+  "rejectConfirm": "Do you really want to reject the shipment ?",
+
+  "requestContainer": "Request Container",
+  "reviewInformation": "Review Information",
+  "holderCount": "Holder count"
 
 }

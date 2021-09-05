@@ -60,7 +60,7 @@
   "cancel": "إلغاء",
   "fillAllField": "إملئ جميع الحقول",
   "requestShipment": "طلب شحنة",
-  "shippingType": "نوع الشحن:",
+  "shippingWay": "طريقة الشحن",
   "sea": "بحري",
   "air": "جوي",
   "shippingFrom": "شحن من:",
@@ -83,19 +83,19 @@
   "addedSuccessfully": "تم إضافة العنصر بنجاح",
   "description": "الوصف",
 
-  "airwaybillType": "نوع بوليصة الشحن",
+  "airwaybillType": "نوع بوليصة الشحن الجوي",
   "LCL": "LCL",
   "FCL": "FCL",
-  "airwaybillNumber": "رقم بوليصة الشحن: ",
+  "airwaybillNumber": "رقم بوليصة الشحن الجوي: ",
   "number": "الرقم",
   "provided": "مُفدمة من",
   "consignee": "المرسل إليه",
   "shipper": "الشاحن",
   "carrier": "الناقل",
-  "specification": "المواصفات",
+  "specification": "أنواع",
   "choose":"اختر",
 
-  "containerType": "نوع الحاوية",
+  "shippingType": "نوع الشحن",
   "containerNumber":"رقم الحاوية",
 
   "totalCost":"الكلفة الكلية: ",
@@ -106,7 +106,7 @@
   "cleared": "جمركة",
   "arrived": "تفريغ",
 
-  "airwaybillInformation": "معلومات بوليصة الشحن",
+  "airwaybillInformation": "معلومات بوليصة الشحن الجوي",
   "containerInformation": "معلومات الحاوية",
   "type": "النوع",
   "RequestedBy": "بطلب من: ",
@@ -125,7 +125,7 @@
   "targetWarehouse": "المستودع الهدف: ",
   "exportWarehouse": "مستودع التصدير: ",
 
-  "airwaybillStatus": "حالة بوليصة الشحن",
+  "airwaybillStatus": "حالة بوليصة الشحن الجوي",
   "containerStatus": "حالة الحاوية",
   "nextStatus": "الحالة التالية",
   "noChangeStatus": "لا يمكنك تغير الحالة,الحاوية غير ممتلئة بعد",
@@ -139,9 +139,9 @@
   "stageCost": "تكلفة المرحلة: ",
 
   "filterBy": "تصنف بواسطة",
-  "airwaybillFinance": "مصاريف بوليصة الشحن",
+  "airwaybillFinance": "مصاريف بوليصة الشحن الجوي",
   "containerFinance": "مصاريف الحاوية",
-  "airWaybills": "بوليصات الشحن",
+  "airWaybills": "بوليصات الشحن الجوي",
   "containers": "الحاويات",
 
   "shipmentReview": "مراجعة الشحنة",
@@ -153,8 +153,8 @@
   "paymentTime": "وقت الدفع: ",
   "extraSpecification": "تفاصيل إضافية: ",
 
-  "containerSpecification": "خصائص الحاوية",
-  "airwaybillSpecification": "خصائص بوليصة الشحن",
+  "containerSpecification": "أنواع الحاوية",
+  "airwaybillSpecification": "أنواع بوليصة الشحن الجوي",
   "width": "الوزن",
 
   "capacityCPM": "السعه CPM: ",
@@ -187,7 +187,7 @@
 
 
   "distributor": "الموزع: ",
-  "holderType": "نوع الحاوية/بوليصة الشحن: ",
+  "holderType": "نوع الحاوية/بوليصة الشحن الجوي: ",
   "vehicleNumber":"رقم  تعريف السيارة",
 
   "acceptedShipment": "الشحنات المقبولة",
@@ -346,7 +346,10 @@
   "emptyAmount": "يمكنك ترك الحقل فارغًا ، إذا لم يتم تقسيم الشحنة",
 
   "acceptedConfirm": "هل تريد حقا قبول الشحنة؟",
-  "rejectConfirm": "هل تريد حقا رفض الشحنة؟"
+  "rejectConfirm": "هل تريد حقا رفض الشحنة؟",
 
+  "requestContainer": "طلب حاوية",
+  "reviewInformation": "مراجعة المعلومات",
 
+  "holderCount": "عدد الحاملات"
 }

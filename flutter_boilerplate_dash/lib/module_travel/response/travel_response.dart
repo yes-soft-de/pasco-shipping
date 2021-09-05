@@ -38,6 +38,7 @@ class TravelModel {
     this.travelNumber,
     this.status,
     this.subcontractName,
+    this.carrierName,
 
     this.launchDate ,
     this.arrivalDate ,
@@ -56,6 +57,7 @@ class TravelModel {
   String? travelNumber;
   String? status;
   String? subcontractName;
+  String? carrierName;
 
   DateTime? launchDate;
   DateTime? arrivalDate;
@@ -77,6 +79,7 @@ class TravelModel {
     travelNumber: json['travelNumber'],
     status: json['status'],
     subcontractName: json['subcontractName'],
+    carrierName: json['carrierName'],
 
 
     launchDate: DateTime.fromMillisecondsSinceEpoch(

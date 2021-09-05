@@ -32,6 +32,10 @@ class _AddCountryInitState extends State<UpdateTravelInit> {
  late DropListModel dropListModelSubContract;
  late Entry optionItemSelectedSubContract;
 
+ late DropListModel dropListModelCarrier;
+ late Entry optionItemSelectedCarrier;
+
+
  late DropListModel dropListModelFromCountries;
  late DropListModel dropListModelToCountries;
  late Entry optionItemSelectedFrom;
@@ -40,6 +44,7 @@ class _AddCountryInitState extends State<UpdateTravelInit> {
  late List<Entry> entryFrom;
  late List<Entry> entryTo;
  late List<Entry> entrySub;
+ late List<Entry> entryCarrier;
 
  late String status;
  late String type;
@@ -369,6 +374,24 @@ class _AddCountryInitState extends State<UpdateTravelInit> {
                 ],
               ),
               SizedBox(height: 30,),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).carrier , style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              SelectDropList(
+                this.optionItemSelectedCarrier,
+                this.dropListModelCarrier,
+                    (optionItem) {
+                  optionItemSelectedCarrier = optionItem;
+                  setState(() {});
+                },
+              ),
+
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
@@ -394,7 +417,8 @@ class _AddCountryInitState extends State<UpdateTravelInit> {
                   TravelRequest re = TravelRequest(status: status ,type: type
                     ,destinationCountry: optionItemSelectedTo.title ,
                     launchCountry: optionItemSelectedFrom.title ,
-                    shipperID: optionItemSelectedSubContract.id
+                    shipperID: optionItemSelectedSubContract.id,
+                    carrierID: optionItemSelectedCarrier.id
                     ,travelNumber: travelNumber.text
                     ,arrivalDate:arrivalDate.toUtc().toString()
                     ,launchDate: launchDate.toUtc().toString(),
@@ -418,6 +442,7 @@ class _AddCountryInitState extends State<UpdateTravelInit> {
     entryTo = <Entry>[];
     entryFrom= <Entry>[];
     entrySub= <Entry>[];
+    entryCarrier= <Entry>[];
 
     travelNumber =TextEditingController();
     travelNumber..text = widget.model.travelNumber??'';
@@ -435,6 +460,7 @@ class _AddCountryInitState extends State<UpdateTravelInit> {
     optionItemSelectedFrom =  Entry('choose', 1, []);
     optionItemSelectedTo =  Entry('choose', 1, []);
     optionItemSelectedSubContract =  Entry('choose', 1, []);
+    optionItemSelectedCarrier =  Entry('choose', 1, []);
 
 
 
@@ -464,10 +490,15 @@ class _AddCountryInitState extends State<UpdateTravelInit> {
       if(widget.model.subcontractName == item.fullName){
         optionItemSelectedSubContract = Entry(item.fullName! ,item.id! ,[]);
       }
+      if(widget.model.carrierName == item.fullName){
+        optionItemSelectedCarrier = Entry(item.fullName! ,item.id! ,[]);
+      }
       Entry v = Entry(item.fullName! ,item.id! ,[]);
       entrySub.add(v);
+      entryCarrier.add(v);
     }
     dropListModelSubContract = DropListModel(entrySub);
+    dropListModelCarrier = DropListModel(entryCarrier);
 
 
     for(CountryModel item in widget.countries){
@@ -503,7 +534,7 @@ class _AddCountryInitState extends State<UpdateTravelInit> {
        initialTime: selectedTimeStart,
        builder: (BuildContext context, Widget? child) {
          return MediaQuery(
-           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
            child: child!,
          );
        });
@@ -522,7 +553,7 @@ class _AddCountryInitState extends State<UpdateTravelInit> {
        initialTime: selectedTimeEnd,
        builder: (BuildContext context, Widget? child) {
          return MediaQuery(
-           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
            child: child!,
          );
        });

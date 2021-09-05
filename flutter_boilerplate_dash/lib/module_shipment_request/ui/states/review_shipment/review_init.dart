@@ -28,19 +28,49 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            children: [
-              Expanded(
-                  child: ListTile(
-                      title: Text(
-                        S.of(context).shippingType,
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Row(children: [
+                    Text(
+                      S.of(context).shippingWay,
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    Text(
+                      widget.shipment.transportationType,
+                      style: AppTextStyle.smallBlueBold,
+                    ),
+                  ],),
+                ),
+
+                Expanded(
+                  child: Row(
+                    children: [
+                      Text(
+                        S.of(context).supplierInfo,
                         style: AppTextStyle.mediumBlack,
                       ),
-                      subtitle: Text(
-                        widget.shipment.transportationType,
+                      Text(
+                        widget.shipment.supplierName ,
                         style: AppTextStyle.smallBlueBold,
-                      ))),
-            ],
+                      )
+                    ],
+                  ),
+                ),
+                // Expanded(
+                //     child: ListTile(
+                //         title: Text(
+                //           S.of(context).shippingType,
+                //           style: AppTextStyle.mediumBlack,
+                //         ),
+                //         subtitle: Text(
+                //           widget.shipment.transportationType,
+                //           style: AppTextStyle.smallBlueBold,
+                //         ))),
+              ],
+            ),
           ),
           Divider(color: Colors.grey[300],thickness: 2,),
           Row(
@@ -148,16 +178,25 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
           Row(
             children: [
               Expanded(
-                child: ListTile(
-                    title: Text(
-                      S.of(context).supplierInfo,
-                      style: AppTextStyle.mediumBlack,
-                    ),
-                    subtitle: Text(
-                      widget.shipment.supplierName ,
-                      style: AppTextStyle.smallBlueBold,
-                    )),
-              ),
+                  child: ListTile(
+                      title: Text(
+                        S.of(context).shippingType,
+                        style: AppTextStyle.mediumBlack,
+                      ),
+                      subtitle: Text(
+                        widget.shipment.holderType ,
+                        style: AppTextStyle.smallBlueBold,
+                      ))),
+              Expanded(
+                  child: ListTile(
+                      title: Text(
+                        S.of(context).holderCount,
+                        style: AppTextStyle.mediumBlack,
+                      ),
+                      subtitle: Text(
+                        widget.shipment.holderCount.toString(),
+                        style: AppTextStyle.smallBlueBold,
+                      ))),
             ],
           ),
           Divider(color: Colors.grey[300],thickness: 2,),

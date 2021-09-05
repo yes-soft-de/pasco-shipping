@@ -28,6 +28,7 @@ class _CountriesScreenState extends State<AirwaybillScreen> {
   late AirwaybillsState currentState;
   late List<AirwaybillModel> items;
   late String type;
+  late bool isExternalWarehouse;
   late AirwaybillFilterRequest containerFilterRequest;
   @override
   Widget build(BuildContext context) {
@@ -52,8 +53,9 @@ class _CountriesScreenState extends State<AirwaybillScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // final arguments = ModalRoute.of(context)!.settings.arguments as Map;
-    // containerFilterRequest =arguments['containerFilter'];
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    isExternalWarehouse =arguments['isExternalWarehouse'];
+    containerFilterRequest.isExternalWarehouse =isExternalWarehouse;
     // type = containerFilterRequest.type!;
     widget._stateManager.getAirwaybillsWithFilter(containerFilterRequest);
 

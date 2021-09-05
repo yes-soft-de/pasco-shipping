@@ -412,6 +412,8 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
               this.dropListModelCat,
                   (optionItem) {
                 optionItemSelectedCategory= optionItem;
+                widget.shipmentRequest.productCategoryID = optionItem.id;
+                widget.shipmentRequest.productCategoryName = optionItem.title;
                 setState(() {});
               },
             ),

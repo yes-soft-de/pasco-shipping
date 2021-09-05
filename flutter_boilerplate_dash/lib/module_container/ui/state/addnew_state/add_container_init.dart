@@ -91,40 +91,12 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).containerType, style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).shippingType, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: AppThemeDataService.AccentColor,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
-
-                    ),
-                    onPressed: () {
-                    },
-                    child: Row(
-                      children: [
-                        Radio(
-                          onChanged: (value) {
-                            _setSelectedRadioGender(2);
-                          },
-                          value: 2,
-                          groupValue: selectedRadioType,
-                          activeColor: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          S.of(context).FCL,
-                          style: AppTextStyle.mediumWhite,
-                        ),
-                      ],
-                    ),
-                  ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: AppThemeDataService.AccentColor,
@@ -324,11 +296,11 @@ class _AddCountryInitState extends State<RequestContainerInit> {
     selectedRadioType = 1;
     type = ContainerTypeName[ContainerType.PUBLIC]!;
 
-    optionItemSelectedProvidedBy =  Entry('choose', 1, []);
-    optionItemSelectedShipper =  Entry('choose', 1, []);
-    optionItemSelectedConsignee =  Entry('choose', 1, []);
-    optionItemSelectedSpecification =  Entry('choose', 1, []);
-    optionItemSelectedCarrier =  Entry('choose', 1, []);
+    optionItemSelectedProvidedBy =  Entry('choose', 0, []);
+    optionItemSelectedShipper =  Entry('choose', 0, []);
+    optionItemSelectedConsignee =  Entry('choose', 0, []);
+    optionItemSelectedSpecification =  Entry('choose', 0, []);
+    optionItemSelectedCarrier =  Entry('choose', 0, []);
 
     initList();
 

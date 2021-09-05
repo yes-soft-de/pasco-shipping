@@ -4,6 +4,7 @@ import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_mark/mark_routes.dart';
 import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/NumberInputWithIncrementDecrement.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_unit/response/unit_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
@@ -30,8 +31,8 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
 
   DropListModel dropListModelTime = DropListModel(dataTime);
   DropListModel dropListModelHolderType = DropListModel(holderType);
-  late Entry optionItemSelectedTim = Entry('choose', 1, []);
-  late Entry optionItemSelectedType = Entry('choose', 1, []);
+  late Entry optionItemSelectedTim = Entry('choose', 0, []);
+  late Entry optionItemSelectedType = Entry('choose', 0, []);
 
   late DropListModel dropListModelMark;
  late DropListModel dropListModelUnit;
@@ -46,13 +47,20 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   late String supplierName;
   late String receiverName;
   late String receiverPhone;
+  late String initQuantity;
 
   late bool isFromMarks;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    print('here');
+
+    if(widget.shipmentRequest.holderCount == 0){
+      initQuantity = '0';
+    }else {
+      initQuantity = widget.shipmentRequest.holderCount.toString();
+    }
+
     if(widget.shipmentRequest.userID !=0){
       for(ClientModel item in widget.marks){
         if(item.id == widget.shipmentRequest.userID) {
@@ -60,7 +68,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
         }
       }
     }else {
-      optionItemSelectedMar =  Entry('choose', 1, []);
+      optionItemSelectedMar =  Entry('choose', 0, []);
     }
     // optionItemSelectedMar =  Entry('choose', 1, []);
     if(widget.shipmentRequest.supplierName.isNotEmpty){
@@ -85,18 +93,18 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
     if(widget.shipmentRequest.unit.isNotEmpty){
       optionItemSelectedU = Entry(widget.shipmentRequest.unit, 1, []);
     }else{
-      optionItemSelectedU=Entry('choose', 1, []);
+      optionItemSelectedU=Entry('choose', 0, []);
     }
     if(widget.shipmentRequest.paymentTime.isNotEmpty){
       optionItemSelectedTim = Entry(widget.shipmentRequest.paymentTime, 1, []);
     }else {
-      optionItemSelectedTim = Entry('choose', 1, []);
+      optionItemSelectedTim = Entry('choose', 0, []);
     }
 
     if(widget.shipmentRequest.holderType.isNotEmpty){
       optionItemSelectedType = Entry(widget.shipmentRequest.holderType, 1, []);
     }else {
-      optionItemSelectedType = Entry('choose', 1, []);
+      optionItemSelectedType = Entry('choose', 0, []);
     }
   }
 
@@ -165,7 +173,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
           height: 15,
         ),
         Text(
-          S.of(context).holderType,
+          S.of(context).shippingType,
           style: AppTextStyle.mediumBlackBold,
         ),
         SelectDropList(
@@ -177,6 +185,21 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
             setState(() {});
           },
         ),
+        SizedBox(
+          height: 15,
+        ),
+       optionItemSelectedType.title=='FCL'?
+       Row(
+          children: [
+            Text(
+              S.of(context).holderCount,
+              style: AppTextStyle.mediumBlackBold,
+            ),
+            NumberInputWithIncrementDecrement(initQuantity , (quantity ){
+              widget.shipmentRequest.holderCount = quantity;
+            }),
+          ],
+        ):Container(),
         SizedBox(
           height: 15,
         ),

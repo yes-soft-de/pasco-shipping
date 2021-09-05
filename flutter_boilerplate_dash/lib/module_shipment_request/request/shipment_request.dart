@@ -29,6 +29,7 @@ class ShipmentRequest {
   late String _extraSpecification;
 
   late String _holderType;
+  late int _holderCount;
   late List<String>? imageFilePath;
 
   late int userID;
@@ -61,6 +62,7 @@ class ShipmentRequest {
     'exportWarehouseName':exportWarehouseName,
     'markName':markName,
     'holderType':holderType,
+    'holderCount':holderCount,
     'clientUserID':userID,
     'userName':userName,
     'distributorID':distributorID,
@@ -96,6 +98,7 @@ class ShipmentRequest {
       this._extraSpecification,
       this._vehicleIdentificationNumber,
       this._holderType,
+      this._holderCount,
       this.imageFilePath,
 
       this.externalWarehouseInfo,
@@ -213,6 +216,12 @@ class ShipmentRequest {
 
   set receiverID(int value) {
     _receiverID = value;
+  }
+
+  int get holderCount => _holderCount;
+
+  set holderCount(int value) {
+    _holderCount = value;
   }
 
   @override

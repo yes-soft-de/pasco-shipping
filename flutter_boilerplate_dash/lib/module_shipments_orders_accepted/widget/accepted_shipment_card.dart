@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_response.dart';
+import 'package:pasco_shipping/utils/helpers/pdf_paragraph_api.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 
 class AcceptedShipmentCard extends StatelessWidget {
