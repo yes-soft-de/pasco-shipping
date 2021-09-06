@@ -8,6 +8,7 @@ use App\Manager\ReceiverManager;
 use App\Request\ReceiverCreateByDashboardRequest;
 use App\Request\ReceiverCreateRequest;
 use App\Request\ReceiverFilterRequest;
+use App\Request\ReceiverUpdateRequest;
 use App\Response\ReceiverCreateResponse;
 use App\Response\ReceiverGetByDashboardResponse;
 use App\Response\ReceiverGetResponse;
@@ -38,6 +39,13 @@ class ReceiverService
         $receiverResult = $this->receiverManager->createByDashboard($request);
 
         return $this->autoMapping->map(ReceiverEntity::class, ReceiverCreateResponse::class, $receiverResult);
+    }
+
+    public function update(ReceiverUpdateRequest $request)
+    {
+        $receiverResult = $this->receiverManager->update($request);
+
+        return $this->autoMapping->map(ReceiverEntity::class, ReceiverGetResponse::class, $receiverResult);
     }
 
     public function filterReceivers(ReceiverFilterRequest $request)
@@ -76,6 +84,20 @@ class ReceiverService
         }
 
         return $receiversResponse;
+    }
+
+    public function deleteReceiverById($request)
+    {
+        $result = $this->receiverManager->deleteReceiverById($request);
+
+        if($result instanceof ReceiverEntity)
+        {
+            return $this->autoMapping->map(ReceiverEntity::class, ReceiverGetResponse::class, $result);
+        }
+        else
+        {
+            return $result;
+        }
     }
 
 }

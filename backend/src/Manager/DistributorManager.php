@@ -14,12 +14,15 @@ class DistributorManager
 {
     private $autoMapping;
     private $entityManager;
+    private $shipmentOrderManager;
     private $distributorEntityRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, DistributorEntityRepository $distributorEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, DistributorEntityRepository $distributorEntityRepository,
+    ShipmentOrderManager $shipmentOrderManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
+        $this->shipmentOrderManager = $shipmentOrderManager;
         $this->distributorEntityRepository = $distributorEntityRepository;
     }
 
@@ -59,21 +62,37 @@ class DistributorManager
         return $this->distributorEntityRepository->getAllDistributors();
     }
 
+    public function getShipmentOrderByDistributor($distributorID)
+    {
+        return $this->shipmentOrderManager->getShipmentOrderByDistributor($distributorID);
+    }
+
     public function deleteDistributorById(DeleteRequest $request)
     {
-        $item = $this->distributorEntityRepository->find($request->getId());
+        $distributorEntity = $this->distributorEntityRepository->find($request->getId());
 
-        if(!$item)
+        if(!$distributorEntity)
         {
 
         }
         else
         {
-            $this->entityManager->remove($item);
-            $this->entityManager->flush();
+            // Check if distributor is not being used yet
+            $result = $this->getShipmentOrderByDistributor($request->getId());
+
+            if(!$result)
+            {
+                //its safe to delete the distributor
+                $this->entityManager->remove($distributorEntity);
+                $this->entityManager->flush();
+            }
+            else
+            {
+                return "The distributor is being used. We can not delete it!";
+            }
         }
 
-        return $item;
+        return $distributorEntity;
     }
 
 }

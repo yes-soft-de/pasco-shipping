@@ -203,8 +203,7 @@ class DistributorController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="array", property="Data",
-     *              @OA\Items(
+     *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="string", property="fullName"),
      *                  @OA\Property(type="string", property="phone"),
@@ -215,7 +214,6 @@ class DistributorController extends BaseController
      *                  @OA\Property(type="string", property="createdByUserImage"),
      *                  @OA\Property(type="string", property="updatedByUser"),
      *                  @OA\Property(type="string", property="updatedByUserImage")
-     *              )
      *          )
      *      )
      * )

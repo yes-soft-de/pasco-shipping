@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\DeleteRequest;
 use App\Request\ReceiverCreateByDashboardRequest;
 use App\Request\ReceiverCreateRequest;
 use App\Request\ReceiverFilterRequest;
+use App\Request\ReceiverUpdateRequest;
 use App\Service\ReceiverService;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -154,6 +156,67 @@ class ReceiverController extends BaseController
     }
 
     /**
+     * @Route("receiver", name="updateReceiverByClient", methods={"PUT"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Receiver")
+     *
+     * @OA\RequestBody(
+     *      description="Update existing receiver",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="string", property="fullName"),
+     *          @OA\Property(type="string", property="phone"),
+     *          @OA\Property(type="string", property="email"),
+     *          @OA\Property(type="string", property="address")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the new info of the receiver",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="fullName"),
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="email"),
+     *                  @OA\Property(type="string", property="address"),
+     *                  @OA\Property(type="string", property="clientUsername"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt")
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function update(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ReceiverUpdateRequest::class, (object)$data);
+
+        $request->setUpdatedBy($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->receiverService->update($request);
+
+        return $this->response($result, self::CREATE);
+    }
+
+    /**
      * @Route("filterreceivers", name="filterReceiversOfClients", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
@@ -253,6 +316,41 @@ class ReceiverController extends BaseController
         $result = $this->receiverService->getMyReceivers($this->getUserId());
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("receiver/{id}", name="deleteReceiver", methods={"DELETE"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Receiver")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the deleted receiver",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="fullName"),
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="email"),
+     *                  @OA\Property(type="string", property="address"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt")
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function deleteReceiverById(Request $request)
+    {
+        $request = new DeleteRequest($request->get('id'));
+
+        $result = $this->receiverService->deleteReceiverById($request);
+
+        return $this->response($result, self::DELETE);
     }
 
 }
