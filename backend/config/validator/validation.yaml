@@ -493,4 +493,9 @@ App\Request\ContainerFinanceCreateRequest:
       - NotBlank: ~
     createdBy:
       - NotBlank: ~
+
+App\Request\ReceiverUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
       

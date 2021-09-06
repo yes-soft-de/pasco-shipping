@@ -328,6 +328,11 @@ class ShipmentOrderManager
         return $this->orderShipmentEntityRepository->getShipmentOrderByMarkID($markID);
     }
 
+    public function getShipmentOrderByReceiver($receiverID)
+    {
+        return $this->orderShipmentEntityRepository->getShipmentOrderByReceiver($receiverID);
+    }
+
     public function getShipmentOrderByUnitName($unitName)
     {
         return $this->orderShipmentEntityRepository->findBy(["unit"=>$unitName]);
