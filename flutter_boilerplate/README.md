@@ -9,6 +9,14 @@ A PASCO Shipping project created in flutter . PASCO supports both Android and IO
 
 This project is a starting point for a Flutter application.
 
+## Requirements
+
+* Android Studio 4.2+ 
+* Android sdk
+* Flutter sdk 2.2 ~ 2.3
+
+(If your flutter sdk is above 2.3 you may need to migrate the project to your preference by following this link (https://flutter.dev/docs/development/androidx-migration)
+
 ## How to Use 
 
 **Step 1:**
@@ -16,7 +24,7 @@ This project is a starting point for a Flutter application.
 Download or clone this repo by using the link below:
 
 ```
-https://github.com/yes-soft-de/pasco-shipping.git
+git clone --single-branch --branch dev-client https://github.com/yes-soft-de/pasco-shipping.git
 ```
 
 **Step 2:**
