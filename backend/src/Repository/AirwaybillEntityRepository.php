@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\AdminProfileEntity;
 use App\Entity\AirwaybillEntity;
 use App\Entity\AirwaybillSpecificationEntity;
+use App\Entity\ClientProfileEntity;
 use App\Entity\OrderShipmentEntity;
 use App\Entity\SubcontractEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -97,72 +98,11 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.type', 'airwaybill.consigneeID',
             'airwaybill.shipperID', 'airwaybill.providedBy', 'airwaybill.carrierID', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'airwaybillSepcification.name as specificationName', 'airwaybill.shipmentID',
             'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage', 'subcontractEntity.fullName as subcontractName',
-            'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName')
+            'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName',
+            'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage')
 
             ->andWhere('airwaybill.id = :id')
             ->setParameter('id', $id)
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile1',
-                Join::WITH,
-                'adminProfile1.userID = airwaybill.createdBy'
-            )
-
-            ->leftJoin(
-                AdminProfileEntity::class,
-                'adminProfile2',
-                Join::WITH,
-                'adminProfile2.userID = airwaybill.updatedBy'
-            )
-
-            ->leftJoin(
-                AirwaybillSpecificationEntity::class,
-                'airwaybillSepcification',
-                Join::WITH,
-                'airwaybillSepcification.id = airwaybill.specificationID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity',
-                Join::WITH,
-                'subcontractEntity.id = airwaybill.providedBy'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity2',
-                Join::WITH,
-                'subcontractEntity2.id = airwaybill.consigneeID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity3',
-                Join::WITH,
-                'subcontractEntity3.id = airwaybill.shipperID'
-            )
-
-            ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity4',
-                Join::WITH,
-                'subcontractEntity4.id = airwaybill.carrierID'
-            )
-
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
-    public function filterAirWaybills($specificationID, $airwaybillNumber, $status, $type, $providedBy, $shipperID, $consigneeID,
-                                      $isExternalWarehouse, $shipmentID)
-    {
-        $query = $this->createQueryBuilder('airwaybill')
-            ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID',
-                'airwaybill.shipmentID', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
-                'airwaybill.shipperID', 'airwaybill.carrierID', 'adminProfile2.userName as updatedByUserImage', 'airwaybill.providedBy', 'airwaybill.type', 'airwaybillSepcification.name as specificationName',
-                'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName')
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -218,6 +158,90 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
                 'orderShipmentEntity',
                 Join::WITH,
                 'orderShipmentEntity.id = airwaybill.shipmentID'
+            )
+
+            ->leftJoin(
+                ClientProfileEntity::class,
+                'clientProfileEntity',
+                Join::WITH,
+                'clientProfileEntity.userID = orderShipmentEntity.clientUserID'
+            )
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function filterAirWaybills($specificationID, $airwaybillNumber, $status, $type, $providedBy, $shipperID, $consigneeID,
+                                      $isExternalWarehouse, $shipmentID)
+    {
+        $query = $this->createQueryBuilder('airwaybill')
+            ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID',
+                'airwaybill.shipmentID', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
+                'airwaybill.shipperID', 'airwaybill.carrierID', 'adminProfile2.userName as updatedByUserImage', 'airwaybill.providedBy', 'airwaybill.type', 'airwaybillSepcification.name as specificationName',
+                'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName',
+                'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage')
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = airwaybill.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = airwaybill.updatedBy'
+            )
+
+            ->leftJoin(
+                AirwaybillSpecificationEntity::class,
+                'airwaybillSepcification',
+                Join::WITH,
+                'airwaybillSepcification.id = airwaybill.specificationID'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = airwaybill.providedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity2',
+                Join::WITH,
+                'subcontractEntity2.id = airwaybill.consigneeID'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity3',
+                Join::WITH,
+                'subcontractEntity3.id = airwaybill.shipperID'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity4',
+                Join::WITH,
+                'subcontractEntity4.id = airwaybill.carrierID'
+            )
+
+            ->leftJoin(
+                OrderShipmentEntity::class,
+                'orderShipmentEntity',
+                Join::WITH,
+                'orderShipmentEntity.id = airwaybill.shipmentID'
+            )
+
+            ->leftJoin(
+                ClientProfileEntity::class,
+                'clientProfileEntity',
+                Join::WITH,
+                'clientProfileEntity.userID = orderShipmentEntity.clientUserID'
             )
 
             ->orderBy('airwaybill.id', 'DESC')
