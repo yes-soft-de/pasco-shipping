@@ -451,10 +451,10 @@ class _AddCountryInitState extends State<AddTravelInit> {
     selectedRadioType = 1;
     type = TravelTypeName[TravelType.SEA]!;
 
-    optionItemSelectedFrom =  Entry('choose', 1, []);
-    optionItemSelectedTo =  Entry('choose', 1, []);
-    optionItemSelectedSubContract =  Entry('choose', 1, []);
-    optionItemSelectedCarrier =  Entry('choose', 1, []);
+    optionItemSelectedFrom =  Entry('choose', 0, []);
+    optionItemSelectedTo =  Entry('choose', 0, []);
+    optionItemSelectedSubContract =  Entry('choose', 0, []);
+    optionItemSelectedCarrier =  Entry('choose', 0, []);
 
     initList();
 

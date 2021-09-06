@@ -221,8 +221,8 @@ class _AddCountryInitState extends State<FilterAirwaybillInit> {
     // selectedRadioType = 1;
     // type = TravelTypeName[TravelType.SEA]!;
 
-    optionItemSelectedSubContract =  Entry('choose', 1, []);
-    optionItemSelectedShipper =  Entry('choose', 1, []);
-    optionItemSelectedConsign =  Entry('choose', 1, []);
+    optionItemSelectedSubContract =  Entry('choose', 0, []);
+    optionItemSelectedShipper =  Entry('choose', 0, []);
+    optionItemSelectedConsign =  Entry('choose', 0, []);
   }
 }

@@ -253,7 +253,7 @@ class _AddCountryInitState extends State<AddEmployeeInit> {
     password = TextEditingController();
     userID = TextEditingController();
     phone = TextEditingController();
-    optionItemSelectedProvidedBy =  Entry('choose', 1, []);
+    optionItemSelectedProvidedBy =  Entry('choose', 0, []);
     entryProvidedBy = <Entry>[];
     roles = [];
   }

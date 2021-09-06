@@ -70,7 +70,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
     }else {
       optionItemSelectedMar =  Entry('choose', 0, []);
     }
-    // optionItemSelectedMar =  Entry('choose', 1, []);
+    // optionItemSelectedMar =  Entry('choose', 0, []);
     if(widget.shipmentRequest.supplierName.isNotEmpty){
       supplierName = widget.shipmentRequest.supplierName;
     }else{

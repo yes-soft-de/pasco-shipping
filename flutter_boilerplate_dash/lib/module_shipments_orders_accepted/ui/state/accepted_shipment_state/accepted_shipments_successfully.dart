@@ -6,6 +6,7 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_s
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/widget/accepted_shipment_card.dart';
+import 'package:pasco_shipping/utils/helpers/pdf_paragraph_api.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
@@ -50,7 +51,21 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
               S.of(context).requestContainer,
               style: AppTextStyle.mediumWhite,
             ),
-          ) : Container(),
+          ) : ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.blue[800],
+            ),
+            onPressed: () async {
+              final pdfFile = await PdfParagraphApi.generate(items.data!);
+
+              PdfParagraphApi.openFile(pdfFile);
+            },
+            icon: Icon(Icons.document_scanner_sharp),
+            label: Text(
+              S.of(context).shipmentReport,
+              style: AppTextStyle.mediumWhite,
+            ),
+          ),
           Padding(
             padding: const EdgeInsetsDirectional.only(top: 8.0),
             child: Card(

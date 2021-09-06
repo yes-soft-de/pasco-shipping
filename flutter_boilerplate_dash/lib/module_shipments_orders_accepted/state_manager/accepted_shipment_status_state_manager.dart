@@ -1,4 +1,7 @@
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/module_airwaybill/request/airwaybill_filter_request.dart';
+import 'package:pasco_shipping/module_airwaybill/response/airwaybill_response.dart';
+import 'package:pasco_shipping/module_airwaybill/service/airwaybill_service.dart';
 import 'package:pasco_shipping/module_container/request/container_filter_request.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_container/service/container_service.dart';
@@ -21,13 +24,14 @@ class AcceptedShipmentsStatusStateManager {
   final AcceptedShipmentService _service;
   final SubcontractService _subcontractService;
   final ContainerService _containerService;
+  final AirwaybillService _airwaybillService;
   final TravelService _travelService;
   final WarehouseService _warehouseService;
 
   final PublishSubject<AcceptedShipmentStatusState> _stateSubject = PublishSubject();
   Stream<AcceptedShipmentStatusState> get stateStream => _stateSubject.stream;
 
-  AcceptedShipmentsStatusStateManager(this._service, this._subcontractService, this._containerService, this._travelService, this._warehouseService);
+  AcceptedShipmentsStatusStateManager(this._service, this._subcontractService, this._containerService, this._travelService, this._warehouseService, this._airwaybillService);
 
   void getShipmentStatus(String id ,String trackNumber) {
     _stateSubject.add(LoadingState());
@@ -81,7 +85,7 @@ class AcceptedShipmentsStatusStateManager {
     });
   }
 
-  void measuredShipment(MeasuredRequest request , ContainerFilterRequest containerFilterRequest ,TravelFilterRequest travelFilterRequest){
+  void measuredContainerShipment(MeasuredRequest request , ContainerFilterRequest containerFilterRequest ,TravelFilterRequest travelFilterRequest){
     _stateSubject.add(LoadingState());
     _service.measuredShipment(request).then((value) {
       if(value != null){
@@ -92,7 +96,35 @@ class AcceptedShipmentsStatusStateManager {
                 if(containers != null){
                   _travelService.getTravelsWithFilter(travelFilterRequest).then((travels){
                     if(travels != null) {
-                      _stateSubject.add(MeasuredStatusState(model , containers , travels));
+                      _stateSubject.add(MeasuredContainerStatusState(model: model , containers: containers , travels: travels));
+                    }else {
+                      _stateSubject.add(ErrorState('Error'));
+                    }
+                  });
+                }
+              });
+            }else {
+              _stateSubject.add(ErrorState('Error'));
+            }
+          });
+        }else {
+          _stateSubject.add(ErrorState('Error'));
+        }
+      }
+    });
+  }
+  void measuredAirwaybillShipment(MeasuredRequest request , AirwaybillFilterRequest containerFilterRequest ,TravelFilterRequest travelFilterRequest){
+    _stateSubject.add(LoadingState());
+    _service.measuredShipment(request).then((value) {
+      if(value != null){
+        if(value.isConfirmed){
+          _service.getAcceptedShipmentStatus(request.shipmentId.toString(),request.trackNumber).then((model) {
+            if (model != null) {
+              _airwaybillService.getAirwaybillWithFilter(containerFilterRequest).then((airwaybills) {
+                if(airwaybills != null){
+                  _travelService.getTravelsWithFilter(travelFilterRequest).then((travels){
+                    if(travels != null) {
+                      _stateSubject.add(MeasuredAirwaybillStatusState(model: model , airwaybills: airwaybills , travels: travels));
                     }else {
                       _stateSubject.add(ErrorState('Error'));
                     }
@@ -110,7 +142,7 @@ class AcceptedShipmentsStatusStateManager {
     });
   }
 
-  void storedShipment(StoredRequest request , bool isSaperate , List<ContainerModel> containers , List<TravelModel> travels){
+  void storedContainerShipment(StoredRequest request , bool isSaperate , List<ContainerModel> containers , List<TravelModel> travels){
     _stateSubject.add(LoadingState());
     _service.storedShipment(request).then((value) {
       if(value != null){
@@ -118,7 +150,30 @@ class AcceptedShipmentsStatusStateManager {
           _service.getAcceptedShipmentStatus(request.shipmentId.toString(),request.trackNumber).then((model) {
             if (model != null) {
               if(isSaperate){
-                _stateSubject.add(MeasuredStatusState(model , containers ,travels));
+                _stateSubject.add(MeasuredContainerStatusState(model: model , containers: containers ,travels: travels));
+              }
+              else {
+                _stateSubject.add(AcceptedStatusState(model));
+              }
+            }else {
+              _stateSubject.add(ErrorState('Error'));
+            }
+          });
+        }else {
+          _stateSubject.add(ErrorState('Error'));
+        }
+      }
+    });
+  }
+  void storedAirwaybillShipment(StoredRequest request , bool isSaperate , List<AirwaybillModel> airwaybills , List<TravelModel> travels){
+    _stateSubject.add(LoadingState());
+    _service.storedShipment(request).then((value) {
+      if(value != null){
+        if(value.isConfirmed){
+          _service.getAcceptedShipmentStatus(request.shipmentId.toString(),request.trackNumber).then((model) {
+            if (model != null) {
+              if(isSaperate){
+                _stateSubject.add(MeasuredAirwaybillStatusState(model: model , airwaybills: airwaybills ,travels: travels));
               }
               else {
                 _stateSubject.add(AcceptedStatusState(model));
@@ -154,14 +209,14 @@ class AcceptedShipmentsStatusStateManager {
     });
   }
 
-  void getMeasuredStatus(String shipmentID ,ContainerFilterRequest containerFilterRequest,String trackNumber ,TravelFilterRequest travelFilterRequest){
+  void getMeasuredContainerStatus(String shipmentID ,ContainerFilterRequest containerFilterRequest,String trackNumber ,TravelFilterRequest travelFilterRequest){
     _service.getAcceptedShipmentStatus(shipmentID,trackNumber).then((model) {
       if (model != null) {
         _containerService.getContainersWithFilter(containerFilterRequest).then((containers) {
           if(containers != null){
             _travelService.getTravelsWithFilter(travelFilterRequest).then((travels){
               if(travels != null){
-                _stateSubject.add(MeasuredStatusState(model , containers,travels));
+                _stateSubject.add(MeasuredContainerStatusState(model: model , containers: containers,travels: travels));
               }
             });
           }else {
@@ -173,6 +228,28 @@ class AcceptedShipmentsStatusStateManager {
       }
     });
   }
+  void getMeasuredAirwaybillStatus(String shipmentID ,AirwaybillFilterRequest airwaybillFilterRequest,String trackNumber ,TravelFilterRequest travelFilterRequest){
+    _service.getAcceptedShipmentStatus(shipmentID,trackNumber).then((model) {
+      if (model != null) {
+        _airwaybillService.getAirwaybillWithFilter(airwaybillFilterRequest).then((airwaybills) {
+          if(airwaybills != null){
+            _travelService.getTravelsWithFilter(travelFilterRequest).then((travels){
+              if(travels != null){
+                _stateSubject.add(MeasuredAirwaybillStatusState(model: model , airwaybills: airwaybills,travels: travels));
+              }
+            });
+          }else {
+            _stateSubject.add(ErrorState('Error'));
+          }
+        });
+      }else {
+        _stateSubject.add(ErrorState('Error'));
+      }
+    });
+  }
+
+
+
   void delevired(ReceivedOrDeliveredRequest request ,String cityName){
     _stateSubject.add(LoadingState());
     _service.changeShipmentStatus(request).then((value) {

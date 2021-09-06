@@ -16,10 +16,11 @@ class SuccessfullyDetailsWithTravelsState extends AirwaybillDetailsState{
   // List<TravelModel> travels;
   SuccessfullyDetailsWithTravelsState(this.response);
 }
-class SuccessfullyUploadedContainerState extends AirwaybillDetailsState{
+class SuccessfullyUploadedAirwaybillState extends AirwaybillDetailsState{
   ConfirmResponse response;
+  AirwaybillDetailsModel model;
 
-  SuccessfullyUploadedContainerState(this.response);
+  SuccessfullyUploadedAirwaybillState(this.response , this.model);
 }
 class ErrorDetailsState extends AirwaybillDetailsState{
   String error;

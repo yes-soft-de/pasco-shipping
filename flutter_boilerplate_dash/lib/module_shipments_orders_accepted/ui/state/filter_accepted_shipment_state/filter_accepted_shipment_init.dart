@@ -239,6 +239,19 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
     );
   }
 
+
+ @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    widget.filterRequest.dateTow='';
+    widget.filterRequest.dateOne='';
+    widget.filterRequest.containerNumber='';
+    widget.filterRequest.airWaybillNumber='';
+    widget.filterRequest.status='';
+    widget.filterRequest.targetCountry='';
+    widget.filterRequest.paymentTime='';
+  }
+
   @override
   void initState() {
     super.initState();
@@ -262,8 +275,8 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
    formattedDateEnd =''; //  formatter.format(endDate);
    entryTo = <Entry>[];
 
-   optionItemSelectedTim =  Entry('choose', 1, []);
-   optionItemSelectedTo =  Entry('choose', 1, []);
+   optionItemSelectedTim =  Entry('choose', 0, []);
+   optionItemSelectedTo =  Entry('choose', 0, []);
    for(CountryModel item in widget.countries){
      Entry v = Entry(item.name! ,item.id! ,[]);
      // entryFrom.add(v);

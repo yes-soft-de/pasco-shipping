@@ -59,10 +59,14 @@ class AirwaybillDetailsStateManager {
 
   void uploadedAirwaybillToTravel(AddAirwaybillToTravelRequest request) {
     _addStateSubject.add(LoadingDetailsState());
-    _service.uploadedAirwaybillToTravel(request).then((value) {
-      if (value != null) {
-        if (value.isConfirmed) {
-          _addStateSubject.add(SuccessfullyUploadedContainerState(value));
+    _service.uploadedAirwaybillToTravel(request).then((confirmed) {
+      if (confirmed != null) {
+        if (confirmed.isConfirmed) {
+          _service.getAirwaybillDetails(request.holderID.toString()).then((value) {
+            if(value != null) {
+              _addStateSubject.add(SuccessfullyUploadedAirwaybillState(confirmed,value));
+            }
+          });
         }
           else {
               _addStateSubject.add(ErrorDetailsState('error'));

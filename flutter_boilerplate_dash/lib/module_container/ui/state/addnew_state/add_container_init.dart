@@ -124,6 +124,33 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                       ],
                     ),
                   ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: AppThemeDataService.AccentColor,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+                    ),
+                    onPressed: () {
+                    },
+                    child: Row(
+                      children: [
+                        Radio(
+                          onChanged: (value) {
+                            _setSelectedRadioGender(2);
+                          },
+                          value: 2,
+                          groupValue: selectedRadioType,
+                          activeColor: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          S.of(context).FCL,
+                          style: AppTextStyle.mediumWhite,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
 

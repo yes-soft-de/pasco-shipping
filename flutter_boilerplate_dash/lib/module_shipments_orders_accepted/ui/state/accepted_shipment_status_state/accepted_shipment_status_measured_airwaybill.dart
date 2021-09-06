@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_airwaybill/response/airwaybill_response.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_container/widget/status_card.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
@@ -23,13 +24,13 @@ import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
-class AcceptedShipmentStatusMeasured extends StatefulWidget {
+class AcceptedShipmentStatusMeasuredAirwaybill extends StatefulWidget {
   final List<AcceptedShipmentStatusModel> statusModel;
-  final List<ContainerModel> containers;
+  final List<AirwaybillModel> containers;
   final List<TravelModel> travels;
 
   final Function onChangeStatus;
-  const AcceptedShipmentStatusMeasured(
+  const AcceptedShipmentStatusMeasuredAirwaybill(
       {required this.statusModel,
       required this.onChangeStatus,
       required this.containers,
@@ -42,7 +43,7 @@ class AcceptedShipmentStatusMeasured extends StatefulWidget {
 }
 
 class _AcceptedShipmentDetailsSuccessfullyState
-    extends State<AcceptedShipmentStatusMeasured> {
+    extends State<AcceptedShipmentStatusMeasuredAirwaybill> {
   // late List<Category> stats;
   late int shipmentID;
   late String trackNumber;
@@ -73,11 +74,11 @@ class _AcceptedShipmentDetailsSuccessfullyState
   void initState() {
     super.initState();
     entryContainer = <Entry>[];
-    optionItemSelectedContainer = Entry('choose', 1, []);
+    optionItemSelectedContainer = Entry('choose', 0, []);
 
 
     entryTravel = <Entry>[];
-    optionItemSelectedTravel = Entry('choose', 1, []);
+    optionItemSelectedTravel = Entry('choose', 0, []);
 
     holderID = 0;
     travelID = 0;
@@ -90,8 +91,8 @@ class _AcceptedShipmentDetailsSuccessfullyState
   }
 
   void iniList() {
-    for (ContainerModel item in widget.containers) {
-      Entry v = Entry(item.containerNumber!, item.id!, []);
+    for (AirwaybillModel item in widget.containers) {
+      Entry v = Entry(item.airwaybillNumber??'No Number', item.id!, []);
       entryContainer.add(v);
     }
     dropListModelContainer = DropListModel(entryContainer);
@@ -235,6 +236,11 @@ class _AcceptedShipmentDetailsSuccessfullyState
 
         Padding(
           padding: const EdgeInsets.all(8.0),
+          child: Text('Please be sure to complete the holders information before adding shipments to it' ,style: AppTextStyle.mediumBlue,),
+        ),
+
+        Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
               Icon(
@@ -322,7 +328,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   shipmentStatus: AcceptedShipmentStatusName[
                   AcceptedShipmentStatus.STORED]!,
                   holderID: holderID,
-                  holderType: 'container',
+                  holderType: 'airwaybill',
                   holderNumber: holderNumber,
                   travelNumber: travelNumber,
                   amount:amountController.text.isEmpty?0: int.parse(amountController.text), travelID: travelID);

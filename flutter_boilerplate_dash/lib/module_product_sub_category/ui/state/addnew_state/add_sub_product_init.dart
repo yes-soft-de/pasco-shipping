@@ -190,7 +190,7 @@ class _AddCountryInitState extends State<AddSubProductInit> {
     name =TextEditingController();
     description = TextEditingController();
     hscode = TextEditingController();
-    optionItemSelectedProducts =  Entry('choose', 1, []);
+    optionItemSelectedProducts =  Entry('choose', 0, []);
     entryProducts = <Entry>[];
 
 

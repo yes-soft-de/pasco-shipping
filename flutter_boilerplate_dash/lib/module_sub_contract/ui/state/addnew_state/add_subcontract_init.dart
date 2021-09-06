@@ -153,7 +153,7 @@ class _AddCountryInitState extends State<AddSubcontractInit> {
   @override
   void initState() {
     super.initState();
-    optionItemSelected =  Entry('choose', 1, []);
+    optionItemSelected =  Entry('choose', 0, []);
     entryService = [];
     serviceID =0;
     initServices();

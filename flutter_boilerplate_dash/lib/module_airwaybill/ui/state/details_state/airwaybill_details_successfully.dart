@@ -230,8 +230,8 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                 children:
 
               [
-                Text(S.of(context).airwaybillNumber+': ' , style: AppTextStyle.mediumBlackBold,),
-                Text('#'+ widget.model.airwaybillNumber! , style: AppTextStyle.mediumBlackBold,),
+                Text(S.of(context).airwaybillNumber+': ' +'#', style: AppTextStyle.mediumBlackBold,),
+                Text(widget.model.airwaybillNumber??'' , style: AppTextStyle.mediumBlackBold,),
 
               ],),
             ),

@@ -6,6 +6,7 @@ class AirwaybillFilterRequest {
   int? providedBy;
   int? shipperID;
   int? consigneeID;
+  int? shipmentID;
 
   bool? isExternalWarehouse;
 
@@ -17,7 +18,8 @@ class AirwaybillFilterRequest {
     this.providedBy,
     this.consigneeID,
     this.shipperID,
-    this.isExternalWarehouse
+    this.isExternalWarehouse,
+    this.shipmentID
   });
 
   Map<String, dynamic> toJson() {
@@ -29,6 +31,7 @@ class AirwaybillFilterRequest {
       'providedBy': providedBy ?? '',
       'airwaybillNumber':airwaybillNumber ??'',
       'isExternalWarehouse':isExternalWarehouse,
+      'shipmentID':shipmentID,
     };
   }
 }

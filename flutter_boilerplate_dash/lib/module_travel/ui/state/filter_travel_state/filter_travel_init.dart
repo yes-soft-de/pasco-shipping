@@ -320,9 +320,9 @@ class _AddCountryInitState extends State<FilterTravelInit> {
     // selectedRadioType = 1;
     // type = TravelTypeName[TravelType.SEA]!;
 
-    optionItemSelectedFrom =  Entry('choose', 1, []);
-    optionItemSelectedTo =  Entry('choose', 1, []);
-    optionItemSelectedSubContract =  Entry('choose', 1, []);
+    optionItemSelectedFrom =  Entry('choose', 0, []);
+    optionItemSelectedTo =  Entry('choose', 0, []);
+    optionItemSelectedSubContract =  Entry('choose', 0, []);
 
     initList();
 
