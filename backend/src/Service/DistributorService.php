@@ -66,7 +66,12 @@ class DistributorService
     {
         $result = $this->distributorManager->deleteDistributorById($request);
 
-        return $this->autoMapping->map(DistributorEntity::class, DistributorGetResponse::class, $result);
+        if($result instanceof DistributorEntity)
+        {
+            return $this->autoMapping->map(DistributorEntity::class, DistributorGetResponse::class, $result);
+        }
+
+        return $result;
     }
 
 }

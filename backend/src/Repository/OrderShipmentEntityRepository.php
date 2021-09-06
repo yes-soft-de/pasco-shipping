@@ -1009,6 +1009,20 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getShipmentOrderByDistributor($distributorID)
+    {
+        return $this->createQueryBuilder('shipmentOrder')
+            ->select("shipmentOrder.id", "shipmentOrder.distributorID")
+
+            ->andWhere('shipmentOrder.distributorID = :distributorID')
+            ->setParameter('distributorID', $distributorID)
+
+            ->orderBy('shipmentOrder.id', 'DESC')
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function deleteAllOrders()
     {
         return $this->createQueryBuilder('shipmentOrder')

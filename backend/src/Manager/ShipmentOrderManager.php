@@ -333,6 +333,11 @@ class ShipmentOrderManager
         return $this->orderShipmentEntityRepository->getShipmentOrderByReceiver($receiverID);
     }
 
+    public function getShipmentOrderByDistributor($distributorID)
+    {
+        return $this->orderShipmentEntityRepository->getShipmentOrderByDistributor($distributorID);
+    }
+
     public function getShipmentOrderByUnitName($unitName)
     {
         return $this->orderShipmentEntityRepository->findBy(["unit"=>$unitName]);
