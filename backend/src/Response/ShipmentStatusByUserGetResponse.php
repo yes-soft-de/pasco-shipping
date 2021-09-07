@@ -36,6 +36,8 @@ class ShipmentStatusByUserGetResponse
 
     public $image;
 
+    public $images = [];
+
     public $createdAt;
 
     public $updatedAt;

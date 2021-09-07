@@ -33,10 +33,12 @@ class ShipmentOrderManager
     private $shipmentStatusManager;
     private $containerManager;
     private $airWaybillManager;
+    private $pendingHolderManager;
     private $imageManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, OrderShipmentEntityRepository $orderShipmentEntityRepository,
-                                ShipmentStatusManager $shipmentStatusManager, ContainerManager $containerManager, ImageManager $imageManager, AirwaybillManager $airWaybillManager)
+                                ShipmentStatusManager $shipmentStatusManager, ContainerManager $containerManager, ImageManager $imageManager, AirwaybillManager $airWaybillManager,
+    PendingHolderManager $pendingHolderManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -45,6 +47,7 @@ class ShipmentOrderManager
         $this->containerManager = $containerManager;
         $this->airWaybillManager = $airWaybillManager;
         $this->imageManager = $imageManager;
+        $this->pendingHolderManager = $pendingHolderManager;
     }
 
     public function createShipmentOrder(OrderShipmentCreateRequest $request)
@@ -236,6 +239,11 @@ class ShipmentOrderManager
         return $order;
     }
 
+    public function getImagesByShipmentID($shipmentID)
+    {
+        return $this->imageManager->getImagesByShipmentID($shipmentID);
+    }
+
     public function getCountOfShipmentsOrdersByStatus($status)
     {
         return count($this->orderShipmentEntityRepository->findBy(["status"=>$status]));
@@ -361,36 +369,48 @@ class ShipmentOrderManager
             if($orderShipmentEntity->getTransportationType() == ShippingWayConstant::$AIR_SHIPPING_WAY)
             {
                 // Create new air waybills as client requested
-                for ($counter = 0; $counter < $orderShipmentEntity->getHolderCount(); $counter++)
+                $pendingHolders = $this->pendingHolderManager->getPendingHoldersByShipmentID($orderShipmentEntity->getId());
+
+                if($pendingHolders)
                 {
-                    $this->createFCLAirWaybill($orderShipmentEntity->getId());
+                    foreach($pendingHolders as $pendingHolder)
+                    {
+                        $this->createFCLAirWaybill($orderShipmentEntity->getId(), $pendingHolder['specificationID']);
+                    }
                 }
             }
             elseif($orderShipmentEntity->getTransportationType() == ShippingWayConstant::$SEA_SHIPPING_WAY)
             {
                 // Create new containers as client requested
-                for ($counter = 0; $counter < $orderShipmentEntity->getHolderCount(); $counter++)
+                $pendingHolders = $this->pendingHolderManager->getPendingHoldersByShipmentID($orderShipmentEntity->getId());
+
+                if($pendingHolders)
                 {
-                    $this->createFCLContainer($orderShipmentEntity->getId());
+                    foreach($pendingHolders as $pendingHolder)
+                    {
+                        $this->createFCLContainer($orderShipmentEntity->getId(), $pendingHolder['specificationID']);
+                    }
                 }
             }
         }
     }
 
-    public function createFCLContainer($shipmentID)
+    public function createFCLContainer($shipmentID, $specificationID)
     {
         $containerCreateRequest = new ContainerCreateRequest();
 
         $containerCreateRequest->setShipmentID($shipmentID);
+        $containerCreateRequest->setSpecificationID($specificationID);
 
         $this->containerManager->createFCLContainer($containerCreateRequest);
     }
 
-    public function createFCLAirWaybill($shipmentID)
+    public function createFCLAirWaybill($shipmentID, $specificationID)
     {
         $airWaybillCreateRequest = new AirwaybillCreateRequest();
 
         $airWaybillCreateRequest->setShipmentID($shipmentID);
+        $airWaybillCreateRequest->setSpecificationID($specificationID);
 
         $this->airWaybillManager->createFCLAirWaybill($airWaybillCreateRequest);
     }

@@ -273,6 +273,15 @@ class ShipmentStatusController extends BaseController
      *                  @OA\Property(type="string", property="importWarehouseName"),
      *                  @OA\Property(type="string", property="quantity"),
      *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="array", property="images",
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="string", property="image"),
+     *                          @OA\Property(type="integer", property="shipmentID"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="boolean", property="specialLink"),
+     *                      )
+     *                  ),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
      *                  @OA\Property(type="string", property="productCategoryName"),

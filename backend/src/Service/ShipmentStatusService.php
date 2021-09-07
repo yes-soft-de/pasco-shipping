@@ -104,6 +104,16 @@ class ShipmentStatusService
 
         foreach ($shipments as $shipment)
         {
+            $shipment['images'] = $this->shipmentStatusManager->getImagesByShipmentID($shipment['id']);
+
+            if($shipment['images'])
+            {
+                foreach($shipment['images'] as $key=>$val)
+                {
+                    $shipment['images'][$key]['image'] = $this->params . $val['image'];
+                }
+            }
+
             if ($shipment['image'])
             {
                 $shipment['image'] = $this->params . $shipment['image'];

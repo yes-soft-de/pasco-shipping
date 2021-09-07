@@ -39,4 +39,9 @@ class AirwaybillCreateRequest
         $this->shipmentID = $shipmentID;
     }
 
+    public function setSpecificationID($specificationID)
+    {
+        $this->specificationID = $specificationID;
+    }
+
 }
