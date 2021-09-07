@@ -10,6 +10,7 @@ class ShipmentRequest {
 
   late int _productCategoryID;
   late String _productCategoryName;
+  late String _subProductCategoryName;
   late int _quantity;
 
   late String _supplierName;
@@ -49,6 +50,7 @@ class ShipmentRequest {
         "quantity": quantity,
         "productCategoryID": productCategoryID,
         'productCategoryName': productCategoryName,
+        'subProductCategoryName': subProductCategoryName,
         "unit": unit,
         'receiverID':receiverID,
         "receiverName": receiverName,
@@ -81,6 +83,7 @@ class ShipmentRequest {
 
       this._productCategoryID,
       this._productCategoryName,
+      this._subProductCategoryName,
       this._quantity,
 
       this._supplierName,
@@ -229,6 +232,9 @@ class ShipmentRequest {
     return 'ShipmentRequest{_transportationType: $_transportationType, _exportWarehouseID: $_exportWarehouseID, _exportWarehouseName: $_exportWarehouseName, _target: $_target, _productCategoryID: $_productCategoryID, _productCategoryName: $_productCategoryName, _quantity: $_quantity, _supplierName: $_supplierName, _receiverName: $_receiverName, _receiverPhoneNumber: $_receiverPhoneNumber, _unit: $_unit, _markId: $_markId, _markName: $_markName, _paymentTime: $_paymentTime, _vehicleIdentificationNumber: $_vehicleIdentificationNumber, _extraSpecification: $_extraSpecification, imageFile: $imageFilePath}';
   }
 
+  String get subProductCategoryName => _subProductCategoryName;
 
-
+  set subProductCategoryName(String value) {
+    _subProductCategoryName = value;
+  }
 }

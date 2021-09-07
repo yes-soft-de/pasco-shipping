@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
     else if (currentState is FetchedHomeSuccessfullyState){
       FetchedHomeSuccessfullyState? state = currentState as FetchedHomeSuccessfullyState?;
       return HomeSuccessfully(model: state!.model, onSearch: (trackNumber){
-        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(trackNumber:trackNumber);
+        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(trackNumber:trackNumber ,isExternalWarehouse: false);
         Navigator.pushNamed(
             context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':false});
       },);

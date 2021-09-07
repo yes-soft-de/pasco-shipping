@@ -78,6 +78,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "changeStatusConfirm": MessageLookupByLibrary.simpleMessage(
             "Do you really want to move to the next state ?"),
         "choose": MessageLookupByLibrary.simpleMessage("choose"),
+        "chooseAirwaybill":
+            MessageLookupByLibrary.simpleMessage("choose Air waybill "),
         "chooseContainer":
             MessageLookupByLibrary.simpleMessage("Choose Container"),
         "chooseTravel": MessageLookupByLibrary.simpleMessage("Choose Travel"),
@@ -269,6 +271,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "releasedTrip":
             MessageLookupByLibrary.simpleMessage("the Trip released "),
         "reports": MessageLookupByLibrary.simpleMessage("Reports"),
+        "requestAirwaybill":
+            MessageLookupByLibrary.simpleMessage("Request Air waybill"),
         "requestContainer":
             MessageLookupByLibrary.simpleMessage("Request Container"),
         "requestShipment":

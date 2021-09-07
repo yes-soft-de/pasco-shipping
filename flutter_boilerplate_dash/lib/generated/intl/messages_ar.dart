@@ -79,6 +79,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "changeStatusConfirm": MessageLookupByLibrary.simpleMessage(
             "هل تريد حقا الإنتقال الى الحالة التالية ؟"),
         "choose": MessageLookupByLibrary.simpleMessage("اختر"),
+        "chooseAirwaybill":
+            MessageLookupByLibrary.simpleMessage("اختبر بوليصة الشحن الجوي "),
         "chooseContainer": MessageLookupByLibrary.simpleMessage("اختر حاوية"),
         "chooseTravel": MessageLookupByLibrary.simpleMessage("اختر الرحلة"),
         "city": MessageLookupByLibrary.simpleMessage("المدينة"),
@@ -263,6 +265,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "released": MessageLookupByLibrary.simpleMessage("وصلت"),
         "releasedTrip": MessageLookupByLibrary.simpleMessage("الرحلة وصلت"),
         "reports": MessageLookupByLibrary.simpleMessage("التقارير"),
+        "requestAirwaybill":
+            MessageLookupByLibrary.simpleMessage("طلب بوليصة شحن جوي"),
         "requestContainer": MessageLookupByLibrary.simpleMessage("طلب حاوية"),
         "requestShipment": MessageLookupByLibrary.simpleMessage("طلب شحنة"),
         "required": MessageLookupByLibrary.simpleMessage("الحقل مطلوب"),

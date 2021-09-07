@@ -55,8 +55,8 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    if(widget.shipmentRequest.holderCount == 0){
-      initQuantity = '0';
+    if(widget.shipmentRequest.holderCount == 1){
+      initQuantity = '1';
     }else {
       initQuantity = widget.shipmentRequest.holderCount.toString();
     }
@@ -188,7 +188,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
         SizedBox(
           height: 15,
         ),
-       optionItemSelectedType.title=='FCL'?
+        ( optionItemSelectedType.title=='FCL' && widget.shipmentRequest.isExternalWarehouse)?
        Row(
           children: [
             Text(

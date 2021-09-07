@@ -106,7 +106,7 @@ class AirwaybillRepository{
     // await _authService.refreshToken();
     var token = await _authService.getToken();
 
-    var response = await _apiClient.put(Urls.CONTAINER_STATUS, request.toJson(),
+    var response = await _apiClient.put(Urls.AIRWAYBILL_STATUS, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = AirwaybillDetailsResponse.fromJson(response!).statusCode;
     String? msg = AirwaybillDetailsResponse.fromJson(response).msg;

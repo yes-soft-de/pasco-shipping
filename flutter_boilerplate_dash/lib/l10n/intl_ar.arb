@@ -351,5 +351,9 @@
   "requestContainer": "طلب حاوية",
   "reviewInformation": "مراجعة المعلومات",
 
-  "holderCount": "عدد الحاملات"
+  "holderCount": "عدد الحاملات",
+
+
+  "requestAirwaybill": "طلب بوليصة شحن جوي",
+  "chooseAirwaybill": "اختبر بوليصة الشحن الجوي "
 }
