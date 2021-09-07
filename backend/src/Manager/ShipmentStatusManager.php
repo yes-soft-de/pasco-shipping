@@ -20,10 +20,11 @@ class ShipmentStatusManager
     private $shipmentLogManager;
     private $containerManager;
     private $airwaybillManager;
+    private $imageManager;
     private $shipmentStatusEntityRepository;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ShipmentStatusEntityRepository $shipmentStatusEntityRepository,
-     ShipmentLogManager $shipmentLogManager, ContainerManager $containerManager, AirwaybillManager $airwaybillManager)
+     ShipmentLogManager $shipmentLogManager, ContainerManager $containerManager, AirwaybillManager $airwaybillManager, ImageManager $imageManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -31,6 +32,7 @@ class ShipmentStatusManager
         $this->shipmentStatusEntityRepository = $shipmentStatusEntityRepository;
         $this->containerManager = $containerManager;
         $this->airwaybillManager = $airwaybillManager;
+        $this->imageManager = $imageManager;
     }
 
     // Create newly accepted shipment raw in ShipmentStatusEntity
@@ -227,6 +229,11 @@ class ShipmentStatusManager
     public function getShipmentOrderByShipmentID($shipmentID)
     {
         return $this->shipmentStatusEntityRepository->getShipmentOrderByShipmentID($shipmentID);
+    }
+
+    public function getImagesByShipmentID($shipmentID)
+    {
+        return $this->imageManager->getImagesByShipmentID($shipmentID);
     }
 
     // For Track Number
