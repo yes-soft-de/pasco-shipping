@@ -201,6 +201,16 @@ class ShipmentOrderService
 
         foreach ($shipmentsOrders as $shipmentsOrder)
         {
+            $shipmentsOrder['images'] = $this->shipmentOrderManager->getImagesByShipmentID($shipmentsOrder['id']);
+
+            if($shipmentsOrder['images'])
+            {
+                foreach($shipmentsOrder['images'] as $key=>$val)
+                {
+                    $shipmentsOrder['images'][$key]['image'] = $this->params . $val['image'];
+                }
+            }
+
             if($shipmentsOrder['image'])
             {
                 $shipmentsOrder['image'] = $this->params . $shipmentsOrder['image'];

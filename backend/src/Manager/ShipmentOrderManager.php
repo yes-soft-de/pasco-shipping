@@ -239,6 +239,11 @@ class ShipmentOrderManager
         return $order;
     }
 
+    public function getImagesByShipmentID($shipmentID)
+    {
+        return $this->imageManager->getImagesByShipmentID($shipmentID);
+    }
+
     public function getCountOfShipmentsOrdersByStatus($status)
     {
         return count($this->orderShipmentEntityRepository->findBy(["status"=>$status]));
