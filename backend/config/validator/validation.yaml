@@ -498,4 +498,11 @@ App\Request\ReceiverUpdateRequest:
   properties:
     id:
       - NotBlank: ~
+
+App\Request\PendingHolderCreateRequest:
+  properties:
+    shipmentID:
+      - NotBlank: ~
+    specificationID:
+      - NotBlank: ~
       
