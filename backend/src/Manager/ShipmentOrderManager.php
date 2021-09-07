@@ -356,6 +356,11 @@ class ShipmentOrderManager
         return $this->shipmentStatusManager->getShipmentStatusAndTracksByShipmentID($shipmentID);
     }
 
+    public function getShipmentStatusByShipmentID($shipmentID)
+    {
+        return $this->shipmentStatusManager->getByShipmentID($shipmentID);
+    }
+
     public function getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
         return $this->shipmentStatusManager->getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber);

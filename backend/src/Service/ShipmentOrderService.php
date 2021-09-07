@@ -236,7 +236,7 @@ class ShipmentOrderService
     {
         $shipmentOrder = $this->shipmentOrderManager->getShipmentOrderById($id);
 
-        $shipmentOrder['tracks'] = $this->shipmentOrderManager->getShipmentStatusAndTracksByShipmentID($id);
+        $shipmentOrder['tracks'] = $this->shipmentOrderManager->getShipmentStatusByShipmentID($id);
         
         if($shipmentOrder['image'])
         {
