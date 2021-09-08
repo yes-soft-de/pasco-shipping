@@ -33,12 +33,14 @@ class ShipmentOrderManager
     private $shipmentStatusManager;
     private $containerManager;
     private $airWaybillManager;
+    private $containerSpecificationManager;
+    private $airWaybillSpecificationManager;
     private $pendingHolderManager;
     private $imageManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, OrderShipmentEntityRepository $orderShipmentEntityRepository,
                                 ShipmentStatusManager $shipmentStatusManager, ContainerManager $containerManager, ImageManager $imageManager, AirwaybillManager $airWaybillManager,
-    PendingHolderManager $pendingHolderManager)
+    PendingHolderManager $pendingHolderManager, AirwaybillSpecificationManager $airWaybillSpecificationManager, ContainerSpecificationManager $containerSpecificationManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -46,6 +48,8 @@ class ShipmentOrderManager
         $this->shipmentStatusManager = $shipmentStatusManager;
         $this->containerManager = $containerManager;
         $this->airWaybillManager = $airWaybillManager;
+        $this->containerSpecificationManager = $containerSpecificationManager;
+        $this->airWaybillSpecificationManager = $airWaybillSpecificationManager;
         $this->imageManager = $imageManager;
         $this->pendingHolderManager = $pendingHolderManager;
     }
@@ -359,6 +363,49 @@ class ShipmentOrderManager
     public function getShipmentStatusByShipmentID($shipmentID)
     {
         return $this->shipmentStatusManager->getByShipmentID($shipmentID);
+    }
+
+    public function getPendingHoldersByShipmentIdAndShippingType($shipmentID, $shippingWay)
+    {
+        $pendingHolders = $this->pendingHolderManager->getPendingHoldersByShipmentID($shipmentID);
+
+        if($pendingHolders)
+        {
+            if($shippingWay == ShippingWayConstant::$SEA_SHIPPING_WAY)
+            {
+                foreach ($pendingHolders as $key => $val)
+                {
+                    $specification = $this->containerSpecificationManager->getContainerSpecificationById($val['specificationID']);
+
+                    if($specification)
+                    {
+                        $pendingHolders[$key]['specificationName'] = $specification['name'];
+                    }
+                    else
+                    {
+                        $pendingHolders[$key]['specificationName'] = "";
+                    }
+                }
+            }
+            if($shippingWay == ShippingWayConstant::$AIR_SHIPPING_WAY)
+            {
+                foreach ($pendingHolders as $key => $val)
+                {
+                    $specification = $this->airWaybillSpecificationManager->getAirwaybillSpecificationByID($val['specificationID']);
+
+                    if($specification)
+                    {
+                        $pendingHolders[$key]['specificationName'] = $specification['name'];
+                    }
+                    else
+                    {
+                        $pendingHolders[$key]['specificationName'] = "";
+                    }
+                }
+            }
+        }
+
+        return $pendingHolders;
     }
 
     public function getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber)

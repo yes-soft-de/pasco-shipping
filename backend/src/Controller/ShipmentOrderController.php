@@ -865,6 +865,16 @@ class ShipmentOrderController extends BaseController
      *                          @OA\Property(type="string", property="shipmentStatusUpdatedByUserImage")
      *                      )
      *                  ),
+     *                  @OA\Property(type="array", property="pendingHolders",
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="integer", property="shipmentID"),
+     *                          @OA\Property(type="integer", property="specificationID"),
+     *                          @OA\Property(type="string", property="notes"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="string", property="specificationName")
+     *                      )
+     *                  ),
      *                  @OA\Property(type="text", property="externalWarehouseInfo"),
      *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
      *                  @OA\Property(type="string", property="clientUsername"),
