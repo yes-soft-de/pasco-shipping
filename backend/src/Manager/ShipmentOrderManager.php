@@ -18,6 +18,7 @@ use App\Request\OrderShipmentByDashboardUpdateRequest;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
+use App\Request\PendingHolderCreateRequest;
 use App\Request\ShipmentFilterRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
 use App\Request\ShipmentStatusCreateRequest;
@@ -58,11 +59,6 @@ class ShipmentOrderManager
     {
         $orderShipmentEntity = $this->autoMapping->map(OrderShipmentCreateRequest::class, OrderShipmentEntity::class, $request);
 
-        if($request->getHolderCount() == null || $request->getHolderCount() == 0)
-        {
-            $orderShipmentEntity->setHolderCount(1);
-        }
-
         $orderShipmentEntity->setStatus(ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS);
 
         $this->entityManager->persist($orderShipmentEntity);
@@ -71,6 +67,21 @@ class ShipmentOrderManager
 
         // Insert the images of the shipment
         $this->insertImagesOfShipment($request->getImages(), $orderShipmentEntity->getId());
+
+        // Insert the requested holders of the shipment
+        if(count($request->getRequestedHolders()) > 0)
+        {
+            $orderShipmentEntity->setHolderCount(count($request->getRequestedHolders()));
+
+            $this->createPendingHolders($request->getRequestedHolders(), $orderShipmentEntity->getId());
+        }
+        else
+        {
+            if($request->getHolderCount() == null || $request->getHolderCount() == 0)
+            {
+                $orderShipmentEntity->setHolderCount(1);
+            }
+        }
 
         return $orderShipmentEntity;
     }
@@ -480,6 +491,20 @@ class ShipmentOrderManager
 
                 $this->imageManager->create($imageRequest);
             }
+        }
+    }
+
+    public function createPendingHolders($requestedHoldersArray, $shipmentID)
+    {
+        $holderCreateRequest = new PendingHolderCreateRequest();
+
+        foreach ($requestedHoldersArray as $holder)
+        {
+            $holderCreateRequest->setShipmentID($shipmentID);
+            $holderCreateRequest->setSpecificationID($holder['specificationID']);
+            $holderCreateRequest->setNotes($holder['notes']);
+
+            $this->pendingHolderManager->create($holderCreateRequest);
         }
     }
 
