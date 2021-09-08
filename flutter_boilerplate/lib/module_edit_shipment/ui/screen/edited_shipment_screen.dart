@@ -55,7 +55,13 @@ class _MarkScreenState extends State<EditedShipmentScreen> {
       print("newEvent"+event.toString());
       currentState = event;
       if (this.mounted) {
-        setState(() {});
+        if(currentState is ConfirmedState){
+          deleteShipment();
+          Fluttertoast.showToast(msg: S.of(context).shipmentAddSuccessfully);
+          Navigator.pushNamedAndRemoveUntil(context, HomeRoutes.Home, (route) => false);
+        }else {
+          setState(() {});
+        }
       }
     });
 
@@ -79,27 +85,20 @@ class _MarkScreenState extends State<EditedShipmentScreen> {
     }
     else if(currentState is ConfirmInitState){
       return ReviewShipmentEditedScreen(shipmentTempRequest , (request){
-        widget._stateManager.addShipment(request);
+        CoolAlert.show(
+            context: context,
+            type: CoolAlertType.confirm,
+            text: S.of(context).confirmRequest,
+            backgroundColor: AppThemeDataService.PrimaryColor,
+            confirmBtnColor: AppThemeDataService.AccentColor,
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+              widget._stateManager.addShipment(request);
+            },
+            onCancelBtnTap: () {
+              Navigator.pop(context);
+            });
       });
-    }
-    else if (currentState is ConfirmedState){
-      ConfirmedState? state = currentState as ConfirmedState?;
-      if(state!.response.isConfirmed){
-        Future.delayed(Duration.zero, () => _showDialog(context));
-        return Column(
-          children: [
-            // SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
-            // Text('Thanks the shipme'),
-          ],
-        );
-      }else{
-        return Column(
-          children: [
-            SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
-            ErrorScreen(retry: (){},error: 'error',),
-          ],
-        );
-      }
     }
     else {
       return Column(
@@ -123,7 +122,7 @@ class _MarkScreenState extends State<EditedShipmentScreen> {
         deleteShipment();
         Navigator.pushNamedAndRemoveUntil(context, HomeRoutes.Home, (route) => false);
       },
-      text: 'Your Shipment Added Successfully',
+      text: S.of(context).shipmentAddSuccessfully,
     );
   }
 }

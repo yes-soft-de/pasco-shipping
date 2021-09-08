@@ -138,13 +138,12 @@ class _HomeScreenState extends State<HomeScreen> {
     CoolAlert.show(
         context: context,
         type: CoolAlertType.confirm,
-        title: 'One moment please',
-        text:
-            'You have a shipment waiting for confirmation, please confirm it first and then order a new shipment',
+        title: S.of(context).oneSecondPlease,
+        text:S.of(context).waitingConfirm,
         backgroundColor: AppThemeDataService.PrimaryColor,
         confirmBtnColor: AppThemeDataService.AccentColor,
-        cancelBtnText: 'maybe later',
-        confirmBtnText: 'confirm it',
+        cancelBtnText: S.of(context).later,
+        confirmBtnText: S.of(context).confirm,
         onConfirmBtnTap: () {
           Navigator.pop(context);
           Navigator.pushNamed(context, MyShipmentRoutes.MY_SHIPMENT);

@@ -6,6 +6,8 @@ import 'package:pasco_shipping/module_home/presistance/profile_prefs_helper.dart
 import 'package:pasco_shipping/module_profile/request/profile_request.dart';
 import 'package:pasco_shipping/module_profile/response/profile_response.dart';
 import 'package:pasco_shipping/module_profile/service/profile_service.dart';
+import 'package:pasco_shipping/module_receiver/receiver_routes.dart';
+import 'package:pasco_shipping/module_settings/setting_routes.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
@@ -46,6 +48,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
                backgroundColor: white,
                child: Image.asset(StaticImage.userIcon2 , height: 58,),
              ),
+           ),
+           ListTile(
+             onTap: () {
+               Navigator.pushNamed(context,ReceiverRoutes.Receiver);
+             },
+             title: Text(S.of(context).receivers),
+             leading: Icon(Icons.call_received),
            ),
            ListTile(
              onTap: () {
@@ -97,23 +106,11 @@ class _DrawerMenuState extends State<DrawerMenu> {
            ),
            ListTile(
              onTap: () {
-               // Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
+               Navigator.pushNamed(context, SettingRoutes.ROUTE_SETTINGS);
              },
              title: Text(S.of(context).setting),
              leading: Icon(Icons.settings),
            ),
-           ListTile(
-             onTap: ()  {
-               var box = Hive.box('Authorization');
-                box.clear().then((value){
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                      AuthorizationRoutes.LOGIN_SCREEN, (route) => false);
-               });
-             },
-             title: Text(S.of(context).logout),
-             leading: Icon(Icons.logout),
-           ),
-
          ],
           ),
     ));

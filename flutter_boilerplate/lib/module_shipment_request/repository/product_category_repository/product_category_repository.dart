@@ -12,14 +12,14 @@ class FirstOptionRepository {
 
   FirstOptionRepository(this._apiClient, this._authService);
 
-  Future<List<Category>?> getProductCategories() async {
+  Future<List<ProductModel>?> getProductCategories() async {
     // await _authService.refreshToken();
     var token =  _authService.getToken();
     try {
       var response = await _apiClient.get(Urls.PRODUCT_CATEGORY,
           headers: {'Authorization': 'Bearer $token'});
-      List<Category>? categories =
-          ProductCategoriesResponse.fromJson(response!).data;
+      List<ProductModel>? categories =
+          ProductResponse.fromJson(response!).data;
       return categories;
     } catch (_) {
       return null;

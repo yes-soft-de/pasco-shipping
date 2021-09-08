@@ -15,6 +15,13 @@ class Urls {
   static const MY_MARKS = BASE_API + 'mymarks';
   static const MARK = BASE_API + 'mark';
 
+  //receiver
+  static const MY_RECEIVER = BASE_API + 'myreceivers';
+  static const RECEIVER = BASE_API + 'receiver';
+
+  //unit
+  static const UNITS = BASE_API + 'units';
+
   //profile
   static const MY_PROFILE=BASE_API+"clientprofile";
 

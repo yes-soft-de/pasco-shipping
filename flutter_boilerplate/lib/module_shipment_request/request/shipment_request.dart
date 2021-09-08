@@ -14,6 +14,7 @@ class ShipmentTempRequest {
 
   late String _supplierName;
 
+  late int _receiverID;
   late String _receiverName;
   late String _receiverPhoneNumber;
 
@@ -28,10 +29,12 @@ class ShipmentTempRequest {
   late String _extraSpecification;
 
   late String _holderType;
+  late int _holderCount;
+  late List<String>? imageFilePath;
 
   late bool _isExternalWarehouse;
   late String? externalWarehouseInfo;
-  late String? imageFilePath;
+  // late String? imageFilePath;
 
 
   Map<String, dynamic> toJson() => {
@@ -42,6 +45,7 @@ class ShipmentTempRequest {
         "productCategoryID": productCategoryID,
         'productCategoryName': productCategoryName,
         "unit": unit,
+    'receiverID':receiverID,
         "receiverName": receiverName,
         "receiverPhoneNumber": receiverPhoneNumber,
         "paymentTime": paymentTime,
@@ -49,10 +53,11 @@ class ShipmentTempRequest {
         "markID": markId,
         "vehicleIdentificationNumber": vehicleIdentificationNumber,
         "extraSpecification": extraSpecification,
-        'image':imageFilePath == null ?'': imageFilePath!,
+        'images':imageFilePath == null ?[]: imageFilePath!,
     'exportWarehouseName':exportWarehouseName,
     'markName':markName,
     'holderType':holderType,
+    'holderCount':holderCount,
     'isExternalWarehouse':isExternalWarehouse,
     'externalWarehouseInfo':externalWarehouseInfo ?? ''
 
@@ -69,6 +74,7 @@ class ShipmentTempRequest {
           json['quantity']??0,
 
           json['supplierName']??'',
+          json['receiverID']??0,
           json['receiverName']??'',
           json['receiverPhoneNumber']??'',
 
@@ -82,9 +88,11 @@ class ShipmentTempRequest {
           json['vehicleIdentificationNumber']??'',
           json['extraSpecification']??'',
           json['holderType']??'',
+          json['holderCount']??1,
+          List<String>.from(json['images'].map((x) =>(x))),
           json['isExternalWarehouse']??false,
           json['externalWarehouseInfo']??'',
-          json['image']);
+         );
   ShipmentTempRequest(
       this._transportationType,
 
@@ -98,6 +106,7 @@ class ShipmentTempRequest {
 
       this._supplierName,
 
+      this._receiverID,
       this._receiverName,
       this._receiverPhoneNumber,
 
@@ -110,9 +119,11 @@ class ShipmentTempRequest {
       this._extraSpecification,
       this._vehicleIdentificationNumber,
       this._holderType,
+      this._holderCount,
+      this.imageFilePath,
       this._isExternalWarehouse,
       this.externalWarehouseInfo,
-      this.imageFilePath);
+     );
 
   String get extraSpecification => _extraSpecification;
 
@@ -224,8 +235,20 @@ class ShipmentTempRequest {
     _isExternalWarehouse = value;
   }
 
+  int get receiverID => _receiverID;
+
+  set receiverID(int value) {
+    _receiverID = value;
+  }
+
   @override
   String toString() {
     return 'ShipmentRequest{_transportationType: $_transportationType, _exportWarehouseID: $_exportWarehouseID, _exportWarehouseName: $_exportWarehouseName, _target: $_target, _productCategoryID: $_productCategoryID, _productCategoryName: $_productCategoryName, _quantity: $_quantity, _supplierName: $_supplierName, _receiverName: $_receiverName, _receiverPhoneNumber: $_receiverPhoneNumber, _unit: $_unit, _markId: $_markId, _markName: $_markName, _paymentTime: $_paymentTime, _vehicleIdentificationNumber: $_vehicleIdentificationNumber, _extraSpecification: $_extraSpecification, imageFile: $imageFilePath}';
+  }
+
+  int get holderCount => _holderCount;
+
+  set holderCount(int value) {
+    _holderCount = value;
   }
 }

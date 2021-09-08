@@ -4,6 +4,7 @@ import 'package:pasco_shipping/module_mark/mark_routes.dart';
 import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
+import 'package:pasco_shipping/module_unit/response/unit_response.dart';
 import 'package:pasco_shipping/utils/widget/text_edit.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
@@ -11,30 +12,32 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 class SecondOptionSuccessfully extends StatefulWidget {
   final List<Mark> marks;
+  final List<UnitModel> units;
   final ShipmentTempRequest shipmentRequest;
   final Function goBackStep;
   final Function goNextPage;
   final Function goMarkPage;
-  SecondOptionSuccessfully({required this.marks,required this.shipmentRequest,required this.goBackStep,required this.goNextPage,required this.goMarkPage});
+  SecondOptionSuccessfully({required this.marks,required this.shipmentRequest,required this.goBackStep,required this.goNextPage,required this.goMarkPage,required this.units});
 
   @override
   _SecondOptionSuccessfullyState createState() => _SecondOptionSuccessfullyState();
 }
 
 class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
-  DropListModel dropListModelUnit = DropListModel(dataUnit);
+ late DropListModel dropListModelUnit;
 
   late DropListModel dropListModelMark;
   late DropListModel dropListModelFromMark;
   late List<Entry> marksEntry;
+  late List<Entry> unitsEntry;
   late List<Entry> marksBackEntry;
 
   late Entry optionItemSelectedU;
   late Entry optionItemSelectedMar;
 
   late String supplierName;
-  late String receiverName;
-  late String receiverPhone;
+  // late String receiverName;
+  // late String receiverPhone;
 
   late bool isFromMarks;
 
@@ -49,7 +52,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
         }
       }
     }else {
-      optionItemSelectedMar =  Entry('choose', 1, []);
+      optionItemSelectedMar =  Entry('choose', 0, []);
     }
 
     if(widget.shipmentRequest.supplierName.isNotEmpty){
@@ -58,17 +61,17 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
       supplierName=S.of(context).nameHere;
     }
 
-    if(widget.shipmentRequest.receiverName.isNotEmpty){
-      receiverName = widget.shipmentRequest.receiverName;
-    }else{
-      receiverName=S.of(context).nameHere;
-    }
-
-    if(widget.shipmentRequest.receiverPhoneNumber.isNotEmpty){
-      receiverPhone = widget.shipmentRequest.receiverPhoneNumber;
-    }else{
-      receiverPhone=S.of(context).phone;
-    }
+    // if(widget.shipmentRequest.receiverName.isNotEmpty){
+    //   receiverName = widget.shipmentRequest.receiverName;
+    // }else{
+    //   receiverName=S.of(context).nameHere;
+    // }
+    //
+    // if(widget.shipmentRequest.receiverPhoneNumber.isNotEmpty){
+    //   receiverPhone = widget.shipmentRequest.receiverPhoneNumber;
+    // }else{
+    //   receiverPhone=S.of(context).phone;
+    // }
 
 
     if(widget.shipmentRequest.unit.isNotEmpty){
@@ -84,12 +87,19 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
     super.initState();
     isFromMarks = false;
     marksEntry = <Entry>[];
+    unitsEntry = <Entry>[];
     marksBackEntry = <Entry>[];
     for(Mark item in widget.marks){
       Entry v = Entry(item.markNumber! ,item.id! ,[]);
       marksEntry.add(v);
     }
     dropListModelMark = DropListModel(marksEntry);
+
+    for(UnitModel item in widget.units){
+      Entry v = Entry(item.name! ,item.id! ,[]);
+      unitsEntry.add(v);
+    }
+    dropListModelUnit = DropListModel(unitsEntry);
   }
 
   @override
@@ -99,7 +109,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Supplier Info : ',
+          S.of(context).supplierInfo,
           style: white18text,
         ),
         TextEdit(supplierName, 50, (supplierName) {
@@ -108,19 +118,19 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
         SizedBox(
           height: 25,
         ),
-        Text(
-          'Recipient Info : ',
-          style: white18text,
-        ),
-        TextEdit(receiverName, 50, (receiverName) {
-          widget.shipmentRequest.receiverName = receiverName;
-        }),
-        TextEdit(receiverPhone, 50, (receiverPhoneNumber) {
-          widget.shipmentRequest.receiverPhoneNumber = receiverPhoneNumber;
-        }),
-        SizedBox(
-          height: 15,
-        ),
+        // Text(
+        //   'Recipient Info : ',
+        //   style: white18text,
+        // ),
+        // TextEdit(receiverName, 50, (receiverName) {
+        //   widget.shipmentRequest.receiverName = receiverName;
+        // }),
+        // TextEdit(receiverPhone, 50, (receiverPhoneNumber) {
+        //   widget.shipmentRequest.receiverPhoneNumber = receiverPhoneNumber;
+        // }),
+        // SizedBox(
+        //   height: 15,
+        // ),
         Text(
           'Unit : ',
           style: white18text,
@@ -129,6 +139,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
           this.optionItemSelectedU,
           this.dropListModelUnit,
           (optionItem) {
+            FocusScope.of(context).unfocus();
             optionItemSelectedU = optionItem;
             widget.shipmentRequest.unit = optionItem.title;
             setState(() {});
@@ -138,7 +149,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
           height: 15,
         ),
         Text(
-          'Mark : ',
+          S.of(context).mark,
           style: white18text,
         ),
         Row(
@@ -148,6 +159,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                 this.optionItemSelectedMar,
                isFromMarks ? this.dropListModelFromMark : this.dropListModelMark,
                 (optionItem) {
+                  FocusScope.of(context).unfocus();
                   optionItemSelectedMar = optionItem;
                   widget.shipmentRequest.markId = optionItem.id;
                   widget.shipmentRequest.markName = optionItem.title;
@@ -209,7 +221,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                           onPressed: () {
                             widget.goBackStep();
                           },
-                          label: Text('Back'),
+                          label: Text(S.of(context).back),
                           icon: Icon(
                             Icons.arrow_back,
                           ),
@@ -229,7 +241,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                   icon: Icon(
                     Icons.arrow_forward_outlined,
                   ),
-                  label: Text('Continue'),
+                  label: Text(S.of(context).next),
                 )),
           ],
         )

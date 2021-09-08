@@ -8,6 +8,6 @@ class FirstOptionManager{
   final FirstOptionRepository _repository;
   FirstOptionManager(this._repository);
 
-  Future<List<Category>?> getCategories() => _repository.getProductCategories();
+  Future<List<ProductModel>?> getCategories() => _repository.getProductCategories();
   Future<List<Countries>?> getWarehouses() => _repository.getWarehouses();
 }

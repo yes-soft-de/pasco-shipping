@@ -7,6 +7,9 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_auth/service/auth_service/auth_service.dart';
 import 'package:pasco_shipping/module_localization/service/localization_service/localization_service.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:pasco_shipping/utils/styles/text_style.dart';
+import 'package:pasco_shipping/utils/widget/background.dart';
 
 @injectable
 class SettingsScreen extends StatefulWidget {
@@ -16,11 +19,11 @@ class SettingsScreen extends StatefulWidget {
   final FireNotificationService _notificationService;
 
   SettingsScreen(
-    this._authService,
-    this._localizationService,
-    this._themeDataService,
-    this._notificationService,
-  );
+      this._authService,
+      this._localizationService,
+      this._themeDataService,
+      this._notificationService,
+      );
 
   @override
   State<StatefulWidget> createState() => _SettingsScreenState();
@@ -28,110 +31,84 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool loading = false;
+  ScrollController controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          S.of(context).setting,
-          style: TextStyle(
-            color: Theme.of(context).brightness == Brightness.dark
-                ? Colors.white
-                : Colors.black,
+    return Background(
+        goBack: ()  {
+          Navigator.pop(context);
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child:
+          Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color:AppThemeDataService.AccentColor,
+                ),
+                child: Flex(
+                  direction: Axis.vertical,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      height: 16,
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.language),
+                      title: Text(S.of(context).language),
+                      trailing: DropdownButton(
+                          value: Localizations.localeOf(context).languageCode,
+                          underline: Container(),
+                          icon: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Icon(Icons.arrow_drop_down_rounded),
+                          ),
+                          items: [
+                            DropdownMenuItem(
+                              child: Text('العربية'),
+                              value: 'ar',
+                            ),
+                            DropdownMenuItem(
+                              child: Text('English'),
+                              value: 'en',
+                            ),
+                          ],
+                          onChanged: (newLang) {
+                              widget._localizationService
+                                  .setLanguage(newLang.toString());
+
+                          }),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.person_rounded),
+                      title: Text(S.of(context).logout),
+                      trailing: Padding(
+                        padding: const EdgeInsets.only(right: 10.0, left: 10.0),
+                        child: Icon(Icons.logout_rounded),
+                      ),
+                      onTap: () {
+                        widget._authService.logout().then((value) {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              AuthorizationRoutes.LOGIN_SCREEN, (route) => false);
+                        });
+                      },
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Flex(
-          direction: Axis.vertical,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                  color: Colors.black12,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Flex(
-                    direction: Axis.horizontal,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(S.of(context).darkMode),
-                      Switch(
-                          value:
-                              Theme.of(context).brightness == Brightness.dark,
-                          onChanged: (mode) {
-                            widget._themeDataService
-                                .switchDarkMode(mode)
-                                .then((value) {});
-                          })
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                  color: Colors.black12,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Flex(
-                    direction: Axis.horizontal,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(S.of(context).language),
-                      // FutureBuilder(
-                      //   initialData: Platform.localeName.substring(0, 2),
-                      //   future: widget._localizationService.getLanguage(),
-                      //   builder: (BuildContext context,
-                      //       AsyncSnapshot<String> snapshot) {
-                      //     return DropdownButton(
-                      //         value: snapshot.data ??
-                      //             Platform.localeName.substring(0, 2),
-                      //         items: [
-                      //           DropdownMenuItem(
-                      //             child: Text('العربية'),
-                      //             value: 'ar',
-                      //           ),
-                      //           DropdownMenuItem(
-                      //             child: Text('English'),
-                      //             value: 'en',
-                      //           ),
-                      //         ],
-                      //         onChanged: (newLang) {
-                      //           widget._localizationService
-                      //               .setLanguage(newLang.toString());
-                      //         });
-                      //   },
-                      // ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                  color: Colors.black12,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+        title: S.of(context).setting,
+      currentIndex: -1,
+      isResultScreen: false, isHome: false, controller: controller,
     );
+
   }
 }

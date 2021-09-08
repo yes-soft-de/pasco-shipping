@@ -1,5 +1,6 @@
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_chat/chat_routes.dart';
 import 'package:pasco_shipping/module_home/home_routes.dart';
 import 'package:pasco_shipping/module_home/ui/screen/drawer_menu.dart';
@@ -106,9 +107,9 @@ class _BackgroundState extends State<Background> {
      currentIndex: widget.currentIndex,
 
      items: [
-      FloatingNavbarItem(icon: Icons.home, title: 'Home'),
-      FloatingNavbarItem(icon: Icons.notifications_active_outlined, title: 'Notification'),
-      FloatingNavbarItem(icon: Icons.chat_bubble_outline, title: 'Direct support'),
+      FloatingNavbarItem(icon: Icons.home, title: S.of(context).home),
+      FloatingNavbarItem(icon: Icons.notifications_active_outlined, title: S.of(context).notification),
+      FloatingNavbarItem(icon: Icons.chat_bubble_outline, title: S.of(context).directSupport),
       // FloatingNavbarItem(icon: Icons.settings, title: 'Settings'),
      ],
     ),

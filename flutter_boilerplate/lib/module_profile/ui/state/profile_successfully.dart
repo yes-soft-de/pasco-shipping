@@ -256,7 +256,7 @@ class _ProfileSuccessfullyScreenState extends State<ProfileSuccessfullyScreen> {
             go: () {
               if(!validatorMakeChanges())
                 {
-                  Fluttertoast.showToast(msg: "you don't make any changes");
+                  Fluttertoast.showToast(msg: S.of(context).noChange);
                 }
               else{
                 widget.updateProfile(_profileRequest);

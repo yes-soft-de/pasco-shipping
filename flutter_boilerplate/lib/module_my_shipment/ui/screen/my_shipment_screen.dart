@@ -54,7 +54,7 @@ class _ShipmentTrackingScreenState extends State<MyShipmentScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                MyShipmentTypeCard('Active', '', StaticImage.box, isActive,
+                MyShipmentTypeCard(S.of(context).active, '', StaticImage.box, isActive,
                     () {
                   setState(() {
                     isWaiting = false;
@@ -63,14 +63,14 @@ class _ShipmentTrackingScreenState extends State<MyShipmentScreen> {
                     print(isWaiting);
                   });
                 }),
-                MyShipmentTypeCard('Confirm', '1', StaticImage.waiting, isWaiting, () {
+                MyShipmentTypeCard(S.of(context).confirm, '1', StaticImage.waiting, isWaiting, () {
                   setState(() {
                     isWaiting = true;
                     isActive = false;
                     isDone = false;
                   });
                 }),
-                MyShipmentTypeCard('History', '', StaticImage.history, isDone,
+                MyShipmentTypeCard(S.of(context).history, '', StaticImage.history, isDone,
                     () {
                   setState(() {
                     isWaiting = false;

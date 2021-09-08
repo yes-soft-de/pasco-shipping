@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_my_shipment/ui/widget/shipment_card.dart';
 import 'package:pasco_shipping/module_shipment_request/presistance/shipment_prefs_helper.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
@@ -23,7 +24,7 @@ class _MyShipmentWaitingState extends State<MyShipmentWaiting> {
    super.initState();
    isEmptyData= false;
    shipmentRequest = ShipmentTempRequest(
-       '', 0,'', '', 0, '',0, '', '', '', '', 0, '', '', '','','',false,'',null);
+       '', 0,'', '', 0, '',0, '',0, '', '', '', 0, '', '', '','','',0,[],false,'');
   }
 
  @override
@@ -50,7 +51,7 @@ class _MyShipmentWaitingState extends State<MyShipmentWaiting> {
   }
   @override
   Widget build(BuildContext context) {
-    return  isEmptyData ?Center(child: Text('No Shipment waiting for confirmation',style: greyWhite14text,),):
+    return  isEmptyData ?Center(child: Text(S.of(context).noWaitingShipment,style: greyWhite14text,),):
       Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +60,7 @@ class _MyShipmentWaitingState extends State<MyShipmentWaiting> {
                 padding:
                     const EdgeInsetsDirectional.only(start: 20, top: 10),
                 child: Text(
-                  'Shipment waiting for confirmation',
+                  S.of(context).waitingShipment,
                   style: greyWhite14text,
                 ),
               ),

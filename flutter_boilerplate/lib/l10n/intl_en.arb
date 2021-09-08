@@ -95,5 +95,85 @@
   "internalServerError": "Internal server error",
   "dataDecodeError": "Error with Decoding Data",
   "errorHappened": "Error Happened",
-  "registerSuccess": "Your account has been registered successfully"
+  "registerSuccess": "Your account has been registered successfully",
+
+
+  "shipmentAddSuccessfully": "Your Shipment Added Successfully",
+  "shippingWay": "Shipping Way: ",
+  "category": "Category: ",
+  "subCategory": "SubCategory: ",
+  "supplierInfo": "Supplier Info: ",
+
+  "accept": "Accept",
+  "reject": "Reject",
+
+  "extraSpecification": "Extra specification: ",
+  "paymentTime": "Payment Time: ",
+  "unit": "Unit: ",
+  "externalWarehouseInfo": "External Warehouse Info: ",
+  "isExternalWarehouse": "is External Warehouse: ",
+
+
+  "oneSecondPlease": "One Second Please",
+  "waitingConfirm": "You have a shipment waiting for confirmation, please confirm it first and then order a new shipment",
+  "later": "later",
+  "noMarkAdd": "No Mark Add",
+
+  "noWaitingShipment": "No Shipment waiting for confirmation",
+  "waitingShipment": "Shipment waiting for confirmation",
+
+
+  "noCurrentShipment": "No Current Shipment",
+  "currentShipment": "Current Shipment",
+
+  "noWaitingApproveShipment": "No shipment Waiting for approval",
+  "waitingApproveShipment": "Waiting for approval",
+
+  "noPreviousShipment": "No Previous Shipments",
+  "previousShipment": "Previous Shipments",
+
+
+  "noChange": "you don't make any changes",
+
+  "next": "next",
+  "showLibrary": "Show Library",
+  "camera": "Camera",
+  "warehouseInfo": "Warehouse Info",
+  "inLocalWarehouse": "in Local Warehouse",
+  "inExternalWarehouse": "in External Warehouse",
+
+  "fullName": "Full name: ",
+  "address": "Address: ",
+  "edit": "edit",
+  "delete": "delete",
+
+  "add": "Add",
+  "noReceiver": "No Receiver",
+  "receivers": "Receivers",
+
+  "vehicleNumber":"Vehicle identification number (if vehicle)",
+  "back": "Back",
+  "holderCount": "holder count",
+
+  "attached" : "Document Attached",
+  "confirmRequest": "Do you really want to add this request",
+
+  "serialNumber": "Serial Number",
+
+  "trackNumber": "Track number",
+
+  "history": "History",
+  "active": "Active",
+
+  "createdAt": "Created at: ",
+  "lastUpdated": "Last Updated at :",
+
+
+  "requested": "Requested",
+  "accepted": "Accepted",
+  "received": "Received in the warehouse",
+  "start": "start shipping",
+  "arrived": "Arrived at the target city",
+  "delivered": "Delivered"
+
 }
