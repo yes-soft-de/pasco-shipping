@@ -750,6 +750,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="importWarehouseName"),
      *                  @OA\Property(type="string", property="quantity"),
      *                  @OA\Property(type="string", property="holderType"),
+     *                  @OA\Property(type="integer", property="holderCount"),
      *                  @OA\Property(type="string", property="image"),
      *                  @OA\Property(type="array", property="images",
      *                      @OA\Items(
