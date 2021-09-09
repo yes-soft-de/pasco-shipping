@@ -36,6 +36,8 @@ class ContainerGetResponse
 
     public $freeCapacity;
 
+    public $clientUserID;
+
     public $shipmentID;
 
     public $shipments = [];

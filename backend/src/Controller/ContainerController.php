@@ -50,7 +50,9 @@ class ContainerController extends BaseController
      *          @OA\Property(type="integer", property="providedBy"),
      *          @OA\Property(type="integer", property="shipperID"),
      *          @OA\Property(type="integer", property="consigneeID"),
-     *          @OA\Property(type="integer", property="carrierID")
+     *          @OA\Property(type="integer", property="carrierID"),
+     *          @OA\Property(type="integer", property="shipmentID"),
+     *          @OA\Property(type="integer", property="clientUserID")
      *      )
      * )
      * 
@@ -337,6 +339,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="number", property="freeCapacity"),
+     *                  @OA\Property(type="integer", property="clientUserID"),
      *                  @OA\Property(type="integer", property="shipmentID"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items(
@@ -404,7 +407,8 @@ class ContainerController extends BaseController
      *          @OA\Property(type="integer", property="consigneeID"),
      *          @OA\Property(type="integer", property="specificationID"),
      *          @OA\Property(type="boolean", property="isExternalWarehouse"),
-     *          @OA\Property(type="integer", property="shipmentID")
+     *          @OA\Property(type="integer", property="shipmentID"),
+     *          @OA\Property(type="integer", property="clientUserID")
      *      )
      * )
      *

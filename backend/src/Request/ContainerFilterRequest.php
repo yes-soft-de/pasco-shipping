@@ -22,6 +22,8 @@ class ContainerFilterRequest
 
     private $shipmentID;
 
+    private $clientUserID;
+
     public function getSpecificationID()
     {
         return $this->specificationID;
@@ -65,6 +67,11 @@ class ContainerFilterRequest
     public function getShipmentID()
     {
         return $this->shipmentID;
+    }
+
+    public function getClientUserID()
+    {
+        return $this->clientUserID;
     }
 
 }
