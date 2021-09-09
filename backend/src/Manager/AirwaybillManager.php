@@ -111,7 +111,7 @@ class AirwaybillManager
     public function filterAirwaybills(AirwaybillFilterRequest $request)
     {
         return $this->airwaybillEntityRepository->filterAirWaybills($request->getSpecificationID(), $request->getAirwaybillNumber(), $request->getStatus(), $request->getType(),
-            $request->getProvidedBy(), $request->getShipperID(), $request->getConsigneeID(), $request->getIsExternalWarehouse(), $request->getShipmentID());
+            $request->getProvidedBy(), $request->getShipperID(), $request->getConsigneeID(), $request->getIsExternalWarehouse(), $request->getShipmentID(), $request->getClientUserID());
     }
 
     public function getAirwaybillsBySpecificationID($specificationID)

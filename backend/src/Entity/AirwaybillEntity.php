@@ -85,6 +85,11 @@ class AirwaybillEntity
      */
     private $shipmentID;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $clientUserID;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -242,6 +247,18 @@ class AirwaybillEntity
     public function setShipmentID(?int $shipmentID): self
     {
         $this->shipmentID = $shipmentID;
+
+        return $this;
+    }
+
+    public function getClientUserID(): ?int
+    {
+        return $this->clientUserID;
+    }
+
+    public function setClientUserID(?int $clientUserID): self
+    {
+        $this->clientUserID = $clientUserID;
 
         return $this;
     }

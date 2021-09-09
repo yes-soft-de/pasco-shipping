@@ -24,6 +24,8 @@ class AirwaybillCreateRequest
 
     private $shipmentID;
 
+    private $clientUserID;
+
     public function setType($type)
     {
         $this->type = $type;
