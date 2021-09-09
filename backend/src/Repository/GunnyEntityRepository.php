@@ -45,4 +45,16 @@ class GunnyEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getGunnyStatusByGunnyID($gunnyID)
+    {
+        return $this->createQueryBuilder('gunnyEntity')
+            ->select('gunnyEntity.status')
+
+            ->andWhere('gunnyEntity.id = :id')
+            ->setParameter('id', $gunnyID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

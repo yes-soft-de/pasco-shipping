@@ -510,4 +510,19 @@ App\Request\GunnyCreateRequest:
   properties:
     createdBy:
       - NotBlank: ~
+
+App\Request\GunnyShipmentCreateRequest:
+  properties:
+    gunnyID:
+      - NotBlank: ~
+    shipmentID:
+      - NotBlank: ~
+    trackNumber:
+      - NotBlank: ~
+    quantity:
+      - NotBlank: ~
+    unit:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
       

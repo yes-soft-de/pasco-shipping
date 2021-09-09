@@ -8,6 +8,7 @@ use App\Entity\GunnyEntity;
 use App\Repository\GunnyEntityRepository;
 use App\Request\DeleteRequest;
 use App\Request\GunnyCreateRequest;
+use App\Request\GunnyStatusUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class GunnyManager
@@ -35,6 +36,30 @@ class GunnyManager
         $this->entityManager->clear();
 
         return $this->getGunnyByStatus(GunnyStatusConstant::$NOT_FULL_GUNNY_STATUS);
+    }
+
+    public function updateStatus(GunnyStatusUpdateRequest $request)
+    {
+        $gunnyEntity = $this->gunnyEntityRepository->find($request->getId());
+
+        if(!$gunnyEntity)
+        {
+            return $gunnyEntity;
+        }
+        else
+        {
+            $gunnyEntity = $this->autoMapping->mapToObject(GunnyStatusUpdateRequest::class, GunnyEntity::class, $request, $gunnyEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $gunnyEntity;
+        }
+    }
+
+    public function getGunnyStatusByGunnyID($gunnyID)
+    {
+        return $this->gunnyEntityRepository->getGunnyStatusByGunnyID($gunnyID);
     }
 
     public function getGunnyByStatus($status)
