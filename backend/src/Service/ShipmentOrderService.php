@@ -19,6 +19,7 @@ use App\Response\OrderShipmentCreateResponse;
 use App\Response\OrderShipmentGetResponse;
 use App\Response\ShipmentFilterResponse;
 use App\Response\ShipmentsGetResponse;
+use App\Response\WaitingShipmentFilterResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ShipmentOrderService
@@ -281,6 +282,8 @@ class ShipmentOrderService
             
             foreach ($orders as $order)
             {
+                $order['pendingHolders'] = $this->shipmentOrderManager->getPendingHoldersByShipmentIdAndShippingType($order['id'], $order['transportationType']);
+
                 if($order['images'])
                 {
                     foreach ($order['images'] as $key=>$val)
@@ -303,7 +306,7 @@ class ShipmentOrderService
                     $order['orderUpdatedByUserImage'] = $this->params . $order['orderUpdatedByUserImage'];
                 }
                 
-                $ordersResponse['shipments'][] = $this->autoMapping->map('array', OrderShipmentGetResponse::class, $order);
+                $ordersResponse['shipments'][] = $this->autoMapping->map('array', WaitingShipmentFilterResponse::class, $order);
             }
         }
 
