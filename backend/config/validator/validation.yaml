@@ -505,4 +505,9 @@ App\Request\PendingHolderCreateRequest:
       - NotBlank: ~
     specificationID:
       - NotBlank: ~
+
+App\Request\GunnyCreateRequest:
+  properties:
+    createdBy:
+      - NotBlank: ~
       
