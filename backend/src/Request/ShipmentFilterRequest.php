@@ -30,6 +30,8 @@ class ShipmentFilterRequest
 
     private $airWaybillNumber;
 
+    private $clientUserID;
+
     public function getStatus()
     {
         return $this->status;
@@ -93,6 +95,11 @@ class ShipmentFilterRequest
     public function getAirWaybillNumber()
     {
         return $this->airWaybillNumber;
+    }
+
+    public function getClientUserID()
+    {
+        return $this->clientUserID;
     }
 
 }

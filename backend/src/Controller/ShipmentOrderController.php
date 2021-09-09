@@ -1102,7 +1102,8 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="dateOne"),
      *          @OA\Property(type="string", property="dateTwo"),
      *          @OA\Property(type="string", property="containerNumber"),
-     *          @OA\Property(type="string", property="airWaybillNumber")
+     *          @OA\Property(type="string", property="airWaybillNumber"),
+     *          @OA\Property(type="integer", property="clientUserID")
      *      )
      * )
      *

@@ -444,7 +444,7 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
     }
 
     public function filterAcceptedShipments($transportationType, $isExternalWarehouse, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID, 
-    $paymentTime, $launchCountry, $targetCountry, $dateOne, $dateTwo, $containerID, $airWaybillID)
+    $paymentTime, $launchCountry, $targetCountry, $dateOne, $dateTwo, $containerID, $airWaybillID, $clientUserID)
     {
         $query = $this->createQueryBuilder('shipmentOrder')
             ->select("DISTINCT(shipmentOrder.id) as id", "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.supplierName", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.receiverID",
@@ -651,6 +651,12 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
                 $query->andWhere("trackEntity.holderType = 'airwaybill'");
                 $query->andWhere('trackEntity.holderID = :airWaybillID');
                 $query->setParameter('airWaybillID', $airWaybillID);
+            }
+
+            if($clientUserID)
+            {
+                $query->andWhere('shipmentOrder.clientUserID = :clientUserID');
+                $query->setParameter('clientUserID', $clientUserID);
             }
 
             return $query->getQuery()->getResult();
