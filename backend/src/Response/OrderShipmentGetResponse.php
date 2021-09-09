@@ -72,6 +72,8 @@ class OrderShipmentGetResponse
 
     public $tracks = [];
 
+    public $pendingHolders = [];
+
     // external warehouse info
     public $externalWarehouseInfo;
 

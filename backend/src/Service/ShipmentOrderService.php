@@ -236,8 +236,13 @@ class ShipmentOrderService
     {
         $shipmentOrder = $this->shipmentOrderManager->getShipmentOrderById($id);
 
-        $shipmentOrder['tracks'] = $this->shipmentOrderManager->getShipmentStatusAndTracksByShipmentID($id);
-        
+        $shipmentOrder['tracks'] = $this->shipmentOrderManager->getShipmentStatusByShipmentID($id);
+
+        if($shipmentOrder)
+        {
+            $shipmentOrder['pendingHolders'] = $this->shipmentOrderManager->getPendingHoldersByShipmentIdAndShippingType($id, $shipmentOrder['transportationType']);
+        }
+
         if($shipmentOrder['image'])
         {
             $shipmentOrder['image'] = $this->params . $shipmentOrder['image'];

@@ -18,6 +18,7 @@ use App\Request\OrderShipmentByDashboardUpdateRequest;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
+use App\Request\PendingHolderCreateRequest;
 use App\Request\ShipmentFilterRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
 use App\Request\ShipmentStatusCreateRequest;
@@ -33,12 +34,14 @@ class ShipmentOrderManager
     private $shipmentStatusManager;
     private $containerManager;
     private $airWaybillManager;
+    private $containerSpecificationManager;
+    private $airWaybillSpecificationManager;
     private $pendingHolderManager;
     private $imageManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, OrderShipmentEntityRepository $orderShipmentEntityRepository,
                                 ShipmentStatusManager $shipmentStatusManager, ContainerManager $containerManager, ImageManager $imageManager, AirwaybillManager $airWaybillManager,
-    PendingHolderManager $pendingHolderManager)
+    PendingHolderManager $pendingHolderManager, AirwaybillSpecificationManager $airWaybillSpecificationManager, ContainerSpecificationManager $containerSpecificationManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -46,6 +49,8 @@ class ShipmentOrderManager
         $this->shipmentStatusManager = $shipmentStatusManager;
         $this->containerManager = $containerManager;
         $this->airWaybillManager = $airWaybillManager;
+        $this->containerSpecificationManager = $containerSpecificationManager;
+        $this->airWaybillSpecificationManager = $airWaybillSpecificationManager;
         $this->imageManager = $imageManager;
         $this->pendingHolderManager = $pendingHolderManager;
     }
@@ -53,11 +58,6 @@ class ShipmentOrderManager
     public function createShipmentOrder(OrderShipmentCreateRequest $request)
     {
         $orderShipmentEntity = $this->autoMapping->map(OrderShipmentCreateRequest::class, OrderShipmentEntity::class, $request);
-
-        if($request->getHolderCount() == null || $request->getHolderCount() == 0)
-        {
-            $orderShipmentEntity->setHolderCount(1);
-        }
 
         $orderShipmentEntity->setStatus(ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS);
 
@@ -67,6 +67,21 @@ class ShipmentOrderManager
 
         // Insert the images of the shipment
         $this->insertImagesOfShipment($request->getImages(), $orderShipmentEntity->getId());
+
+        // Insert the requested holders of the shipment
+        if(count($request->getRequestedHolders()) > 0)
+        {
+            $orderShipmentEntity->setHolderCount(count($request->getRequestedHolders()));
+
+            $this->createPendingHolders($request->getRequestedHolders(), $orderShipmentEntity->getId());
+        }
+        else
+        {
+            if($request->getHolderCount() == null || $request->getHolderCount() == 0)
+            {
+                $orderShipmentEntity->setHolderCount(1);
+            }
+        }
 
         return $orderShipmentEntity;
     }
@@ -356,6 +371,54 @@ class ShipmentOrderManager
         return $this->shipmentStatusManager->getShipmentStatusAndTracksByShipmentID($shipmentID);
     }
 
+    public function getShipmentStatusByShipmentID($shipmentID)
+    {
+        return $this->shipmentStatusManager->getByShipmentID($shipmentID);
+    }
+
+    public function getPendingHoldersByShipmentIdAndShippingType($shipmentID, $shippingWay)
+    {
+        $pendingHolders = $this->pendingHolderManager->getPendingHoldersByShipmentID($shipmentID);
+
+        if($pendingHolders)
+        {
+            if($shippingWay == ShippingWayConstant::$SEA_SHIPPING_WAY)
+            {
+                foreach ($pendingHolders as $key => $val)
+                {
+                    $specification = $this->containerSpecificationManager->getContainerSpecificationById($val['specificationID']);
+
+                    if($specification)
+                    {
+                        $pendingHolders[$key]['specificationName'] = $specification['name'];
+                    }
+                    else
+                    {
+                        $pendingHolders[$key]['specificationName'] = "";
+                    }
+                }
+            }
+            if($shippingWay == ShippingWayConstant::$AIR_SHIPPING_WAY)
+            {
+                foreach ($pendingHolders as $key => $val)
+                {
+                    $specification = $this->airWaybillSpecificationManager->getAirwaybillSpecificationByID($val['specificationID']);
+
+                    if($specification)
+                    {
+                        $pendingHolders[$key]['specificationName'] = $specification['name'];
+                    }
+                    else
+                    {
+                        $pendingHolders[$key]['specificationName'] = "";
+                    }
+                }
+            }
+        }
+
+        return $pendingHolders;
+    }
+
     public function getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
         return $this->shipmentStatusManager->getShipmentStatusAndTracksByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
@@ -428,6 +491,20 @@ class ShipmentOrderManager
 
                 $this->imageManager->create($imageRequest);
             }
+        }
+    }
+
+    public function createPendingHolders($requestedHoldersArray, $shipmentID)
+    {
+        $holderCreateRequest = new PendingHolderCreateRequest();
+
+        foreach ($requestedHoldersArray as $holder)
+        {
+            $holderCreateRequest->setShipmentID($shipmentID);
+            $holderCreateRequest->setSpecificationID($holder['specificationID']);
+            $holderCreateRequest->setNotes($holder['notes']);
+
+            $this->pendingHolderManager->create($holderCreateRequest);
         }
     }
 

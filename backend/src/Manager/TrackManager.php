@@ -282,6 +282,7 @@ class TrackManager
                         if($holder['holderType'] == $track['holderType'] && $holder['holderID'] == $track['holderID'])
                         {
                             // Do not add the holder
+                            continue;
                         }
                         else
                         {

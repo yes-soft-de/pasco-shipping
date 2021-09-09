@@ -750,6 +750,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="importWarehouseName"),
      *                  @OA\Property(type="string", property="quantity"),
      *                  @OA\Property(type="string", property="holderType"),
+     *                  @OA\Property(type="integer", property="holderCount"),
      *                  @OA\Property(type="string", property="image"),
      *                  @OA\Property(type="array", property="images",
      *                      @OA\Items(
@@ -826,6 +827,15 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="importWarehouseName"),
      *                  @OA\Property(type="string", property="quantity"),
      *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="array", property="images",
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="string", property="image"),
+     *                          @OA\Property(type="integer", property="shipmentID"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="boolean", property="specialLink"),
+     *                      )
+     *                  ),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
      *                  @OA\Property(type="string", property="productCategoryName"),
@@ -863,6 +873,16 @@ class ShipmentOrderController extends BaseController
      *                          @OA\Property(type="string", property="shipmentStatusCreatedByUserImage"),
      *                          @OA\Property(type="string", property="shipmentStatusUpdatedByUser"),
      *                          @OA\Property(type="string", property="shipmentStatusUpdatedByUserImage")
+     *                      )
+     *                  ),
+     *                  @OA\Property(type="array", property="pendingHolders",
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="integer", property="shipmentID"),
+     *                          @OA\Property(type="integer", property="specificationID"),
+     *                          @OA\Property(type="string", property="notes"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="string", property="specificationName")
      *                      )
      *                  ),
      *                  @OA\Property(type="text", property="externalWarehouseInfo"),

@@ -56,8 +56,11 @@ class OrderShipmentCreateRequest
     // external warehouse info
     private $externalWarehouseInfo;
 
-    // indicates to whether external wharehouse is used or not.
+    // indicates to whether external warehouse is used or not.
     private $isExternalWarehouse;
+
+    // indicates to the FCL holders requested by client to an external warehouse
+    private $requestedHolders = [];
 
     public function setClientUserID($clientUserID)
     {
@@ -90,6 +93,14 @@ class OrderShipmentCreateRequest
     public function getHolderCount()
     {
         return $this->holderCount;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRequestedHolders(): array
+    {
+        return $this->requestedHolders;
     }
 
 }

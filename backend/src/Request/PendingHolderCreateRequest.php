@@ -10,4 +10,19 @@ class PendingHolderCreateRequest
 
     private $notes;
 
+    public function setShipmentID($shipmentID)
+    {
+        $this->shipmentID = $shipmentID;
+    }
+
+    public function setSpecificationID($specificationID)
+    {
+        $this->specificationID = $specificationID;
+    }
+
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+    }
+
 }
