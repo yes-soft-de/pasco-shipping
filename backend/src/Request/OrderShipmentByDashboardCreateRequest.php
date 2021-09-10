@@ -59,6 +59,9 @@ class OrderShipmentByDashboardCreateRequest
     // indicates to whether external wharehouse is used or not.
     private $isExternalWarehouse;
 
+    // indicates to the FCL holders requested by client to an external warehouse
+    private $requestedHolders = [];
+
     public function setClientUserID($clientUserID)
     {
         $this->clientUserID = $clientUserID;
@@ -100,6 +103,14 @@ class OrderShipmentByDashboardCreateRequest
     public function setHolderCount($holderCount)
     {
         $this->holderCount = $holderCount;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRequestedHolders(): array
+    {
+        return $this->requestedHolders;
     }
 
 }

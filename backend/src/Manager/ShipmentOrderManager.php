@@ -100,6 +100,12 @@ class ShipmentOrderManager
         // Insert the images of the shipment
         $this->insertImagesOfShipment($request->getImages(), $orderShipmentEntity->getId());
 
+        // Insert the requested holders of the shipment
+        if(count($request->getRequestedHolders()) > 0)
+        {
+            $this->createPendingHolders($request->getRequestedHolders(), $orderShipmentEntity->getId());
+        }
+
         return $orderShipmentEntity;
     }
 

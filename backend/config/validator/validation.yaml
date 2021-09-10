@@ -53,9 +53,7 @@ App\Request\OrderShipmentByDashboardCreateRequest:
       - NotBlank: ~
     unit:
       - NotBlank: ~
-    receiverName:
-      - NotBlank: ~
-    receiverPhoneNumber:
+    receiverID:
       - NotBlank: ~
     paymentTime:
       - NotBlank: ~
