@@ -8,6 +8,7 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_client/client_routes.dart';
 import 'package:pasco_shipping/module_mark/mark_routes.dart';
 import 'package:pasco_shipping/module_receiver/receiver_routes.dart';
+import 'package:pasco_shipping/module_shipment_request/presistance/notifiyer.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_shipment_request/state_manager/request_shipment_state_manager/request_shipment_state_manager.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/screen/first_option.dart';
@@ -48,7 +49,7 @@ class _NewShipmentState extends State<NewShipment> {
     if(ModalRoute.of(context)!.settings.arguments == null){
       _shipmentRequestModel =
           ShipmentRequest(
-              '', 0,'', '', 0, '','',0,'',0, '', '', '', 0, '', '', '','','',0,[],'',false,'',0,'',0);
+              '', 0,'', '', 0, '','',0,'',0, '', '', '', 0, '', '', '','','',0,[],'',false,'',0,'',0,[]);
     }else{
       final arguments = ModalRoute.of(context)!.settings.arguments as Map;
       _shipmentRequestModel = arguments['shipment'];
@@ -121,7 +122,6 @@ class _NewShipmentState extends State<NewShipment> {
                       setState(() {
                         activeStep = activeStep - 1;
                         _optionsStreamController.add(activeStep);
-
                         SchedulerBinding.instance!.addPostFrameCallback((_) {
                           if (_controller.hasClients) {
                             _controller.animateTo(
@@ -155,7 +155,8 @@ class _NewShipmentState extends State<NewShipment> {
                       });
                     },
                     );
-                  } else {
+                  }
+                  else {
                     return ThirdOptions(stateManger: widget._stateManger,shipmentRequest:_shipmentRequestModel,
                         goBackStep:(){
                       setState(() {

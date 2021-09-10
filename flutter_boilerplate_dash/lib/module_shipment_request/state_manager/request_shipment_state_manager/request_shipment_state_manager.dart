@@ -1,5 +1,7 @@
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/module_airwaybill_specification/service/airwaybill_specification_service.dart';
 import 'package:pasco_shipping/module_client/service/client_service.dart';
+import 'package:pasco_shipping/module_container_specification/service/container_specification_service.dart';
 import 'package:pasco_shipping/module_distributors/service/distributors_service.dart';
 import 'package:pasco_shipping/module_mark/service/mark_service.dart';
 import 'package:pasco_shipping/module_receiver/request/receiver_filter_request.dart';
@@ -20,11 +22,14 @@ class RequestShipmentStateManger {
 
   final UnitService _unitService;
 
+  final ContainerSpecificationService _containerSpecificationService;
+  final AirwaybillSpecificationService _airwaybillSpecificationService;
+
   final PublishSubject<RequestShipmentState> _stateSubject = PublishSubject();
   Stream<RequestShipmentState> get stateStream => _stateSubject.stream;
 
   RequestShipmentStateManger(this._firstOptionService, this._markService,
-      this._clientService, this._distributorService, this._receiverService, this._unitService);
+      this._clientService, this._distributorService, this._receiverService, this._unitService, this._containerSpecificationService, this._airwaybillSpecificationService);
 
   void getFirstOption() {
     _stateSubject.add(LoadingState());
@@ -45,7 +50,7 @@ class RequestShipmentStateManger {
     });
   }
 
-  void getSecondOption() {
+  void getSecondOption(String shippingWay ,bool isExternal) {
     _stateSubject.add(LoadingState());
     _clientService.getClients().then((marks) {
       if (marks == null) {
@@ -53,7 +58,21 @@ class RequestShipmentStateManger {
       } else {
         _unitService.getUnits().then((units) {
           if(units != null){
-            _stateSubject.add(SecondOptionFetchingDataState(marks,units));
+            if(shippingWay == 'sea' && isExternal){
+              _containerSpecificationService.getContainerSpecification().then((specifications) {
+                if(specifications != null){
+                  _stateSubject.add(SecondOptionFetchingDataState(marks,units ,specifications));
+                }
+              });
+            }else if(shippingWay == 'air' && isExternal) {
+              _airwaybillSpecificationService.getAirwaybillSpecification().then((specifications) {
+                if(specifications != null){
+                  _stateSubject.add(SecondOptionFetchingDataState(marks,units ,specifications));
+                }
+              });
+            }else{
+              _stateSubject.add(SecondOptionFetchingDataState(marks,units ,[]));
+            }
           }else{
             _stateSubject.add(errorState('error connection'));
           }

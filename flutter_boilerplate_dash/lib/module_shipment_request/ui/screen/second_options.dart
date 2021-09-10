@@ -3,6 +3,8 @@ import 'package:pasco_shipping/module_client/client_routes.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_mark/mark_routes.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
+import 'package:pasco_shipping/module_shipment_request/presistance/notifiyer.dart';
+import 'package:pasco_shipping/module_shipment_request/response/specefication/specefication.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/utils/widget/text_edit.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
@@ -41,7 +43,7 @@ class _SecondOptionState extends State<SecondOption> {
         setState(() {});
       }
     });
-    widget.stateManger.getSecondOption();
+    widget.stateManger.getSecondOption(widget.shipmentRequest.transportationType ,widget.shipmentRequest.isExternalWarehouse);
   }
 
   @override
@@ -58,14 +60,15 @@ class _SecondOptionState extends State<SecondOption> {
     } else if (currentState is SecondOptionFetchingDataState) {
       SecondOptionFetchingDataState? state =
           currentState as SecondOptionFetchingDataState?;
-      return SecondOptionSuccessfully(marks: state!.marks,shipmentRequest: widget.shipmentRequest,
+      List<RequestedHolders> specificatios = state!.specifications.map((s) => RequestedHolders(name: s.name, specificationID: s.id,notes: '')).toList();
+      return SecondOptionSuccessfully(marks: state.marks,shipmentRequest: widget.shipmentRequest,
           goBackStep: () {
         widget.goBackStep();
       },goNextPage: () {
         widget.goNextStep();
       }, goToAddClient: (shipmentRequest){
         widget.goToAddClient(shipmentRequest);
-        }, units: state.units,);
+        }, units: state.units, specifications:specificatios,);
     } else {
       return Column(
         children: [

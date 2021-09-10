@@ -412,7 +412,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "welcome": MessageLookupByLibrary.simpleMessage("أهلا"),
         "width": MessageLookupByLibrary.simpleMessage("الوزن"),
         "widthInMeter": MessageLookupByLibrary.simpleMessage("العرض بالمتر"),
-        "writeDetails": MessageLookupByLibrary.simpleMessage(
-            "اكتب ملاحظة عن المرحلة التالية")
+        "writeDetails":
+            MessageLookupByLibrary.simpleMessage("اكتب ملاحظة عن هذه المرحلة")
       };
 }

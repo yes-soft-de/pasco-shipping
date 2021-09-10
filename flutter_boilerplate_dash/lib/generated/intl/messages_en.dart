@@ -239,7 +239,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "number": MessageLookupByLibrary.simpleMessage("number"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "otherData": MessageLookupByLibrary.simpleMessage("Other Data"),
-        "packingBy": MessageLookupByLibrary.simpleMessage("packing By"),
+        "packingBy": MessageLookupByLibrary.simpleMessage("Packing by"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordIsTooShort":
             MessageLookupByLibrary.simpleMessage("Password is too short"),
@@ -432,6 +432,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "widthInMeter":
             MessageLookupByLibrary.simpleMessage("Width In Meter: "),
         "writeDetails": MessageLookupByLibrary.simpleMessage(
-            "Write a Details about next status")
+            "Write a Details about this status")
       };
 }

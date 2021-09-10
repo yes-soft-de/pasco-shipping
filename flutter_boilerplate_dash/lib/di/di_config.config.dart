@@ -840,7 +840,9 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
           get<_i64.ClientService>(),
           get<_i77.DistributorService>(),
           get<_i112.ReceiverService>(),
-          get<_i139.UnitService>()));
+          get<_i139.UnitService>(),
+          get<_i69.ContainerSpecificationService>(),
+          get<_i180.AirwaybillSpecificationService>()));
   gh.factory<_i207.SettingsModule>(
       () => _i207.SettingsModule(get<_i117.SettingsScreen>()));
   gh.factory<_i208.SubContractServiceScreen>(() =>

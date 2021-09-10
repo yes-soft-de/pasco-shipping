@@ -2490,10 +2490,10 @@ class S {
     );
   }
 
-  /// `Write a Details about next status`
+  /// `Write a Details about this status`
   String get writeDetails {
     return Intl.message(
-      'Write a Details about next status',
+      'Write a Details about this status',
       name: 'writeDetails',
       desc: '',
       args: [],
@@ -2570,10 +2570,10 @@ class S {
     );
   }
 
-  /// `packing By`
+  /// `Packing by`
   String get packingBy {
     return Intl.message(
-      'packing By',
+      'Packing by',
       name: 'packingBy',
       desc: '',
       args: [],

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/holder_request_card.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/image_full_screen.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
@@ -27,6 +28,7 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.all(10.0),
@@ -187,16 +189,6 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
                         widget.shipment.holderType ,
                         style: AppTextStyle.smallBlueBold,
                       ))),
-              Expanded(
-                  child: ListTile(
-                      title: Text(
-                        S.of(context).holderCount,
-                        style: AppTextStyle.mediumBlack,
-                      ),
-                      subtitle: Text(
-                        widget.shipment.holderCount.toString(),
-                        style: AppTextStyle.smallBlueBold,
-                      ))),
             ],
           ),
           Divider(color: Colors.grey[300],thickness: 2,),
@@ -270,10 +262,42 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
               ),
             ],
           ),
+          Padding(
+            padding: const EdgeInsetsDirectional.only(start: 15),
+            child: Text(
+              S.of(context).holder,
+              style: AppTextStyle.mediumBlack,
+            ),
+          ),
+
+          widget.shipment.holders.isNotEmpty ?
+          ListView.builder(itemBuilder: (context , index){
+            return Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: InkWell(
+                onTap: (){
+                  widget.shipment.holders.removeAt(index);
+                  setState(() {});
+                },
+                child: Badge(
+                    badgeContent: Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: 15,
+                    ),
+                    child: RequestHolderCard(requestHolder:  widget.shipment.holders[index],)),
+              ),
+            );
+          },itemCount: widget.shipment.holders.length,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+          ) :Container(),
+
           widget.shipment.imageFilePath!.isNotEmpty ?
           GridView.count(
               shrinkWrap: true,
               crossAxisCount: 5,
+              physics: NeverScrollableScrollPhysics(),
               children: List.generate(widget.shipment.imageFilePath!.length, (index){
                 return InkWell(
                   onTap: (){
@@ -302,6 +326,7 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
                 style: AppTextStyle.smallBlueBold,
               )),
           RoundedButton(lable: S.of(context).submit, icon: '', color: blue, style: AppTextStyle.largeWhiteBold, go: (){
+           widget.shipment.holderCount = widget.shipment.holders.length;
             widget.onSubmit(widget.shipment);
           }, radius: 12)
 
