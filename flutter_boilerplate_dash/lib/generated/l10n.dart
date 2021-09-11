@@ -3009,6 +3009,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Request Air waybill`
+  String get requestAirwaybill {
+    return Intl.message(
+      'Request Air waybill',
+      name: 'requestAirwaybill',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `choose Air waybill `
+  String get chooseAirwaybill {
+    return Intl.message(
+      'choose Air waybill ',
+      name: 'chooseAirwaybill',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

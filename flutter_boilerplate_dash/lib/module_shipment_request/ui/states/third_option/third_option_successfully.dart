@@ -46,9 +46,9 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
   late String extra;
 
 
-  late Entry optionItemSelectedDist = Entry('choose', 0, []);
-  late Entry optionItemSelectedMarks = Entry('choose', 0, []);
-  late Entry optionItemSelectedReceiver = Entry('choose', 0, []);
+  late Entry optionItemSelectedDist;
+  late Entry optionItemSelectedMarks;
+  late Entry optionItemSelectedReceiver;
 
   late List<Entry> marksEntry;
   late List<Entry> distrbutorEntry;
@@ -71,8 +71,23 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
     } else {
       extra = 'Text...';
     }
+    if (widget.shipmentRequest.markId !=0) {
+      optionItemSelectedMarks = Entry(widget.shipmentRequest.markName, widget.shipmentRequest.markId, []);
+    } else {
+      optionItemSelectedMarks = Entry('choose', 0, []);
+    }
 
+    if (widget.shipmentRequest.receiverID !=0) {
+      optionItemSelectedReceiver = Entry(widget.shipmentRequest.receiverName, widget.shipmentRequest.receiverID, []);
+    } else {
+      optionItemSelectedReceiver = Entry('choose', 0, []);
+    }
 
+    if (widget.shipmentRequest.distributorID !=0) {
+      optionItemSelectedDist = Entry(widget.shipmentRequest.distributorName, widget.shipmentRequest.distributorID, []);
+    } else {
+      optionItemSelectedDist = Entry('choose', 0, []);
+    }
   }
 
 

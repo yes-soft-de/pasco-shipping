@@ -48,7 +48,7 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
             },
             icon: Icon(Icons.add_circle),
             label: Text(
-              S.of(context).requestContainer,
+             filterRequest.transportationType=='sea'? S.of(context).requestContainer :S.of(context).requestAirwaybill,
               style: AppTextStyle.mediumWhite,
             ),
           ) : ElevatedButton.icon(

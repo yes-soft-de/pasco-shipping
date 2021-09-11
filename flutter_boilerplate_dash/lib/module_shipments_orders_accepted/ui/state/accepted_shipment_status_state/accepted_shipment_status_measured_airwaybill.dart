@@ -216,7 +216,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                 width: 5,
               ),
               Text(
-                S.of(context).chooseContainer,
+                S.of(context).chooseAirwaybill,
                 style: AppTextStyle.mediumBlackBold,
               )
             ],

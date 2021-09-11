@@ -135,7 +135,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (context , index){
-            return holderCard(model.holders![index] ,context);
+            return holderCard(model.holders![index] ,context ,model.type!);
           },
             itemCount: model.holders!.length,
 
@@ -285,7 +285,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
 
   }
 
-  Widget holderCard(HolderModel holderModel ,BuildContext context){
+  Widget holderCard(HolderModel holderModel ,BuildContext context ,String type){
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Card(
@@ -305,7 +305,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text(S.of(context).containerNumber+': ', style: AppTextStyle.mediumBlack,),
+                  Text(type =='flight'? S.of(context).airwaybillNumber+': ' :S.of(context).containerNumber, style: AppTextStyle.mediumBlack,),
                   Text(holderModel.containerNumber ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
@@ -333,23 +333,19 @@ class TravelDetailsSuccessfully extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Text(S.of(context).consignee+': ' , style: AppTextStyle.mediumBlack,),
-                        Text(holderModel.consigneeName ?? '' , style: AppTextStyle.mediumBlueBold,),
-                      ],
-                    ),
-
-
-                    Row(children: [
-                      Text(S.of(context).shipper+': ', style: AppTextStyle.mediumBlack,),
-                      Text(holderModel.shipperName ?? '' , style: AppTextStyle.mediumBlueBold,),
-                    ],)
-
-                ],),
+                    Text(S.of(context).consignee+': ' , style: AppTextStyle.mediumBlack,),
+                    Text(holderModel.consigneeName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  ],
+                ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Text(S.of(context).shipper+': ', style: AppTextStyle.mediumBlack,),
+                  Text(holderModel.shipperName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                ],),
+              )
             ],
           ),
         ),

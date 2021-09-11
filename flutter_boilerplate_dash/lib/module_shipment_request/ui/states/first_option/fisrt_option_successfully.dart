@@ -117,29 +117,13 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
      optionItemSelectedF = Entry('choose', 0, []);
    }
 
-   // if(widget.shipmentRequest.productCategoryID !=0){
-   //   widget.categories.forEach((element) {
-   //     element.subs!.forEach((sub) {
-   //       if(sub.id == widget.shipmentRequest.productCategoryID) {
-   //         // sub.isSelected = true;
-   //         optionItemSelectedCategory = Entry(sub.name!, sub.id!, []);
-   //         // optionItemSelectedSubCategory =
-   //       } else {
-   //         // sub.isSelected = false;
-   //         optionItemSelectedCategory = Entry('choose', 0, []);
-   //
-   //       }
-   //     });
-   //
-   //   });
-   //
-   // } else {
-   //   // sub.isSelected = false;
-   //
-   //
-   // }
-    optionItemSelectedCategory = Entry('choose', 0, []);
-    optionItemSelectedSubCategory= Entry('choose', 0, []);
+   if(widget.shipmentRequest.productCategoryID !=0){
+     optionItemSelectedCategory=Entry(widget.shipmentRequest.productCategoryName, widget.shipmentRequest.productCategoryID, []);
+   } else {
+     optionItemSelectedCategory = Entry('choose', 0, []);
+   }
+    // optionItemSelectedCategory = Entry('choose', 0, []);
+    // optionItemSelectedSubCategory= Entry('choose', 0, []);
     shippingFrom = <Entry>[];
     shippingTo = <Entry>[];
     categories = <Entry>[];
@@ -479,7 +463,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                   S.of(context).quantity,
                   style: AppTextStyle.mediumBlackBold,
                 ),
-                NumberInputWithIncrementDecrement(initQuantity , (quantity ){
+                NumberInputWithIncrementDecrement(initQuantity , (quantity){
                   widget.shipmentRequest.quantity = quantity;
                 }),
               ],
