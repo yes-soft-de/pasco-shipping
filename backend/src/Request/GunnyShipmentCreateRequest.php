@@ -22,6 +22,11 @@ class GunnyShipmentCreateRequest
         return $this->gunnyID;
     }
 
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;

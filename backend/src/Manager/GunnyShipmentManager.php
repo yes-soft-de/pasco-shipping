@@ -16,14 +16,16 @@ class GunnyShipmentManager
     private $autoMapping;
     private $entityManager;
     private $gunnyManager;
+    private $shipmentOrderManager;
     private $gunnyShipmentEntityRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, GunnyShipmentEntityRepository $gunnyShipmentEntityRepository,
-    GunnyManager $gunnyManager)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, GunnyShipmentEntityRepository $gunnyShipmentEntityRepository, GunnyManager $gunnyManager,
+    ShipmentOrderManager $shipmentOrderManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->gunnyManager = $gunnyManager;
+        $this->shipmentOrderManager = $shipmentOrderManager;
         $this->gunnyShipmentEntityRepository = $gunnyShipmentEntityRepository;
     }
 
@@ -41,7 +43,12 @@ class GunnyShipmentManager
             $this->updateGunnyStatus($request->getGunnyID(), $request->getGunnyStatus(), $request->getCreatedBy());
         }
 
-        return $gunnyShipmentEntity;
+        //Check how much quantity does remain without pocketing into gunny
+        $result = $this->checkHowShipmentQuantityRemained($gunnyShipmentEntity->getShipmentID(), $request->getQuantity());
+
+        $result['gunnyShipment'] = $gunnyShipmentEntity;
+
+        return $result;
     }
 
     public function updateGunnyStatus($gunnyID, $status, $updatedBy)
@@ -53,6 +60,31 @@ class GunnyShipmentManager
         $gunnyStatusUpdateRequest->setUpdatedBy($updatedBy);
 
         $this->gunnyManager->updateStatus($gunnyStatusUpdateRequest);
+    }
+
+    public function checkHowShipmentQuantityRemained($shipmentID, $storedQuantity)
+    {
+        $result = [];
+
+        $shipment = $this->shipmentOrderManager->getShipmentOrderById($shipmentID);
+
+        if($shipment)
+        {
+            $remainedQuantity = $shipment['quantity'] - $storedQuantity;
+
+            if($remainedQuantity == 0)
+            {
+                $result['remainedQuantity'] = $remainedQuantity;
+                $result['completedStored'] = true;
+            }
+            elseif($remainedQuantity > 0)
+            {
+                $result['remainedQuantity'] = $remainedQuantity;
+                $result['completedStored'] = false;
+            }
+
+            return $result;
+        }
     }
 
     public function deleteGunnyShipmentById(DeleteRequest $request, $updatedGunnyStatusBy)

@@ -28,7 +28,7 @@ class GunnyShipmentService
     {
         $gunnyShipmentResult = $this->gunnyShipmentManager->create($request);
 
-        return $this->autoMapping->map(GunnyShipmentEntity::class, GunnyShipmentCreateResponse::class, $gunnyShipmentResult);
+        return $this->autoMapping->map('array', GunnyShipmentCreateResponse::class, $gunnyShipmentResult);
     }
 
     public function deleteGunnyShipmentById(DeleteRequest $request, $updatedGunnyStatusBy)
