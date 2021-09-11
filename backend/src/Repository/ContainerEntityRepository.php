@@ -98,7 +98,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.createdBy', 'container.carrierID',
             'container.shipperID', 'container.type', 'container.providedBy', 'container.shipmentID', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
             'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName',
-            'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage')
+            'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'container.clientUserID')
 
             ->andWhere('container.id = :id')
             ->setParameter('id', $id)
@@ -163,7 +163,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 ClientProfileEntity::class,
                 'clientProfileEntity',
                 Join::WITH,
-                'clientProfileEntity.userID = orderShipmentEntity.clientUserID'
+                'clientProfileEntity.userID = container.clientUserID'
             )
 
             ->getQuery()
@@ -171,10 +171,10 @@ class ContainerEntityRepository extends ServiceEntityRepository
     }
 
     public function filterContainers($specificationID, $containerNumber, $status, $type, $providedBy, $shipperID, $consigneeID,
-                                     $isExternalWarehouse, $shipmentID)
+                                     $isExternalWarehouse, $shipmentID, $clientUserID)
     {
         $query = $this->createQueryBuilder('container')
-            ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.shipmentID',
+            ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.shipmentID', 'container.clientUserID',
                 'container.shipperID', 'container.carrierID', 'container.type', 'container.providedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
                 'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName',
                 'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage')
@@ -239,7 +239,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 ClientProfileEntity::class,
                 'clientProfileEntity',
                 Join::WITH,
-                'clientProfileEntity.userID = orderShipmentEntity.clientUserID'
+                'clientProfileEntity.userID = container.clientUserID'
             )
 
             ->orderBy('container.id', 'DESC')
@@ -300,6 +300,12 @@ class ContainerEntityRepository extends ServiceEntityRepository
         elseif (isset($isExternalWarehouse) AND $isExternalWarehouse == false)
         {
             $query->andWhere("container.shipmentID IS NULL");
+        }
+
+        if($clientUserID)
+        {
+            $query->andWhere('container.clientUserID = :clientUserID');
+            $query->setParameter('clientUserID', $clientUserID);
         }
 
         return $query->getQuery()->getResult();

@@ -96,7 +96,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('airwaybill')
             ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.type', 'airwaybill.consigneeID',
-            'airwaybill.shipperID', 'airwaybill.providedBy', 'airwaybill.carrierID', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'airwaybillSepcification.name as specificationName', 'airwaybill.shipmentID',
+            'airwaybill.shipperID', 'airwaybill.providedBy', 'airwaybill.carrierID', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'airwaybillSepcification.name as specificationName', 'airwaybill.shipmentID', 'airwaybill.clientUserID',
             'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage', 'subcontractEntity.fullName as subcontractName',
             'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName',
             'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage')
@@ -164,7 +164,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
                 ClientProfileEntity::class,
                 'clientProfileEntity',
                 Join::WITH,
-                'clientProfileEntity.userID = orderShipmentEntity.clientUserID'
+                'clientProfileEntity.userID = airwaybill.clientUserID'
             )
 
             ->getQuery()
@@ -172,10 +172,10 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
     }
 
     public function filterAirWaybills($specificationID, $airwaybillNumber, $status, $type, $providedBy, $shipperID, $consigneeID,
-                                      $isExternalWarehouse, $shipmentID)
+                                      $isExternalWarehouse, $shipmentID, $clientUserID)
     {
         $query = $this->createQueryBuilder('airwaybill')
-            ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID',
+            ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID', 'airwaybill.clientUserID',
                 'airwaybill.shipmentID', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
                 'airwaybill.shipperID', 'airwaybill.carrierID', 'adminProfile2.userName as updatedByUserImage', 'airwaybill.providedBy', 'airwaybill.type', 'airwaybillSepcification.name as specificationName',
                 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName',
@@ -241,7 +241,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
                 ClientProfileEntity::class,
                 'clientProfileEntity',
                 Join::WITH,
-                'clientProfileEntity.userID = orderShipmentEntity.clientUserID'
+                'clientProfileEntity.userID = airwaybill.clientUserID'
             )
 
             ->orderBy('airwaybill.id', 'DESC')
@@ -302,6 +302,12 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
         {
             $query->andWhere('airwaybill.shipmentID = :shipmentID');
             $query->setParameter('shipmentID', $shipmentID);
+        }
+
+        if($clientUserID)
+        {
+            $query->andWhere('airwaybill.clientUserID = :clientUserID');
+            $query->setParameter('clientUserID', $clientUserID);
         }
 
         return $query->getQuery()->getResult();

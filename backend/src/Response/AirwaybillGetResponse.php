@@ -38,6 +38,8 @@ class AirwaybillGetResponse
 
     public $shipmentID;
 
+    public $clientUserID;
+
     public $shipments = [];
 
 }

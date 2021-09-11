@@ -24,6 +24,8 @@ class ContainerCreateRequest
 
     private $shipmentID;
 
+    private $clientUserID;
+
     public function setType($type)
     {
         $this->type = $type;
