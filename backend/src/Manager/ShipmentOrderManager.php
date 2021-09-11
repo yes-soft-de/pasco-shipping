@@ -61,6 +61,11 @@ class ShipmentOrderManager
 
         $orderShipmentEntity->setStatus(ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS);
 
+        if($request->getHolderCount() == null || $request->getHolderCount() == 0)
+        {
+            $orderShipmentEntity->setHolderCount(1);
+        }
+
         $this->entityManager->persist($orderShipmentEntity);
         $this->entityManager->flush();
         $this->entityManager->clear();
@@ -71,16 +76,7 @@ class ShipmentOrderManager
         // Insert the requested holders of the shipment
         if(count($request->getRequestedHolders()) > 0)
         {
-            $orderShipmentEntity->setHolderCount(count($request->getRequestedHolders()));
-
             $this->createPendingHolders($request->getRequestedHolders(), $orderShipmentEntity->getId());
-        }
-        else
-        {
-            if($request->getHolderCount() == null || $request->getHolderCount() == 0)
-            {
-                $orderShipmentEntity->setHolderCount(1);
-            }
         }
 
         return $orderShipmentEntity;
@@ -103,6 +99,12 @@ class ShipmentOrderManager
 
         // Insert the images of the shipment
         $this->insertImagesOfShipment($request->getImages(), $orderShipmentEntity->getId());
+
+        // Insert the requested holders of the shipment
+        if(count($request->getRequestedHolders()) > 0)
+        {
+            $this->createPendingHolders($request->getRequestedHolders(), $orderShipmentEntity->getId());
+        }
 
         return $orderShipmentEntity;
     }
