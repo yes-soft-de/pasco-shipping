@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\AutoMapping;
 use App\Constant\HolderTypeConstant;
+use App\Constant\ShipmentStatusConstant;
 use App\Entity\ShipmentStatusEntity;
 use App\Manager\ShipmentStatusManager;
 use App\Request\ShipmentStatusCreateRequest;
@@ -177,32 +178,21 @@ class ShipmentStatusService
     public function getShipmentByTrackNumberAndUserID($trackNumber, $userID)
     {
         $shipment = $this->shipmentStatusManager->getShipmentByTrackNumberAndUserID($trackNumber, $userID);
-        
-        // Get the shipment info from TrackEntity too
-        $trackResults = $this->trackService->getByShipmentIdAndTrackNumber($shipment['shipmentID'], $shipment['trackNumber']);
 
-        if($trackResults)
-        {
-            $shipment['tracks'] = $trackResults;
-        }
-        else
-        {
-            $shipment['tracks'] = [];
-        }
-        
+        // Get the shipment info from TrackEntity too
+        $shipment['tracks'] = $this->trackService->getByShipmentIdAndTrackNumber($shipment['shipmentID'], $shipment['trackNumber']);
+
+        // To show only specific shipment status for the client, we have to represent specific statuses by one status
+        // Ex: if status equals measured or stored or uploaded then the field will be 'received'
+        $shipment['shipmentStatus'] = $this->getSpecificShipmentStatus($shipment['shipmentStatus']);
+
         //Get shipment log
         if($shipment)
         {
-            $shipmentLog = $this->shipmentStatusManager->getShipmentLogByShipmentID($shipment['shipmentID']);
+            $shipmentLog = $this->shipmentStatusManager->getShipmentLogsByShipmentIdAndTrackNumber($shipment['shipmentID'], $shipment['trackNumber']);
 
-            if($shipmentLog)
-            {
-                $shipment['log'] = $shipmentLog;
-            }
-            else
-            {
-                $shipment['log'] = [];
-            }
+            // Before auto mapping, we have to check which status is passed and which is not
+            $shipment['log'] = $this->checkWhatStatusIsPassed($shipmentLog, ShipmentStatusConstant::$SHIPMENT_STATUS_FOR_CLIENT_ARRAY);
         }
 
         return $this->autoMapping->map('array', ShipmentByTrackNumberAndSignedInUserGetResponse::class, $shipment);
@@ -282,6 +272,86 @@ class ShipmentStatusService
         }
 
         return $shipmentResponse;
+    }
+
+    public function checkWhatStatusIsPassed($shipmentsLogs, $fullStates)
+    {
+        /**
+         * This function returns an array of the shipment states, and check each state
+         * which is passed and also defines what state doesn't passed yet
+         */
+        $shipmentsLogsResponse = [];
+
+        $log = [];
+
+        foreach ($fullStates as $state)
+        {
+            $result = $this->statusIsPassed($shipmentsLogs, $state);
+
+            if($result >= 0)
+            {
+                $shipmentsLogs[$result]['isPassed'] = true;
+
+                $shipmentsLogsResponse[] = $shipmentsLogs[$result];
+            }
+            elseif($result == -1)
+            {
+                if($state == "waiting")
+                {
+                    $log['isPassed'] = true;
+                }
+                else
+                {
+                    $log['isPassed'] = false;
+                }
+
+                $log['shipmentStatus'] = $state;
+
+                $shipmentsLogsResponse[] = $log;
+            }
+        }
+
+        return $shipmentsLogsResponse;
+    }
+
+    public function statusIsPassed($shipmentsLogs, $state)
+    {
+        /**
+         * This function search if a shipment status is exist in the shipment logs array
+         */
+        if($shipmentsLogs)
+        {
+            foreach ($shipmentsLogs as $key=>$val)
+            {
+                if($val['shipmentStatus'] == $state)
+                {
+                    return $key;
+                }
+            }
+
+            return -1;
+        }
+    }
+
+    public function getSpecificShipmentStatus($currentShipmentStatus)
+    {
+        /**
+         * This function checks the shipment status, if it is equal to a group of status then the function will return a specific status
+         * Ex: if status equals measured or stored or uploaded then the function will return 'received'
+         */
+        if($currentShipmentStatus == ShipmentStatusConstant::$SHIPMENT_STATUS_ARRAY[3] || $currentShipmentStatus == ShipmentStatusConstant::$SHIPMENT_STATUS_ARRAY[4] ||
+            $currentShipmentStatus == ShipmentStatusConstant::$SHIPMENT_STATUS_ARRAY[5])
+        {
+            return ShipmentStatusConstant::$RECEIVED_SHIPMENT_STATUS;
+        }
+        elseif($currentShipmentStatus == ShipmentStatusConstant::$SHIPMENT_STATUS_ARRAY[8] || $currentShipmentStatus == ShipmentStatusConstant::$SHIPMENT_STATUS_ARRAY[9])
+        {
+            return ShipmentStatusConstant::$RELEASED_SHIPMENT_STATUS;
+        }
+        else
+        {
+            return $currentShipmentStatus;
+        }
     }
 
 }

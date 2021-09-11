@@ -47,6 +47,35 @@ class ShipmentLogEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    // For track my shipment API
+    public function getShipmentLogsByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        return $this->createQueryBuilder('shipmentLog')
+            ->select('shipmentLog.id', 'shipmentLog.shipmentID', 'shipmentLog.trackNumber', 'shipmentLog.shipmentStatus', 'shipmentLog.createdAt', 'shipmentStatusEntity.statusDetails')
+
+            ->andWhere('shipmentLog.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->andWhere('shipmentLog.trackNumber = :trackNumber')
+            ->setParameter('trackNumber', $trackNumber)
+
+            ->orWhere("shipmentLog.shipmentStatus = 'waiting' AND shipmentLog.shipmentID = :shipmentID")
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->leftJoin(
+                ShipmentStatusEntity::class,
+                'shipmentStatusEntity',
+                Join::WITH,
+                'shipmentStatusEntity.shipmentID = shipmentLog.shipmentID AND shipmentStatusEntity.trackNumber = shipmentLog.trackNumber'
+            )
+
+            ->orderBy('shipmentLog.id', 'ASC')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    // For dashboard
     public function getAllShipmentLogsByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
         return $this->createQueryBuilder('shipmentLog')

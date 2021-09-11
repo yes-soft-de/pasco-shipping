@@ -4,7 +4,7 @@ namespace App\Response;
 
 class ShipmentByTrackNumberAndSignedInUserGetResponse
 {
-    public $tracks;
+    public $tracks = [];
 
     public $shipmentStatus;
 
@@ -36,7 +36,7 @@ class ShipmentByTrackNumberAndSignedInUserGetResponse
 
     public $guniQuantity;
 
-    public $log;
+    public $log = [];
 
     // external warehouse info
     public $externalWarehouseInfo;
