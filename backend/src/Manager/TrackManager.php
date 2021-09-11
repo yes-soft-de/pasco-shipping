@@ -269,7 +269,7 @@ class TrackManager
         {
             foreach ($tracks as $track)
             {
-                if(empty($holders))
+                if(count($holders) == 0)
                 {
                     // added first holder
                     $holders[] = $track;
@@ -282,7 +282,7 @@ class TrackManager
                         if($holder['holderType'] == $track['holderType'] && $holder['holderID'] == $track['holderID'])
                         {
                             // Do not add the holder
-                            continue;
+                            break;
                         }
                         else
                         {
