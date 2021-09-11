@@ -88,6 +88,9 @@ class ShipmentLogEntityRepository extends ServiceEntityRepository
             ->andWhere('shipmentLog.trackNumber = :trackNumber')
             ->setParameter('trackNumber', $trackNumber)
 
+            ->orWhere("shipmentLog.shipmentStatus = 'waiting' AND shipmentLog.shipmentID = :shipmentID")
+            ->setParameter('shipmentID', $shipmentID)
+
             ->leftJoin(
                 AdminProfileEntity::class,
                 'adminProfile',
