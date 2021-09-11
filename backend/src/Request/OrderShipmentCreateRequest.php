@@ -51,8 +51,6 @@ class OrderShipmentCreateRequest
     // public | private
     private $holderType;
 
-    private $holderCount;
-
     // external warehouse info
     private $externalWarehouseInfo;
 
