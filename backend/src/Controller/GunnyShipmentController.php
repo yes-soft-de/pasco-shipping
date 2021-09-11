@@ -45,7 +45,6 @@ class GunnyShipmentController extends BaseController
      *          @OA\Property(type="integer", property="shipmentID"),
      *          @OA\Property(type="string", property="trackNumber"),
      *          @OA\Property(type="integer", property="quantity"),
-     *          @OA\Property(type="string", property="unit"),
      *          @OA\Property(type="string", property="gunnyStatus")
      *      )
      * )

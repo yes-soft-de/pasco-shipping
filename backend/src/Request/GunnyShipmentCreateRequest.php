@@ -12,8 +12,6 @@ class GunnyShipmentCreateRequest
 
     private $quantity;
 
-    private $unit;
-
     // used to update the status of the gunny in Gunny entity
     private $gunnyStatus;
 

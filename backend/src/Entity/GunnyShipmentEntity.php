@@ -39,11 +39,6 @@ class GunnyShipmentEntity
     private $quantity;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $unit;
-
-    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
@@ -114,18 +109,6 @@ class GunnyShipmentEntity
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    public function getUnit(): ?string
-    {
-        return $this->unit;
-    }
-
-    public function setUnit(string $unit): self
-    {
-        $this->unit = $unit;
 
         return $this;
     }
