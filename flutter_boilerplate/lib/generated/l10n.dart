@@ -839,6 +839,556 @@ class S {
       args: [],
     );
   }
+
+  /// `Your Shipment Added Successfully`
+  String get shipmentAddSuccessfully {
+    return Intl.message(
+      'Your Shipment Added Successfully',
+      name: 'shipmentAddSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipping Way: `
+  String get shippingWay {
+    return Intl.message(
+      'Shipping Way: ',
+      name: 'shippingWay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Category: `
+  String get category {
+    return Intl.message(
+      'Category: ',
+      name: 'category',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SubCategory: `
+  String get subCategory {
+    return Intl.message(
+      'SubCategory: ',
+      name: 'subCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Supplier Info: `
+  String get supplierInfo {
+    return Intl.message(
+      'Supplier Info: ',
+      name: 'supplierInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accept`
+  String get accept {
+    return Intl.message(
+      'Accept',
+      name: 'accept',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reject`
+  String get reject {
+    return Intl.message(
+      'Reject',
+      name: 'reject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Extra specification: `
+  String get extraSpecification {
+    return Intl.message(
+      'Extra specification: ',
+      name: 'extraSpecification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Time: `
+  String get paymentTime {
+    return Intl.message(
+      'Payment Time: ',
+      name: 'paymentTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unit: `
+  String get unit {
+    return Intl.message(
+      'Unit: ',
+      name: 'unit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `External Warehouse Info: `
+  String get externalWarehouseInfo {
+    return Intl.message(
+      'External Warehouse Info: ',
+      name: 'externalWarehouseInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `is External Warehouse: `
+  String get isExternalWarehouse {
+    return Intl.message(
+      'is External Warehouse: ',
+      name: 'isExternalWarehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `One Second Please`
+  String get oneSecondPlease {
+    return Intl.message(
+      'One Second Please',
+      name: 'oneSecondPlease',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have a shipment waiting for confirmation, please confirm it first and then order a new shipment`
+  String get waitingConfirm {
+    return Intl.message(
+      'You have a shipment waiting for confirmation, please confirm it first and then order a new shipment',
+      name: 'waitingConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `later`
+  String get later {
+    return Intl.message(
+      'later',
+      name: 'later',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Mark Add`
+  String get noMarkAdd {
+    return Intl.message(
+      'No Mark Add',
+      name: 'noMarkAdd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Shipment waiting for confirmation`
+  String get noWaitingShipment {
+    return Intl.message(
+      'No Shipment waiting for confirmation',
+      name: 'noWaitingShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment waiting for confirmation`
+  String get waitingShipment {
+    return Intl.message(
+      'Shipment waiting for confirmation',
+      name: 'waitingShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Current Shipment`
+  String get noCurrentShipment {
+    return Intl.message(
+      'No Current Shipment',
+      name: 'noCurrentShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current Shipment`
+  String get currentShipment {
+    return Intl.message(
+      'Current Shipment',
+      name: 'currentShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No shipment Waiting for approval`
+  String get noWaitingApproveShipment {
+    return Intl.message(
+      'No shipment Waiting for approval',
+      name: 'noWaitingApproveShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Waiting for approval`
+  String get waitingApproveShipment {
+    return Intl.message(
+      'Waiting for approval',
+      name: 'waitingApproveShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Previous Shipments`
+  String get noPreviousShipment {
+    return Intl.message(
+      'No Previous Shipments',
+      name: 'noPreviousShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Previous Shipments`
+  String get previousShipment {
+    return Intl.message(
+      'Previous Shipments',
+      name: 'previousShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `you don't make any changes`
+  String get noChange {
+    return Intl.message(
+      'you don\'t make any changes',
+      name: 'noChange',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `next`
+  String get next {
+    return Intl.message(
+      'next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show Library`
+  String get showLibrary {
+    return Intl.message(
+      'Show Library',
+      name: 'showLibrary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Camera`
+  String get camera {
+    return Intl.message(
+      'Camera',
+      name: 'camera',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Warehouse Info`
+  String get warehouseInfo {
+    return Intl.message(
+      'Warehouse Info',
+      name: 'warehouseInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `in Local Warehouse`
+  String get inLocalWarehouse {
+    return Intl.message(
+      'in Local Warehouse',
+      name: 'inLocalWarehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `in External Warehouse`
+  String get inExternalWarehouse {
+    return Intl.message(
+      'in External Warehouse',
+      name: 'inExternalWarehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full name: `
+  String get fullName {
+    return Intl.message(
+      'Full name: ',
+      name: 'fullName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Address: `
+  String get address {
+    return Intl.message(
+      'Address: ',
+      name: 'address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `edit`
+  String get edit {
+    return Intl.message(
+      'edit',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `delete`
+  String get delete {
+    return Intl.message(
+      'delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add`
+  String get add {
+    return Intl.message(
+      'Add',
+      name: 'add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Receiver`
+  String get noReceiver {
+    return Intl.message(
+      'No Receiver',
+      name: 'noReceiver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Receivers`
+  String get receivers {
+    return Intl.message(
+      'Receivers',
+      name: 'receivers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vehicle identification number (if vehicle)`
+  String get vehicleNumber {
+    return Intl.message(
+      'Vehicle identification number (if vehicle)',
+      name: 'vehicleNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get back {
+    return Intl.message(
+      'Back',
+      name: 'back',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `holder count`
+  String get holderCount {
+    return Intl.message(
+      'holder count',
+      name: 'holderCount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Document Attached`
+  String get attached {
+    return Intl.message(
+      'Document Attached',
+      name: 'attached',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you really want to add this request`
+  String get confirmRequest {
+    return Intl.message(
+      'Do you really want to add this request',
+      name: 'confirmRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Serial Number`
+  String get serialNumber {
+    return Intl.message(
+      'Serial Number',
+      name: 'serialNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Track number`
+  String get trackNumber {
+    return Intl.message(
+      'Track number',
+      name: 'trackNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `History`
+  String get history {
+    return Intl.message(
+      'History',
+      name: 'history',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Active`
+  String get active {
+    return Intl.message(
+      'Active',
+      name: 'active',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Created at: `
+  String get createdAt {
+    return Intl.message(
+      'Created at: ',
+      name: 'createdAt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last Updated at :`
+  String get lastUpdated {
+    return Intl.message(
+      'Last Updated at :',
+      name: 'lastUpdated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Requested`
+  String get requested {
+    return Intl.message(
+      'Requested',
+      name: 'requested',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accepted`
+  String get accepted {
+    return Intl.message(
+      'Accepted',
+      name: 'accepted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Received in the warehouse`
+  String get received {
+    return Intl.message(
+      'Received in the warehouse',
+      name: 'received',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `start shipping`
+  String get start {
+    return Intl.message(
+      'start shipping',
+      name: 'start',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Arrived at the target city`
+  String get arrived {
+    return Intl.message(
+      'Arrived at the target city',
+      name: 'arrived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delivered`
+  String get delivered {
+    return Intl.message(
+      'Delivered',
+      name: 'delivered',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

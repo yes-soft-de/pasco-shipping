@@ -9,7 +9,7 @@ class FirstOptionService {
   final FirstOptionManager _manager;
   FirstOptionService(this._manager);
 
-  Future<List<Category>?> getCategories() {
+  Future<List<ProductModel>?> getCategories() {
     return _manager.getCategories();
   }
   Future<List<Countries>?> getWarehouse() {

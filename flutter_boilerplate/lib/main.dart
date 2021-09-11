@@ -32,6 +32,7 @@ import 'generated/l10n.dart';
 import 'hive/hive_init.dart';
 import 'module_intro/intro_routes.dart';
 import 'module_notifications/service/local_notification_service/local_notification_service.dart';
+import 'module_receiver/receiver_module.dart';
 import 'module_shipment_previous/shipment_previous_module.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -88,6 +89,8 @@ class MyApp extends StatefulWidget {
   final MyShipmentModule _myShipmentModule;
   final EditShipmentModule _editShipmentModule;
 
+  final ReceiverModule _receiverModule;
+
   MyApp(
       this._themeDataService,
       this._localizationService,
@@ -106,7 +109,8 @@ class MyApp extends StatefulWidget {
       this._trackingModule,
       this._myShipmentModule,
       this._editShipmentModule,
-      this._splashModule
+      this._splashModule,
+      this._receiverModule
       );
 
   @override

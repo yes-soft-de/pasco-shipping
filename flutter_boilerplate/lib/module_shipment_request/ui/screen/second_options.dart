@@ -57,7 +57,7 @@ class _SecondOptionState extends State<SecondOption> {
     } else if (currentState is SecondOptionFetchingDataState) {
       SecondOptionFetchingDataState? state =
           currentState as SecondOptionFetchingDataState?;
-      return SecondOptionSuccessfully(marks: state!.marks,shipmentRequest: widget._shipmentRequest,
+      return SecondOptionSuccessfully(marks: state!.marks, units: state.units,shipmentRequest: widget._shipmentRequest,
           goBackStep: () {
         widget.goBackStep();
       },goNextPage: () {

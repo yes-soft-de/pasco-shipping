@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_home/ui/screen/home_screen.dart';
 import 'package:pasco_shipping/module_notifications/ui/notification_screen.dart';
 import 'package:pasco_shipping/module_profile/service/profile_service.dart';
@@ -69,8 +70,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         currentIndex: currentIndex,
 
         items: [
-          FloatingNavbarItem(icon: Icons.home, title: 'Home'),
-          FloatingNavbarItem(icon: Icons.notifications_active_outlined, title: 'Notification'),
+          FloatingNavbarItem(icon: Icons.home, title: S.of(context).home),
+          FloatingNavbarItem(icon: Icons.bloodtype, title: S.of(context).notification),
           // FloatingNavbarItem(icon: Icons.chat_bubble_outline, title: 'Chats'),
           // FloatingNavbarItem(icon: Icons.settings, title: 'Settings'),
         ],

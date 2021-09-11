@@ -11,6 +11,7 @@ class AddShipmentRequest {
 
    String supplierName;
 
+   int receiverID;
    String receiverName;
    String receiverPhoneNumber;
 
@@ -25,10 +26,11 @@ class AddShipmentRequest {
    String extraSpecification;
 
    String holderType;
+   int? holderCount;
 
    bool isExternalWarehouse;
    String? externalWarehouseInfo;
-   String? imageFile;
+   List<String>? imageFilePath;
 
 
   Map<String, dynamic> toJson() => {
@@ -39,6 +41,7 @@ class AddShipmentRequest {
     "productCategoryID": productCategoryID,
 
     "unit": unit,
+    "receiverID":receiverID,
     "receiverName": receiverName,
     "receiverPhoneNumber": receiverPhoneNumber,
     "paymentTime": paymentTime,
@@ -47,10 +50,11 @@ class AddShipmentRequest {
     "vehicleIdentificationNumber": vehicleIdentificationNumber,
     "extraSpecification": extraSpecification,
     'holderType':holderType,
+    'holderCount':holderCount,
     'isExternalWarehouse':isExternalWarehouse,
     'externalWarehouseInfo':externalWarehouseInfo,
 
-    'image': imageFile,
+    'images': imageFilePath,
   };
 
    AddShipmentRequest({
@@ -60,6 +64,7 @@ class AddShipmentRequest {
      required     this.productCategoryID,
      required this.quantity,
      required   this.supplierName,
+     required this.receiverID,
      required  this.receiverName,
      required this.receiverPhoneNumber,
      required this.unit,
@@ -68,8 +73,9 @@ class AddShipmentRequest {
      required this.vehicleIdentificationNumber,
      required  this.extraSpecification,
      required this.holderType,
+     required this.holderCount,
     required this.isExternalWarehouse,
      this.externalWarehouseInfo,
 
-      this.imageFile});
+      this.imageFilePath});
 }

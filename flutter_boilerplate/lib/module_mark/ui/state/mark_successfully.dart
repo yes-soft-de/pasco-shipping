@@ -69,7 +69,7 @@ class MarkSuccessfullyScreen extends StatelessWidget {
               style: greyWhite14text,
             ),
           ),
-         items.isEmpty? Text('No Mark Yet' ,style: TextStyle(color: Colors.red),): ListView.builder(
+         items.isEmpty? Text(S.of(context).noMarkAdd ,style: TextStyle(color: Colors.red),): ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
               physics: NeverScrollableScrollPhysics(),

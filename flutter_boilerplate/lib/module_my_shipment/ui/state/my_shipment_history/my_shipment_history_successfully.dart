@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_my_shipment/response/my_active_shipment_response.dart';
 import 'package:pasco_shipping/module_my_shipment/response/my_history_shipment_response.dart';
 import 'package:pasco_shipping/module_my_shipment/ui/widget/shipment_card.dart';
@@ -19,11 +20,11 @@ class MyShipmentHistorySuccessfully extends StatelessWidget {
               padding:
                   const EdgeInsetsDirectional.only(start: 20, top: 10),
               child: Text(
-                'Previous shipments',
+                S.of(context).previousShipment,
                 style: greyWhite14text,
               ),
             ) :Container(),
-          shipments.isEmpty ?  Center(child: Text('No Previous Shipments',style: greyWhite14text,)):  ListView.builder(
+          shipments.isEmpty ?  Center(child: Text(S.of(context).noPreviousShipment,style: greyWhite14text,)):  ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 physics: NeverScrollableScrollPhysics(),

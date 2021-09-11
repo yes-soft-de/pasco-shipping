@@ -16,26 +16,31 @@ class EditShipmentStateManager {
 
   EditShipmentStateManager(this._editShipmentService , this._uploadService);
 
-  void addShipment(AddShipmentRequest request){
-    _stateSubject.add(LoadingState());
-    if(request.imageFile == null  || request.imageFile!.isEmpty){
-      _editShipmentService.addNewShipment(request).then((model) {
+  void upp(AddShipmentRequest request) {
+    print("End for");
+    _editShipmentService.addNewShipment(request).then((model) {
+      if(model.isConfirmed){
         _stateSubject.add(ConfirmedState(model));
-      });
-    }else {
-      _uploadService
-          .uploadImage(request.imageFile!).then((value) {
-        if (value != null) {
-          request.imageFile = value;
-          _editShipmentService.addNewShipment(request).then((model) {
-            _stateSubject.add(ConfirmedState(model));
-          });
-        }else{
-          ConfirmResponse response =ConfirmResponse(false, 'error Connation');
-          _stateSubject.add(ConfirmedState(response));
-        }
-      });
-    }
+      }else{
 
+      }
+    });
+  }
+  void addShipment(AddShipmentRequest request) async{
+    List<String> images = <String>[];
+    _stateSubject.add(LoadingState());
+    if(request.imageFilePath != null  && request.imageFilePath!.isNotEmpty){
+      for (String imagePath in request.imageFilePath!) {
+        print("INfOR");
+        await _uploadService.uploadImage(imagePath).then((value) {
+          if (value != null) {
+            print("IMAGEURL" + value);
+            images.add(value);
+          }
+        });
+      }
+  }
+    request.imageFilePath = images;
+    upp(request);
   }
 }

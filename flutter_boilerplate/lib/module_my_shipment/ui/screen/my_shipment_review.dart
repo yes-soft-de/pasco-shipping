@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_edit_shipment/ui/screen/image_full_screen.dart';
 import 'package:pasco_shipping/module_my_shipment/response/my_history_shipment_response.dart';
 import 'package:pasco_shipping/module_shipment_request/request_routes.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
@@ -28,90 +29,85 @@ class ReviewShipmentScreen extends StatelessWidget {
         child:
         Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 Expanded(child:
-                  ListTile(title: Text('Shipment type: ' , style: white18text,),
+                  ListTile(title: Text(S.of(context).shippingWay , style: white18text,),
                     subtitle: Text(shipment.transportationType?? '' ,style: basic14text,))),
               ],
             ),
             Row(
               children: [
-                Expanded(child: ListTile(title: Text('Shipment from: ' , style: white18text,), subtitle: Text(shipment.exportWarehouseName??'' ,style: basic14text,))),
-                Expanded(child: ListTile(title: Text('Shipment to: ' , style: white18text,), subtitle: Text( shipment.target??'',style: basic14text,))),
+                Expanded(child: ListTile(title: Text(S.of(context).shippingFrom , style: white18text,), subtitle: Text(shipment.exportWarehouseName??'' ,style: basic14text,))),
+                Expanded(child: ListTile(title: Text(S.of(context).shippingTo , style: white18text,), subtitle: Text( shipment.target??'',style: basic14text,))),
               ],
             ),
             Row(
               children: [
-                Expanded(child: ListTile(title: Text('Is External Warehouse: ' , style: white18text,), subtitle: Text(shipment.isExternalWarehouse.toString() ,style: basic14text,))),
-                Expanded(child: ListTile(title: Text('External Warehouse Info: ' , style: white18text,), subtitle: Text( shipment.externalWarehouseInfo??'',style: basic14text,))),
+                Expanded(child: ListTile(title: Text(S.of(context).isExternalWarehouse , style: white18text,), subtitle: Text(shipment.isExternalWarehouse.toString() ,style: basic14text,))),
+                Expanded(child: ListTile(title: Text(S.of(context).externalWarehouseInfo , style: white18text,), subtitle: Text( shipment.externalWarehouseInfo??'',style: basic14text,))),
               ],
             ),
             Row(
               children: [
-                Expanded(child: ListTile(title: Text('Product type: ' , style: white18text,), subtitle: Text(shipment.productCategoryName??'' ,style: basic14text,))),
-                Expanded(child: ListTile(title: Text('Quantity ' , style: white18text,), subtitle: Text(shipment.quantity.toString() ,style: basic14text,))),
+                Expanded(child: ListTile(title: Text(S.of(context).category , style: white18text,), subtitle: Text(shipment.productCategoryName??'' ,style: basic14text,))),
+                Expanded(child: ListTile(title: Text(S.of(context).subCategory , style: white18text,), subtitle: Text(shipment.subProductCategoryName.toString() ,style: basic14text,))),
               ],
             ),
-            ListTile(title: Text('Supplier Info: ' , style: white18text,), subtitle: Text(shipment.supplierName??'' ,style: basic14text,)),
             Row(
               children: [
-                Expanded(
-                  child: ListTile(title: Text('Recipient Info: ' ,
-                    style: white18text,)),
-                ),
-                Expanded(child: ListTile(title: Text('Name: ' , style: white18text,), subtitle: Text(shipment.receiverName??'' ,style: basic14text,))),
-                Expanded(child: ListTile(title: Text('Phone: ' , style: white18text,), subtitle: Text(shipment.receiverPhoneNumber??'' ,style: basic14text,))),
+                Expanded(child: ListTile(title: Text(S.of(context).quantity , style: white18text,), subtitle: Text(shipment.quantity.toString() ,style: basic14text,))),
+                Expanded(child: ListTile(title: Text(S.of(context).holderCount , style: white18text,), subtitle: Text( shipment.holderCount.toString(),style: basic14text,))),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(child: ListTile(title: Text(S.of(context).supplierInfo , style: white18text,), subtitle: Text(shipment.supplierName??'' ,style: basic14text,))),
+                Expanded(child: ListTile(title: Text(S.of(context).serialNumber , style: white18text,), subtitle: Text(shipment.clientIdentificationNumber??'' ,style: basic14text,))),
               ],
             ),
 
             Row(
               children: [
-                Flexible(
-                  flex: 2,
-                  child: Column(children: [
-                    ListTile(title: Text('Unit: ' , style: white18text,), subtitle: Text(shipment.unit??'' ,style: basic14text,)),
-                    ListTile(title: Text('Mark ' , style: white18text,), subtitle: Text(shipment.markNumber??'' ,style: basic14text,)),
-                    ListTile(title: Text('Payment time ' , style: white18text,), subtitle: Text(shipment.paymentTime??'' ,style: basic14text,)),
-                    ListTile(title: Text('Extra specification ' , style: white18text,), subtitle: Text(shipment.extraSpecification??'' ,style: basic14text,)),
-                  ],),
-                ),
-                Flexible(
-                    flex: 1,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(6.0),
-                          boxShadow: [
-                            BoxShadow(color: AppThemeDataService.AccentColor)
-                          ]),
-                      child:
-                      // shipment.imagePath != null
-                      //     ? Image.network(
-                      //   shipment.imagePath!,
-                      //   fit: BoxFit.cover,
-                      //   width: 100,
-                      //   height: 100,
-                      // )
-                      //     :
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child:shipment.imagePath!.isNotEmpty? SizedBox(
-                          width: 75,
-                            height: 75,
-                            child: Image.network(shipment.imagePath!)): IconButton(
-                          icon: Icon(Icons.camera_alt),
-                          iconSize: 50.0,
-                          onPressed: () {},
-                        ),
+                Expanded(child: ListTile(title: Text(S.of(context).unit , style: white18text,), subtitle: Text(shipment.unit??'' ,style: basic14text,))),
+                Expanded(child: ListTile(title: Text(S.of(context).mark , style: white18text,), subtitle: Text(shipment.markNumber??'' ,style: basic14text,))),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(child: ListTile(title: Text(S.of(context).paymentTime , style: white18text,), subtitle: Text(shipment.paymentTime??'' ,style: basic14text,))),
+                Expanded(child: ListTile(title: Text(S.of(context).extraSpecification , style: white18text,), subtitle: Text(shipment.extraSpecification??'' ,style: basic14text,))),
+              ],
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(S.of(context).attached ,style: white18text),
+            ),
+            shipment.imagePath!.isEmpty?Container(): GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 3,
+                physics: NeverScrollableScrollPhysics(),
+                children: List.generate(shipment.imagePath!.length, (index){
+                  return InkWell(
+                    onTap: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => FullImageScreen(shipment.imagePath![index].url , false)));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10,right: 5 ,left: 5),
+                      child: Image.network(
+                        shipment.imagePath![index].url,
+                        fit: BoxFit.fill,
+                        width: 100,
+                        height: 100,
                       ),
-                    ))
-              ],
+                    ),
+                  );
+                })
             ),
-
-
           ],
         ), title: S.of(context).reviewShipment,
         currentIndex: -1,

@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_mark/mark_routes.dart';
+import 'package:pasco_shipping/module_receiver/receiver_routes.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_shipment_request/state_manager/request_shipment_state_manager/request_shipment_state_manager.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/screen/first_option.dart';
@@ -46,7 +47,7 @@ class _NewShipmentState extends State<NewShipment> {
     if(ModalRoute.of(context)!.settings.arguments == null){
       _shipmentRequestModel =
           ShipmentTempRequest(
-              '', 0,'', '', 0, '',0, '', '', '', '', 0, '', '', '','','',false,'',null);
+              '', 0,'', '', 0, '',0, '',0, '', '', '', 0, '', '', '','','',0,[],false,'');
     }else{
       final arguments = ModalRoute.of(context)!.settings.arguments as Map;
       _shipmentRequestModel = arguments['shipment'];
@@ -151,7 +152,18 @@ class _NewShipmentState extends State<NewShipment> {
                         });
                   });
                 } else {
-                  return ThirdOptions(_shipmentRequestModel,(){
+                  return ThirdOption(shipmentRequest:
+                      _shipmentRequestModel,
+                      goReceiverPage: (){
+                        Navigator.pushNamed(context, ReceiverRoutes.Receiver).then((value) => {
+                          setState(() {
+                            activeStep = 0;
+                            _optionsStreamController.add(activeStep);
+                          })
+                        });
+                      },
+                      stateManger: widget._stateManger,
+                      goBackStep:(){
                     setState(() {
                       activeStep = activeStep - 1;
                       _optionsStreamController.add(activeStep);

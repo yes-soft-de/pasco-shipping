@@ -93,5 +93,80 @@
   "internalServerError": "هناك مشكلة ما في الخادم",
   "dataDecodeError": "هناك مشكلة في تفسير البيانات",
   "errorHappened": "حدث خطأ ما",
-  "registerSuccess": "تم تسجيل حسابك بنجاح"
+  "registerSuccess": "تم تسجيل حسابك بنجاح",
+
+
+  "shipmentAddSuccessfully": "تمت إضافة شحنتك بنجاح",
+  "shippingWay": "طريقة الشحن: ",
+  "category": "فئة رئيسية: ",
+  "subCategory": "فئةفرعيه: ",
+  "supplierInfo": "معلومات المورد: ",
+  "accept": "قبول",
+  "reject": "رفض",
+
+  "extraSpecification": "معلومات إضافية: ",
+  "paymentTime": "طريقة الدفع: ",
+  "unit": "الوحدة: ",
+  "externalWarehouseInfo": "معلومات المستودع الخارجي: ",
+  "isExternalWarehouse": "مستودع خارجي؟ ",
+
+  "oneSecondPlease": "لحظة من فضلك",
+  "waitingConfirm": "لديك شحنة تنتظر التأكيد ، يرجى تأكيدها أولاً ثم طلب شحنة جديدة",
+  "later": "لاحقا",
+  "noMarkAdd": "لم يتم إضافة علامات",
+
+  "noWaitingShipment": "لا يوجد شحنات تنتظر التأكيد",
+  "waitingShipment": "الشحنات في انتظار التأكيد",
+
+
+  "noCurrentShipment": "لا يوجد شحنات حالية",
+  "currentShipment": "الشحنات الحالية",
+
+  "noWaitingApproveShipment": "لا يوجد شحنات تنتظر الموافقة من الشركة",
+  "waitingApproveShipment": "الشحنات المُنتَظِرة الموافقة من الشركة",
+
+  "noPreviousShipment": "لا يوجد شحنات سابقة",
+  "previousShipment": "الشحنات السابقة",
+
+  "noChange": "لم تقم بإجراء أي تغييرات",
+
+  "next": "التالي",
+  "showLibrary": "المعرض",
+  "camera": "الكاميرا",
+  "warehouseInfo": "معلومات المستودع",
+  "inLocalWarehouse": "مستودع محلي",
+  "inExternalWarehouse": "مستودع خارجي",
+
+  "fullName": "الاسم: ",
+  "address": "العنوان: ",
+  "edit": "تعديل",
+  "delete": "حذف",
+
+  "add": "اضافة",
+  "noReceiver": "لا يوجد مستلمين",
+  "receivers": "المستلمون",
+
+  "vehicleNumber":"رقم  تعريف السيارة",
+  "back": "السابق",
+  "holderCount": "عدد الحاملات",
+
+  "attached" : "الوثائق المرفقة",
+  "confirmRequest": "هل تريد حقًا إضافة هذا الطلب",
+
+  "serialNumber": "الرقم السري",
+
+  "trackNumber": "رقم التتبع",
+  "history": "السابقة",
+  "active": "النشطة",
+
+  "createdAt": "أنشئ في: ",
+  "lastUpdated": "اخر تحديث في: ",
+
+
+  "requested": "طُلبت",
+  "accepted": "تم الموافقة",
+  "received": "تم الإستلام في المستودع",
+  "start": "بدأت الرحلة",
+  "arrived": "وصلت الى الدولة الهدف",
+  "delivered": "تم التسليم"
 }

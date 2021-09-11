@@ -1,5 +1,6 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_edit_shipment/edit_shipment_routes.dart';
 import 'package:pasco_shipping/module_my_shipment/my_shipment_routes.dart';
 import 'package:pasco_shipping/module_my_shipment/response/my_active_shipment_response.dart';
@@ -45,7 +46,7 @@ class ShipmentActiveCard extends StatelessWidget {
                 elevation: 5.0,
               ),
               Container(
-                width: 100,
+                width: 200,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -71,14 +72,27 @@ class ShipmentActiveCard extends StatelessWidget {
                           width: 2,
                         ),
                         // waiting ?
-                        Text(
-                          myShipment.shipmentStatus =='stored' ?'in warehouse' :myShipment.shipmentStatus!,
-                          style:waiting ? basic10text : greyWhite10text,
+                        Padding(
+                          padding: const EdgeInsetsDirectional.only(top: 5 ,bottom: 5),
+                          child: Text(
+                            myShipment.shipmentStatus =='stored' ?'in warehouse' :myShipment.shipmentStatus!,
+                            style:waiting ? basic10text : greyWhite14text,
+                          ),
                         ),
+
                         //     : Text(
                         //   'Delivered 1 month ago',
                         //   style: greyWhite10text,
                         // )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(S.of(context).trackNumber+': ' , style: white16text,),
+                        Text(
+                          myShipment.trackNumber ??'',
+                          style: basic14text,
+                        ),
                       ],
                     ),
                   ],
@@ -249,7 +263,7 @@ class _waitingShipmentCardState extends State<waitingShipmentCard> {
               ),
               ElevatedButton(onPressed: () {
                 _showDialog(context);
-               }, child: Text('Confirm' ,style: black14text,),style: ElevatedButton.styleFrom(
+               }, child: Text(S.of(context).confirm ,style: black14text,),style: ElevatedButton.styleFrom(
                 primary: AppThemeDataService.AccentColor,
 
               ),)
