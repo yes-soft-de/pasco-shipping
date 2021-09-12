@@ -4,8 +4,10 @@ namespace App\Response;
 
 class GunnyShipmentCreateResponse
 {
-    public $id;
+    public $remainedQuantity;
 
-    public $createdAt;
+    public $completedStored;
+
+    public $gunnyShipment;
 
 }

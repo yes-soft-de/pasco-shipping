@@ -519,8 +519,6 @@ App\Request\GunnyShipmentCreateRequest:
       - NotBlank: ~
     quantity:
       - NotBlank: ~
-    unit:
-      - NotBlank: ~
     createdBy:
       - NotBlank: ~
       

@@ -55,6 +55,12 @@ class ShipmentLogManager
         return $this->shipmentLogEntityRepository->getAllShipmentLogsByShipmentID($shipmentID);
     }
 
+    // For track my shipment API
+    public function getShipmentLogsByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        return $this->shipmentLogEntityRepository->getShipmentLogsByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+    }
+
     // For dashboard
     public function getAllShipmentLogsByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {

@@ -12,8 +12,6 @@ class GunnyShipmentCreateRequest
 
     private $quantity;
 
-    private $unit;
-
     // used to update the status of the gunny in Gunny entity
     private $gunnyStatus;
 
@@ -22,6 +20,11 @@ class GunnyShipmentCreateRequest
     public function getGunnyID()
     {
         return $this->gunnyID;
+    }
+
+    public function getQuantity()
+    {
+        return $this->quantity;
     }
 
     public function setCreatedBy($createdBy)

@@ -32,4 +32,8 @@ class ShipmentStatusConstant
         "waiting", "accepted", "received", "measured", "stored", "uploaded", "started", "released", "cleared", "arrived", "delivered"
     ];
 
+    static $SHIPMENT_STATUS_FOR_CLIENT_ARRAY = [
+        "waiting", "accepted", "received", "started", "released", "delivered"
+    ];
+
 }

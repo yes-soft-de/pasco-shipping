@@ -62,7 +62,7 @@ class ShipmentLogService
 
         $shipmentsLogs = $this->shipmentLogManager->getAllShipmentLogsByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
         
-        // Befor auotmaping, we have to chech which status is passed and which is not
+        // Before auto mapping, we have to check which status is passed and which is not
         $shipmentsLogsResult = $this->checkWhatStatusIsPassed($shipmentsLogs, ShipmentStatusConstant::$SHIPMENT_STATUS_ARRAY);
         
         foreach ($shipmentsLogsResult as $shipmentLog)
@@ -103,14 +103,7 @@ class ShipmentLogService
             }
             elseif($result == -1)
             {
-                if($state == "waiting")
-                {
-                    $log['isPassed'] = true;
-                }
-                else
-                {
-                    $log['isPassed'] = false;
-                }
+                $log['isPassed'] = false;
 
                 $log['shipmentStatus'] = $state;
 

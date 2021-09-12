@@ -219,6 +219,12 @@ class ShipmentStatusManager
         return $this->shipmentLogManager->getShipmentLogsByShipmentID($shipmentID);
     }
 
+    // For track my shipment API
+    public function getShipmentLogsByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        return $this->shipmentLogManager->getShipmentLogsByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+    }
+
     // For filter endpoint + delete shipment order
     public function getByShipmentID($shipmentID)
     {

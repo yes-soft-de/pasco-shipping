@@ -45,7 +45,6 @@ class GunnyShipmentController extends BaseController
      *          @OA\Property(type="integer", property="shipmentID"),
      *          @OA\Property(type="string", property="trackNumber"),
      *          @OA\Property(type="integer", property="quantity"),
-     *          @OA\Property(type="string", property="unit"),
      *          @OA\Property(type="string", property="gunnyStatus")
      *      )
      * )
@@ -57,8 +56,19 @@ class GunnyShipmentController extends BaseController
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
-     *              @OA\Property(type="integer", property="id"),
-     *              @OA\Property(type="object", property="createdAt")
+     *              @OA\Property(type="integer", property="remainedQuantity"),
+     *              @OA\Property(type="boolean", property="completedStored"),
+     *              @OA\Property(type="object", property="gunnyShipment",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="gunnyID"),
+     *                  @OA\Property(type="integer", property="shipmentID"),
+     *                  @OA\Property(type="string", property="trackNumber"),
+     *                  @OA\Property(type="integer", property="quantity"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="integer", property="createdBy"),
+     *                  @OA\Property(type="integer", property="updatedBy"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *              )
      *          )
      *      )
      * )

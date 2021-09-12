@@ -51,8 +51,6 @@ class OrderShipmentByDashboardCreateRequest
     // lcl | fcl
     private $holderType;
 
-    private $holderCount;
-
     // external warehouse info
     private $externalWarehouseInfo;
 

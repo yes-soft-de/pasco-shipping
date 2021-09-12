@@ -61,7 +61,11 @@ class ShipmentOrderManager
 
         $orderShipmentEntity->setStatus(ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS);
 
-        if($request->getHolderCount() == null || $request->getHolderCount() == 0)
+        if(count($request->getRequestedHolders()) > 0)
+        {
+            $orderShipmentEntity->setHolderCount(count($request->getRequestedHolders()));
+        }
+        elseif(count($request->getRequestedHolders() == 0))
         {
             $orderShipmentEntity->setHolderCount(1);
         }
@@ -86,7 +90,11 @@ class ShipmentOrderManager
     {
         $orderShipmentEntity = $this->autoMapping->map(OrderShipmentByDashboardCreateRequest::class, OrderShipmentEntity::class, $request);
 
-        if($request->getHolderCount() == null || $request->getHolderCount() == 0)
+        if(count($request->getRequestedHolders()) > 0)
+        {
+            $orderShipmentEntity->setHolderCount(count($request->getRequestedHolders()));
+        }
+        elseif(count($request->getRequestedHolders() == 0))
         {
             $orderShipmentEntity->setHolderCount(1);
         }
@@ -482,7 +490,7 @@ class ShipmentOrderManager
 
     public function insertImagesOfShipment($imagesArray, $shipmentID)
     {
-        if(is_array($imagesArray))
+        if(is_array($imagesArray) && count($imagesArray) > 0)
         {
             $imageRequest = new ImageCreateRequest();
 
