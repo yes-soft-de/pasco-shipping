@@ -82,7 +82,7 @@ class ContainerService
 
         if($container)
         {
-            if($container['shipmentID'] != null && $container['createdByUser'] == null)
+            if($container['createdByUser'] == null)
             {
                 $container['createdByUser'] = $container['clientUserName'];
 
@@ -116,7 +116,7 @@ class ContainerService
 
         foreach($containers as $container)
         {
-            if($container['shipmentID'] != null && $container['createdByUser'] == null)
+            if($container['createdByUser'] == null)
             {
                 $container['createdByUser'] = $container['clientUserName'];
 
