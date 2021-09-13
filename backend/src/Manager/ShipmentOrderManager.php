@@ -448,7 +448,7 @@ class ShipmentOrderManager
                 {
                     foreach($pendingHolders as $pendingHolder)
                     {
-                        $this->createFCLAirWaybill($orderShipmentEntity->getId(), $pendingHolder['specificationID']);
+                        $this->createFCLAirWaybill($orderShipmentEntity->getId(), $pendingHolder['specificationID'], $orderShipmentEntity->getClientUserID());
                     }
                 }
             }
@@ -461,29 +461,31 @@ class ShipmentOrderManager
                 {
                     foreach($pendingHolders as $pendingHolder)
                     {
-                        $this->createFCLContainer($orderShipmentEntity->getId(), $pendingHolder['specificationID']);
+                        $this->createFCLContainer($orderShipmentEntity->getId(), $pendingHolder['specificationID'], $orderShipmentEntity->getClientUserID());
                     }
                 }
             }
         }
     }
 
-    public function createFCLContainer($shipmentID, $specificationID)
+    public function createFCLContainer($shipmentID, $specificationID, $clientUserID)
     {
         $containerCreateRequest = new ContainerCreateRequest();
 
         $containerCreateRequest->setShipmentID($shipmentID);
         $containerCreateRequest->setSpecificationID($specificationID);
+        $containerCreateRequest->setClientUserID($clientUserID);
 
         $this->containerManager->createFCLContainer($containerCreateRequest);
     }
 
-    public function createFCLAirWaybill($shipmentID, $specificationID)
+    public function createFCLAirWaybill($shipmentID, $specificationID, $clientUserID)
     {
         $airWaybillCreateRequest = new AirwaybillCreateRequest();
 
         $airWaybillCreateRequest->setShipmentID($shipmentID);
         $airWaybillCreateRequest->setSpecificationID($specificationID);
+        $airWaybillCreateRequest->setClientUserID($clientUserID);
 
         $this->airWaybillManager->createFCLAirWaybill($airWaybillCreateRequest);
     }

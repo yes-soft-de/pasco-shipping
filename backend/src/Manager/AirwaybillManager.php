@@ -45,7 +45,7 @@ class AirwaybillManager
     {
         $airwaybillEntity = $this->autoMapping->map(AirwaybillCreateRequest::class, AirwaybillEntity::class, $request);
 
-        $airwaybillEntity->setStatus(AirwaybillStatusConstant::$FULL_AIRWAYBILL_STATUS);
+        $airwaybillEntity->setStatus(AirwaybillStatusConstant::$NOTFULL_AIRWAYBILL_STATUS);
         $airwaybillEntity->setType(ShippingTypeConstant::$FCL_SHIPPING_TYPE);
 
         $this->entityManager->persist($airwaybillEntity);
