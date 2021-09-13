@@ -61,11 +61,11 @@ class ShipmentOrderManager
 
         $orderShipmentEntity->setStatus(ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS);
 
-        if(count($request->getRequestedHolders()) > 0)
+        if(is_array($request->getRequestedHolders()) && count($request->getRequestedHolders()) > 0)
         {
             $orderShipmentEntity->setHolderCount(count($request->getRequestedHolders()));
         }
-        elseif(count($request->getRequestedHolders() == 0))
+        elseif(is_array($request->getRequestedHolders()) && empty($request->getRequestedHolders()))
         {
             $orderShipmentEntity->setHolderCount(1);
         }
@@ -90,11 +90,11 @@ class ShipmentOrderManager
     {
         $orderShipmentEntity = $this->autoMapping->map(OrderShipmentByDashboardCreateRequest::class, OrderShipmentEntity::class, $request);
 
-        if(count($request->getRequestedHolders()) > 0)
+        if(is_array($request->getRequestedHolders()) && count($request->getRequestedHolders()) > 0)
         {
             $orderShipmentEntity->setHolderCount(count($request->getRequestedHolders()));
         }
-        elseif(count($request->getRequestedHolders() == 0))
+        elseif(is_array($request->getRequestedHolders()) && empty($request->getRequestedHolders()))
         {
             $orderShipmentEntity->setHolderCount(1);
         }
