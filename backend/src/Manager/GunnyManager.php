@@ -8,6 +8,7 @@ use App\Entity\GunnyEntity;
 use App\Repository\GunnyEntityRepository;
 use App\Request\DeleteRequest;
 use App\Request\GunnyCreateRequest;
+use App\Request\GunnyFilterRequest;
 use App\Request\GunnyStatusUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -55,6 +56,11 @@ class GunnyManager
 
             return $gunnyEntity;
         }
+    }
+
+    public function filterGunnies(GunnyFilterRequest $request)
+    {
+        return $this->gunnyEntityRepository->filterGunnies($request->getIdentificationNumber(), $request->getStatus());
     }
 
     public function getGunnyStatusByGunnyID($gunnyID)

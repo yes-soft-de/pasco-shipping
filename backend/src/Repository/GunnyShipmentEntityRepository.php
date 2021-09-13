@@ -19,4 +19,16 @@ class GunnyShipmentEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, GunnyShipmentEntity::class);
     }
 
+    public function getSumQuantityByShipmentID($shipmentID)
+    {
+        return $this->createQueryBuilder('gunny_shipment_entity')
+            ->select('SUM(gunny_shipment_entity.quantity)')
+
+            ->andWhere('gunny_shipment_entity.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

@@ -82,7 +82,7 @@ class AirwaybillService
 
         if($airwaybill)
         {
-            if($airwaybill['shipmentID'] != null && $airwaybill['createdByUser'] == null)
+            if($airwaybill['createdByUser'] == null)
             {
                 $airwaybill['createdByUser'] = $airwaybill['clientUserName'];
 
@@ -116,7 +116,7 @@ class AirwaybillService
 
         foreach($airwaybills as $airwaybill)
         {
-            if($airwaybill['shipmentID'] != null && $airwaybill['createdByUser'] == null)
+            if($airwaybill['createdByUser'] == null)
             {
                 $airwaybill['createdByUser'] = $airwaybill['clientUserName'];
 

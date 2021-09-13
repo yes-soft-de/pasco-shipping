@@ -897,6 +897,7 @@ class ShipmentOrderController extends BaseController
      *                  ),
      *                  @OA\Property(type="text", property="externalWarehouseInfo"),
      *                  @OA\Property(type="boolean", property="isExternalWarehouse"),
+     *                  @OA\Property(type="integer", property="clientUserID"),
      *                  @OA\Property(type="string", property="clientUsername"),
      *                  @OA\Property(type="string", property="clientUserImage"),
      *                  @OA\Property(type="string", property="clientIdentificationNumber"),

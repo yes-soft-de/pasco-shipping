@@ -185,6 +185,21 @@ class WarehouseEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getWarehousesByCountryIdAndCity($countryID, $city)
+    {
+        return $this->createQueryBuilder('warehouse')
+            ->select('warehouse.id', 'warehouse.city', 'warehouse.countryID')
+
+            ->andWhere('warehouse.countryID = :countryID')
+            ->setParameter('countryID', $countryID)
+
+            ->andWhere('LOWER (warehouse.city) = :city')
+            ->setParameter('city', strtolower($city))
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getByProxyID($proxyID)
     {
         return $this->createQueryBuilder('warehouse')

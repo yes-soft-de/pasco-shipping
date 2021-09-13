@@ -6,6 +6,8 @@ class OrderShipmentGetResponse
 {
     public $id;
 
+    public $clientUserID;
+
     public $clientUsername;
 
     public $clientUserImage;

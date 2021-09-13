@@ -46,4 +46,9 @@ class AirwaybillCreateRequest
         $this->specificationID = $specificationID;
     }
 
+    public function setClientUserID($clientUserID)
+    {
+        $this->clientUserID = $clientUserID;
+    }
+
 }

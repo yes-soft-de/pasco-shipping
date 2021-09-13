@@ -22,6 +22,11 @@ class GunnyShipmentCreateRequest
         return $this->gunnyID;
     }
 
+    public function getShipmentID()
+    {
+        return $this->shipmentID;
+    }
+
     public function getQuantity()
     {
         return $this->quantity;
