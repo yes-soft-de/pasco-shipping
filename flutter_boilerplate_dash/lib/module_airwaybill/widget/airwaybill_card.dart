@@ -52,6 +52,13 @@ class _CountryCardState extends State<AirwaybillCard> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(
+                        '#'+widget.model.id.toString(),
+                        style: AppTextStyle.largeBlackBold,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
                       Row(
                         children: [
                           Text(

@@ -82,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseAirwaybill":
             MessageLookupByLibrary.simpleMessage("اختبر بوليصة الشحن الجوي "),
         "chooseContainer": MessageLookupByLibrary.simpleMessage("اختر حاوية"),
+        "chooseGunny": MessageLookupByLibrary.simpleMessage("اختر جوني"),
         "chooseTravel": MessageLookupByLibrary.simpleMessage("اختر الرحلة"),
         "city": MessageLookupByLibrary.simpleMessage("المدينة"),
         "cleared": MessageLookupByLibrary.simpleMessage("جمركة"),
@@ -89,6 +90,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "clients": MessageLookupByLibrary.simpleMessage("العملاء"),
         "companyOrPersonalName":
             MessageLookupByLibrary.simpleMessage("اسم الفرد/شركة"),
+        "completedStored": MessageLookupByLibrary.simpleMessage(
+            "الشحنة خُزنت بالكامل ضمن الجوني"),
         "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
         "confirmCode": MessageLookupByLibrary.simpleMessage("تأكيد الرمز"),
         "confirmPass": MessageLookupByLibrary.simpleMessage("تأكيد كلمة السر"),
@@ -163,6 +166,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "full": MessageLookupByLibrary.simpleMessage("ممتلئة"),
         "getStarted": MessageLookupByLibrary.simpleMessage("البدء"),
         "guniQuantity": MessageLookupByLibrary.simpleMessage("عدد الجوني"),
+        "gunnyFull": MessageLookupByLibrary.simpleMessage("امتلئ الجوني"),
+        "gunnyNumber": MessageLookupByLibrary.simpleMessage("رقم الجوني"),
         "haveSpace":
             MessageLookupByLibrary.simpleMessage("مازلت تمتلك بعض المساحة"),
         "heightInMeter":
@@ -205,6 +210,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "measured": MessageLookupByLibrary.simpleMessage("القياس"),
         "modifiedBy":
             MessageLookupByLibrary.simpleMessage("تم تعديله بواسطة: "),
+        "more": MessageLookupByLibrary.simpleMessage("المزيد"),
         "myPrevious": MessageLookupByLibrary.simpleMessage("علاماتي السابقة"),
         "myShipment": MessageLookupByLibrary.simpleMessage("شحناتي"),
         "name": MessageLookupByLibrary.simpleMessage("الاسم: "),
@@ -264,6 +270,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("هل تريد حقا رفض الشحنة؟"),
         "released": MessageLookupByLibrary.simpleMessage("وصلت"),
         "releasedTrip": MessageLookupByLibrary.simpleMessage("الرحلة وصلت"),
+        "remainedQuantity":
+            MessageLookupByLibrary.simpleMessage("العدد المتبقي"),
         "reports": MessageLookupByLibrary.simpleMessage("التقارير"),
         "requestAirwaybill":
             MessageLookupByLibrary.simpleMessage("طلب بوليصة شحن جوي"),

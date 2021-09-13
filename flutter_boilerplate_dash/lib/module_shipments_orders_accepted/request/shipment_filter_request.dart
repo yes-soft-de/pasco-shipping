@@ -5,6 +5,7 @@ class AcceptedShipmentFilterRequest{
   bool? isExternalWarehouse;
   int? exportWarehouseID;
   int? importWarehouseID;
+  int? clientUserID;
 
   String? paymentTime;
   // String? launchCountry;
@@ -18,7 +19,7 @@ class AcceptedShipmentFilterRequest{
 
 
 
-  AcceptedShipmentFilterRequest({  this.transportationType, this.trackNumber , this.status , this.isExternalWarehouse , this.exportWarehouseID , this.importWarehouseID , this.airWaybillNumber , this.dateTow , this.dateOne , this.paymentTime , this.targetCountry , this.containerNumber});
+  AcceptedShipmentFilterRequest({  this.transportationType, this.trackNumber , this.status , this.isExternalWarehouse , this.exportWarehouseID , this.importWarehouseID , this.airWaybillNumber , this.dateTow , this.dateOne , this.paymentTime , this.targetCountry , this.containerNumber , this.clientUserID});
 
   Map<String, dynamic> toJson() => {
     'trackNumber':trackNumber ??'',
@@ -36,6 +37,7 @@ class AcceptedShipmentFilterRequest{
     'dateOne':dateOne,
     'dateTow':dateTow,
     'containerNumber':containerNumber,
-    'airWaybillNumber':airWaybillNumber
+    'airWaybillNumber':airWaybillNumber,
+    'clientUserID':clientUserID
   };
 }

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_container/enums/container_status.dart';
 import 'package:pasco_shipping/module_container/request/container_request.dart';
 import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
@@ -17,8 +18,9 @@ import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 class RequestContainerInit extends StatefulWidget {
   final List<SubcontractModel> subContracts;
   final List<ContainerSpecificationModel> specifications;
+  final List<ClientModel> clients;
   final Function onSave;
-  const RequestContainerInit({ required this.onSave , required this.subContracts,required this.specifications});
+  const RequestContainerInit({ required this.onSave , required this.subContracts,required this.specifications,required this.clients});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
@@ -42,11 +44,15 @@ class _AddCountryInitState extends State<RequestContainerInit> {
  late DropListModel dropListModelCarrier;
  late Entry optionItemSelectedCarrier;
 
+ late DropListModel dropListModelClient;
+ late Entry optionItemSelectedClient;
+
  late List<Entry> entryProvidedBy;
  late List<Entry> entryConsignee;
  late List<Entry> entryShipper;
  late List<Entry> entryCarrier;
  late List<Entry> entrySpecification;
+ late List<Entry> entryClient;
 
  late String status;
  late String type;
@@ -58,6 +64,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
  late int specificationID;
 
  late int carrierID;
+ late int clientID;
 
  // TimeOfDay selectedTimeStart = TimeOfDay.now();
  // TimeOfDay selectedTimeEnd = TimeOfDay.now();
@@ -154,117 +161,133 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 ],
               ),
 
-              Padding(
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Row(children: [
+              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+              //     SizedBox(width: 5,),
+              //     Text(S.of(context).containerNumber , style: AppTextStyle.mediumBlackBold,)
+              //   ],),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.all(10.0),
+              //   child: Container(
+              //     padding: EdgeInsets.only(
+              //         top: 4,left: 16, right: 16, bottom: 4
+              //     ),
+              //     decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.all(
+              //             Radius.circular(15)
+              //         ),
+              //         color: Colors.white,
+              //         boxShadow: [
+              //           BoxShadow(
+              //               color: Colors.black12,
+              //               blurRadius: 5
+              //           )
+              //         ]
+              //     ),
+              //     child: TextField(
+              //
+              //       decoration: InputDecoration(
+              //         border: InputBorder.none,
+              //         hintText: S.of(context).number,
+              //       ),
+              //       controller: containerNumber,
+              //     ),
+              //   ),
+              // ),
+              //
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Row(children: [
+              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+              //     SizedBox(width: 5,),
+              //     Text(S.of(context).provided , style: AppTextStyle.mediumBlackBold,)
+              //   ],),
+              // ),
+              // SelectDropList(
+              //   this.optionItemSelectedProvidedBy,
+              //   this.dropListModelProvidedBy,
+              //       (optionItem) {
+              //         FocusScope.of(context).unfocus();
+              //     optionItemSelectedProvidedBy = optionItem;
+              //         providedByID = optionItem.id;
+              //     setState(() {});
+              //   },
+              // ),
+              //
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Row(children: [
+              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+              //     SizedBox(width: 5,),
+              //     Text(S.of(context).consignee , style: AppTextStyle.mediumBlackBold,)
+              //   ],),
+              // ),
+              // SelectDropList(
+              //   this.optionItemSelectedConsignee,
+              //   this.dropListModelConsignee,
+              //       (optionItem) {
+              //         optionItemSelectedConsignee = optionItem;
+              //     consigneeID = optionItem.id;
+              //     setState(() {});
+              //   },
+              // ),
+              //
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Row(children: [
+              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+              //     SizedBox(width: 5,),
+              //     Text(S.of(context).shipper , style: AppTextStyle.mediumBlackBold,)
+              //   ],),
+              // ),
+              // SelectDropList(
+              //   this.optionItemSelectedShipper,
+              //   this.dropListModelShipper,
+              //       (optionItem) {
+              //     optionItemSelectedShipper = optionItem;
+              //     shipperID = optionItem.id;
+              //     setState(() {});
+              //   },
+              // ),
+              //
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Row(children: [
+              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+              //     SizedBox(width: 5,),
+              //     Text(S.of(context).carrier , style: AppTextStyle.mediumBlackBold,)
+              //   ],),
+              // ),
+              // SelectDropList(
+              //   this.optionItemSelectedCarrier,
+              //   this.dropListModelCarrier,
+              //       (optionItem) {
+              //     optionItemSelectedCarrier= optionItem;
+              //     carrierID = optionItem.id;
+              //     setState(() {});
+              //   },
+              // ),
+
+              selectedRadioType==2 ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).containerNumber , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).client , style: AppTextStyle.mediumBlackBold,)
                 ],),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  padding: EdgeInsets.only(
-                      top: 4,left: 16, right: 16, bottom: 4
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(15)
-                      ),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 5
-                        )
-                      ]
-                  ),
-                  child: TextField(
-
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: S.of(context).number,
-                    ),
-                    controller: containerNumber,
-                  ),
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).provided , style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              SelectDropList(
-                this.optionItemSelectedProvidedBy,
-                this.dropListModelProvidedBy,
+              ) :Container(),
+              selectedRadioType==2 ? SelectDropList(
+                this.optionItemSelectedClient,
+                this.dropListModelClient,
                     (optionItem) {
-                      FocusScope.of(context).unfocus();
-                  optionItemSelectedProvidedBy = optionItem;
-                      providedByID = optionItem.id;
+                  optionItemSelectedClient= optionItem;
+                  clientID= optionItem.id;
                   setState(() {});
                 },
-              ),
-
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).consignee , style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              SelectDropList(
-                this.optionItemSelectedConsignee,
-                this.dropListModelConsignee,
-                    (optionItem) {
-                      optionItemSelectedConsignee = optionItem;
-                  consigneeID = optionItem.id;
-                  setState(() {});
-                },
-              ),
-
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).shipper , style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              SelectDropList(
-                this.optionItemSelectedShipper,
-                this.dropListModelShipper,
-                    (optionItem) {
-                  optionItemSelectedShipper = optionItem;
-                  shipperID = optionItem.id;
-                  setState(() {});
-                },
-              ),
-
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).carrier , style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              SelectDropList(
-                this.optionItemSelectedCarrier,
-                this.dropListModelCarrier,
-                    (optionItem) {
-                  optionItemSelectedCarrier= optionItem;
-                  carrierID = optionItem.id;
-                  setState(() {});
-                },
-              ),
-
-
+              ):Container(),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
@@ -293,7 +316,8 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                     shipperID: optionItemSelectedShipper.id,
                     carrierID: optionItemSelectedCarrier.id
                     ,containerNumber: containerNumber.text,
-                  providedBy: optionItemSelectedProvidedBy.id
+                  providedBy: optionItemSelectedProvidedBy.id,
+                  clientID: optionItemSelectedClient.id
                 );
                   widget.onSave(re);
 
@@ -313,6 +337,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
     entryShipper= <Entry>[];
     entryConsignee= <Entry>[];
     entryCarrier= <Entry>[];
+    entryClient= <Entry>[];
 
     entrySpecification = <Entry>[];
 
@@ -328,6 +353,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
     optionItemSelectedConsignee =  Entry('choose', 0, []);
     optionItemSelectedSpecification =  Entry('choose', 0, []);
     optionItemSelectedCarrier =  Entry('choose', 0, []);
+    optionItemSelectedClient =  Entry('choose', 0, []);
 
     initList();
 
@@ -352,6 +378,13 @@ class _AddCountryInitState extends State<RequestContainerInit> {
       entrySpecification.add(v);
     }
     dropListModelSpecification = DropListModel(entrySpecification);
+
+
+    for(ClientModel  item in widget.clients){
+      Entry v = Entry(item.userName! ,item.id! ,[]);
+      entryClient.add(v);
+    }
+    dropListModelClient = DropListModel(entryClient);
   }
 
  void _setSelectedRadioGender(int val) {

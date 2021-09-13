@@ -54,9 +54,11 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
                         S.of(context).supplierInfo,
                         style: AppTextStyle.mediumBlack,
                       ),
-                      Text(
-                        widget.shipment.supplierName ,
-                        style: AppTextStyle.smallBlueBold,
+                      Expanded(
+                        child: Text(
+                          widget.shipment.supplierName ,
+                          style: AppTextStyle.smallBlueBold,
+                        ),
                       )
                     ],
                   ),

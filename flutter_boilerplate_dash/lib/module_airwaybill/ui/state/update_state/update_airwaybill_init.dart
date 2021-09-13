@@ -93,104 +93,106 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).airwaybillType, style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).shippingType, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  widget.model.shipmentID != null ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: AppThemeDataService.AccentColor,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
-                        ),
-                        onPressed: () {
-                        },
-                        child: Row(
-                          children: [
-                            Radio(
-                              onChanged: (value) {
-                                _setSelectedRadioGender(2);
-                              },
-                              value: 2,
-                              groupValue: selectedRadioType,
-                              activeColor: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              S.of(context).FCL,
-                              style: AppTextStyle.mediumWhite,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ):
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: AppThemeDataService.AccentColor,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
-                        ),
-                        onPressed: () {
-                        },
-                        child: Row(
-                          children: [
-                            Radio(
-                              onChanged: (value) {
-                                _setSelectedRadioGender(2);
-                              },
-                              value: 2,
-                              groupValue: selectedRadioType,
-                              activeColor: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              S.of(context).FCL,
-                              style: AppTextStyle.mediumWhite,
-                            ),
-                          ],
-                        ),
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: AppThemeDataService.AccentColor,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
-                        ),
-                        onPressed: () {
-                        },
-                        child: Row(
-                          children: [
-                            Radio(
-                              onChanged: (value) {
-                                _setSelectedRadioGender(1);
-                              },
-                              value: 1,
-                              groupValue: selectedRadioType,
-                              activeColor: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              S.of(context).LCL,
-                              style: AppTextStyle.mediumWhite,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],),
-                ],
-              ),
+              Text(widget.model.type??'' , style: AppTextStyle.mediumBlue,),
+              //
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //   children: [
+              //     widget.model.shipmentID != null ? Row(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       children: [
+              //         ElevatedButton(
+              //           style: ElevatedButton.styleFrom(
+              //               primary: AppThemeDataService.AccentColor,
+              //               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+              //           ),
+              //           onPressed: () {
+              //           },
+              //           child: Row(
+              //             children: [
+              //               Radio(
+              //                 onChanged: (value) {
+              //                   _setSelectedRadioGender(2);
+              //                 },
+              //                 value: 2,
+              //                 groupValue: selectedRadioType,
+              //                 activeColor: Colors.white,
+              //               ),
+              //               SizedBox(
+              //                 width: 5,
+              //               ),
+              //               Text(
+              //                 S.of(context).FCL,
+              //                 style: AppTextStyle.mediumWhite,
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       ],
+              //     ):
+              //     Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //       children: [
+              //         ElevatedButton(
+              //           style: ElevatedButton.styleFrom(
+              //               primary: AppThemeDataService.AccentColor,
+              //               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+              //           ),
+              //           onPressed: () {
+              //           },
+              //           child: Row(
+              //             children: [
+              //               Radio(
+              //                 onChanged: (value) {
+              //                   _setSelectedRadioGender(2);
+              //                 },
+              //                 value: 2,
+              //                 groupValue: selectedRadioType,
+              //                 activeColor: Colors.white,
+              //               ),
+              //               SizedBox(
+              //                 width: 5,
+              //               ),
+              //               Text(
+              //                 S.of(context).FCL,
+              //                 style: AppTextStyle.mediumWhite,
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //         ElevatedButton(
+              //           style: ElevatedButton.styleFrom(
+              //               primary: AppThemeDataService.AccentColor,
+              //               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+              //           ),
+              //           onPressed: () {
+              //           },
+              //           child: Row(
+              //             children: [
+              //               Radio(
+              //                 onChanged: (value) {
+              //                   _setSelectedRadioGender(1);
+              //                 },
+              //                 value: 1,
+              //                 groupValue: selectedRadioType,
+              //                 activeColor: Colors.white,
+              //               ),
+              //               SizedBox(
+              //                 width: 5,
+              //               ),
+              //               Text(
+              //                 S.of(context).LCL,
+              //                 style: AppTextStyle.mediumWhite,
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       ],),
+              //   ],
+              // ),
 
               Padding(
                 padding: const EdgeInsets.all(8.0),

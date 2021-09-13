@@ -355,5 +355,12 @@
 
 
   "requestAirwaybill": "طلب بوليصة شحن جوي",
-  "chooseAirwaybill": "اختبر بوليصة الشحن الجوي "
+  "chooseAirwaybill": "اختبر بوليصة الشحن الجوي ",
+
+  "chooseGunny": "اختر جوني",
+  "gunnyNumber": "رقم الجوني",
+  "gunnyFull": "امتلئ الجوني",
+  "completedStored": "الشحنة خُزنت بالكامل ضمن الجوني",
+  "remainedQuantity": "العدد المتبقي",
+  "more": "المزيد"
 }

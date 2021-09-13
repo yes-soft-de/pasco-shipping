@@ -8,6 +8,7 @@ class ContainerFilterRequest {
   int? consigneeID;
   int? specificationID;
   int? shipmentID;
+  int? clientUserID;
 
   bool? isExternalWarehouse;
 
@@ -20,7 +21,8 @@ class ContainerFilterRequest {
     this.shipperID,
     this.specificationID,
     this.isExternalWarehouse,
-    this.shipmentID
+    this.shipmentID,
+    this.clientUserID
 
   });
 
@@ -34,7 +36,8 @@ class ContainerFilterRequest {
       'specificationID': specificationID ?? 0,
       'containerNumber':containerNumber ??'',
       'isExternalWarehouse':isExternalWarehouse,
-      'shipmentID':shipmentID
+      'shipmentID':shipmentID,
+      'clientUserID':clientUserID
     };
   }
 }

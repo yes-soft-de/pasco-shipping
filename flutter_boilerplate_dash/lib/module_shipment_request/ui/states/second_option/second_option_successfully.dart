@@ -39,7 +39,8 @@ class SecondOptionSuccessfully extends StatefulWidget {
 class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
 
   DropListModel dropListModelTime = DropListModel(dataTime);
-  DropListModel dropListModelHolderType = DropListModel(holderType);
+  DropListModel dropListModelHolderTypeLocal = DropListModel(holderTypeLocal);
+  DropListModel dropListModelHolderTypeEx = DropListModel(holderTypeEx);
   late Entry optionItemSelectedTim = Entry('choose', 0, []);
   late Entry optionItemSelectedType = Entry('choose', 0, []);
 
@@ -190,7 +191,8 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
             Expanded(
               child: SelectDropList(
                 this.optionItemSelectedType,
-                this.dropListModelHolderType,
+               widget.shipmentRequest.isExternalWarehouse?
+               this.dropListModelHolderTypeEx :this.dropListModelHolderTypeLocal,
                     (optionItem) {
                   optionItemSelectedType = optionItem;
                   widget.shipmentRequest.holderType = optionItem.title;

@@ -11,6 +11,7 @@ class AirwaybillRequest {
   int consigneeID;
   int providedBy;
   int carrierID;
+  int? clientID;
 
   AirwaybillRequest(
       {
@@ -23,7 +24,10 @@ class AirwaybillRequest {
       required this.consigneeID,
       required this.providedBy,
         required this.carrierID,
-      required this.shipperID});
+      required this.shipperID,
+        this.clientID
+
+      });
 
   Map<String, dynamic> toJson() {
     if (id == null) {
@@ -35,6 +39,7 @@ class AirwaybillRequest {
         'consigneeID': consigneeID,
         'shipperID': shipperID,
         'carrierID': carrierID,
+        'clientUserID': clientID,
         'status': status
       };
     } else {
@@ -47,6 +52,7 @@ class AirwaybillRequest {
         'consigneeID': consigneeID,
         'shipperID': shipperID,
         'carrierID': carrierID,
+        'clientUserID': clientID,
         'status': status
       };
     }

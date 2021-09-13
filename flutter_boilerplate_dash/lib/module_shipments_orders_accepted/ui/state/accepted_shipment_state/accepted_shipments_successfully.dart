@@ -56,7 +56,7 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
               primary: Colors.blue[800],
             ),
             onPressed: () async {
-              final pdfFile = await PdfParagraphApi.generate(items.data!);
+              final pdfFile = await PdfParagraphApi.generateShipmentReport(items.data!);
 
               PdfParagraphApi.openFile(pdfFile);
             },

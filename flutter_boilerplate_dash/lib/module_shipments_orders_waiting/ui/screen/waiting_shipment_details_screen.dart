@@ -49,7 +49,7 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    shipmentModel = WaitingShipmentModel(isExternalWarehouse: false);
+    shipmentModel = WaitingShipmentModel(isExternalWarehouse: false,pendingHolders: []);
     currentState = initDetailsState(shipmentModel);
     widget._stateManager.stateStream.listen((event) {
       print("newEvent"+event.toString());

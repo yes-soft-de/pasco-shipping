@@ -96,96 +96,97 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
                   Text(S.of(context).shippingType, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
-              widget.model.shipmentID != null ? Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: AppThemeDataService.AccentColor,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
-                    ),
-                    onPressed: () {
-                    },
-                    child: Row(
-                      children: [
-                        Radio(
-                          onChanged: (value) {
-                            _setSelectedRadioGender(2);
-                          },
-                          value: 2,
-                          groupValue: selectedRadioType,
-                          activeColor: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          S.of(context).FCL,
-                          style: AppTextStyle.mediumWhite,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ):
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-               primary: AppThemeDataService.AccentColor,
-               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
-            ),
-            onPressed: () {
-            },
-            child: Row(
-              children: [
-               Radio(
-                 onChanged: (value) {
-                   _setSelectedRadioGender(2);
-                 },
-                 value: 2,
-                 groupValue: selectedRadioType,
-                 activeColor: Colors.white,
-               ),
-               SizedBox(
-                 width: 5,
-               ),
-               Text(
-                 S.of(context).FCL,
-                 style: AppTextStyle.mediumWhite,
-               ),
-              ],
-            ),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-               primary: AppThemeDataService.AccentColor,
-               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
-            ),
-            onPressed: () {
-            },
-            child: Row(
-              children: [
-               Radio(
-                 onChanged: (value) {
-                   _setSelectedRadioGender(1);
-                 },
-                 value: 1,
-                 groupValue: selectedRadioType,
-                 activeColor: Colors.white,
-               ),
-               SizedBox(
-                 width: 5,
-               ),
-               Text(
-                 S.of(context).LCL,
-                 style: AppTextStyle.mediumWhite,
-               ),
-              ],
-            ),
-          ),
-          ],),
+                Text(widget.model.type??'' , style: AppTextStyle.mediumBlue,),
+        //       widget.model.shipmentID != null ? Row(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: [
+        //           ElevatedButton(
+        //             style: ElevatedButton.styleFrom(
+        //                 primary: AppThemeDataService.AccentColor,
+        //                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+        //             ),
+        //             onPressed: () {
+        //             },
+        //             child: Row(
+        //               children: [
+        //                 Radio(
+        //                   onChanged: (value) {
+        //                     _setSelectedRadioGender(2);
+        //                   },
+        //                   value: 2,
+        //                   groupValue: selectedRadioType,
+        //                   activeColor: Colors.white,
+        //                 ),
+        //                 SizedBox(
+        //                   width: 5,
+        //                 ),
+        //                 Text(
+        //                   S.of(context).FCL,
+        //                   style: AppTextStyle.mediumWhite,
+        //                 ),
+        //               ],
+        //             ),
+        //           ),
+        //         ],
+        //       ):
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //   children: [
+        //   ElevatedButton(
+        //     style: ElevatedButton.styleFrom(
+        //        primary: AppThemeDataService.AccentColor,
+        //        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+        //     ),
+        //     onPressed: () {
+        //     },
+        //     child: Row(
+        //       children: [
+        //        Radio(
+        //          onChanged: (value) {
+        //            _setSelectedRadioGender(2);
+        //          },
+        //          value: 2,
+        //          groupValue: selectedRadioType,
+        //          activeColor: Colors.white,
+        //        ),
+        //        SizedBox(
+        //          width: 5,
+        //        ),
+        //        Text(
+        //          S.of(context).FCL,
+        //          style: AppTextStyle.mediumWhite,
+        //        ),
+        //       ],
+        //     ),
+        //   ),
+        //   ElevatedButton(
+        //     style: ElevatedButton.styleFrom(
+        //        primary: AppThemeDataService.AccentColor,
+        //        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+        //     ),
+        //     onPressed: () {
+        //     },
+        //     child: Row(
+        //       children: [
+        //        Radio(
+        //          onChanged: (value) {
+        //            _setSelectedRadioGender(1);
+        //          },
+        //          value: 1,
+        //          groupValue: selectedRadioType,
+        //          activeColor: Colors.white,
+        //        ),
+        //        SizedBox(
+        //          width: 5,
+        //        ),
+        //        Text(
+        //          S.of(context).LCL,
+        //          style: AppTextStyle.mediumWhite,
+        //        ),
+        //       ],
+        //     ),
+        //   ),
+        //   ],),
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -354,14 +355,16 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
     containerNumber..text = widget.model.containerNumber??'';
 
     status= widget.model.status!;
+    type= widget.model.type!;
 
-    if(widget.model.type =='LCL'){
-      selectedRadioType = 1;
-      type = ContainerTypeName[ContainerType.PUBLIC]!;
-    }else{
-      selectedRadioType = 2;
-      type = ContainerTypeName[ContainerType.PRIVATE]!;
-    }
+
+    // if(widget.model.type =='LCL'){
+    //   selectedRadioType = 1;
+    //   type = ContainerTypeName[ContainerType.PUBLIC]!;
+    // }else{
+    //   selectedRadioType = 2;
+    //   type = ContainerTypeName[ContainerType.PRIVATE]!;
+    // }
 
 
     optionItemSelectedProvidedBy =  Entry('choose', 0, []);

@@ -3029,6 +3029,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Choose Gunny`
+  String get chooseGunny {
+    return Intl.message(
+      'Choose Gunny',
+      name: 'chooseGunny',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gunny Number`
+  String get gunnyNumber {
+    return Intl.message(
+      'Gunny Number',
+      name: 'gunnyNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gunny is full`
+  String get gunnyFull {
+    return Intl.message(
+      'Gunny is full',
+      name: 'gunnyFull',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment Stored completely in Gunny`
+  String get completedStored {
+    return Intl.message(
+      'Shipment Stored completely in Gunny',
+      name: 'completedStored',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remained Quantity`
+  String get remainedQuantity {
+    return Intl.message(
+      'Remained Quantity',
+      name: 'remainedQuantity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More`
+  String get more {
+    return Intl.message(
+      'More',
+      name: 'more',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

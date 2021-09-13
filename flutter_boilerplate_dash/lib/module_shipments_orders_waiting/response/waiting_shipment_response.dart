@@ -70,7 +70,8 @@ class WaitingShipmentModel {
     this.holderType,
     this.imagePath,
     this.externalWarehouseInfo,
-    required this.isExternalWarehouse
+    required this.isExternalWarehouse,
+   required this.pendingHolders
   });
 
   int? shipmentId;
@@ -108,6 +109,7 @@ class WaitingShipmentModel {
 
   DateTime? createdAt;
   String? updatedByUser;
+  List<PendingHolders> pendingHolders;
 
   factory WaitingShipmentModel.fromJson(Map<String, dynamic> json) =>
       WaitingShipmentModel(
@@ -137,7 +139,8 @@ class WaitingShipmentModel {
         holderType: json['holderType'],
         imagePath: List<ImagePa>.from(json['images'].map((x) => ImagePa.fromJson(x))),
         isExternalWarehouse: json['isExternalWarehouse'],
-        externalWarehouseInfo: json['externalWarehouseInfo'] ??''
+        externalWarehouseInfo: json['externalWarehouseInfo'] ??'',
+        pendingHolders:List<PendingHolders>.from(json['pendingHolders'].map((x) => PendingHolders.fromJson(x))),
 
 
       );
@@ -165,4 +168,23 @@ class ImagePa {
     id: json['id'],
     url: json['image'],
   );
+}
+
+class PendingHolders {
+  int? id;
+  int? shipmentID;
+  int? specificationID;
+  String? specificationName;
+  String? notes;
+
+  PendingHolders({required this.id,required this.shipmentID,required this.specificationID,
+     required this.specificationName, this.notes});
+
+  PendingHolders.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    shipmentID = json['shipmentID'];
+    specificationID = json['specificationID'];
+    specificationName = json['specificationName'];
+    notes = json['notes'];
+  }
 }

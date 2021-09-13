@@ -256,6 +256,6 @@ class RequestedHolders{
   Map<String, dynamic> toJson() => {
     'specificationID': specificationID,
     'notes': notes,
-    'name':name
+    'specificationName':name
   };
 }
