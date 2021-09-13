@@ -6,8 +6,6 @@ class GunnyShipmentCreateResponse
 {
     public $remainedQuantity;
 
-    public $completedStored;
-
     public $gunnyShipment;
 
 }

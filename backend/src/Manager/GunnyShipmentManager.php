@@ -31,22 +31,32 @@ class GunnyShipmentManager
 
     public function create(GunnyShipmentCreateRequest $request)
     {
+        $result = [];
+
         $gunnyShipmentEntity = $this->autoMapping->map(GunnyShipmentCreateRequest::class, GunnyShipmentEntity::class, $request);
 
-        $this->entityManager->persist($gunnyShipmentEntity);
-        $this->entityManager->flush();
-        $this->entityManager->clear();
+        // First we have to check if the desired quantity to be stored is not over the whole quantity
+        $remainedQuantity = $this->checkIfQuantityOfShipmentCanBeStoredInGunny($request->getShipmentID(), $request->getQuantity());
 
-        // Now, update the status of the gunny if it is full
-        if($request->getGunnyStatus() == GunnyStatusConstant::$FULL_GUNNY_STATUS)
+        if($remainedQuantity >= 0)
         {
-            $this->updateGunnyStatus($request->getGunnyID(), $request->getGunnyStatus(), $request->getCreatedBy());
+            $this->entityManager->persist($gunnyShipmentEntity);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            // Now, update the status of the gunny if it is full
+            if ($request->getGunnyStatus() == GunnyStatusConstant::$FULL_GUNNY_STATUS)
+            {
+                $this->updateGunnyStatus($request->getGunnyID(), $request->getGunnyStatus(), $request->getCreatedBy());
+            }
+
+            $result['remainedQuantity'] = (string) $remainedQuantity;
+            $result['gunnyShipment'] = $gunnyShipmentEntity;
         }
-
-        //Check how much quantity does remain without pocketing into gunny
-        $result = $this->checkHowShipmentQuantityRemained($gunnyShipmentEntity->getShipmentID(), $request->getQuantity());
-
-        $result['gunnyShipment'] = $gunnyShipmentEntity;
+        else
+        {
+            $result['remainedQuantity'] = (string) $remainedQuantity;
+        }
 
         return $result;
     }
@@ -62,28 +72,19 @@ class GunnyShipmentManager
         $this->gunnyManager->updateStatus($gunnyStatusUpdateRequest);
     }
 
-    public function checkHowShipmentQuantityRemained($shipmentID, $storedQuantity)
+    public function checkIfQuantityOfShipmentCanBeStoredInGunny($shipmentID, $quantity)
     {
-        $result = [];
-
         $shipment = $this->shipmentOrderManager->getShipmentOrderById($shipmentID);
 
-        if($shipment)
+        $result = $this->gunnyShipmentEntityRepository->getSumQuantityByShipmentID($shipmentID);
+
+        if($result)
         {
-            $remainedQuantity = $shipment['quantity'] - $storedQuantity;
-
-            if($remainedQuantity == 0)
-            {
-                $result['remainedQuantity'] = $remainedQuantity;
-                $result['completedStored'] = true;
-            }
-            elseif($remainedQuantity > 0)
-            {
-                $result['remainedQuantity'] = $remainedQuantity;
-                $result['completedStored'] = false;
-            }
-
-            return $result;
+            return $shipment['quantity'] - ($result[1] + $quantity);
+        }
+        else
+        {
+            return $shipment['quantity'] - $quantity >= 0;
         }
     }
 
