@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\DeleteRequest;
 use App\Request\GunnyCreateRequest;
+use App\Request\GunnyFilterRequest;
 use App\Service\GunnyService;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -83,6 +84,54 @@ class GunnyController extends BaseController
         $result = $this->gunnyService->create($request);
 
         return $this->response($result, self::CREATE);
+    }
+
+    /**
+     * @Route("filtergunnies", name="filterGunnies", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Gunny")
+     *
+     * @OA\RequestBody(
+     *      description="Filter gunnies with following parameters",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="identificationNumber"),
+     *          @OA\Property(type="string", property="status")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of gunnies",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *                  @OA\Items(
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="string", property="identificationNumber"),
+     *                      @OA\Property(type="string", property="status"),
+     *                      @OA\Property(type="object", property="createdAt"),
+     *                      @OA\Property(type="object", property="updatedAt"),
+     *                      @OA\Property(type="string", property="createdByUser"),
+     *                      @OA\Property(type="string", property="createdByUserImage")
+     *                  )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function filterGunnies(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, GunnyFilterRequest::class, (object)$data);
+
+        $result = $this->gunnyService->filterGunnies($request);
+
+        return $this->response($result, self::FETCH);
     }
 
     /**

@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\AdminProfileEntity;
 use App\Entity\GunnyEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -55,6 +57,36 @@ class GunnyEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function filterGunnies($identificationNumber, $status)
+    {
+        $query = $this->createQueryBuilder('gunnyEntity')
+            ->select('gunnyEntity.id', 'gunnyEntity.identificationNumber', 'gunnyEntity.createdAt', 'gunnyEntity.createdBy', 'gunnyEntity.updatedAt', 'gunnyEntity.updatedBy', 'gunnyEntity.status',
+             'adminProfileEntity.userName as createdByUser', 'adminProfileEntity.image as createdByUserImage')
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfileEntity',
+                Join::WITH,
+                'adminProfileEntity.userID = gunnyEntity.createdBy'
+            )
+
+            ->orderBy('gunnyEntity.id', "DESC");
+
+        if($identificationNumber)
+        {
+            $query->andWhere('gunnyEntity.identificationNumber = :identificationNumber');
+            $query->setParameter('identificationNumber', $identificationNumber);
+        }
+
+        if($status)
+        {
+            $query->andWhere('gunnyEntity.status = :status');
+            $query->setParameter('status', $status);
+        }
+
+        return $query->getQuery()->getResult();
     }
 
 }

@@ -8,6 +8,7 @@ use App\Manager\GunnyManager;
 use App\Request\GunnyCreateRequest;
 use App\Response\GunnyCreateResponse;
 use App\Response\GunnyDeleteResponse;
+use App\Response\GunnyFilterResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class GunnyService
@@ -35,6 +36,26 @@ class GunnyService
         }
 
         return $gunnyResponse;
+    }
+
+    public function filterGunnies($request)
+    {
+        $gunnyesResponse = [];
+
+        $gunnyes = $this->gunnyManager->filterGunnies($request);
+
+        foreach($gunnyes as $gunny)
+        {
+            if($gunny['createdByUserImage'])
+            {
+                $gunny['createdByUserImage'] = $this->params . $gunny['createdByUserImage'];
+            }
+
+            $gunnyesResponse[] = $this->autoMapping->map('array', GunnyFilterResponse::class, $gunny);
+
+        }
+
+        return $gunnyesResponse;
     }
 
     public function deleteGunnyById($request)
