@@ -44,7 +44,7 @@ class ContainerManager
     {
         $containerEntity = $this->autoMapping->map(ContainerCreateRequest::class, ContainerEntity::class, $request);
 
-        $containerEntity->setStatus(ContainerStatusConstant::$FULL_CONTAINER_STATUS);
+        $containerEntity->setStatus(ContainerStatusConstant::$NOTFULL_CONTAINER_STATUS);
         $containerEntity->setType(ShippingTypeConstant::$FCL_SHIPPING_TYPE);
 
         $this->entityManager->persist($containerEntity);
