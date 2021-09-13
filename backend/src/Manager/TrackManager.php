@@ -267,33 +267,37 @@ class TrackManager
 
         if($tracks)
         {
+            $holders[] = $tracks[0];
+
             foreach ($tracks as $track)
             {
-                if(count($holders) == 0)
+                $result = $this->checkIfObjectIsInArray($track, $holders, "holderType", "holderID");
+
+                if($result >= 0)
                 {
-                    // added first holder
-                    $holders[] = $track;
+                    // Do not added the item
                 }
-                else
+                elseif($result == -1)
                 {
-                    // there is already a holder. Check is the next one is the same
-                    foreach ($holders as $holder)
-                    {
-                        if($holder['holderType'] == $track['holderType'] && $holder['holderID'] == $track['holderID'])
-                        {
-                            // Do not add the holder
-                            break;
-                        }
-                        else
-                        {
-                            $holders[] = $track;
-                        }
-                    }
+                    $holders[] = $track;
                 }
             }
         }
 
         return $holders;
+    }
+
+    public function checkIfObjectIsInArray($object, $array, $objectKeyOne, $objectKeyTwo)
+    {
+        foreach($array as $key => $value)
+        {
+            if($object[$objectKeyOne] == $value[$objectKeyOne] && $object[$objectKeyTwo] == $value[$objectKeyTwo])
+            {
+                return $key;
+            }
+        }
+
+        return -1;
     }
 
     // For Get container/air waybill by ID
