@@ -29,7 +29,12 @@ class WarehouseService
     {
         $warehouseResult = $this->warehouseManager->create($request);
 
-        return $this->autoMapping->map(WarehouseEntity::class, WarehouseCreateResponse::class, $warehouseResult);
+        if($warehouseResult instanceof WarehouseEntity)
+        {
+            return $this->autoMapping->map(WarehouseEntity::class, WarehouseCreateResponse::class, $warehouseResult);
+        }
+
+        return $warehouseResult;
     }
 
     public function update(WarehouseUpdateRequest $request)

@@ -27,12 +27,44 @@ class WarehouseManager
     public function create(WarehouseCreateRequest $request)
     {
         $warehouseEntity = $this->autoMapping->map(WarehouseCreateRequest::class, WarehouseEntity::class, $request);
-        
-        $this->entityManager->persist($warehouseEntity);
-        $this->entityManager->flush();
-        $this->entityManager->clear();
 
-        return $warehouseEntity;
+        //Before entering the new warehouse we have to detect if the city name being entered matches the existing name
+        if($this->checkIfCityNameIsExistAndMatched($request->getCountryID(), $request->getCity()))
+        {
+            $this->entityManager->persist($warehouseEntity);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $warehouseEntity;
+        }
+        else
+        {
+            return "The name of the entered city is written either in small or capital letter";
+        }
+    }
+
+    public function checkIfCityNameIsExistAndMatched($countryID, $cityName)
+    {
+        //First get the warehouse of the city
+        $warehouse = $this->warehouseEntityRepository->getWarehousesByCountryIdAndCity($countryID, $cityName);
+
+        //Second, compare the name of the city of existing warehouse with the entered city name
+        if($warehouse)
+        {
+            $warehouseCityName = $warehouse[0]['city'];
+
+            if(strcmp($warehouseCityName, $cityName) == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        // No warehouse existing with the provided city name, it safe to enter it
+        return true;
     }
 
     public function update(WarehouseUpdateRequest $request)

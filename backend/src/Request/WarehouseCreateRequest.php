@@ -27,4 +27,14 @@ class WarehouseCreateRequest
         $this->createdBy = $userID;
     }
 
+    public function getCountryID()
+    {
+        return $this->countryID;
+    }
+
+    public function getCity()
+    {
+        return $this->city;
+    }
+
 }
