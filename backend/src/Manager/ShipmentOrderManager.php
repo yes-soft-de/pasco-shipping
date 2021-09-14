@@ -299,9 +299,27 @@ class ShipmentOrderManager
     {
         $response = [];
 
-        $containerID = $this->containerManager->getContainerByNumber($request->getContainerNumber());
+        $container = $this->containerManager->getContainerByNumber($request->getContainerNumber());
 
-        $airWaybillID = $this->airWaybillManager->getAirWaybillByNumber($request->getAirWaybillNumber());
+        if($container)
+        {
+            $containerID = $container['id'];
+        }
+        else
+        {
+            $containerID = 0;
+        }
+
+        $airWaybill = $this->airWaybillManager->getAirWaybillByNumber($request->getAirWaybillNumber());
+
+        if($airWaybill)
+        {
+            $airWaybillID = $airWaybill['id'];
+        }
+        else
+        {
+            $airWaybillID = 0;
+        }
 
         $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipments($request->getTransportationType(), $request->getIsExternalWarehouse(), $request->getTrackNumber(), 
         $request->getStatus(), $request->getExportWarehouseID(), $request->getImportWarehouseID(), $request->getPaymentTime(), $request->getLaunchCountry(), $request->getTargetCountry(), 
