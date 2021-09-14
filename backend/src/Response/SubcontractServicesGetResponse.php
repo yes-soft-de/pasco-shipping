@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class ServicesGetResponse
+class SubcontractServicesGetResponse
 {
     public $id;
     

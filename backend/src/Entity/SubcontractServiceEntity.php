@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\ServicesEntityRepository;
+use App\Repository\SubcontractServiceEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=ServicesEntityRepository::class)
+ * @ORM\Entity(repositoryClass=SubcontractServiceEntityRepository::class)
  */
-class ServicesEntity
+class SubcontractServiceEntity
 {
     /**
      * @ORM\Id

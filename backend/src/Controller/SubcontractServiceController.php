@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\DeleteRequest;
-use App\Request\ServiceCreateRequest;
-use App\Request\ServiceUpdateRequest;
-use App\Service\ServicesService;
+use App\Request\SubcontractServiceCreateRequest;
+use App\Request\SubcontractServiceUpdateRequest;
+use App\Service\SubcontractServicesService;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use stdClass;
@@ -17,18 +17,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ServicesController extends BaseController
+class SubcontractServiceController extends BaseController
 {
     private $autoMapping;
-    private $servicesService;
+    private $subcontractServicesService;
     private $validator;
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator,
-     ServicesService $servicesService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, SubcontractServicesService $subcontractServicesService)
     {
         parent::__construct($serializer);
         $this->autoMapping = $autoMapping;
-        $this->servicesService = $servicesService;
+        $this->subcontractServicesService = $subcontractServicesService;
         $this->validator = $validator;
     }
 
@@ -73,7 +72,7 @@ class ServicesController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, ServiceCreateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, SubcontractServiceCreateRequest::class, (object)$data);
 
         $request->setCreatedBy($this->getUserId());
         
@@ -86,7 +85,7 @@ class ServicesController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $response = $this->servicesService->create($request);
+        $response = $this->subcontractServicesService->create($request);
 
         return $this->response($response, self::CREATE);
     }
@@ -140,7 +139,7 @@ class ServicesController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(\stdClass::class, ServiceUpdateRequest::class, (object) $data);
+        $request = $this->autoMapping->map(\stdClass::class, SubcontractServiceUpdateRequest::class, (object) $data);
 
         $request->setUpdatedBy($this->getUserId());
 
@@ -153,7 +152,7 @@ class ServicesController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $result = $this->servicesService->update($request);
+        $result = $this->subcontractServicesService->update($request);
 
         return $this->response($result, self::UPDATE);
     }
@@ -193,9 +192,9 @@ class ServicesController extends BaseController
      * )
      * 
      */
-    public function getServiceById($id)
+    public function getSubcontractServiceById($id)
     {
-        $result = $this->servicesService->getServiceById($id);
+        $result = $this->subcontractServicesService->getSubcontractServiceById($id);
 
         return $this->response($result, self::FETCH);
     }
@@ -229,9 +228,9 @@ class ServicesController extends BaseController
      * )
      * 
      */
-    public function getServices()
+    public function getAllSubcontractServices()
     {
-        $result = $this->servicesService->getAllServices();
+        $result = $this->subcontractServicesService->getAllSubcontractServices();
 
         return $this->response($result, self::FETCH);
     }
@@ -275,7 +274,7 @@ class ServicesController extends BaseController
     {
         $request = new DeleteRequest($request->get('id'));
 
-        $result = $this->servicesService->delete($request);
+        $result = $this->subcontractServicesService->delete($request);
 
         return $this->response($result, self::DELETE);
     }

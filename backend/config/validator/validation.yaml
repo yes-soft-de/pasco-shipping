@@ -344,14 +344,14 @@ App\Request\UnitUpdateRequest:
     updatedBy:
       - NotBlank: ~
 
-App\Request\ServiceCreateRequest:
+App\Request\SubcontractServiceCreateRequest:
   properties:
     name:
       - NotBlank: ~
     createdBy:
       - NotBlank: ~
 
-App\Request\ServiceUpdateRequest:
+App\Request\SubcontractServiceUpdateRequest:
   properties:
     id:
       - NotBlank: ~
