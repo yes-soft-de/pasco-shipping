@@ -86,7 +86,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('airwaybill.id', 'DESC')
-            ->setMaxResults(30)
+            ->setMaxResults(100)
 
             ->getQuery()
             ->getResult();
@@ -245,7 +245,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('airwaybill.id', 'DESC')
-            ->setMaxResults(30);
+            ->setMaxResults(100);
 
         if($specificationID)
         {
@@ -373,11 +373,8 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
                 'subcontractEntity4.id = airwaybill.carrierID'
             )
 
-            ->orderBy('airwaybill.id', 'DESC')
-            ->setMaxResults(30)
-
             ->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
 
     public function getAirwaybillsBySpecificationID($specificationID)
@@ -441,7 +438,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('airwaybill.id', 'DESC')
-            ->setMaxResults(30)
+            ->setMaxResults(100)
 
             ->getQuery()
             ->getResult();

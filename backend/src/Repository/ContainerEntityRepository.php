@@ -86,7 +86,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('container.id', 'DESC')
-            ->setMaxResults(30)
+            ->setMaxResults(100)
             
             ->getQuery()
             ->getResult();
@@ -243,7 +243,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('container.id', 'DESC')
-            ->setMaxResults(30);
+            ->setMaxResults(100);
 
         if($specificationID)
         {
@@ -370,11 +370,8 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 'subcontractEntity4.id = container.carrierID'
             )
 
-            ->orderBy('container.id', 'DESC')
-            ->setMaxResults(30)
-
             ->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
 
     public function getContainersBySpecificationID($specificationID)
@@ -437,7 +434,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('container.id', 'DESC')
-            ->setMaxResults(30)
+            ->setMaxResults(100)
 
             ->getQuery()
             ->getResult();

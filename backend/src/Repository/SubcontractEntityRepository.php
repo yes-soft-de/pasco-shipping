@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
-use App\Entity\ServicesEntity;
+use App\Entity\SubcontractServiceEntity;
 use App\Entity\SubcontractEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
@@ -30,7 +30,7 @@ class SubcontractEntityRepository extends ServiceEntityRepository
             'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage', 'servicesEntity.name as serviceName')
 
             ->leftJoin(
-                ServicesEntity::class,
+                SubcontractServiceEntity::class,
                 'servicesEntity',
                 Join::WITH,
                 'servicesEntity.id = subcontract.serviceID'
@@ -67,7 +67,7 @@ class SubcontractEntityRepository extends ServiceEntityRepository
             ->setParameter('serviceID', $serviceID)
             
             ->leftJoin(
-                ServicesEntity::class,
+                SubcontractServiceEntity::class,
                 'servicesEntity',
                 Join::WITH,
                 'servicesEntity.id = subcontract.serviceID'

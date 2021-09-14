@@ -65,9 +65,6 @@ class AdminProfileEntityRepository extends ServiceEntityRepository
             'userEntity.id = profile.userID'
         )
 
-//        ->andWhere('userEntity.roles LIKE :role')
-//        ->setParameter('role', '%'."ROLE_EMPLOYEE".'%')
-
         ->orderBy('profile.id', 'DESC')
 
         ->getQuery()

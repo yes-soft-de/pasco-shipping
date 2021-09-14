@@ -2,7 +2,7 @@
 
 namespace App\Request;
 
-class ServiceUpdateRequest
+class SubcontractServiceUpdateRequest
 {
     private $id;
 

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
 use App\Entity\DistributorEntity;
+use App\Entity\MarkEntity;
 use App\Entity\OrderShipmentEntity;
 use App\Entity\ProductCategoryEntity;
 use App\Entity\ShipmentStatusEntity;
@@ -67,7 +68,8 @@ class TrackEntityRepository extends ServiceEntityRepository
             "orderShipmentEntity.quantity", "orderShipmentEntity.image", "orderShipmentEntity.createdAt as orderCreationDate", "orderShipmentEntity.isExternalWarehouse", "orderShipmentEntity.updatedAt as orderUpdatingDate", "orderShipmentEntity.productCategoryID", 
             "orderShipmentEntity.unit", "orderShipmentEntity.receiverName", "orderShipmentEntity.receiverPhoneNumber", "orderShipmentEntity.markID", "orderShipmentEntity.packetingBy", "orderShipmentEntity.externalWarehouseInfo", "orderShipmentEntity.paymentTime",
             "orderShipmentEntity.weight", "orderShipmentEntity.qrCode", "orderShipmentEntity.guniQuantity", "orderShipmentEntity.updatedBy as orderUpdatedByUser", "orderShipmentEntity.vehicleIdentificationNumber", "orderShipmentEntity.extraSpecification",
-             "travelEntity.status as travelStatus", "subProductCategory.name as subProductCategoryName", "exportWarehouseEntity.name as exportWarehouseName", "importWarehouseEntity.name as importWarehouseName", "productCategoryEntity.name as productCategoryName")
+             "travelEntity.status as travelStatus", "subProductCategory.name as subProductCategoryName", "exportWarehouseEntity.name as exportWarehouseName", "importWarehouseEntity.name as importWarehouseName", "productCategoryEntity.name as productCategoryName",
+            "markEntity.markNumber as markNumber")
 
             ->leftJoin(
                 ShipmentStatusEntity::class,
@@ -116,6 +118,13 @@ class TrackEntityRepository extends ServiceEntityRepository
                 'importWarehouseEntity',
                 Join::WITH,
                 'importWarehouseEntity.id = orderShipmentEntity.importWarehouseID'
+            )
+
+            ->leftJoin(
+                MarkEntity::class,
+                'markEntity',
+                Join::WITH,
+                'markEntity.id = orderShipmentEntity.markID'
             )
 
             ->andWhere('track.holderID = :holderID')

@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class ServiceCreateResponse
+class SubcontractServiceCreateResponse
 {
     public $createdAt;
 
