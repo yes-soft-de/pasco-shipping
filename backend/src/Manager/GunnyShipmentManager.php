@@ -55,7 +55,7 @@ class GunnyShipmentManager
         }
         else
         {
-            $result['remainedQuantity'] = (string) $remainedQuantity;
+            $result['remainedQuantity'] = "The stored quantity now will exceed the whole quantity!";
         }
 
         return $result;
