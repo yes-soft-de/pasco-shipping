@@ -551,6 +551,10 @@ class ShipmentOrderManager
             //Just delete the images of the shipment
             $this->imageManager->deleteImagesByShipmentID($shipmentID);
         }
+        elseif($imagesArray == null)
+        {
+            //Do nothing
+        }
     }
 
     public function createPendingHolders($requestedHoldersArray, $shipmentID)
