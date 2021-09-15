@@ -5,7 +5,9 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Entity\ImageEntity;
 use App\Repository\ImageEntityRepository;
+use App\Request\DeleteRequest;
 use App\Request\ImageCreateRequest;
+use App\Request\ImageUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ImageManager
@@ -35,6 +37,22 @@ class ImageManager
     public function getImagesByShipmentID($shipmentID)
     {
         return $this->imageEntityRepository->getImagesByShipmentID($shipmentID);
+    }
+
+    public function deleteImagesByShipmentID($shipmentID)
+    {
+        $images = $this->imageEntityRepository->getByShipmentID($shipmentID);
+
+        if($images)
+        {
+            foreach($images as $image)
+            {
+                $this->entityManager->remove($image);
+                $this->entityManager->flush();
+            }
+        }
+
+        return $images;
     }
 
 }

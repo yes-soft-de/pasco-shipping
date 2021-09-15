@@ -116,6 +116,15 @@ class ContainerService
 
         foreach($containers as $container)
         {
+            if($this->trackService->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $container['id']))
+            {
+                $container['used'] = true;
+            }
+            else
+            {
+                $container['used'] = false;
+            }
+
             if($container['createdByUser'] == null)
             {
                 $container['createdByUser'] = $container['clientUserName'];

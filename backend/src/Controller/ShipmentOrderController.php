@@ -602,6 +602,9 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *          @OA\Property(type="string", property="extraSpecification"),
      *          @OA\Property(type="integer", property="receiverID"),
+     *          @OA\Property(type="array", property="images",
+     *              @OA\Items()
+     *          ),
      *      )
      * )
      *
@@ -1155,11 +1158,14 @@ class ShipmentOrderController extends BaseController
      *                          @OA\Property(type="object", property="createdAt"),
      *                          @OA\Property(type="object", property="updatedAt"),
      *                          @OA\Property(type="string", property="productCategoryName"),
+     *                          @OA\Property(type="string", property="subProductCategoryID"),
      *                          @OA\Property(type="string", property="subProductCategoryName"),
      *                          @OA\Property(type="string", property="unit"),
+     *                          @OA\Property(type="string", property="receiverID"),
      *                          @OA\Property(type="string", property="receiverName"),
      *                          @OA\Property(type="string", property="receiverPhoneNumber"),
      *                          @OA\Property(type="string", property="packetingBy"),
+     *                          @OA\Property(type="string", property="markID"),
      *                          @OA\Property(type="string", property="markNumber"),
      *                          @OA\Property(type="string", property="paymentTime"),
      *                          @OA\Property(type="number", property="weight"),
@@ -1195,6 +1201,7 @@ class ShipmentOrderController extends BaseController
      *                          ),
      *                          @OA\Property(type="text", property="externalWarehouseInfo"),
      *                          @OA\Property(type="boolean", property="isExternalWarehouse"),
+     *                          @OA\Property(type="string", property="clientUserID"),
      *                          @OA\Property(type="string", property="clientUsername"),
      *                          @OA\Property(type="string", property="clientUserImage"),
      *                          @OA\Property(type="string", property="clientIdentificationNumber"),

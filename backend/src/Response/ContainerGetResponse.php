@@ -24,6 +24,8 @@ class ContainerGetResponse
 
     public $type;
 
+    public $used;
+
     public $subcontractName;
 
     public $consigneeName;

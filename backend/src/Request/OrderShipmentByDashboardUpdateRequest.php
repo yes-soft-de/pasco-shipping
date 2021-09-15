@@ -24,6 +24,8 @@ class OrderShipmentByDashboardUpdateRequest
 
     private $receiverID;
 
+    private $images = [];
+
     private $updatedBy;
 
     public function getId()
@@ -39,6 +41,14 @@ class OrderShipmentByDashboardUpdateRequest
     public function getUpdatedBy()
     {
         return $this->updatedBy;
+    }
+
+    /**
+     * @return array
+     */
+    public function getImages(): array
+    {
+        return $this->images;
     }
 
 }
