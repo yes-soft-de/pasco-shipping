@@ -191,8 +191,8 @@ class ShipmentStatusService
         {
             $shipmentLog = $this->shipmentStatusManager->getShipmentLogsByShipmentIdAndTrackNumber($shipment['shipmentID'], $shipment['trackNumber']);
 
-            // Before auto mapping, we have to check which status is passed and which is not
-            $shipment['log'] = $this->checkWhatStatusIsPassed($shipmentLog, ShipmentStatusConstant::$SHIPMENT_STATUS_FOR_CLIENT_ARRAY);
+            // We have to filter the shipment status for displaying only few status for client
+            $shipment['log'] = $this->filterShipmentStatusForClient($shipmentLog);
         }
 
         return $this->autoMapping->map('array', ShipmentByTrackNumberAndSignedInUserGetResponse::class, $shipment);
@@ -274,63 +274,22 @@ class ShipmentStatusService
         return $shipmentResponse;
     }
 
-    public function checkWhatStatusIsPassed($shipmentsLogs, $fullStates)
+    public function filterShipmentStatusForClient($shipmentStatusArray)
     {
         /**
-         * This function returns an array of the shipment states, and check each state
-         * which is passed and also defines what state doesn't passed yet
+         * This functions filter the shipment log in order to get only the status that we want to display for the client
          */
-        $shipmentsLogsResponse = [];
+        $filteredStatus = [];
 
-        $log = [];
-
-        foreach ($fullStates as $state)
+        foreach($shipmentStatusArray as $shipmentStatus)
         {
-            $result = $this->statusIsPassed($shipmentsLogs, $state);
-
-            if($result >= 0)
+            if(in_array($shipmentStatus['shipmentStatus'], ShipmentStatusConstant::$SHIPMENT_STATUS_FOR_CLIENT_ARRAY))
             {
-                $shipmentsLogs[$result]['isPassed'] = true;
-
-                $shipmentsLogsResponse[] = $shipmentsLogs[$result];
-            }
-            elseif($result == -1)
-            {
-                if($state == "waiting")
-                {
-                    $log['isPassed'] = true;
-                }
-                else
-                {
-                    $log['isPassed'] = false;
-                }
-
-                $log['shipmentStatus'] = $state;
-
-                $shipmentsLogsResponse[] = $log;
+                $filteredStatus[] = $shipmentStatus;
             }
         }
 
-        return $shipmentsLogsResponse;
-    }
-
-    public function statusIsPassed($shipmentsLogs, $state)
-    {
-        /**
-         * This function search if a shipment status is exist in the shipment logs array
-         */
-        if($shipmentsLogs)
-        {
-            foreach ($shipmentsLogs as $key=>$val)
-            {
-                if($val['shipmentStatus'] == $state)
-                {
-                    return $key;
-                }
-            }
-
-            return -1;
-        }
+        return $filteredStatus;
     }
 
     public function getSpecificShipmentStatus($currentShipmentStatus)
