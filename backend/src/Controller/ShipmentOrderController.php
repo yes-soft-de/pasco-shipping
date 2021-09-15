@@ -602,6 +602,9 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *          @OA\Property(type="string", property="extraSpecification"),
      *          @OA\Property(type="integer", property="receiverID"),
+     *          @OA\Property(type="array", property="images",
+     *              @OA\Items()
+     *          ),
      *      )
      * )
      *

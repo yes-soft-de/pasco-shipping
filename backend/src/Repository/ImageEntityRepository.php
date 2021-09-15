@@ -33,4 +33,17 @@ class ImageEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getByShipmentID($shipmentID)
+    {
+        return $this->createQueryBuilder('image')
+
+            ->andWhere('image.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->orderBy('image.id', 'DESC')
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }

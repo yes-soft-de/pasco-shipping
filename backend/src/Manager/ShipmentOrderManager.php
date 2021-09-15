@@ -13,6 +13,7 @@ use App\Request\AirwaybillCreateRequest;
 use App\Request\ContainerCreateRequest;
 use App\Request\DeleteRequest;
 use App\Request\ImageCreateRequest;
+use App\Request\ImageUpdateRequest;
 use App\Request\OrderShipmentByDashboardCreateRequest;
 use App\Request\OrderShipmentByDashboardUpdateRequest;
 use App\Request\OrderShipmentCreateRequest;
@@ -237,6 +238,9 @@ class ShipmentOrderManager
 
             $this->entityManager->flush();
             $this->entityManager->clear();
+
+            // Update the images of the shipment
+            $this->updateImagesOfShipment($request->getImages(), $shipmentOrderEntity->getId());
 
             return $shipmentOrderEntity;
         }
@@ -521,6 +525,31 @@ class ShipmentOrderManager
 
                 $this->imageManager->create($imageRequest);
             }
+        }
+    }
+
+    public function updateImagesOfShipment($imagesArray, $shipmentID)
+    {
+        if(is_array($imagesArray) && count($imagesArray) > 0)
+        {
+            // First, delete previous images,
+            $this->imageManager->deleteImagesByShipmentID($shipmentID);
+
+            //then insert the new ones
+            $imageRequest = new ImageCreateRequest();
+
+            foreach ($imagesArray as $image)
+            {
+                $imageRequest->setImage($image);
+                $imageRequest->setShipmentID($shipmentID);
+
+                $this->imageManager->create($imageRequest);
+            }
+        }
+        elseif(is_array($imagesArray) && count($imagesArray) == 0)
+        {
+            //Just delete the images of the shipment
+            $this->imageManager->deleteImagesByShipmentID($shipmentID);
         }
     }
 
