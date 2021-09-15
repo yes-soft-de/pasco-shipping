@@ -24,6 +24,8 @@ class AirwaybillGetResponse
 
     public $type;
 
+    public $used;
+
     public $specificationName;
 
     public $subcontractName;

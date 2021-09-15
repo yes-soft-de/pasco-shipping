@@ -116,6 +116,15 @@ class AirwaybillService
 
         foreach($airwaybills as $airwaybill)
         {
+            if($this->trackService->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $airwaybill['id']))
+            {
+                $airwaybill['used'] = true;
+            }
+            else
+            {
+                $airwaybill['used'] = false;
+            }
+
             if($airwaybill['createdByUser'] == null)
             {
                 $airwaybill['createdByUser'] = $airwaybill['clientUserName'];
