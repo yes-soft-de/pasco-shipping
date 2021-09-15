@@ -42,6 +42,8 @@ class ShipmentRequest {
   late bool isExternalWarehouse;
   late String externalWarehouseInfo;
 
+  late List<RequestedHolders> holders;
+
 
   Map<String, dynamic> toJson() => {
         "transportationType": transportationType,
@@ -71,6 +73,7 @@ class ShipmentRequest {
     'distributorName':distributorName,
     'isExternalWarehouse':isExternalWarehouse,
     'externalWarehouseInfo':externalWarehouseInfo,
+    'requestedHolders' : List<RequestedHolders>.from(holders.map((x) => x)),
       };
 
 
@@ -109,7 +112,8 @@ class ShipmentRequest {
       this.distributorName,
       this.distributorID,
       this.userName,
-      this.userID
+      this.userID,
+      this.holders
       );
 
   String get extraSpecification => _extraSpecification;
@@ -237,4 +241,21 @@ class ShipmentRequest {
   set subProductCategoryName(String value) {
     _subProductCategoryName = value;
   }
+}
+
+class RequestedHolders{
+  int specificationID;
+  String? notes;
+  String name;
+
+  RequestedHolders({
+    required this.specificationID,
+    required this.name,
+    this.notes});
+
+  Map<String, dynamic> toJson() => {
+    'specificationID': specificationID,
+    'notes': notes,
+    'specificationName':name
+  };
 }

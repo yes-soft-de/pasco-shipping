@@ -9,6 +9,7 @@ import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_lis
 import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/image_full_screen.dart';
+import 'package:pasco_shipping/module_shipments_orders_waiting/widget/holder_card.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/helpers/pdf_paragraph_api.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
@@ -28,24 +29,24 @@ class AcceptedShipmentDetailsSuccessfully extends StatefulWidget {
 }
 
 class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDetailsSuccessfully> {
-  late List<Category> stats;
+  // late List<Category> stats;
 
 
   @override
   void initState() {
     super.initState();
-    stats = [
-      Category(id: 1, name: 'Accepted', description: AcceptedShipmentStatusName[AcceptedShipmentStatus.ACCEPTED]!, isSelected: false),
-      Category(id: 1, name: 'Received in warehouse', description: AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]!, isSelected: false),
-      Category(id: 1, name: 'Measured', description: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!, isSelected: false),
-      Category(id: 1, name: 'Stored in holder', description:AcceptedShipmentStatusName[AcceptedShipmentStatus.STORED]!, isSelected: false),
-      Category(id: 1, name: 'On board', description:AcceptedShipmentStatusName[AcceptedShipmentStatus.UPLOADED]!, isSelected: false),
-      Category(id: 1, name: 'Started Travel', description:AcceptedShipmentStatusName[AcceptedShipmentStatus.STARTED]!, isSelected: false),
-      Category(id: 1, name: 'Released Travel', description:AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED]!, isSelected: false),
-      Category(id: 1, name: 'Cleared holder', description:AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]!, isSelected: false),
-      Category(id: 1, name: 'Arrived to warehouse', description:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!, isSelected: false),
-      Category(id: 1, name: 'Delivered to Client', description:AcceptedShipmentStatusName[AcceptedShipmentStatus.DELIVERED]!, isSelected: false),
-    ];
+    // stats = [
+    //   Category(id: 1, name: 'Accepted', description: AcceptedShipmentStatusName[AcceptedShipmentStatus.ACCEPTED]!, isSelected: false),
+    //   Category(id: 1, name: 'Received in warehouse', description: AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]!, isSelected: false),
+    //   Category(id: 1, name: 'Measured', description: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!, isSelected: false),
+    //   Category(id: 1, name: 'Stored in holder', description:AcceptedShipmentStatusName[AcceptedShipmentStatus.STORED]!, isSelected: false),
+    //   Category(id: 1, name: 'On board', description:AcceptedShipmentStatusName[AcceptedShipmentStatus.UPLOADED]!, isSelected: false),
+    //   Category(id: 1, name: 'Started Travel', description:AcceptedShipmentStatusName[AcceptedShipmentStatus.STARTED]!, isSelected: false),
+    //   Category(id: 1, name: 'Released Travel', description:AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED]!, isSelected: false),
+    //   Category(id: 1, name: 'Cleared holder', description:AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]!, isSelected: false),
+    //   Category(id: 1, name: 'Arrived to warehouse', description:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!, isSelected: false),
+    //   Category(id: 1, name: 'Delivered to Client', description:AcceptedShipmentStatusName[AcceptedShipmentStatus.DELIVERED]!, isSelected: false),
+    // ];
   }
 
   @override
@@ -182,9 +183,11 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                           S.of(context).supplierInfo,
                           style: AppTextStyle.mediumBlack,
                         ),
-                        Text(
-                          widget.shipment.supplierName.toString(),
-                          style: AppTextStyle.smallBlueBold,
+                        Expanded(
+                          child: Text(
+                            widget.shipment.supplierName.toString(),
+                            style: AppTextStyle.smallBlueBold,
+                          ),
                         )
                       ],
 
@@ -262,6 +265,34 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               ),
             ],
           ),
+          Divider(color: Colors.grey[300],thickness: 2,),
+          Row(
+            children: [
+              Expanded(
+                child: ListTile(
+                    title: Text(
+                      S.of(context).holderType,
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    subtitle: Text(
+                      widget.shipment.holderType ?? '',
+                      style: AppTextStyle.smallBlueBold,
+                    )),
+              ),
+              Expanded(
+                child: ListTile(
+                    title: Text(
+                      S.of(context).inExternalWarehouse,
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    subtitle: Text(
+                      widget.shipment.isExternalWarehouse.toString(),
+                      style: AppTextStyle.smallBlueBold,
+                    )),
+              ),
+            ],
+          ),
+          Divider(color: Colors.grey[300],thickness: 2,),
           ListTile(
               title: Text(
                 S.of(context).paymentTime,
@@ -272,7 +303,6 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                 style: AppTextStyle.smallBlueBold,
               )),
           Divider(color: Colors.grey[300],thickness: 2,),
-
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
@@ -293,25 +323,22 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
             ),
           ),
           Divider(color: Colors.grey[300],thickness: 2,),
-
-          // Padding(
-          //   padding: const EdgeInsets.all(10.0),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       Text(S.of(context).shipmentReport),
-          //       InkWell(
-          //         onTap: () async {
-          //           final pdfFile = await PdfParagraphApi.generate(widget.shipment);
-          //
-          //           PdfParagraphApi.openFile(pdfFile);
-          //         },
-          //         child: Icon(Icons.file_present ,size: 50,),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // Divider(color: Colors.grey[300],thickness: 2,),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(S.of(context).holder ,style: AppTextStyle.mediumBlack, ),
+          ),
+        widget.shipment.pendingHolders!.isNotEmpty ?  ListView.builder(itemBuilder:(context , index) {
+            return Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: HolderCard(
+                  pendingHolders: widget.shipment.pendingHolders![index]),
+            );
+          },
+            itemCount: widget.shipment.pendingHolders!.length,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+          ) :Container(),
+          Divider(color: Colors.grey[300],thickness: 2,),
 
           Padding(
            padding: const EdgeInsets.all(8.0),
@@ -387,7 +414,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                     widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber);
                   }, radius: 12),
                   RoundedButton(lable: S.of(context).showStatus, icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
-                    widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,widget.shipment.holderType, subShipmentModel.shipmentStatus,widget.shipment.transportationType ,widget.shipment.isExternalWarehouse);
+                    widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,widget.shipment.holderType, subShipmentModel.shipmentStatus,widget.shipment.transportationType ,widget.shipment.isExternalWarehouse, widget.shipment.clientUserID);
                   }, radius: 12),
                 ],
               )

@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_airwaybill/airwaybill_routes.dart';
 import 'package:pasco_shipping/module_airwaybill/request/airwaybill_filter_request.dart';
+import 'package:pasco_shipping/module_container/container_routes.dart';
 import 'package:pasco_shipping/module_container/enums/container_status.dart';
 import 'package:pasco_shipping/module_container/request/container_filter_request.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
+import 'package:pasco_shipping/module_gunny/response/stored_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/state_manager/accepted_shipment_status_state_manager.dart';
@@ -36,6 +39,10 @@ class AcceptedShipmentStatusScreen extends StatefulWidget {
 class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
   late AcceptedShipmentStatusState currentState;
 
+  late String id;
+  late String trackNumber;
+  late TravelFilterRequest travelFilterRequest;
+
   late String transportation;
   late bool isExternalWarehouse;
  late  ContainerFilterRequest containerFilterRequest;
@@ -55,24 +62,25 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
-    String id =arguments['id'].toString();
+     id =arguments['id'].toString();
     int shipmentID =arguments['id'];
+    int clientUserID =arguments['clientUserID'];
     String cityName =arguments['cityName'].toString();
     String holderType =arguments['holderType'].toString();
     String status =arguments['status'].toString();
-    String trackNumber =arguments['trackNumber'].toString();
+     trackNumber =arguments['trackNumber'].toString();
     transportation =arguments['transportation'].toString();
     isExternalWarehouse =arguments['isExternalWarehouse'];
 
-    if(isExternalWarehouse){
-      containerFilterRequest =ContainerFilterRequest(status:ContainerStatusName[ContainerStatus.FULL] ,type: 'FCL',isExternalWarehouse: true,shipmentID: shipmentID);
-      airwaybillFilterRequest =AirwaybillFilterRequest(status:ContainerStatusName[ContainerStatus.FULL] ,type: 'FCL',isExternalWarehouse: true,shipmentID: shipmentID);
+    if(holderType=='FCL'){
+      containerFilterRequest =ContainerFilterRequest(status:ContainerStatusName[ContainerStatus.NOTFULL] ,type: 'FCL',isExternalWarehouse: isExternalWarehouse,clientUserID: clientUserID);
+      airwaybillFilterRequest =AirwaybillFilterRequest(status:ContainerStatusName[ContainerStatus.NOTFULL] ,type: 'FCL',isExternalWarehouse: isExternalWarehouse,clientUserID: clientUserID);
     }else{
-      containerFilterRequest =ContainerFilterRequest(status:ContainerStatusName[ContainerStatus.NOTFULL] ,type: holderType,isExternalWarehouse: false);
-      airwaybillFilterRequest =AirwaybillFilterRequest(status:ContainerStatusName[ContainerStatus.NOTFULL] ,type: holderType,isExternalWarehouse: false);
+      containerFilterRequest =ContainerFilterRequest(status:ContainerStatusName[ContainerStatus.NOTFULL] ,type: holderType,isExternalWarehouse: isExternalWarehouse);
+      airwaybillFilterRequest =AirwaybillFilterRequest(status:ContainerStatusName[ContainerStatus.NOTFULL] ,type: holderType,isExternalWarehouse: isExternalWarehouse);
     }
 
-    TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:transportation=='sea' ?'cruise':'flight');
+     travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:transportation=='sea' ?'cruise':'flight');
     if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.ACCEPTED]!) {
       widget._stateManager.getShipmentStatus(id,trackNumber);
     }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]!){
@@ -168,6 +176,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
       print('in status screen');
       ReceivedStatusState state = currentState as ReceivedStatusState;
       List<AcceptedShipmentStatusModel> statusModels = state.model;
+      print(state.gunnies.length);
       return AcceptedShipmentStatusReceived(
         statusModel: statusModels,
         subcontracts:state.subContracts ,
@@ -266,6 +275,11 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
             text: S.of(context).changeStatusConfirm,
           );
       },
+        createGunny: (){
+          widget._stateManager.createGunny(statusModels,state.subContracts,state.warehouse);
+        }, infoStoredInGunny: state.storedModelInfo, onStoredInGunny: (m){
+          widget._stateManager.storedShipmentInGunny(m,statusModels,state.subContracts,state.warehouse ,state.gunnies);
+      }, gunnies: state.gunnies,
       );
     }
     else if (currentState is MeasuredContainerStatusState) {
@@ -364,6 +378,11 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
             },
             text: S.of(context).changeStatusConfirm,
           );
+        },
+        onUpdateContainerInfo: (containerModel){
+          Navigator.pushNamed(context, ContainerRoutes.UPDATE,arguments: {'containerModel':containerModel}).then((value) {
+            widget._stateManager.getMeasuredContainerStatus(id,containerFilterRequest,trackNumber,travelFilterRequest);
+          });
         },
         // onChangeStatus: (re , containerFilterRequest){
         // },
@@ -468,6 +487,11 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
             text: S.of(context).changeStatusConfirm,
           );
         },
+        onUpdateAirwaybillInfo: (model){
+          Navigator.pushNamed(context, AirwaybillRoutes.UPDATE,arguments: {'airwaybillModel':model}).then((value) {
+            widget._stateManager.getMeasuredAirwaybillStatus(id,airwaybillFilterRequest,trackNumber,travelFilterRequest);
+          });
+        },
         // onChangeStatus: (re , containerFilterRequest){
         // },
       );
@@ -513,5 +537,15 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         ),
       );
     }
+  }
+
+  _showLoadingAlert(BuildContext context){
+    return CoolAlert.show(
+      context: context,
+      type: CoolAlertType.loading,
+      title:  S.of(context).loading,
+      confirmBtnText: S.of(context).ok,
+      backgroundColor:AppThemeDataService.PrimaryColor,
+    );
   }
 }

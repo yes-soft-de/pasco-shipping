@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_container/widget/container_card.dart';
 import 'package:pasco_shipping/module_shipment_track/ui/widget/search_card.dart';
+import 'package:pasco_shipping/utils/helpers/pdf_paragraph_api.dart';
+import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 
 class ContainerSuccessfully extends StatelessWidget {
   final List<ContainerModel> items;
@@ -26,6 +29,21 @@ class ContainerSuccessfully extends StatelessWidget {
         SearchCard(onSearch: (number){
           onSearch(number);
         }),
+        ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.blue[800],
+          ),
+          onPressed: () async {
+            final pdfFile = await PdfParagraphApi.generateContainerReport(items);
+
+            PdfParagraphApi.openFile(pdfFile);
+          },
+          icon: Icon(Icons.document_scanner_sharp),
+          label: Text(
+            S.of(context).reports,
+            style: AppTextStyle.mediumWhite,
+          ),
+        ),
         Expanded(
           child: ListView.builder(
             itemBuilder: (context, index) {

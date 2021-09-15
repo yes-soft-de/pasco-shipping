@@ -8,7 +8,6 @@ import 'package:pasco_shipping/module_shipment_previous/previous_routes.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_shipment_track/tracking_routes.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
-import 'package:align_positioned/align_positioned.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 

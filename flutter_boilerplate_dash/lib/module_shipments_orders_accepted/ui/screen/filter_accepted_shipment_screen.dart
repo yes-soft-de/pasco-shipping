@@ -85,6 +85,7 @@ class _CountriesScreenState extends State<AcceptedShipmentFilterScreen> {
       countries = state!.countries;
       return FilterAcceptedShipmentInit(
         countries: countries,
+        clients: state.clients,
         onSave: (request){
           Navigator.pop(context , {'filterRequest' : request});
         }, filterRequest: filterRequest,);

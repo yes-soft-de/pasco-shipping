@@ -6,6 +6,7 @@ import 'package:pasco_shipping/module_airwaybill/state_manger/new_airwaybill_sta
 import 'package:pasco_shipping/module_airwaybill/ui/state/addnew_state/add_airwaybill_init.dart';
 import 'package:pasco_shipping/module_airwaybill/ui/state/addnew_state/add_state.dart';
 import 'package:pasco_shipping/module_airwaybill_specification/response/airwaybill_specification_response.dart';
+import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
@@ -26,6 +27,7 @@ class _AddNewCountryState extends State<AddNewAirwaybill> {
   late AddAirwaybillState currentState;
   late List<SubcontractModel> subs;
   late List<AirwaybillSpecificationModel> specification;
+  late List<ClientModel> clients;
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +71,11 @@ class _AddNewCountryState extends State<AddNewAirwaybill> {
       InitAddState? state = currentState as InitAddState?;
       specification = state!.specifications;
       subs = state.subcontracts;
+      clients = state.clients;
       return RequestAirwaybillInit(
         specifications: specification,
         subContracts: subs,
+        clients: clients,
         onSave: (request){
         widget._stateManager.requestAirwaybill(request);
       },);
@@ -81,6 +85,7 @@ class _AddNewCountryState extends State<AddNewAirwaybill> {
       return RequestAirwaybillInit(
         subContracts: subs,
         specifications: specification,
+        clients: clients,
         onSave: (request){
         widget._stateManager.requestAirwaybill(request);
       },);

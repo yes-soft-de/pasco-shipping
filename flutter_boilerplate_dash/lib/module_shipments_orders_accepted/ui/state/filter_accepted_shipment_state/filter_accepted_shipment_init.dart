@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_countries/response/country_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/response/product_categories/product_categories_response.dart';
@@ -19,9 +20,10 @@ import 'package:pasco_shipping/utils/widget/text_edit.dart';
 
 class FilterAcceptedShipmentInit extends StatefulWidget {
   final List<CountryModel> countries;
+  final List<ClientModel> clients;
   final Function onSave;
   final AcceptedShipmentFilterRequest filterRequest;
-  const FilterAcceptedShipmentInit({ required this.onSave ,required this.filterRequest,required this.countries});
+  const FilterAcceptedShipmentInit({ required this.onSave ,required this.filterRequest,required this.countries,required this.clients});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
@@ -34,12 +36,15 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
 
  late DropListModel dropListModelFromCountries;
  late DropListModel dropListModelToCountries;
+ late DropListModel dropListModelClients;
  late Entry optionItemSelectedTim;
  late Entry optionItemSelectedTo;
+ late Entry optionItemSelectedClient;
  DropListModel dropListModelTime = DropListModel(dataTime);
 
 
  late List<Entry> entryTo;
+ late List<Entry> entryClient;
 
  late String launchCountry;
  late String target;
@@ -214,6 +219,23 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
+                child: Text(S.of(context).client, style: AppTextStyle.mediumBlackBold,),
+              ),
+              SelectDropList(
+                this.optionItemSelectedClient,
+                this.dropListModelClients,
+                    (optionItem) {
+                  optionItemSelectedClient = optionItem;
+                  widget.filterRequest.clientUserID = optionItem.id;
+                  // destinationCountry = optionItem.title;
+                  // travelFilterRequest.destinationCountry = optionItem.title;
+                  setState(() {});
+                },
+              ),
+
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
                   S.of(context).paymentTime,
                   style: AppTextStyle.mediumBlackBold,
@@ -274,16 +296,25 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
    formattedDateStart = ''; //formatter.format(startDate);
    formattedDateEnd =''; //  formatter.format(endDate);
    entryTo = <Entry>[];
+   entryClient = <Entry>[];
 
    optionItemSelectedTim =  Entry('choose', 0, []);
    optionItemSelectedTo =  Entry('choose', 0, []);
+   optionItemSelectedClient =  Entry('choose', 0, []);
    for(CountryModel item in widget.countries){
      Entry v = Entry(item.name! ,item.id! ,[]);
      // entryFrom.add(v);
      entryTo.add(v);
    }
-   // dropListModelFromCountries = DropListModel(entryFrom);
    dropListModelToCountries = DropListModel(entryTo);
+
+
+   for(ClientModel item in widget.clients){
+     Entry v = Entry(item.userName! ,item.id! ,[]);
+     // entryFrom.add(v);
+     entryClient.add(v);
+   }
+   dropListModelClients= DropListModel(entryClient);
  }
  Future<void> _selectStartDate(BuildContext context) async {
    final DateTime? picked = await showDatePicker(

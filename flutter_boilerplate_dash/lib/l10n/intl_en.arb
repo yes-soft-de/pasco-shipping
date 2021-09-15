@@ -302,7 +302,7 @@
   "shipmentReceived": "Shipments received in warehouse",
   "shipmentNotDelivered": "Shipments not delivered to client yet",
 
-  "writeDetails": "Write a Details about next status",
+  "writeDetails": "Write a Details about this status",
   "amount": "Amount",
   "shipmentSeparation": "Shipment separation",
   "chooseTravel": "Choose Travel",
@@ -311,7 +311,7 @@
   "guniQuantity": "Guni Quantity",
   "volume": "Volume",
   "importWarehouse": "Import Warehouse",
-  "packingBy": "packing By",
+  "packingBy": "Packing by",
 
 
   "date": "Date",
@@ -374,5 +374,13 @@
   "reviewInformation": "Review Information",
   "holderCount": "Holder count",
   "requestAirwaybill": "Request Air waybill",
-  "chooseAirwaybill": "choose Air waybill "
+  "chooseAirwaybill": "choose Air waybill ",
+
+
+  "chooseGunny": "Choose Gunny",
+  "gunnyNumber": "Gunny Number",
+  "gunnyFull": "Gunny is full",
+  "completedStored": "Shipment Stored completely in Gunny",
+  "remainedQuantity": "Remained Quantity",
+  "more": "More"
 }

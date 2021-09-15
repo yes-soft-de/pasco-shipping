@@ -2,10 +2,12 @@ import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/holder_request_card.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/image_full_screen.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/enums/waiting_shipment_status.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/request/accepted_rejected_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/response/waiting_shipment_response.dart';
+import 'package:pasco_shipping/module_shipments_orders_waiting/widget/holder_card.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
@@ -24,6 +26,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
       child: Container(
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
@@ -239,8 +242,28 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                 ),)
               ],
             ),
-            Text(S.of(context).attached ,style: AppTextStyle.mediumBlack, ),
-            GridView.count(
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(S.of(context).holder ,style: AppTextStyle.mediumBlack, ),
+            ),
+            ListView.builder(itemBuilder:(context , index) {
+              return Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: HolderCard(
+                  pendingHolders: shipment.pendingHolders[index]),
+              );
+            },
+              itemCount: shipment.pendingHolders.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+            ),
+
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(S.of(context).attached ,style: AppTextStyle.mediumBlack, ),
+            ),
+           shipment.imagePath!.isNotEmpty? GridView.count(
                 shrinkWrap: true,
                 crossAxisCount: 3,
                 physics: NeverScrollableScrollPhysics(),
@@ -261,7 +284,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                     ),
                   );
                 })
-            ),
+            ) :Container(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

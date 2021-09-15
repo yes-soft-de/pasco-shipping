@@ -5,17 +5,24 @@ import 'package:pasco_shipping/module_airwaybill/service/airwaybill_service.dart
 import 'package:pasco_shipping/module_container/request/container_filter_request.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_container/service/container_service.dart';
+import 'package:pasco_shipping/module_gunny/request/add_shipment_to_gunny_request.dart';
+import 'package:pasco_shipping/module_gunny/response/gunny_response.dart';
+import 'package:pasco_shipping/module_gunny/response/stored_response.dart';
+import 'package:pasco_shipping/module_gunny/service/gunny_service.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/measured_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/received_deliered_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/stored_shipment_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/service/accepted_shipment_service.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_status_state/accepted_shipment_status_state.dart';
+import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_sub_contract/service/subcontract_service.dart';
 import 'package:pasco_shipping/module_subcontract_services/service/sub_contract_service.dart';
 import 'package:pasco_shipping/module_travel/request/travel_filter_request.dart';
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
 import 'package:pasco_shipping/module_travel/service/travel_service.dart';
 import 'package:pasco_shipping/module_warehouses/request/warehouse_filter_request.dart';
+import 'package:pasco_shipping/module_warehouses/response/warhouse_response.dart';
 import 'package:pasco_shipping/module_warehouses/service/warehouse_service.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -27,11 +34,12 @@ class AcceptedShipmentsStatusStateManager {
   final AirwaybillService _airwaybillService;
   final TravelService _travelService;
   final WarehouseService _warehouseService;
+  final GunnyService _gunnyService;
 
   final PublishSubject<AcceptedShipmentStatusState> _stateSubject = PublishSubject();
   Stream<AcceptedShipmentStatusState> get stateStream => _stateSubject.stream;
 
-  AcceptedShipmentsStatusStateManager(this._service, this._subcontractService, this._containerService, this._travelService, this._warehouseService, this._airwaybillService);
+  AcceptedShipmentsStatusStateManager(this._service, this._subcontractService, this._containerService, this._travelService, this._warehouseService, this._airwaybillService, this._gunnyService);
 
   void getShipmentStatus(String id ,String trackNumber) {
     _stateSubject.add(LoadingState());
@@ -63,9 +71,15 @@ class AcceptedShipmentsStatusStateManager {
                     WarehouseFilterRequest request = WarehouseFilterRequest(cityName: cityName);
                     _warehouseService.getWarehouses(request).then((warehouses) {
                       if (warehouses != null) {
+                        _gunnyService.getGunnies().then((gunnies) {
+                          if(gunnies != null){
+                            _stateSubject.add(ReceivedStatusState(
+                                model, subcontracts, warehouses ,gunnies,StoredModel(remainedQuantity: '')));
+                          }else{
+                            _stateSubject.add(ErrorState('Error'));
+                          }
+                        });
 
-                        _stateSubject.add(ReceivedStatusState(
-                            model, subcontracts, warehouses));
                       }else {
                         _stateSubject.add(ErrorState('Error'));
                       }
@@ -198,7 +212,13 @@ class AcceptedShipmentsStatusStateManager {
             WarehouseFilterRequest request = WarehouseFilterRequest(cityName: cityName);
             _warehouseService.getWarehouses(request).then((warehouses) {
               if(warehouses != null) {
-                _stateSubject.add(ReceivedStatusState(model , subcontracts ,warehouses));
+                _gunnyService.getGunnies().then((gunnies) {
+                  if(gunnies != null){
+                    _stateSubject.add(ReceivedStatusState(model , subcontracts ,warehouses,gunnies,StoredModel(remainedQuantity: '')));
+                  }else{
+                    _stateSubject.add(ErrorState('Error'));
+                  }
+                });
               }
             });
           }
@@ -267,4 +287,28 @@ class AcceptedShipmentsStatusStateManager {
     });
   }
 
+
+  void createGunny(List<AcceptedShipmentStatusModel> model ,  List<SubcontractModel> subcontracts ,List<WarehousesModel> warehouses){
+    _stateSubject.add(LoadingState());
+    _gunnyService.createGunny().then((gunnies) {
+      if(gunnies != null){
+        _stateSubject.add(ReceivedStatusState(
+            model, subcontracts, warehouses ,gunnies ,StoredModel(remainedQuantity: '')));
+      }else{
+        _stateSubject.add(ErrorState('Error'));
+      }
+    });
+
+  }
+
+  void storedShipmentInGunny(AddShipmentToGunnyRequest request,List<AcceptedShipmentStatusModel> model ,  List<SubcontractModel> subcontracts ,List<WarehousesModel> warehouses,List<GunnyModel> gunnies){
+    _stateSubject.add(LoadingState());
+    _gunnyService.addShipmentToGunny(request).then((storedModel) {
+      if(storedModel != null){
+        print(storedModel.remainedQuantity);
+        _stateSubject.add(ReceivedStatusState(
+            model, subcontracts, warehouses ,gunnies ,storedModel));
+      }
+    });
+  }
 }

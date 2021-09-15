@@ -1,14 +1,22 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_airwaybill_specification/response/airwaybill_specification_response.dart';
 import 'package:pasco_shipping/module_client/response/client_response.dart';
+import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
 import 'package:pasco_shipping/module_mark/mark_routes.dart';
 import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
+import 'package:pasco_shipping/module_shipment_request/presistance/notifiyer.dart';
+import 'package:pasco_shipping/module_shipment_request/response/specefication/specefication.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/NumberInputWithIncrementDecrement.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/holder_request_card.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_unit/response/unit_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 import 'package:pasco_shipping/utils/widget/text_edit.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
@@ -17,11 +25,12 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 class SecondOptionSuccessfully extends StatefulWidget {
   final List<ClientModel> marks;
   final List<UnitModel> units;
+  final List<RequestedHolders> specifications;
   final ShipmentRequest shipmentRequest;
   final Function goBackStep;
   final Function goNextPage;
   final Function goToAddClient;
-  SecondOptionSuccessfully({required this.marks,required this.shipmentRequest,required this.goBackStep,required this.goNextPage,required this.goToAddClient,required this.units});
+  SecondOptionSuccessfully({required this.marks,required this.shipmentRequest,required this.goBackStep,required this.goNextPage,required this.goToAddClient,required this.units,required this.specifications});
 
   @override
   _SecondOptionSuccessfullyState createState() => _SecondOptionSuccessfullyState();
@@ -30,7 +39,8 @@ class SecondOptionSuccessfully extends StatefulWidget {
 class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
 
   DropListModel dropListModelTime = DropListModel(dataTime);
-  DropListModel dropListModelHolderType = DropListModel(holderType);
+  DropListModel dropListModelHolderTypeLocal = DropListModel(holderTypeLocal);
+  DropListModel dropListModelHolderTypeEx = DropListModel(holderTypeEx);
   late Entry optionItemSelectedTim = Entry('choose', 0, []);
   late Entry optionItemSelectedType = Entry('choose', 0, []);
 
@@ -49,8 +59,12 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   late String receiverPhone;
   late String initQuantity;
 
-  late bool isFromMarks;
+  late List<RequestedHolders> holders;
 
+  late RequestedHolders setSelectSpec;
+
+  late bool isFromMarks;
+  late SpecificationsModel currentValue;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -103,15 +117,21 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
 
     if(widget.shipmentRequest.holderType.isNotEmpty){
       optionItemSelectedType = Entry(widget.shipmentRequest.holderType, 1, []);
-    }else {
+    }else if(widget.shipmentRequest.isExternalWarehouse) {
+      optionItemSelectedType = Entry('FCL', 0, []);
+      widget.shipmentRequest.holderType = 'FCL';
+    }else{
       optionItemSelectedType = Entry('choose', 0, []);
+    }
+
+    if(widget.specifications.isNotEmpty){
+      setSelectSpec = widget.specifications[0];
     }
   }
 
   @override
   void initState() {
     super.initState();
-
     isFromMarks = false;
     marksEntry = <Entry>[];
     unitsEntry = <Entry>[];
@@ -146,16 +166,6 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
         SizedBox(
           height: 25,
         ),
-        // Text(
-        //   S.of(context).receiverInfo,
-        //   style: AppTextStyle.mediumBlackBold,
-        // ),
-        // TextEdit(receiverName, 50, (receiverName) {
-        //   widget.shipmentRequest.receiverName = receiverName;
-        // }),
-        // TextEdit(receiverPhone, 50, (receiverPhoneNumber) {
-        //   widget.shipmentRequest.receiverPhoneNumber = receiverPhoneNumber;
-        // }),
         Text(
           S.of(context).paymentTime,
           style: AppTextStyle.mediumBlackBold,
@@ -176,33 +186,61 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
           S.of(context).shippingType,
           style: AppTextStyle.mediumBlackBold,
         ),
-        SelectDropList(
-          this.optionItemSelectedType,
-          this.dropListModelHolderType,
-              (optionItem) {
-            optionItemSelectedType = optionItem;
-            widget.shipmentRequest.holderType = optionItem.title;
-            setState(() {});
-          },
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        ( optionItemSelectedType.title=='FCL' && widget.shipmentRequest.isExternalWarehouse)?
-       Row(
+        Row(
           children: [
-            Text(
-              S.of(context).holderCount,
-              style: AppTextStyle.mediumBlackBold,
+            Expanded(
+              child: SelectDropList(
+                this.optionItemSelectedType,
+               widget.shipmentRequest.isExternalWarehouse?
+               this.dropListModelHolderTypeEx :this.dropListModelHolderTypeLocal,
+                    (optionItem) {
+                  optionItemSelectedType = optionItem;
+                  widget.shipmentRequest.holderType = optionItem.title;
+                  setState(() {});
+                },
+              ),
             ),
-            NumberInputWithIncrementDecrement(initQuantity , (quantity ){
-              widget.shipmentRequest.holderCount = quantity;
-            }),
+            ( optionItemSelectedType.title=='FCL' && widget.shipmentRequest.isExternalWarehouse)?
+            InkWell(
+                onTap: (){
+                  showSingleChoiceDialog(context , (){
+                    Navigator.pop(context);
+                    setState(() {});
+                  });
+                },
+                child: Icon(Icons.add_circle , color: blue , size: 40,)) :Container(),
           ],
-        ):Container(),
+        ),
+        ListView.builder(itemBuilder: (context , index){
+          return Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: InkWell(
+              onTap: (){
+                widget.shipmentRequest.holders.removeAt(index);
+                setState(() {});
+              },
+              child: Badge(
+                  badgeContent: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 15,
+                  ),
+                  child: RequestHolderCard(requestHolder: widget.shipmentRequest.holders[index],)),
+            ),
+          );
+        },itemCount: widget.shipmentRequest.holders.length,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+        ),
         SizedBox(
           height: 15,
         ),
+        // ( optionItemSelectedType.title=='FCL' && widget.shipmentRequest.isExternalWarehouse)?
+    // Text(
+    // S.of(context).type,
+    // style: AppTextStyle.mediumBlackBold,
+    // ):Container(),
+
         Text(
           S.of(context).unit,
           style: AppTextStyle.mediumBlackBold,
@@ -288,4 +326,56 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
       ],
     );
   }
+
+ void showSingleChoiceDialog(BuildContext context, Function go) =>
+     showDialog(
+      context: context,
+      builder: (context) {
+        // var _singleNotifier = Provider.of<SingleNotifier>(context);
+        return StatefulBuilder(
+            builder: (context, setState) {
+              return AlertDialog(
+                  title: Text("Select one and then add note"),
+                  content: SingleChildScrollView(
+                    child: Container(
+                      width: double.maxFinite,
+                      // height: double.maxFinite,
+                      child: Column(
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: widget.specifications
+                                .map((e) =>
+                                RadioListTile(
+                                  title: Text(e.name),
+                                  value: e,
+                                  groupValue: setSelectSpec,
+                                  selected: e.name == setSelectSpec.name,
+                                  onChanged: (value) {
+                                    if (value != setSelectSpec) {
+                                      setState(() {
+                                        setSelectSpec =
+                                        value as RequestedHolders;
+                                      });
+                                    }
+                                  },
+                                ))
+                                .toList(),
+                          ),
+                          TextEdit(S.of(context).importantNote , 50,(notes){
+                            setSelectSpec.notes = notes;
+                          }),
+                          RoundedButton(lable: S.of(context).save, icon: '',
+                              color: blue, style: AppTextStyle.mediumWhite,
+                              go: (){
+                                widget.shipmentRequest.holders.add(setSelectSpec);
+                                go();
+                              }, radius: 12)
+                        ],
+                      ),
+                    ),
+                  ));
+            });
+      });
+
 }

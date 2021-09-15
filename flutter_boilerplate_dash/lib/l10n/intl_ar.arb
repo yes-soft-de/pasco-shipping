@@ -284,7 +284,7 @@
   "shipmentNotDelivered": "الشحنات غير المُسلمة الى الزيون",
   "shipmentDelivered": "الشحنات المُسلمة الى الزبون",
 
-  "writeDetails": "اكتب ملاحظة عن المرحلة التالية",
+  "writeDetails": "اكتب ملاحظة عن هذه المرحلة",
   "amount": "الكمية",
   "shipmentSeparation": "فصل الشحنة",
   "chooseTravel": "اختر الرحلة",
@@ -355,5 +355,12 @@
 
 
   "requestAirwaybill": "طلب بوليصة شحن جوي",
-  "chooseAirwaybill": "اختبر بوليصة الشحن الجوي "
+  "chooseAirwaybill": "اختبر بوليصة الشحن الجوي ",
+
+  "chooseGunny": "اختر جوني",
+  "gunnyNumber": "رقم الجوني",
+  "gunnyFull": "امتلئ الجوني",
+  "completedStored": "الشحنة خُزنت بالكامل ضمن الجوني",
+  "remainedQuantity": "العدد المتبقي",
+  "more": "المزيد"
 }

@@ -1,3 +1,4 @@
+import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
 import 'package:pasco_shipping/module_countries/response/country_response.dart';
 import 'package:pasco_shipping/module_general/response/confirm_response.dart';
@@ -9,7 +10,8 @@ class AddContainerState{}
 class InitAddState extends AddContainerState{
   List<SubcontractModel> subcontracts;
   List<ContainerSpecificationModel> specifications;
-  InitAddState({required  this.subcontracts  , required this.specifications});
+  List<ClientModel> clients;
+  InitAddState({required  this.subcontracts  , required this.specifications , required this.clients});
 }
 class LoadingAddState extends AddContainerState{}
 

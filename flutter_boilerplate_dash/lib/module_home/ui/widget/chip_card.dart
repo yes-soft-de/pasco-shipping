@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_home/response/home_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
-import 'package:align_positioned/align_positioned.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';

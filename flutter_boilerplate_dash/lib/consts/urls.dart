@@ -159,6 +159,12 @@ class Urls {
   static const ADD_Travel_FINANCE = BASE_API + 'travelfinance';
 
 
+
+  //gunny
+  static const CREATE_GUNNY = BASE_API + 'gunny';
+  static const ADD_SHIPMENT_TO_GUNNY = BASE_API + 'gunnyshipment';
+
+
   static const REPORT_API = BASE_API + '/report';
 
   static const UPLOAD_API = BASE_API + 'uploadfile';

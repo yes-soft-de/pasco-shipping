@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_container/state_manger/new_container_state_manger.dart';
 import 'package:pasco_shipping/module_container/ui/state/addnew_state/add_container_init.dart';
 import 'package:pasco_shipping/module_container/ui/state/addnew_state/add_state.dart';
@@ -26,6 +27,7 @@ class _AddNewCountryState extends State<AddNewContainer> {
   late AddContainerState currentState;
   late List<SubcontractModel> subs;
   late List<ContainerSpecificationModel> specification;
+  late List<ClientModel> clients;
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +71,11 @@ class _AddNewCountryState extends State<AddNewContainer> {
       InitAddState? state = currentState as InitAddState?;
       specification = state!.specifications;
       subs = state.subcontracts;
+      clients = state.clients;
       return RequestContainerInit(
         specifications: specification,
         subContracts: subs,
+        clients: clients,
         onSave: (request){
         widget._stateManager.requestContainer(request);
       },);
@@ -81,6 +85,7 @@ class _AddNewCountryState extends State<AddNewContainer> {
       return RequestContainerInit(
         subContracts: subs,
         specifications: specification,
+        clients: clients,
         onSave: (request){
         widget._stateManager.requestContainer(request);
       },);

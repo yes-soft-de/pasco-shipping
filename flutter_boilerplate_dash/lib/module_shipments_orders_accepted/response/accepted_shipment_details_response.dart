@@ -31,6 +31,7 @@ class AcceptedShipmentDetailsResponse {
 class AcceptedShipmentDetailsModel {
   AcceptedShipmentDetailsModel({
     this.shipmentId,
+    this.clientUserID,
     this.clientUsername,
     this.target,
     this.supplierName,
@@ -54,10 +55,12 @@ class AcceptedShipmentDetailsModel {
     this.isExternalWarehouse,
     this.imagePath,
     this.updatedByUser,
-    this.subShipmentModelList
+    this.subShipmentModelList,
+    this.pendingHolders
   });
 
   int? shipmentId;
+  int? clientUserID;
   String? clientUsername;
   String? target;
 
@@ -88,9 +91,11 @@ class AcceptedShipmentDetailsModel {
   DateTime? createdAt;
   String? updatedByUser;
   List<SubShipmentModel> ? subShipmentModelList;
+  List<PendingHolders>? pendingHolders;
 
   AcceptedShipmentDetailsModel.fromJson(Map<String, dynamic> json) {
     shipmentId = json["id"];
+    clientUserID  = json["clientUserID"]??14;
     clientUsername= json['clientUsername'];
     target= json["target"];
     supplierName= json["supplierName"];
@@ -127,7 +132,15 @@ class AcceptedShipmentDetailsModel {
             StackTrace.current);
       }
     }
-
+    if (json['pendingHolders'] != null) {
+      pendingHolders = <PendingHolders>[];
+      try {
+        pendingHolders = List<PendingHolders>.from(json['pendingHolders'].map((x) => PendingHolders.fromJson(x)));
+      } catch (e, stack) {
+        Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
+            StackTrace.current);
+      }
+    }
 
   }
 

@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/module_client/service/client_service.dart';
 import 'package:pasco_shipping/module_container/request/container_request.dart';
 import 'package:pasco_shipping/module_container/service/container_service.dart';
 import 'package:pasco_shipping/module_container/ui/state/addnew_state/add_state.dart';
@@ -12,12 +13,13 @@ class AddContainerStateManager {
   final ContainerService _service;
   final SubcontractService _subcontractService;
   final ContainerSpecificationService _containerSpecificationService;
+  final ClientService _clientService;
 
   final PublishSubject<AddContainerState> _addStateSubject = PublishSubject();
   Stream<AddContainerState> get stateStream => _addStateSubject.stream;
 
   AddContainerStateManager(
-      this._service,this._subcontractService , this._containerSpecificationService);
+      this._service,this._subcontractService , this._containerSpecificationService, this._clientService);
 
   void requestContainer(ContainerRequest request) {
     _addStateSubject.add(LoadingAddState());
@@ -53,8 +55,12 @@ class AddContainerStateManager {
           if (subs != null) {
             _containerSpecificationService.getContainerSpecification().then((value){
               if(value != null){
-                _addStateSubject
-                    .add(InitAddState(subcontracts: subs , specifications: value));
+                _clientService.getClients().then((clients) {
+                  if(clients != null){
+                    _addStateSubject
+                        .add(InitAddState(subcontracts: subs , specifications: value ,clients: clients));
+                  }
+                });
               } else {
                 _addStateSubject.add(ErrorAddState('error'));
               }

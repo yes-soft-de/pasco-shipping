@@ -44,10 +44,15 @@ final List<Entry> dataTime = <Entry>[
     'Collect', 1,[]
   ),
 ];
-final List<Entry> holderType = <Entry>[
+final List<Entry> holderTypeLocal = <Entry>[
+  Entry(
+      'FCL', 1,[]
+  ),
   Entry(
       'LCL', 1,[]
   ),
+];
+final List<Entry> holderTypeEx = <Entry>[
   Entry(
       'FCL', 1,[]
   ),

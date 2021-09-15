@@ -2490,10 +2490,10 @@ class S {
     );
   }
 
-  /// `Write a Details about next status`
+  /// `Write a Details about this status`
   String get writeDetails {
     return Intl.message(
-      'Write a Details about next status',
+      'Write a Details about this status',
       name: 'writeDetails',
       desc: '',
       args: [],
@@ -2570,10 +2570,10 @@ class S {
     );
   }
 
-  /// `packing By`
+  /// `Packing by`
   String get packingBy {
     return Intl.message(
-      'packing By',
+      'Packing by',
       name: 'packingBy',
       desc: '',
       args: [],
@@ -3025,6 +3025,66 @@ class S {
     return Intl.message(
       'choose Air waybill ',
       name: 'chooseAirwaybill',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Gunny`
+  String get chooseGunny {
+    return Intl.message(
+      'Choose Gunny',
+      name: 'chooseGunny',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gunny Number`
+  String get gunnyNumber {
+    return Intl.message(
+      'Gunny Number',
+      name: 'gunnyNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gunny is full`
+  String get gunnyFull {
+    return Intl.message(
+      'Gunny is full',
+      name: 'gunnyFull',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipment Stored completely in Gunny`
+  String get completedStored {
+    return Intl.message(
+      'Shipment Stored completely in Gunny',
+      name: 'completedStored',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remained Quantity`
+  String get remainedQuantity {
+    return Intl.message(
+      'Remained Quantity',
+      name: 'remainedQuantity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More`
+  String get more {
+    return Intl.message(
+      'More',
+      name: 'more',
       desc: '',
       args: [],
     );

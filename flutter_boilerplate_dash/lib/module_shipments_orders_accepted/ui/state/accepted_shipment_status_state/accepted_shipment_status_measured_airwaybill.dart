@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill/response/airwaybill_response.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
@@ -30,11 +31,13 @@ class AcceptedShipmentStatusMeasuredAirwaybill extends StatefulWidget {
   final List<TravelModel> travels;
 
   final Function onChangeStatus;
+  final Function onUpdateAirwaybillInfo;
   const AcceptedShipmentStatusMeasuredAirwaybill(
       {required this.statusModel,
       required this.onChangeStatus,
       required this.containers,
-       required this.travels
+       required this.travels,
+        required this.onUpdateAirwaybillInfo
       });
 
   @override
@@ -92,7 +95,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
 
   void iniList() {
     for (AirwaybillModel item in widget.containers) {
-      Entry v = Entry(item.airwaybillNumber??'No Number', item.id!, []);
+      Entry v = Entry(item.id.toString(), item.id!, []);
       entryContainer.add(v);
     }
     dropListModelContainer = DropListModel(entryContainer);
@@ -234,9 +237,35 @@ class _AcceptedShipmentDetailsSuccessfullyState
           },
         ),
 
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('Please be sure to complete the holders information before adding shipments to it' ,style: AppTextStyle.mediumBlue,),
+        Row(
+          children: [
+            Flexible(
+              flex: 2,
+              child: SelectDropList(
+                this.optionItemSelectedContainer,
+                this.dropListModelContainer,
+                    (optionItem) {
+                  FocusScope.of(context).unfocus();
+                  optionItemSelectedContainer = optionItem;
+                  holderID = optionItem.id;
+                  holderNumber = optionItem.title;
+                  setState(() {});
+                },
+              ),
+            ),
+            Flexible(
+              flex: 1,
+              child: RoundedButton(lable: S.of(context).edit, icon: '',
+                  color: Colors.green, style: AppTextStyle.smallWhite, go: (){
+                    if(optionItemSelectedContainer.id ==0){
+                      Fluttertoast.showToast(msg: S.of(context).chooseAirwaybill);
+                    }else{
+                      AirwaybillModel m  = widget.containers.firstWhere((element) => element.id == optionItemSelectedContainer.id);
+                      widget.onUpdateAirwaybillInfo(m);
+                    }
+                  }, radius: 5),
+            ),
+          ],
         ),
 
         Padding(

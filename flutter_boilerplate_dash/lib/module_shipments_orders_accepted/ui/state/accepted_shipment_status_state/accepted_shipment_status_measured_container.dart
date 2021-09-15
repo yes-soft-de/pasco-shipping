@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_container/widget/status_card.dart';
@@ -29,11 +30,13 @@ class AcceptedShipmentStatusMeasuredContainer extends StatefulWidget {
   final List<TravelModel> travels;
 
   final Function onChangeStatus;
+  final Function onUpdateContainerInfo;
   const AcceptedShipmentStatusMeasuredContainer(
       {required this.statusModel,
       required this.onChangeStatus,
       required this.containers,
-       required this.travels
+       required this.travels,required
+      this.onUpdateContainerInfo
       });
 
   @override
@@ -91,7 +94,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
 
   void iniList() {
     for (ContainerModel item in widget.containers) {
-      Entry v = Entry(item.containerNumber??'No Number', item.id!, []);
+      Entry v = Entry(item.id.toString(), item.id!, []);
       entryContainer.add(v);
     }
     dropListModelContainer = DropListModel(entryContainer);
@@ -221,19 +224,40 @@ class _AcceptedShipmentDetailsSuccessfullyState
             ],
           ),
         ),
-        SelectDropList(
-          this.optionItemSelectedContainer,
-          this.dropListModelContainer,
-          (optionItem) {
-            FocusScope.of(context).unfocus();
-            optionItemSelectedContainer = optionItem;
-            holderID = optionItem.id;
-            holderNumber = optionItem.title;
-            setState(() {});
-          },
+        Row(
+          children: [
+            Flexible(
+              flex: 2,
+              child: SelectDropList(
+                this.optionItemSelectedContainer,
+                this.dropListModelContainer,
+                (optionItem) {
+                  FocusScope.of(context).unfocus();
+                  optionItemSelectedContainer = optionItem;
+                  holderID = optionItem.id;
+                  holderNumber = optionItem.title;
+                  setState(() {});
+                },
+              ),
+            ),
+            Flexible(
+              flex: 1,
+              child: RoundedButton(lable: S.of(context).edit, icon: '',
+                  color: Colors.green, style: AppTextStyle.smallWhite, go: (){
+                if(optionItemSelectedContainer.id ==0){
+                  Fluttertoast.showToast(msg: S.of(context).chooseContainer);
+                }else{
+                ContainerModel m  = widget.containers.firstWhere((element) => element.id == optionItemSelectedContainer.id);
+                  widget.onUpdateContainerInfo(m);
+                }
+                  }, radius: 5),
+            ),
+          ],
         ),
 
-        Text('Please be sure to complete the holders information before adding shipments to it' ,style: AppTextStyle.mediumRedBold,),
+
+        // Text('Please be sure to complete the holders information before adding shipments to it' ,style: AppTextStyle.mediumRedBold,),
+
 
         Padding(
           padding: const EdgeInsets.all(8.0),
