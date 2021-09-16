@@ -5,11 +5,9 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Constant\AirwaybillStatusConstant;
 use App\Constant\ShippingTypeConstant;
-use App\Constant\ShippingWayConstant;
 use App\Entity\AirwaybillEntity;
 use App\Repository\AirwaybillEntityRepository;
 use App\Request\AirwaybillCreateRequest;
-use App\Request\AirwaybillFilterRequest;
 use App\Request\AirwaybillStatusUpdateRequest;
 use App\Request\AirwaybillUpdateRequest;
 use App\Request\DeleteRequest;
@@ -108,10 +106,9 @@ class AirwaybillManager
         return $this->airwaybillEntityRepository->getAirwaybillByNumber($airWaybillNumber);
     }
 
-    public function filterAirwaybills(AirwaybillFilterRequest $request)
+    public function filterAirwaybills($request)
     {
-        return $this->airwaybillEntityRepository->filterAirWaybills($request->getSpecificationID(), $request->getAirwaybillNumber(), $request->getStatus(), $request->getType(),
-            $request->getProvidedBy(), $request->getShipperID(), $request->getConsigneeID(), $request->getIsExternalWarehouse(), $request->getShipmentID(), $request->getClientUserID());
+        return $this->airwaybillEntityRepository->filterAirWaybills($request);
     }
 
     public function getAirwaybillsBySpecificationID($specificationID)

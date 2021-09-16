@@ -8,6 +8,7 @@ use App\Entity\AirwaybillSpecificationEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\OrderShipmentEntity;
 use App\Entity\SubcontractEntity;
+use App\Request\AirwaybillFilterRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -171,9 +172,13 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function filterAirWaybills($specificationID, $airwaybillNumber, $status, $type, $providedBy, $shipperID, $consigneeID,
-                                      $isExternalWarehouse, $shipmentID, $clientUserID)
+    public function filterAirWaybills(AirwaybillFilterRequest $request)
     {
+        // used variables for the isset() function
+        $isRequested = $request->getIsRequested();
+        $isExternalWarehouse = $request->getIsExternalWarehouse();
+        $withoutNumber = $request->getWithoutNumber();
+
         $query = $this->createQueryBuilder('airwaybill')
             ->select('airwaybill.id', 'airwaybill.specificationID', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID', 'airwaybill.clientUserID',
                 'airwaybill.shipmentID', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
@@ -247,49 +252,59 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             ->orderBy('airwaybill.id', 'DESC')
             ->setMaxResults(100);
 
-        if($specificationID)
+        if($request->getSpecificationID())
         {
             $query->andWhere('airwaybill.specificationID = :specificationID');
-            $query->setParameter('specificationID', $specificationID);
+            $query->setParameter('specificationID', $request->getSpecificationID());
         }
 
-        if($airwaybillNumber)
+        if($request->getAirwaybillNumber())
         {
             $query->andWhere('airwaybill.airwaybillNumber = :airwaybillNumber');
-            $query->setParameter('airwaybillNumber', $airwaybillNumber);
+            $query->setParameter('airwaybillNumber', $request->getAirwaybillNumber());
         }
 
-        if($status)
+        if($withoutNumber)
+        {
+            //dd($airwaybillNumber);
+            $query->andWhere("airwaybill.airwaybillNumber IS NULL");
+        }
+        elseif(isset($withoutNumber) AND $withoutNumber == false)
+        {
+            $query->andWhere("airwaybill.airwaybillNumber IS NOT NULL");
+        }
+
+        if($request->getStatus())
         {
             $query->andWhere('airwaybill.status = :status');
-            $query->setParameter('status', $status);
+            $query->setParameter('status', $request->getStatus());
         }
 
-        if($type)
+        if($request->getType())
         {
             $query->andWhere('airwaybill.type = :type');
-            $query->setParameter('type', $type);
+            $query->setParameter('type', $request->getType());
         }
 
-        if($providedBy)
+        if($request->getProvidedBy())
         {
             $query->andWhere('airwaybill.providedBy = :providedBy');
-            $query->setParameter('providedBy', $providedBy);
+            $query->setParameter('providedBy', $request->getProvidedBy());
         }
 
-        if($shipperID)
+        if($request->getShipperID())
         {
             $query->andWhere('airwaybill.shipperID = :shipperID');
-            $query->setParameter('shipperID', $shipperID);
+            $query->setParameter('shipperID', $request->getShipperID());
         }
 
-        if($consigneeID)
+        if($request->getConsigneeID())
         {
             $query->andWhere('airwaybill.consigneeID = :consigneeID');
-            $query->setParameter('consigneeID', $consigneeID);
+            $query->setParameter('consigneeID', $request->getConsigneeID());
         }
 
-        if($isExternalWarehouse == true)
+        if($isExternalWarehouse)
         {
             $query->andWhere("orderShipmentEntity.isExternalWarehouse = 1");
         }
@@ -298,16 +313,25 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             $query->andWhere("airwaybill.shipmentID IS NULL");
         }
 
-        if($shipmentID)
+        if($request->getShipmentID())
         {
             $query->andWhere('airwaybill.shipmentID = :shipmentID');
-            $query->setParameter('shipmentID', $shipmentID);
+            $query->setParameter('shipmentID', $request->getShipmentID());
         }
 
-        if($clientUserID)
+        if($request->getClientUserID())
         {
             $query->andWhere('airwaybill.clientUserID = :clientUserID');
-            $query->setParameter('clientUserID', $clientUserID);
+            $query->setParameter('clientUserID', $request->getClientUserID());
+        }
+
+        if($isRequested)
+        {
+            $query->andWhere("airwaybill.providedBy IS NOT NULL");
+        }
+        elseif(isset($isRequested) AND $isRequested == false)
+        {
+            $query->andWhere("airwaybill.providedBy IS NULL");
         }
 
         return $query->getQuery()->getResult();
