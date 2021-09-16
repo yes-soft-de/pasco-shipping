@@ -419,6 +419,8 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="createdByUserImage"),
      *                  @OA\Property(type="string", property="updatedByUser"),
      *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="integer", property="clientUserID"),
+     *                  @OA\Property(type="string", property="clientUserName"),
      *                  @OA\Property(type="string", property="type"),
      *                  @OA\Property(type="boolean", property="used"),
      *                  @OA\Property(type="string", property="subcontractName"),
