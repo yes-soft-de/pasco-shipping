@@ -1160,6 +1160,7 @@ class ShipmentOrderController extends BaseController
      *                          @OA\Property(type="string", property="productCategoryName"),
      *                          @OA\Property(type="string", property="subProductCategoryID"),
      *                          @OA\Property(type="string", property="subProductCategoryName"),
+     *                          @OA\Property(type="string", property="categoriesNames"),
      *                          @OA\Property(type="string", property="unit"),
      *                          @OA\Property(type="string", property="receiverID"),
      *                          @OA\Property(type="string", property="receiverName"),
