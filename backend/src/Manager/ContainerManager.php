@@ -8,7 +8,6 @@ use App\Constant\ShippingTypeConstant;
 use App\Entity\ContainerEntity;
 use App\Repository\ContainerEntityRepository;
 use App\Request\ContainerCreateRequest;
-use App\Request\ContainerFilterRequest;
 use App\Request\ContainerStatusUpdateRequest;
 use App\Request\ContainerUpdateRequest;
 use App\Request\DeleteRequest;
@@ -107,10 +106,9 @@ class ContainerManager
         return $this->containerEntityRepository->getContainerByNumber($containerNumber);
     }
 
-    public function filterContainers(ContainerFilterRequest $request)
+    public function filterContainers($request)
     {
-        return $this->containerEntityRepository->filterContainers($request->getSpecificationID(), $request->getContainerNumber(), $request->getStatus(), $request->getType(),
-        $request->getProvidedBy(), $request->getShipperID(), $request->getConsigneeID(), $request->getIsExternalWarehouse(), $request->getShipmentID(), $request->getClientUserID());
+        return $this->containerEntityRepository->filterContainers($request);
     }
 
     public function getContainersBySpecificationID($specificationID)

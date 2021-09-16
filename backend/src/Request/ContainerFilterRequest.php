@@ -24,6 +24,10 @@ class ContainerFilterRequest
 
     private $clientUserID;
 
+    private $withoutNumber;
+
+    private $isRequested;
+
     public function getSpecificationID()
     {
         return $this->specificationID;
@@ -72,6 +76,16 @@ class ContainerFilterRequest
     public function getClientUserID()
     {
         return $this->clientUserID;
+    }
+
+    public function getWithoutNumber()
+    {
+        return $this->withoutNumber;
+    }
+
+    public function getIsRequested()
+    {
+        return $this->isRequested;
     }
 
 }

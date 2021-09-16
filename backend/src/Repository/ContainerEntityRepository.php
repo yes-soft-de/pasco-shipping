@@ -9,6 +9,7 @@ use App\Entity\ContainerSpecificationEntity;
 use App\Entity\OrderShipmentEntity;
 use App\Entity\SubcontractEntity;
 use App\Entity\TrackEntity;
+use App\Request\ContainerFilterRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -170,9 +171,13 @@ class ContainerEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function filterContainers($specificationID, $containerNumber, $status, $type, $providedBy, $shipperID, $consigneeID,
-                                     $isExternalWarehouse, $shipmentID, $clientUserID)
+    public function filterContainers(ContainerFilterRequest $request)
     {
+        // used variables for the isset() function
+        $isRequested = $request->getIsRequested();
+        $isExternalWarehouse = $request->getIsExternalWarehouse();
+        $withoutNumber = $request->getWithoutNumber();
+
         $query = $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.shipmentID', 'container.clientUserID',
                 'container.shipperID', 'container.carrierID', 'container.type', 'container.providedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
@@ -245,55 +250,55 @@ class ContainerEntityRepository extends ServiceEntityRepository
             ->orderBy('container.id', 'DESC')
             ->setMaxResults(100);
 
-        if($specificationID)
+        if($request->getSpecificationID())
         {
             $query->andWhere('container.specificationID = :specificationID');
-            $query->setParameter('specificationID', $specificationID);
+            $query->setParameter('specificationID', $request->getSpecificationID());
         }
 
-        if($containerNumber)
+        if($request->getContainerNumber())
         {
             $query->andWhere('container.containerNumber = :containerNumber');
-            $query->setParameter('containerNumber', $containerNumber);
+            $query->setParameter('containerNumber', $request->getContainerNumber());
         }
 
-        if($status)
+        if($request->getStatus())
         {
             $query->andWhere('container.status = :status');
-            $query->setParameter('status', $status);
+            $query->setParameter('status', $request->getStatus());
         }
 
-        if($type)
+        if($request->getType())
         {
             $query->andWhere('container.type = :type');
-            $query->setParameter('type', $type);
+            $query->setParameter('type', $request->getType());
         }
 
-        if($providedBy)
+        if($request->getProvidedBy())
         {
             $query->andWhere('container.providedBy = :providedBy');
-            $query->setParameter('providedBy', $providedBy);
+            $query->setParameter('providedBy', $request->getProvidedBy());
         }
 
-        if($shipperID)
+        if($request->getShipperID())
         {
             $query->andWhere('container.shipperID = :shipperID');
-            $query->setParameter('shipperID', $shipperID);
+            $query->setParameter('shipperID', $request->getShipperID());
         }
 
-        if($consigneeID)
+        if($request->getConsigneeID())
         {
             $query->andWhere('container.consigneeID = :consigneeID');
-            $query->setParameter('consigneeID', $consigneeID);
+            $query->setParameter('consigneeID', $request->getConsigneeID());
         }
 
-        if($shipmentID)
+        if($request->getShipmentID())
         {
             $query->andWhere('container.shipmentID = :shipmentID');
-            $query->setParameter('shipmentID', $shipmentID);
+            $query->setParameter('shipmentID', $request->getShipmentID());
         }
 
-        if($isExternalWarehouse == true)
+        if($isExternalWarehouse)
         {
             $query->andWhere("orderShipmentEntity.isExternalWarehouse = 1");
         }
@@ -302,10 +307,28 @@ class ContainerEntityRepository extends ServiceEntityRepository
             $query->andWhere("container.shipmentID IS NULL");
         }
 
-        if($clientUserID)
+        if($request->getClientUserID())
         {
             $query->andWhere('container.clientUserID = :clientUserID');
-            $query->setParameter('clientUserID', $clientUserID);
+            $query->setParameter('clientUserID', $request->getClientUserID());
+        }
+
+        if($withoutNumber)
+        {
+            $query->andWhere("container.containerNumber IS NULL");
+        }
+        elseif(isset($withoutNumber) AND $withoutNumber == false)
+        {
+            $query->andWhere("container.containerNumber IS NOT NULL");
+        }
+
+        if($isRequested)
+        {
+            $query->andWhere("container.providedBy IS NOT NULL");
+        }
+        elseif(isset($isRequested) AND $isRequested == false)
+        {
+            $query->andWhere("container.providedBy IS NULL");
         }
 
         return $query->getQuery()->getResult();
