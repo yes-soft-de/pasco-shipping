@@ -32,6 +32,10 @@ class ShipmentFilterRequest
 
     private $clientUserID;
 
+    private $measuredUntilCleared;
+
+    private $measuredUntilArrived;
+
     public function getStatus()
     {
         return $this->status;
@@ -100,6 +104,16 @@ class ShipmentFilterRequest
     public function getClientUserID()
     {
         return $this->clientUserID;
+    }
+
+    public function getMeasuredUntilCleared()
+    {
+        return $this->measuredUntilCleared;
+    }
+
+    public function getMeasuredUntilArrived()
+    {
+        return $this->measuredUntilArrived;
     }
 
 }

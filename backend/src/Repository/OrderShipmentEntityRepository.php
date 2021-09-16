@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Constant\ShipmentStatusConstant;
 use App\Entity\AdminProfileEntity;
 use App\Entity\CountryEntity;
 use App\Entity\DistributorEntity;
@@ -443,15 +444,15 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function filterAcceptedShipments($transportationType, $isExternalWarehouse, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID, 
-    $paymentTime, $launchCountry, $targetCountry, $dateOne, $dateTwo, $containerID, $airWaybillID, $clientUserID)
+    public function filterAcceptedShipments($transportationType, $isExternalWarehouse, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID,
+                                            $paymentTime, $launchCountry, $targetCountry, $dateOne, $dateTwo, $containerID, $airWaybillID, $clientUserID, $measuredUntilCleared, $measuredUntilArrived)
     {
         $query = $this->createQueryBuilder('shipmentOrder')
             ->select("DISTINCT(shipmentOrder.id) as id", "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.supplierName", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.receiverID",
                 "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "receiverEntity.fullName as receiverName", "receiverEntity.phone as receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.volume", "shipmentOrder.holderType",
                 "shipmentOrder.holderCount", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "shipmentOrder.isExternalWarehouse", "shipmentOrder.externalWarehouseInfo", "clientProfile.userName as clientUsername",
                 "clientProfile.image as clientUserImage", "adminProfile.userName as orderUpdatedByUser", "adminProfile.image as orderUpdatedByUserImage", "productCategory.name as productCategoryName", "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", 
-                "markEntity.markNumber", "subProductCategoryEntity.name as subProductCategoryName", "clientProfile.identificationNumber as clientIdentificationNumber")
+                "markEntity.markNumber", "subProductCategoryEntity.name as subProductCategoryName", "clientProfile.identificationNumber as clientIdentificationNumber", "CONCAT(productCategory.name, ' / ', subProductCategoryEntity.name) as categoriesNames")
 
             ->andWhere("shipmentOrder.status = 'accepted'")
             
@@ -657,6 +658,45 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             {
                 $query->andWhere('shipmentOrder.clientUserID = :clientUserID');
                 $query->setParameter('clientUserID', $clientUserID);
+            }
+
+            if($measuredUntilCleared)
+            {
+                $query->andWhere("(shipmentStatusEntity.shipmentStatus = :shipmentStatus OR shipmentStatusEntity.shipmentStatus = :shipmentStatus2 OR shipmentStatusEntity.shipmentStatus = :shipmentStatus3 OR
+                    shipmentStatusEntity.shipmentStatus = :shipmentStatus4 OR shipmentStatusEntity.shipmentStatus = :shipmentStatus5 OR shipmentStatusEntity.shipmentStatus = :shipmentStatus6)");
+
+                $query->setParameter('shipmentStatus', ShipmentStatusConstant::$MEASURED_SHIPMENT_STATUS);
+
+                $query->setParameter('shipmentStatus2', ShipmentStatusConstant::$STORED_SHIPMENT_STATUS);
+
+                $query->setParameter('shipmentStatus3', ShipmentStatusConstant::$UPLOADED_SHIPMENT_STATUS);
+
+                $query->setParameter('shipmentStatus4', ShipmentStatusConstant::$STARTED_SHIPMENT_STATUS);
+
+                $query->setParameter('shipmentStatus5', ShipmentStatusConstant::$RELEASED_SHIPMENT_STATUS);
+
+                $query->setParameter('shipmentStatus6', ShipmentStatusConstant::$CLEARED_SHIPMENT_STATUS);
+            }
+
+            if($measuredUntilArrived)
+            {
+                $query->andWhere("(shipmentStatusEntity.shipmentStatus = :shipmentStatus OR shipmentStatusEntity.shipmentStatus = :shipmentStatus2 OR shipmentStatusEntity.shipmentStatus = :shipmentStatus3 OR
+                        shipmentStatusEntity.shipmentStatus = :shipmentStatus4 OR shipmentStatusEntity.shipmentStatus = :shipmentStatus5 OR shipmentStatusEntity.shipmentStatus = :shipmentStatus6
+                         OR shipmentStatusEntity.shipmentStatus = :shipmentStatus7)");
+
+                $query->setParameter('shipmentStatus', ShipmentStatusConstant::$MEASURED_SHIPMENT_STATUS);
+
+                $query->setParameter('shipmentStatus2', ShipmentStatusConstant::$STORED_SHIPMENT_STATUS);
+
+                $query->setParameter('shipmentStatus3', ShipmentStatusConstant::$UPLOADED_SHIPMENT_STATUS);
+
+                $query->setParameter('shipmentStatus4', ShipmentStatusConstant::$STARTED_SHIPMENT_STATUS);
+
+                $query->setParameter('shipmentStatus5', ShipmentStatusConstant::$RELEASED_SHIPMENT_STATUS);
+
+                $query->setParameter('shipmentStatus6', ShipmentStatusConstant::$CLEARED_SHIPMENT_STATUS);
+
+                $query->setParameter('shipmentStatus7', ShipmentStatusConstant::$ARRIVED_SHIPMENT_STATUS);
             }
 
             return $query->getQuery()->getResult();

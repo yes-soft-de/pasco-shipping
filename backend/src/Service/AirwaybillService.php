@@ -11,6 +11,7 @@ use App\Request\AirwaybillStatusUpdateRequest;
 use App\Request\AirwaybillUpdateRequest;
 use App\Request\DeleteRequest;
 use App\Response\AirwaybillCreateResponse;
+use App\Response\AirwaybillFilterResponse;
 use App\Response\AirwaybillGetResponse;
 use App\Response\DeleteAllGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -145,7 +146,7 @@ class AirwaybillService
                 $airwaybill['updatedByUserImage'] = $this->params . $airwaybill['updatedByUserImage'];
             }
 
-            $airwaybillsResponse[] = $this->autoMapping->map('array', AirwaybillGetResponse::class, $airwaybill);
+            $airwaybillsResponse[] = $this->autoMapping->map('array', AirwaybillFilterResponse::class, $airwaybill);
         }
 
         return $airwaybillsResponse;

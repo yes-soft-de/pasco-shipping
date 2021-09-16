@@ -408,7 +408,9 @@ class ContainerController extends BaseController
      *          @OA\Property(type="integer", property="specificationID"),
      *          @OA\Property(type="boolean", property="isExternalWarehouse"),
      *          @OA\Property(type="integer", property="shipmentID"),
-     *          @OA\Property(type="integer", property="clientUserID")
+     *          @OA\Property(type="integer", property="clientUserID"),
+     *          @OA\Property(type="boolean", property="withoutNumber"),
+     *          @OA\Property(type="boolean", property="isRequested")
      *      )
      * )
      *
@@ -429,6 +431,8 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="createdByUserImage"),
      *                  @OA\Property(type="string", property="updatedByUser"),
      *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="integer", property="clientUserID"),
+     *                  @OA\Property(type="string", property="clientUserName"),
      *                  @OA\Property(type="string", property="type"),
      *                  @OA\Property(type="boolean", property="used"),
      *                  @OA\Property(type="string", property="subcontractName"),

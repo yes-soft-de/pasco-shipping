@@ -11,6 +11,7 @@ use App\Request\ContainerStatusUpdateRequest;
 use App\Request\ContainerUpdateRequest;
 use App\Request\DeleteRequest;
 use App\Response\ContainerCreateResponse;
+use App\Response\ContainerFilterResponse;
 use App\Response\ContainerGetResponse;
 use App\Response\DeleteAllGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -145,7 +146,7 @@ class ContainerService
                 $container['updatedByUserImage'] = $this->params . $container['updatedByUserImage'];
             }
 
-            $containersResponse[] = $this->autoMapping->map('array', ContainerGetResponse::class, $container);
+            $containersResponse[] = $this->autoMapping->map('array', ContainerFilterResponse::class, $container);
         }
 
         return $containersResponse;
