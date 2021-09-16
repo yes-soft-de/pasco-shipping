@@ -1127,7 +1127,9 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="dateTwo"),
      *          @OA\Property(type="string", property="containerNumber"),
      *          @OA\Property(type="string", property="airWaybillNumber"),
-     *          @OA\Property(type="integer", property="clientUserID")
+     *          @OA\Property(type="integer", property="clientUserID"),
+     *          @OA\Property(type="boolean", property="measuredUntilCleared"),
+     *          @OA\Property(type="boolean", property="measuredUntilArrived")
      *      )
      * )
      *

@@ -22,6 +22,8 @@ class ShipmentStatusConstant
 
     static $CLEARED_SHIPMENT_STATUS = "cleared";
 
+    static $ARRIVED_SHIPMENT_STATUS = "arrived";
+
     static $DELIVERED_SHIPMENT_STATUS = "delivered";
 
     static $UNDELIVERED_SHIPMENT_STATUS = "undelivered";

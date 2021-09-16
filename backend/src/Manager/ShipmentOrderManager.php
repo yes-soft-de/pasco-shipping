@@ -327,7 +327,7 @@ class ShipmentOrderManager
 
         $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipments($request->getTransportationType(), $request->getIsExternalWarehouse(), $request->getTrackNumber(), 
         $request->getStatus(), $request->getExportWarehouseID(), $request->getImportWarehouseID(), $request->getPaymentTime(), $request->getLaunchCountry(), $request->getTargetCountry(), 
-        $request->getDateOne(), $request->getDateTwo(), $containerID, $airWaybillID, $request->getClientUserID());
+        $request->getDateOne(), $request->getDateTwo(), $containerID, $airWaybillID, $request->getClientUserID(), $request->getMeasuredUntilCleared(), $request->getMeasuredUntilArrived());
 
         if($shipments)
         {
