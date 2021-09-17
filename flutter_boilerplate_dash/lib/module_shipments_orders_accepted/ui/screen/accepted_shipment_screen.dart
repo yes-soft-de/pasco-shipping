@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill/airwaybill_routes.dart';
 import 'package:pasco_shipping/module_container/container_routes.dart';
+import 'package:pasco_shipping/module_edit_shipment/edit_shipment_routes.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
@@ -94,6 +95,11 @@ class _CountriesScreenState extends State<AcceptedShipmentScreen> {
         items: items,
         hideAddButton: withFilter,
         filterRequest: filterRequest,
+        onEdit: (model){
+          Navigator.pushNamed(context,EditShipmentRoutes.EDITED_SHIPMENT, arguments: {'shipment' : model} ).then((value){
+            widget._stateManager.getAcceptedShipment(filterRequest);
+          });
+        },
         onDetails: (id){
           Navigator.pushNamed(context,AcceptedShipmentRoutes.DETAILS , arguments: {'id' : id} ).then((value){
             widget._stateManager.getAcceptedShipment(filterRequest);

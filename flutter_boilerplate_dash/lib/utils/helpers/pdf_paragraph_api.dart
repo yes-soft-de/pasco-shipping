@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:open_file/open_file.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill/response/airwaybill_response.dart';
@@ -18,30 +19,39 @@ import 'package:pdf/widgets.dart';
 class PdfParagraphApi {
   static Future<File> generateShipmentReport(List<AcceptedShipmentModel> model) async {
     final pdf = Document();
-    final customFont =
-    Font.ttf(await rootBundle.load('assets/OpenSans-Regular.ttf'));
+    // pdf.setMargins(0 , 0 , 0 , 0);
+
+    // final customFont =
+    // Font.ttf(await rootBundle.load('assets/OpenSans-Regular.ttf'));
 
     final ByteData bytes =
     await rootBundle.load(StaticImage.logo);
     final Uint8List byteList = bytes.buffer.asUint8List();
     final headers =
-    ['ID',S.current.client,S.current.serialNumber,
-     S.current.shippingWay
-      ,S.current.shippingFrom , S.current.shippingTo
+    ['ID',
+      S.current.client,
+      'S.N',
+     'way'
+      ,S.current.from ,
+      S.current.to
+
       ,S.current.mark ,
-    S.current.category,
-      S.current.subCategory,
+    S.current.productType,
     ];
 
-    final data = model.map((user) => [user.shipmentId, user.clientUsername,user.clientIdentificationNumber,
+    final data = model.map((user) => [
+      user.shipmentId, user.clientUsername,user.clientIdentificationNumber,
       user.transportationType , user.exportWarehouseName , user.target,user.markNumber
-    ,user.productCategoryName , user.subProductCategoryName
+    ,user.categoriesNames,
     ]).toList();
     pdf.addPage(
       MultiPage(
+        margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
+        pageFormat: PdfPageFormat.a4,
         build: (context) => <Widget>[
            Container(
-      padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
+      padding: EdgeInsets.all( 5 * PdfPageFormat.mm),
+
       decoration: BoxDecoration(
         border: Border(bottom: BorderSide(width: 2, color: PdfColors.blue)),
       ),
@@ -80,15 +90,18 @@ class PdfParagraphApi {
             cellHeight: 30,
 
               columnWidths: {
-                0: FixedColumnWidth(30),
-                1: FixedColumnWidth(30),
-                2: FixedColumnWidth(30),
-                3: FixedColumnWidth(30),
+                0: FixedColumnWidth(15),
+                1: FixedColumnWidth(40),
+                2: FixedColumnWidth(35),
+
+                3: FixedColumnWidth(20),
                 4: FixedColumnWidth(30),
+
                 5: FixedColumnWidth(30),
+
                 6: FixedColumnWidth(30),
-                7: FixedColumnWidth(30),
-                8: FixedColumnWidth(30),
+                7: FixedColumnWidth(60),
+                // 8: FixedColumnWidth(30),
               },
             cellAlignments: {
               0: Alignment.center,
@@ -99,9 +112,16 @@ class PdfParagraphApi {
               5: Alignment.center,
               6: Alignment.center,
               7: Alignment.center,
-              8: Alignment.center,
+              // 8: Alignment.center,
             },
               // headerPadding: Padding(padding: 12)
+          ),
+          SizedBox(height: 0.5 * PdfPageFormat.cm),
+          Text(
+            'Total: ' + data.length.toString(),
+            style: TextStyle( fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: PdfColors.blue,),
           ),
           // Paragraph(text: LoremText().paragraph(60)),
           // Paragraph(text: LoremText().paragraph(60)),
@@ -123,7 +143,8 @@ class PdfParagraphApi {
         },
       ),
     );
-    return saveDocument(name: 'shipment report.pdf', pdf: pdf);
+
+    return saveDocument(name: 'shipmentReport.pdf', pdf: pdf);
   }
 
   static Future<File> generateContainerReport(List<ContainerModel> model) async {
@@ -137,7 +158,7 @@ class PdfParagraphApi {
     final headers =
     ['ID',S.current.containerNumber,S.current.shippingType,
       S.current.type
-      ,S.current.createdBy ,
+      ,S.current.RequestedBy ,
     ];
 
     final data = model.map((user) =>
@@ -202,6 +223,12 @@ class PdfParagraphApi {
             },
             // headerPadding: Padding(padding: 12)
           ),
+          Text(
+            'Total: ' + data.length.toString(),
+            style: TextStyle( fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: PdfColors.blue,),
+          ),
           // Paragraph(text: LoremText().paragraph(60)),
           // Paragraph(text: LoremText().paragraph(60)),
           // Paragraph(text: LoremText().paragraph(60)),
@@ -222,7 +249,7 @@ class PdfParagraphApi {
         },
       ),
     );
-    return saveDocument(name: 'container report.pdf', pdf: pdf);
+    return saveDocument(name: 'containerReport.pdf', pdf: pdf);
   }
 
   static Future<File> generateAirwaybillReport(List<AirwaybillModel> model) async {
@@ -236,7 +263,7 @@ class PdfParagraphApi {
     final headers =
     ['ID',S.current.airwaybillNumber,S.current.shippingType,
       S.current.type
-      ,S.current.createdBy ,
+      ,S.current.RequestedBy ,
     ];
 
     final data = model.map((user) =>
@@ -301,6 +328,12 @@ class PdfParagraphApi {
             },
             // headerPadding: Padding(padding: 12)
           ),
+          Text(
+            'Total: ' + data.length.toString(),
+            style: TextStyle( fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: PdfColors.blue,),
+          ),
           // Paragraph(text: LoremText().paragraph(60)),
           // Paragraph(text: LoremText().paragraph(60)),
           // Paragraph(text: LoremText().paragraph(60)),
@@ -321,7 +354,7 @@ class PdfParagraphApi {
         },
       ),
     );
-    return saveDocument(name: 'air report.pdf', pdf: pdf);
+    return saveDocument(name: 'airReport.pdf', pdf: pdf);
   }
 
   static Future openFile(File file) async {
@@ -387,8 +420,16 @@ class PdfParagraphApi {
   }) async {
     final bytes = await pdf.save();
 
-    final dir = await getApplicationDocumentsDirectory();
-    final file = File('${dir.path}/$name');
+    var file =File('');
+
+    try{
+      final dir = await getApplicationDocumentsDirectory();
+      file = File('${dir.path}/$name');
+
+    }catch(e){
+      await Fluttertoast.showToast(msg: e.toString());
+    }
+
 
     await file.writeAsBytes(bytes);
 

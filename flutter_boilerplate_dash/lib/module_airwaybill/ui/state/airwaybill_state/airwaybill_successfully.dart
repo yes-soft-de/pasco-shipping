@@ -36,7 +36,7 @@ class AirwaybillSuccessfully extends StatelessWidget {
           onPressed: () async {
             final pdfFile = await PdfParagraphApi.generateAirwaybillReport(items);
 
-            PdfParagraphApi.openFile(pdfFile);
+           await PdfParagraphApi.openFile(pdfFile);
           },
           icon: Icon(Icons.document_scanner_sharp),
           label: Text(

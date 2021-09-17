@@ -368,7 +368,7 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
         ShipmentStatus(1, 'Accepted', widget.model.log![1].createdAt.toString(), false, false),
         ShipmentStatus(1, 'Received in the warehouse', '20 min ago', false, true),
         ShipmentStatus(1, 'start shipping', "1", false, true),
-        ShipmentStatus(1, ' Arrived at the target city', '20 min ago', false, true),
+        ShipmentStatus(1, 'Arrived at the target city', '20 min ago', false, true),
         ShipmentStatus(1, 'Delivered', '20 min ago', false, true),
       ];
     }else if(widget.model.shipmentStatus=='stored') {
@@ -377,7 +377,7 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
         ShipmentStatus(1, 'Accepted', widget.model.log![1].createdAt.toString(), true, false),
         ShipmentStatus(1, 'Received in the warehouse', widget.model.log![2].createdAt.toString(), false, false),
         ShipmentStatus(1, 'start shipping', '', false, true),
-        ShipmentStatus(1, ' Arrived at the target city', '20 min ago', false, true),
+        ShipmentStatus(1, 'Arrived at the target city', '20 min ago', false, true),
         ShipmentStatus(1, 'Delivered', '20 min ago', false, true),
       ];
     }
@@ -387,7 +387,7 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
       ShipmentStatus(1, 'Accepted', widget.model.log![1].createdAt.toString(), true, false),
       ShipmentStatus(1, 'Received in the warehouse', widget.model.log![2].createdAt.toString(), true, false),
       ShipmentStatus(1, 'start shipping', widget.model.log![3].createdAt.toString(), false, false),
-      ShipmentStatus(1, ' Arrived at the target city', '20 min ago', false, true),
+      ShipmentStatus(1, 'Arrived at the target city', '20 min ago', false, true),
       ShipmentStatus(1, 'Delivered', '20 min ago', false, true),
     ];
     }
@@ -407,7 +407,7 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
         ShipmentStatus(1, 'Accepted', widget.model.log![1].createdAt.toString(), true, false),
         ShipmentStatus(1, 'Received in the warehouse', widget.model.log![2].createdAt.toString(), true, false),
         ShipmentStatus(1, 'start shipping', widget.model.log![3].createdAt.toString(), true, false),
-        ShipmentStatus(1, ' Arrived at the target city', '20 min ago', true, false),
+        ShipmentStatus(1, 'Arrived at the target city', '20 min ago', true, false),
         ShipmentStatus(1, 'Delivered', '20 min ago', false, false),
       ];
     }

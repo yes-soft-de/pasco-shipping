@@ -35,6 +35,8 @@ class AirwaybillModel {
     this.type,
     this.airwaybillNumber,
     this.status,
+    this.clientUserName,
+
 
     this.subcontractName,
     this.shipperName,
@@ -47,13 +49,15 @@ class AirwaybillModel {
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
-    this.createdByUser
+    this.createdByUser,
+  required  this.used
   });
 
   int? id;
   String? type;
   String? airwaybillNumber;
   String? status;
+  String? clientUserName;
 
   String? subcontractName;
   String? consigneeName;
@@ -70,12 +74,15 @@ class AirwaybillModel {
   String? updatedByUser;
   String? createdByUser;
 
+  bool used;
+
 
   factory AirwaybillModel.fromJson(Map<String, dynamic> json) => AirwaybillModel(
     id: json['id'],
     type: json['type'],
     status: json['status'],
     airwaybillNumber:json['airwaybillNumber'] ,
+    clientUserName: json['clientUserName'],
 
     subcontractName: json['subcontractName'],
     shipperName: json['shipperName'],
@@ -83,6 +90,7 @@ class AirwaybillModel {
     carrierName: json['carrierName'],
     specificationName: json['specificationName'],
     shipmentID: json['shipmentID'],
+    used: json['used'],
 
 
 

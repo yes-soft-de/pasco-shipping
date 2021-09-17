@@ -1210,10 +1210,10 @@ class S {
     );
   }
 
-  /// `Target Warehouse : `
+  /// `Target City : `
   String get targetWarehouse {
     return Intl.message(
-      'Target Warehouse : ',
+      'Target City : ',
       name: 'targetWarehouse',
       desc: '',
       args: [],
@@ -3085,6 +3085,46 @@ class S {
     return Intl.message(
       'More',
       name: 'more',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Local Shipment Report`
+  String get localShipmentReport {
+    return Intl.message(
+      'Local Shipment Report',
+      name: 'localShipmentReport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `External Shipment Report`
+  String get externalShipmentReport {
+    return Intl.message(
+      'External Shipment Report',
+      name: 'externalShipmentReport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Operation completed successfully`
+  String get operationCompletedSuccessfully {
+    return Intl.message(
+      'Operation completed successfully',
+      name: 'operationCompletedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Requested for`
+  String get requestedFor {
+    return Intl.message(
+      'Requested for',
+      name: 'requestedFor',
       desc: '',
       args: [],
     );

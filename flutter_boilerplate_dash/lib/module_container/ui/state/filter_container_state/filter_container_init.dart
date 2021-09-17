@@ -45,7 +45,8 @@ class _AddCountryInitState extends State<FilterContainerInit> {
   late DropListModel dropListModelConsign;
   late Entry optionItemSelectedConsign;
   late List<Entry> entryConsign;
-
+  late bool withoutNumber;
+  late bool isRequested;
  // late String status;
  // late String type;
  // late int selectedRadioType;
@@ -79,7 +80,31 @@ class _AddCountryInitState extends State<FilterContainerInit> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-            Text(S.of(context).status+': ' , style: AppTextStyle.mediumBlackBold,),
+              Row(children: [
+                Expanded(
+                  child: Row(children: [
+                    Text('Without number' +': ' , style: AppTextStyle.mediumBlackBold,),
+                    Checkbox(onChanged: (bool? value) {
+                      setState(() {
+                        withoutNumber = value!;
+                      });
+                    }, value: withoutNumber,
+                    ),
+                  ],),
+                ),
+                Expanded(
+                  child: Row(children: [
+                    Text('IS Requested' +': ' , style: AppTextStyle.mediumBlackBold,),
+                    Checkbox(onChanged: (bool? value) {
+                      setState(() {
+                        isRequested = value!;
+                      });
+                    }, value: isRequested,
+                    ),
+                  ],),
+                ),
+              ],),
+              Text(S.of(context).status+': ' , style: AppTextStyle.mediumBlackBold,),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Wrap(
@@ -192,6 +217,8 @@ class _AddCountryInitState extends State<FilterContainerInit> {
 
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
+                containerFilterRequest.withoutNumber=withoutNumber? withoutNumber :null;
+                containerFilterRequest.isRequested=isRequested?isRequested:null;
                 widget.onSave(containerFilterRequest);
 
               }, radius: 15)
@@ -222,6 +249,10 @@ class _AddCountryInitState extends State<FilterContainerInit> {
     optionItemSelectedSpecification =  Entry('choose', 0, []);
     containerFilterRequest.status='full';
     containerFilterRequest.type='LCL';
+
+    withoutNumber =false;
+    isRequested=false;
+
     initList();
 
   }

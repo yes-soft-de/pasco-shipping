@@ -321,6 +321,7 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
                 // DateTime arrivalDate = DateTime(endDate.year , endDate.month ,endDate.day ,selectedTimeEnd.hour ,selectedTimeEnd.minute);
                 // DateTime launchDate = DateTime(startDate.year , startDate.month ,startDate.day ,selectedTimeStart.hour ,selectedTimeStart.minute);
 
+                Entry c = Entry(containerNumber.text, widget.model.id!, []);
                 ContainerRequest re = ContainerRequest(status: status ,type: type
                     ,specificationID: optionItemSelectedSpecification.id ,
                     consigneeID: optionItemSelectedConsignee.id ,
@@ -330,7 +331,7 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
                     providedBy: optionItemSelectedProvidedBy.id,
                     id: widget.model.id
                 );
-                widget.onUpdate(re);
+                widget.onUpdate(re,c);
 
               }, radius: 15)
             ],),
@@ -371,7 +372,7 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
     optionItemSelectedShipper =  Entry('choose', 0, []);
     optionItemSelectedConsignee =  Entry('choose', 0, []);
     optionItemSelectedSpecification =  Entry('choose', 0, []);
-    optionItemSelectedCarrier =  Entry('choose', 00, []);
+    optionItemSelectedCarrier =  Entry('choose', 0, []);
 
     initList();
 

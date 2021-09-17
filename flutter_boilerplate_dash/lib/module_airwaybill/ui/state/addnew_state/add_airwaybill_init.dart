@@ -57,12 +57,12 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
  late String type;
  late int selectedRadioType;
 
- late int shipperID;
- late int consigneeID;
- late int providedByID;
+ // late int shipperID;
+ // late int consigneeID;
+ // late int providedByID;
  late int specificationID;
 
- late int carrierID;
+ // late int carrierID;
  late int clientID;
 
  // TimeOfDay selectedTimeStart = TimeOfDay.now();
@@ -310,12 +310,12 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                 // DateTime launchDate = DateTime(startDate.year , startDate.month ,startDate.day ,selectedTimeStart.hour ,selectedTimeStart.minute);
 
                 AirwaybillRequest re = AirwaybillRequest(status: status ,type: type
-                    ,specificationID: specificationID ,
-                    consigneeID: consigneeID ,
-                    shipperID: shipperID,
-                    carrierID: carrierID
+                    ,specificationID: optionItemSelectedSpecification.id ,
+                    consigneeID: optionItemSelectedConsignee.id ,
+                    shipperID: optionItemSelectedShipper.id,
+                    carrierID: optionItemSelectedCarrier.id
                     ,airwaybillNumber: containerNumber.text,
-                  providedBy: providedByID
+                  providedBy: optionItemSelectedProvidedBy.id
                 );
                   widget.onSave(re);
 

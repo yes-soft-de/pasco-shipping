@@ -199,7 +199,7 @@ class _waitingShipmentCardState extends State<waitingShipmentCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.pushNamed(context, EditShipmentRoutes.REVIEW_EDITED_SHIPMENT, arguments:
+        Navigator.pushNamed(context, EditShipmentRoutes.EDITED_SHIPMENT, arguments:
         {'myWaitingShipment' : widget.shipmentRequest,
         },);
       },

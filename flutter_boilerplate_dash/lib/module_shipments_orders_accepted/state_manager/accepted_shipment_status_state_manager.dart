@@ -236,6 +236,7 @@ class AcceptedShipmentsStatusStateManager {
           if(containers != null){
             _travelService.getTravelsWithFilter(travelFilterRequest).then((travels){
               if(travels != null){
+                print('noww');
                 _stateSubject.add(MeasuredContainerStatusState(model: model , containers: containers,travels: travels));
               }
             });
@@ -292,7 +293,7 @@ class AcceptedShipmentsStatusStateManager {
     _stateSubject.add(LoadingState());
     _gunnyService.createGunny().then((gunnies) {
       if(gunnies != null){
-        _stateSubject.add(ReceivedStatusState(
+        _stateSubject.add(ReceivedStatusWithGunniesState(
             model, subcontracts, warehouses ,gunnies ,StoredModel(remainedQuantity: '')));
       }else{
         _stateSubject.add(ErrorState('Error'));
@@ -301,13 +302,18 @@ class AcceptedShipmentsStatusStateManager {
 
   }
 
-  void storedShipmentInGunny(AddShipmentToGunnyRequest request,List<AcceptedShipmentStatusModel> model ,  List<SubcontractModel> subcontracts ,List<WarehousesModel> warehouses,List<GunnyModel> gunnies){
+  void storedShipmentInGunny(AddShipmentToGunnyRequest request,List<AcceptedShipmentStatusModel> model ,  List<SubcontractModel> subcontracts ,List<WarehousesModel> warehouses){
     _stateSubject.add(LoadingState());
     _gunnyService.addShipmentToGunny(request).then((storedModel) {
       if(storedModel != null){
         print(storedModel.remainedQuantity);
-        _stateSubject.add(ReceivedStatusState(
-            model, subcontracts, warehouses ,gunnies ,storedModel));
+        _gunnyService.getGunnies().then((gunnies){
+          if(gunnies != null){
+            _stateSubject.add(ReceivedStatusState(
+                model, subcontracts, warehouses ,gunnies ,storedModel));
+          }
+        });
+
       }
     });
   }

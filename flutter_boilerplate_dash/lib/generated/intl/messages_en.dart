@@ -154,6 +154,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Export Warehouse : "),
         "extensionalInfo":
             MessageLookupByLibrary.simpleMessage("Extensional Info"),
+        "externalShipmentReport":
+            MessageLookupByLibrary.simpleMessage("External Shipment Report"),
         "externalWarehouse":
             MessageLookupByLibrary.simpleMessage("External Warehouse: "),
         "extraSpecification":
@@ -207,6 +209,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Length In Meter: "),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "local": MessageLookupByLibrary.simpleMessage("Local"),
+        "localShipmentReport":
+            MessageLookupByLibrary.simpleMessage("Local Shipment Report"),
         "location": MessageLookupByLibrary.simpleMessage("Location"),
         "loggedIn": MessageLookupByLibrary.simpleMessage(
             "You are logged in successfully"),
@@ -244,6 +248,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "number": MessageLookupByLibrary.simpleMessage("number"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
+        "operationCompletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Operation completed successfully"),
         "otherData": MessageLookupByLibrary.simpleMessage("Other Data"),
         "packingBy": MessageLookupByLibrary.simpleMessage("Packing by"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
@@ -285,6 +291,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Request Container"),
         "requestShipment":
             MessageLookupByLibrary.simpleMessage("Request Shipment"),
+        "requestedFor": MessageLookupByLibrary.simpleMessage("Requested for"),
         "required":
             MessageLookupByLibrary.simpleMessage("this filed is required"),
         "resendCode": MessageLookupByLibrary.simpleMessage("resend code"),
@@ -384,7 +391,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "supplierInfo": MessageLookupByLibrary.simpleMessage("Supplier Info: "),
         "suppliers": MessageLookupByLibrary.simpleMessage("Supplier"),
         "targetWarehouse":
-            MessageLookupByLibrary.simpleMessage("Target Warehouse : "),
+            MessageLookupByLibrary.simpleMessage("Target City : "),
         "termOfService":
             MessageLookupByLibrary.simpleMessage("Term Of Service"),
         "to": MessageLookupByLibrary.simpleMessage("To"),

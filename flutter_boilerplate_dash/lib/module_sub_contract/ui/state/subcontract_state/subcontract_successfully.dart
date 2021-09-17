@@ -12,12 +12,12 @@ class SubcontractSuccessfully extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(itemBuilder: (context , index){
       return SubcontractCard(model: items[index],
-      onEdit: (re){
-        onEdit(re);
+      onEdit: (model){
+        onEdit(model);
       },
         onDelete: (id){
         onDelete(id);
-        }, isEdtiable: false,
+        },
       );
     },itemCount: items.length,
       shrinkWrap: true,

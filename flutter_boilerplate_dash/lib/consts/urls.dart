@@ -14,6 +14,7 @@ class Urls {
   static const PRODUCT_CATEGORY = BASE_API + 'productcategories';
 
   static const REQUEST_SHIPMENT_ADMIN = BASE_API + 'ordershipmentbydashboard';
+  static const UPDATE_SHIPMENT_ADMIN = BASE_API + 'shipmentorderbydashboard';
 
   //country
   static const COUNTRIES = BASE_API + 'countries';
@@ -163,6 +164,7 @@ class Urls {
   //gunny
   static const CREATE_GUNNY = BASE_API + 'gunny';
   static const ADD_SHIPMENT_TO_GUNNY = BASE_API + 'gunnyshipment';
+  static const GET_GUNNY = BASE_API + 'filtergunnies';
 
 
   static const REPORT_API = BASE_API + '/report';

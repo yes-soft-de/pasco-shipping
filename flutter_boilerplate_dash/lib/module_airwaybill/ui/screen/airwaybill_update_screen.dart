@@ -9,6 +9,7 @@ import 'package:pasco_shipping/module_airwaybill/ui/state/addnew_state/add_state
 import 'package:pasco_shipping/module_airwaybill/ui/state/update_state/update_airwaybill_init.dart';
 import 'package:pasco_shipping/module_airwaybill_specification/response/airwaybill_specification_response.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
+import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
@@ -29,6 +30,7 @@ class _AddNewCountryState extends State<UpdateAirwaybill> {
   late List<SubcontractModel> subs;
   late List<AirwaybillSpecificationModel> specification;
   late AirwaybillModel model;
+  late Entry option;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class _AddNewCountryState extends State<UpdateAirwaybill> {
       currentState = event;
       if (this.mounted) {
         if(currentState is SuccessfullyAddState){
-          Navigator.pop(context);
+          Navigator.pop(context,option);
         }else {
           setState(() {});
         }
@@ -85,7 +87,8 @@ class _AddNewCountryState extends State<UpdateAirwaybill> {
         specifications: specification,
         subContracts: subs,
         model: model,
-        onUpdate: (request){
+        onUpdate: (request,c){
+          option = c;
         widget._stateManager.updateAirwaybill(request);
       },);
     }

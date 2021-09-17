@@ -464,7 +464,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                   style: AppTextStyle.mediumBlackBold,
                 ),
                 NumberInputWithIncrementDecrement(initQuantity , (quantity){
-                  widget.shipmentRequest.quantity = quantity;
+                  widget.shipmentRequest.quantity = int.parse(quantity);
                 }),
               ],
             ),

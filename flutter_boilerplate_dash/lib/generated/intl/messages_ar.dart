@@ -151,6 +151,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("مستودع التصدير: "),
         "extensionalInfo":
             MessageLookupByLibrary.simpleMessage("معلومات موسعة"),
+        "externalShipmentReport":
+            MessageLookupByLibrary.simpleMessage("تقارير الشحنات خارجي"),
         "externalWarehouse":
             MessageLookupByLibrary.simpleMessage("مستودع خارجي: "),
         "extraSpecification":
@@ -201,6 +203,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "lengthInMeter": MessageLookupByLibrary.simpleMessage("الطول بالمتر: "),
         "loading": MessageLookupByLibrary.simpleMessage("جار التحميل"),
         "local": MessageLookupByLibrary.simpleMessage("محلي"),
+        "localShipmentReport":
+            MessageLookupByLibrary.simpleMessage("تقارير الشحنات داخي"),
         "location": MessageLookupByLibrary.simpleMessage("الموقع"),
         "loggedIn":
             MessageLookupByLibrary.simpleMessage("تم تسجيل الدخول بنجاح"),
@@ -237,6 +241,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("الإشعارت"),
         "number": MessageLookupByLibrary.simpleMessage("الرقم"),
         "ok": MessageLookupByLibrary.simpleMessage("تم"),
+        "operationCompletedSuccessfully":
+            MessageLookupByLibrary.simpleMessage("تم العملية بنجاح"),
         "otherData": MessageLookupByLibrary.simpleMessage("معلومات اخرى"),
         "packingBy": MessageLookupByLibrary.simpleMessage("غُلفت"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
@@ -277,6 +283,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("طلب بوليصة شحن جوي"),
         "requestContainer": MessageLookupByLibrary.simpleMessage("طلب حاوية"),
         "requestShipment": MessageLookupByLibrary.simpleMessage("طلب شحنة"),
+        "requestedFor": MessageLookupByLibrary.simpleMessage("Requested for"),
         "required": MessageLookupByLibrary.simpleMessage("الحقل مطلوب"),
         "resultTrack": MessageLookupByLibrary.simpleMessage("نتائج التعقب"),
         "reviewInformation":

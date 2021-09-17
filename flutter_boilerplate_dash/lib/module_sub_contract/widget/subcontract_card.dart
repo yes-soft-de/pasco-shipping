@@ -10,9 +10,9 @@ class SubcontractCard extends StatefulWidget {
   final SubcontractModel model;
   final Function onDelete;
   final Function onEdit;
-  late bool isEdtiable;
+  // late bool isEdtiable;
   SubcontractCard(
-      {required this.model, required this.onDelete, required this.onEdit,required this.isEdtiable});
+      {required this.model, required this.onDelete, required this.onEdit});
 
   @override
   _CountryCardState createState() => _CountryCardState();
@@ -33,7 +33,7 @@ class _CountryCardState extends State<SubcontractCard> {
    phone =TextEditingController();
    phone..text = widget.model.phone!;
 
-   widget.isEdtiable = false;
+   // widget.isEdtiable = false;
   }
 
   @override
@@ -60,8 +60,7 @@ class _CountryCardState extends State<SubcontractCard> {
                           S.of(context).name,
                           style: AppTextStyle.mediumBlack,
                         ),
-                         Expanded(child: widget.isEdtiable ?
-                        TextField(controller: fullName,):  Text(
+                         Expanded(child:  Text(
                           widget.model.fullName ?? '',
                           style: AppTextStyle.mediumBlueBold,
                         ),
@@ -76,7 +75,7 @@ class _CountryCardState extends State<SubcontractCard> {
                           S.of(context).phone+": ",
                           style: AppTextStyle.mediumBlack,
                         ),
-                      Expanded(child:   widget.isEdtiable ? TextField(controller: phone, keyboardType: TextInputType.phone,) :  Text(
+                      Expanded(child:  Text(
                           widget.model.phone ?? '',
                           style: AppTextStyle.mediumBlueBold,
                         ),
@@ -182,31 +181,12 @@ class _CountryCardState extends State<SubcontractCard> {
                     SizedBox(
                       height: 10,
                     ),
-                    widget.isEdtiable ? ElevatedButton(
+                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Colors.green,
                       ),
                       onPressed: () {
-                        if(fullName.text.isEmpty ||  phone.text.isEmpty){
-                          Fluttertoast.showToast(msg: S.of(context).fillAllField);
-                        }else {
-                          SubcontractRequest re =SubcontractRequest(id: widget.model.id ,fullName: fullName.text,phone: phone.text , serviceID: 1);
-                          widget.onEdit(re);
-                        }
-
-                      },
-                      child: Text(
-                        S.of(context).save,
-                        style: AppTextStyle.mediumWhite,
-                      ),
-                    ) : ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          widget.isEdtiable= true;
-                        });
+                        widget.onEdit(widget.model);
                       },
                       child: Text(
                         S.of(context).edit,

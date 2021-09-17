@@ -10,6 +10,8 @@ class AirwaybillFilterRequest {
   int? clientUserID;
 
   bool? isExternalWarehouse;
+  bool? isRequested;
+  bool? withoutNumber;
 
 
   AirwaybillFilterRequest({
@@ -21,7 +23,9 @@ class AirwaybillFilterRequest {
     this.shipperID,
     this.isExternalWarehouse,
     this.shipmentID,
-    this.clientUserID
+    this.clientUserID,
+    this.withoutNumber,
+    this.isRequested
   });
 
   Map<String, dynamic> toJson() {
@@ -34,7 +38,9 @@ class AirwaybillFilterRequest {
       'airwaybillNumber':airwaybillNumber ??'',
       'isExternalWarehouse':isExternalWarehouse,
       'shipmentID':shipmentID,
-      'clientUserID':clientUserID
+      'clientUserID':clientUserID,
+      'isRequested':isRequested,
+      'withoutNumber':withoutNumber
     };
   }
 }

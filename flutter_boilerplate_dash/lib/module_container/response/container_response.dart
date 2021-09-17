@@ -35,7 +35,7 @@ class ContainerModel {
     this.type,
     this.containerNumber,
     this.status,
-
+    this.clientUserName,
     this.subcontractName,
     this.shipperName,
     this.consigneeName,
@@ -47,14 +47,15 @@ class ContainerModel {
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
-    this.createdByUser
+    this.createdByUser,
+   required this.used
   });
 
   int? id;
   String? type;
   String? containerNumber;
   String? status;
-
+  String? clientUserName;
   String? subcontractName;
   String? consigneeName;
   String? shipperName;
@@ -71,19 +72,22 @@ class ContainerModel {
   String? updatedByUser;
   String? createdByUser;
 
+  bool used;
+
 
   factory ContainerModel.fromJson(Map<String, dynamic> json) => ContainerModel(
     id: json['id'],
     type: json['type']??'',
     status: json['status']??'',
     containerNumber:json['containerNumber'] ??'',
-
+    clientUserName: json['clientUserName'],
     subcontractName: json['subcontractName']??'',
     shipperName: json['shipperName']??'',
     consigneeName: json['consigneeName']??'',
     carrierName: json['carrierName']??'',
     specificationName: json['specificationName']??'',
     shipmentID: json['shipmentID'],
+    used: json['used'],
 
 
 

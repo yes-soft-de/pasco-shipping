@@ -137,7 +137,7 @@
   "trackNumber": "Track Number: ",
   "weight": "Weight: ",
   "productCategory": "Product Category: ",
-  "targetWarehouse": "Target Warehouse : ",
+  "targetWarehouse": "Target City : ",
   "exportWarehouse": "Export Warehouse : ",
 
   "airwaybillStatus": "Air Waybill Status",
@@ -382,5 +382,12 @@
   "gunnyFull": "Gunny is full",
   "completedStored": "Shipment Stored completely in Gunny",
   "remainedQuantity": "Remained Quantity",
-  "more": "More"
+  "more": "More",
+
+  "localShipmentReport": "Local Shipment Report",
+  "externalShipmentReport": "External Shipment Report",
+
+  "operationCompletedSuccessfully": "Operation completed successfully",
+
+  "requestedFor": "Requested for"
 }

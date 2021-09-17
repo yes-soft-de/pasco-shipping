@@ -159,6 +159,22 @@ class _CountryCardState extends State<ContainerCard> {
                       Row(
                         children: [
                           Text(
+                            S.of(context).requestedFor+': ',
+                            style: AppTextStyle.mediumBlack,
+                          ),
+                          Expanded(
+                            child: Text(
+                              widget.model.clientUserName ?? '',
+                              style: AppTextStyle.mediumBlueBold,
+                            ),
+                          )],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          Text(
                             S.of(context).createdBy,
                             style: AppTextStyle.mediumBlack,
                           ),
@@ -220,7 +236,7 @@ class _CountryCardState extends State<ContainerCard> {
                   flex: 1,
                   child: Column(
                     children: [
-                      ElevatedButton(
+                      widget.model.used ? Container() : ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           primary: Colors.red,
                         ),
@@ -231,7 +247,7 @@ class _CountryCardState extends State<ContainerCard> {
                           S.of(context).delete,
                           style: AppTextStyle.mediumWhite,
                         ),
-                      ),
+                      ) ,
                       SizedBox(
                         height: 10,
                       ),

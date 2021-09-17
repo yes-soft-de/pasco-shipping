@@ -68,6 +68,13 @@ class AcceptedShipmentModel {
     this.markNumber,
     this.imagePath,
     this.updatedByUser,
+this.categoriesNames,
+    this.distributorID,
+    this.receiverID,
+  required  this.clientUserID,
+    this.productCategoryID,
+    this.markID
+
     // this.subShipmentModelList
   });
 
@@ -99,6 +106,13 @@ class AcceptedShipmentModel {
 
   DateTime? createdAt;
   String? updatedByUser;
+  String? categoriesNames;
+
+  int? distributorID;
+  int? receiverID;
+  int? markID;
+  int? clientUserID;
+  int? productCategoryID;
   // List<SubShipmentModel> ? subShipmentModelList;
 
   AcceptedShipmentModel.fromJson(Map<String, dynamic> json) {
@@ -127,6 +141,13 @@ class AcceptedShipmentModel {
 
         imagePath=json['image'];
         updatedByUser = json['orderUpdatedByUser'];
+
+        categoriesNames = json['categoriesNames'];
+        distributorID = json['distributorID'];
+        receiverID = json['receiverID'];
+        markID = json['markID'];
+        productCategoryID = json['productCategoryID'];
+        clientUserID = json['clientUserID'];
   }
 
 }

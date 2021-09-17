@@ -156,6 +156,24 @@ class _CountryCardState extends State<AirwaybillCard> {
                       SizedBox(
                         height: 20,
                       ),
+
+                      Row(
+                        children: [
+                          Text(
+                            S.of(context).requestedFor+': ',
+                            style: AppTextStyle.mediumBlack,
+                          ),
+                          Expanded(
+                            child: Text(
+                              widget.model.clientUserName ?? '',
+                              style: AppTextStyle.mediumBlueBold,
+                            ),
+                          )],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+
                       Row(
                         children: [
                           Text(
@@ -220,7 +238,7 @@ class _CountryCardState extends State<AirwaybillCard> {
                   flex: 1,
                   child: Column(
                     children: [
-                      ElevatedButton(
+                    widget.model.used ? Container() : ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           primary: Colors.red,
                         ),
