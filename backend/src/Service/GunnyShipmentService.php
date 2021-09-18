@@ -9,6 +9,7 @@ use App\Request\DeleteRequest;
 use App\Request\GunnyShipmentCreateRequest;
 use App\Response\GunnyShipmentCreateResponse;
 use App\Response\GunnyShipmentDeleteResponse;
+use App\Response\GunnyShipmentGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class GunnyShipmentService
@@ -29,6 +30,30 @@ class GunnyShipmentService
         $gunnyShipmentResult = $this->gunnyShipmentManager->create($request);
 
         return $this->autoMapping->map('array', GunnyShipmentCreateResponse::class, $gunnyShipmentResult);
+    }
+
+    public function getGunnyByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        $gunnyResponse = [];
+
+        $gunnyResults = $this->gunnyShipmentManager->getGunnyByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+
+        foreach($gunnyResults as $gunny)
+        {
+            if($gunny['createdByUserImage'])
+            {
+                $gunny['createdByUserImage'] = $this->params . $gunny['createdByUserImage'];
+            }
+
+            if($gunny['updatedByUserImage'])
+            {
+                $gunny['updatedByUserImage'] = $this->params . $gunny['updatedByUserImage'];
+            }
+
+            $gunnyResponse[] = $this->autoMapping->map('array', GunnyShipmentGetResponse::class, $gunny);
+        }
+
+        return $gunnyResponse;
     }
 
     public function deleteGunnyShipmentById(DeleteRequest $request, $updatedGunnyStatusBy)

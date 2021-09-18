@@ -72,6 +72,11 @@ class GunnyShipmentManager
         $this->gunnyManager->updateStatus($gunnyStatusUpdateRequest);
     }
 
+    public function getGunnyByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        return $this->gunnyShipmentEntityRepository->getGunnyByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+    }
+
     public function checkIfQuantityOfShipmentCanBeStoredInGunny($shipmentID, $quantity)
     {
         $shipment = $this->shipmentOrderManager->getShipmentOrderById($shipmentID);
