@@ -12,6 +12,7 @@ use App\Request\AirwaybillFilterRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method AirwaybillEntity|null find($id, $lockMode = null, $lockVersion = null)
@@ -266,12 +267,11 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
 
         if($withoutNumber)
         {
-            //dd($airwaybillNumber);
-            $query->andWhere("airwaybill.airwaybillNumber IS NULL");
+            $query->andWhere($query->expr()->isNull('airwaybill.airwaybillNumber'));
         }
         elseif(isset($withoutNumber) AND $withoutNumber == false)
         {
-            $query->andWhere("airwaybill.airwaybillNumber IS NOT NULL");
+            $query->andWhere($query->expr()->isNotNull('airwaybill.airwaybillNumber'));
         }
 
         if($request->getStatus())
@@ -327,11 +327,11 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
 
         if($isRequested)
         {
-            $query->andWhere("airwaybill.providedBy IS NOT NULL");
+            $query->andWhere($query->expr()->isNotNull('airwaybill.providedBy'));
         }
         elseif(isset($isRequested) AND $isRequested == false)
         {
-            $query->andWhere("airwaybill.providedBy IS NULL");
+            $query->andWhere($query->expr()->isNull('airwaybill.providedBy'));
         }
 
         return $query->getQuery()->getResult();
