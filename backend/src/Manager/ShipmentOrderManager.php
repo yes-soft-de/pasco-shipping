@@ -13,14 +13,12 @@ use App\Request\AirwaybillCreateRequest;
 use App\Request\ContainerCreateRequest;
 use App\Request\DeleteRequest;
 use App\Request\ImageCreateRequest;
-use App\Request\ImageUpdateRequest;
 use App\Request\OrderShipmentByDashboardCreateRequest;
 use App\Request\OrderShipmentByDashboardUpdateRequest;
 use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
 use App\Request\PendingHolderCreateRequest;
-use App\Request\ShipmentFilterRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
 use App\Request\ShipmentStatusCreateRequest;
 use App\Request\ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest;
@@ -299,7 +297,7 @@ class ShipmentOrderManager
         return $shipments;
     }
 
-    public function filterAcceptedShipments(ShipmentFilterRequest $request)
+    public function filterAcceptedShipments($request)
     {
         $response = [];
 
@@ -325,9 +323,7 @@ class ShipmentOrderManager
             $airWaybillID = 0;
         }
 
-        $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipments($request->getTransportationType(), $request->getIsExternalWarehouse(), $request->getTrackNumber(), 
-        $request->getStatus(), $request->getExportWarehouseID(), $request->getImportWarehouseID(), $request->getPaymentTime(), $request->getLaunchCountry(), $request->getTargetCountry(), 
-        $request->getDateOne(), $request->getDateTwo(), $containerID, $airWaybillID, $request->getClientUserID(), $request->getMeasuredUntilCleared(), $request->getMeasuredUntilArrived());
+        $shipments = $this->orderShipmentEntityRepository->filterAcceptedShipments($request, $containerID, $airWaybillID);
 
         if($shipments)
         {
