@@ -6,9 +6,11 @@ use App\AutoMapping;
 use App\Constant\HolderStatusConstant;
 use App\Constant\HolderTypeConstant;
 use App\Constant\ShipmentStatusConstant;
+use App\Constant\ShippingTypeConstant;
 use App\Entity\TrackEntity;
 use App\Repository\TrackEntityRepository;
 use App\Request\CheckHolderRequest;
+use App\Request\ShipmentLogCreateRequest;
 use App\Request\ShipmentStatusCreateRequest;
 use App\Request\ShipmentStatusOfHolderUpdateRequest;
 use App\Request\ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest;
@@ -28,10 +30,12 @@ class TrackManager
     private $containerSpecificationManager;
     private $airwaybillManager;
     private $airwaybillSpecificationManager;
+    private $shipmentOrderManager;
+    private $shipmentLogManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, TrackEntityRepository $trackEntityRepository,
      ShipmentStatusManager $shipmentStatusManager, ContainerManager $containerManager, AirwaybillManager $airwaybillManager, ContainerSpecificationManager $containerSpecificationManager,
-     AirwaybillSpecificationManager $airwaybillSpecificationManager)
+     AirwaybillSpecificationManager $airwaybillSpecificationManager, ShipmentOrderManager $shipmentOrderManager, ShipmentLogManager $shipmentLogManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -41,6 +45,8 @@ class TrackManager
         $this->containerSpecificationManager = $containerSpecificationManager;
         $this->airwaybillManager = $airwaybillManager;
         $this->airwaybillSpecificationManager = $airwaybillSpecificationManager;
+        $this->shipmentOrderManager = $shipmentOrderManager;
+        $this->shipmentLogManager = $shipmentLogManager;
     }
 
     public function create(TrackCreateRequest $request)
@@ -53,6 +59,15 @@ class TrackManager
         
         if($differentTravel)
         {
+            /**
+             * Before continue, if the export warehouse of the shipment is external, and the holder is of type FCL,
+             * then the measure phase will be passed, as a result, we have to insert a log of MEASURED status
+             */
+            if($this->checkIfExternalWarehouseAndFCLHolder($request->getShipmentID(), $request->getHolderType(), $request->getHolderID()))
+            {
+                $this->createShipmentLog($request->getShipmentID(), $request->getTrackNumber(), ShipmentStatusConstant::$MEASURED_SHIPMENT_STATUS, $request->getCreatedBy());
+            }
+
             // Enter new shipment info with new track number in the ShipmentStatus entity
             $shipmentStatusRequest = $this->autoMapping->map(TrackCreateRequest::class, ShipmentStatusCreateRequest::class, $request);
 
@@ -77,12 +92,22 @@ class TrackManager
             $this->entityManager->clear();
 
             /**
-             * Then, we update the record related to the shipment in the ShipmentStatusEntity when the following coditions
-             * are true; the shipment stored completely in one holder OR shipment stored in more than one holder, and the storation 
+             * Then, we update the record related to the shipment in the ShipmentStatusEntity when the following conditions
+             * are true; the shipment stored completely in one holder OR shipment stored in more than one holder, and the storing
              * of the final part is finished
              */ 
             if($request->getIsInOneHolder() == true || ($request->getIsInOneHolder() == false && $request->getPacked() == true))
             {
+                /**
+                 * Before continue, if the export warehouse of the shipment is external, and the holder is of type FCL,
+                 * then the measure phase will be passed, as a result, we have to insert a log of MEASURED status
+                 */
+                if($this->checkIfExternalWarehouseAndFCLHolder($request->getShipmentID(), $request->getHolderType(), $request->getHolderID()))
+                {
+                    $this->createShipmentLog($request->getShipmentID(), $request->getTrackNumber(), ShipmentStatusConstant::$MEASURED_SHIPMENT_STATUS, $request->getCreatedBy());
+                }
+
+                // Now we can continue updating the shipmentStatus
                 $shipmentStatusRequest = $this->autoMapping->map(TrackCreateRequest::class, ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest::class, $request);
     
                 $shipmentStatusRequest->setUpdatedBy($request->getCreatedBy());
@@ -145,6 +170,15 @@ class TrackManager
             {
                 if($track)
                 {
+                    /**
+                     * Before continue, if the export warehouse of the shipment is external, and the holder is of type FCL,
+                     * then the measure phase will be passed, as a result, we have to insert a log of MEASURED status
+                     */
+                    if($request->getShipmentStatus() == ShipmentStatusConstant::$ARRIVED_SHIPMENT_STATUS AND $this->checkIfExternalWarehouseAndFCLHolder($track->getShipmentID(), $request->getHolderType(), $request->getHolderID()))
+                    {
+                        $this->createShipmentLog($track->getShipmentID(), $track->getTrackNumber(), ShipmentStatusConstant::$CLEARED_SHIPMENT_STATUS, $request->getUpdatedBy());
+                    }
+
                     $shipmentStatusRequest = $this->autoMapping->map(TrackUpdateByHolderTypeAndIdRequest::class, ShipmentStatusOfHolderUpdateRequest::class, $request);
 
                     $shipmentStatusRequest->setShipmentID($track->getShipmentID());
@@ -199,6 +233,41 @@ class TrackManager
     public function getByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
         return $this->trackEntityRepository->getByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+    }
+
+    public function checkIfExternalWarehouseAndFCLHolder($shipmentID, $holderType, $holderID)
+    {
+        $holder = [];
+
+        $shipment = $this->shipmentOrderManager->getShipmentOrderById($shipmentID);
+
+        if($holderType == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
+        {
+            $holder = $this->getAirwaybillById($holderID);
+        }
+        elseif($holderType == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
+        {
+            $holder = $this->getContainerById($holderID);
+        }
+
+        if($shipment['isExternalWarehouse'] == true && $holder['type'] == ShippingTypeConstant::$FCL_SHIPPING_TYPE)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function createShipmentLog($shipmentID, $trackNumber, $shipmentStatus, $createdBy)
+    {
+        $request = new ShipmentLogCreateRequest();
+
+        $request->setShipmentID($shipmentID);
+        $request->setTrackNumber($trackNumber);
+        $request->setShipmentStatus($shipmentStatus);
+        $request->setCreatedBy($createdBy);
+
+        $this->shipmentLogManager->create($request);
     }
 
     public function getContainerById($id)

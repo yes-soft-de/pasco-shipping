@@ -28,13 +28,15 @@ class ShipmentOrderService
     private $shipmentOrderManager;
     private $params;
     private $shipmentLogService;
+    private $gunnyShipmentService;
 
     public function __construct(AutoMapping $autoMapping, ShipmentOrderManager $shipmentOrderManager, ParameterBagInterface $params,
-     ShipmentLogService $shipmentLogService)
+     ShipmentLogService $shipmentLogService, GunnyShipmentService $gunnyShipmentService)
     {
         $this->autoMapping = $autoMapping;
         $this->shipmentOrderManager = $shipmentOrderManager;
         $this->shipmentLogService = $shipmentLogService;
+        $this->gunnyShipmentService = $gunnyShipmentService;
         $this->params = $params->get('upload_base_url') . '/';
     }
 
@@ -237,7 +239,14 @@ class ShipmentOrderService
     {
         $shipmentOrder = $this->shipmentOrderManager->getShipmentOrderById($id);
 
-        $shipmentOrder['tracks'] = $this->shipmentOrderManager->getShipmentStatusByShipmentID($id);
+        // Get gunny for each (shipmentID + trackNumber)
+        if(!empty($shipmentOrder['tracks']))
+        {
+            foreach($shipmentOrder['tracks'] as $key => $val)
+            {
+                $shipmentOrder['tracks'][$key]['gunny'] = $this->gunnyShipmentService->getGunnyByShipmentIdAndTrackNumber($id, $val['trackNumber']);
+            }
+        }
 
         if($shipmentOrder)
         {
@@ -251,7 +260,7 @@ class ShipmentOrderService
 
         if($shipmentOrder['images'])
         {
-            foreach ($shipmentOrder['images'] as $key=>$val)
+            foreach($shipmentOrder['images'] as $key=>$val)
             {
                 $shipmentOrder['images'][$key]['image'] = $this->params . $shipmentOrder['images'][$key]['image'];
             }
@@ -264,7 +273,7 @@ class ShipmentOrderService
 
         if($shipmentOrder['orderUpdatedByUserImage'])
         {
-            $shipmentsOrder['orderUpdatedByUserImage'] = $this->params . $shipmentOrder['orderUpdatedByUserImage'];
+            $shipmentOrder['orderUpdatedByUserImage'] = $this->params . $shipmentOrder['orderUpdatedByUserImage'];
         }
 
         return $this->autoMapping->map('array', OrderShipmentGetResponse::class, $shipmentOrder);
