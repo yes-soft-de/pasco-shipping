@@ -65,11 +65,7 @@ class TrackManager
              */
             if($this->checkIfExternalWarehouseAndFCLHolder($request->getShipmentID(), $request->getHolderType(), $request->getHolderID()))
             {
-                $shipmentLogRequest = $this->autoMapping->map(TrackCreateRequest::class, ShipmentLogCreateRequest::class, $request);
-
-                $shipmentLogRequest->setShipmentStatus(ShipmentStatusConstant::$MEASURED_SHIPMENT_STATUS);
-
-                $this->shipmentLogManager->create($shipmentLogRequest);
+                $this->createShipmentLog($request->getShipmentID(), $request->getTrackNumber(), ShipmentStatusConstant::$MEASURED_SHIPMENT_STATUS, $request->getCreatedBy());
             }
 
             // Enter new shipment info with new track number in the ShipmentStatus entity
@@ -108,11 +104,7 @@ class TrackManager
                  */
                 if($this->checkIfExternalWarehouseAndFCLHolder($request->getShipmentID(), $request->getHolderType(), $request->getHolderID()))
                 {
-                    $shipmentLogRequest = $this->autoMapping->map(TrackCreateRequest::class, ShipmentLogCreateRequest::class, $request);
-
-                    $shipmentLogRequest->setShipmentStatus(ShipmentStatusConstant::$MEASURED_SHIPMENT_STATUS);
-
-                    $this->shipmentLogManager->create($shipmentLogRequest);
+                    $this->createShipmentLog($request->getShipmentID(), $request->getTrackNumber(), ShipmentStatusConstant::$MEASURED_SHIPMENT_STATUS, $request->getCreatedBy());
                 }
 
                 // Now we can continue updating the shipmentStatus
