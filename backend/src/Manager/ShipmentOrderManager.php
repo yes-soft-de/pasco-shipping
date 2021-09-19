@@ -258,9 +258,11 @@ class ShipmentOrderManager
     {
         $order = $this->orderShipmentEntityRepository->getShipmentOrderById($id);
 
-        if ($order)
+        if($order)
         {
             $order['images'] = $this->imageManager->getImagesByShipmentID($id);
+
+            $order['tracks'] = $this->getShipmentStatusByShipmentID($id);
         }
 
         return $order;

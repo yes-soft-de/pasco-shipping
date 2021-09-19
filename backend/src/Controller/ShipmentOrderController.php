@@ -885,7 +885,22 @@ class ShipmentOrderController extends BaseController
      *                          @OA\Property(type="string", property="shipmentStatusCreatedByUser"),
      *                          @OA\Property(type="string", property="shipmentStatusCreatedByUserImage"),
      *                          @OA\Property(type="string", property="shipmentStatusUpdatedByUser"),
-     *                          @OA\Property(type="string", property="shipmentStatusUpdatedByUserImage")
+     *                          @OA\Property(type="string", property="shipmentStatusUpdatedByUserImage"),
+     *                          @OA\Property(type="array", property="gunny",
+     *                              @OA\Items(
+     *                                  @OA\Property(type="integer", property="id"),
+     *                                  @OA\Property(type="integer", property="gunnyID"),
+     *                                  @OA\Property(type="string", property="gunnyIdentificationNumber"),
+     *                                  @OA\Property(type="integer", property="shipmentID"),
+     *                                  @OA\Property(type="string", property="trackNumber"),
+     *                                  @OA\Property(type="object", property="createdAt"),
+     *                                  @OA\Property(type="object", property="updatedAt"),
+     *                                  @OA\Property(type="string", property="createdByUser"),
+     *                                  @OA\Property(type="string", property="createdByUserImage"),
+     *                                  @OA\Property(type="string", property="updatedByUser"),
+     *                                  @OA\Property(type="string", property="updatedByUserImage")
+     *                              )
+     *                          )
      *                      )
      *                  ),
      *                  @OA\Property(type="array", property="pendingHolders",
