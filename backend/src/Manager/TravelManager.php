@@ -9,7 +9,6 @@ use App\Repository\TravelEntityRepository;
 use App\Request\DeleteRequest;
 use App\Request\TrackUpdateByTravelIdRequest;
 use App\Request\TravelCreateRequest;
-use App\Request\TravelFilterRequest;
 use App\Request\TravelStatusUpdateRequest;
 use App\Request\TravelUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
