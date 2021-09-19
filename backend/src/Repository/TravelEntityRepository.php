@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Constant\TravelStatusConstant;
 use App\Entity\AdminProfileEntity;
 use App\Entity\SubcontractEntity;
 use App\Entity\TravelEntity;
+use App\Request\TravelFilterRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -155,7 +157,7 @@ class TravelEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function filterTravels($type, $launchCountry, $destinationCountry, $launchDate, $arrivalDate, $travelNumber, $shipperID, $status, $carrierID)
+    public function filterTravels(TravelFilterRequest $request)
     {
         $query = $this->createQueryBuilder('travel')
             ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
@@ -192,52 +194,68 @@ class TravelEntityRepository extends ServiceEntityRepository
 
             ->orderBy('travel.id', 'DESC');
 
-        if ($type)
+        if($request->getType())
         {
             $query->andWhere('travel.type = :type');
-            $query->setParameter('type', $type);
+            $query->setParameter('type', $request->getType());
         }
-        if ($launchCountry)
+
+        if($request->getLaunchCountry())
         {
             $query->andWhere('travel.launchCountry = :launchCountry');
-            $query->setParameter('launchCountry', $launchCountry);
+            $query->setParameter('launchCountry', $request->getLaunchCountry());
         }
-        if ($destinationCountry)
+
+        if($request->getDestinationCountry())
         {
             $query->andWhere('travel.destinationCountry = :destinationCountry');
-            $query->setParameter('destinationCountry', $destinationCountry);
+            $query->setParameter('destinationCountry', $request->getDestinationCountry());
         }
-        if ($launchDate)
+
+        if($request->getLaunchDate())
         {
             $query->andWhere('travel.launchDate BETWEEN :firstDate AND :secondDate');
-            $query->setParameter('firstDate', $launchDate);
-            $query->setParameter('secondDate', (new \DateTime($launchDate))->modify('+1 day')->format('Y-m-d'));
+            $query->setParameter('firstDate', $request->getLaunchDate());
+            $query->setParameter('secondDate', (new \DateTime($request->getLaunchDate()))->modify('+1 day')->format('Y-m-d'));
         }
-        if ($arrivalDate)
+
+        if($request->getArrivalDate())
         {
             $query->andWhere('travel.arrivalDate BETWEEN :firstDate AND :secondDate');
-            $query->setParameter('firstDate', $arrivalDate);
-            $query->setParameter('secondDate', (new \DateTime($arrivalDate))->modify('+1 day')->format('Y-m-d'));
+            $query->setParameter('firstDate', $request->getArrivalDate());
+            $query->setParameter('secondDate', (new \DateTime($request->getArrivalDate()))->modify('+1 day')->format('Y-m-d'));
         }
-        if ($travelNumber)
+
+        if($request->getTravelNumber())
         {
             $query->andWhere('travel.travelNumber = :travelNumber');
-            $query->setParameter('travelNumber', $travelNumber);
+            $query->setParameter('travelNumber', $request->getTravelNumber());
         }
-        if ($shipperID)
+
+        if($request->getShipperID())
         {
             $query->andWhere('travel.shipperID = :shipperID');
-            $query->setParameter('shipperID', $shipperID);
+            $query->setParameter('shipperID', $request->getShipperID());
         }
-        if ($carrierID)
+
+        if($request->getCarrierID())
         {
             $query->andWhere('travel.carrierID = :carrierID');
-            $query->setParameter('carrierID', $carrierID);
+            $query->setParameter('carrierID', $request->getCarrierID());
         }
-        if ($status)
+
+        if($request->getStatus())
         {
             $query->andWhere('travel.status = :status');
-            $query->setParameter('status', $status);
+            $query->setParameter('status', $request->getStatus());
+        }
+
+        if($request->getNotReleased())
+        {
+            $query->andWhere('travel.status = :statusOne OR travel.status = :statusTwo');
+
+            $query->setParameter('statusOne', TravelStatusConstant::$CURRENT_TRAVEL_STATUS);
+            $query->setParameter('statusTwo', TravelStatusConstant::$STARTED_TRAVEL_STATUS);
         }
 
         return $query->getQuery()->getResult();

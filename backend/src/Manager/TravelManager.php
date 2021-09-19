@@ -128,10 +128,9 @@ class TravelManager
         return count($this->travelEntityRepository->findAll());
     }
 
-    public function filterTravels(TravelFilterRequest $request)
+    public function filterTravels($request)
     {
-        return $this->travelEntityRepository->filterTravels($request->getType(), $request->getLaunchCountry(), $request->getDestinationCountry(), $request->getLaunchDate(), $request->getArrivalDate(), $request->getTravelNumber(),
-            $request->getShipperID(), $request->getStatus(), $request->getCarrierID());
+        return $this->travelEntityRepository->filterTravels($request);
     }
 
     public function delete(DeleteRequest $request)
