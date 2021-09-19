@@ -53,7 +53,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          widget.statusModel[3].statusDetails!.isNotEmpty ?Padding(
+          widget.statusModel[1].statusDetails!.isNotEmpty ?Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
               color: Colors.grey[200],

@@ -46,22 +46,22 @@ class SubcontractStateManager{
     });
   }
 
-  void updateSubcontract(SubcontractRequest request){
-    _stateSubject.add(LoadingState());
-    _service.updateSubcontract(request).then((value) {
-      if(value != null){
-        if(value.isConfirmed){
-          _service.getSubcontracts().then((marks) {
-            if(marks != null) {
-              _stateSubject.add(SuccessfullyFetchState(marks));
-            }else {
-              _stateSubject.add(ErrorState('error'));
-            }
-          });
-        }
-      }else {
-        _stateSubject.add(ErrorState('error'));
-      }
-    });
-  }
+  // void updateSubcontract(SubcontractRequest request){
+  //   _stateSubject.add(LoadingState());
+  //   _service.updateSubcontract(request).then((value) {
+  //     if(value != null){
+  //       if(value.isConfirmed){
+  //         _service.getSubcontracts().then((marks) {
+  //           if(marks != null) {
+  //             _stateSubject.add(SuccessfullyFetchState(marks));
+  //           }else {
+  //             _stateSubject.add(ErrorState('error'));
+  //           }
+  //         });
+  //       }
+  //     }else {
+  //       _stateSubject.add(ErrorState('error'));
+  //     }
+  //   });
+  // }
 }

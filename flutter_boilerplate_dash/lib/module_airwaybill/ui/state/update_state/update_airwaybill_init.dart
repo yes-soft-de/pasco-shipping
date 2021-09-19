@@ -326,6 +326,7 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 // DateTime arrivalDate = DateTime(endDate.year , endDate.month ,endDate.day ,selectedTimeEnd.hour ,selectedTimeEnd.minute);
                 // DateTime launchDate = DateTime(startDate.year , startDate.month ,startDate.day ,selectedTimeStart.hour ,selectedTimeStart.minute);
+                Entry c = Entry(containerNumber.text, widget.model.id!, []);
 
                 AirwaybillRequest re = AirwaybillRequest(status: status ,type: type
                     ,specificationID: optionItemSelectedSpecification.id ,
@@ -336,7 +337,7 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
                   providedBy: optionItemSelectedProvidedBy.id,
                   id: widget.model.id
                 );
-                  widget.onUpdate(re);
+                  widget.onUpdate(re,c);
 
               }, radius: 15)
             ],),
@@ -361,14 +362,7 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
     containerNumber..text = widget.model.airwaybillNumber??'';
 
     status= widget.model.status!;
-
-    if(widget.model.type =='LCL'){
-      selectedRadioType = 1;
-      type = AirwaybillTypeName[AirwaybillType.PUBLIC]!;
-    }else{
-      selectedRadioType = 2;
-      type = AirwaybillTypeName[AirwaybillType.PRIVATE]!;
-    }
+    type= widget.model.type!;
 
 
     optionItemSelectedProvidedBy =  Entry('choose', 0, []);

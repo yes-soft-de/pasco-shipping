@@ -95,7 +95,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
 
   void iniList() {
     for (AirwaybillModel item in widget.containers) {
-      Entry v = Entry(item.id.toString(), item.id!, []);
+      Entry v = Entry(item.id.toString(), item.id!, [Entry(item.airwaybillNumber??'',item.id??0, [])]);
       entryContainer.add(v);
     }
     dropListModelContainer = DropListModel(entryContainer);
@@ -121,7 +121,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
     return SingleChildScrollView(
       child: Column(
         children: [
-          widget.statusModel[3].statusDetails!.isNotEmpty ?Padding(
+          widget.statusModel[1].statusDetails!.isNotEmpty ?Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
               color: Colors.grey[200],
@@ -225,17 +225,17 @@ class _AcceptedShipmentDetailsSuccessfullyState
             ],
           ),
         ),
-        SelectDropList(
-          this.optionItemSelectedContainer,
-          this.dropListModelContainer,
-          (optionItem) {
-            FocusScope.of(context).unfocus();
-            optionItemSelectedContainer = optionItem;
-            holderID = optionItem.id;
-            holderNumber = optionItem.title;
-            setState(() {});
-          },
-        ),
+        // SelectDropList(
+        //   this.optionItemSelectedContainer,
+        //   this.dropListModelContainer,
+        //   (optionItem) {
+        //     FocusScope.of(context).unfocus();
+        //     optionItemSelectedContainer = optionItem;
+        //     holderID = optionItem.id;
+        //     holderNumber = optionItem.title;
+        //     setState(() {});
+        //   },
+        // ),
 
         Row(
           children: [
@@ -248,7 +248,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   FocusScope.of(context).unfocus();
                   optionItemSelectedContainer = optionItem;
                   holderID = optionItem.id;
-                  holderNumber = optionItem.title;
+                  holderNumber = optionItem.children[0].title;
                   setState(() {});
                 },
               ),

@@ -11,6 +11,7 @@ import 'package:pasco_shipping/module_container/enums/container_status.dart';
 import 'package:pasco_shipping/module_container/request/container_filter_request.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_gunny/response/stored_response.dart';
+import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/state_manager/accepted_shipment_status_state_manager.dart';
@@ -44,9 +45,13 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
   late TravelFilterRequest travelFilterRequest;
 
   late String transportation;
+  late String quantity;
   late bool isExternalWarehouse;
  late  ContainerFilterRequest containerFilterRequest;
  late  AirwaybillFilterRequest airwaybillFilterRequest;
+ late bool updated;
+
+ late Entry optionItemSelectedContainer;
   @override
   Widget build(BuildContext context) {
     return Background(
@@ -69,6 +74,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
     String holderType =arguments['holderType'].toString();
     String status =arguments['status'].toString();
      trackNumber =arguments['trackNumber'].toString();
+    quantity =arguments['quantity'].toString();
     transportation =arguments['transportation'].toString();
     isExternalWarehouse =arguments['isExternalWarehouse'];
 
@@ -101,6 +107,8 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
   @override
   void initState() {
     super.initState();
+    optionItemSelectedContainer = Entry('', 0, []);
+    updated = false;
     currentState = LoadingState();
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
@@ -278,7 +286,117 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         createGunny: (){
           widget._stateManager.createGunny(statusModels,state.subContracts,state.warehouse);
         }, infoStoredInGunny: state.storedModelInfo, onStoredInGunny: (m){
-          widget._stateManager.storedShipmentInGunny(m,statusModels,state.subContracts,state.warehouse ,state.gunnies);
+          widget._stateManager.storedShipmentInGunny(m,statusModels,state.subContracts,state.warehouse);
+      }, gunnies: state.gunnies,
+      );
+    }
+    else if (currentState is ReceivedStatusWithGunniesState) {
+      ReceivedStatusWithGunniesState state = currentState as ReceivedStatusWithGunniesState;
+      List<AcceptedShipmentStatusModel> statusModels = state.model;
+      print(state.gunnies.length);
+      Future.delayed(Duration.zero, () => _showAlert(context,state.gunnies.first.identificationNumber??''));
+      return AcceptedShipmentStatusReceived(
+        statusModel: statusModels,
+        subcontracts:state.subContracts ,
+        warehouse: state.warehouse,
+        onChangeStatus: (re , holderFilterRequest ,travelFilterRequest){
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            widget: Container(
+              height: 230,
+              child: Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: Scrollbar(
+                  isAlwaysShown: true,
+                  showTrackOnHover: true,
+                  child: SingleChildScrollView(
+                    child: Container(
+                      color: Colors.grey[200],
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(S.of(context).reviewInformation , style: AppTextStyle.mediumRedBold,),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).details + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text( re.statusDetails , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).packingBy + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text( re.packetingBy , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).weight + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text( re.weight.toString() , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).volume + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text( re.volume.toString() , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(S.of(context).guniQuantity + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Expanded
+                                    (child: Text( re.guniQuantity.toString() , style: AppTextStyle.mediumBlack,))
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              if(transportation =='sea'){
+                widget._stateManager.measuredContainerShipment(re, holderFilterRequest,travelFilterRequest);
+              }else{
+                widget._stateManager.measuredAirwaybillShipment(re, holderFilterRequest,travelFilterRequest);
+              }
+            },
+            text: S.of(context).changeStatusConfirm,
+          );
+        },
+        createGunny: (){
+          widget._stateManager.createGunny(statusModels,state.subContracts,state.warehouse);
+        }, infoStoredInGunny: state.storedModelInfo, onStoredInGunny: (m){
+        widget._stateManager.storedShipmentInGunny(m,statusModels,state.subContracts,state.warehouse);
       }, gunnies: state.gunnies,
       );
     }
@@ -337,7 +455,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
                                 children: [
                                   Text(S.of(context).containerNumber + ': ' , style: AppTextStyle.mediumBlackBold,),
                                   Expanded
-                                    (child: Text( request.holderNumber.toString() , style: AppTextStyle.mediumBlack,))
+                                    (child: Text(updated? optionItemSelectedContainer.title: request.holderNumber.toString(), style: AppTextStyle.mediumBlack,))
                                 ],
                               ),
                             ),
@@ -347,7 +465,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
                                 children: [
                                   Text(S.of(context).amount + ': ' , style: AppTextStyle.mediumBlackBold,),
                                   Expanded
-                                    (child: Text(request.amount.toString() , style: AppTextStyle.mediumBlack,))
+                                    (child: Text(request.amount == 0?quantity:request.amount.toString(), style: AppTextStyle.mediumBlack,))
                                 ],
                               ),
                             ),
@@ -381,6 +499,11 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         },
         onUpdateContainerInfo: (containerModel){
           Navigator.pushNamed(context, ContainerRoutes.UPDATE,arguments: {'containerModel':containerModel}).then((value) {
+            if(value != null){
+              updated = true;
+              optionItemSelectedContainer = value as Entry;
+              print(optionItemSelectedContainer.title);
+            }
             widget._stateManager.getMeasuredContainerStatus(id,containerFilterRequest,trackNumber,travelFilterRequest);
           });
         },
@@ -443,9 +566,9 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
-                                  Text(S.of(context).containerNumber + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                  Text(S.of(context).airwaybillNumber + ': ' , style: AppTextStyle.mediumBlackBold,),
                                   Expanded
-                                    (child: Text( request.holderNumber.toString() , style: AppTextStyle.mediumBlack,))
+                                    (child: Text(updated ? optionItemSelectedContainer.title: request.holderNumber.toString() , style: AppTextStyle.mediumBlack,))
                                 ],
                               ),
                             ),
@@ -455,7 +578,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
                                 children: [
                                   Text(S.of(context).amount + ': ' , style: AppTextStyle.mediumBlackBold,),
                                   Expanded
-                                    (child: Text(request.amount.toString() , style: AppTextStyle.mediumBlack,))
+                                    (child: Text(request.amount == 0?quantity:request.amount.toString() , style: AppTextStyle.mediumBlack,))
                                 ],
                               ),
                             ),
@@ -489,6 +612,11 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         },
         onUpdateAirwaybillInfo: (model){
           Navigator.pushNamed(context, AirwaybillRoutes.UPDATE,arguments: {'airwaybillModel':model}).then((value) {
+            if(value != null){
+              updated = true;
+              optionItemSelectedContainer = value as Entry;
+              print(optionItemSelectedContainer.title);
+            }
             widget._stateManager.getMeasuredAirwaybillStatus(id,airwaybillFilterRequest,trackNumber,travelFilterRequest);
           });
         },
@@ -539,13 +667,14 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
     }
   }
 
-  _showLoadingAlert(BuildContext context){
+  _showAlert(BuildContext context,String gunnyNumber){
     return CoolAlert.show(
       context: context,
-      type: CoolAlertType.loading,
-      title:  S.of(context).loading,
+      type: CoolAlertType.success,
+      title:  S.of(context).success,
       confirmBtnText: S.of(context).ok,
       backgroundColor:AppThemeDataService.PrimaryColor,
+      text: 'Successfully added gunny number: '+gunnyNumber
     );
   }
 }

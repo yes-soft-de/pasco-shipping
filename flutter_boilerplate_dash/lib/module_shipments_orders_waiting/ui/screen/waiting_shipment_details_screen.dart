@@ -56,7 +56,7 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
       currentState = event;
       if (this.mounted) {
         if(currentState is SuccessfullyModifyState){
-          Fluttertoast.showToast(msg: S.of(context).shipmentAddSuccessfully);
+          Fluttertoast.showToast(msg: S.of(context).operationCompletedSuccessfully);
           Navigator.pop(context);
         }else {
           setState(() {});

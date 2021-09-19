@@ -138,7 +138,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
     return SingleChildScrollView(
       child: Column(
         children: [
-          widget.statusModel[3].statusDetails!.isNotEmpty ?Padding(
+          widget.statusModel[1].statusDetails!.isNotEmpty ?Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
               color: Colors.grey[200],
@@ -293,6 +293,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   Checkbox(onChanged: (bool? value) {
                     setState(() {
                       gunnyFull = value!;
+                      print(gunnyFull);
                     });
                   }, value: gunnyFull,
                   ),
@@ -443,6 +444,34 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: 4,left: 16, right: 16, bottom: 4
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(15)
+                      ),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 5
+                        )
+                      ]
+                  ),
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: S.of(context).guniQuantity,
+                    ),
+                    controller: guniQuantityController,
+                  ),
+                ),
+              ),
               RoundedButton(lable:S.of(context).next, icon: '', color: blue, style: AppTextStyle.mediumWhite,
                   go: (){
                     if(transportation =='sea' && holderType=='FCL'){
@@ -469,6 +498,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                           packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text),weight: double.parse(weightController.text) );
                       widget.onChangeStatus(request ,containerRequest,travelFilterRequest );
                     }else if (transportation =='air' && holderType=='LCL') {
+                      print('herreee');
                       AirwaybillFilterRequest containerRequest = AirwaybillFilterRequest(status: ContainerStatusName[ContainerStatus.NOTFULL],type: holderType,isExternalWarehouse: isExternalWarehouse);
                       TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:TravelTypeName[TravelType.AIR]!);
                       MeasuredRequest request  = MeasuredRequest(shipmentStatus: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!,
@@ -495,34 +525,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
 
 
 
-        // Padding(
-        //   padding: const EdgeInsets.all(10.0),
-        //   child: Container(
-        //     padding: EdgeInsets.only(
-        //         top: 4,left: 16, right: 16, bottom: 4
-        //     ),
-        //     decoration: BoxDecoration(
-        //         borderRadius: BorderRadius.all(
-        //             Radius.circular(15)
-        //         ),
-        //         color: Colors.white,
-        //         boxShadow: [
-        //           BoxShadow(
-        //               color: Colors.black12,
-        //               blurRadius: 5
-        //           )
-        //         ]
-        //     ),
-        //     child: TextField(
-        //       keyboardType: TextInputType.number,
-        //       decoration: InputDecoration(
-        //         border: InputBorder.none,
-        //         hintText: S.of(context).guniQuantity,
-        //       ),
-        //       controller: guniQuantityController,
-        //     ),
-        //   ),
-        // ),
+
 
       ],
     );

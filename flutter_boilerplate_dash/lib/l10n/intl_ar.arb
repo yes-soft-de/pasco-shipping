@@ -362,5 +362,10 @@
   "gunnyFull": "امتلئ الجوني",
   "completedStored": "الشحنة خُزنت بالكامل ضمن الجوني",
   "remainedQuantity": "العدد المتبقي",
-  "more": "المزيد"
+  "more": "المزيد",
+  "localShipmentReport": "تقارير الشحنات داخي",
+  "externalShipmentReport": "تقارير الشحنات خارجي",
+
+  "operationCompletedSuccessfully": "تم العملية بنجاح",
+  "requestedFor": "Requested for"
 }

@@ -4,6 +4,7 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_sub_contract/state_manger/subcontracts_state_manager.dart';
+import 'package:pasco_shipping/module_sub_contract/subcontract_routes.dart';
 import 'package:pasco_shipping/module_sub_contract/ui/state/subcontract_state/subcontract_state.dart';
 import 'package:pasco_shipping/module_sub_contract/ui/state/subcontract_state/subcontract_successfully.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
@@ -68,8 +69,10 @@ class _CountriesScreenState extends State<SubcontractScreen> {
       return SubcontractSuccessfully(items: items ,onDelete: (id){
         widget._stateManager.deleteSubcontract(id.toString());
       },
-        onEdit: (request){
-          widget._stateManager.updateSubcontract(request);
+        onEdit: (model){
+          Navigator.pushNamed(context, SubcontractRoutes.UPDATE,arguments: {'subcontractModel':model}).then((value) {
+            widget._stateManager.getSubcontracts();
+          });
         },
       );
     }

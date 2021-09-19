@@ -28,6 +28,19 @@ class ReceivedStatusState extends AcceptedShipmentStatusState{
   StoredModel storedModelInfo;
   ReceivedStatusState(this.model , this.subContracts , this.warehouse , this.gunnies ,this.storedModelInfo);
 }
+
+
+class ReceivedStatusWithGunniesState extends AcceptedShipmentStatusState{
+  List<AcceptedShipmentStatusModel> model;
+  List<SubcontractModel> subContracts;
+  List<WarehousesModel> warehouse;
+  List<GunnyModel> gunnies;
+  StoredModel storedModelInfo;
+  ReceivedStatusWithGunniesState(this.model , this.subContracts , this.warehouse , this.gunnies ,this.storedModelInfo);
+}
+
+
+
 class MeasuredContainerStatusState extends AcceptedShipmentStatusState{
   List<AcceptedShipmentStatusModel> model;
   List<ContainerModel> containers;

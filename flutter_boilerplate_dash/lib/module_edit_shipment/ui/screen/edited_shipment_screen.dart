@@ -4,17 +4,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
-import 'package:pasco_shipping/module_edit_shipment/state_manager/confirmed_state_manager.dart';
-import 'package:pasco_shipping/module_edit_shipment/ui/state/confirmedshipment_state.dart';
+import 'package:pasco_shipping/module_distributors/response/distributors_response.dart';
+import 'package:pasco_shipping/module_edit_shipment/state_manager/edite_shipment_state_manager.dart';
+import 'package:pasco_shipping/module_edit_shipment/ui/state/edit_shipment_state.dart';
+import 'package:pasco_shipping/module_edit_shipment/ui/state/shipment_edited_init.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_home/home_routes.dart';
+import 'package:pasco_shipping/module_mark/response/mark_response.dart';
+import 'package:pasco_shipping/module_product_category/response/product_category_response.dart';
+import 'package:pasco_shipping/module_receiver/response/reciver_response.dart';
 import 'package:pasco_shipping/module_shipment_request/presistance/shipment_prefs_helper.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/module_unit/response/unit_response.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
-
-import '../state/myshipment_edited_init.dart';
 
 @injectable
 class EditedShipmentScreen extends StatefulWidget {
@@ -25,9 +30,15 @@ class EditedShipmentScreen extends StatefulWidget {
 }
 
 class _MarkScreenState extends State<EditedShipmentScreen> {
-  late ConfirmedShipmentState currentState;
-  ScrollController controller = ScrollController();
- late ShipmentRequest shipmentTempRequest;
+  late EditShipmentState currentState;
+  // ScrollController controller = ScrollController();
+ late AcceptedShipmentModel shipmentModel;
+
+  late  List<UnitModel> units;
+  late  List<ReceiverModel> receivers;
+  late  List<DistributorModel> dists;
+  late  List<Mark> marks;
+  late  List<ProductModel> products;
 
 
   @override
@@ -35,7 +46,6 @@ class _MarkScreenState extends State<EditedShipmentScreen> {
     return Background(
       showFilter: false,
       goBack: (){
-        Navigator.pop(context);
       },
       // controller: controller,
       // isHome: false,
@@ -49,14 +59,17 @@ class _MarkScreenState extends State<EditedShipmentScreen> {
   @override
   void initState() {
     super.initState();
-    currentState = ConfirmInitState();
 
-
+    currentState = LoadingFirstState();
     widget._stateManager.stateStream.listen((event) {
       print("newEvent"+event.toString());
       currentState = event;
       if (this.mounted) {
-        setState(() {});
+        if(currentState is ConfirmedEditedState){
+          Navigator.pop(context);
+        }else {
+          setState(() {});
+        }
       }
     });
 
@@ -66,42 +79,93 @@ class _MarkScreenState extends State<EditedShipmentScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
-    shipmentTempRequest =arguments['myWaitingShipment'];
+    shipmentModel =arguments['shipment'];
+    widget._stateManager.getFirstPage(shipmentModel.clientUserID!);
   }
 
   Widget Screen(){
-    if(currentState is LoadingState){
-      return Column(
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
-          LoadingIndicator(AppThemeDataService.AccentColor),
-        ],
+    if(currentState is LoadingFirstState){
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            LoadingIndicator(AppThemeDataService.AccentColor),
+          ],
+        ),
       );
     }
-    else if(currentState is ConfirmInitState){
-      return ReviewShipmentEditedScreen(shipmentTempRequest , (request){
-        widget._stateManager.addShipment(request);
-      });
+    else if(currentState is SuccessfullyFirstState){
+      SuccessfullyFirstState? state = currentState as SuccessfullyFirstState?;
+      receivers = state!.receivers;
+      marks = state.marks;
+      return SingleChildScrollView(
+        child: ShipmentEditedScreen(
+          shipment: shipmentModel,
+          dists: [],
+          marks: marks,
+          receivers: receivers, onLoadingMore: (){
+            widget._stateManager.getSecondPage();
+        }, onUpdate: (request){
+            widget._stateManager.updateShipment(request);
+        }, units: [], products: [], isFullOption: false,
+        ),
+      );
     }
-    else if (currentState is ConfirmedState){
-      ConfirmedState? state = currentState as ConfirmedState?;
-      if(state!.response.isConfirmed){
-        Future.delayed(Duration.zero, () => _showDialog(context));
-        return Column(
+    else if(currentState is LoadingSecondState){
+      return SingleChildScrollView(
+        child: Column(
           children: [
-            // SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
-            // Text('Thanks the shipme'),
+            ShipmentEditedScreen(
+              shipment: shipmentModel,
+              dists: [],
+              marks: marks,
+              receivers: receivers, onLoadingMore: (){
+              widget._stateManager.getSecondPage();
+            }, onUpdate: (){
+            }, units: [], products: [], isFullOption: false,
+            ),
+            LoadingIndicator(AppThemeDataService.AccentColor),
           ],
-        );
-      }else{
-        return Column(
-          children: [
-            SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
-            ErrorScreen(retry: (){},error: 'error',isEmptyData: false,),
-          ],
-        );
-      }
+        ),
+      );
     }
+    else if(currentState is SuccessfullySecondState){
+      SuccessfullySecondState? state = currentState as SuccessfullySecondState?;
+     units = state!.units;
+     products = state.categories;
+      return SingleChildScrollView(
+        child: ShipmentEditedScreen(
+          shipment: shipmentModel,
+          dists: [],
+          marks: marks,
+          receivers: receivers, onLoadingMore: (){
+
+        }, onUpdate: (request){
+          widget._stateManager.updateShipment(request);
+        }, units: units, products: products, isFullOption: true,
+        ),
+      );
+    }
+    // else if (currentState is ConfirmedState){
+    //   ConfirmedState? state = currentState as ConfirmedState?;
+    //   if(state!.response.isConfirmed){
+    //     Future.delayed(Duration.zero, () => _showDialog(context));
+    //     return Column(
+    //       children: [
+    //         // SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
+    //         // Text('Thanks the shipme'),
+    //       ],
+    //     );
+    //   }else{
+    //     return Column(
+    //       children: [
+    //         SizedBox(height: MediaQuery.of(context).size.height * 0.25,),
+    //         ErrorScreen(retry: (){},error: 'error',isEmptyData: false,),
+    //       ],
+    //     );
+    //   }
+    // }
     else {
       return Column(
         children: [

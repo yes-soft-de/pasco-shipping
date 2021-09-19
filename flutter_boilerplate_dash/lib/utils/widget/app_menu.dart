@@ -449,63 +449,63 @@ class AppMenu extends ConsumerWidget {
 
 
           //Specification
-          (ListEquality().equals ( role , EmployeeRoleName['Admin Data Entry']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin']))?
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ExpansionTile(
-                title: new Text(S.of(context).airwaybillSpecification),
-                leading: Icon(Icons.filter_list),
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      children: [
-                        ListTile(
-                            title: new Text(S.of(context).view),
-                            onTap: () {
-                              selectPage(context, ref, AirwaybillSpecificationRoutes.VIEW_ALL);
-
-                            }),
-                        ListTile(
-                            title: new Text(
-                              S.of(context).add,
-                            ),
-                            onTap: () {
-                              selectPage(context, ref, AirwaybillSpecificationRoutes.ADD_NEW);
-                            }),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              ExpansionTile(
-                title: new Text(S.of(context).containerSpecification),
-                leading: Icon(Icons.filter_list),
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      children: [
-                        ListTile(
-                            title: new Text(S.of(context).view),
-                            onTap: () {
-                              selectPage(context, ref, ContainerSpecificationRoutes.VIEW_ALL);
-                            }),
-                        ListTile(
-                            title: new Text(
-                              S.of(context).add,
-                            ),
-                            onTap: () {
-                              selectPage(context, ref, ContainerSpecificationRoutes.ADD_NEW);
-                            }),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ) : Container(),
+          // (ListEquality().equals ( role , EmployeeRoleName['Admin Data Entry']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin']))?
+          // Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     ExpansionTile(
+          //       title: new Text(S.of(context).airwaybillSpecification),
+          //       leading: Icon(Icons.filter_list),
+          //       children: <Widget>[
+          //         Padding(
+          //           padding: const EdgeInsets.all(10.0),
+          //           child: Column(
+          //             children: [
+          //               ListTile(
+          //                   title: new Text(S.of(context).view),
+          //                   onTap: () {
+          //                     selectPage(context, ref, AirwaybillSpecificationRoutes.VIEW_ALL);
+          //
+          //                   }),
+          //               ListTile(
+          //                   title: new Text(
+          //                     S.of(context).add,
+          //                   ),
+          //                   onTap: () {
+          //                     selectPage(context, ref, AirwaybillSpecificationRoutes.ADD_NEW);
+          //                   }),
+          //             ],
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //     ExpansionTile(
+          //       title: new Text(S.of(context).containerSpecification),
+          //       leading: Icon(Icons.filter_list),
+          //       children: <Widget>[
+          //         Padding(
+          //           padding: const EdgeInsets.all(10.0),
+          //           child: Column(
+          //             children: [
+          //               ListTile(
+          //                   title: new Text(S.of(context).view),
+          //                   onTap: () {
+          //                     selectPage(context, ref, ContainerSpecificationRoutes.VIEW_ALL);
+          //                   }),
+          //               ListTile(
+          //                   title: new Text(
+          //                     S.of(context).add,
+          //                   ),
+          //                   onTap: () {
+          //                     selectPage(context, ref, ContainerSpecificationRoutes.ADD_NEW);
+          //                   }),
+          //             ],
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ],
+          // ) : Container(),
 
 
           Divider(
@@ -562,7 +562,7 @@ class AppMenu extends ConsumerWidget {
                 child: Text(S.of(context).reports ,style: AppTextStyle.mediumDeepGrayBold,),
               ),
               ExpansionTile(
-                title: new Text(S.of(context).shipmentReport),
+                title: new Text(S.of(context).localShipmentReport),
                 leading: Icon(Icons.task_alt),
                 children: <Widget>[
                   ListTile(
@@ -583,6 +583,29 @@ class AppMenu extends ConsumerWidget {
                       }),
                 ],
               ),
+
+              ExpansionTile(
+                title: new Text(S.of(context).externalShipmentReport),
+                leading: Icon(Icons.task_sharp),
+                children: <Widget>[
+                  ListTile(
+                      title:Text(S.of(context).seaShipment),
+                      onTap: () {
+                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: true);
+                        Navigator.pushNamed(
+                            context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':true});
+                      }),
+                  ListTile(
+                      title:Text(
+                          S.of(context).airShipment
+                      ),
+                      onTap: () {
+                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: true);
+                        Navigator.pushNamed(
+                            context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':true});
+                      }),
+                ],
+              ),
               Divider(
                 color: Colors.grey,
               ),
@@ -598,6 +621,57 @@ class AppMenu extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(S.of(context).basicInfo,style: AppTextStyle.mediumDeepGrayBold,),
+              ),
+              ExpansionTile(
+                title: new Text(S.of(context).airwaybillSpecification),
+                leading: Icon(Icons.filter_list),
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                            title: new Text(S.of(context).view),
+                            onTap: () {
+                              selectPage(context, ref, AirwaybillSpecificationRoutes.VIEW_ALL);
+
+                            }),
+                        ListTile(
+                            title: new Text(
+                              S.of(context).add,
+                            ),
+                            onTap: () {
+                              selectPage(context, ref, AirwaybillSpecificationRoutes.ADD_NEW);
+                            }),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              ExpansionTile(
+                title: new Text(S.of(context).containerSpecification),
+                leading: Icon(Icons.filter_list),
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                            title: new Text(S.of(context).view),
+                            onTap: () {
+                              selectPage(context, ref, ContainerSpecificationRoutes.VIEW_ALL);
+                            }),
+                        ListTile(
+                            title: new Text(
+                              S.of(context).add,
+                            ),
+                            onTap: () {
+                              selectPage(context, ref, ContainerSpecificationRoutes.ADD_NEW);
+                            }),
+                      ],
+                    ),
+                  ),
+                ],
               ),
               ExpansionTile(
                 title: new Text(S.of(context).countries),

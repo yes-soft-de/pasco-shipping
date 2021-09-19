@@ -3,6 +3,7 @@ import 'package:pasco_shipping/consts/urls.dart';
 import 'package:pasco_shipping/module_auth/service/auth_service/auth_service.dart';
 import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_gunny/request/add_shipment_to_gunny_request.dart';
+import 'package:pasco_shipping/module_gunny/request/filter_gunny_request.dart';
 import 'package:pasco_shipping/module_gunny/response/gunny_response.dart';
 import 'package:pasco_shipping/module_gunny/response/stored_response.dart';
 import 'package:pasco_shipping/module_network/http_client/http_client.dart';
@@ -18,14 +19,15 @@ class GunnyRepository{
     // await _authService.refreshToken();
     var token =  await _authService.getToken();
     try {
-      // var response = await _apiClient.get(Urls.USER_MARKS,
-      //     headers: {'Authorization': 'Bearer $token'});
-      // GunnyResponse markResponse =  GunnyResponse.fromJson(response!);
+      FilterGunnyRequest request =FilterGunnyRequest(status: 'notfull');
+      var response = await _apiClient.post(Urls.GET_GUNNY,request.toJson(),
+          headers: {'Authorization': 'Bearer $token'});
+      GunnyResponse markResponse =  GunnyResponse.fromJson(response!);
       List<GunnyModel>? marks = [];
-      // if(markResponse.data != null) {
-      //   marks =
-      //       GunnyResponse.fromJson(response).data;
-      // }
+      if(markResponse.data != null) {
+        marks =
+            GunnyResponse.fromJson(response).data;
+      }
       return marks;
     } catch (_) {
       return null;

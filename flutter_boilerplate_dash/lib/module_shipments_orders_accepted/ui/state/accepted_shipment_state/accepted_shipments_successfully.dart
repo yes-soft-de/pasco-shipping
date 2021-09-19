@@ -15,6 +15,7 @@ import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 class AcceptedShipmentSuccessfully extends StatelessWidget {
   final Data items;
   final Function onDetails;
+  final Function onEdit;
   final Function onSearch;
   final AcceptedShipmentFilterRequest filterRequest;
   final Function addContainer;
@@ -23,6 +24,7 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
   const AcceptedShipmentSuccessfully(
       {required this.items,
       required this.onDetails,
+        required this.onEdit,
       required this.onSearch,
         required this.addContainer,
       required this.filterRequest,required this.hideAddButton});
@@ -69,7 +71,7 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
           Padding(
             padding: const EdgeInsetsDirectional.only(top: 8.0),
             child: Card(
-              color: Colors.grey[200],
+              color: Colors.green[100],
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               child: Padding(
@@ -84,7 +86,7 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
                       ),
                       Text(
                         items.statistics!.received.toString(),
-                        style: AppTextStyle.mediumRedBold,
+                        style: AppTextStyle.mediumBlueBold,
                       ),
                     ],
                   ),
@@ -93,7 +95,7 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
             ),
           ),
           Card(
-            color: Colors.grey[200],
+            color: Colors.green[100],
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Padding(
@@ -110,7 +112,7 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
                         ),
                         Text(
                           items.statistics!.notDelivered.toString(),
-                          style: AppTextStyle.mediumRedBold,
+                          style: AppTextStyle.mediumBlueBold,
                         ),
                       ],
                     ),
@@ -120,7 +122,7 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
             ),
           ),
           Card(
-            color: Colors.grey[200],
+            color: Colors.green[100],
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Padding(
@@ -137,7 +139,7 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
                         ),
                         Text(
                           items.statistics!.delivered.toString(),
-                          style: AppTextStyle.mediumRedBold,
+                          style: AppTextStyle.mediumBlueBold,
                         ),
                       ],
                     ),
@@ -152,6 +154,9 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
                 shipmentModel: items.data![index],
                 onDetails: (model) {
                   onDetails(model);
+                },
+                onEdit: (model){
+                  onEdit(model);
                 },
               );
             },

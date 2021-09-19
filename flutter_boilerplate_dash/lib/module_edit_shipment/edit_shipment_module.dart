@@ -6,14 +6,14 @@ import 'edit_shipment_routes.dart';
 
 @injectable
 class EditShipmentModule extends YesModule {
-  final EditedShipmentScreen _reviewShipmentEditedScreen;
+  final EditedShipmentScreen _editedShipmentScreen;
 
-  EditShipmentModule(this._reviewShipmentEditedScreen,) {
+  EditShipmentModule(this._editedShipmentScreen,) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
   Map<String, WidgetBuilder> getRoutes() {
     return {
-      EditShipmentRoutes.REVIEW_EDITED_SHIPMENT: (context) => _reviewShipmentEditedScreen,
+      EditShipmentRoutes.EDITED_SHIPMENT: (context) => _editedShipmentScreen,
     };
   }
 }
