@@ -178,6 +178,15 @@ class TrackManager
             {
                 if($track)
                 {
+                    /**
+                     * Before continue, if the export warehouse of the shipment is external, and the holder is of type FCL,
+                     * then the measure phase will be passed, as a result, we have to insert a log of MEASURED status
+                     */
+                    if($request->getShipmentStatus() == ShipmentStatusConstant::$ARRIVED_SHIPMENT_STATUS AND $this->checkIfExternalWarehouseAndFCLHolder($track->getShipmentID(), $request->getHolderType(), $request->getHolderID()))
+                    {
+                        $this->createShipmentLog($track->getShipmentID(), $track->getTrackNumber(), ShipmentStatusConstant::$CLEARED_SHIPMENT_STATUS, $request->getUpdatedBy());
+                    }
+
                     $shipmentStatusRequest = $this->autoMapping->map(TrackUpdateByHolderTypeAndIdRequest::class, ShipmentStatusOfHolderUpdateRequest::class, $request);
 
                     $shipmentStatusRequest->setShipmentID($track->getShipmentID());
@@ -255,6 +264,18 @@ class TrackManager
         }
 
         return false;
+    }
+
+    public function createShipmentLog($shipmentID, $trackNumber, $shipmentStatus, $createdBy)
+    {
+        $request = new ShipmentLogCreateRequest();
+
+        $request->setShipmentID($shipmentID);
+        $request->setTrackNumber($trackNumber);
+        $request->setShipmentStatus($shipmentStatus);
+        $request->setCreatedBy($createdBy);
+
+        $this->shipmentLogManager->create($request);
     }
 
     public function getContainerById($id)
@@ -547,9 +568,6 @@ class TrackManager
             }
         }
     }
-
-    public function createShipmentLog()
-    {}
 
     public function compareTwoValues($valueOne, $valueTwo)
     {
