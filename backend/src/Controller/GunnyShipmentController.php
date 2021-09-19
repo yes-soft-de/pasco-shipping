@@ -98,6 +98,50 @@ class GunnyShipmentController extends BaseController
     }
 
     /**
+     * @Route("gunnyshipment/{shipmentID}/{trackNumber}", name="getGunnyShipmentByShipmentIdAndTrackNumber", methods={"GET"})
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Gunny Shipment")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the creation date and ID of the new gunny shipment record",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="integer", property="remainedQuantity"),
+     *              @OA\Property(type="boolean", property="completedStored"),
+     *              @OA\Property(type="array", property="gunnyShipment",
+     *                  @OA\Items(
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="integer", property="gunnyID"),
+     *                      @OA\Property(type="string", property="gunnyIdentificationNumber"),
+     *                      @OA\Property(type="integer", property="shipmentID"),
+     *                      @OA\Property(type="string", property="trackNumber"),
+     *                      @OA\Property(type="integer", property="quantity"),
+     *                      @OA\Property(type="object", property="createdAt"),
+     *                      @OA\Property(type="string", property="createdByUser"),
+     *                      @OA\Property(type="string", property="updatedByUser"),
+     *                      @OA\Property(type="string", property="createdByUserImage"),
+     *                      @OA\Property(type="string", property="updatedByUserImage"),
+     *                      @OA\Property(type="object", property="updatedAt")
+     *                  )
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function getGunnyByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        $result = $this->gunnyShipmentService->getGunnyByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+
+        return $this->response($result, self::CREATE);
+    }
+
+    /**
      * @Route("gunnyshipment/{id}", name="deleteGunnyShipmentItem", methods={"DELETE"})
      * @param Request $request
      * @return JsonResponse

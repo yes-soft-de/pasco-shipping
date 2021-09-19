@@ -13,6 +13,7 @@ use App\Request\ContainerFilterRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method ContainerEntity|null find($id, $lockMode = null, $lockVersion = null)
@@ -315,20 +316,20 @@ class ContainerEntityRepository extends ServiceEntityRepository
 
         if($withoutNumber)
         {
-            $query->andWhere("container.containerNumber IS NULL");
+            $query->andWhere($query->expr()->isNull('container.containerNumber'));
         }
         elseif(isset($withoutNumber) AND $withoutNumber == false)
         {
-            $query->andWhere("container.containerNumber IS NOT NULL");
+            $query->andWhere($query->expr()->isNotNull('container.containerNumber'));
         }
 
         if($isRequested)
         {
-            $query->andWhere("container.providedBy IS NOT NULL");
+            $query->andWhere($query->expr()->isNotNull('container.providedBy'));
         }
         elseif(isset($isRequested) AND $isRequested == false)
         {
-            $query->andWhere("container.providedBy IS NULL");
+            $query->andWhere($query->expr()->isNull('container.providedBy'));
         }
 
         return $query->getQuery()->getResult();

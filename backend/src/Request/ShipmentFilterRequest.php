@@ -36,6 +36,10 @@ class ShipmentFilterRequest
 
     private $measuredUntilArrived;
 
+    private $acceptedUntilCleared;
+
+    private $acceptedUntilArrived;
+
     public function getStatus()
     {
         return $this->status;
@@ -114,6 +118,16 @@ class ShipmentFilterRequest
     public function getMeasuredUntilArrived()
     {
         return $this->measuredUntilArrived;
+    }
+
+    public function getAcceptedUntilCleared()
+    {
+        return $this->acceptedUntilCleared;
+    }
+
+    public function getAcceptedUntilArrived()
+    {
+        return $this->acceptedUntilArrived;
     }
 
 }
