@@ -26,6 +26,8 @@ class TrackCreateRequest
 
     private $amount;
 
+    private $importWarehouseID;
+
     public function setShipmentID($shipmentID)
     {
         $this->shipmentID = $shipmentID;
@@ -99,6 +101,11 @@ class TrackCreateRequest
     public function getTravelID()
     {
         return $this->travelID;
+    }
+
+    public function getImportWarehouseID()
+    {
+        return $this->importWarehouseID;
     }
 
 }

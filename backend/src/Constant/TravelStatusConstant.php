@@ -10,4 +10,6 @@ class TravelStatusConstant
     
     static $STARTED_TRAVEL_STATUS = "started";
 
+    static $NOT_RELEASED_TRAVEL_STATUS = "notReleased";
+
 }

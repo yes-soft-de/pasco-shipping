@@ -58,7 +58,8 @@ class TrackController extends BaseController
      *          @OA\Property(type="boolean", property="packed"),
      *          @OA\Property(type="string", property="holderType"),
      *          @OA\Property(type="integer", property="holderID"),
-     *          @OA\Property(type="number", property="amount")
+     *          @OA\Property(type="number", property="amount"),
+     *          @OA\Property(type="integer", property="importWarehouseID")
      *      )
      * )
      * 

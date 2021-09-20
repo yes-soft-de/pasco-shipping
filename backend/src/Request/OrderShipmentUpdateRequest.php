@@ -6,8 +6,6 @@ class OrderShipmentUpdateRequest
 {
     private $id;
 
-    private $importWarehouseID;
-
     private $packetingBy;
 
     private $weight;

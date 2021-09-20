@@ -22,8 +22,6 @@ class TravelFilterRequest
 
     private $status;
 
-    private $notReleased;
-
     public function getType()
     {
         return $this->type;
@@ -67,11 +65,6 @@ class TravelFilterRequest
     public function getStatus()
     {
         return $this->status;
-    }
-
-    public function getNotReleased()
-    {
-        return $this->notReleased;
     }
 
 }

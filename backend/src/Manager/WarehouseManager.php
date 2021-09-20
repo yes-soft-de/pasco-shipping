@@ -7,7 +7,6 @@ use App\Entity\WarehouseEntity;
 use App\Repository\WarehouseEntityRepository;
 use App\Request\DeleteRequest;
 use App\Request\WarehouseCreateRequest;
-use App\Request\WarehouseFilterRequest;
 use App\Request\WarehouseUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -91,9 +90,9 @@ class WarehouseManager
         return $this->warehouseEntityRepository->getAllWarehouses();
     }
 
-    public function filterWarehouses(WarehouseFilterRequest $request)
+    public function filterWarehouses($request)
     {
-        return $this->warehouseEntityRepository->filterWarehouses($request->getTypeOfCountry(), $request->getCityName());
+        return $this->warehouseEntityRepository->filterWarehouses($request);
     }
 
     public function getWarehousesByCountryID($countryID)

@@ -233,6 +233,7 @@ class WarehouseController extends BaseController
      *                  @OA\Property(type="string", property="countryName"),
      *                  @OA\Property(type="string", property="city"),
      *                  @OA\Property(type="string", property="location"),
+     *                  @OA\Property(type="integer", property="countryID"),
      *                  @OA\Property(type="number", property="rentingFee"),
      *                  @OA\Property(type="string", property="proxyName"),
      *                  @OA\Property(type="object", property="createdAt"),

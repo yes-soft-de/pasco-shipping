@@ -393,7 +393,6 @@ class ShipmentOrderController extends BaseController
      *      description="Update the order of a shipment",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="id"),
-     *          @OA\Property(type="string", property="importWarehouseID"),
      *          @OA\Property(type="string", property="packetingBy"),
      *          @OA\Property(type="string", property="weight"),
      *          @OA\Property(type="float", property="volume"),

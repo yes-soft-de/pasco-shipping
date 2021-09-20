@@ -250,12 +250,13 @@ class TravelEntityRepository extends ServiceEntityRepository
             $query->setParameter('status', $request->getStatus());
         }
 
-        if($request->getNotReleased())
+        if($request->getStatus() AND $request->getStatus() == TravelStatusConstant::$NOT_RELEASED_TRAVEL_STATUS)
         {
-            $query->andWhere('travel.status = :statusOne OR travel.status = :statusTwo');
+            $query->andWhere('travel.status = :status');
+            $query->setParameter('status', TravelStatusConstant::$STARTED_TRAVEL_STATUS);
 
-            $query->setParameter('statusOne', TravelStatusConstant::$CURRENT_TRAVEL_STATUS);
-            $query->setParameter('statusTwo', TravelStatusConstant::$STARTED_TRAVEL_STATUS);
+            $query->orWhere('travel.status = :status_two');
+            $query->setParameter('status_two', TravelStatusConstant::$CURRENT_TRAVEL_STATUS);
         }
 
         return $query->getQuery()->getResult();
