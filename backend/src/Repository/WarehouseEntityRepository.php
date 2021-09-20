@@ -7,6 +7,7 @@ use App\Entity\CountryEntity;
 use App\Entity\ProxyEntity;
 use App\Entity\SubcontractEntity;
 use App\Entity\WarehouseEntity;
+use App\Request\WarehouseFilterRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -73,7 +74,7 @@ class WarehouseEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function filterWarehouses($typeOfCountry, $cityName)
+    public function filterWarehouses(WarehouseFilterRequest $request)
     {
         $query = $this->createQueryBuilder('warehouse')
             ->select('warehouse.id', 'warehouse.city', 'warehouse.countryID', 'warehouse.location', 'warehouse.type', 'warehouse.proxyID', 'warehouse.rentingFee',
@@ -118,16 +119,22 @@ class WarehouseEntityRepository extends ServiceEntityRepository
 
             ->orderBy('warehouse.id', 'DESC');
 
-        if($typeOfCountry)
+        if($request->getTypeOfCountry())
         {
             $query->andWhere('country.type = :type');
-            $query->setParameter('type', $typeOfCountry);
+            $query->setParameter('type', $request->getTypeOfCountry());
         }
 
-        if($cityName)
+        if($request->getCityName())
         {
             $query->andWhere('warehouse.city LIKE :city');
-            $query->setParameter('city', '%'.$cityName.'%');
+            $query->setParameter('city', '%'.$request->getCityName().'%');
+        }
+
+        if($request->getCountryID())
+        {
+            $query->andWhere('warehouse.countryID = :countryID');
+            $query->setParameter('countryID', $request->getCountryID());
         }
 
         return $query->getQuery()->getResult();

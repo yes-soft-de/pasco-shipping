@@ -8,6 +8,8 @@ class WarehouseFilterRequest
 
     private $cityName;
 
+    private $countryID;
+
     public function getTypeOfCountry()
     {
         return $this->typeOfCountry;
@@ -16,6 +18,11 @@ class WarehouseFilterRequest
     public function getCityName()
     {
         return $this->cityName;
+    }
+
+    public function getCountryID()
+    {
+        return $this->countryID;
     }
 
 }
