@@ -19,6 +19,7 @@ use App\Request\OrderShipmentCreateRequest;
 use App\Request\OrderShipmentUpdateByClientRequest;
 use App\Request\OrderShipmentUpdateRequest;
 use App\Request\PendingHolderCreateRequest;
+use App\Request\ShipmentOrderImportWarehouseUpdateRequest;
 use App\Request\ShipmentOrderStatusUpdateRequest;
 use App\Request\ShipmentStatusCreateRequest;
 use App\Request\ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest;
@@ -241,6 +242,26 @@ class ShipmentOrderManager
             $this->updateImagesOfShipment($request->getImages(), $shipmentOrderEntity->getId());
 
             return $shipmentOrderEntity;
+        }
+    }
+
+    public function updateImportWarehouseOfShipmentOrder(ShipmentOrderImportWarehouseUpdateRequest $request)
+    {
+        $shipmentOrder = $this->orderShipmentEntityRepository->find($request->getId());
+
+        if(!$shipmentOrder)
+        {
+            return "Shipment order is not exist!";
+        }
+        else
+        {
+            $shipmentOrder = $this->autoMapping->mapToObject(ShipmentOrderImportWarehouseUpdateRequest::class, OrderShipmentEntity::class,
+             $request, $shipmentOrder);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $shipmentOrder;
         }
     }
 

@@ -11,6 +11,7 @@ use App\Entity\TrackEntity;
 use App\Repository\TrackEntityRepository;
 use App\Request\CheckHolderRequest;
 use App\Request\ShipmentLogCreateRequest;
+use App\Request\ShipmentOrderImportWarehouseUpdateRequest;
 use App\Request\ShipmentStatusCreateRequest;
 use App\Request\ShipmentStatusOfHolderUpdateRequest;
 use App\Request\ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest;
@@ -51,6 +52,9 @@ class TrackManager
 
     public function create(TrackCreateRequest $request)
     {
+        // First of all, we have to update the import warehouse of the shipment order
+        $this->updateImportWarehouseOfShipmentOrder($request->getShipmentID(), $request->getImportWarehouseID());
+
         /**
          * Now, we have to check if the holder is going to uploaded onto different travel or not
          * To do that, we just need to check if there is a previous record with the info: shipmentID + trackNumber
@@ -228,6 +232,16 @@ class TrackManager
         {
             return "Wrong status!";
         }
+    }
+
+    public function updateImportWarehouseOfShipmentOrder($shipmentID, $importWarehouseID)
+    {
+        $shipmentOrderUpdateRequest = new ShipmentOrderImportWarehouseUpdateRequest();
+
+        $shipmentOrderUpdateRequest->setId($shipmentID);
+        $shipmentOrderUpdateRequest->setImportWarehouseID($importWarehouseID);
+
+        $this->shipmentOrderManager->updateImportWarehouseOfShipmentOrder($shipmentOrderUpdateRequest);
     }
 
     public function getByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
