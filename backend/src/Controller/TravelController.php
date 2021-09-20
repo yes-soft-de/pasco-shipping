@@ -429,8 +429,7 @@ class TravelController extends BaseController
      *          @OA\Property(type="string", property="launchDate"),
      *          @OA\Property(type="string", property="arrivalDate"),
      *          @OA\Property(type="string", property="travelNumber"),
-     *          @OA\Property(type="integer", property="shipperID"),
-     *          @OA\Property(type="boolean", property="notReleased")
+     *          @OA\Property(type="integer", property="shipperID")
      *      )
      * )
      *
