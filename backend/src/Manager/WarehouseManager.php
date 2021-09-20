@@ -7,6 +7,7 @@ use App\Entity\WarehouseEntity;
 use App\Repository\WarehouseEntityRepository;
 use App\Request\DeleteRequest;
 use App\Request\WarehouseCreateRequest;
+use App\Request\WarehouseFilterRequest;
 use App\Request\WarehouseUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -90,8 +91,30 @@ class WarehouseManager
         return $this->warehouseEntityRepository->getAllWarehouses();
     }
 
-    public function filterWarehouses($request)
+    public function filterWarehouses(WarehouseFilterRequest $request)
     {
+        /**
+         * If we want to get all warehouses in the country that the city (target) exist in
+         * we have first to get all the countries IDs that the same city could be exist
+         * and finally get all the warehouses of each country
+         */
+        if($request->getTarget())
+        {
+            $warehouses = $this->warehouseEntityRepository->getWarehousesByCity($request->getTarget());
+
+            if($warehouses)
+            {
+                $countriesIDs = [];
+
+                foreach($warehouses as $warehouse)
+                {
+                    $countriesIDs[] = $warehouse['countryID'];
+                }
+
+                $request->setCountriesIDs($countriesIDs);
+            }
+        }
+
         return $this->warehouseEntityRepository->filterWarehouses($request);
     }
 

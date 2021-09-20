@@ -10,6 +10,14 @@ class WarehouseFilterRequest
 
     private $countryID;
 
+    /**
+     * refers to the city name
+     * Used this for get all warehouses in the country which the city exists in
+     */
+    private $target;
+
+    private $countriesIDs;
+
     public function getTypeOfCountry()
     {
         return $this->typeOfCountry;
@@ -23,6 +31,21 @@ class WarehouseFilterRequest
     public function getCountryID()
     {
         return $this->countryID;
+    }
+
+    public function getTarget()
+    {
+        return $this->target;
+    }
+
+    public function getCountriesIDs()
+    {
+        return $this->countriesIDs;
+    }
+
+    public function setCountriesIDs($countriesIDs)
+    {
+        $this->countriesIDs = $countriesIDs;
     }
 
 }
