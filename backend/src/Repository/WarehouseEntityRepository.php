@@ -137,7 +137,7 @@ class WarehouseEntityRepository extends ServiceEntityRepository
             $query->setParameter('countryID', $request->getCountryID());
         }
 
-        if(count($request->getCountriesIDs()) > 0)
+        if($request->getCountriesIDs())
         {
             $query->andWhere('warehouse.countryID IN (:countriesIDs)');
             $query->setParameter('countriesIDs', $request->getCountriesIDs());
