@@ -12,4 +12,6 @@ class TravelStatusConstant
 
     static $NOT_RELEASED_TRAVEL_STATUS = "notReleased";
 
+    static $ALL_TRAVEL_STATUS = "all";
+
 }

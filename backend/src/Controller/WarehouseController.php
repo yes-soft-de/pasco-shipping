@@ -215,7 +215,9 @@ class WarehouseController extends BaseController
      *      description="filtering options",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="typeOfCountry"),
-     *          @OA\Property(type="string", property="cityName")
+     *          @OA\Property(type="string", property="cityName"),
+     *          @OA\Property(type="integer", property="countryID"),
+     *          @OA\Property(type="string", property="target")
      *      )
      * )
      *

@@ -194,8 +194,37 @@ class TravelEntityRepository extends ServiceEntityRepository
 
             ->orderBy('travel.id', 'DESC');
 
+        if($request->getStatus())
+        {
+            if($request->getStatus() == TravelStatusConstant::$NOT_RELEASED_TRAVEL_STATUS)
+            {
+                $query->andWhere('travel.status = :status');
+                $query->setParameter('status', TravelStatusConstant::$STARTED_TRAVEL_STATUS);
+
+                $query->orWhere('travel.status = :status_two');
+                $query->setParameter('status_two', TravelStatusConstant::$CURRENT_TRAVEL_STATUS);
+            }
+            elseif($request->getStatus() == TravelStatusConstant::$ALL_TRAVEL_STATUS)
+            {
+                $query->andWhere('travel.status = :state_started');
+                $query->setParameter('state_started', TravelStatusConstant::$STARTED_TRAVEL_STATUS);
+
+                $query->orWhere('travel.status = :state_current');
+                $query->setParameter('state_current', TravelStatusConstant::$CURRENT_TRAVEL_STATUS);
+
+                $query->orWhere('travel.status = :state_released');
+                $query->setParameter('state_released', TravelStatusConstant::$RELEASED_TRAVEL_STATUS);
+            }
+            else
+            {
+                $query->andWhere('travel.status = :status');
+                $query->setParameter('status', $request->getStatus());
+            }
+        }
+
         if($request->getType())
         {
+            //dd($request->getType());
             $query->andWhere('travel.type = :type');
             $query->setParameter('type', $request->getType());
         }
@@ -242,21 +271,6 @@ class TravelEntityRepository extends ServiceEntityRepository
         {
             $query->andWhere('travel.carrierID = :carrierID');
             $query->setParameter('carrierID', $request->getCarrierID());
-        }
-
-        if($request->getStatus())
-        {
-            $query->andWhere('travel.status = :status');
-            $query->setParameter('status', $request->getStatus());
-        }
-
-        if($request->getStatus() AND $request->getStatus() == TravelStatusConstant::$NOT_RELEASED_TRAVEL_STATUS)
-        {
-            $query->andWhere('travel.status = :status');
-            $query->setParameter('status', TravelStatusConstant::$STARTED_TRAVEL_STATUS);
-
-            $query->orWhere('travel.status = :status_two');
-            $query->setParameter('status_two', TravelStatusConstant::$CURRENT_TRAVEL_STATUS);
         }
 
         return $query->getQuery()->getResult();
