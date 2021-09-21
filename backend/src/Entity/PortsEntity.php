@@ -29,7 +29,7 @@ class PortsEntity
     private $countryID;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $location;
 
@@ -39,12 +39,12 @@ class PortsEntity
     private $city;
 
     /**
-     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="integer")
      */
     private $createdBy;
 
     /**
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
