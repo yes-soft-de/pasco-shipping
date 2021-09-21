@@ -6,7 +6,7 @@ class GunnyFilterResponse
 {
     public $id;
 
-    public $identificationNumber;
+    public $gunnyIdentificationNumber;
 
     public $status;
 

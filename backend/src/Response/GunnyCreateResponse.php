@@ -6,7 +6,7 @@ class GunnyCreateResponse
 {
     public $id;
 
-    public $identificationNumber;
+    public $gunnyIdentificationNumber;
 
     public $status;
 

@@ -53,7 +53,7 @@ class GunnyController extends BaseController
      *          @OA\Property(type="array", property="Data",
      *                  @OA\Items(
      *                      @OA\Property(type="integer", property="id"),
-     *                      @OA\Property(type="string", property="identificationNumber"),
+     *                      @OA\Property(type="string", property="gunnyIdentificationNumber"),
      *                      @OA\Property(type="string", property="status"),
      *                      @OA\Property(type="object", property="createdAt"),
      *                      @OA\Property(type="object", property="updatedAt")
@@ -110,7 +110,7 @@ class GunnyController extends BaseController
      *          @OA\Property(type="array", property="Data",
      *                  @OA\Items(
      *                      @OA\Property(type="integer", property="id"),
-     *                      @OA\Property(type="string", property="identificationNumber"),
+     *                      @OA\Property(type="string", property="gunnyIdentificationNumber"),
      *                      @OA\Property(type="string", property="status"),
      *                      @OA\Property(type="object", property="createdAt"),
      *                      @OA\Property(type="object", property="updatedAt"),
@@ -148,11 +148,7 @@ class GunnyController extends BaseController
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
-     *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="string", property="identificationNumber"),
-     *                  @OA\Property(type="string", property="status"),
-     *                  @OA\Property(type="object", property="createdAt"),
-     *                  @OA\Property(type="object", property="updatedAt")
+     *                  @OA\Property(type="object", property="createdAt")
      *          )
      *      )
      * )
