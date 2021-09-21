@@ -32,6 +32,11 @@ class GunnyShipmentCreateRequest
         return $this->quantity;
     }
 
+    public function getTrackNumber()
+    {
+        return $this->trackNumber;
+    }
+
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;

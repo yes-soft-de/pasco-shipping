@@ -51,7 +51,7 @@ class GunnyShipmentManager
             }
 
             $result['remainedQuantity'] = (string) $remainedQuantity;
-            $result['gunnyShipment'] = $gunnyShipmentEntity;
+            $result['gunnyShipment'] = $this->getGunnyByShipmentIdAndTrackNumber($request->getShipmentID(), $request->getTrackNumber());
         }
         else
         {

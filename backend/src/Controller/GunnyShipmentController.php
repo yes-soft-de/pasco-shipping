@@ -58,16 +58,23 @@ class GunnyShipmentController extends BaseController
      *          @OA\Property(type="object", property="Data",
      *              @OA\Property(type="integer", property="remainedQuantity"),
      *              @OA\Property(type="boolean", property="completedStored"),
-     *              @OA\Property(type="object", property="gunnyShipment",
-     *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="integer", property="gunnyID"),
-     *                  @OA\Property(type="integer", property="shipmentID"),
-     *                  @OA\Property(type="string", property="trackNumber"),
-     *                  @OA\Property(type="integer", property="quantity"),
-     *                  @OA\Property(type="object", property="createdAt"),
-     *                  @OA\Property(type="integer", property="createdBy"),
-     *                  @OA\Property(type="integer", property="updatedBy"),
-     *                  @OA\Property(type="object", property="updatedAt"),
+     *              @OA\Property(type="array", property="gunnyShipment",
+     *                  @OA\Items(
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="integer", property="gunnyID"),
+     *                      @OA\Property(type="integer", property="shipmentID"),
+     *                      @OA\Property(type="string", property="trackNumber"),
+     *                      @OA\Property(type="integer", property="quantity"),
+     *                      @OA\Property(type="object", property="createdAt"),
+     *                      @OA\Property(type="integer", property="createdBy"),
+     *                      @OA\Property(type="integer", property="updatedBy"),
+     *                      @OA\Property(type="object", property="updatedAt"),
+     *                      @OA\Property(type="string", property="gunnyIdentificationNumber"),
+     *                      @OA\Property(type="string", property="createdByUser"),
+     *                      @OA\Property(type="string", property="updatedByUser"),
+     *                      @OA\Property(type="string", property="createdByUserImage"),
+     *                      @OA\Property(type="string", property="updatedByUserImage"),
+     *                  )
      *              )
      *          )
      *      )
