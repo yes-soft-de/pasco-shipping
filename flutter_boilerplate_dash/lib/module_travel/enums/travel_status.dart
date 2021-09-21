@@ -1,4 +1,4 @@
-enum TravelStatus { CURRENT, STARTED, RELEASED}
+enum TravelStatus { CURRENT, STARTED, RELEASED, NotReleased }
 enum TravelType { SEA, AIR}
 
 const Map<TravelType, String> TravelTypeName = {
@@ -9,4 +9,5 @@ const Map<TravelStatus, String> TravelStatusName = {
   TravelStatus.CURRENT: 'current',
   TravelStatus.STARTED: 'started',
   TravelStatus.RELEASED: 'released',
+  TravelStatus.NotReleased: 'notReleased',
 };

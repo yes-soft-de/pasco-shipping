@@ -32,14 +32,14 @@ import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 class AcceptedShipmentStatusReceived extends StatefulWidget {
   final List<AcceptedShipmentStatusModel> statusModel;
   final List<SubcontractModel> subcontracts;
-  final List<WarehousesModel> warehouse;
+  // final List<WarehousesModel> warehouse;
   final Function onChangeStatus;
 
   final List<GunnyModel> gunnies;
   final StoredModel infoStoredInGunny;
   final Function onStoredInGunny;
   final Function createGunny;
-  const AcceptedShipmentStatusReceived({required this.statusModel,required this.onChangeStatus,required this.subcontracts,required this.warehouse,required this.gunnies,required this.infoStoredInGunny,required this.onStoredInGunny,required this.createGunny});
+  const AcceptedShipmentStatusReceived({required this.statusModel,required this.onChangeStatus,required this.subcontracts,required this.gunnies,required this.infoStoredInGunny,required this.onStoredInGunny,required this.createGunny});
 
   @override
   _AcceptedShipmentDetailsSuccessfullyState createState() =>
@@ -78,7 +78,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
   late List<Entry> entryGunny;
 
   late String packetingBy;
-  late int warehouseID;
+  // late int warehouseID;
   late bool gunnyFull;
   late bool moreInfo;
 
@@ -92,7 +92,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
     optionItemSelectedSubContract =  Entry('choose', 0, []);
     optionItemSelectedWarehouse =  Entry('choose', 0, []);
     optionItemSelectedGunny =  Entry('choose', 0, []);
-    warehouseID = 0;
+    // warehouseID = 0;
     packetingBy='';
     gunnyFull=false;
     moreInfo=false;
@@ -105,12 +105,12 @@ class _AcceptedShipmentDetailsSuccessfullyState
    }
    dropListModelSubContract = DropListModel(entrySubContract);
 
-   for(WarehousesModel item in widget.warehouse){
-     Entry v = Entry(item.name! ,item.id! ,[]);
-     print("hhhhhhh" + item.name!);
-     entryWarehouse.add(v);
-   }
-   dropListModelWarehouse = DropListModel(entryWarehouse);
+   // for(WarehousesModel item in widget.warehouse){
+   //   Entry v = Entry(item.name! ,item.id! ,[]);
+   //   print("hhhhhhh" + item.name!);
+   //   entryWarehouse.add(v);
+   // }
+   // dropListModelWarehouse = DropListModel(entryWarehouse);
 
 
    for(GunnyModel item in widget.gunnies){
@@ -369,24 +369,24 @@ class _AcceptedShipmentDetailsSuccessfullyState
                 },
               ),
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).importWarehouse , style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              SelectDropList(
-                this.optionItemSelectedWarehouse,
-                this.dropListModelWarehouse,
-                    (optionItem) {
-                  FocusScope.of(context).unfocus();
-                  optionItemSelectedWarehouse = optionItem;
-                  warehouseID = optionItem.id;
-                  setState(() {});
-                },
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Row(children: [
+              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+              //     SizedBox(width: 5,),
+              //     Text(S.of(context).importWarehouse , style: AppTextStyle.mediumBlackBold,)
+              //   ],),
+              // ),
+              // SelectDropList(
+              //   this.optionItemSelectedWarehouse,
+              //   this.dropListModelWarehouse,
+              //       (optionItem) {
+              //     FocusScope.of(context).unfocus();
+              //     optionItemSelectedWarehouse = optionItem;
+              //     // warehouseID = optionItem.id;
+              //     setState(() {});
+              //   },
+              // ),
 
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -476,35 +476,32 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   go: (){
                     if(transportation =='sea' && holderType=='FCL'){
                       ContainerFilterRequest containerRequest = ContainerFilterRequest(status: ContainerStatusName[ContainerStatus.NOTFULL],type: 'FCL',clientUserID: clientUserID);
-                      TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:TravelTypeName[TravelType.SEA]!);
+                      TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT]??'' ,type:TravelTypeName[TravelType.SEA]!);
                       MeasuredRequest request  = MeasuredRequest(shipmentStatus: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!,
-                          shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text),importWarehouseID: warehouseID,
-                          packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text),weight: double.parse(weightController.text) );
-                      widget.onChangeStatus(request ,containerRequest,travelFilterRequest );
+                          shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text.isEmpty?'0':guniQuantityController.text),
+                          packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text.isEmpty?'0':volumeController.text),weight: double.parse(weightController.text.isEmpty?'0':weightController.text) );                      widget.onChangeStatus(request ,containerRequest,travelFilterRequest );
                     }else if (transportation =='sea' && holderType=='LCL') {
                       ContainerFilterRequest containerRequest = ContainerFilterRequest(status: ContainerStatusName[ContainerStatus.NOTFULL],type: holderType,isExternalWarehouse: isExternalWarehouse);
-                      TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:TravelTypeName[TravelType.SEA]!);
+                      TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT]??'' ,type:TravelTypeName[TravelType.SEA]!);
                       MeasuredRequest request  = MeasuredRequest(shipmentStatus: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!,
-                          shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text),importWarehouseID: warehouseID,
-                          packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text),weight: double.parse(weightController.text) );
+                          shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text.isEmpty?'0':guniQuantityController.text),
+                          packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text.isEmpty?'0':volumeController.text),weight: double.parse(weightController.text.isEmpty?'0':weightController.text) );
                       widget.onChangeStatus(request ,containerRequest,travelFilterRequest );
                     }
 
                     if(transportation =='air' && holderType=='FCL'){
                       AirwaybillFilterRequest containerRequest = AirwaybillFilterRequest(status: ContainerStatusName[ContainerStatus.NOTFULL],type: 'FCL',clientUserID: clientUserID);
-                      TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:TravelTypeName[TravelType.AIR]!);
+                      TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT]??'' ,type:TravelTypeName[TravelType.AIR]!);
                       MeasuredRequest request  = MeasuredRequest(shipmentStatus: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!,
-                          shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text),importWarehouseID: warehouseID,
-                          packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text),weight: double.parse(weightController.text) );
-                      widget.onChangeStatus(request ,containerRequest,travelFilterRequest );
+                          shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text.isEmpty?'0':guniQuantityController.text),
+                          packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text.isEmpty?'0':volumeController.text),weight: double.parse(weightController.text.isEmpty?'0':weightController.text) );                      widget.onChangeStatus(request ,containerRequest,travelFilterRequest );
                     }else if (transportation =='air' && holderType=='LCL') {
                       print('herreee');
                       AirwaybillFilterRequest containerRequest = AirwaybillFilterRequest(status: ContainerStatusName[ContainerStatus.NOTFULL],type: holderType,isExternalWarehouse: isExternalWarehouse);
-                      TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:TravelTypeName[TravelType.AIR]!);
+                      TravelFilterRequest travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT]??'' ,type:TravelTypeName[TravelType.AIR]!);
                       MeasuredRequest request  = MeasuredRequest(shipmentStatus: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!,
-                          shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text),importWarehouseID: warehouseID,
-                          packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text),weight: double.parse(weightController.text) );
-                      widget.onChangeStatus(request ,containerRequest,travelFilterRequest );
+                          shipmentId: shipmentID,statusDetails: editingController.text,trackNumber: trackNumber,guniQuantity:int.parse(guniQuantityController.text.isEmpty?'0':guniQuantityController.text),
+                          packetingBy: packetingBy,qrCode: '',volume: double.parse(volumeController.text.isEmpty?'0':volumeController.text),weight: double.parse(weightController.text.isEmpty?'0':weightController.text) );                      widget.onChangeStatus(request ,containerRequest,travelFilterRequest );
                     }
 
                     // else {

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill/response/airwaybill_response.dart';
@@ -21,6 +22,7 @@ import 'package:pasco_shipping/module_sub_contract/response/subcontract_response
 import 'package:pasco_shipping/module_subcontract_services/response/sub_contract_service_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
+import 'package:pasco_shipping/module_warehouses/response/warhouse_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
@@ -29,6 +31,7 @@ class AcceptedShipmentStatusMeasuredAirwaybill extends StatefulWidget {
   final List<AcceptedShipmentStatusModel> statusModel;
   final List<AirwaybillModel> containers;
   final List<TravelModel> travels;
+  final List<WarehousesModel> warehouse;
 
   final Function onChangeStatus;
   final Function onUpdateAirwaybillInfo;
@@ -37,7 +40,7 @@ class AcceptedShipmentStatusMeasuredAirwaybill extends StatefulWidget {
       required this.onChangeStatus,
       required this.containers,
        required this.travels,
-        required this.onUpdateAirwaybillInfo
+        required this.onUpdateAirwaybillInfo,required this.warehouse
       });
 
   @override
@@ -72,7 +75,10 @@ class _AcceptedShipmentDetailsSuccessfullyState
 
   late bool separateShipment;
   late bool isDifferentTravel;
-
+  late int warehouseID;
+  late DropListModel dropListModelWarehouse;
+  late Entry optionItemSelectedWarehouse;
+  late List<Entry> entryWarehouse;
   @override
   void initState() {
     super.initState();
@@ -83,12 +89,17 @@ class _AcceptedShipmentDetailsSuccessfullyState
     entryTravel = <Entry>[];
     optionItemSelectedTravel = Entry('choose', 0, []);
 
+
+    entryWarehouse= <Entry>[];
+    optionItemSelectedWarehouse =  Entry('choose', 0, []);
+
     holderID = 0;
     travelID = 0;
     travelNumber = '';
     holderNumber='';
     separateShipment = false;
     isDifferentTravel = false;
+    warehouseID = 0;
 
     iniList();
   }
@@ -106,6 +117,13 @@ class _AcceptedShipmentDetailsSuccessfullyState
       entryTravel.add(v);
     }
     dropListModelTravel = DropListModel(entryTravel);
+
+    for(WarehousesModel item in widget.warehouse){
+      Entry v = Entry(item.name! ,item.id! ,[]);
+      print("hhhhhhh" + item.name!);
+      entryWarehouse.add(v);
+    }
+    dropListModelWarehouse = DropListModel(entryWarehouse);
   }
 
   @override
@@ -225,18 +243,6 @@ class _AcceptedShipmentDetailsSuccessfullyState
             ],
           ),
         ),
-        // SelectDropList(
-        //   this.optionItemSelectedContainer,
-        //   this.dropListModelContainer,
-        //   (optionItem) {
-        //     FocusScope.of(context).unfocus();
-        //     optionItemSelectedContainer = optionItem;
-        //     holderID = optionItem.id;
-        //     holderNumber = optionItem.title;
-        //     setState(() {});
-        //   },
-        // ),
-
         Row(
           children: [
             Flexible(
@@ -298,7 +304,24 @@ class _AcceptedShipmentDetailsSuccessfullyState
           },
         ),
 
-
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(children: [
+            Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+            SizedBox(width: 5,),
+            Text(S.of(context).importWarehouse , style: AppTextStyle.mediumBlackBold,)
+          ],),
+        ),
+        SelectDropList(
+          this.optionItemSelectedWarehouse,
+          this.dropListModelWarehouse,
+              (optionItem) {
+            FocusScope.of(context).unfocus();
+            optionItemSelectedWarehouse = optionItem;
+            warehouseID = optionItem.id;
+            setState(() {});
+          },
+        ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -349,6 +372,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
             style: AppTextStyle.mediumWhite,
             go: () {
               StoredRequest request = StoredRequest(
+                importWarehouseID: warehouseID,
                   trackNumber: trackNumber,
                   statusDetails: editingController.text,
                   shipmentId: shipmentID,
@@ -361,7 +385,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   holderNumber: holderNumber,
                   travelNumber: travelNumber,
                   amount:amountController.text.isEmpty?0: int.parse(amountController.text), travelID: travelID);
-              widget.onChangeStatus(request , separateShipment, widget.containers,widget.travels);
+              widget.onChangeStatus(request , separateShipment,);
             },
             radius: 10),
 

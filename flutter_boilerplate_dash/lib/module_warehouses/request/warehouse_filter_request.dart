@@ -9,7 +9,7 @@ class WarehouseFilterRequest {
   Map<String, dynamic> toJson() {
     return {
       'typeOfCountry': typeOfCountry,
-      'cityName': cityName,
+      'target': cityName,
     };
   }
 }

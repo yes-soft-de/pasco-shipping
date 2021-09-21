@@ -180,48 +180,55 @@ class _AddCountryInitState extends State<AddWarehouseInit> {
                 ],
               ),
 
-            selectedRadioType == 2?
-              Column(
+
+              Visibility(
+                visible: selectedRadioType==2,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(children: [
+                        Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                        SizedBox(width: 5,),
+                        Text(S.of(context).subcontract , style: AppTextStyle.mediumBlackBold,)
+                      ],),
+                    ),
+                    SelectDropList(
+                      this.optionItemSelectedSub,
+                      this.dropListModelSubContract,
+                          (optionItem) {
+                        optionItemSelectedSub = optionItem;
+                        subID = optionItem.id;
+                        setState(() {});
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Visibility(
+                visible: selectedRadioType==1,
+                child: Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(children: [
                       Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                       SizedBox(width: 5,),
-                      Text(S.of(context).subcontract , style: AppTextStyle.mediumBlackBold,)
+                      Text(S.of(context).proxies , style: AppTextStyle.mediumBlackBold,)
                     ],),
                   ),
                   SelectDropList(
-                    this.optionItemSelectedSub,
-                    this.dropListModelSubContract,
+                    this.optionItemSelectedProxy,
+                    this.dropListModelProxy,
                         (optionItem) {
-                      optionItemSelectedSub = optionItem;
-                      subID = optionItem.id;
+                      optionItemSelectedProxy = optionItem;
+                      proxyID = optionItem.id;
                       setState(() {});
                     },
                   ),
                 ],
-              ):Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(children: [
-                    Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                    SizedBox(width: 5,),
-                    Text(S.of(context).proxies , style: AppTextStyle.mediumBlackBold,)
-                  ],),
-                ),
-                SelectDropList(
-                  this.optionItemSelectedProxy,
-                  this.dropListModelProxy,
-                      (optionItem) {
-                    optionItemSelectedProxy = optionItem;
-                    proxyID = optionItem.id;
-                    setState(() {});
-                  },
-                ),
-              ],
-            ) ,
+            ),
+              ) ,
 
 
               Padding(
@@ -322,8 +329,8 @@ class _AddCountryInitState extends State<AddWarehouseInit> {
     city = TextEditingController();
     location = TextEditingController();
 
-    selectedRadioType = 1;
-    type ='local';
+    selectedRadioType = 2;
+    type ='subcontract';
     countryEntry = <Entry>[];
     proxyEntry = <Entry>[];
     subConEntry = <Entry>[];
@@ -338,12 +345,14 @@ class _AddCountryInitState extends State<AddWarehouseInit> {
     dropListModelCountry = DropListModel(countryEntry);
 
     for(ProxyModel item in widget.proxies){
+      print("proxy:" + item.fullName.toString());
       Entry v = Entry(item.fullName! ,item.id??1 ,[]);
       proxyEntry.add(v);
     }
     dropListModelProxy = DropListModel(proxyEntry);
 
     for(SubcontractModel item in widget.subcontract){
+      print("SubcontractModel:" + item.fullName.toString());
       Entry v = Entry(item.fullName! ,item.id??1 ,[]);
       subConEntry.add(v);
     }
@@ -358,7 +367,7 @@ class _AddCountryInitState extends State<AddWarehouseInit> {
      } else if (val == 2) {
        type = 'subcontract';
      }
-     print(val);
+     print(selectedRadioType);
    });
  }
 }

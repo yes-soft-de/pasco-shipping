@@ -5,14 +5,14 @@ class MeasuredRequest{
   String statusDetails;
 
 
-  int importWarehouseID;
+  // int importWarehouseID;
   String packetingBy;
   double weight;
   double volume;
   String qrCode;
   int guniQuantity;
 
-  MeasuredRequest({required this.volume ,required this.packetingBy ,required this.importWarehouseID ,required this.guniQuantity   ,required  this.shipmentId,required this.trackNumber ,required this.shipmentStatus , required this.weight ,required this.statusDetails , required this.qrCode});
+  MeasuredRequest({required this.volume ,required this.packetingBy ,required this.guniQuantity   ,required  this.shipmentId,required this.trackNumber ,required this.shipmentStatus , required this.weight ,required this.statusDetails , required this.qrCode});
 
   Map<String, dynamic> toJson() => {
     'id': shipmentId,
@@ -25,6 +25,6 @@ class MeasuredRequest{
     'guniQuantity':guniQuantity,
     'qrCode':qrCode,
     'packetingBy':packetingBy,
-    'importWarehouseID':importWarehouseID,
+    // 'importWarehouseID':importWarehouseID,
   };
 }

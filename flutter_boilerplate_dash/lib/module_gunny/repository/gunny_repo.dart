@@ -7,6 +7,7 @@ import 'package:pasco_shipping/module_gunny/request/filter_gunny_request.dart';
 import 'package:pasco_shipping/module_gunny/response/gunny_response.dart';
 import 'package:pasco_shipping/module_gunny/response/stored_response.dart';
 import 'package:pasco_shipping/module_network/http_client/http_client.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 
 @injectable
 class GunnyRepository{

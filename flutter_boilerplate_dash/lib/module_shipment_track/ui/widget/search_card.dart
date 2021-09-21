@@ -30,18 +30,23 @@ class SearchCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: TextField(
-                  controller: trackNumberController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    hintText: S.of(context).enterNumber,
-                    hintStyle: black18text,
-                    focusedBorder: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    errorBorder: InputBorder.none,
-                    disabledBorder: InputBorder.none,
+                child: Theme(
+                  data: ThemeData(
+                    textSelectionTheme: TextSelectionThemeData(selectionColor: Colors.blue[200]),
                   ),
-                  style: black16text,
+                  child: TextField(
+                    controller: trackNumberController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      hintText: S.of(context).enterNumber,
+                      hintStyle: black18text,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                    ),
+                    style: black16text,
+                  ),
                 ),
               ),
               ElevatedButton(

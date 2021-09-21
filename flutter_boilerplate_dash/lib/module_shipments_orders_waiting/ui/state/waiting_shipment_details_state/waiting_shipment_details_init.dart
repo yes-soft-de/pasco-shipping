@@ -40,6 +40,31 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                           shipment.clientIdentificationNumber ?? '',
                           style: AppTextStyle.smallBlueBold,
                         ))),
+
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                    child: ListTile(
+                        title: Text(
+                          S.of(context).inExternalWarehouse,
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        subtitle: Text(
+                          shipment.isExternalWarehouse.toString(),
+                          style: AppTextStyle.smallBlueBold,
+                        ))),
+                Expanded(
+                    child: ListTile(
+                        title: Text(
+                          S.of(context).warehouseInfo,
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        subtitle: Text(
+                          shipment.externalWarehouseInfo??'',
+                          style: AppTextStyle.smallBlueBold,
+                        ))),
               ],
             ),
 

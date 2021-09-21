@@ -6,6 +6,7 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_travel/request/travel_change_state_request.dart';
+import 'package:pasco_shipping/module_travel/request/travel_request.dart';
 import 'package:pasco_shipping/module_travel/response/travel_details_response.dart';
 import 'package:pasco_shipping/module_travel/widget/status_card.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
@@ -319,7 +320,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text(S.of(context).type+": " , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).type+': ' , style: AppTextStyle.mediumBlack,),
                   Text(holderModel.type ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
@@ -385,12 +386,14 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                 if(model.holders!.isEmpty){
                   Fluttertoast.showToast(msg: 'No holder has been added to this trip');
                 }else {
+                  TravelRequest travelRequest = TravelRequest(type: model.type??'', launchCountry: model.launchCountry??'', destinationCountry: model.destinationCountry??'', travelNumber:model.travelNumber??'', status: TravelStatusName[TravelStatus.STARTED]!);
                   TravelChangeStateRequest re = TravelChangeStateRequest(id: model.id!.toInt() ,status: TravelStatusName[TravelStatus.STARTED]!);
-                  onChangeStatus(re);
+                  onChangeStatus(travelRequest,re);
                 }
               }else{
+                TravelRequest travelRequest = TravelRequest(type: model.type??'', launchCountry: model.launchCountry??'', destinationCountry: model.destinationCountry??'', travelNumber:model.travelNumber??'', status: TravelStatusName[TravelStatus.RELEASED]!);
                 TravelChangeStateRequest re1 = TravelChangeStateRequest(id: model.id!.toInt() ,status: TravelStatusName[TravelStatus.RELEASED]!);
-                onChangeStatus(re1);
+                onChangeStatus(travelRequest,re1);
               }
 
             }, radius: 12)

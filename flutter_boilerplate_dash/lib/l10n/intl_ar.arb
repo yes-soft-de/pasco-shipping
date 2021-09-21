@@ -367,5 +367,9 @@
   "externalShipmentReport": "تقارير الشحنات خارجي",
 
   "operationCompletedSuccessfully": "تم العملية بنجاح",
-  "requestedFor": "Requested for"
+  "requestedFor": "Requested for",
+  "deleteClient": "هل تريد حقا حذف هذا الموظف وإلغاء جميع صلاحياته",
+  "unitQuantity": "عدد الواحدات",
+  "selectProvider": "أختر المُقَدِم",
+  "selectMark": "أختر علامة"
 }

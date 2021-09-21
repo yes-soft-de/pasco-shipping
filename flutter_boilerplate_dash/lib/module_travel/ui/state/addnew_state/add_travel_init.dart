@@ -455,7 +455,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
     optionItemSelectedTo =  Entry('choose', 0, []);
     optionItemSelectedSubContract =  Entry('choose', 0, []);
     optionItemSelectedCarrier =  Entry('choose', 0, []);
-
+    shipperID=0;
     initList();
 
   }

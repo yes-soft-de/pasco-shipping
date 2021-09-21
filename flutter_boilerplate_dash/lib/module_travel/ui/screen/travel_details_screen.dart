@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/module_travel/request/travel_request.dart';
 import 'package:pasco_shipping/module_travel/response/travel_details_response.dart';
 import 'package:pasco_shipping/module_travel/state_manger/details_travel_state_manager.dart';
 import 'package:pasco_shipping/module_travel/travel_routes.dart';
@@ -74,7 +75,8 @@ class _CountriesScreenState extends State<TravelDetailsScreen> {
     else if (currentState is SuccessfullyDetailsState){
       SuccessfullyDetailsState? state = currentState as SuccessfullyDetailsState?;
       items = state!.response;
-      return TravelDetailsSuccessfully(model: items,onChangeStatus: (request){
+      return TravelDetailsSuccessfully(model: items,
+        onChangeStatus: (travelRequest,request){
         CoolAlert.show(
           context: context,
           type: CoolAlertType.info,
@@ -84,7 +86,7 @@ class _CountriesScreenState extends State<TravelDetailsScreen> {
           confirmBtnText: S.of(context).ok,
           onConfirmBtnTap: (){
             Navigator.pop(context);
-            widget._stateManager.updateTravelStatus(request);
+            widget._stateManager.updateTravelStatus(travelRequest,request);
           },
           text: S.of(context).changeStatusConfirm,
         );

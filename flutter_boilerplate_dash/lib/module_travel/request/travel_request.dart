@@ -5,26 +5,26 @@ class TravelRequest {
   String launchCountry;
   String destinationCountry;
 
-  String travelNumber;
+  String? travelNumber;
   String status;
 
   String? launchDate;
   String? arrivalDate;
 
-  int shipperID;
-  int carrierID;
+  int? shipperID;
+  int? carrierID;
 
   TravelRequest(
       {this.id,
       required this.type,
       required this.launchCountry,
       required this.destinationCountry,
-      required this.travelNumber,
-      required this.arrivalDate,
-      required this.launchDate,
+       this.travelNumber,
+       this.arrivalDate,
+       this.launchDate,
       required this.status,
-        required this.carrierID,
-      required this.shipperID});
+         this.carrierID,
+       this.shipperID});
 
   Map<String, dynamic> toJson() {
     if (id == null) {

@@ -4,7 +4,7 @@ class TravelFilterRequest {
   String? launchCountry;
   String? destinationCountry;
 
-  String? status;
+  String status;
 
   String? launchDate;
   String? arrivalDate;
@@ -18,7 +18,7 @@ class TravelFilterRequest {
          this.destinationCountry,
          this.arrivalDate,
          this.launchDate,
-         this.status,
+       required  this.status,
         this.travelNumber
       });
 
@@ -29,7 +29,7 @@ class TravelFilterRequest {
      'destinationCountry': destinationCountry ?? '',
      'launchDate': launchDate ?? '',
      'arrivalDate': arrivalDate ?? '',
-     'status': status ??'',
+     'status': status.isEmpty ? null :status,
       'travelNumber':travelNumber ??''
    };
   }

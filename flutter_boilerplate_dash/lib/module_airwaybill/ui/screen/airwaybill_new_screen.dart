@@ -49,7 +49,11 @@ class _AddNewCountryState extends State<AddNewAirwaybill> {
       print("newEvent"+event.toString());
       currentState = event;
       if (this.mounted) {
-        setState(() {});
+        if(currentState is SuccessfullyAddState){
+          Navigator.pop(context);
+        }else {
+          setState(() {});
+        }
       }
     });
     widget._stateManager.getSubContractAndSpecification();
@@ -80,16 +84,16 @@ class _AddNewCountryState extends State<AddNewAirwaybill> {
         widget._stateManager.requestAirwaybill(request);
       },);
     }
-    else if (currentState is SuccessfullyAddState){
-      Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
-      return RequestAirwaybillInit(
-        subContracts: subs,
-        specifications: specification,
-        clients: clients,
-        onSave: (request){
-        widget._stateManager.requestAirwaybill(request);
-      },);
-    }
+    // else if (currentState is SuccessfullyAddState){
+    //   Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
+    //   return RequestAirwaybillInit(
+    //     subContracts: subs,
+    //     specifications: specification,
+    //     clients: clients,
+    //     onSave: (request){
+    //     widget._stateManager.requestAirwaybill(request);
+    //   },);
+    // }
     else {
       return Center(
         child: Column(

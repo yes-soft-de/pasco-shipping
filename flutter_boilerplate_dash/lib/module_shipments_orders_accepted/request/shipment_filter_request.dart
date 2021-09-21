@@ -18,8 +18,9 @@ class AcceptedShipmentFilterRequest{
   String? airWaybillNumber;
 
 
+  bool acceptedUntilCleared;
 
-  AcceptedShipmentFilterRequest({  this.transportationType, this.trackNumber , this.status , this.isExternalWarehouse , this.exportWarehouseID , this.importWarehouseID , this.airWaybillNumber , this.dateTow , this.dateOne , this.paymentTime , this.targetCountry , this.containerNumber , this.clientUserID});
+  AcceptedShipmentFilterRequest({required this.acceptedUntilCleared,  this.transportationType, this.trackNumber , this.status , this.isExternalWarehouse , this.exportWarehouseID , this.importWarehouseID , this.airWaybillNumber , this.dateTow , this.dateOne , this.paymentTime , this.targetCountry , this.containerNumber , this.clientUserID});
 
   Map<String, dynamic> toJson() => {
     'trackNumber':trackNumber ==''?null:trackNumber,
@@ -38,6 +39,7 @@ class AcceptedShipmentFilterRequest{
     'dateTow':dateTow == ''?null :dateTow,
     'containerNumber':containerNumber == ''?null:containerNumber ,
     'airWaybillNumber':airWaybillNumber =='' ? null :airWaybillNumber,
-    'clientUserID':clientUserID
+    'clientUserID':clientUserID,
+    'acceptedUntilCleared':acceptedUntilCleared
   };
 }

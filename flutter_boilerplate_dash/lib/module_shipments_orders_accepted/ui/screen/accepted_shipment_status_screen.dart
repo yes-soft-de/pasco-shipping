@@ -50,6 +50,8 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
  late  ContainerFilterRequest containerFilterRequest;
  late  AirwaybillFilterRequest airwaybillFilterRequest;
  late bool updated;
+ late String holderType;
+ late String cityName;
 
  late Entry optionItemSelectedContainer;
   @override
@@ -70,8 +72,8 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
      id =arguments['id'].toString();
     int shipmentID =arguments['id'];
     int clientUserID =arguments['clientUserID'];
-    String cityName =arguments['cityName'].toString();
-    String holderType =arguments['holderType'].toString();
+    cityName =arguments['cityName'].toString();
+    holderType =arguments['holderType'].toString();
     String status =arguments['status'].toString();
      trackNumber =arguments['trackNumber'].toString();
     quantity =arguments['quantity'].toString();
@@ -86,17 +88,17 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
       airwaybillFilterRequest =AirwaybillFilterRequest(status:ContainerStatusName[ContainerStatus.NOTFULL] ,type: holderType,isExternalWarehouse: isExternalWarehouse);
     }
 
-     travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT] ,type:transportation=='sea' ?'cruise':'flight');
+     travelFilterRequest =TravelFilterRequest(status:TravelStatusName[TravelStatus.CURRENT]??'' ,type:transportation=='sea' ?'cruise':'flight');
     if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.ACCEPTED]!) {
       widget._stateManager.getShipmentStatus(id,trackNumber);
-    }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]!){
+    }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]! && !(holderType =='FCL' && isExternalWarehouse)){
       widget._stateManager.getReceivedStatus(id,cityName,trackNumber);
     }
 
-    else if (status == AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]! && transportation=='sea'){
-      widget._stateManager.getMeasuredContainerStatus(id,containerFilterRequest,trackNumber,travelFilterRequest);
-    }else if (status == AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]! && transportation=='air'){
-      widget._stateManager.getMeasuredAirwaybillStatus(id,airwaybillFilterRequest,trackNumber,travelFilterRequest);
+    else if (status == AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]! && transportation=='sea' ||(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]! && holderType =='FCL' && isExternalWarehouse && transportation=='sea') ){
+      widget._stateManager.getMeasuredContainerStatus(id,containerFilterRequest,trackNumber,travelFilterRequest,cityName);
+    }else if (status == AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]! && transportation=='air' || status == AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]! && holderType =='FCL' && isExternalWarehouse&& transportation=='air'){
+      widget._stateManager.getMeasuredAirwaybillStatus(id,airwaybillFilterRequest,trackNumber,travelFilterRequest,cityName);
     }
 
     else {
@@ -173,7 +175,14 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
           confirmBtnColor:AppThemeDataService.AccentColor,
           onConfirmBtnTap: (){
             Navigator.pop(context);
-            widget._stateManager.receivedOrDelevired(re,cityName,isDelivred);
+            if(holderType == 'FCL' && isExternalWarehouse && transportation=='sea'){
+              widget._stateManager.receivedSeaShipmentFCLExternal(re, containerFilterRequest, travelFilterRequest,cityName);
+            }else if(holderType == 'FCL' && isExternalWarehouse && transportation=='air'){
+              widget._stateManager.receivedAirShipmentFCLExternal(re, airwaybillFilterRequest, travelFilterRequest,cityName);
+            }
+            else {
+              widget._stateManager.receivedOrDelevired(re,cityName,isDelivred);
+            }
           },
           text: S.of(context).changeStatusConfirm,
         );
@@ -188,7 +197,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
       return AcceptedShipmentStatusReceived(
         statusModel: statusModels,
         subcontracts:state.subContracts ,
-        warehouse: state.warehouse,
+        // warehouse: state.warehouse,
         onChangeStatus: (re , holderFilterRequest ,travelFilterRequest){
           CoolAlert.show(
             context: context,
@@ -275,18 +284,18 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
             onConfirmBtnTap: (){
               Navigator.pop(context);
               if(transportation =='sea'){
-                widget._stateManager.measuredContainerShipment(re, holderFilterRequest,travelFilterRequest);
+                widget._stateManager.measuredContainerShipment(re, holderFilterRequest,travelFilterRequest,cityName);
               }else{
-                widget._stateManager.measuredAirwaybillShipment(re, holderFilterRequest,travelFilterRequest);
+                widget._stateManager.measuredAirwaybillShipment(re, holderFilterRequest,travelFilterRequest,cityName);
               }
             },
             text: S.of(context).changeStatusConfirm,
           );
       },
         createGunny: (){
-          widget._stateManager.createGunny(statusModels,state.subContracts,state.warehouse);
+          widget._stateManager.createGunny(statusModels,state.subContracts);
         }, infoStoredInGunny: state.storedModelInfo, onStoredInGunny: (m){
-          widget._stateManager.storedShipmentInGunny(m,statusModels,state.subContracts,state.warehouse);
+          widget._stateManager.storedShipmentInGunny(m,statusModels,state.subContracts);
       }, gunnies: state.gunnies,
       );
     }
@@ -298,7 +307,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
       return AcceptedShipmentStatusReceived(
         statusModel: statusModels,
         subcontracts:state.subContracts ,
-        warehouse: state.warehouse,
+        // warehouse: state.warehouse,
         onChangeStatus: (re , holderFilterRequest ,travelFilterRequest){
           CoolAlert.show(
             context: context,
@@ -385,18 +394,18 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
             onConfirmBtnTap: (){
               Navigator.pop(context);
               if(transportation =='sea'){
-                widget._stateManager.measuredContainerShipment(re, holderFilterRequest,travelFilterRequest);
+                widget._stateManager.measuredContainerShipment(re, holderFilterRequest,travelFilterRequest,cityName);
               }else{
-                widget._stateManager.measuredAirwaybillShipment(re, holderFilterRequest,travelFilterRequest);
+                widget._stateManager.measuredAirwaybillShipment(re, holderFilterRequest,travelFilterRequest,cityName);
               }
             },
             text: S.of(context).changeStatusConfirm,
           );
         },
         createGunny: (){
-          widget._stateManager.createGunny(statusModels,state.subContracts,state.warehouse);
+          widget._stateManager.createGunny(statusModels,state.subContracts,);
         }, infoStoredInGunny: state.storedModelInfo, onStoredInGunny: (m){
-        widget._stateManager.storedShipmentInGunny(m,statusModels,state.subContracts,state.warehouse);
+        widget._stateManager.storedShipmentInGunny(m,statusModels,state.subContracts);
       }, gunnies: state.gunnies,
       );
     }
@@ -407,7 +416,8 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         statusModel: statusModels,
         containers:state.containers,
         travels: state.travels,
-        onChangeStatus: (request , isSeperate,containers ,travels){
+        warehouse: state.warehouse,
+        onChangeStatus: (request , isSeperate){
           CoolAlert.show(
             context: context,
             type: CoolAlertType.info,
@@ -492,7 +502,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
             confirmBtnColor:AppThemeDataService.AccentColor,
             onConfirmBtnTap: (){
               Navigator.pop(context);
-              widget._stateManager.storedContainerShipment(request,isSeperate,containers ,travels);
+              widget._stateManager.storedContainerShipment(request,isSeperate,state.containers ,state.travels,state.warehouse,isExternalWarehouse);
             },
             text: S.of(context).changeStatusConfirm,
           );
@@ -504,7 +514,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
               optionItemSelectedContainer = value as Entry;
               print(optionItemSelectedContainer.title);
             }
-            widget._stateManager.getMeasuredContainerStatus(id,containerFilterRequest,trackNumber,travelFilterRequest);
+            widget._stateManager.getMeasuredContainerStatus(id,containerFilterRequest,trackNumber,travelFilterRequest,cityName);
           });
         },
         // onChangeStatus: (re , containerFilterRequest){
@@ -520,7 +530,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         statusModel: statusModels,
         containers:state.airwaybills,
         travels: state.travels,
-        onChangeStatus: (request , isSeperate,containers ,travels){
+        onChangeStatus: (request , isSeperate){
           CoolAlert.show(
             context: context,
             type: CoolAlertType.info,
@@ -605,7 +615,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
             confirmBtnColor:AppThemeDataService.AccentColor,
             onConfirmBtnTap: (){
               Navigator.pop(context);
-              widget._stateManager.storedAirwaybillShipment(request,isSeperate,containers ,travels);
+              widget._stateManager.storedAirwaybillShipment(request,isSeperate,state.airwaybills ,state.travels,state.warehouse,isExternalWarehouse);
             },
             text: S.of(context).changeStatusConfirm,
           );
@@ -617,9 +627,9 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
               optionItemSelectedContainer = value as Entry;
               print(optionItemSelectedContainer.title);
             }
-            widget._stateManager.getMeasuredAirwaybillStatus(id,airwaybillFilterRequest,trackNumber,travelFilterRequest);
+            widget._stateManager.getMeasuredAirwaybillStatus(id,airwaybillFilterRequest,trackNumber,travelFilterRequest,cityName);
           });
-        },
+        }, warehouse: state.warehouse,
         // onChangeStatus: (re , containerFilterRequest){
         // },
       );

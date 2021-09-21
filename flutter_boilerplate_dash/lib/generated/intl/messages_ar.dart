@@ -124,6 +124,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "هناك مشكلة في تفسير البيانات"),
         "date": MessageLookupByLibrary.simpleMessage("التاريخ"),
         "delete": MessageLookupByLibrary.simpleMessage("حذف"),
+        "deleteClient": MessageLookupByLibrary.simpleMessage(
+            "هل تريد حقا حذف هذا الموظف وإلغاء جميع صلاحياته"),
         "deletePreviousMark": MessageLookupByLibrary.simpleMessage(
             "لا يمكنك حذف العلامات المستخدمة سابقا"),
         "description": MessageLookupByLibrary.simpleMessage("الوصف"),
@@ -295,6 +297,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "seaShipment": MessageLookupByLibrary.simpleMessage("شحنات بحرية"),
         "seaTravel": MessageLookupByLibrary.simpleMessage("رحلات بحرية"),
         "searchHere": MessageLookupByLibrary.simpleMessage("ابحث هنا..."),
+        "selectMark": MessageLookupByLibrary.simpleMessage("أختر علامة"),
+        "selectProvider":
+            MessageLookupByLibrary.simpleMessage("أختر المُقَدِم"),
         "selectWarehouse":
             MessageLookupByLibrary.simpleMessage("اختر المستودع"),
         "serialNumber": MessageLookupByLibrary.simpleMessage("الرقم السري: "),
@@ -396,6 +401,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "truee": MessageLookupByLibrary.simpleMessage("صح"),
         "type": MessageLookupByLibrary.simpleMessage("النوع"),
         "unit": MessageLookupByLibrary.simpleMessage("وحدة التغليف: "),
+        "unitQuantity": MessageLookupByLibrary.simpleMessage("عدد الواحدات"),
         "units": MessageLookupByLibrary.simpleMessage("الوحدات"),
         "updateAirwaybill":
             MessageLookupByLibrary.simpleMessage("تعديل بوصيلة الشحن"),

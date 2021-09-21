@@ -315,8 +315,8 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text(S.of(context).weight , style: AppTextStyle.mediumBlack,),
-                  Text(shipmentModel.weight.toString() , style: AppTextStyle.mediumBlueBold,),
+                  Text(S.of(context).volume+': ' , style: AppTextStyle.mediumBlack,),
+                  Text(shipmentModel.volume.toString() , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(

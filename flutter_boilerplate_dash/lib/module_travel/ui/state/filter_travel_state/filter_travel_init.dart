@@ -297,7 +297,7 @@ class _AddCountryInitState extends State<FilterTravelInit> {
   @override
   void initState() {
     super.initState();
-    travelFilterRequest = TravelFilterRequest(type: widget.type);
+    travelFilterRequest = TravelFilterRequest(type: widget.type,status: 'notReleased');
 
     formattedDateStart = ''; //formatter.format(startDate);
     formattedDateEnd =''; //  formatter.format(endDate);
@@ -309,10 +309,11 @@ class _AddCountryInitState extends State<FilterTravelInit> {
     entryFrom= <Entry>[];
     entrySub= <Entry>[];
     stats = [
-      Category(id: 1, name: 'Current', description: 'current', isSelected: true),
+      Category(id: 1, name: 'Current', description: 'current', isSelected: false),
       Category(id: 1, name: 'Started', description: 'started', isSelected: false),
       Category(id: 1, name: 'Released', description: 'released', isSelected: false),
-      Category(id: 1, name: 'All', description: '', isSelected: false),
+      Category(id: 1, name: 'Not Released', description: 'notReleased', isSelected: true),
+      Category(id: 1, name: 'All', description: 'all', isSelected: false),
     ];
     // travelNumber =TextEditingController();
     // status=TravelStatusName[TravelStatus.CURRENT]!;

@@ -16,9 +16,9 @@ class StoredRequest{
   String holderType;
 
   int amount;
+  int importWarehouseID;
 
-
-  StoredRequest({ required this.travelID, required this.amount ,required this.packed ,required this.holderID ,required this.holderType   ,required  this.shipmentId,required this.trackNumber ,required this.shipmentStatus , required this.isInOneHolder ,required this.statusDetails,this.travelNumber,this.holderNumber });
+  StoredRequest({ required this.travelID, required this.amount ,required this.packed ,required this.holderID ,required this.holderType   ,required  this.shipmentId,required this.trackNumber ,required this.shipmentStatus , required this.isInOneHolder ,required this.statusDetails,this.travelNumber,this.holderNumber,required this.importWarehouseID });
 
   Map<String, dynamic> toJson() => {
     'shipmentID': shipmentId,
@@ -33,6 +33,7 @@ class StoredRequest{
     'amount':amount,
 
     'travelID':travelID,
+    'importWarehouseID':importWarehouseID,
 
     // 'travelNumber':travelNumber,
     // 'holderNumber':holderNumber,

@@ -11,7 +11,7 @@ class InitAddState extends AddWarehouseState{
   List<SubcontractModel> subcontracts;
   List<CountryModel> country;
 
-  InitAddState(this.proxies, this.subcontracts ,this.country);
+  InitAddState({required this.proxies,required this.subcontracts ,required this.country});
 }
 class LoadingAddState extends AddWarehouseState{}
 

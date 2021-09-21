@@ -126,6 +126,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error with Decoding Data"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "deleteClient": MessageLookupByLibrary.simpleMessage(
+            "Do you really want to delete this employee and revoke all his permissions"),
         "deletePreviousMark": MessageLookupByLibrary.simpleMessage(
             "You cannot delete previously used marks"),
         "description": MessageLookupByLibrary.simpleMessage("Description: "),
@@ -268,8 +270,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "productType": MessageLookupByLibrary.simpleMessage("Product type: "),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "provided": MessageLookupByLibrary.simpleMessage("Provided by"),
-        "proxies": MessageLookupByLibrary.simpleMessage("Proxies"),
-        "proxy": MessageLookupByLibrary.simpleMessage("Proxy"),
+        "proxies": MessageLookupByLibrary.simpleMessage("Agents"),
+        "proxy": MessageLookupByLibrary.simpleMessage("Agent"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity: "),
         "received": MessageLookupByLibrary.simpleMessage("Received"),
         "receiver": MessageLookupByLibrary.simpleMessage("Receivers"),
@@ -306,6 +308,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "seaShipment": MessageLookupByLibrary.simpleMessage("Sea shipment"),
         "seaTravel": MessageLookupByLibrary.simpleMessage("Sea travel"),
         "searchHere": MessageLookupByLibrary.simpleMessage("Search Here..."),
+        "selectMark": MessageLookupByLibrary.simpleMessage("Select Mark"),
+        "selectProvider":
+            MessageLookupByLibrary.simpleMessage("Select Provider"),
         "selectWarehouse":
             MessageLookupByLibrary.simpleMessage("Select Warehouse"),
         "serialNumber": MessageLookupByLibrary.simpleMessage("Serial Number: "),
@@ -413,6 +418,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "truee": MessageLookupByLibrary.simpleMessage("True"),
         "type": MessageLookupByLibrary.simpleMessage("Type"),
         "unit": MessageLookupByLibrary.simpleMessage("Unit: "),
+        "unitQuantity": MessageLookupByLibrary.simpleMessage("Unit Quantity"),
         "units": MessageLookupByLibrary.simpleMessage("Units"),
         "updateAirwaybill":
             MessageLookupByLibrary.simpleMessage("Update Air waybill"),

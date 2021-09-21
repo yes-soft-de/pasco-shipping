@@ -293,15 +293,32 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
             ],
           ),
           Divider(color: Colors.grey[300],thickness: 2,),
-          ListTile(
-              title: Text(
-                S.of(context).paymentTime,
-                style: AppTextStyle.mediumBlack,
+          Row(
+            children: [
+              Expanded(
+                child: ListTile(
+                    title: Text(
+                      S.of(context).paymentTime,
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    subtitle: Text(
+                      widget.shipment.paymentTime ?? '',
+                      style: AppTextStyle.smallBlueBold,
+                    )),
               ),
-              subtitle: Text(
-                widget.shipment.paymentTime ?? '',
-                style: AppTextStyle.smallBlueBold,
-              )),
+              Expanded(
+                child: ListTile(
+                    title: Text(
+                      S.of(context).holderCount,
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    subtitle: Text(
+                      widget.shipment.holderCount.toString(),
+                      style: AppTextStyle.smallBlueBold,
+                    )),
+              ),
+            ],
+          ),
           Divider(color: Colors.grey[300],thickness: 2,),
           Padding(
             padding: const EdgeInsets.all(10.0),
@@ -393,6 +410,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -408,6 +426,38 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                   Text(subShipmentModel.shipmentStatus ??'' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
+
+              SizedBox(
+                height: 10,
+              ),
+              Text('Gunny: ' , style: AppTextStyle.mediumBlueBold,),
+              ListView.builder(itemBuilder:(context,index){
+                return Card(
+                    color: Colors.green[100],
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                  children: [
+                      Row(
+                        children: [
+                          Text(S.of(context).gunnyNumber+': '),
+                          Text(subShipmentModel.gunnyModel![index].gunnyIdentificationNumber!+',' , style: AppTextStyle.mediumBlackBold,),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(S.of(context).unitQuantity+': '),
+                          Text(subShipmentModel.gunnyModel![index].quantity.toString() , style: AppTextStyle.mediumBlackBold,),
+                        ],
+                      ),
+                  ],
+                ),
+                    ));
+              },itemCount: subShipmentModel.gunnyModel!.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+              ),
+
               Row(
                 children: [
                   RoundedButton(lable: S.of(context).shipmentCost, icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
@@ -450,7 +500,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
           FlatButton(onPressed: (){}, child: Row(children: [
             Icon(Icons.print, color: blue,size: 30,),
           ],)),
-          Text('1' +'\\'+ '20'),
+          Text('1' +'\\'+ widget.shipment.quantity.toString()),
           Text(' Copy')
         ],
 
@@ -482,9 +532,11 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                         S.of(context).shippingFrom,
                         style: AppTextStyle.mediumBlack,
                       ),
-                      Text(
-                        widget.shipment.exportWarehouseName.toString(),
-                        style: AppTextStyle.smallBlueBold,
+                      Expanded(
+                        child: Text(
+                          widget.shipment.exportWarehouseName.toString(),
+                          style: AppTextStyle.smallBlueBold,
+                        ),
                       )
 
                     ],
@@ -517,7 +569,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                   FlatButton(onPressed: (){}, child: Row(children: [
                     Icon(Icons.print, color: blue,size: 30,),
                   ],)),
-                  Text('1' +'\\'+ '12'),
+                  Text('1' +'\\'+ widget.shipment.quantity.toString()),
                   Text(' Copy')
                 ],
               )
