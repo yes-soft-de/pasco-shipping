@@ -79,6 +79,9 @@ class TravelManager
             {
                 $travelEntity = $this->autoMapping->mapToObject(TravelStatusUpdateRequest::class, TravelEntity::class, $request, $travelEntity);
 
+                $travelEntity->setLaunchDate($request->getLaunchDate());
+                $travelEntity->setArrivalDate($request->getArrivalDate());
+
                 $this->entityManager->flush();
                 $this->entityManager->clear();
 

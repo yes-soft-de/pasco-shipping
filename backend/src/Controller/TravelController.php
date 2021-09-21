@@ -133,7 +133,6 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="createdByUserImage"),
      *                  @OA\Property(type="string", property="updatedByUser"),
      *                  @OA\Property(type="string", property="updatedByUserImage"),
-     *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="string", property="subcontractName"),
      *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="array", property="holders",
@@ -178,7 +177,9 @@ class TravelController extends BaseController
      *      description="Update the status of a travel",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="id"),
-     *          @OA\Property(type="string", property="status")
+     *          @OA\Property(type="string", property="status"),
+     *          @OA\Property(type="object", property="launchDate"),
+     *          @OA\Property(type="object", property="arrivalDate")
      *      )
      * )
      * 
