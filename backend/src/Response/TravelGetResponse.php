@@ -24,7 +24,11 @@ class TravelGetResponse
 
     public $subcontractName;
 
+    public $shipperID;
+
     public $carrierName;
+
+    public $carrierID;
 
     public $createdByUser;
 

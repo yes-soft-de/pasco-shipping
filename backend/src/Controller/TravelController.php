@@ -385,7 +385,9 @@ class TravelController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="integer", property="shipperID"),
      *                  @OA\Property(type="string", property="carrierName"),
+     *                  @OA\Property(type="integer", property="carrierID"),
      *                  @OA\Property(type="array", property="holders",
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),
