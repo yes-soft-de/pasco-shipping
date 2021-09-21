@@ -292,9 +292,7 @@ App\Request\AirwaybillUpdateRequest:
   properties:
     id:
       - NotBlank: ~
-    specificationID:
-      - NotBlank: ~
-    airwaybillNumber:
+    providedBy:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
@@ -312,9 +310,7 @@ App\Request\ContainerUpdateRequest:
   properties:
     id:
       - NotBlank: ~
-    specificationID:
-      - NotBlank: ~
-    containerNumber:
+    providedBy:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
