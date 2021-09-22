@@ -36,7 +36,7 @@ class GunnyEntityRepository extends ServiceEntityRepository
     public function getGunnyByStatus($status)
     {
         return $this->createQueryBuilder('gunnyEntity')
-            ->select('gunnyEntity.id', 'gunnyEntity.identificationNumber', 'gunnyEntity.createdAt', 'gunnyEntity.createdBy', 'gunnyEntity.updatedAt', 'gunnyEntity.updatedBy', 'gunnyEntity.status')
+            ->select('gunnyEntity.id', 'gunnyEntity.identificationNumber as gunnyIdentificationNumber', 'gunnyEntity.createdAt', 'gunnyEntity.createdBy', 'gunnyEntity.updatedAt', 'gunnyEntity.updatedBy', 'gunnyEntity.status')
 
             ->andWhere('gunnyEntity.status = :status')
             ->setParameter('status', $status)
@@ -62,7 +62,7 @@ class GunnyEntityRepository extends ServiceEntityRepository
     public function filterGunnies($identificationNumber, $status)
     {
         $query = $this->createQueryBuilder('gunnyEntity')
-            ->select('gunnyEntity.id', 'gunnyEntity.identificationNumber', 'gunnyEntity.createdAt', 'gunnyEntity.createdBy', 'gunnyEntity.updatedAt', 'gunnyEntity.updatedBy', 'gunnyEntity.status',
+            ->select('gunnyEntity.id', 'gunnyEntity.identificationNumber as gunnyIdentificationNumber', 'gunnyEntity.createdAt', 'gunnyEntity.createdBy', 'gunnyEntity.updatedAt', 'gunnyEntity.updatedBy', 'gunnyEntity.status',
              'adminProfileEntity.userName as createdByUser', 'adminProfileEntity.image as createdByUserImage')
 
             ->leftJoin(

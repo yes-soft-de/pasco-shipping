@@ -32,8 +32,6 @@ App\Request\OrderShipmentCreateRequest:
       - NotBlank: ~
     unit:
       - NotBlank: ~
-    receiverID:
-      - NotBlank: ~
     paymentTime:
       - NotBlank: ~
     holderType:
@@ -52,8 +50,6 @@ App\Request\OrderShipmentByDashboardCreateRequest:
     productCategoryID:
       - NotBlank: ~
     unit:
-      - NotBlank: ~
-    receiverID:
       - NotBlank: ~
     paymentTime:
       - NotBlank: ~
@@ -292,9 +288,7 @@ App\Request\AirwaybillUpdateRequest:
   properties:
     id:
       - NotBlank: ~
-    specificationID:
-      - NotBlank: ~
-    airwaybillNumber:
+    providedBy:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
@@ -312,9 +306,7 @@ App\Request\ContainerUpdateRequest:
   properties:
     id:
       - NotBlank: ~
-    specificationID:
-      - NotBlank: ~
-    containerNumber:
+    providedBy:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
@@ -520,5 +512,23 @@ App\Request\GunnyShipmentCreateRequest:
     quantity:
       - NotBlank: ~
     createdBy:
+      - NotBlank: ~
+
+App\Request\PortsCreateRequest:
+  properties:
+    name:
+      - NotBlank: ~
+    countryID:
+      - NotBlank: ~
+    type:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\PortsUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    updatedBy:
       - NotBlank: ~
       
