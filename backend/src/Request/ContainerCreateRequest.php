@@ -55,4 +55,20 @@ class ContainerCreateRequest
         $this->clientUserID = $clientUserID;
     }
 
+    public function setCarrierID($carrierID): void
+    {
+        $this->carrierID = $carrierID;
+    }
+
+    public function setPortID($portID): void
+    {
+        $this->portID = $portID;
+    }
+
+    public function setLocation($location): void
+    {
+        $this->location = $location;
+    }
+
+
 }

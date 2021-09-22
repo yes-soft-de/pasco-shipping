@@ -489,7 +489,8 @@ class ShipmentOrderManager
                 {
                     foreach($pendingHolders as $pendingHolder)
                     {
-                        $this->createFCLAirWaybill($orderShipmentEntity->getId(), $pendingHolder['specificationID'], $orderShipmentEntity->getClientUserID());
+                        $this->createFCLAirWaybill($orderShipmentEntity->getId(), $pendingHolder['specificationID'], $pendingHolder['portID'],
+                            $pendingHolder['carrierID'], $pendingHolder['location'], $orderShipmentEntity->getClientUserID());
                     }
                 }
             }
@@ -502,30 +503,37 @@ class ShipmentOrderManager
                 {
                     foreach($pendingHolders as $pendingHolder)
                     {
-                        $this->createFCLContainer($orderShipmentEntity->getId(), $pendingHolder['specificationID'], $orderShipmentEntity->getClientUserID());
+                        $this->createFCLContainer($orderShipmentEntity->getId(), $pendingHolder['specificationID'], $pendingHolder['portID'],
+                            $pendingHolder['carrierID'], $pendingHolder['location'], $orderShipmentEntity->getClientUserID());
                     }
                 }
             }
         }
     }
 
-    public function createFCLContainer($shipmentID, $specificationID, $clientUserID)
+    public function createFCLContainer($shipmentID, $specificationID, $portID, $carrierID, $location, $clientUserID)
     {
         $containerCreateRequest = new ContainerCreateRequest();
 
         $containerCreateRequest->setShipmentID($shipmentID);
         $containerCreateRequest->setSpecificationID($specificationID);
+        $containerCreateRequest->setPortID($portID);
+        $containerCreateRequest->setCarrierID($carrierID);
+        $containerCreateRequest->setLocation($location);
         $containerCreateRequest->setClientUserID($clientUserID);
 
         $this->containerManager->createFCLContainer($containerCreateRequest);
     }
 
-    public function createFCLAirWaybill($shipmentID, $specificationID, $clientUserID)
+    public function createFCLAirWaybill($shipmentID, $specificationID, $portID, $carrierID, $location, $clientUserID)
     {
         $airWaybillCreateRequest = new AirwaybillCreateRequest();
 
         $airWaybillCreateRequest->setShipmentID($shipmentID);
         $airWaybillCreateRequest->setSpecificationID($specificationID);
+        $airWaybillCreateRequest->setPortID($portID);
+        $airWaybillCreateRequest->setCarrierID($carrierID);
+        $airWaybillCreateRequest->setLocation($location);
         $airWaybillCreateRequest->setClientUserID($clientUserID);
 
         $this->airWaybillManager->createFCLAirWaybill($airWaybillCreateRequest);
