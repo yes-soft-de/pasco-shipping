@@ -111,7 +111,7 @@ class ShipmentOrderManager
         // Insert the requested holders of the shipment
         if(count($request->getRequestedHolders()) > 0)
         {
-            $this->createPendingHolders($request->getRequestedHolders(), $orderShipmentEntity->getId());
+            $this->createPendingHolders($request->getRequestedHolders(), $orderShipmentEntity->getId(), $orderShipmentEntity->getExternalWarehouseInfo());
         }
 
         return $orderShipmentEntity;
@@ -576,7 +576,7 @@ class ShipmentOrderManager
         }
     }
 
-    public function createPendingHolders($requestedHoldersArray, $shipmentID)
+    public function createPendingHolders($requestedHoldersArray, $shipmentID, $warehouseInfo)
     {
         $holderCreateRequest = new PendingHolderCreateRequest();
 
@@ -584,6 +584,9 @@ class ShipmentOrderManager
         {
             $holderCreateRequest->setShipmentID($shipmentID);
             $holderCreateRequest->setSpecificationID($holder['specificationID']);
+            $holderCreateRequest->setCarrierID($holder['carrierID']);
+            $holderCreateRequest->setLocation($warehouseInfo);
+            $holderCreateRequest->setPortID($holder['portID']);
             $holderCreateRequest->setNotes($holder['notes']);
 
             $this->pendingHolderManager->create($holderCreateRequest);
