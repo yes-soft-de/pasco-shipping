@@ -90,6 +90,16 @@ class AirwaybillEntity
      */
     private $clientUserID;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $portID;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $location;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -259,6 +269,30 @@ class AirwaybillEntity
     public function setClientUserID(?int $clientUserID): self
     {
         $this->clientUserID = $clientUserID;
+
+        return $this;
+    }
+
+    public function getPortID(): ?int
+    {
+        return $this->portID;
+    }
+
+    public function setPortID(?int $portID): self
+    {
+        $this->portID = $portID;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?string $location): self
+    {
+        $this->location = $location;
 
         return $this;
     }

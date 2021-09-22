@@ -20,6 +20,10 @@ class AirwaybillUpdateRequest
 
     private $carrierID;
 
+    private $portID;
+
+    private $location;
+
     private $updatedBy;
 
     public function getId()

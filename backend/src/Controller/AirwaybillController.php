@@ -52,7 +52,9 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="integer", property="consigneeID"),
      *          @OA\Property(type="integer", property="carrierID"),
      *          @OA\Property(type="integer", property="shipmentID"),
-     *          @OA\Property(type="integer", property="clientUserID")
+     *          @OA\Property(type="integer", property="clientUserID"),
+     *          @OA\Property(type="integer", property="portID"),
+     *          @OA\Property(type="string", property="location")
      *      )
      * )
      *
@@ -117,7 +119,9 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="integer", property="providedBy"),
      *          @OA\Property(type="integer", property="shipperID"),
      *          @OA\Property(type="integer", property="consigneeID"),
-     *          @OA\Property(type="integer", property="carrierID")
+     *          @OA\Property(type="integer", property="carrierID"),
+     *          @OA\Property(type="integer", property="portID"),
+     *          @OA\Property(type="string", property="location")
      *      )
      * )
      *
@@ -326,6 +330,8 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
      *                  @OA\Property(type="string", property="carrierName"),
+     *                  @OA\Property(type="string", property="portName"),
+     *                  @OA\Property(type="string", property="location"),
      *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="integer", property="freeWeight"),
      *                  @OA\Property(type="integer", property="shipmentID"),
@@ -398,6 +404,7 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="boolean", property="isExternalWarehouse"),
      *          @OA\Property(type="integer", property="shipmentID"),
      *          @OA\Property(type="integer", property="clientUserID"),
+     *          @OA\Property(type="integer", property="portID"),
      *          @OA\Property(type="boolean", property="withoutNumber"),
      *          @OA\Property(type="boolean", property="isRequested")
      *      )
@@ -429,6 +436,8 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
      *                  @OA\Property(type="string", property="carrierName"),
+     *                  @OA\Property(type="string", property="portName"),
+     *                  @OA\Property(type="string", property="location"),
      *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="integer", property="shipmentID"),
      *                  @OA\Property(type="array", property="shipments",
@@ -474,9 +483,8 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *                 @OA\Property(type="number", property="numbersOfItemDeleted")
-     *                      )
-     *                     )
      *          )
+     *      )
      * 
      * )
      * 
@@ -517,6 +525,8 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
      *                  @OA\Property(type="string", property="carrierName"),
+     *                  @OA\Property(type="string", property="portName"),
+     *                  @OA\Property(type="string", property="location"),
      *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()

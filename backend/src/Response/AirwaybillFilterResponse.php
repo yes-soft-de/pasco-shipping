@@ -36,6 +36,10 @@ class AirwaybillFilterResponse
 
     public $carrierName;
 
+    public $portName;
+
+    public $location;
+
     public $freeWeight;
 
     public $shipmentID;

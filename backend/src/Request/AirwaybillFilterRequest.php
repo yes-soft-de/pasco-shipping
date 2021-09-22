@@ -28,6 +28,8 @@ class AirwaybillFilterRequest
 
     private $isRequested;
 
+    private $portID;
+
     public function getSpecificationID()
     {
         return $this->specificationID;
@@ -86,6 +88,11 @@ class AirwaybillFilterRequest
     public function getIsRequested()
     {
         return $this->isRequested;
+    }
+
+    public function getPortID()
+    {
+        return $this->portID;
     }
 
 }
