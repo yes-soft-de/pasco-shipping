@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_product_category/response/product_category_response.dart';
@@ -290,40 +291,6 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
             SizedBox(
               height: 10,
             ),
-            Text(
-              S.of(context).shippingFrom,
-              style: AppTextStyle.mediumBlackBold,
-            ),
-            SelectDropListl(
-              this.optionItemSelectedF,
-              this.dropListModelFrom,
-              (optionItem) {
-                optionItemSelectedF = optionItem;
-                widget.shipmentRequest.exportWarehouseID =optionItem.id;
-                widget.shipmentRequest.exportWarehouseName =optionItem.title;
-                print("nameWear"  +  optionItem.title);
-                setState(() {});
-              },
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              S.of(context).shippingTo,
-              style: AppTextStyle.mediumBlackBold,
-            ),
-            SelectDropListl(
-              this.optionItemSelectedT,
-              this.dropListModelTo,
-              (optionItem) {
-                optionItemSelectedT = optionItem;
-                widget.shipmentRequest.target = optionItem.title;
-                setState(() {});
-              },
-            ),
-            SizedBox(
-              height: 10,
-            ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -333,21 +300,21 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                   style: AppTextStyle.mediumBlackBold,
                 ),
 
-               Row(
-                 children: [
-                   Radio(
-                     onChanged: (value) {
-                       _setSelectedRadioWarehouse(2);
-                     },
-                     value: 2,
-                     groupValue: selectedRadioWarehouse,
-                   ),
-                   Text( S.of(context).inLocalWarehouse,
-                       style: TextStyle(
-                         color: Colors.black,
-                       ))
-                 ],
-               ),
+                Row(
+                  children: [
+                    Radio(
+                      onChanged: (value) {
+                        _setSelectedRadioWarehouse(2);
+                      },
+                      value: 2,
+                      groupValue: selectedRadioWarehouse,
+                    ),
+                    Text( S.of(context).inLocalWarehouse,
+                        style: TextStyle(
+                          color: Colors.black,
+                        ))
+                  ],
+                ),
                 Row(
                   children: [
                     Radio(
@@ -368,20 +335,66 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
 
               ],
             ),
+
+            Visibility(
+              visible: !widget.shipmentRequest.isExternalWarehouse ,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    S.of(context).shippingFrom,
+                    style: AppTextStyle.mediumBlackBold,
+                  ),
+                  SelectDropListl(
+                    this.optionItemSelectedF,
+                    this.dropListModelFrom,
+                        (optionItem) {
+                      optionItemSelectedF = optionItem;
+                      widget.shipmentRequest.exportWarehouseID =optionItem.id;
+                      widget.shipmentRequest.exportWarehouseName =optionItem.title;
+                      print("nameWear"  +  optionItem.title);
+                      setState(() {});
+                    },
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Visibility(
               visible: widget.shipmentRequest.isExternalWarehouse ,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                Text(
-                  S.of(context).warehouseInfo,
-                  style: AppTextStyle.mediumBlackBold,
-                ),
-                TextEdit('info', 50, (info) {
-                  widget.shipmentRequest.externalWarehouseInfo = info;
-                }),
-              ],),
+                  Text(
+                    S.of(context).warehouseInfo,
+                    style: AppTextStyle.mediumBlackBold,
+                  ),
+                  TextEdit('info', 50, (info) {
+                    widget.shipmentRequest.externalWarehouseInfo = info;
+                  }),
+                ],),
             ),
+
+            Text(
+              S.of(context).shippingTo,
+              style: AppTextStyle.mediumBlackBold,
+            ),
+            SelectDropListl(
+              this.optionItemSelectedT,
+              this.dropListModelTo,
+              (optionItem) {
+                optionItemSelectedT = optionItem;
+                widget.shipmentRequest.target = optionItem.title;
+                setState(() {});
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+
+
             SizedBox(
               height: 10,
             ),
@@ -593,12 +606,15 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                 alignment: AlignmentDirectional.bottomEnd,
                 child: FloatingActionButton.extended(
                   onPressed: () {
+                    if(optionItemSelectedCategory.id==0 ||optionItemSelectedT.id==0||widget.shipmentRequest.quantity==0){
+                      Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                    }else{
                     widget.shipmentRequest.imageFilePath =[];
                     for(File i in imageArray ){
                       widget.shipmentRequest.imageFilePath!.add(i.path);
                     }
                    widget.goToSecondStep();
-                  },
+                  }},
                   icon: Icon(
                     Icons.arrow_forward_outlined,
                     // color: bal,

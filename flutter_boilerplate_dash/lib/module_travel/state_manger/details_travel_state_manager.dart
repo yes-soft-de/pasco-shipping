@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_travel/request/travel_change_state_request.dart';
+import 'package:pasco_shipping/module_travel/request/travel_request.dart';
 import 'package:pasco_shipping/module_travel/service/travel_service.dart';
 import 'package:pasco_shipping/module_travel/ui/state/details_state/details_state.dart';
 import 'package:rxdart/rxdart.dart';
@@ -24,24 +25,33 @@ class TravelDetailsStateManager {
     });
   }
 
-  void updateTravelStatus(TravelChangeStateRequest request) {
+  void updateTravelStatus(
+      TravelRequest travelRequest,
+      TravelChangeStateRequest request) {
     _addStateSubject.add(LoadingDetailsState());
-    _service.updateTravelStatus(request).then((value) {
-      if (value != null) {
-        if (value.isConfirmed) {
-          _service.getTravelDetails(request.id.toString()).then((model) {
-            if (model != null) {
-              _addStateSubject.add(SuccessfullyDetailsState(model));
-            } else {
+    _service.updateTravelInfo(travelRequest).then((value) {
+      if(value != null){
+        if(value.isConfirmed){
+          _service.updateTravelStatus(request).then((value) {
+            if (value != null) {
+              if (value.isConfirmed) {
+                _service.getTravelDetails(request.id.toString()).then((model) {
+                  if (model != null) {
+                    _addStateSubject.add(SuccessfullyDetailsState(model));
+                  } else {
+                    _addStateSubject.add(ErrorDetailsState('error'));
+                  }
+                });
+              }else{
+                _addStateSubject.add(ErrorDetailsState('error'));
+              }
+            }else{
               _addStateSubject.add(ErrorDetailsState('error'));
             }
           });
-        }else{
-          _addStateSubject.add(ErrorDetailsState('error'));
         }
-      }else{
-        _addStateSubject.add(ErrorDetailsState('error'));
       }
     });
+
   }
 }

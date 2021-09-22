@@ -52,7 +52,7 @@ class AppThemeDataService {
       primaryColorDark: PrimaryDarker,
       accentColor: AccentColor,
       appBarTheme: AppBarTheme(color: AccentColor , titleTextStyle: White14text),
-        textSelectionTheme: TextSelectionThemeData(cursorColor: AccentColor ,selectionColor: Colors.white ,selectionHandleColor: Colors.white)
+        textSelectionTheme: TextSelectionThemeData(cursorColor: AccentColor ,selectionColor: Colors.blue[200] ,selectionHandleColor: AccentColor)
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill_specification/response/airwaybill_specification_response.dart';
@@ -313,7 +314,16 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                 alignment: AlignmentDirectional.bottomEnd,
                 child: FloatingActionButton.extended(
                   onPressed: () {
-                    widget.goNextPage();
+                    if(
+                    optionItemSelectedTim.title=='choose'
+                    || optionItemSelectedType.title=='choose'
+                    || optionItemSelectedU.title=='choose'
+                    || optionItemSelectedMar.id==0
+                    ||(widget.shipmentRequest.isExternalWarehouse && holders.isEmpty)
+                    ){
+                      Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                    }
+                    else {widget.goNextPage();}
                   },
                   icon: Icon(
                     Icons.arrow_forward_outlined,

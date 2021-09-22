@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill/response/airwaybill_response.dart';
 import 'package:pasco_shipping/module_airwaybill/widget/airwaybill_card.dart';
@@ -13,13 +14,17 @@ class AirwaybillSuccessfully extends StatelessWidget {
   final Function onEdit;
   final Function onDetails;
   final Function onSearch;
+  final Function addAirwaybill;
+  final bool isExternal;
 
   const AirwaybillSuccessfully({
     required this.items,
     required this.onDelete,
     required this.onEdit,
     required this.onDetails,
-    required this.onSearch
+    required this.onSearch,
+    required this.addAirwaybill,
+    required this.isExternal
   });
 
   @override
@@ -41,6 +46,20 @@ class AirwaybillSuccessfully extends StatelessWidget {
           icon: Icon(Icons.document_scanner_sharp),
           label: Text(
             S.of(context).reports,
+            style: AppTextStyle.mediumWhite,
+          ),
+        ),
+        SizedBox(height: 10,),
+       isExternal?Container(): ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.blue[800],
+          ),
+          onPressed: () {
+            addAirwaybill();
+          },
+          icon: Icon(Icons.add_circle),
+          label: Text(
+            S.of(context).requestAirwaybill,
             style: AppTextStyle.mediumWhite,
           ),
         ),

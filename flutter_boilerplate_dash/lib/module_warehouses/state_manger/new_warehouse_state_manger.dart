@@ -59,7 +59,7 @@ class AddWarehouseStateManager{
           if(proxies != null){
             _countryService.getCountries().then((countries) {
               if(countries != null){
-                _addStateSubject.add(InitAddState(proxies , subcontracts,countries));
+                _addStateSubject.add(InitAddState(country: countries,subcontracts: subcontracts, proxies: proxies));
               }else {
                 _addStateSubject.add(ErrorAddState('error'));
               }

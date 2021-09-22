@@ -12,28 +12,36 @@ class TextEdit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height,
+      // height: height,
       margin: const EdgeInsets.all(15.0),
       // padding: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
           border: Border.all(color: Colors.black ,),
         borderRadius: BorderRadius.circular(5),
       ),
-      child: Padding(
-        padding: const EdgeInsetsDirectional.only(start: 20),
-        child: TextField(
-          onChanged: (value){
-            onChange(value);
-          },
-          decoration: InputDecoration(
-          hintText: title,
-          hintStyle:AppTextStyle.mediumDeepGray,
-          focusedBorder: InputBorder.none,
-          enabledBorder: InputBorder.none,
-          errorBorder: InputBorder.none,
-          disabledBorder: InputBorder.none,
+      child: Theme(
+         data: ThemeData(
+        textSelectionTheme: TextSelectionThemeData(selectionColor: Colors.blue[200]),
+      ),
+        child: Padding(
+          padding: const EdgeInsetsDirectional.only(start: 20),
+          child: TextField(
+            onChanged: (value){
+              onChange(value);
+            },
+            cursorColor: Colors.blue,
+            maxLines: null,
+            decoration: InputDecoration(
+            hintText: title,
+            hintStyle:AppTextStyle.mediumDeepGray,
+            focusedBorder: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            errorBorder: InputBorder.none,
+            disabledBorder: InputBorder.none,
+
+          ),
+            style: AppTextStyle.mediumBlack,),
         ),
-          style: AppTextStyle.mediumBlack,),
       ),
     );
   }

@@ -23,20 +23,20 @@ class DelivredStatusState extends AcceptedShipmentStatusState{
 class ReceivedStatusState extends AcceptedShipmentStatusState{
   List<AcceptedShipmentStatusModel> model;
   List<SubcontractModel> subContracts;
-  List<WarehousesModel> warehouse;
+  // List<WarehousesModel> warehouse;
   List<GunnyModel> gunnies;
   StoredModel storedModelInfo;
-  ReceivedStatusState(this.model , this.subContracts , this.warehouse , this.gunnies ,this.storedModelInfo);
+  ReceivedStatusState(this.model , this.subContracts  , this.gunnies ,this.storedModelInfo);
 }
 
 
 class ReceivedStatusWithGunniesState extends AcceptedShipmentStatusState{
   List<AcceptedShipmentStatusModel> model;
   List<SubcontractModel> subContracts;
-  List<WarehousesModel> warehouse;
+  // List<WarehousesModel> warehouse;
   List<GunnyModel> gunnies;
   StoredModel storedModelInfo;
-  ReceivedStatusWithGunniesState(this.model , this.subContracts , this.warehouse , this.gunnies ,this.storedModelInfo);
+  ReceivedStatusWithGunniesState(this.model , this.subContracts, this.gunnies ,this.storedModelInfo);
 }
 
 
@@ -45,14 +45,16 @@ class MeasuredContainerStatusState extends AcceptedShipmentStatusState{
   List<AcceptedShipmentStatusModel> model;
   List<ContainerModel> containers;
   List<TravelModel> travels;
-  MeasuredContainerStatusState({required this.model ,required this.containers ,required this.travels});
+  List<WarehousesModel> warehouse;
+  MeasuredContainerStatusState({required this.model ,required this.containers ,required this.travels , required this.warehouse});
 }
 
 class MeasuredAirwaybillStatusState extends AcceptedShipmentStatusState{
   List<AcceptedShipmentStatusModel> model;
   List<AirwaybillModel> airwaybills;
   List<TravelModel> travels;
-  MeasuredAirwaybillStatusState({required this.model ,required this.airwaybills ,required this.travels});
+  List<WarehousesModel> warehouse;
+  MeasuredAirwaybillStatusState({required this.model ,required this.airwaybills ,required this.travels , required this.warehouse});
 }
 
 

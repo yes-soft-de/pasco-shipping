@@ -750,10 +750,10 @@ class S {
     );
   }
 
-  /// `Proxies`
+  /// `Agents`
   String get proxies {
     return Intl.message(
-      'Proxies',
+      'Agents',
       name: 'proxies',
       desc: '',
       args: [],
@@ -2790,10 +2790,10 @@ class S {
     );
   }
 
-  /// `Proxy`
+  /// `Agent`
   String get proxy {
     return Intl.message(
-      'Proxy',
+      'Agent',
       name: 'proxy',
       desc: '',
       args: [],
@@ -3125,6 +3125,46 @@ class S {
     return Intl.message(
       'Requested for',
       name: 'requestedFor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you really want to delete this employee and revoke all his permissions`
+  String get deleteClient {
+    return Intl.message(
+      'Do you really want to delete this employee and revoke all his permissions',
+      name: 'deleteClient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unit Quantity`
+  String get unitQuantity {
+    return Intl.message(
+      'Unit Quantity',
+      name: 'unitQuantity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Provider`
+  String get selectProvider {
+    return Intl.message(
+      'Select Provider',
+      name: 'selectProvider',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Mark`
+  String get selectMark {
+    return Intl.message(
+      'Select Mark',
+      name: 'selectMark',
       desc: '',
       args: [],
     );

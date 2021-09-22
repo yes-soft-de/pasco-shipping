@@ -106,7 +106,10 @@ class _CountriesScreenState extends State<AirwaybillScreen> {
         }, onSearch: (number){
         containerFilterRequest.airwaybillNumber = number;
           widget._stateManager.getAirwaybillsWithFilter(containerFilterRequest);
+        }, addAirwaybill: (){
+        Navigator.pushNamed(context, AirwaybillRoutes.ADD_NEW).then((value) => widget._stateManager.getAirwaybillsWithFilter(containerFilterRequest));
         },
+        isExternal: isExternalWarehouse,
       );
     }
     // else if(currentState is SuccessfullyModifyMarkState){

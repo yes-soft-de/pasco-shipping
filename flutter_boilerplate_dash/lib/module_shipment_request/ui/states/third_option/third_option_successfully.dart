@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_distributors/response/distributors_response.dart';
@@ -236,8 +237,11 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
               icon: '',
               color: Theme.of(context).accentColor,
               go: () {
+                if(optionItemSelectedMarks.id == 0){
+                  Fluttertoast.showToast(msg: S.of(context).selectMark);
+                }else{
                 widget.onRequest(widget.shipmentRequest);
-              },
+              }},
               style: AppTextStyle.mediumWhite,
             ),
           ),

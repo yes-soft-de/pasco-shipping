@@ -84,7 +84,7 @@
 
   "countries": "Countries",
   "distributors": "Distributors",
-  "proxies": "Proxies",
+  "proxies": "Agents",
   "warehouses": "Warehouse",
   "subcontract": "Subcontract",
   "subcontractService": "Subcontract Services",
@@ -344,7 +344,7 @@
   "warehouseFinance": "Warehouse Finance",
   "updateWarehouse": "Update warehouse",
   "local": "Local",
-  "proxy": "Proxy",
+  "proxy": "Agent",
 
 
   "shipmentAccepted": "Shipment accepted successfully",
@@ -389,5 +389,9 @@
 
   "operationCompletedSuccessfully": "Operation completed successfully",
 
-  "requestedFor": "Requested for"
+  "requestedFor": "Requested for",
+  "deleteClient": "Do you really want to delete this employee and revoke all his permissions",
+  "unitQuantity": "Unit Quantity",
+  "selectProvider": "Select Provider",
+  "selectMark": "Select Mark"
 }

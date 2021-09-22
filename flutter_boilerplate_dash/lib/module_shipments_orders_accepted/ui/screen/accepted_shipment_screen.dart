@@ -108,14 +108,7 @@ class _CountriesScreenState extends State<AcceptedShipmentScreen> {
         onSearch: (number){
           filterRequest.trackNumber = number;
           widget._stateManager.getAcceptedShipment(filterRequest);
-        }, addContainer: (){
-          if(filterRequest.transportationType == 'sea'){
-            Navigator.popAndPushNamed(context, ContainerRoutes.ADD_NEW);
-          }else {
-            Navigator.popAndPushNamed(context, AirwaybillRoutes.ADD_NEW);
-
-          }
-      },
+        },
       );
     }
     else if(currentState is ErrorState) {

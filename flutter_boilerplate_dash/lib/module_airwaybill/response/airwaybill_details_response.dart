@@ -159,7 +159,7 @@ class ShipmentModel {
   String? markNumber;
   int? packetingBy;
   String? paymentTime;
-  double? weight;
+  String? weight;
   String? qrCode;
   int? guniQuantity;
   String? vehicleIdentificationNumber;
@@ -197,7 +197,7 @@ class ShipmentModel {
     markNumber: json["markNumber"],
     packetingBy: json["packetingBy"],
     paymentTime: json["paymentTime"],
-    weight: json["weight"].toDouble(),
+    weight: json["weight"].toString(),
     qrCode: json["qrCode"],
     guniQuantity: json["guniQuantity"],
     vehicleIdentificationNumber: json["vehicleIdentificationNumber"],

@@ -13,13 +13,17 @@ class ContainerSuccessfully extends StatelessWidget {
   final Function onEdit;
   final Function onDetails;
   final Function onSearch;
+  final Function addContainer;
+  final bool isExternal;
 
   const ContainerSuccessfully({
     required this.items,
     required this.onDelete,
     required this.onEdit,
     required this.onDetails,
-    required this.onSearch
+    required this.onSearch,
+    required this.addContainer,
+    required this.isExternal
   });
 
   @override
@@ -41,6 +45,19 @@ class ContainerSuccessfully extends StatelessWidget {
           icon: Icon(Icons.document_scanner_sharp),
           label: Text(
             S.of(context).reports,
+            style: AppTextStyle.mediumWhite,
+          ),
+        ),
+     isExternal?Container():   ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.blue[800],
+          ),
+          onPressed: () {
+            addContainer();
+          },
+          icon: Icon(Icons.add_circle),
+          label: Text(
+            S.of(context).requestContainer,
             style: AppTextStyle.mediumWhite,
           ),
         ),

@@ -39,6 +39,7 @@ class AcceptedShipmentDetailsModel {
     this.exportWarehouseName,
     this.importWarehouseName,
     this.quantity,
+    this.holderCount,
     this.updatedAt,
     this.productCategoryName,
     this.subProductCategoryName,
@@ -69,6 +70,7 @@ class AcceptedShipmentDetailsModel {
   String? exportWarehouseName;
   String? importWarehouseName;
   int? quantity;
+  int? holderCount;
   DateTime? updatedAt;
   String? productCategoryName;
   String? subProductCategoryName;
@@ -103,6 +105,7 @@ class AcceptedShipmentDetailsModel {
     exportWarehouseName=json["exportWarehouseName"];
     importWarehouseName= json["importWarehouseName"];
     quantity= json["quantity"];
+    holderCount= json["holderCount"];
     updatedAt= DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json["updatedAt"]).timestamp! * 1000);
     productCategoryName= json["productCategoryName"];
@@ -149,13 +152,23 @@ class AcceptedShipmentDetailsModel {
 class SubShipmentModel {
   String? shipmentStatus;
   String? trackNumber;
+  List<GunnyShipmentModel>? gunnyModel;
 
-  SubShipmentModel({this.shipmentStatus , this.trackNumber});
-  factory SubShipmentModel.fromJson(Map<String, dynamic> json) =>
-      SubShipmentModel(
-          shipmentStatus: json['shipmentStatus'],
-          trackNumber :  json['trackNumber']
-      );
+  SubShipmentModel({this.shipmentStatus , this.trackNumber , this.gunnyModel});
+  SubShipmentModel.fromJson(Map<String, dynamic> json) {
+          shipmentStatus= json['shipmentStatus'];
+          trackNumber =  json['trackNumber'];
+          if (json['gunny'] != null) {
+            gunnyModel = <GunnyShipmentModel>[];
+            try {
+              gunnyModel = List<GunnyShipmentModel>.from(json['gunny'].map((x) => GunnyShipmentModel.fromJson(x)));
+            } catch (e, stack) {
+              Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
+                  StackTrace.current);
+            }
+          }
+
+  }
 }
 class CreatedAt {
   CreatedAt({
@@ -166,4 +179,19 @@ class CreatedAt {
   factory CreatedAt.fromJson(Map<String, dynamic> json) => CreatedAt(
     timestamp: json["timestamp"],
   );
+}
+
+
+class GunnyShipmentModel {
+  int id;
+  String? gunnyIdentificationNumber;
+  int? quantity;
+
+  GunnyShipmentModel({required this.id , this.gunnyIdentificationNumber ,this.quantity});
+  factory GunnyShipmentModel.fromJson(Map<String, dynamic> json) =>
+      GunnyShipmentModel(
+          id: json['id'],
+          gunnyIdentificationNumber :  json['gunnyIdentificationNumber'],
+        quantity: json['quantity']
+      );
 }

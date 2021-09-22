@@ -318,22 +318,24 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
               ),
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
-                // DateTime arrivalDate = DateTime(endDate.year , endDate.month ,endDate.day ,selectedTimeEnd.hour ,selectedTimeEnd.minute);
-                // DateTime launchDate = DateTime(startDate.year , startDate.month ,startDate.day ,selectedTimeStart.hour ,selectedTimeStart.minute);
-
-                Entry c = Entry(containerNumber.text, widget.model.id!, []);
-                ContainerRequest re = ContainerRequest(status: status ,type: type
-                    ,specificationID: optionItemSelectedSpecification.id ,
-                    consigneeID: optionItemSelectedConsignee.id ,
-                    shipperID: optionItemSelectedShipper.id,
-                    carrierID:optionItemSelectedCarrier.id
-                    ,containerNumber: containerNumber.text,
-                    providedBy: optionItemSelectedProvidedBy.id,
-                    id: widget.model.id
-                );
-                widget.onUpdate(re,c);
-
-              }, radius: 15)
+                if(optionItemSelectedProvidedBy.id==0){
+                  Fluttertoast.showToast(msg: S.of(context).selectProvider);
+                }else {
+                  Entry c = Entry(containerNumber.text, widget.model.id!, []);
+                  ContainerRequest re = ContainerRequest(status: status,
+                      type: type
+                      ,
+                      specificationID: optionItemSelectedSpecification.id,
+                      consigneeID: optionItemSelectedConsignee.id,
+                      shipperID: optionItemSelectedShipper.id,
+                      carrierID: optionItemSelectedCarrier.id
+                      ,
+                      containerNumber: containerNumber.text,
+                      providedBy: optionItemSelectedProvidedBy.id,
+                      id: widget.model.id
+                  );
+                  widget.onUpdate(re, c);
+                }}, radius: 15)
             ],),
           ),
         ),

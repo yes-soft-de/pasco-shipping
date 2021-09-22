@@ -94,7 +94,7 @@ class _CountriesScreenState extends State<ContainerScreen> {
       items = state!.travels;
       return ContainerSuccessfully(items: items ,onDelete: (id){
         widget._stateManager.deleteContainer(id.toString() ,containerFilterRequest);
-      },
+      },isExternal: isExternalWarehouse,
         onEdit: (model){
           Navigator.pushNamed(context, ContainerRoutes.UPDATE ,arguments: {'containerModel':model}).then((value) {
             widget._stateManager.getContainersWithFilter(containerFilterRequest);
@@ -107,6 +107,8 @@ class _CountriesScreenState extends State<ContainerScreen> {
         }, onSearch: (number){
         containerFilterRequest.containerNumber = number;
           widget._stateManager.getContainersWithFilter(containerFilterRequest);
+        }, addContainer: (){
+        Navigator.pushNamed(context, ContainerRoutes.ADD_NEW).then((value) => widget._stateManager.getContainersWithFilter(containerFilterRequest));
         },
       );
     }

@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
@@ -66,7 +67,18 @@ class _CountriesScreenState extends State<EmployeesScreen> {
       SuccessfullyFetchState? state = currentState as SuccessfullyFetchState?;
       items = state!.distributors;
       return EmployeesSuccessfully(items: items ,onDelete: (id){
-        widget._stateManager.deleteEmployee(id.toString());
+
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.warning,
+          title:  S.of(context).deleteClient,
+          confirmBtnText: S.of(context).ok,
+          backgroundColor:AppThemeDataService.PrimaryColor,
+          confirmBtnColor:AppThemeDataService.AccentColor,
+          onConfirmBtnTap: () {
+            Navigator.pop(context);
+            widget._stateManager.deleteEmployee(id.toString());
+          });
       },
         onEdit: (request){
           // widget._stateManager.updateSupplier(request);

@@ -31,6 +31,7 @@ import 'package:pasco_shipping/module_sub_contract/subcontract_routes.dart';
 import 'package:pasco_shipping/module_subcontract_services/sub_contract_service_routes.dart';
 import 'package:pasco_shipping/module_suppliers/supplier_routes.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_travel/request/travel_filter_request.dart';
 import 'package:pasco_shipping/module_travel/travel_routes.dart';
 import 'package:pasco_shipping/module_unit/unit_routes.dart';
@@ -178,14 +179,14 @@ class DrawerMenu extends StatelessWidget {
                               ListTile(
                                   title: new Text(S.of(context).inExternalWarehouse),
                                   onTap: () {
-                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea' ,isExternalWarehouse: true);
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea' ,isExternalWarehouse: true,acceptedUntilCleared: false);
                                     Navigator.pushNamed(
                                         context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':false});
                                   }),
                               ListTile(
                                   title: new Text(S.of(context).inLocalWarehouse),
                                   onTap: () {
-                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false );
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false,acceptedUntilCleared: false );
                                     Navigator.pushNamed(
                                         context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':false});
                                   }),
@@ -212,14 +213,14 @@ class DrawerMenu extends StatelessWidget {
                               ListTile(
                                   title: new Text(S.of(context).inExternalWarehouse),
                                   onTap: () {
-                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: true);
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: true,acceptedUntilCleared: false);
                                     Navigator.pushNamed(
                                         context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':false});
                                   }),
                               ListTile(
                                   title: new Text(S.of(context).inLocalWarehouse),
                                   onTap: () {
-                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false);
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false,acceptedUntilCleared: false);
                                     Navigator.pushNamed(
                                         context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':false});
                                   }),
@@ -254,14 +255,14 @@ class DrawerMenu extends StatelessWidget {
                               ListTile(
                                   title: new Text(S.of(context).inExternalWarehouse),
                                   onTap: () {
-                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea' ,isExternalWarehouse: true ,status: AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!,);
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea' ,isExternalWarehouse: true ,status: AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!,acceptedUntilCleared: false);
                                     Navigator.pushNamed(
                                         context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re ,'withFilter':false});
                                   }),
                               ListTile(
                                   title: new Text(S.of(context).inLocalWarehouse),
                                   onTap: () {
-                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false,status: AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false,status: AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!,acceptedUntilCleared: false);
                                     Navigator.pushNamed(
                                         context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':false});
                                   }),
@@ -288,14 +289,14 @@ class DrawerMenu extends StatelessWidget {
                               ListTile(
                                   title: new Text(S.of(context).inExternalWarehouse),
                                   onTap: () {
-                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: true,status: AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',acceptedUntilCleared: false,isExternalWarehouse: true,status: AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
                                     Navigator.pushNamed(
                                         context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re ,'withFilter':false});
                                   }),
                               ListTile(
                                   title: new Text(S.of(context).inLocalWarehouse),
                                   onTap: () {
-                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false,status: AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
+                                    AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',acceptedUntilCleared: false,isExternalWarehouse: false,status: AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
                                     Navigator.pushNamed(
                                         context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':false});
                                   }),
@@ -483,7 +484,7 @@ class DrawerMenu extends StatelessWidget {
               ListTile(
                   title:Text(S.of(context).seaTravel),
                   onTap: () {
-                    TravelFilterRequest re = TravelFilterRequest(type:'cruise');
+                    TravelFilterRequest re = TravelFilterRequest(type:'cruise',status: TravelStatusName[TravelStatus.NotReleased]??'');
                     Navigator.pushNamed(context, TravelRoutes.VIEW_ALL,
                         arguments: {'travelFilter': re});
                   }),
@@ -492,7 +493,7 @@ class DrawerMenu extends StatelessWidget {
                       S.of(context).airTravel
                   ),
                   onTap: () {
-                    TravelFilterRequest re = TravelFilterRequest(type:'flight');
+                    TravelFilterRequest re = TravelFilterRequest(type:'flight',status: TravelStatusName[TravelStatus.NotReleased]??'');
                     Navigator.pushNamed(context, TravelRoutes.VIEW_ALL,
                         arguments: {'travelFilter': re});
                   }),
@@ -527,7 +528,7 @@ class DrawerMenu extends StatelessWidget {
                   ListTile(
                       title:Text(S.of(context).seaShipment),
                       onTap: () {
-                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false);
+                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false, acceptedUntilCleared: false);
                         Navigator.pushNamed(
                             context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':true});
                       }),
@@ -536,7 +537,7 @@ class DrawerMenu extends StatelessWidget {
                           S.of(context).airShipment
                       ),
                       onTap: () {
-                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false);
+                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(acceptedUntilCleared: false,transportationType: 'air',isExternalWarehouse: false);
                         Navigator.pushNamed(
                             context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':true});
                       }),

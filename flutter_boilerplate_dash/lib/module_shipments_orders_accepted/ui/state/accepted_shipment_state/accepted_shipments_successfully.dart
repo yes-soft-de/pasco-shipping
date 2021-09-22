@@ -18,7 +18,7 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
   final Function onEdit;
   final Function onSearch;
   final AcceptedShipmentFilterRequest filterRequest;
-  final Function addContainer;
+  // final Function addContainer;
   final bool hideAddButton;
 
   const AcceptedShipmentSuccessfully(
@@ -26,7 +26,7 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
       required this.onDetails,
         required this.onEdit,
       required this.onSearch,
-        required this.addContainer,
+        // required this.addContainer,
       required this.filterRequest,required this.hideAddButton});
 
   @override
@@ -41,19 +41,8 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
             }),
           ),
           ( filterRequest.status != AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED] && !filterRequest.isExternalWarehouse! && !hideAddButton)?
-        ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              primary: Colors.blue[800],
-            ),
-            onPressed: () {
-              addContainer();
-            },
-            icon: Icon(Icons.add_circle),
-            label: Text(
-             filterRequest.transportationType=='sea'? S.of(context).requestContainer :S.of(context).requestAirwaybill,
-              style: AppTextStyle.mediumWhite,
-            ),
-          ) : ElevatedButton.icon(
+          Container() :
+          ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
               primary: Colors.blue[800],
             ),

@@ -57,6 +57,8 @@ class _CountriesScreenState extends State<TravelScreen> {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     travelFilterRequest =arguments['travelFilter'];
     type = travelFilterRequest.type;
+    travelFilterRequest.status= TravelStatusName[TravelStatus.NotReleased] ?? '';
+
     widget._stateManager.getTravelWithFilter(travelFilterRequest);
 
   }
