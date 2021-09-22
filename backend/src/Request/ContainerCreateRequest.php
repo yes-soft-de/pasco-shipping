@@ -26,6 +26,10 @@ class ContainerCreateRequest
 
     private $clientUserID;
 
+    private $portID;
+
+    private $location;
+
     public function setType($type)
     {
         $this->type = $type;
