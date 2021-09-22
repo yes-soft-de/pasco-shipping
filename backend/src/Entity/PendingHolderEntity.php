@@ -39,6 +39,21 @@ class PendingHolderEntity
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $portID;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $location;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $carrierID;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +103,42 @@ class PendingHolderEntity
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getPortID(): ?int
+    {
+        return $this->portID;
+    }
+
+    public function setPortID(?int $portID): self
+    {
+        $this->portID = $portID;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?string $location): self
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function getCarrierID(): ?int
+    {
+        return $this->carrierID;
+    }
+
+    public function setCarrierID(?int $carrierID): self
+    {
+        $this->carrierID = $carrierID;
 
         return $this;
     }

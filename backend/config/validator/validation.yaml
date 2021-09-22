@@ -503,6 +503,10 @@ App\Request\PendingHolderCreateRequest:
       - NotBlank: ~
     specificationID:
       - NotBlank: ~
+    portID:
+      - NotBlank: ~
+    location:
+      - NotBlank: ~
 
 App\Request\GunnyCreateRequest:
   properties:

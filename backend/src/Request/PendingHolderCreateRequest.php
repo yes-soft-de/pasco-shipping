@@ -8,6 +8,12 @@ class PendingHolderCreateRequest
 
     private $specificationID;
 
+    private $carrierID;
+
+    private $portID;
+
+    private $location;
+
     private $notes;
 
     public function setShipmentID($shipmentID)
@@ -23,6 +29,21 @@ class PendingHolderCreateRequest
     public function setNotes($notes)
     {
         $this->notes = $notes;
+    }
+
+    public function setCarrierID($carrierID)
+    {
+        $this->carrierID = $carrierID;
+    }
+
+    public function setPortID($portID)
+    {
+        $this->portID = $portID;
+    }
+
+    public function setLocation($location)
+    {
+        $this->location = $location;
     }
 
 }

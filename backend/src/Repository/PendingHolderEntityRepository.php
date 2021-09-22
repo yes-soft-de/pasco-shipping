@@ -22,7 +22,8 @@ class PendingHolderEntityRepository extends ServiceEntityRepository
     public function getPendingHoldersByShipmentID($shipmentID)
     {
         return $this->createQueryBuilder('pendingHolderEntity')
-            ->select('pendingHolderEntity.id', 'pendingHolderEntity.shipmentID', 'pendingHolderEntity.specificationID', 'pendingHolderEntity.notes', 'pendingHolderEntity.createdAt')
+            ->select('pendingHolderEntity.id', 'pendingHolderEntity.shipmentID', 'pendingHolderEntity.specificationID', 'pendingHolderEntity.notes', 'pendingHolderEntity.createdAt', 'pendingHolderEntity.carrierID',
+             'pendingHolderEntity.portID', 'pendingHolderEntity.location')
 
             ->andWhere('pendingHolderEntity.shipmentID = :shipmentID')
             ->setParameter('shipmentID', $shipmentID)
