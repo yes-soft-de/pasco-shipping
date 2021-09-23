@@ -86,7 +86,7 @@ class ShipperController extends BaseController
     }
 
     /**
-     * @Route("shipper", name="createShipper", methods={"PUT"})
+     * @Route("shipper", name="updateShipper", methods={"PUT"})
      * @param Request $request
      * @return JsonResponse
      *
