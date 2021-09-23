@@ -70,5 +70,9 @@ class ContainerCreateRequest
         $this->location = $location;
     }
 
+    public function getContainerNumber()
+    {
+        return $this->containerNumber;
+    }
 
 }
