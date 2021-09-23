@@ -175,6 +175,8 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="array", property="requestedHolders",
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="specificationID"),
+     *                  @OA\Property(type="integer", property="carrierID"),
+     *                  @OA\Property(type="integer", property="portID"),
      *                  @OA\Property(type="string", property="notes")
      *              )
      *          )

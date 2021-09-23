@@ -111,7 +111,7 @@ class ShipmentOrderManager
         // Insert the requested holders of the shipment
         if(count($request->getRequestedHolders()) > 0)
         {
-            $this->createPendingHolders($request->getRequestedHolders(), $orderShipmentEntity->getId());
+            $this->createPendingHolders($request->getRequestedHolders(), $orderShipmentEntity->getId(), $orderShipmentEntity->getExternalWarehouseInfo());
         }
 
         return $orderShipmentEntity;
@@ -489,7 +489,8 @@ class ShipmentOrderManager
                 {
                     foreach($pendingHolders as $pendingHolder)
                     {
-                        $this->createFCLAirWaybill($orderShipmentEntity->getId(), $pendingHolder['specificationID'], $orderShipmentEntity->getClientUserID());
+                        $this->createFCLAirWaybill($orderShipmentEntity->getId(), $pendingHolder['specificationID'], $pendingHolder['portID'],
+                            $pendingHolder['carrierID'], $pendingHolder['location'], $orderShipmentEntity->getClientUserID());
                     }
                 }
             }
@@ -502,30 +503,37 @@ class ShipmentOrderManager
                 {
                     foreach($pendingHolders as $pendingHolder)
                     {
-                        $this->createFCLContainer($orderShipmentEntity->getId(), $pendingHolder['specificationID'], $orderShipmentEntity->getClientUserID());
+                        $this->createFCLContainer($orderShipmentEntity->getId(), $pendingHolder['specificationID'], $pendingHolder['portID'],
+                            $pendingHolder['carrierID'], $pendingHolder['location'], $orderShipmentEntity->getClientUserID());
                     }
                 }
             }
         }
     }
 
-    public function createFCLContainer($shipmentID, $specificationID, $clientUserID)
+    public function createFCLContainer($shipmentID, $specificationID, $portID, $carrierID, $location, $clientUserID)
     {
         $containerCreateRequest = new ContainerCreateRequest();
 
         $containerCreateRequest->setShipmentID($shipmentID);
         $containerCreateRequest->setSpecificationID($specificationID);
+        $containerCreateRequest->setPortID($portID);
+        $containerCreateRequest->setCarrierID($carrierID);
+        $containerCreateRequest->setLocation($location);
         $containerCreateRequest->setClientUserID($clientUserID);
 
         $this->containerManager->createFCLContainer($containerCreateRequest);
     }
 
-    public function createFCLAirWaybill($shipmentID, $specificationID, $clientUserID)
+    public function createFCLAirWaybill($shipmentID, $specificationID, $portID, $carrierID, $location, $clientUserID)
     {
         $airWaybillCreateRequest = new AirwaybillCreateRequest();
 
         $airWaybillCreateRequest->setShipmentID($shipmentID);
         $airWaybillCreateRequest->setSpecificationID($specificationID);
+        $airWaybillCreateRequest->setPortID($portID);
+        $airWaybillCreateRequest->setCarrierID($carrierID);
+        $airWaybillCreateRequest->setLocation($location);
         $airWaybillCreateRequest->setClientUserID($clientUserID);
 
         $this->airWaybillManager->createFCLAirWaybill($airWaybillCreateRequest);
@@ -576,7 +584,7 @@ class ShipmentOrderManager
         }
     }
 
-    public function createPendingHolders($requestedHoldersArray, $shipmentID)
+    public function createPendingHolders($requestedHoldersArray, $shipmentID, $warehouseInfo)
     {
         $holderCreateRequest = new PendingHolderCreateRequest();
 
@@ -584,6 +592,9 @@ class ShipmentOrderManager
         {
             $holderCreateRequest->setShipmentID($shipmentID);
             $holderCreateRequest->setSpecificationID($holder['specificationID']);
+            $holderCreateRequest->setCarrierID($holder['carrierID']);
+            $holderCreateRequest->setLocation($warehouseInfo);
+            $holderCreateRequest->setPortID($holder['portID']);
             $holderCreateRequest->setNotes($holder['notes']);
 
             $this->pendingHolderManager->create($holderCreateRequest);

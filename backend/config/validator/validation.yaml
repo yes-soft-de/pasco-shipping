@@ -185,6 +185,10 @@ App\Request\ContainerCreateRequest:
       - NotBlank: ~
     type:
       - NotBlank: ~
+    portID:
+      - NotBlank: ~
+    location:
+      - NotBlank: ~
     createdBy:
       - NotBlank: ~
 
@@ -280,6 +284,10 @@ App\Request\AirwaybillCreateRequest:
     specificationID:
       - NotBlank: ~
     type:
+      - NotBlank: ~
+    portID:
+      - NotBlank: ~
+    location:
       - NotBlank: ~
     createdBy:
       - NotBlank: ~
@@ -494,6 +502,10 @@ App\Request\PendingHolderCreateRequest:
     shipmentID:
       - NotBlank: ~
     specificationID:
+      - NotBlank: ~
+    portID:
+      - NotBlank: ~
+    location:
       - NotBlank: ~
 
 App\Request\GunnyCreateRequest:

@@ -34,6 +34,10 @@ class ContainerGetResponse
 
     public $carrierName;
 
+    public $portName;
+
+    public $location;
+
     public $specificationName;
 
     public $freeCapacity;

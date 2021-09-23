@@ -42,6 +42,9 @@ class PendingHolderController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="shipmentID"),
      *          @OA\Property(type="integer", property="specificationID"),
+     *          @OA\Property(type="integer", property="carrierID"),
+     *          @OA\Property(type="integer", property="portID"),
+     *          @OA\Property(type="string", property="location"),
      *          @OA\Property(type="string", property="notes")
      *      )
      * )

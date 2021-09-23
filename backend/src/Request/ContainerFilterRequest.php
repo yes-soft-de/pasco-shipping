@@ -28,6 +28,8 @@ class ContainerFilterRequest
 
     private $isRequested;
 
+    private $portID;
+
     public function getSpecificationID()
     {
         return $this->specificationID;
@@ -86,6 +88,11 @@ class ContainerFilterRequest
     public function getIsRequested()
     {
         return $this->isRequested;
+    }
+
+    public function getPortID()
+    {
+        return $this->portID;
     }
 
 }
