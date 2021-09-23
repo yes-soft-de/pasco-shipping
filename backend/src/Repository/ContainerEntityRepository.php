@@ -8,6 +8,7 @@ use App\Entity\ContainerEntity;
 use App\Entity\ContainerSpecificationEntity;
 use App\Entity\OrderShipmentEntity;
 use App\Entity\PortsEntity;
+use App\Entity\ShipperEntity;
 use App\Entity\SubcontractEntity;
 use App\Entity\TrackEntity;
 use App\Request\ContainerFilterRequest;
@@ -100,7 +101,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.createdBy', 'container.carrierID',
             'container.shipperID', 'container.type', 'container.providedBy', 'container.shipmentID', 'container.portID', 'container.location', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
-             'adminProfile2.userName as updatedByUserImage', 'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName',
+             'adminProfile2.userName as updatedByUserImage', 'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName',
             'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'container.clientUserID', 'portsEntity.name as portName')
 
             ->andWhere('container.id = :id')
@@ -142,10 +143,10 @@ class ContainerEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity3',
+                ShipperEntity::class,
+                'shipperEntity',
                 Join::WITH,
-                'subcontractEntity3.id = container.providedBy'
+                'shipperEntity.id = container.shipperID'
             )
 
             ->leftJoin(
@@ -190,8 +191,8 @@ class ContainerEntityRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.shipmentID', 'container.clientUserID',
                 'container.shipperID', 'container.carrierID', 'container.type', 'container.providedBy', 'container.portID', 'container.location', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
-                'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName',
-                'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName')
+                'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName', 'clientProfileEntity.userName as clientUserName',
+                'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName')
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -229,10 +230,10 @@ class ContainerEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity3',
+                ShipperEntity::class,
+                'shipperEntity',
                 Join::WITH,
-                'subcontractEntity3.id = container.providedBy'
+                'shipperEntity.id = container.shipperID'
             )
 
             ->leftJoin(
@@ -361,10 +362,73 @@ class ContainerEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID',
             'container.shipperID', 'container.carrierID', 'container.type', 'container.providedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
-            'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName')
+            'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName')
 
             ->andWhere('container.containerNumber = :containerNumber')
             ->setParameter('containerNumber', $containerNumber)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = container.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = container.updatedBy'
+            )
+
+            ->leftJoin(
+                ContainerSpecificationEntity::class,
+                'containerSpecification',
+                Join::WITH,
+                'containerSpecification.id = container.specificationID'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = container.providedBy'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity2',
+                Join::WITH,
+                'subcontractEntity2.id = container.consigneeID'
+            )
+
+            ->leftJoin(
+                ShipperEntity::class,
+                'shipperEntity',
+                Join::WITH,
+                'shipperEntity.id = container.shipperID'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity4',
+                Join::WITH,
+                'subcontractEntity4.id = container.carrierID'
+            )
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getContainerByShipperID($shipperID)
+    {
+        return $this->createQueryBuilder('container')
+            ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID',
+                'container.shipperID', 'container.carrierID', 'container.type', 'container.providedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
+                'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName')
+
+            ->andWhere('container.shipperID = :shipperID')
+            ->setParameter('shipperID', $shipperID)
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -415,8 +479,17 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 'subcontractEntity4.id = container.carrierID'
             )
 
+            ->leftJoin(
+                ShipperEntity::class,
+                'shipperEntity',
+                Join::WITH,
+                'shipperEntity.id = container.shipperID'
+            )
+
+            ->orderBy('container.id', 'DESC')
+
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getResult();
     }
 
     public function getContainersBySpecificationID($specificationID)
@@ -424,7 +497,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID',
             'container.shipperID', 'container.carrierID', 'container.type', 'container.providedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
-            'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'subcontractEntity3.fullName as shipperName', 'subcontractEntity4.fullName as carrierName')
+            'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName')
 
             ->andWhere('container.specificationID = :specificationID')
             ->setParameter('specificationID', $specificationID)
@@ -465,10 +538,10 @@ class ContainerEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity3',
+                ShipperEntity::class,
+                'shipperEntity',
                 Join::WITH,
-                'subcontractEntity3.id = container.providedBy'
+                'shipperEntity.id = container.shipperID'
             )
 
             ->leftJoin(

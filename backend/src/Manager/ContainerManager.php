@@ -28,15 +28,24 @@ class ContainerManager
 
     public function create(ContainerCreateRequest $request)
     {
-        $containerEntity = $this->autoMapping->map(ContainerCreateRequest::class, ContainerEntity::class, $request);
+        //First, check if container number is entered and match the rule
+        if(($request->getContainerNumber() == null) || ($request->getContainerNumber() != null && $this->validateContainerNumber($request->getContainerNumber())))
+        {
+            $containerEntity = $this->autoMapping->map(ContainerCreateRequest::class, ContainerEntity::class, $request);
 
-        $containerEntity->setStatus(ContainerStatusConstant::$NOTFULL_CONTAINER_STATUS);
+            $containerEntity->setStatus(ContainerStatusConstant::$NOTFULL_CONTAINER_STATUS);
 
-        $this->entityManager->persist($containerEntity);
-        $this->entityManager->flush();
-        $this->entityManager->clear();
+            $this->entityManager->persist($containerEntity);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
 
-        return $containerEntity;
+            return $containerEntity;
+        }
+        else
+        {
+            //wrong container number
+            return "wrong container number!";
+        }
     }
 
     public function createFCLContainer(ContainerCreateRequest $request)
@@ -55,20 +64,29 @@ class ContainerManager
 
     public function update(ContainerUpdateRequest $request)
     {
-        $containerEntity = $this->containerEntityRepository->find($request->getId());
-
-        if(!$containerEntity)
+        //First, check if container number is entered and match the rule
+        if(($request->getContainerNumber() == null) || ($request->getContainerNumber() != null && $this->validateContainerNumber($request->getContainerNumber())))
         {
-            return $containerEntity;
+            $containerEntity = $this->containerEntityRepository->find($request->getId());
+
+            if(!$containerEntity)
+            {
+                return $containerEntity;
+            }
+            else
+            {
+                $containerEntity = $this->autoMapping->mapToObject(ContainerUpdateRequest::class, ContainerEntity::class, $request, $containerEntity);
+
+                $this->entityManager->flush();
+                $this->entityManager->clear();
+
+                return $containerEntity;
+            }
         }
         else
         {
-            $containerEntity = $this->autoMapping->mapToObject(ContainerUpdateRequest::class, ContainerEntity::class, $request, $containerEntity);
-
-            $this->entityManager->flush();
-            $this->entityManager->clear();
-
-            return $containerEntity;
+            //wrong container number
+            return "wrong container number!";
         }
     }
 
@@ -106,6 +124,11 @@ class ContainerManager
         return $this->containerEntityRepository->getContainerByNumber($containerNumber);
     }
 
+    public function getContainerByShipperID($shipperID)
+    {
+        return $this->containerEntityRepository->getContainerByShipperID($shipperID);
+    }
+
     public function filterContainers($request)
     {
         return $this->containerEntityRepository->filterContainers($request);
@@ -114,6 +137,25 @@ class ContainerManager
     public function getContainersBySpecificationID($specificationID)
     {
         return $this->containerEntityRepository->getContainersBySpecificationID($specificationID);
+    }
+
+    public function validateContainerNumber($containerNumber)
+    {
+        /**
+         * This function checks if the container number match the rule which says:
+         * The number must starts with three characters either lower or upper case,
+         * followed by a specific character of the group: UJZujz,
+         * then followed by six digits from 0 to 9,
+         * and finally by a one digit which called the Check Digit
+         */
+        $pattern = "/([a-zA-Z]{3})([UJZujz])(\d{6})(\d)/";
+
+        if(is_string($containerNumber) && strlen($containerNumber) == 11 && preg_match($pattern, $containerNumber) == 1)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public function deleteContainerById(DeleteRequest $request, $isUsed)

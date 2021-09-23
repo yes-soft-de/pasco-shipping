@@ -31,6 +31,11 @@ class ContainerUpdateRequest
         return $this->id;
     }
 
+    public function getContainerNumber()
+    {
+        return $this->containerNumber;
+    }
+
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;

@@ -543,4 +543,14 @@ App\Request\PortsUpdateRequest:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
+
+App\Request\ShipperCreateRequest:
+  properties:
+    name:
+      - NotBlank: ~
+
+App\Request\ShipperUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
       

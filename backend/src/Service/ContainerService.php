@@ -36,14 +36,24 @@ class ContainerService
     {
         $containerResult = $this->containerManager->create($request);
 
-        return $this->autoMapping->map(ContainerEntity::class, ContainerCreateResponse::class, $containerResult);
+        if($containerResult instanceof ContainerEntity)
+        {
+            return $this->autoMapping->map(ContainerEntity::class, ContainerCreateResponse::class, $containerResult);
+        }
+
+        return $containerResult;
     }
 
     public function update(ContainerUpdateRequest $request)
     {
         $containerResult = $this->containerManager->update($request);
 
-        return $this->autoMapping->map(ContainerEntity::class, ContainerGetResponse::class, $containerResult);
+        if($containerResult instanceof ContainerEntity)
+        {
+            return $this->autoMapping->map(ContainerEntity::class, ContainerGetResponse::class, $containerResult);
+        }
+
+        return $containerResult;
     }
 
     public function updateStatus(ContainerStatusUpdateRequest $request)
