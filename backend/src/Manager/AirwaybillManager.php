@@ -106,6 +106,11 @@ class AirwaybillManager
         return $this->airwaybillEntityRepository->getAirwaybillByNumber($airWaybillNumber);
     }
 
+    public function getAirwaybillByShipperID($shipperID)
+    {
+        return $this->airwaybillEntityRepository->getAirwaybillByShipperID($shipperID);
+    }
+
     public function filterAirwaybills($request)
     {
         return $this->airwaybillEntityRepository->filterAirWaybills($request);

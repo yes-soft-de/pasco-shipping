@@ -106,6 +106,11 @@ class ContainerManager
         return $this->containerEntityRepository->getContainerByNumber($containerNumber);
     }
 
+    public function getContainerByShipperID($shipperID)
+    {
+        return $this->containerEntityRepository->getContainerByShipperID($shipperID);
+    }
+
     public function filterContainers($request)
     {
         return $this->containerEntityRepository->filterContainers($request);
