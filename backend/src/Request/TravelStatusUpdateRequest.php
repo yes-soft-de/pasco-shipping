@@ -34,6 +34,11 @@ class TravelStatusUpdateRequest
         return $this->launchDate;
     }
 
+    public function setLaunchDate($launchDate)
+    {
+        $this->launchDate = $launchDate;
+    }
+
     public function getArrivalDate()
     {
         return $this->arrivalDate;

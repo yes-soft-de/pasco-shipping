@@ -32,8 +32,6 @@ class TravelManager
     {
         $travelEntity = $this->autoMapping->map(TravelCreateRequest::class, TravelEntity::class, $request);
 
-        $travelEntity->setLaunchDate($travelEntity->getLaunchDate());
-        $travelEntity->setArrivalDate($travelEntity->getArrivalDate());
         $travelEntity->setStatus(TravelStatusConstant::$CURRENT_TRAVEL_STATUS);
         
         $this->entityManager->persist($travelEntity);
@@ -77,9 +75,18 @@ class TravelManager
             }
             else
             {
+                if($request->getStatus() == TravelStatusConstant::$RELEASED_TRAVEL_STATUS)
+                {
+                    $request->setLaunchDate($travelEntity->getLaunchDate());
+                }
+
                 $travelEntity = $this->autoMapping->mapToObject(TravelStatusUpdateRequest::class, TravelEntity::class, $request, $travelEntity);
 
-                $travelEntity->setLaunchDate($request->getLaunchDate());
+                if($request->getStatus() == TravelStatusConstant::$STARTED_TRAVEL_STATUS)
+                {
+                    $travelEntity->setLaunchDate($request->getLaunchDate());
+                }
+
                 $travelEntity->setArrivalDate($request->getArrivalDate());
 
                 $this->entityManager->flush();
