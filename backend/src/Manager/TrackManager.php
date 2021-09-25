@@ -199,10 +199,10 @@ class TrackManager
 
     public function updateByTravelID(TrackUpdateByTravelIdRequest $request)
     {
-        // First, check the status, if the travel strated or arrived (released) then continue updating the shipments status
+        // First, check the status, if the travel started or arrived (released) then continue updating the shipments status
         if($request->getShipmentStatus() == ShipmentStatusConstant::$STARTED_SHIPMENT_STATUS || $request->getShipmentStatus() == ShipmentStatusConstant::$RELEASED_SHIPMENT_STATUS)
         {
-            //Secondly, get shipmentID and trackNumber for eahc shipment in the travel
+            //Secondly, get shipmentID and trackNumber for each shipment in the travel
             $tracks = $this->trackEntityRepository->getByTravelID($request->getTravelID());
 
             if(!$tracks)
@@ -220,8 +220,21 @@ class TrackManager
 
                         $shipmentStatusRequest->setShipmentID($track->getShipmentID());
                         $shipmentStatusRequest->setTrackNumber($track->getTrackNumber());
-                        
-                        $this->shipmentStatusManager->updateShipmentStatusOfSpecificHolder($shipmentStatusRequest);
+
+                        /**
+                         * If the status of the travel is released AND if the holder of the travel is of type FCL,
+                         * then we have to insert all rest status of the shipment in the Shipment Log table
+                         */
+                        if($request->getShipmentStatus() == ShipmentStatusConstant::$RELEASED_SHIPMENT_STATUS && $this->checkIfHolderIsFCLByHolderTypeAndHolderID($track->getHolderType(), $track->getHolderID()))
+                        {
+                            $shipmentStatusRequest->setShipmentStatus(ShipmentStatusConstant::$DELIVERED_SHIPMENT_STATUS);
+
+                            $this->shipmentStatusManager->updateShipmentStatusOfFCLHolder($shipmentStatusRequest);
+                        }
+                        else
+                        {
+                            $this->shipmentStatusManager->updateShipmentStatusOfSpecificHolder($shipmentStatusRequest);
+                        }
                     }
                 }
         
@@ -270,6 +283,27 @@ class TrackManager
         }
 
         return false;
+    }
+    
+    public function checkIfHolderIsFCLByHolderTypeAndHolderID($holderType, $holderID)
+    {
+        if($holderType == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
+        {
+            $holder = $this->getAirwaybillById($holderID);
+        }
+        elseif($holderType == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
+        {
+            $holder = $this->getContainerById($holderID);
+        }
+
+        if($holder['type'] == ShippingTypeConstant::$FCL_SHIPPING_TYPE)
+        {
+            return true;
+        }
+        elseif($holder['type'] == ShippingTypeConstant::$LCL_SHIPPING_TYPE)
+        {
+            return false;
+        }
     }
 
     public function createShipmentLog($shipmentID, $trackNumber, $shipmentStatus, $createdBy)

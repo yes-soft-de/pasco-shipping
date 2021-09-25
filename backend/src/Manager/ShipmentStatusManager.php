@@ -124,6 +124,34 @@ class ShipmentStatusManager
         }
     }
 
+    /**
+     * This function is called when shipment/s of FCL holder reach/s the RELEASED state
+     * So we have to insert all the rest status like CLEARED, ARRIVED, and DELIVERED
+     */
+    public function updateShipmentStatusOfFCLHolder(ShipmentStatusOfHolderUpdateRequest $request)
+    {
+        $shipmentStatusEntity = $this->shipmentStatusEntityRepository->getByShipmentIdAndTrackNumber($request->getShipmentID(), $request->getTrackNumber());
+
+        if(!$shipmentStatusEntity)
+        {
+            return $shipmentStatusEntity;
+        }
+        else
+        {
+            $currentShipmentStatus = $shipmentStatusEntity->getShipmentStatus();
+
+            $shipmentStatusEntity = $this->autoMapping->mapToObject(ShipmentStatusOfHolderUpdateRequest::class, ShipmentStatusEntity::class,
+                $request, $shipmentStatusEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            //Now, we insert a new log raw for each status that the shipment passed
+            $this->shipmentLogManager->createShipmentLogsForSpecificGroupOfStatus($shipmentStatusEntity->getShipmentID(), $shipmentStatusEntity->getTrackNumber(),
+                 $currentShipmentStatus, $shipmentStatusEntity->getShipmentStatus(), $shipmentStatusEntity->getUpdatedBy());
+        }
+    }
+
     public function updateShipmentStatusByShipmentIdAndTrackNumber(ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest $request)
     {
         $shipmentStatusEntity = $this->shipmentStatusEntityRepository->getByShipmentIdAndTrackNumber($request->getShipmentID(), $request->getTrackNumber());
