@@ -33,10 +33,13 @@ class TrackManager
     private $airwaybillSpecificationManager;
     private $shipmentOrderManager;
     private $shipmentLogManager;
+    private $gunnyShipmentManager;
+    private $receivedShipmentManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, TrackEntityRepository $trackEntityRepository,
      ShipmentStatusManager $shipmentStatusManager, ContainerManager $containerManager, AirwaybillManager $airwaybillManager, ContainerSpecificationManager $containerSpecificationManager,
-     AirwaybillSpecificationManager $airwaybillSpecificationManager, ShipmentOrderManager $shipmentOrderManager, ShipmentLogManager $shipmentLogManager)
+     AirwaybillSpecificationManager $airwaybillSpecificationManager, ShipmentOrderManager $shipmentOrderManager, ShipmentLogManager $shipmentLogManager, GunnyShipmentManager $gunnyShipmentManager,
+     ReceivedShipmentManager $receivedShipmentManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -48,6 +51,8 @@ class TrackManager
         $this->airwaybillSpecificationManager = $airwaybillSpecificationManager;
         $this->shipmentOrderManager = $shipmentOrderManager;
         $this->shipmentLogManager = $shipmentLogManager;
+        $this->gunnyShipmentManager = $gunnyShipmentManager;
+        $this->receivedShipmentManager = $receivedShipmentManager;
     }
 
     public function create(TrackCreateRequest $request)
@@ -356,6 +361,13 @@ class TrackManager
 
                     // Get the shipments stored in the container
                     $holders[$key]['shipments'] = $this->trackEntityRepository->getByHolderTypeAndHolderID($holders[$key]['holderType'], $holders[$key]['holderID']);
+
+                    // Get total gunny used for all shipments of the container
+                    $holders[$key]['totalGunny'] = $this->getTotalGunnyOfShipmentsByContainerID($holders[$key]['holderID']);
+
+                    // Get total shipments quantity
+                    $holders[$key]['totalReceivedShipmentsQuantity'] = $this->getTotalReceivedShipmentsQuantityByContainerID($holders[$key]['holderID']);
+
                 }
                 if($val['holderType'] == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
                 {
@@ -371,6 +383,12 @@ class TrackManager
 
                     // Get the shipments stored in the air waybill
                     $holders[$key]['shipments'] = $this->trackEntityRepository->getByHolderTypeAndHolderID($holders[$key]['holderType'], $holders[$key]['holderID']);
+
+                    // Get total gunny used for all shipments of the air waybill
+                    $holders[$key]['totalGunny'] = $this->getTotalGunnyOfShipmentsByAirWaybillID($holders[$key]['holderID']);
+
+                    // Get total shipments quantity
+                    $holders[$key]['totalReceivedShipmentsQuantity'] = $this->getTotalReceivedShipmentsQuantityByAirWaybillID($holders[$key]['holderID']);
                 }
             }
         }
@@ -607,6 +625,74 @@ class TrackManager
                 return $shipments[0]['weight'];
             }
         }
+    }
+
+    public function getTotalGunnyOfShipmentsByContainerID($containerID)
+    {
+        $totalGunny = 0;
+
+        $tracks = $this->trackEntityRepository->getByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $containerID);
+
+        if($tracks)
+        {
+            foreach($tracks as $track)
+            {
+                $totalGunny += $this->gunnyShipmentManager->getGunnyCountByShipmentIdAndTrackNumber($track->getShipmentID(), $track->getTrackNumber());
+            }
+        }
+
+        return $totalGunny;
+    }
+
+    public function getTotalGunnyOfShipmentsByAirWaybillID($airWaybillID)
+    {
+        $totalGunny = 0;
+
+        $tracks = $this->trackEntityRepository->getByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $airWaybillID);
+
+        if($tracks)
+        {
+            foreach($tracks as $track)
+            {
+                $totalGunny += $this->gunnyShipmentManager->getGunnyCountByShipmentIdAndTrackNumber($track->getShipmentID(), $track->getTrackNumber());
+            }
+        }
+
+        return $totalGunny;
+    }
+
+    public function getTotalReceivedShipmentsQuantityByContainerID($containerID)
+    {
+        $totalReceivedQuantity = 0;
+
+        $tracks = $this->trackEntityRepository->getByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $containerID);
+
+        if($tracks)
+        {
+            foreach($tracks as $track)
+            {
+                $totalReceivedQuantity += $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentIdAndTrackNumber($track->getShipmentID(), $track->getTrackNumber());
+            }
+        }
+
+        return $totalReceivedQuantity;
+    }
+
+    public function getTotalReceivedShipmentsQuantityByAirWaybillID($airWaybillID)
+    {
+        $totalReceivedQuantity = 0;
+
+        $tracks = $this->trackEntityRepository->getByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $airWaybillID);
+
+        if($tracks)
+        {
+            foreach($tracks as $track)
+            {
+                $totalReceivedQuantity += $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentIdAndTrackNumber($track->getShipmentID(), $track->getTrackNumber());
+            }
+        }
+
+        return $totalReceivedQuantity;
     }
 
     public function compareTwoValues($valueOne, $valueTwo)

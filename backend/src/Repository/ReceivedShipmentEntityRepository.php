@@ -19,4 +19,19 @@ class ReceivedShipmentEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, ReceivedShipmentEntity::class);
     }
 
+    public function getReceivedShipmentQuantityByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        return $this->createQueryBuilder('received_shipment_entity')
+            ->select('received_shipment_entity.receivedQuantity')
+
+            ->andWhere('received_shipment_entity.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->andWhere('received_shipment_entity.trackNumber = :trackNumber')
+            ->setParameter('trackNumber', $trackNumber)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

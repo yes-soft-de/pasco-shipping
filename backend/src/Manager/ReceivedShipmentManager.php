@@ -32,4 +32,16 @@ class ReceivedShipmentManager
         return $receivedShipmentEntity;
     }
 
+    public function getReceivedShipmentQuantityByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        $result = $this->receivedShipmentEntityRepository->getReceivedShipmentQuantityByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+
+        if($result)
+        {
+            return $result['receivedQuantity'];
+        }
+
+        return 0;
+    }
+
 }

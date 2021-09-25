@@ -400,7 +400,27 @@ class TravelController extends BaseController
      *                          @OA\Property(type="object", property="updatedAt"),
      *                          @OA\Property(type="integer", property="createdBy"),
      *                          @OA\Property(type="integer", property="updatedBy"),
-     *                          @OA\Property(type="object", property="0")
+     *                          @OA\Property(type="object", property="status"),
+     *                          @OA\Property(type="object", property="specificationID"),
+     *                          @OA\Property(type="integer", property="type"),
+     *                          @OA\Property(type="integer", property="carrierID"),
+     *                          @OA\Property(type="integer", property="totalGunny"),
+     *                          @OA\Property(type="integer", property="totalReceivedShipmentsQuantity"),
+     *                          @OA\Property(type="array", property="shipments",
+     *                              @OA\Items(
+     *                                  @OA\Property(type="integer", property="id"),
+     *                                  @OA\Property(type="integer", property="shipmentID"),
+     *                                  @OA\Property(type="string", property="trackNumber"),
+     *                                  @OA\Property(type="integer", property="travelID"),
+     *                                  @OA\Property(type="string", property="holderType"),
+     *                                  @OA\Property(type="integer", property="holderID"),
+     *                                  @OA\Property(type="object", property="createdAt"),
+     *                                  @OA\Property(type="object", property="updatedAt"),
+     *                                  @OA\Property(type="integer", property="createdBy"),
+     *                                  @OA\Property(type="integer", property="updatedBy"),
+     *                                  @OA\Property(type="integer", property="amount")
+     *                              )
+     *                          )
      *                      )
      *                  )
      *          )
