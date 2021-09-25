@@ -44,14 +44,7 @@ class TravelController extends BaseController
      * @OA\RequestBody(
      *      description="Create new travel",
      *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="type"),
-     *          @OA\Property(type="string", property="launchCountry"),
-     *          @OA\Property(type="string", property="destinationCountry"),
-     *          @OA\Property(type="string", property="launchDate"),
-     *          @OA\Property(type="string", property="arrivalDate"),
-     *          @OA\Property(type="string", property="travelNumber"),
-     *          @OA\Property(type="integer", property="shipperID"),
-     *          @OA\Property(type="integer", property="carrierID")
+     *          @OA\Property(type="string", property="type")
      *      )
      * )
      * 
@@ -400,7 +393,27 @@ class TravelController extends BaseController
      *                          @OA\Property(type="object", property="updatedAt"),
      *                          @OA\Property(type="integer", property="createdBy"),
      *                          @OA\Property(type="integer", property="updatedBy"),
-     *                          @OA\Property(type="object", property="0")
+     *                          @OA\Property(type="object", property="status"),
+     *                          @OA\Property(type="object", property="specificationID"),
+     *                          @OA\Property(type="integer", property="type"),
+     *                          @OA\Property(type="integer", property="carrierID"),
+     *                          @OA\Property(type="integer", property="totalGunny"),
+     *                          @OA\Property(type="integer", property="totalReceivedShipmentsQuantity"),
+     *                          @OA\Property(type="array", property="shipments",
+     *                              @OA\Items(
+     *                                  @OA\Property(type="integer", property="id"),
+     *                                  @OA\Property(type="integer", property="shipmentID"),
+     *                                  @OA\Property(type="string", property="trackNumber"),
+     *                                  @OA\Property(type="integer", property="travelID"),
+     *                                  @OA\Property(type="string", property="holderType"),
+     *                                  @OA\Property(type="integer", property="holderID"),
+     *                                  @OA\Property(type="object", property="createdAt"),
+     *                                  @OA\Property(type="object", property="updatedAt"),
+     *                                  @OA\Property(type="integer", property="createdBy"),
+     *                                  @OA\Property(type="integer", property="updatedBy"),
+     *                                  @OA\Property(type="integer", property="amount")
+     *                              )
+     *                          )
      *                      )
      *                  )
      *          )

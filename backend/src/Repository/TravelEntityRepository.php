@@ -157,6 +157,18 @@ class TravelEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function getTravelsByTypeCount($type)
+    {
+        return $this->createQueryBuilder('travel')
+            ->select('COUNT(travel.id)')
+
+            ->andWhere('travel.type = :type')
+            ->setParameter('type', $type)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function filterTravels(TravelFilterRequest $request)
     {
         $query = $this->createQueryBuilder('travel')

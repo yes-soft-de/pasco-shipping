@@ -45,6 +45,25 @@ class ShipmentLogManager
         }
     }
 
+    public function createShipmentLogsForSpecificGroupOfStatus($shipmentID, $trackNumber, $startedStatus, $endedStatus, $createdBy)
+    {
+        $request = new ShipmentLogCreateRequest();
+
+        $request->setShipmentID($shipmentID);
+        $request->setTrackNumber($trackNumber);
+        $request->setCreatedBy($createdBy);
+
+        $startedStatusIndex = array_search($startedStatus, ShipmentStatusConstant::$SHIPMENT_STATUS_ARRAY);
+        $endedStatusIndex = array_search($endedStatus, ShipmentStatusConstant::$SHIPMENT_STATUS_ARRAY);
+
+        for($index = $startedStatusIndex + 1; $index <= $endedStatusIndex; $index++)
+        {
+            $request->setShipmentStatus(ShipmentStatusConstant::$SHIPMENT_STATUS_ARRAY[$index]);
+
+            $this->create($request);
+        }
+    }
+
     public function getAllShipmentsLogs()
     {
         return $this->shipmentLogEntityRepository->getAllShipmentsLogs();

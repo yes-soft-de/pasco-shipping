@@ -553,4 +553,13 @@ App\Request\ShipperUpdateRequest:
   properties:
     id:
       - NotBlank: ~
+
+App\Request\ReceivedShipmentCreateRequest:
+  properties:
+    shipmentID:
+      - NotBlank: ~
+    trackNumber:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
       

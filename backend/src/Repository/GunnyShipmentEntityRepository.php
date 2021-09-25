@@ -34,6 +34,21 @@ class GunnyShipmentEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function getGunnyCountByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        return $this->createQueryBuilder('gunny_shipment_entity')
+            ->select('COUNT(gunny_shipment_entity.id)')
+
+            ->andWhere('gunny_shipment_entity.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->andWhere('gunny_shipment_entity.trackNumber = :trackNumber')
+            ->setParameter('trackNumber', $trackNumber)
+
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function getGunnyByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
         return $this->createQueryBuilder('gunny_shipment_entity')

@@ -33,10 +33,13 @@ class TrackManager
     private $airwaybillSpecificationManager;
     private $shipmentOrderManager;
     private $shipmentLogManager;
+    private $gunnyShipmentManager;
+    private $receivedShipmentManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, TrackEntityRepository $trackEntityRepository,
      ShipmentStatusManager $shipmentStatusManager, ContainerManager $containerManager, AirwaybillManager $airwaybillManager, ContainerSpecificationManager $containerSpecificationManager,
-     AirwaybillSpecificationManager $airwaybillSpecificationManager, ShipmentOrderManager $shipmentOrderManager, ShipmentLogManager $shipmentLogManager)
+     AirwaybillSpecificationManager $airwaybillSpecificationManager, ShipmentOrderManager $shipmentOrderManager, ShipmentLogManager $shipmentLogManager, GunnyShipmentManager $gunnyShipmentManager,
+     ReceivedShipmentManager $receivedShipmentManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -48,6 +51,8 @@ class TrackManager
         $this->airwaybillSpecificationManager = $airwaybillSpecificationManager;
         $this->shipmentOrderManager = $shipmentOrderManager;
         $this->shipmentLogManager = $shipmentLogManager;
+        $this->gunnyShipmentManager = $gunnyShipmentManager;
+        $this->receivedShipmentManager = $receivedShipmentManager;
     }
 
     public function create(TrackCreateRequest $request)
@@ -199,10 +204,10 @@ class TrackManager
 
     public function updateByTravelID(TrackUpdateByTravelIdRequest $request)
     {
-        // First, check the status, if the travel strated or arrived (released) then continue updating the shipments status
+        // First, check the status, if the travel started or arrived (released) then continue updating the shipments status
         if($request->getShipmentStatus() == ShipmentStatusConstant::$STARTED_SHIPMENT_STATUS || $request->getShipmentStatus() == ShipmentStatusConstant::$RELEASED_SHIPMENT_STATUS)
         {
-            //Secondly, get shipmentID and trackNumber for eahc shipment in the travel
+            //Secondly, get shipmentID and trackNumber for each shipment in the travel
             $tracks = $this->trackEntityRepository->getByTravelID($request->getTravelID());
 
             if(!$tracks)
@@ -220,8 +225,21 @@ class TrackManager
 
                         $shipmentStatusRequest->setShipmentID($track->getShipmentID());
                         $shipmentStatusRequest->setTrackNumber($track->getTrackNumber());
-                        
-                        $this->shipmentStatusManager->updateShipmentStatusOfSpecificHolder($shipmentStatusRequest);
+
+                        /**
+                         * If the status of the travel is released AND if the holder of the travel is of type FCL,
+                         * then we have to insert all rest status of the shipment in the Shipment Log table
+                         */
+                        if($request->getShipmentStatus() == ShipmentStatusConstant::$RELEASED_SHIPMENT_STATUS && $this->checkIfHolderIsFCLByHolderTypeAndHolderID($track->getHolderType(), $track->getHolderID()))
+                        {
+                            $shipmentStatusRequest->setShipmentStatus(ShipmentStatusConstant::$DELIVERED_SHIPMENT_STATUS);
+
+                            $this->shipmentStatusManager->updateShipmentStatusOfFCLHolder($shipmentStatusRequest);
+                        }
+                        else
+                        {
+                            $this->shipmentStatusManager->updateShipmentStatusOfSpecificHolder($shipmentStatusRequest);
+                        }
                     }
                 }
         
@@ -270,6 +288,27 @@ class TrackManager
         }
 
         return false;
+    }
+    
+    public function checkIfHolderIsFCLByHolderTypeAndHolderID($holderType, $holderID)
+    {
+        if($holderType == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
+        {
+            $holder = $this->getAirwaybillById($holderID);
+        }
+        elseif($holderType == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
+        {
+            $holder = $this->getContainerById($holderID);
+        }
+
+        if($holder['type'] == ShippingTypeConstant::$FCL_SHIPPING_TYPE)
+        {
+            return true;
+        }
+        elseif($holder['type'] == ShippingTypeConstant::$LCL_SHIPPING_TYPE)
+        {
+            return false;
+        }
     }
 
     public function createShipmentLog($shipmentID, $trackNumber, $shipmentStatus, $createdBy)
@@ -322,6 +361,13 @@ class TrackManager
 
                     // Get the shipments stored in the container
                     $holders[$key]['shipments'] = $this->trackEntityRepository->getByHolderTypeAndHolderID($holders[$key]['holderType'], $holders[$key]['holderID']);
+
+                    // Get total gunny used for all shipments of the container
+                    $holders[$key]['totalGunny'] = $this->getTotalGunnyOfShipmentsByContainerID($holders[$key]['holderID']);
+
+                    // Get total shipments quantity
+                    $holders[$key]['totalReceivedShipmentsQuantity'] = $this->getTotalReceivedShipmentsQuantityByContainerID($holders[$key]['holderID']);
+
                 }
                 if($val['holderType'] == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
                 {
@@ -337,6 +383,12 @@ class TrackManager
 
                     // Get the shipments stored in the air waybill
                     $holders[$key]['shipments'] = $this->trackEntityRepository->getByHolderTypeAndHolderID($holders[$key]['holderType'], $holders[$key]['holderID']);
+
+                    // Get total gunny used for all shipments of the air waybill
+                    $holders[$key]['totalGunny'] = $this->getTotalGunnyOfShipmentsByAirWaybillID($holders[$key]['holderID']);
+
+                    // Get total shipments quantity
+                    $holders[$key]['totalReceivedShipmentsQuantity'] = $this->getTotalReceivedShipmentsQuantityByAirWaybillID($holders[$key]['holderID']);
                 }
             }
         }
@@ -573,6 +625,74 @@ class TrackManager
                 return $shipments[0]['weight'];
             }
         }
+    }
+
+    public function getTotalGunnyOfShipmentsByContainerID($containerID)
+    {
+        $totalGunny = 0;
+
+        $tracks = $this->trackEntityRepository->getByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $containerID);
+
+        if($tracks)
+        {
+            foreach($tracks as $track)
+            {
+                $totalGunny += $this->gunnyShipmentManager->getGunnyCountByShipmentIdAndTrackNumber($track->getShipmentID(), $track->getTrackNumber());
+            }
+        }
+
+        return $totalGunny;
+    }
+
+    public function getTotalGunnyOfShipmentsByAirWaybillID($airWaybillID)
+    {
+        $totalGunny = 0;
+
+        $tracks = $this->trackEntityRepository->getByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $airWaybillID);
+
+        if($tracks)
+        {
+            foreach($tracks as $track)
+            {
+                $totalGunny += $this->gunnyShipmentManager->getGunnyCountByShipmentIdAndTrackNumber($track->getShipmentID(), $track->getTrackNumber());
+            }
+        }
+
+        return $totalGunny;
+    }
+
+    public function getTotalReceivedShipmentsQuantityByContainerID($containerID)
+    {
+        $totalReceivedQuantity = 0;
+
+        $tracks = $this->trackEntityRepository->getByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $containerID);
+
+        if($tracks)
+        {
+            foreach($tracks as $track)
+            {
+                $totalReceivedQuantity += $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentIdAndTrackNumber($track->getShipmentID(), $track->getTrackNumber());
+            }
+        }
+
+        return $totalReceivedQuantity;
+    }
+
+    public function getTotalReceivedShipmentsQuantityByAirWaybillID($airWaybillID)
+    {
+        $totalReceivedQuantity = 0;
+
+        $tracks = $this->trackEntityRepository->getByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $airWaybillID);
+
+        if($tracks)
+        {
+            foreach($tracks as $track)
+            {
+                $totalReceivedQuantity += $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentIdAndTrackNumber($track->getShipmentID(), $track->getTrackNumber());
+            }
+        }
+
+        return $totalReceivedQuantity;
     }
 
     public function compareTwoValues($valueOne, $valueTwo)

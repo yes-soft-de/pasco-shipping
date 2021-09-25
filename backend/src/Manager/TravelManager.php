@@ -4,6 +4,7 @@ namespace App\Manager;
 
 use App\AutoMapping;
 use App\Constant\TravelStatusConstant;
+use App\Constant\TravelTypeConstant;
 use App\Entity\TravelEntity;
 use App\Repository\TravelEntityRepository;
 use App\Request\DeleteRequest;
@@ -32,8 +33,7 @@ class TravelManager
     {
         $travelEntity = $this->autoMapping->map(TravelCreateRequest::class, TravelEntity::class, $request);
 
-        $travelEntity->setLaunchDate($travelEntity->getLaunchDate());
-        $travelEntity->setArrivalDate($travelEntity->getArrivalDate());
+        $travelEntity->setTravelNumber($this->generateTravelNumber($travelEntity->getType()));
         $travelEntity->setStatus(TravelStatusConstant::$CURRENT_TRAVEL_STATUS);
         
         $this->entityManager->persist($travelEntity);
@@ -77,9 +77,18 @@ class TravelManager
             }
             else
             {
+                if($request->getStatus() == TravelStatusConstant::$RELEASED_TRAVEL_STATUS)
+                {
+                    $request->setLaunchDate($travelEntity->getLaunchDate());
+                }
+
                 $travelEntity = $this->autoMapping->mapToObject(TravelStatusUpdateRequest::class, TravelEntity::class, $request, $travelEntity);
 
-                $travelEntity->setLaunchDate($request->getLaunchDate());
+                if($request->getStatus() == TravelStatusConstant::$STARTED_TRAVEL_STATUS)
+                {
+                    $travelEntity->setLaunchDate($request->getLaunchDate());
+                }
+
                 $travelEntity->setArrivalDate($request->getArrivalDate());
 
                 $this->entityManager->flush();
@@ -133,6 +142,36 @@ class TravelManager
     public function filterTravels($request)
     {
         return $this->travelEntityRepository->filterTravels($request);
+    }
+
+    public function generateTravelNumber($travelType)
+    {
+        $prefix = "";
+
+        if($travelType == TravelTypeConstant::$CRUISE_TRAVEL_TYPE)
+        {
+            $prefix = "C";
+        }
+        elseif($travelType == TravelTypeConstant::$FLIGHT_TRAVEL_TYPE)
+        {
+            $prefix = "AIR";
+        }
+
+        $suffix = $this->getLastTravelIdOfSpecificType($travelType) + 1;
+
+        return $prefix . $suffix;
+    }
+
+    public function getLastTravelIdOfSpecificType($type)
+    {
+        $travelsCount = $this->travelEntityRepository->getTravelsByTypeCount($type);
+
+        if($travelsCount)
+        {
+            return $travelsCount[1];
+        }
+
+        return 0;
     }
 
     public function delete(DeleteRequest $request)
