@@ -235,6 +235,49 @@ class CountryController extends BaseController
     }
 
     /**
+     * @Route("countries/{type}", name="getCountriesByType", methods={"GET"})
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Country")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns array of objects which each one represent a country",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="name"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="callingCode"),
+     *                  @OA\Property(type="array", property="warehouses",
+     *                      @OA\Items(
+     *                          @OA\Property(type="string", property="city"),
+     *                          @OA\Property(type="integer", property="countryID")
+     *                      )
+     *                  ),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage")
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function getCountriesByType($type)
+    {
+        $result = $this->countryService->getCountriesByType($type);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
      * @Route("country/{id}", name="deleteCountry", methods={"DELETE"})
      * @param Request $request
      * @return JsonResponse

@@ -47,4 +47,33 @@ class CountryEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getCountriesByType($type)
+    {
+        return $this->createQueryBuilder('country')
+            ->select('country.id', 'country.name', 'country.callingCode', 'country.createdAt', 'country.updatedAt', 'country.createdBy', 'country.updatedBy', 'country.type',
+                'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
+
+            ->andWhere('country.type = :type')
+            ->setParameter('type', $type)
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile1',
+                Join::WITH,
+                'adminProfile1.userID = country.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfile2',
+                Join::WITH,
+                'adminProfile2.userID = country.updatedBy'
+            )
+
+            ->orderBy('country.id', 'DESC')
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }
