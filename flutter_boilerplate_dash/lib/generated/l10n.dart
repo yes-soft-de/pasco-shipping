@@ -3169,6 +3169,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Our warehouse`
+  String get ourWarehouse {
+    return Intl.message(
+      'Our warehouse',
+      name: 'ourWarehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `yes`
+  String get yes {
+    return Intl.message(
+      'yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `no`
+  String get no {
+    return Intl.message(
+      'no',
+      name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Harbors`
+  String get harbors {
+    return Intl.message(
+      'Harbors',
+      name: 'harbors',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

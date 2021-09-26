@@ -393,5 +393,9 @@
   "deleteClient": "Do you really want to delete this employee and revoke all his permissions",
   "unitQuantity": "Unit Quantity",
   "selectProvider": "Select Provider",
-  "selectMark": "Select Mark"
+  "selectMark": "Select Mark",
+  "ourWarehouse": "Our warehouse",
+  "yes": "yes",
+  "no": "no",
+  "harbors": "Harbors"
 }

@@ -286,7 +286,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                       style: AppTextStyle.mediumBlack,
                     ),
                     subtitle: Text(
-                      widget.shipment.isExternalWarehouse.toString(),
+                      widget.shipment.isExternalWarehouse ? S.of(context).yes:S.of(context).no,
                       style: AppTextStyle.smallBlueBold,
                     )),
               ),

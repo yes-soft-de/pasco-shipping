@@ -4,13 +4,14 @@ import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 class TextEdit extends StatelessWidget {
+  final String hint;
   final String title;
-  final double height;
   final Function onChange;
-  const TextEdit(this.title, this.height , this.onChange);
-
+   TextEdit({required this.hint ,required this.title,required this.onChange});
+    TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+  controller..text=title;
     return Container(
       // height: height,
       margin: const EdgeInsets.all(15.0),
@@ -31,8 +32,10 @@ class TextEdit extends StatelessWidget {
             },
             cursorColor: Colors.blue,
             maxLines: null,
+            controller: controller,
             decoration: InputDecoration(
-            hintText: title,
+            hintText: hint,
+            // labelText: title,
             hintStyle:AppTextStyle.mediumDeepGray,
             focusedBorder: InputBorder.none,
             enabledBorder: InputBorder.none,

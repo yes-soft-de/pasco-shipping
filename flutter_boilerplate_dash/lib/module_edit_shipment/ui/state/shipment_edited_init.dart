@@ -228,7 +228,7 @@ class _ShipmentEditedScreenState extends State<ShipmentEditedScreen> {
             S.of(context).extraSpecification,
             style: AppTextStyle.mediumBlackBold,
           ),
-          TextEdit(extra, 200, (extra) {
+          TextEdit(hint: extra, title: widget.shipment.extraSpecification??'',onChange: (extra) {
             widget.shipment.extraSpecification = extra;
           }),
           Visibility(
@@ -240,7 +240,7 @@ class _ShipmentEditedScreenState extends State<ShipmentEditedScreen> {
                   S.of(context).vehicleNumber,
                   style: AppTextStyle.mediumBlackBold,
                 ),
-                TextEdit(vehicle, 50, (number) {
+                TextEdit(hint: vehicle, title: widget.shipment.vehicleIdentificationNumber??'',onChange: (number) {
                   widget.shipment.vehicleIdentificationNumber = number ?? "";
                 }),
               ],

@@ -2,30 +2,34 @@ class ContainerRequest {
   int? id;
 
   int specificationID;
-  String containerNumber;
+  String? containerNumber;
   String status;
   String type;
+  String location;
 
 
-  int shipperID;
-  int consigneeID;
+  int? shipperID;
+  int? consigneeID;
   int providedBy;
-  int carrierID;
+  int? carrierID;
   int? clientID;
+  int portID;
 
   ContainerRequest(
       {
         this.id,
       required this.type,
       required this.specificationID,
-      required this.containerNumber,
+       this.containerNumber,
         required this.status,
 
-      required this.consigneeID,
-      required this.providedBy,
-        required this.carrierID,
+       this.consigneeID,
+       required this.providedBy,
+         this.carrierID,
       required this.shipperID,
-        this.clientID
+        this.clientID,
+       required this.portID,
+      required  this.location
 
       });
 
@@ -40,7 +44,9 @@ class ContainerRequest {
         'shipperID': shipperID,
         'carrierID': carrierID,
         'clientUserID': clientID,
-        'status': status
+        'status': status,
+        'location':location,
+        'portID':portID
       };
     } else {
       return {
@@ -54,7 +60,9 @@ class ContainerRequest {
         'status': status,
         'carrierID': carrierID,
         'clientUserID': clientID,
-        'status': status
+        'status': status,
+        'location':location,
+        'portID':portID
       };
     }
   }

@@ -87,6 +87,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
    }
     if(widget.shipmentRequest.isExternalWarehouse){
       selectedRadioWarehouse = 1;
+
     }else {selectedRadioWarehouse = 2;
     widget.shipmentRequest.isExternalWarehouse = false;
     }
@@ -309,7 +310,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                       value: 2,
                       groupValue: selectedRadioWarehouse,
                     ),
-                    Text( S.of(context).inLocalWarehouse,
+                    Text( S.of(context).ourWarehouse,
                         style: TextStyle(
                           color: Colors.black,
                         ))
@@ -371,7 +372,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                     S.of(context).warehouseInfo,
                     style: AppTextStyle.mediumBlackBold,
                   ),
-                  TextEdit('info', 50, (info) {
+                  TextEdit(hint: 'info',title:  widget.shipmentRequest.externalWarehouseInfo, onChange:(info) {
                     widget.shipmentRequest.externalWarehouseInfo = info;
                   }),
                 ],),
@@ -606,7 +607,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                 alignment: AlignmentDirectional.bottomEnd,
                 child: FloatingActionButton.extended(
                   onPressed: () {
-                    if(optionItemSelectedCategory.id==0 ||optionItemSelectedT.id==0||widget.shipmentRequest.quantity==0){
+                    if(widget.shipmentRequest.productCategoryName.isEmpty ||widget.shipmentRequest.target.isEmpty||widget.shipmentRequest.quantity==0){
                       Fluttertoast.showToast(msg: S.of(context).fillAllField);
                     }else{
                     widget.shipmentRequest.imageFilePath =[];

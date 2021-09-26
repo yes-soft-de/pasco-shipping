@@ -339,6 +339,8 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
                       ,
                       airwaybillNumber: containerNumber.text,
                       providedBy: optionItemSelectedProvidedBy.id,
+                      location: '',
+                      portID: 0,
                       id: widget.model.id
                   );
                   widget.onUpdate(re, c);

@@ -172,6 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "guniQuantity": MessageLookupByLibrary.simpleMessage("عدد الجوني"),
         "gunnyFull": MessageLookupByLibrary.simpleMessage("امتلئ الجوني"),
         "gunnyNumber": MessageLookupByLibrary.simpleMessage("رقم الجوني"),
+        "harbors": MessageLookupByLibrary.simpleMessage("المرافئ"),
         "haveSpace":
             MessageLookupByLibrary.simpleMessage("مازلت تمتلك بعض المساحة"),
         "heightInMeter":
@@ -227,6 +228,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("طلب شحنة جديد"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "nextStatus": MessageLookupByLibrary.simpleMessage("الحالة التالية"),
+        "no": MessageLookupByLibrary.simpleMessage("كلا"),
         "noAccount":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب ؟ إنشاء حساب"),
         "noChangeStatus": MessageLookupByLibrary.simpleMessage(
@@ -246,6 +248,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "operationCompletedSuccessfully":
             MessageLookupByLibrary.simpleMessage("تم العملية بنجاح"),
         "otherData": MessageLookupByLibrary.simpleMessage("معلومات اخرى"),
+        "ourWarehouse": MessageLookupByLibrary.simpleMessage("مستودعاتنا"),
         "packingBy": MessageLookupByLibrary.simpleMessage("غُلفت"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
         "passwordIsTooShort":
@@ -434,6 +437,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "width": MessageLookupByLibrary.simpleMessage("الوزن"),
         "widthInMeter": MessageLookupByLibrary.simpleMessage("العرض بالمتر"),
         "writeDetails":
-            MessageLookupByLibrary.simpleMessage("اكتب ملاحظة عن هذه المرحلة")
+            MessageLookupByLibrary.simpleMessage("اكتب ملاحظة عن هذه المرحلة"),
+        "yes": MessageLookupByLibrary.simpleMessage("نعم")
       };
 }

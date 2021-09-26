@@ -59,7 +59,7 @@ class _AddNewCountryState extends State<UpdateAirwaybill> {
         }
       }
     });
-    widget._stateManager.getSubContractAndSpecification();
+    widget._stateManager.getSubContractAndSpecificationAndHarbor();
   }
   @override
   void didChangeDependencies() {

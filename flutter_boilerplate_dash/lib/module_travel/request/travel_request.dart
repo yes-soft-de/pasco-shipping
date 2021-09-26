@@ -2,8 +2,8 @@ class TravelRequest {
   int? id;
 
   String type;
-  String launchCountry;
-  String destinationCountry;
+  String? launchCountry;
+  String? destinationCountry;
 
   String? travelNumber;
   String status;
@@ -17,9 +17,9 @@ class TravelRequest {
   TravelRequest(
       {this.id,
       required this.type,
-      required this.launchCountry,
-      required this.destinationCountry,
-       this.travelNumber,
+       this.launchCountry,
+       this.destinationCountry,
+        required this.travelNumber,
        this.arrivalDate,
        this.launchDate,
       required this.status,
@@ -30,13 +30,13 @@ class TravelRequest {
     if (id == null) {
       return {
         'type': type,
-        'launchCountry': launchCountry,
-        'destinationCountry': destinationCountry,
-        'launchDate': launchDate,
-        'arrivalDate': arrivalDate,
+        // 'launchCountry': launchCountry,
+        // 'destinationCountry': destinationCountry,
+        // 'launchDate': launchDate,
+        // 'arrivalDate': arrivalDate,
         'travelNumber': travelNumber,
-        'shipperID': shipperID,
-        'carrierID': carrierID,
+        // 'shipperID': shipperID,
+        // 'carrierID': carrierID,
         'status': status
       };
     } else {

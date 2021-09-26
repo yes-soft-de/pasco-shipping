@@ -7,6 +7,7 @@ import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_container/enums/container_status.dart';
 import 'package:pasco_shipping/module_container/request/container_request.dart';
 import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
+import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
@@ -19,15 +20,16 @@ class RequestContainerInit extends StatefulWidget {
   final List<SubcontractModel> subContracts;
   final List<ContainerSpecificationModel> specifications;
   final List<ClientModel> clients;
+  final List<HarborModel> harbors;
   final Function onSave;
-  const RequestContainerInit({ required this.onSave , required this.subContracts,required this.specifications,required this.clients});
+  const RequestContainerInit({ required this.onSave , required this.subContracts,required this.specifications,required this.clients,required this.harbors});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
 }
 
 class _AddCountryInitState extends State<RequestContainerInit> {
- late TextEditingController containerNumber ;
+ late TextEditingController location ;
 
  late DropListModel dropListModelProvidedBy;
  late Entry optionItemSelectedProvidedBy;
@@ -47,12 +49,16 @@ class _AddCountryInitState extends State<RequestContainerInit> {
  late DropListModel dropListModelClient;
  late Entry optionItemSelectedClient;
 
+ late DropListModel dropListModelHarbor;
+ late Entry optionItemSelectedHarbor;
+
  late List<Entry> entryProvidedBy;
  late List<Entry> entryConsignee;
  late List<Entry> entryShipper;
  late List<Entry> entryCarrier;
  late List<Entry> entrySpecification;
  late List<Entry> entryClient;
+ late List<Entry> entryHarbor;
 
  late String status;
  late String type;
@@ -161,61 +167,60 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 ],
               ),
 
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Row(children: [
-              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-              //     SizedBox(width: 5,),
-              //     Text(S.of(context).containerNumber , style: AppTextStyle.mediumBlackBold,)
-              //   ],),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.all(10.0),
-              //   child: Container(
-              //     padding: EdgeInsets.only(
-              //         top: 4,left: 16, right: 16, bottom: 4
-              //     ),
-              //     decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.all(
-              //             Radius.circular(15)
-              //         ),
-              //         color: Colors.white,
-              //         boxShadow: [
-              //           BoxShadow(
-              //               color: Colors.black12,
-              //               blurRadius: 5
-              //           )
-              //         ]
-              //     ),
-              //     child: TextField(
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).location , style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: 4,left: 16, right: 16, bottom: 4
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(15)
+                      ),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 5
+                        )
+                      ]
+                  ),
+                  child: TextField(
+
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: S.of(context).location,
+                    ),
+                    controller: location,
+                  ),
+                ),
+              ),
               //
-              //       decoration: InputDecoration(
-              //         border: InputBorder.none,
-              //         hintText: S.of(context).number,
-              //       ),
-              //       controller: containerNumber,
-              //     ),
-              //   ),
-              // ),
-              //
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Row(children: [
-              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-              //     SizedBox(width: 5,),
-              //     Text(S.of(context).provided , style: AppTextStyle.mediumBlackBold,)
-              //   ],),
-              // ),
-              // SelectDropList(
-              //   this.optionItemSelectedProvidedBy,
-              //   this.dropListModelProvidedBy,
-              //       (optionItem) {
-              //         FocusScope.of(context).unfocus();
-              //     optionItemSelectedProvidedBy = optionItem;
-              //         providedByID = optionItem.id;
-              //     setState(() {});
-              //   },
-              // ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).harbors , style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              SelectDropList(
+                this.optionItemSelectedHarbor,
+                this.dropListModelHarbor,
+                    (optionItem) {
+                      FocusScope.of(context).unfocus();
+                  optionItemSelectedHarbor = optionItem;
+                  setState(() {});
+                },
+              ),
               //
               // Padding(
               //   padding: const EdgeInsets.all(8.0),
@@ -253,23 +258,23 @@ class _AddCountryInitState extends State<RequestContainerInit> {
               //   },
               // ),
               //
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Row(children: [
-              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-              //     SizedBox(width: 5,),
-              //     Text(S.of(context).carrier , style: AppTextStyle.mediumBlackBold,)
-              //   ],),
-              // ),
-              // SelectDropList(
-              //   this.optionItemSelectedCarrier,
-              //   this.dropListModelCarrier,
-              //       (optionItem) {
-              //     optionItemSelectedCarrier= optionItem;
-              //     carrierID = optionItem.id;
-              //     setState(() {});
-              //   },
-              // ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).carrier , style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              SelectDropList(
+                this.optionItemSelectedCarrier,
+                this.dropListModelCarrier,
+                    (optionItem) {
+                  optionItemSelectedCarrier= optionItem;
+                  carrierID = optionItem.id;
+                  setState(() {});
+                },
+              ),
 
               selectedRadioType==2 ? Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -315,7 +320,8 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                     consigneeID: optionItemSelectedConsignee.id ,
                     shipperID: optionItemSelectedShipper.id,
                     carrierID: optionItemSelectedCarrier.id
-                    ,containerNumber: containerNumber.text,
+                    ,location: location.text,
+                  portID: optionItemSelectedHarbor.id,
                   providedBy: optionItemSelectedProvidedBy.id,
                   clientID: optionItemSelectedClient.id
                 );
@@ -338,10 +344,11 @@ class _AddCountryInitState extends State<RequestContainerInit> {
     entryConsignee= <Entry>[];
     entryCarrier= <Entry>[];
     entryClient= <Entry>[];
+    entryHarbor= <Entry>[];
 
     entrySpecification = <Entry>[];
 
-    containerNumber=TextEditingController();
+    location=TextEditingController();
 
     status= ContainerStatusName[ContainerStatus.NOTFULL]!;
 
@@ -354,6 +361,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
     optionItemSelectedSpecification =  Entry('choose', 0, []);
     optionItemSelectedCarrier =  Entry('choose', 0, []);
     optionItemSelectedClient =  Entry('choose', 0, []);
+    optionItemSelectedHarbor =  Entry('choose', 0, []);
 
     initList();
 
@@ -385,6 +393,13 @@ class _AddCountryInitState extends State<RequestContainerInit> {
       entryClient.add(v);
     }
     dropListModelClient = DropListModel(entryClient);
+
+
+    for(HarborModel  item in widget.harbors){
+      Entry v = Entry(item.name! ,item.id! ,[]);
+      entryHarbor.add(v);
+    }
+    dropListModelHarbor = DropListModel(entryHarbor);
   }
 
  void _setSelectedRadioGender(int val) {

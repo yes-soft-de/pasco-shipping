@@ -60,7 +60,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   late String receiverPhone;
   late String initQuantity;
 
-  late List<RequestedHolders> holders;
+  // late List<RequestedHolders> holders;
 
   late RequestedHolders setSelectSpec;
 
@@ -161,7 +161,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
           S.of(context).supplierInfo,
           style: AppTextStyle.mediumBlackBold,
         ),
-        TextEdit(supplierName, 50, (supplierName) {
+        TextEdit(title: widget.shipmentRequest.supplierName, hint:S.of(context).name,onChange:(supplierName) {
           widget.shipmentRequest.supplierName = supplierName;
         }),
         SizedBox(
@@ -315,11 +315,11 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                 child: FloatingActionButton.extended(
                   onPressed: () {
                     if(
-                    optionItemSelectedTim.title=='choose'
-                    || optionItemSelectedType.title=='choose'
-                    || optionItemSelectedU.title=='choose'
-                    || optionItemSelectedMar.id==0
-                    ||(widget.shipmentRequest.isExternalWarehouse && holders.isEmpty)
+                   widget.shipmentRequest.paymentTime.isEmpty
+                    || widget.shipmentRequest.holderType.isEmpty
+                    || widget.shipmentRequest.unit.isEmpty
+                    || widget.shipmentRequest.userName.isEmpty
+                    ||(widget.shipmentRequest.isExternalWarehouse && widget.shipmentRequest.holders.isEmpty)
                     ){
                       Fluttertoast.showToast(msg: S.of(context).fillAllField);
                     }
@@ -372,7 +372,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                                 ))
                                 .toList(),
                           ),
-                          TextEdit(S.of(context).importantNote , 50,(notes){
+                          TextEdit(title: '',hint:S.of(context).importantNote  ,onChange: (notes){
                             setSelectSpec.notes = notes;
                           }),
                           RoundedButton(lable: S.of(context).save, icon: '',

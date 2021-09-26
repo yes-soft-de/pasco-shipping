@@ -174,6 +174,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "guniQuantity": MessageLookupByLibrary.simpleMessage("Guni Quantity"),
         "gunnyFull": MessageLookupByLibrary.simpleMessage("Gunny is full"),
         "gunnyNumber": MessageLookupByLibrary.simpleMessage("Gunny Number"),
+        "harbors": MessageLookupByLibrary.simpleMessage("Harbors"),
         "haveSpace":
             MessageLookupByLibrary.simpleMessage("You still have some space"),
         "heightInMeter":
@@ -233,6 +234,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Request a new\n shipment"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nextStatus": MessageLookupByLibrary.simpleMessage("Next Status"),
+        "no": MessageLookupByLibrary.simpleMessage("no"),
         "noAccount":
             MessageLookupByLibrary.simpleMessage("I have no account? sign up"),
         "noChangeStatus": MessageLookupByLibrary.simpleMessage(
@@ -253,6 +255,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "operationCompletedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Operation completed successfully"),
         "otherData": MessageLookupByLibrary.simpleMessage("Other Data"),
+        "ourWarehouse": MessageLookupByLibrary.simpleMessage("Our warehouse"),
         "packingBy": MessageLookupByLibrary.simpleMessage("Packing by"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordIsTooShort":
@@ -453,6 +456,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "widthInMeter":
             MessageLookupByLibrary.simpleMessage("Width In Meter: "),
         "writeDetails": MessageLookupByLibrary.simpleMessage(
-            "Write a Details about this status")
+            "Write a Details about this status"),
+        "yes": MessageLookupByLibrary.simpleMessage("yes")
       };
 }

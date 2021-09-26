@@ -371,5 +371,9 @@
   "deleteClient": "هل تريد حقا حذف هذا الموظف وإلغاء جميع صلاحياته",
   "unitQuantity": "عدد الواحدات",
   "selectProvider": "أختر المُقَدِم",
-  "selectMark": "أختر علامة"
+  "selectMark": "أختر علامة",
+  "ourWarehouse": "مستودعاتنا",
+  "yes": "نعم",
+  "no": "كلا",
+  "harbors": "المرافئ"
 }

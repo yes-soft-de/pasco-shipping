@@ -53,7 +53,7 @@ class AcceptedShipmentDetailsModel {
     this.holderType,
     this.transportationType,
     this.markNumber,
-    this.isExternalWarehouse,
+   required this.isExternalWarehouse,
     this.imagePath,
     this.updatedByUser,
     this.subShipmentModelList,
@@ -83,7 +83,7 @@ class AcceptedShipmentDetailsModel {
 
   String? transportationType;
   String? markNumber;
-  bool? isExternalWarehouse;
+  bool isExternalWarehouse=false;
 
   String? vehicleIdentificationNumber;
   String? extraSpecification;

@@ -215,10 +215,10 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
                       ]
                   ),
                   child: TextField(
-
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: S.of(context).number,
+                      errorText: validateContainerNumber(containerNumber.text),
                     ),
                     controller: containerNumber,
                   ),
@@ -332,7 +332,7 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
                       ,
                       containerNumber: containerNumber.text,
                       providedBy: optionItemSelectedProvidedBy.id,
-                      id: widget.model.id
+                      id: widget.model.id, portID: 0, location: ''
                   );
                   widget.onUpdate(re, c);
                 }}, radius: 15)
@@ -428,5 +428,17 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
       print(val);
     });
   }
-
+  String? validateContainerNumber(String value) {
+    if(value.length == 11){
+      var d=value.substring(0 ,3);
+      if(!d.contains(new RegExp(r'[0-9]'))) {
+        var n=value.substring(4 ,10);
+        final number = num.tryParse(n);
+        if (number != null) {
+          return null;
+        }
+      }
+    }
+      return 'Container number consists of 4 letters at the beginning, followed by 7 digits';
+  }
 }

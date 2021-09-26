@@ -212,7 +212,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
                   S.of(context).vehicleNumber,
                   style: AppTextStyle.mediumBlackBold,
                 ),
-                TextEdit(vehicle, 50, (number) {
+                TextEdit(hint:S.of(context).vehicleNumber , title:widget.shipmentRequest.vehicleIdentificationNumber , onChange:(number) {
                   widget.shipmentRequest.vehicleIdentificationNumber = number ?? "";
                 }),
               ],
@@ -226,7 +226,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
             S.of(context).extraSpecification,
             style: AppTextStyle.mediumBlackBold,
           ),
-          TextEdit(extra, 200, (extra) {
+          TextEdit(hint: extra, title: widget.shipmentRequest.extraSpecification,onChange: (extra) {
             widget.shipmentRequest.extraSpecification = extra;
           }),
           Padding(

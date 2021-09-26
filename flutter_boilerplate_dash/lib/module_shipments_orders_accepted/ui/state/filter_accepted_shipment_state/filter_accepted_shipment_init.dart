@@ -78,7 +78,7 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
                       style: AppTextStyle.mediumBlackBold,
                     ),
                   ),
-                  TextEdit('', 50, (containerNumber) {
+                  TextEdit(hint:S.of(context).containerNumber ,title:  widget.filterRequest.containerNumber??'',onChange: (containerNumber) {
                     widget.filterRequest.containerNumber = containerNumber;
                   }),
 
@@ -94,7 +94,7 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
                       style: AppTextStyle.mediumBlackBold,
                     ),
                   ),
-                  TextEdit('', 50, (airWaybillNumber) {
+                  TextEdit(hint: S.of(context).airwaybillNumber, title:widget.filterRequest.airWaybillNumber??'' ,onChange: (airWaybillNumber) {
                     widget.filterRequest.airWaybillNumber = airWaybillNumber;
                   }),
 

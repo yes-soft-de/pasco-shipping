@@ -52,7 +52,7 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
                           style: AppTextStyle.mediumBlack,
                         ),
                         subtitle: Text(
-                          shipment.isExternalWarehouse.toString(),
+                       shipment.isExternalWarehouse ? S.of(context).yes:S.of(context).no,
                           style: AppTextStyle.smallBlueBold,
                         ))),
                 Expanded(

@@ -10,6 +10,7 @@ import 'package:pasco_shipping/module_auth/authoriazation_module.dart';
 import 'package:pasco_shipping/module_chat/chat_module.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_edit_shipment/edit_shipment_module.dart';
+import 'package:pasco_shipping/module_harbor/harbor_module.dart';
 import 'package:pasco_shipping/module_home/home_module.dart';
 import 'package:pasco_shipping/module_localization/service/localization_service/localization_service.dart';
 import 'package:pasco_shipping/module_mark/mark_module.dart';
@@ -137,6 +138,8 @@ class MyApp extends StatefulWidget {
   final ReceiverModule _receiverModule;
   final EmployeeModule _employeeModule;
 
+  final HarborModule _harborModule;
+
 
   MyApp(
       this._themeDataService,
@@ -178,8 +181,9 @@ class MyApp extends StatefulWidget {
       this._subProductModule,
       this._warehouseModule,
       this._receiverModule,
-      this._employeeModule
+      this._employeeModule,
 
+      this._harborModule
       );
 
   @override

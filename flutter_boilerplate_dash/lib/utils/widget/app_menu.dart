@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasco_shipping/abstracts/module/yes_module.dart';
+import 'package:pasco_shipping/module_harbor/harbor_routes.dart';
 import 'package:pasco_shipping/module_home/ui/screen/home_screen.dart';
 import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_unit/unit_module.dart';
@@ -370,8 +371,8 @@ class AppMenu extends ConsumerWidget {
                     ListTile(
                         title: new Text(S.of(context).add),
                         onTap: () {
-                          Navigator.pushNamed(context, NewShipmentRoutes.NEW_SHIPMENTS);
-                          // selectPage(context, ref, NewShipmentRoutes.NEW_SHIPMENTS);
+                          // Navigator.pushNamed(context, NewShipmentRoutes.NEW_SHIPMENTS);
+                          selectPage(context, ref, NewShipmentRoutes.NEW_SHIPMENTS);
                         }),
                   ],
                 ),
@@ -827,6 +828,31 @@ class AppMenu extends ConsumerWidget {
                             ),
                             onTap: () {
                               selectPage(context, ref, WarehouseRoutes.ADD_NEW);
+                            }),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              ExpansionTile(
+                title: new Text(S.of(context).harbors),
+                leading: Icon(Icons.support_sharp),
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                            title: new Text(S.of(context).view),
+                            onTap: () {
+                              selectPage(context, ref, HarborRoutes.VIEW_ALL);
+                            }),
+                        ListTile(
+                            title: new Text(
+                              S.of(context).add,
+                            ),
+                            onTap: () {
+                              selectPage(context, ref, HarborRoutes.ADD_NEW);
                             }),
                       ],
                     ),

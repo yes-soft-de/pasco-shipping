@@ -58,7 +58,7 @@ class _AddNewCountryState extends State<UpdateContainer> {
         }
       }
     });
-    widget._stateManager.getSubContractAndSpecification();
+    widget._stateManager.getSubContractAndSpecificationAndHarbor();
   }
   @override
   void didChangeDependencies() {

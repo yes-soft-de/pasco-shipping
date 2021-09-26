@@ -8,6 +8,7 @@ import 'package:pasco_shipping/module_container/ui/state/addnew_state/add_contai
 import 'package:pasco_shipping/module_container/ui/state/addnew_state/add_state.dart';
 import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
+import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
@@ -28,6 +29,7 @@ class _AddNewCountryState extends State<AddNewContainer> {
   late List<SubcontractModel> subs;
   late List<ContainerSpecificationModel> specification;
   late List<ClientModel> clients;
+  late List<HarborModel> harbors;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class _AddNewCountryState extends State<AddNewContainer> {
         }
       }
     });
-    widget._stateManager.getSubContractAndSpecification();
+    widget._stateManager.getSubContractAndSpecificationAndHarbor();
   }
 
   Widget Screen(){
@@ -76,10 +78,12 @@ class _AddNewCountryState extends State<AddNewContainer> {
       specification = state!.specifications;
       subs = state.subcontracts;
       clients = state.clients;
+      harbors = state.harbor;
       return RequestContainerInit(
         specifications: specification,
         subContracts: subs,
         clients: clients,
+        harbors: harbors,
         onSave: (request){
         widget._stateManager.requestContainer(request);
       },);

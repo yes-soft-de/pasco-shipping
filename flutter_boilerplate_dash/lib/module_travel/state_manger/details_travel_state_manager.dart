@@ -26,30 +26,23 @@ class TravelDetailsStateManager {
   }
 
   void updateTravelStatus(
-      TravelRequest travelRequest,
       TravelChangeStateRequest request) {
     _addStateSubject.add(LoadingDetailsState());
-    _service.updateTravelInfo(travelRequest).then((value) {
-      if(value != null){
-        if(value.isConfirmed){
-          _service.updateTravelStatus(request).then((value) {
-            if (value != null) {
-              if (value.isConfirmed) {
-                _service.getTravelDetails(request.id.toString()).then((model) {
-                  if (model != null) {
-                    _addStateSubject.add(SuccessfullyDetailsState(model));
-                  } else {
-                    _addStateSubject.add(ErrorDetailsState('error'));
-                  }
-                });
-              }else{
-                _addStateSubject.add(ErrorDetailsState('error'));
-              }
-            }else{
+    _service.updateTravelStatus(request).then((value) {
+      if (value != null) {
+        if (value.isConfirmed) {
+          _service.getTravelDetails(request.id.toString()).then((model) {
+            if (model != null) {
+              _addStateSubject.add(SuccessfullyDetailsState(model));
+            } else {
               _addStateSubject.add(ErrorDetailsState('error'));
             }
           });
+        }else{
+          _addStateSubject.add(ErrorDetailsState('error'));
         }
+      }else{
+        _addStateSubject.add(ErrorDetailsState('error'));
       }
     });
 
