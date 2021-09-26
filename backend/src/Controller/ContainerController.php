@@ -122,6 +122,7 @@ class ContainerController extends BaseController
      *          @OA\Property(type="integer", property="consigneeID"),
      *          @OA\Property(type="integer", property="carrierID"),
      *          @OA\Property(type="integer", property="portID"),
+     *          @OA\Property(type="string", property="consignee"),
      *          @OA\Property(type="string", property="location")
      *      )
      * )
@@ -147,6 +148,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
      *                  @OA\Property(type="string", property="carrierName"),
+     *                  @OA\Property(type="string", property="consignee"),
      *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
@@ -222,6 +224,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
      *                  @OA\Property(type="string", property="carrierName"),
+     *                  @OA\Property(type="string", property="consignee"),
      *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
@@ -347,6 +350,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="number", property="freeCapacity"),
      *                  @OA\Property(type="integer", property="clientUserID"),
      *                  @OA\Property(type="integer", property="shipmentID"),
+     *                  @OA\Property(type="string", property="consignee"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),
@@ -448,6 +452,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="string", property="portName"),
      *                  @OA\Property(type="string", property="location"),
+     *                  @OA\Property(type="string", property="consignee"),
      *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="integer", property="shipmentID"),
      *                  @OA\Property(type="array", property="shipments",
@@ -508,6 +513,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="shipperName"),
      *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="string", property="portName"),
+     *                  @OA\Property(type="string", property="consignee"),
      *                  @OA\Property(type="string", property="location"),
      *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="array", property="shipments",

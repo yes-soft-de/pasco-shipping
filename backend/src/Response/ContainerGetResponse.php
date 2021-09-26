@@ -46,6 +46,8 @@ class ContainerGetResponse
 
     public $shipmentID;
 
+    public $consignee;
+
     public $shipments = [];
 
 }
