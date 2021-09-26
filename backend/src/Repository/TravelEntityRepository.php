@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Constant\TravelStatusConstant;
 use App\Entity\AdminProfileEntity;
+use App\Entity\ShipperEntity;
 use App\Entity\SubcontractEntity;
 use App\Entity\TravelEntity;
 use App\Request\TravelFilterRequest;
@@ -120,7 +121,7 @@ class TravelEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('travel')
             ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
              'travel.status', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
-             'travel.shipperID', 'subcontractEntity.fullName as subcontractName', 'travel.createdAt', 'travel.updatedAt', 'travel.carrierID', 'subcontractEntity2.fullName as carrierName')
+             'travel.shipperID', 'shipperEntity.name as subcontractName', 'travel.createdAt', 'travel.updatedAt', 'travel.carrierID', 'subcontractEntity2.fullName as carrierName')
 
             ->andWhere('travel.id = :id')
             ->setParameter('id', $id)
@@ -140,10 +141,10 @@ class TravelEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity',
+                ShipperEntity::class,
+                'shipperEntity',
                 Join::WITH,
-                'subcontractEntity.id = travel.shipperID'
+                'shipperEntity.id = travel.shipperID'
             )
 
             ->leftJoin(
@@ -174,7 +175,7 @@ class TravelEntityRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('travel')
             ->select('travel.id', 'travel.type', 'travel.travelNumber', 'travel.launchCountry', 'travel.destinationCountry', 'travel.launchDate', 'travel.arrivalDate', 'travel.createdBy', 'travel.updatedBy',
              'travel.status', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
-             'travel.shipperID', 'subcontractEntity.fullName as subcontractName', 'travel.createdAt', 'travel.updatedAt', 'travel.carrierID', 'subcontractEntity2.fullName as carrierName')
+             'travel.shipperID', 'shipperEntity.name as subcontractName', 'travel.createdAt', 'travel.updatedAt', 'travel.carrierID', 'subcontractEntity2.fullName as carrierName')
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -191,10 +192,10 @@ class TravelEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
-                SubcontractEntity::class,
-                'subcontractEntity',
+                ShipperEntity::class,
+                'shipperEntity',
                 Join::WITH,
-                'subcontractEntity.id = travel.shipperID'
+                'shipperEntity.id = travel.shipperID'
             )
 
             ->leftJoin(
