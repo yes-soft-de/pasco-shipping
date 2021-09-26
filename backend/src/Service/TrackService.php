@@ -117,7 +117,7 @@ class TrackService
         $result = [];
 
         $result['result'] = $this->trackManager->checkHolderAvailability($request);
-        //dd($result);
+
         return $this->autoMapping->map('array', CheckHolderGetResponse::class, $result);
     }
 
@@ -125,12 +125,6 @@ class TrackService
     public function getCurrentCapacityOfContainer($container)
     {
         return $this->trackManager->getCurrentCapacityOfContainer($container);
-    }
-
-    // For Get air waybill by ID
-    public function getCurrentWeightOfAirwaybill($airwaybill)
-    {
-        return $this->trackManager->getCurrentWeightOfAirwaybill($airwaybill);
     }
 
 }

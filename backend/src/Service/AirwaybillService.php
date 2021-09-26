@@ -95,7 +95,7 @@ class AirwaybillService
 
             $airwaybill['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID("airwaybill", $id);
 
-            $airwaybill['freeWeight'] = $this->trackService->getCurrentWeightOfAirwaybill($airwaybill);
+//            $airwaybill['freeWeight'] = $this->trackService->getCurrentWeightOfAirwaybill($airwaybill);
 
             if ($airwaybill['createdByUserImage']) {
                 $airwaybill['createdByUserImage'] = $this->params . $airwaybill['createdByUserImage'];

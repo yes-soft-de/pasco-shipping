@@ -318,7 +318,6 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="integer", property="specificationID"),
      *                  @OA\Property(type="string", property="airwaybillNumber"),
      *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="object", property="createdAt"),
@@ -334,7 +333,6 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="string", property="portName"),
      *                  @OA\Property(type="string", property="location"),
-     *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="integer", property="freeWeight"),
      *                  @OA\Property(type="integer", property="shipmentID"),
      *                  @OA\Property(type="string", property="consignee"),
@@ -398,7 +396,6 @@ class AirwaybillController extends BaseController
      * @OA\RequestBody(
      *      description="Post a request with filtering option",
      *      @OA\JsonContent(
-     *          @OA\Property(type="integer", property="specificationID"),
      *          @OA\Property(type="string", property="airwaybillNumber"),
      *          @OA\Property(type="string", property="type"),
      *          @OA\Property(type="string", property="status"),
@@ -423,7 +420,6 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="array", property="Data",
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="integer", property="specificationID"),
      *                  @OA\Property(type="string", property="airwaybillNumber"),
      *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="object", property="createdAt"),
@@ -442,7 +438,6 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="string", property="portName"),
      *                  @OA\Property(type="string", property="location"),
-     *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="integer", property="shipmentID"),
      *                  @OA\Property(type="string", property="consignee"),
      *                  @OA\Property(type="integer", property="weight"),
@@ -533,7 +528,6 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="carrierName"),
      *                  @OA\Property(type="string", property="portName"),
      *                  @OA\Property(type="string", property="location"),
-     *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="string", property="consignee"),
      *                  @OA\Property(type="integer", property="weight"),
      *                  @OA\Property(type="array", property="shipments",
