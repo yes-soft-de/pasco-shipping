@@ -6,13 +6,13 @@ class AirwaybillCreateRequest
 {
     private $specificationID;
 
-    private $airwaybillNumber;
+    private $airwaybillNumber = "";
 
     private $status;
 
     private $type;
 
-    private $providedBy;
+    private $providedBy = 0;
 
     private $shipperID;
 

@@ -262,11 +262,12 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
 
         if($withoutNumber)
         {
-            $query->andWhere($query->expr()->isNull('airwaybill.airwaybillNumber'));
+            $query->andWhere('airwaybill.airwaybillNumber = :airwaybillNumber');
+            $query->setParameter('airwaybillNumber', "");
         }
         elseif(isset($withoutNumber) AND $withoutNumber == false)
         {
-            $query->andWhere($query->expr()->isNotNull('airwaybill.airwaybillNumber'));
+            $query->andWhere("airwaybill.airwaybillNumber != ''");
         }
 
         if($request->getStatus())
@@ -328,11 +329,13 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
 
         if($isRequested)
         {
-            $query->andWhere($query->expr()->isNotNull('airwaybill.providedBy'));
+            $query->andWhere('airwaybill.providedBy != :providedBy');
+            $query->setParameter('providedBy', 0);
         }
         elseif(isset($isRequested) AND $isRequested == false)
         {
-            $query->andWhere($query->expr()->isNull('airwaybill.providedBy'));
+            $query->andWhere('airwaybill.providedBy = :providedBy');
+            $query->setParameter('providedBy', 0);
         }
 
         return $query->getQuery()->getResult();

@@ -6,13 +6,13 @@ class ContainerCreateRequest
 {
     private $specificationID;
 
-    private $containerNumber;
+    private $containerNumber = "";
 
     private $status;
 
     private $type;
 
-    private $providedBy;
+    private $providedBy = 0;
 
     private $shipperID;
 
