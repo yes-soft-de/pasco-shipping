@@ -332,20 +332,23 @@ class ContainerEntityRepository extends ServiceEntityRepository
 
         if($withoutNumber)
         {
-            $query->andWhere($query->expr()->isNull('container.containerNumber'));
+            $query->andWhere('container.containerNumber = :containerNumber');
+            $query->setParameter('containerNumber', "");
         }
         elseif(isset($withoutNumber) AND $withoutNumber == false)
         {
-            $query->andWhere($query->expr()->isNotNull('container.containerNumber'));
+            $query->andWhere("container.containerNumber != ''");
         }
 
         if($isRequested)
         {
-            $query->andWhere($query->expr()->isNotNull('container.providedBy'));
+            $query->andWhere('container.providedBy != :providedBy');
+            $query->setParameter('providedBy', 0);
         }
         elseif(isset($isRequested) AND $isRequested == false)
         {
-            $query->andWhere($query->expr()->isNull('container.providedBy'));
+            $query->andWhere('container.providedBy = :providedBy');
+            $query->setParameter('providedBy', 0);
         }
 
         if($request->getPortID())

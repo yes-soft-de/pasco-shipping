@@ -24,7 +24,7 @@ class ContainerEntity
     private $specificationID;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, options={"default":""})
      */
     private $containerNumber;
 
@@ -61,7 +61,7 @@ class ContainerEntity
     private $type;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", options={"default":0})
      */
     private $providedBy;
 
