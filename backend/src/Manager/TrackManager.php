@@ -436,7 +436,17 @@ class TrackManager
     // For Get container/air waybill by ID
     public function getTracksByHolderTypeAndHolderID($holderType, $holderID)
     {
-        return $this->trackEntityRepository->getTracksByHolderTypeAndHolderID($holderType, $holderID);
+        $tracks = $this->trackEntityRepository->getTracksByHolderTypeAndHolderID($holderType, $holderID);
+
+        if($tracks)
+        {
+            foreach($tracks as $key => $val)
+            {
+                $tracks[$key]['receivedShipmentQuantity'] = $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentIdAndTrackNumber($val['shipmentID'], $val['trackNumber']);
+            }
+        }
+
+        return $tracks;
     }
 
     public function checkHolderAvailability(CheckHolderRequest $request)

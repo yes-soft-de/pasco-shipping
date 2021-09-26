@@ -382,6 +382,7 @@ class ContainerController extends BaseController
      *                          @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                          @OA\Property(type="string", property="extraSpecification"),
      *                          @OA\Property(type="string", property="status"),
+     *                          @OA\Property(type="integer", property="totalReceivedShipmentsQuantity"),
      *                          @OA\Property(type="text", property="externalWarehouseInfo"),
      *                          @OA\Property(type="boolean", property="isExternalWarehouse")
      *                      )

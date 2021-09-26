@@ -48,6 +48,8 @@ class ContainerGetResponse
 
     public $consignee;
 
+    public $totalReceivedShipmentsQuantity;
+
     public $shipments = [];
 
 }
