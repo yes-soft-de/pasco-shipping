@@ -250,6 +250,25 @@ class WarehouseEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getUniqueCitiesNamesOfWarehousesByCountryId($countryID)
+    {
+        return $this->createQueryBuilder('warehouse')
+            ->select('DISTINCT(warehouse.city) as city', 'warehouse.countryID')
+
+            ->andWhere('warehouse.countryID = :countryID')
+            ->setParameter('countryID', $countryID)
+
+            ->leftJoin(
+                CountryEntity::class,
+                'country',
+                Join::WITH,
+                'country.id = warehouse.countryID'
+            )
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getWarehousesByCountryIdAndCity($countryID, $city)
     {
         return $this->createQueryBuilder('warehouse')

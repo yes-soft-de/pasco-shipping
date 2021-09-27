@@ -44,6 +44,10 @@ class AirwaybillFilterResponse
 
     public $shipmentID;
 
+    public $weight;
+
+    public $consignee;
+
     public $clientUserID;
 
     public $clientUserName;

@@ -3,10 +3,12 @@
 namespace App\Service;
 
 use App\AutoMapping;
+use App\Constant\CountryTypeConstant;
 use App\Entity\CountryEntity;
 use App\Manager\CountryManager;
 use App\Request\CountryCreateRequest;
 use App\Request\CountryUpdateRequest;
+use App\Response\CountryByTypeGetResponse;
 use App\Response\CountryCreateResponse;
 use App\Response\CountryGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -68,6 +70,41 @@ class CountryService
             }
 
             $countryResponse[] = $this->autoMapping->map('array', CountryGetResponse::class, $country);
+        }
+
+        return $countryResponse;
+    }
+
+    public function getCountriesByType($type)
+    {
+        $countryResponse = [];
+
+        $countries = $this->countryManager->getCountriesByType($type);
+
+        foreach ($countries as $country)
+        {
+            $warehouses = $this->countryManager->getUniqueCitiesNamesOfWarehousesByCountryId($country['id']);
+
+            if($warehouses)
+            {
+                $country['warehouses'] = $warehouses;
+            }
+            else
+            {
+                $country['warehouses'] = [];
+            }
+
+            if($country['createdByUserImage'])
+            {
+                $country['createdByUserImage'] = $this->params . $country['createdByUserImage'];
+            }
+
+            if($country['updatedByUserImage'])
+            {
+                $country['updatedByUserImage'] = $this->params . $country['updatedByUserImage'];
+            }
+
+            $countryResponse[] = $this->autoMapping->map('array', CountryByTypeGetResponse::class, $country);
         }
 
         return $countryResponse;

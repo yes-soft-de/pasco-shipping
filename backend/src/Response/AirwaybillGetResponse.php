@@ -46,6 +46,12 @@ class AirwaybillGetResponse
 
     public $clientUserID;
 
+    public $weight;
+
+    public $consignee;
+
+    public $totalReceivedShipmentsQuantity;
+
     public $shipments = [];
 
 }

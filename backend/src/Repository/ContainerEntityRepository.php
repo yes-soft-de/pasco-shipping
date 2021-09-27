@@ -100,7 +100,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.createdBy', 'container.carrierID',
-            'container.shipperID', 'container.type', 'container.providedBy', 'container.shipmentID', 'container.portID', 'container.location', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
+            'container.shipperID', 'container.type', 'container.providedBy', 'container.shipmentID', 'container.portID', 'container.location', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'container.consignee',
              'adminProfile2.userName as updatedByUserImage', 'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName',
             'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'container.clientUserID', 'portsEntity.name as portName')
 
@@ -189,7 +189,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
         $withoutNumber = $request->getWithoutNumber();
 
         $query = $this->createQueryBuilder('container')
-            ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.shipmentID', 'container.clientUserID',
+            ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.shipmentID', 'container.clientUserID', 'container.consignee',
                 'container.shipperID', 'container.carrierID', 'container.type', 'container.providedBy', 'container.portID', 'container.location', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
                 'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName', 'clientProfileEntity.userName as clientUserName',
                 'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName')
@@ -332,20 +332,23 @@ class ContainerEntityRepository extends ServiceEntityRepository
 
         if($withoutNumber)
         {
-            $query->andWhere($query->expr()->isNull('container.containerNumber'));
+            $query->andWhere('container.containerNumber = :containerNumber');
+            $query->setParameter('containerNumber', "");
         }
         elseif(isset($withoutNumber) AND $withoutNumber == false)
         {
-            $query->andWhere($query->expr()->isNotNull('container.containerNumber'));
+            $query->andWhere("container.containerNumber != ''");
         }
 
         if($isRequested)
         {
-            $query->andWhere($query->expr()->isNotNull('container.providedBy'));
+            $query->andWhere('container.providedBy != :providedBy');
+            $query->setParameter('providedBy', 0);
         }
         elseif(isset($isRequested) AND $isRequested == false)
         {
-            $query->andWhere($query->expr()->isNull('container.providedBy'));
+            $query->andWhere('container.providedBy = :providedBy');
+            $query->setParameter('providedBy', 0);
         }
 
         if($request->getPortID())

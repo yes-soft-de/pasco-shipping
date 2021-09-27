@@ -24,7 +24,7 @@ class AirwaybillEntity
     private $specificationID;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, options={"default":""})
      */
     private $airwaybillNumber;
 
@@ -61,7 +61,7 @@ class AirwaybillEntity
     private $type;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", options={"default":0})
      */
     private $providedBy;
 
@@ -99,6 +99,16 @@ class AirwaybillEntity
      * @ORM\Column(type="text", nullable=true)
      */
     private $location;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $consignee;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $weight;
 
     public function getId(): ?int
     {
@@ -293,6 +303,30 @@ class AirwaybillEntity
     public function setLocation(?string $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getConsignee(): ?string
+    {
+        return $this->consignee;
+    }
+
+    public function setConsignee(?string $consignee): self
+    {
+        $this->consignee = $consignee;
+
+        return $this;
+    }
+
+    public function getWeight(): ?float
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(?float $weight): self
+    {
+        $this->weight = $weight;
 
         return $this;
     }

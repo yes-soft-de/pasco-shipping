@@ -123,6 +123,11 @@ class WarehouseManager
         return $this->warehouseEntityRepository->getWarehousesByCountryID($countryID);
     }
 
+    public function getUniqueCitiesNamesOfWarehousesByCountryId($countryID)
+    {
+        return $this->warehouseEntityRepository->getUniqueCitiesNamesOfWarehousesByCountryId($countryID);
+    }
+
     public function getByProxyID($proxyID)
     {
         return $this->warehouseEntityRepository->getByProxyID($proxyID);

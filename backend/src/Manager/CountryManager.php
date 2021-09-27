@@ -62,9 +62,14 @@ class CountryManager
         return $this->countryEntityRepository->getAllCountries();
     }
 
-    public function getWarehousesByCountryID($countryID)
+    public function getCountriesByType($type)
     {
-        return $this->warehouseManager->getWarehousesByCountryID($countryID);
+        return $this->countryEntityRepository->getCountriesByType($type);
+    }
+
+    public function getUniqueCitiesNamesOfWarehousesByCountryId($countryID)
+    {
+        return $this->warehouseManager->getUniqueCitiesNamesOfWarehousesByCountryId($countryID);
     }
 
     public function deleteCountryById(DeleteRequest $request)

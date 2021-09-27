@@ -30,7 +30,6 @@ class TrackManager
     private $containerManager;
     private $containerSpecificationManager;
     private $airwaybillManager;
-    private $airwaybillSpecificationManager;
     private $shipmentOrderManager;
     private $shipmentLogManager;
     private $gunnyShipmentManager;
@@ -38,7 +37,7 @@ class TrackManager
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, TrackEntityRepository $trackEntityRepository,
      ShipmentStatusManager $shipmentStatusManager, ContainerManager $containerManager, AirwaybillManager $airwaybillManager, ContainerSpecificationManager $containerSpecificationManager,
-     AirwaybillSpecificationManager $airwaybillSpecificationManager, ShipmentOrderManager $shipmentOrderManager, ShipmentLogManager $shipmentLogManager, GunnyShipmentManager $gunnyShipmentManager,
+     ShipmentOrderManager $shipmentOrderManager, ShipmentLogManager $shipmentLogManager, GunnyShipmentManager $gunnyShipmentManager,
      ReceivedShipmentManager $receivedShipmentManager)
     {
         $this->autoMapping = $autoMapping;
@@ -48,7 +47,6 @@ class TrackManager
         $this->containerManager = $containerManager;
         $this->containerSpecificationManager = $containerSpecificationManager;
         $this->airwaybillManager = $airwaybillManager;
-        $this->airwaybillSpecificationManager = $airwaybillSpecificationManager;
         $this->shipmentOrderManager = $shipmentOrderManager;
         $this->shipmentLogManager = $shipmentLogManager;
         $this->gunnyShipmentManager = $gunnyShipmentManager;
@@ -438,7 +436,17 @@ class TrackManager
     // For Get container/air waybill by ID
     public function getTracksByHolderTypeAndHolderID($holderType, $holderID)
     {
-        return $this->trackEntityRepository->getTracksByHolderTypeAndHolderID($holderType, $holderID);
+        $tracks = $this->trackEntityRepository->getTracksByHolderTypeAndHolderID($holderType, $holderID);
+
+        if($tracks)
+        {
+            foreach($tracks as $key => $val)
+            {
+                $tracks[$key]['receivedShipmentQuantity'] = $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentIdAndTrackNumber($val['shipmentID'], $val['trackNumber']);
+            }
+        }
+
+        return $tracks;
     }
 
     public function checkHolderAvailability(CheckHolderRequest $request)
@@ -500,7 +508,7 @@ class TrackManager
                     if($request->getIsInOneHolder() == true)
                     {
                         // Get current weight (volume) of the air waybill
-                        $currentAirwaybillWeight = $this->getCurrentWeightOfAirwaybill($airwaybill);
+                        $currentAirwaybillWeight = $airwaybill['weight'];
                         
                         // Get the whole weight of the shipment
                         $shipmentWeight = $this->getWholeShipmentAmountByMeasure($request->getShipmentID(), "weight");
@@ -511,7 +519,7 @@ class TrackManager
                     elseif($request->getIsInOneHolder() == false)
                     {
                         // Get current weight (volume) of the air waybill
-                        $currentAirwaybillWeight = $this->getCurrentWeightOfAirwaybill($airwaybill);
+                        $currentAirwaybillWeight = $airwaybill['weight'];
                                             
                         // Compare the weight of the air waybill with the weight of the shipment that we want to store
                         return $this->compareTwoValues($currentAirwaybillWeight, $request->getAmount());
@@ -565,48 +573,6 @@ class TrackManager
             }
 
             return (float)number_format($capacity - $shipmentsVolumes, 2);
-        }
-    }
-
-    public function getCurrentWeightOfAirwaybill($airwaybill)
-    {
-        $specification = $this->airwaybillSpecificationManager->getAirwaybillSpecificationByID($airwaybill['specificationID']);
-
-        if($specification)
-        {
-            $weight = $specification['weight'];
-        }
-        else
-        {
-            $weight = 0;
-        }
-        
-        // First, get all shipments' weight that stored in the air waybill
-        $tracks = $this->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $airwaybill['id']);
-        
-        if(!$tracks)
-        {
-            // There is not any shipment stored in the air waybill yet. Returned the whole weight of the air waybill.
-            return (float)number_format($weight, 2);
-        }
-        else
-        {
-            // There is/are shipment/s stored into the air waybill already. Sum their weight.
-            $shipmentsWieght = 0;
-
-            foreach($tracks as $track)
-            {
-                if($track['isInOneHolder'] == true)
-                {
-                    $shipmentsWieght = $shipmentsWieght + $track['weight'];
-                }
-                else
-                {
-                    $shipmentsWieght = $shipmentsWieght + $track['amount'];
-                }
-            }
-
-            return (float)number_format($weight - $shipmentsWieght, 2);
         }
     }
 

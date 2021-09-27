@@ -24,6 +24,8 @@ class ContainerUpdateRequest
 
     private $location;
 
+    private $consignee;
+
     private $updatedBy;
 
     public function getId()

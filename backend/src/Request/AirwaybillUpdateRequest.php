@@ -24,6 +24,10 @@ class AirwaybillUpdateRequest
 
     private $location;
 
+    private $consignee;
+
+    private $weight;
+
     private $updatedBy;
 
     public function getId()

@@ -42,6 +42,8 @@ class ContainerFilterResponse
 
     public $freeCapacity;
 
+    public $consignee;
+
     public $clientUserID;
 
     public $clientUserName;
