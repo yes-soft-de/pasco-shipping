@@ -4,10 +4,12 @@ namespace App\Manager;
 
 use App\AutoMapping;
 use App\Constant\ContainerStatusConstant;
+use App\Constant\HolderShippingStatus;
 use App\Constant\ShippingTypeConstant;
 use App\Entity\ContainerEntity;
 use App\Repository\ContainerEntityRepository;
 use App\Request\ContainerCreateRequest;
+use App\Request\ContainerShippingStatusUpdateRequest;
 use App\Request\ContainerStatusUpdateRequest;
 use App\Request\ContainerUpdateRequest;
 use App\Request\DeleteRequest;
@@ -34,6 +36,7 @@ class ContainerManager
             $containerEntity = $this->autoMapping->map(ContainerCreateRequest::class, ContainerEntity::class, $request);
 
             $containerEntity->setStatus(ContainerStatusConstant::$NOTFULL_CONTAINER_STATUS);
+            $containerEntity->setShippingStatus(HolderShippingStatus::$NOT_UPLOADED_HOLDER_SHIPPING_STATUS);
 
             $this->entityManager->persist($containerEntity);
             $this->entityManager->flush();
@@ -101,6 +104,25 @@ class ContainerManager
         else
         {
             $containerEntity = $this->autoMapping->mapToObject(ContainerStatusUpdateRequest::class, ContainerEntity::class, $request, $containerEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $containerEntity;
+        }
+    }
+
+    public function updateShippingStatus(ContainerShippingStatusUpdateRequest $request)
+    {
+        $containerEntity = $this->containerEntityRepository->find($request->getId());
+
+        if(!$containerEntity)
+        {
+            return $containerEntity;
+        }
+        else
+        {
+            $containerEntity = $this->autoMapping->mapToObject(ContainerShippingStatusUpdateRequest::class, ContainerEntity::class, $request, $containerEntity);
 
             $this->entityManager->flush();
             $this->entityManager->clear();

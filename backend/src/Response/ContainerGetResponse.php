@@ -48,7 +48,7 @@ class ContainerGetResponse
 
     public $consignee;
 
-    public $totalReceivedShipmentsQuantity;
+    public $shippingStatus;
 
     public $shipments = [];
 

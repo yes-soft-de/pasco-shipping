@@ -102,7 +102,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.createdBy', 'container.carrierID',
             'container.shipperID', 'container.type', 'container.providedBy', 'container.shipmentID', 'container.portID', 'container.location', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'container.consignee',
              'adminProfile2.userName as updatedByUserImage', 'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName',
-            'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'container.clientUserID', 'portsEntity.name as portName')
+            'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'container.clientUserID', 'portsEntity.name as portName', 'container.shippingStatus')
 
             ->andWhere('container.id = :id')
             ->setParameter('id', $id)
@@ -191,7 +191,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.shipmentID', 'container.clientUserID', 'container.consignee',
                 'container.shipperID', 'container.carrierID', 'container.type', 'container.providedBy', 'container.portID', 'container.location', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
-                'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName', 'clientProfileEntity.userName as clientUserName',
+                'container.shippingStatus', 'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName', 'clientProfileEntity.userName as clientUserName',
                 'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName')
 
             ->leftJoin(

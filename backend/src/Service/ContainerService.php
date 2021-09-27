@@ -7,6 +7,7 @@ use App\Constant\HolderTypeConstant;
 use App\Entity\ContainerEntity;
 use App\Manager\ContainerManager;
 use App\Request\ContainerCreateRequest;
+use App\Request\ContainerShippingStatusUpdateRequest;
 use App\Request\ContainerStatusUpdateRequest;
 use App\Request\ContainerUpdateRequest;
 use App\Request\DeleteRequest;
@@ -59,6 +60,13 @@ class ContainerService
     public function updateStatus(ContainerStatusUpdateRequest $request)
     {
         $containerResult = $this->containerManager->updateStatus($request);
+
+        return $this->autoMapping->map(ContainerEntity::class, ContainerGetResponse::class, $containerResult);
+    }
+
+    public function updateShippingStatus(ContainerShippingStatusUpdateRequest $request)
+    {
+        $containerResult = $this->containerManager->updateShippingStatus($request);
 
         return $this->autoMapping->map(ContainerEntity::class, ContainerGetResponse::class, $containerResult);
     }
