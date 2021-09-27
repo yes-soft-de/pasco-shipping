@@ -29,7 +29,9 @@ class RequestContainerInit extends StatefulWidget {
 }
 
 class _AddCountryInitState extends State<RequestContainerInit> {
- late TextEditingController location ;
+ // late TextEditingController location ;
+  DropListModel dropListModelLocation = DropListModel(location);
+  late Entry optionItemSelectedLocation;
 
  late DropListModel dropListModelProvidedBy;
  late Entry optionItemSelectedProvidedBy;
@@ -175,33 +177,14 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                   Text(S.of(context).location , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  padding: EdgeInsets.only(
-                      top: 4,left: 16, right: 16, bottom: 4
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(15)
-                      ),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 5
-                        )
-                      ]
-                  ),
-                  child: TextField(
-
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: S.of(context).location,
-                    ),
-                    controller: location,
-                  ),
-                ),
+              SelectDropList(
+                this.optionItemSelectedLocation,
+                this.dropListModelLocation,
+                    (optionItem) {
+                  FocusScope.of(context).unfocus();
+                  optionItemSelectedLocation = optionItem;
+                  setState(() {});
+                },
               ),
               //
               Padding(
@@ -320,7 +303,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                     consigneeID: optionItemSelectedConsignee.id ,
                     shipperID: optionItemSelectedShipper.id,
                     carrierID: optionItemSelectedCarrier.id
-                    ,location: location.text,
+                    ,location: optionItemSelectedLocation.title,
                   portID: optionItemSelectedHarbor.id,
                   providedBy: optionItemSelectedProvidedBy.id,
                   clientID: optionItemSelectedClient.id
@@ -348,7 +331,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
 
     entrySpecification = <Entry>[];
 
-    location=TextEditingController();
+    // location=TextEditingController();
 
     status= ContainerStatusName[ContainerStatus.NOTFULL]!;
 
@@ -362,6 +345,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
     optionItemSelectedCarrier =  Entry('choose', 0, []);
     optionItemSelectedClient =  Entry('choose', 0, []);
     optionItemSelectedHarbor =  Entry('choose', 0, []);
+    optionItemSelectedLocation =  Entry('choose', 0, []);
 
     initList();
 

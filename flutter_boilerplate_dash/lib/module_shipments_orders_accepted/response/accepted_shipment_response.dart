@@ -54,6 +54,7 @@ class AcceptedShipmentModel {
     this.exportWarehouseName,
     this.importWarehouseName,
     this.quantity,
+    this.guniQuantity,
     this.updatedAt,
     this.productCategoryName,
     this.subProductCategoryName,
@@ -87,6 +88,7 @@ this.categoriesNames,
   String? exportWarehouseName;
   String? importWarehouseName;
   int? quantity;
+  int? guniQuantity;
   DateTime? updatedAt;
   String? productCategoryName;
   String? subProductCategoryName;
@@ -148,6 +150,7 @@ this.categoriesNames,
         markID = json['markID'];
         productCategoryID = json['productCategoryID'];
         clientUserID = json['clientUserID'];
+        guniQuantity = json['guniQuantity'];
   }
 
 }

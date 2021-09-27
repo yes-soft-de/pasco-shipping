@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasco_shipping/abstracts/module/yes_module.dart';
 import 'package:pasco_shipping/module_harbor/harbor_routes.dart';
 import 'package:pasco_shipping/module_home/ui/screen/home_screen.dart';
+import 'package:pasco_shipping/module_shipper/shipper_routes.dart';
 import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_unit/unit_module.dart';
 import 'package:pasco_shipping/module_unit/unit_routes.dart';
@@ -570,7 +571,7 @@ class AppMenu extends ConsumerWidget {
                   ListTile(
                       title:Text(S.of(context).seaShipment),
                       onTap: () {
-                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false,acceptedUntilCleared: false);
+                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false,acceptedUntilCleared: true);
                         Navigator.pushNamed(
                             context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':true});
                       }),
@@ -579,7 +580,7 @@ class AppMenu extends ConsumerWidget {
                           S.of(context).airShipment
                       ),
                       onTap: () {
-                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false,acceptedUntilCleared: false);
+                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false,acceptedUntilCleared: true);
                         Navigator.pushNamed(
                             context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':true});
                       }),
@@ -966,6 +967,34 @@ class AppMenu extends ConsumerWidget {
                             onTap: () {
                               print('adddddddd');
                               selectPage(context, ref, SupplierRoutes.ADD_NEW);
+                              // Navigator.pushNamed(context, SupplierRoutes.ADD_NEW);
+                            }),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              ExpansionTile(
+                title: new Text(S.of(context).shipper),
+                leading: Icon(Icons.filter_tilt_shift_rounded),
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                            title: new Text(S.of(context).view),
+                            onTap: () =>
+                              selectPage(context, ref, ShipperRoutes.VIEW_ALL),
+                              // Navigator.pushNamed(context, SupplierRoutes.VIEW_ALL);
+                            ),
+                        ListTile(
+                            title: new Text(
+                              S.of(context).add,
+                            ),
+                            onTap: () {
+                              print('adddddddd');
+                              selectPage(context, ref, ShipperRoutes.ADD_NEW);
                               // Navigator.pushNamed(context, SupplierRoutes.ADD_NEW);
                             }),
                       ],

@@ -392,7 +392,7 @@ class _ContainerDetailsSuccessfullyState
     }
   }
 
-  Widget shipmentCard(ShipmentModel shipmentModel) {
+  Widget shipmentCard(ShipmentModel shipmentModel){
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Card(
@@ -404,78 +404,52 @@ class _ContainerDetailsSuccessfullyState
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Text(
-                      S.of(context).trackNumber,
-                      style: AppTextStyle.mediumBlack,
-                    ),
-                    Text(
-                      shipmentModel.trackNumber ?? '',
-                      style: AppTextStyle.mediumBlueBold,
-                    ),
-                  ],
-                ),
+                child: Row(children: [
+                  Text(S.of(context).trackNumber , style: AppTextStyle.mediumBlack,),
+                  Text(shipmentModel.trackNumber?? '' , style: AppTextStyle.mediumBlueBold,),
+                ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Text(
-                      S.of(context).weight,
-                      style: AppTextStyle.mediumBlack,
-                    ),
-                    Text(
-                      shipmentModel.weight.toString(),
-                      style: AppTextStyle.mediumBlueBold,
-                    ),
-                  ],
-                ),
+                child: Row(children: [
+                  Text(S.of(context).weight , style: AppTextStyle.mediumBlack,),
+                  Text(shipmentModel.weight.toString() , style: AppTextStyle.mediumBlueBold,),
+                ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Text(
-                      S.of(context).productCategory,
-                      style: AppTextStyle.mediumBlack,
-                    ),
-                    Text(
-                      shipmentModel.productCategoryName ?? '',
-                      style: AppTextStyle.mediumBlueBold,
-                    ),
-                  ],
-                ),
+                child: Row(children: [
+                  Text(S.of(context).category+': ' , style: AppTextStyle.mediumBlack,),
+                  Text(shipmentModel.productCategoryName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Text(
-                      S.of(context).targetWarehouse,
-                      style: AppTextStyle.mediumBlack,
-                    ),
-                    Text(
-                      shipmentModel.target ?? '',
-                      style: AppTextStyle.mediumBlueBold,
-                    ),
-                  ],
-                ),
+                child: Row(children: [
+                  Text(S.of(context).subCategory+': ' , style: AppTextStyle.mediumBlack,),
+                  Text(shipmentModel.subProductCategoryName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                ],),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Text(
-                      S.of(context).exportWarehouse,
-                      style: AppTextStyle.mediumBlack,
-                    ),
-                    Text(
-                      shipmentModel.exportWarehouseName ?? '',
-                      style: AppTextStyle.mediumBlueBold,
-                    ),
-                  ],
-                ),
+                child: Row(children: [
+                  Text(S.of(context).targetWarehouse , style: AppTextStyle.mediumBlack,),
+                  Text(shipmentModel.target ?? '' , style: AppTextStyle.mediumBlueBold,),
+                ],),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Text(S.of(context).exportWarehouse , style: AppTextStyle.mediumBlack,),
+                  Text(shipmentModel.exportWarehouseName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                ],),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Text(S.of(context).guniQuantity+': ' , style: AppTextStyle.mediumBlack,),
+                  Text(shipmentModel.guniQuantity.toString() , style: AppTextStyle.mediumBlueBold,),
+                ],),
               ),
             ],
           ),

@@ -23,6 +23,7 @@ import 'package:pasco_shipping/module_settings/settings_module.dart';
 import 'package:pasco_shipping/module_shipment_track/tracking_module.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/accepted_shipment_module.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/waiting_shipment_module.dart';
+import 'package:pasco_shipping/module_shipper/shipper_module.dart';
 import 'package:pasco_shipping/module_splash/splash_routes.dart';
 import 'package:pasco_shipping/module_subcontract_services/response/sub_contract_service_response.dart';
 import 'package:pasco_shipping/module_subcontract_services/sub_contract_service_module.dart';
@@ -139,6 +140,7 @@ class MyApp extends StatefulWidget {
   final EmployeeModule _employeeModule;
 
   final HarborModule _harborModule;
+  final ShipperModule _shipperModule;
 
 
   MyApp(
@@ -183,7 +185,8 @@ class MyApp extends StatefulWidget {
       this._receiverModule,
       this._employeeModule,
 
-      this._harborModule
+      this._harborModule,
+      this._shipperModule
       );
 
   @override

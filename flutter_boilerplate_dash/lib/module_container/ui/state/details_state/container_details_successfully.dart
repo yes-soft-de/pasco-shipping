@@ -322,8 +322,15 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text(S.of(context).productCategory , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).category+': ' , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.productCategoryName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                ],),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Text(S.of(context).subCategory , style: AppTextStyle.mediumBlack,),
+                  Text(shipmentModel.subProductCategoryName ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
@@ -338,6 +345,13 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
                 child: Row(children: [
                   Text(S.of(context).exportWarehouse , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.exportWarehouseName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                ],),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Text(S.of(context).guniQuantity , style: AppTextStyle.mediumBlack,),
+                  Text(shipmentModel.guniQuantity.toString() , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
             ],

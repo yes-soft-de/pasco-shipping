@@ -117,6 +117,7 @@ class ShipmentModel {
     this.quantity,
     this.image,
     this.productCategoryName,
+    this.subProductCategoryName,
     this.unit,
     this.receiverName,
     this.receiverPhoneNumber,
@@ -153,6 +154,7 @@ class ShipmentModel {
   int? quantity;
   String? image;
   String? productCategoryName;
+  String? subProductCategoryName;
   String? unit;
   String? receiverName;
   String? receiverPhoneNumber;
@@ -191,6 +193,7 @@ class ShipmentModel {
     quantity: json["quantity"],
     image: json["image"],
     productCategoryName: json["productCategoryName"],
+    subProductCategoryName: json["subProductCategoryName"],
     unit: json["unit"],
     receiverName: json["receiverName"],
     receiverPhoneNumber: json["receiverPhoneNumber"],

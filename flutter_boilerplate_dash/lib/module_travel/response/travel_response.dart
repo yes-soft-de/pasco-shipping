@@ -82,9 +82,11 @@ class TravelModel {
     carrierName: json['carrierName'],
 
 
-    launchDate: DateTime.fromMillisecondsSinceEpoch(
+    launchDate:json['launchDate'] == null? DateTime(0):
+      DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['launchDate']).timestamp! * 1000),
-    arrivalDate: DateTime.fromMillisecondsSinceEpoch(
+    arrivalDate: json['arrivalDate'] == null? DateTime(0):
+    DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['arrivalDate']).timestamp! * 1000),
 
 

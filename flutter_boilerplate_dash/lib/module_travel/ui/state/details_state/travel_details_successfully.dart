@@ -70,7 +70,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(S.of(context).startDate),
-                      Text(model.launchDate.toString().split(' ').first),
+                      Text(model.launchDate!.year ==0000?'': model.launchDate.toString().split(' ').first),
                     ],
                   ),
                 ),
@@ -92,7 +92,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(S.of(context).arrivalDate),
-                      Text(model.arrivalDate.toString().split(' ').first),
+                      Text(model.arrivalDate!.year ==0000?'': model.arrivalDate.toString().split(' ').first),
                     ],
                   ),
                 ),
@@ -311,7 +311,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
               //   ],),
               // ),
               ExpansionTile(title: Row(children: [
-                Text(type =='flight'? S.of(context).airwaybillNumber+': ' :S.of(context).containerNumber, style: AppTextStyle.mediumBlack,),
+                Text(type =='flight'? S.of(context).airwaybillNumber+': ' :S.of(context).containerNumber+': ', style: AppTextStyle.mediumBlack,),
                 Text(holderModel.containerNumber ?? '' , style: AppTextStyle.mediumBlueBold,),
               ],),
               children: [
@@ -325,7 +325,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(children: [
-                    Text(S.of(context).type+': ' , style: AppTextStyle.mediumBlack,),
+                    Text(S.of(context).shippingType+': ' , style: AppTextStyle.mediumBlack,),
                     Text(holderModel.type ?? '' , style: AppTextStyle.mediumBlueBold,),
                   ],),
                 ),
@@ -351,7 +351,35 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                     Text(S.of(context).shipper+': ', style: AppTextStyle.mediumBlack,),
                     Text(holderModel.shipperName ?? '' , style: AppTextStyle.mediumBlueBold,),
                   ],),
-                )
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text(S.of(context).type+': ', style: AppTextStyle.mediumBlack,),
+                    Text(holderModel.specificationName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text(S.of(context).harbors+': ', style: AppTextStyle.mediumBlack,),
+                    Text(holderModel.portName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text(S.of(context).guniQuantity+': ', style: AppTextStyle.mediumBlack,),
+                    Text(holderModel.totalGunny.toString(), style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text(S.of(context).totalShipment+': ', style: AppTextStyle.mediumBlack,),
+                    Text(holderModel.totalReceivedShipmentsQuantity.toString(), style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
               ],
               ),
 

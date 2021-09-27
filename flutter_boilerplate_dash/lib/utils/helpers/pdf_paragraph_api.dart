@@ -30,25 +30,37 @@ class PdfParagraphApi {
     final Uint8List byteList = bytes.buffer.asUint8List();
     final headers =
     ['ID',
-      S.current.client,
+      'Client',
       'S.N',
-     'way'
-      ,S.current.from ,
-      S.current.to
+       'way'
+      ,'From' ,
+    'To'
 
-      ,S.current.mark ,
-    S.current.productType,
+      ,'Mark' ,
+    'Product type',
+
+    'G',
+    'Q',
+    'Supplier',
+      'Date'
     ];
 
     final data = model.map((user) => [
       user.shipmentId, user.clientUsername,user.clientIdentificationNumber,
       user.transportationType , user.exportWarehouseName , user.target,user.markNumber
     ,user.categoriesNames,
+
+
+      user.guniQuantity,
+      user.quantity,
+      user.supplierName,
+      user.updatedAt.toString().split(' ').first
     ]).toList();
     pdf.addPage(
       MultiPage(
         margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
         pageFormat: PdfPageFormat.a4,
+        orientation: PageOrientation.landscape,
         build: (context) => <Widget>[
            Container(
       padding: EdgeInsets.all( 5 * PdfPageFormat.mm),
@@ -95,14 +107,17 @@ class PdfParagraphApi {
                 1: FixedColumnWidth(40),
                 2: FixedColumnWidth(35),
 
-                3: FixedColumnWidth(20),
+                3: FixedColumnWidth(15),
                 4: FixedColumnWidth(30),
 
                 5: FixedColumnWidth(30),
 
-                6: FixedColumnWidth(30),
+                6: FixedColumnWidth(25),
                 7: FixedColumnWidth(60),
-                // 8: FixedColumnWidth(30),
+                8: FixedColumnWidth(15),
+                9: FixedColumnWidth(15),
+                10: FixedColumnWidth(30),
+                11: FixedColumnWidth(35),
               },
             cellAlignments: {
               0: Alignment.center,
@@ -113,7 +128,10 @@ class PdfParagraphApi {
               5: Alignment.center,
               6: Alignment.center,
               7: Alignment.center,
-              // 8: Alignment.center,
+              8: Alignment.center,
+              9: Alignment.center,
+              10: Alignment.center,
+              11: Alignment.center,
             },
               // headerPadding: Padding(padding: 12)
           ),

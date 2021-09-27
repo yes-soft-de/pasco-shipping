@@ -32,6 +32,11 @@ class Urls {
   static const SUPPLIERS = BASE_API + 'suppliers';
   static const SUPPLIER = BASE_API + 'supplier';
 
+  //suppliers
+  static const SHIPPERS = BASE_API + 'shippers';
+  static const SHIPPER = BASE_API + 'shipper';
+
+
   //employee
   static const EMPLOYEES = BASE_API + 'employees';
   static const EMPLOYEE = BASE_API + 'employee';

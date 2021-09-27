@@ -405,6 +405,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "to": MessageLookupByLibrary.simpleMessage("To"),
         "total": MessageLookupByLibrary.simpleMessage(" Total "),
         "totalCost": MessageLookupByLibrary.simpleMessage("Total Cost: "),
+        "totalShipment": MessageLookupByLibrary.simpleMessage("Total shipment"),
         "trackNumber": MessageLookupByLibrary.simpleMessage("Track Number: "),
         "trackShipment":
             MessageLookupByLibrary.simpleMessage("Tracking the shipment"),

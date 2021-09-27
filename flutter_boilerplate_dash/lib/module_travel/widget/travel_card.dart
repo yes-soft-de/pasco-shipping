@@ -140,10 +140,7 @@ class _CountryCardState extends State<TravelsCard> {
                             style: AppTextStyle.mediumBlack,
                           ),
                           Expanded(
-                            child: Text(
-                              widget.model.launchDate.toString().split('.').first,
-                              style: AppTextStyle.mediumBlueBold,
-                            ),
+                            child:Text(widget.model.launchDate!.year ==0000?'': widget.model.launchDate.toString().split(' ').first, style: AppTextStyle.mediumBlueBold,),
                           )],
                       ),
                       SizedBox(
@@ -174,10 +171,7 @@ class _CountryCardState extends State<TravelsCard> {
                             style: AppTextStyle.mediumBlack,
                           ),
                           Expanded(
-                            child: Text(
-                              widget.model.arrivalDate.toString().split('.').first,
-                              style: AppTextStyle.mediumBlueBold,
-                            ),
+                            child: Text(widget.model.arrivalDate!.year ==0000?'':widget.model.arrivalDate.toString().split(' ').first, style: AppTextStyle.mediumBlueBold,),
                           )],
                       ),
                       SizedBox(

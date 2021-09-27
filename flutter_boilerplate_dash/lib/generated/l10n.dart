@@ -3209,6 +3209,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Total shipment`
+  String get totalShipment {
+    return Intl.message(
+      'Total shipment',
+      name: 'totalShipment',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

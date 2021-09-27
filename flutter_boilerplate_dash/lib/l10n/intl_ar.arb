@@ -375,5 +375,6 @@
   "ourWarehouse": "مستودعاتنا",
   "yes": "نعم",
   "no": "كلا",
-  "harbors": "المرافئ"
+  "harbors": "المرافئ",
+  "totalShipment": "عدد الواحدات"
 }
