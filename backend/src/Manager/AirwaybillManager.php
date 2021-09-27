@@ -4,10 +4,12 @@ namespace App\Manager;
 
 use App\AutoMapping;
 use App\Constant\AirwaybillStatusConstant;
+use App\Constant\HolderShippingStatus;
 use App\Constant\ShippingTypeConstant;
 use App\Entity\AirwaybillEntity;
 use App\Repository\AirwaybillEntityRepository;
 use App\Request\AirwaybillCreateRequest;
+use App\Request\AirwaybillShippingStatusUpdateRequest;
 use App\Request\AirwaybillStatusUpdateRequest;
 use App\Request\AirwaybillUpdateRequest;
 use App\Request\DeleteRequest;
@@ -31,6 +33,7 @@ class AirwaybillManager
         $airwaybillEntity = $this->autoMapping->map(AirwaybillCreateRequest::class, AirwaybillEntity::class, $request);
 
         $airwaybillEntity->setStatus(AirwaybillStatusConstant::$NOTFULL_AIRWAYBILL_STATUS);
+        $airwaybillEntity->setShippingStatus(HolderShippingStatus::$NOT_UPLOADED_HOLDER_SHIPPING_STATUS);
 
         $this->entityManager->persist($airwaybillEntity);
         $this->entityManager->flush();
@@ -83,6 +86,25 @@ class AirwaybillManager
         else
         {
             $airwaybillEntity = $this->autoMapping->mapToObject(AirwaybillStatusUpdateRequest::class, AirwaybillEntity::class, $request, $airwaybillEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $airwaybillEntity;
+        }
+    }
+
+    public function updateShippingStatus(AirwaybillShippingStatusUpdateRequest $request)
+    {
+        $airwaybillEntity = $this->airwaybillEntityRepository->find($request->getId());
+
+        if(!$airwaybillEntity)
+        {
+            return $airwaybillEntity;
+        }
+        else
+        {
+            $airwaybillEntity = $this->autoMapping->mapToObject(AirwaybillShippingStatusUpdateRequest::class, AirwaybillEntity::class, $request, $airwaybillEntity);
 
             $this->entityManager->flush();
             $this->entityManager->clear();
