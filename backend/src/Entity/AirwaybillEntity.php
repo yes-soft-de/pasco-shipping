@@ -24,7 +24,7 @@ class AirwaybillEntity
     private $specificationID;
 
     /**
-     * @ORM\Column(type="string", length=255, options={"default":""})
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $airwaybillNumber;
 
@@ -61,7 +61,7 @@ class AirwaybillEntity
     private $type;
 
     /**
-     * @ORM\Column(type="integer", options={"default":0})
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $providedBy;
 
