@@ -452,6 +452,14 @@ class ShipmentOrderManager
                     }
                 }
             }
+            // There is no specification for air waybill, but we have to return the tag specificationName
+            elseif($shippingWay == ShippingWayConstant::$AIR_SHIPPING_WAY)
+            {
+                foreach ($pendingHolders as $key => $val)
+                {
+                    $pendingHolders[$key]['specificationName'] = "";
+                }
+            }
         }
 
         return $pendingHolders;
