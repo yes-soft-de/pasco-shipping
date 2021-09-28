@@ -14,6 +14,8 @@ class ContainerSpecificationCreateRequest
 
     private $lengthInMeter;
 
+    private $price;
+
     private $createdBy;
 
     public function setCreatedBy($userID)

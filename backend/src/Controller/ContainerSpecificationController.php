@@ -45,7 +45,8 @@ class ContainerSpecificationController extends BaseController
      *          @OA\Property(type="number", property="capacityCPM", description="of type Float"),
      *          @OA\Property(type="number", property="widthInMeter", description="of type Float"),
      *          @OA\Property(type="number", property="hightInMeter", description="of type Float"),
-     *          @OA\Property(type="number", property="lengthInMeter", description="of type Float")
+     *          @OA\Property(type="number", property="lengthInMeter", description="of type Float"),
+     *          @OA\Property(type="number", property="price", description="of type Float")
      *      )
      * )
      * 
@@ -106,6 +107,7 @@ class ContainerSpecificationController extends BaseController
      *                  @OA\Property(type="number", property="widthInMeter"),
      *                  @OA\Property(type="number", property="hightInMeter"),
      *                  @OA\Property(type="number", property="lengthInMeter"),
+     *                  @OA\Property(type="number", property="price"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
      *                  @OA\Property(type="string", property="createdByUser"),
@@ -145,6 +147,7 @@ class ContainerSpecificationController extends BaseController
      *                  @OA\Property(type="number", property="widthInMeter"),
      *                  @OA\Property(type="number", property="hightInMeter"),
      *                  @OA\Property(type="number", property="lengthInMeter"),
+     *                  @OA\Property(type="number", property="price"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
      *                  @OA\Property(type="string", property="createdByUser"),

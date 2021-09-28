@@ -25,7 +25,7 @@ class ContainerSpecificationEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('containerSpecification')
             ->select('containerSpecification.id', 'containerSpecification.name', 'containerSpecification.capacityCPM', 'containerSpecification.widthInMeter', 'containerSpecification.hightInMeter', 'containerSpecification.lengthInMeter', 
-            'containerSpecification.createdAt', 'containerSpecification.updatedAt', 'containerSpecification.createdBy', 'containerSpecification.updatedBy', 'adminProfile1.userName as createdByUser', 
+            'containerSpecification.price', 'containerSpecification.createdAt', 'containerSpecification.updatedAt', 'containerSpecification.createdBy', 'containerSpecification.updatedBy', 'adminProfile1.userName as createdByUser',
             'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
             ->leftJoin(
@@ -52,7 +52,7 @@ class ContainerSpecificationEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('containerSpecification')
             ->select('containerSpecification.id', 'containerSpecification.name', 'containerSpecification.capacityCPM', 'containerSpecification.widthInMeter', 'containerSpecification.hightInMeter', 'containerSpecification.lengthInMeter', 
-            'containerSpecification.createdAt', 'containerSpecification.updatedAt', 'containerSpecification.createdBy', 'containerSpecification.updatedBy', 'adminProfile1.userName as createdByUser', 
+            'containerSpecification.price', 'containerSpecification.createdAt', 'containerSpecification.updatedAt', 'containerSpecification.createdBy', 'containerSpecification.updatedBy', 'adminProfile1.userName as createdByUser',
             'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 
             ->andWhere('containerSpecification.id = :specificationID')
