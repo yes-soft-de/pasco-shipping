@@ -578,4 +578,11 @@ App\Request\ReceivedShipmentCreateRequest:
       - NotBlank: ~
     createdBy:
       - NotBlank: ~
+
+App\Request\PriceUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
       
