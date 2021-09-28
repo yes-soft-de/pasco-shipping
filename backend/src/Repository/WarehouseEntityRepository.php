@@ -252,8 +252,13 @@ class WarehouseEntityRepository extends ServiceEntityRepository
 
     public function getUniqueCitiesNamesOfWarehousesByCountryId($countryID)
     {
+        /**
+         * Exclamation: Here we returned countryID in the second time as id because for two reasons:
+         * First, if we try to return the id of the warehouse then the function DISTINCT would not work,
+         * second, the id value doesn't matter, we just need the id tag in the response
+         */
         return $this->createQueryBuilder('warehouse')
-            ->select('DISTINCT(warehouse.city) as city', 'warehouse.countryID')
+            ->select('DISTINCT(warehouse.city) as city', 'warehouse.countryID', 'country.name as countryName', 'warehouse.name', 'warehouse.countryID as id')
 
             ->andWhere('warehouse.countryID = :countryID')
             ->setParameter('countryID', $countryID)
