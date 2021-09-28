@@ -16,16 +16,16 @@ class GunnyShipmentManager
     private $autoMapping;
     private $entityManager;
     private $gunnyManager;
-    private $shipmentOrderManager;
+    private $receivedShipmentManager;
     private $gunnyShipmentEntityRepository;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, GunnyShipmentEntityRepository $gunnyShipmentEntityRepository, GunnyManager $gunnyManager,
-    ShipmentOrderManager $shipmentOrderManager)
+    ReceivedShipmentManager $receivedShipmentManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->gunnyManager = $gunnyManager;
-        $this->shipmentOrderManager = $shipmentOrderManager;
+        $this->receivedShipmentManager = $receivedShipmentManager;
         $this->gunnyShipmentEntityRepository = $gunnyShipmentEntityRepository;
     }
 
@@ -84,17 +84,18 @@ class GunnyShipmentManager
 
     public function checkIfQuantityOfShipmentCanBeStoredInGunny($shipmentID, $quantity)
     {
-        $shipment = $this->shipmentOrderManager->getShipmentOrderById($shipmentID);
+        // The real quantity of the shipment must be retrieve from ReceivedShipmentEntity
+        $receivedQuantity = $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentID($shipmentID);
 
         $result = $this->gunnyShipmentEntityRepository->getSumQuantityByShipmentID($shipmentID);
 
         if($result)
         {
-            return $shipment['quantity'] - ($result[1] + $quantity);
+            return $receivedQuantity - ($result[1] + $quantity);
         }
         else
         {
-            return $shipment['quantity'] - $quantity >= 0;
+            return $receivedQuantity - $quantity;
         }
     }
 

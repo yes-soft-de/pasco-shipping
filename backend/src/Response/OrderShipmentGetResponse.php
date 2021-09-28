@@ -72,7 +72,11 @@ class OrderShipmentGetResponse
 
     public $status;
 
+    public $gunny = [];
+
     public $tracks = [];
+
+    public $receivingInfo;
 
     public $pendingHolders = [];
 

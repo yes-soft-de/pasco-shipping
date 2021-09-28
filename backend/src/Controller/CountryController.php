@@ -255,7 +255,10 @@ class CountryController extends BaseController
      *                  @OA\Property(type="array", property="warehouses",
      *                      @OA\Items(
      *                          @OA\Property(type="string", property="city"),
-     *                          @OA\Property(type="integer", property="countryID")
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="integer", property="countryID"),
+     *                          @OA\Property(type="string", property="countryName"),
+     *                          @OA\Property(type="string", property="name")
      *                      )
      *                  ),
      *                  @OA\Property(type="object", property="createdAt"),

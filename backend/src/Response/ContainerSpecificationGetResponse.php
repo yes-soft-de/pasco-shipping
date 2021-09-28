@@ -16,6 +16,8 @@ class ContainerSpecificationGetResponse
 
     public $lengthInMeter;
 
+    public $price;
+
     public $createdAt;
 
     public $updatedAt;

@@ -10,6 +10,7 @@ use App\Manager\ShipmentStatusManager;
 use App\Request\ShipmentStatusCreateRequest;
 use App\Request\ShipmentStatusUpdateByShipmentIdAndTrackNumberRequest;
 use App\Request\TrackCreateRequest;
+use App\Response\HoldersByTrackNumberGetResponse;
 use App\Response\ShipmentByTrackNumberAndSignedInUserGetResponse;
 use App\Response\ShipmentByTrackNumberGetResponse;
 use App\Response\ShipmentStatusByUserGetResponse;
@@ -269,6 +270,46 @@ class ShipmentStatusService
             }
 
             $shipmentResponse[] = $this->autoMapping->map('array', ShipmentByTrackNumberGetResponse::class, $shipment);
+        }
+
+        return $shipmentResponse;
+    }
+
+    public function getHoldersOfShipmentByTrackNumber($trackNumber)
+    {
+        $shipmentResponse = [];
+
+        $shipments = $this->shipmentStatusManager->getShipmentByTrackNumber($trackNumber);
+
+        foreach($shipments as $shipment)
+        {
+            if($shipment["holderType"] == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
+            {
+                // Get container info
+                $container = $this->shipmentStatusManager->getContainerById($shipment["holderID"]);
+
+                if ($container)
+                {
+                    $shipment["holderInfo"]["IdentificationNumber"] = $container["containerNumber"];
+                    $shipment["holderInfo"]["status"] = $container["status"];
+                    $shipment["holderInfo"]["shippingStatus"] = $container["shippingStatus"];
+                }
+            }
+
+            if($shipment["holderType"] == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
+            {
+                // Get air waybill info
+                $airwaybill = $this->shipmentStatusManager->getAirwaybillById($shipment["holderID"]);
+
+                if ($airwaybill)
+                {
+                    $shipment["holderInfo"]["IdentificationNumber"] = $airwaybill["airwaybillNumber"];
+                    $shipment["holderInfo"]["status"] = $airwaybill["status"];
+                    $shipment["holderInfo"]["shippingStatus"] = $airwaybill["shippingStatus"];
+                }
+            }
+
+            $shipmentResponse[] = $this->autoMapping->map('array', HoldersByTrackNumberGetResponse::class, $shipment);
         }
 
         return $shipmentResponse;
