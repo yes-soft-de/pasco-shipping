@@ -17,10 +17,9 @@ import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class UpdateAirwaybillInit extends StatefulWidget {
   final List<SubcontractModel> subContracts;
-  final List<AirwaybillSpecificationModel> specifications;
   final AirwaybillModel model;
   final Function onUpdate;
-  const UpdateAirwaybillInit({ required this.onUpdate , required this.subContracts,required this.specifications,required this.model});
+  const UpdateAirwaybillInit({ required this.onUpdate , required this.subContracts,required this.model});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
@@ -38,8 +37,7 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
  late DropListModel dropListModelShipper;
  late Entry optionItemSelectedShipper;
 
- late DropListModel dropListModelSpecification;
- late Entry optionItemSelectedSpecification;
+
 
  late DropListModel dropListModelCarrier;
  late Entry optionItemSelectedCarrier;
@@ -305,23 +303,6 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
               ),
 
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).specification , style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              SelectDropList(
-                this.optionItemSelectedSpecification,
-                this.dropListModelSpecification,
-                    (optionItem) {
-                  optionItemSelectedSpecification = optionItem;
-                  specificationID = optionItem.id;
-                  setState(() {});
-                },
-              ),
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(optionItemSelectedProvidedBy.id==0){
@@ -330,9 +311,7 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
                   Entry c = Entry(containerNumber.text, widget.model.id!, []);
 
                   AirwaybillRequest re = AirwaybillRequest(status: status,
-                      type: type
-                      ,
-                      specificationID: optionItemSelectedSpecification.id,
+                      type: type,
                       consigneeID: optionItemSelectedConsignee.id,
                       shipperID: optionItemSelectedShipper.id,
                       carrierID: optionItemSelectedCarrier.id
@@ -373,7 +352,6 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
     optionItemSelectedProvidedBy =  Entry('choose', 0, []);
     optionItemSelectedShipper =  Entry('choose', 0, []);
     optionItemSelectedConsignee =  Entry('choose', 0, []);
-    optionItemSelectedSpecification =  Entry('choose', 0, []);
     optionItemSelectedCarrier =  Entry('choose', 0, []);
 
     initList();
@@ -407,14 +385,6 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
     dropListModelCarrier= DropListModel(entryCarrier);
 
 
-    for(AirwaybillSpecificationModel  item in widget.specifications){
-      if(widget.model.specificationName == item.name){
-        optionItemSelectedSpecification = Entry(item.name! ,item.id! ,[]);
-      }
-      Entry v = Entry(item.name! ,item.id! ,[]);
-      entrySpecification.add(v);
-    }
-    dropListModelSpecification = DropListModel(entrySpecification);
   }
 
  void _setSelectedRadioGender(int val) {

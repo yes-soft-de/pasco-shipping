@@ -14,7 +14,7 @@ import 'package:rxdart/rxdart.dart';
 class AddAirwaybillStateManager {
   final AirwaybillService _service;
   final SubcontractService _subcontractService;
-  final AirwaybillSpecificationService _containerSpecificationService;
+  // final AirwaybillSpecificationService _containerSpecificationService;
   final ClientService _clientService;
   final HarborService _harborService;
 
@@ -22,7 +22,7 @@ class AddAirwaybillStateManager {
   Stream<AddAirwaybillState> get stateStream => _addStateSubject.stream;
 
   AddAirwaybillStateManager(
-      this._service,this._subcontractService , this._containerSpecificationService, this._clientService, this._harborService);
+      this._service,this._subcontractService , this._clientService, this._harborService);
 
   void requestAirwaybill(AirwaybillRequest request) {
     _addStateSubject.add(LoadingAddState());
@@ -43,22 +43,16 @@ class AddAirwaybillStateManager {
     _addStateSubject.add(LoadingAddState());
         _subcontractService.getSubcontracts().then((subs) {
           if (subs != null) {
-            _containerSpecificationService.getAirwaybillSpecification().then((value){
-              if(value != null){
-                _clientService.getClients().then((clients) {
-                  if(clients != null){
-                    HarborFilterRequest request =HarborFilterRequest(type: 'airport');
-                    _harborService.getHarbor(request).then((harbors) {
-                      if(harbors != null){
-                        _addStateSubject
-                            .add(InitAddState(subcontracts: subs , specifications: value ,clients: clients,harbors: harbors));
-                      }
-                    });
-                  }else {
-                    _addStateSubject.add(ErrorAddState('error'));
+            _clientService.getClients().then((clients) {
+              if(clients != null){
+                HarborFilterRequest request =HarborFilterRequest(type: 'airport');
+                _harborService.getHarbor(request).then((harbors) {
+                  if(harbors != null){
+                    _addStateSubject
+                        .add(InitAddState(subcontracts: subs ,clients: clients,harbors: harbors));
                   }
                 });
-              } else {
+              }else {
                 _addStateSubject.add(ErrorAddState('error'));
               }
             });

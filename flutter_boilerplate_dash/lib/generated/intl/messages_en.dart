@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "airShipment": MessageLookupByLibrary.simpleMessage("Air shipment"),
         "airTravel": MessageLookupByLibrary.simpleMessage("Air travel"),
         "airWaybills": MessageLookupByLibrary.simpleMessage("Air Waybills"),
+        "airport": MessageLookupByLibrary.simpleMessage("Air Port"),
         "airwaybillArrived": MessageLookupByLibrary.simpleMessage(
             "this Air Waybill arrived to target warehouse"),
         "airwaybillFinance":
@@ -310,6 +311,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sea": MessageLookupByLibrary.simpleMessage("Sea"),
         "seaShipment": MessageLookupByLibrary.simpleMessage("Sea shipment"),
         "seaTravel": MessageLookupByLibrary.simpleMessage("Sea travel"),
+        "seaport": MessageLookupByLibrary.simpleMessage("Sea Port"),
         "searchHere": MessageLookupByLibrary.simpleMessage("Search Here..."),
         "selectMark": MessageLookupByLibrary.simpleMessage("Select Mark"),
         "selectProvider":
@@ -405,7 +407,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "to": MessageLookupByLibrary.simpleMessage("To"),
         "total": MessageLookupByLibrary.simpleMessage(" Total "),
         "totalCost": MessageLookupByLibrary.simpleMessage("Total Cost: "),
-        "totalShipment": MessageLookupByLibrary.simpleMessage("Total shipment"),
+        "totalShipment": MessageLookupByLibrary.simpleMessage("Total unit"),
         "trackNumber": MessageLookupByLibrary.simpleMessage("Track Number: "),
         "trackShipment":
             MessageLookupByLibrary.simpleMessage("Tracking the shipment"),

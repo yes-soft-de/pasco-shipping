@@ -905,7 +905,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
           get<_i119.ReceiverService>(),
           get<_i149.UnitService>(),
           get<_i72.ContainerSpecificationService>(),
-          get<_i193.AirwaybillSpecificationService>()));
+          get<_i96.HarborService>(),
+          get<_i136.SubcontractService>()));
   gh.factory<_i222.SettingsModule>(
       () => _i222.SettingsModule(get<_i124.SettingsScreen>()));
   gh.factory<_i223.ShipperScreen>(
@@ -969,7 +970,6 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       _i246.AddAirwaybillStateManager(
           get<_i191.AirwaybillService>(),
           get<_i136.SubcontractService>(),
-          get<_i193.AirwaybillSpecificationService>(),
           get<_i67.ClientService>(),
           get<_i96.HarborService>()));
   gh.factory<_i247.AddNewAirwaybill>(

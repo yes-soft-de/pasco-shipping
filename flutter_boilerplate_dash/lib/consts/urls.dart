@@ -140,6 +140,7 @@ class Urls {
   static const CHANGE_SHIPMENTS_STATUS_RECEIVED=BASE_API+'shipmentstatus';
   static const WAREHOUSES=BASE_API+'warehouses';
   static const STORED_SHIPMENT=BASE_API+'track';
+  static const RECEIVED_SHIPMENT=BASE_API+'receivedshipment';
 
 
   static const CHECK_HOLDER=BASE_API+'checkholder';

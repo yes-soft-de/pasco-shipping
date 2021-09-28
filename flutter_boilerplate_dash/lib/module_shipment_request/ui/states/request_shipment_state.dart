@@ -2,12 +2,14 @@ import 'package:pasco_shipping/module_airwaybill_specification/response/airwaybi
 import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
 import 'package:pasco_shipping/module_distributors/response/distributors_response.dart';
+import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/module_product_category/response/product_category_response.dart';
 import 'package:pasco_shipping/module_receiver/response/reciver_response.dart';
 import 'package:pasco_shipping/module_shipment_request/response/product_categories/product_categories_response.dart';
 import 'package:pasco_shipping/module_shipment_request/response/specefication/specefication.dart';
 import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
+import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_unit/response/unit_response.dart';
 
 class RequestShipmentState{}
@@ -26,8 +28,10 @@ class FirstOptionFetchingDataState extends RequestShipmentState{
 class SecondOptionFetchingDataState extends RequestShipmentState{
   List<ClientModel> marks;
   List<UnitModel> units;
+  List<HarborModel> harbors;
+  List<SubcontractModel> subContracts;
   List<dynamic> specifications;
-  SecondOptionFetchingDataState(this.marks , this.units , this.specifications);
+  SecondOptionFetchingDataState({required this.marks ,required this.units ,required this.specifications ,required this.harbors ,required this.subContracts});
 }
 // class SecondOptionFetchingDataAirState extends RequestShipmentState{
 //   List<ClientModel> marks;

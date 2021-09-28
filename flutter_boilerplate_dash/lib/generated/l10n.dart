@@ -3210,11 +3210,31 @@ class S {
     );
   }
 
-  /// `Total shipment`
+  /// `Total unit`
   String get totalShipment {
     return Intl.message(
-      'Total shipment',
+      'Total unit',
       name: 'totalShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sea Port`
+  String get seaport {
+    return Intl.message(
+      'Sea Port',
+      name: 'seaport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Air Port`
+  String get airport {
+    return Intl.message(
+      'Air Port',
+      name: 'airport',
       desc: '',
       args: [],
     );

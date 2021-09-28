@@ -60,7 +60,7 @@ class _SecondOptionState extends State<SecondOption> {
     } else if (currentState is SecondOptionFetchingDataState) {
       SecondOptionFetchingDataState? state =
           currentState as SecondOptionFetchingDataState?;
-      List<RequestedHolders> specificatios = state!.specifications.map((s) => RequestedHolders(name: s.name, specificationID: s.id,notes: '')).toList();
+      List<RequestedHolders> specificatios = state!.specifications.map((s) => RequestedHolders(name: s.name, specificationID: s.id,notes: '',carrierID: 0,portID: 0)).toList();
       return SecondOptionSuccessfully(marks: state.marks,shipmentRequest: widget.shipmentRequest,
           goBackStep: () {
         widget.goBackStep();
@@ -68,7 +68,7 @@ class _SecondOptionState extends State<SecondOption> {
         widget.goNextStep();
       }, goToAddClient: (shipmentRequest){
         widget.goToAddClient(shipmentRequest);
-        }, units: state.units, specifications:specificatios,);
+        }, units: state.units, specifications:specificatios, carriers: state.subContracts,harbors: state.harbors,);
     } else {
       return Column(
         children: [

@@ -376,5 +376,7 @@
   "yes": "نعم",
   "no": "كلا",
   "harbors": "المرافئ",
-  "totalShipment": "عدد الواحدات"
+  "totalShipment": "عدد الكراتين",
+  "seaport": "ميناء بحري",
+  "airport": "ميناء جوي"
 }

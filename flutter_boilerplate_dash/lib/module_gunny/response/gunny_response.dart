@@ -51,7 +51,7 @@ class GunnyModel {
   factory GunnyModel.fromJson(Map<String, dynamic> json) => GunnyModel(
     id: json["id"],
     status: json["status"],
-    identificationNumber: json["identificationNumber"],
+    identificationNumber: json['gunnyIdentificationNumber'],
 
     createdAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),

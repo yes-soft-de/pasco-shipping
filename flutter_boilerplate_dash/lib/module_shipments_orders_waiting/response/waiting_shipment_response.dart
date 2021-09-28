@@ -109,7 +109,7 @@ class WaitingShipmentModel {
 
   DateTime? createdAt;
   String? updatedByUser;
-  List<PendingHolders> pendingHolders;
+  List<PendingHolders> pendingHolders=[];
 
   factory WaitingShipmentModel.fromJson(Map<String, dynamic> json) =>
       WaitingShipmentModel(

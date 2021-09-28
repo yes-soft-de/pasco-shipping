@@ -18,11 +18,10 @@ import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class RequestAirwaybillInit extends StatefulWidget {
   final List<SubcontractModel> subContracts;
-  final List<AirwaybillSpecificationModel> specifications;
   final List<ClientModel> clients;
   final List<HarborModel> harbors;
   final Function onSave;
-  const RequestAirwaybillInit({ required this.onSave , required this.subContracts,required this.specifications,required this.clients,required this.harbors});
+  const RequestAirwaybillInit({ required this.onSave , required this.subContracts,required this.clients,required this.harbors});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
@@ -275,30 +274,29 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                   setState(() {});
                 },
               ):Container(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).specification , style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              SelectDropList(
-                this.optionItemSelectedSpecification,
-                this.dropListModelSpecification,
-                    (optionItem) {
-                  optionItemSelectedSpecification = optionItem;
-                  specificationID = optionItem.id;
-                  setState(() {});
-                },
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Row(children: [
+              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+              //     SizedBox(width: 5,),
+              //     Text(S.of(context).specification , style: AppTextStyle.mediumBlackBold,)
+              //   ],),
+              // ),
+              // SelectDropList(
+              //   this.optionItemSelectedSpecification,
+              //   this.dropListModelSpecification,
+              //       (optionItem) {
+              //     optionItemSelectedSpecification = optionItem;
+              //     specificationID = optionItem.id;
+              //     setState(() {});
+              //   },
+              // ),
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 // DateTime arrivalDate = DateTime(endDate.year , endDate.month ,endDate.day ,selectedTimeEnd.hour ,selectedTimeEnd.minute);
                 // DateTime launchDate = DateTime(startDate.year , startDate.month ,startDate.day ,selectedTimeStart.hour ,selectedTimeStart.minute);
 
-                AirwaybillRequest re = AirwaybillRequest(status: status ,type: type
-                    ,specificationID: optionItemSelectedSpecification.id ,
+                AirwaybillRequest re = AirwaybillRequest(status: status ,type: type,
                     consigneeID: optionItemSelectedConsignee.id ,
                     shipperID: optionItemSelectedShipper.id,
 
@@ -364,11 +362,7 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
     dropListModelCarrier= DropListModel(entryCarrier);
 
 
-    for(AirwaybillSpecificationModel  item in widget.specifications){
-      Entry v = Entry(item.name! ,item.id! ,[]);
-      entrySpecification.add(v);
-    }
-    dropListModelSpecification = DropListModel(entrySpecification);
+
 
     for(ClientModel  item in widget.clients){
       Entry v = Entry(item.userName! ,item.id! ,[]);

@@ -16,6 +16,7 @@ import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:collection/collection.dart';
 
 class AcceptedShipmentDetailsSuccessfully extends StatefulWidget {
   final AcceptedShipmentDetailsModel shipment;
@@ -30,11 +31,13 @@ class AcceptedShipmentDetailsSuccessfully extends StatefulWidget {
 
 class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDetailsSuccessfully> {
   // late List<Category> stats;
-
+ late final Map releaseDateMap;
 
   @override
   void initState() {
     super.initState();
+    // var newMap = groupBy(widget.shipment.pendingHolders, (obj) => obj!['']?? '');
+    releaseDateMap = widget.shipment.pendingHolders.groupListsBy((m) => m.specificationName);
     // stats = [
     //   Category(id: 1, name: 'Accepted', description: AcceptedShipmentStatusName[AcceptedShipmentStatus.ACCEPTED]!, isSelected: false),
     //   Category(id: 1, name: 'Received in warehouse', description: AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]!, isSelected: false),
@@ -320,6 +323,22 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
             ],
           ),
           Divider(color: Colors.grey[300],thickness: 2,),
+          Row(
+            children: [
+              Expanded(
+                child: ListTile(
+                    title: Text(
+                      S.of(context).vehicleNumber,
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    subtitle: Text(
+                      widget.shipment.vehicleIdentificationNumber ?? '',
+                      style: AppTextStyle.smallBlueBold,
+                    )),
+              ),
+            ],
+          ),
+          Divider(color: Colors.grey[300],thickness: 2,),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
@@ -344,14 +363,31 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
             padding: const EdgeInsets.all(8.0),
             child: Text(S.of(context).holder ,style: AppTextStyle.mediumBlack, ),
           ),
-        widget.shipment.pendingHolders!.isNotEmpty ?  ListView.builder(itemBuilder:(context , index) {
+        ListView.builder(itemBuilder: (context , index){
+          String key = releaseDateMap.keys.elementAt(index);
+          var valueCount = releaseDateMap.values.elementAt(index);
+          return Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              children: [
+                Text(key+': ' ,style: AppTextStyle.mediumBlack,),
+                Text(valueCount.length.toString(),style: AppTextStyle.smallBlueBold,)
+              ],
+            ),
+          );
+        },itemCount: releaseDateMap.length,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+        ),
+
+        widget.shipment.pendingHolders.isNotEmpty ?  ListView.builder(itemBuilder:(context , index) {
             return Padding(
               padding: const EdgeInsets.all(10.0),
               child: HolderCard(
-                  pendingHolders: widget.shipment.pendingHolders![index]),
+                  pendingHolders: widget.shipment.pendingHolders[index]),
             );
           },
-            itemCount: widget.shipment.pendingHolders!.length,
+            itemCount: widget.shipment.pendingHolders.length,
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
           ) :Container(),
@@ -419,12 +455,30 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                   Text(subShipmentModel.trackNumber?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Text(S.of(context).status+': ' , style: AppTextStyle.mediumBlack,),
-                  Text(subShipmentModel.shipmentStatus ??'' , style: AppTextStyle.mediumBlueBold,),
-                ],),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(children: [
+                      Text(S.of(context).status+': ' , style: AppTextStyle.mediumBlack,),
+                      Text(subShipmentModel.shipmentStatus ??'' , style: AppTextStyle.mediumBlueBold,),
+                    ],),
+                  ),
+                  subShipmentModel.shipmentStatus !='accepted'?   InkWell(
+                    onTap: () async {
+                      final pdfFile = await PdfParagraphApi.generateReceivedReport(subShipmentModel ,widget.shipment.shipmentId.toString(),widget.shipment.transportationType,widget.shipment.clientUsername,widget.shipment.supplierName,widget.shipment.quantity.toString(),widget.shipment.updatedAt.toString().split(' ').first);
+
+                      PdfParagraphApi.openFile(pdfFile);
+                    },
+                    child: Column(
+                      children: [
+                        Icon(Icons.document_scanner_sharp ,size: 50,),
+                        Text('Received Report')
+                      ],
+                    ),
+                  ):Container()
+                ],
               ),
 
               SizedBox(

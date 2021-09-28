@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/widget/status_card.dart';
 import 'package:pasco_shipping/module_shipment_request/response/product_categories/product_categories_response.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/choice_card.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
-import 'package:pasco_shipping/module_shipments_orders_accepted/request/received_deliered_shipment_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/deliered_shipment_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/receiver_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/widget/shipment_status_card.dart';
@@ -16,9 +18,10 @@ import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class AcceptedShipmentStatusSuccessfully extends StatefulWidget {
   final List<AcceptedShipmentStatusModel> statusModel;
-  final Function onChangeStatus;
+  final Function onReceived;
+  final Function onDelivered;
   const AcceptedShipmentStatusSuccessfully(
-      {required this.statusModel, required this.onChangeStatus});
+      {required this.statusModel, required this.onDelivered ,required this.onReceived});
 
   @override
   _AcceptedShipmentDetailsSuccessfullyState createState() =>
@@ -32,6 +35,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
   late String trackNumber;
   late String cityName;
   TextEditingController editingController = TextEditingController();
+  TextEditingController receivedQuantityController = TextEditingController();
 
   @override
   void initState() {
@@ -110,6 +114,47 @@ class _AcceptedShipmentDetailsSuccessfullyState
                           width: 5,
                         ),
                         Text(
+                          'Received Quantity',
+                          style: AppTextStyle.mediumBlackBold,
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          top: 4, left: 16, right: 16, bottom: 4),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(color: Colors.black12, blurRadius: 5)
+                          ]),
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: S.of(context).quantity,
+                        ),
+                        controller: receivedQuantityController,
+                      ),
+                    ),
+                  ),
+
+
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.circle,
+                          color: AppThemeDataService.AccentColor,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
                          S.of(context).writeDetails,
                           style: AppTextStyle.mediumBlackBold,
                         )
@@ -142,15 +187,13 @@ class _AcceptedShipmentDetailsSuccessfullyState
                       color: blue,
                       style: AppTextStyle.mediumWhite,
                       go: () {
-                        ReceivedOrDeliveredRequest request = ReceivedOrDeliveredRequest(
-                            shipmentStatus: AcceptedShipmentStatusName[
-                            AcceptedShipmentStatus.RECEIVED]!,
-                            isInOneHolder: false,
-                            packed: false,
+                        ReceivedRequest request = ReceivedRequest(
+                            receivedQuantity: int.parse(receivedQuantityController.text),
+                            supplierID: 0,
                             shipmentId: shipmentID,
-                            statusDetails: editingController.text,
+                            notes: editingController.text,
                             trackNumber: trackNumber);
-                        widget.onChangeStatus(request, cityName, false);
+                        widget.onReceived(request, cityName);
                       },
                       radius: 10),
                 ],
@@ -215,7 +258,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                       color: blue,
                       style: AppTextStyle.mediumWhite,
                       go: () {
-                        ReceivedOrDeliveredRequest request = ReceivedOrDeliveredRequest(
+                        DeliveredRequest request = DeliveredRequest(
                             shipmentStatus: AcceptedShipmentStatusName[
                             AcceptedShipmentStatus.DELIVERED]!,
                             isInOneHolder: false,
@@ -223,7 +266,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                             shipmentId: shipmentID,
                             statusDetails: editingController.text,
                             trackNumber: trackNumber);
-                        widget.onChangeStatus(request, cityName ,true);
+                        widget.onDelivered(request);
                       },
                       radius: 10),
                 ],

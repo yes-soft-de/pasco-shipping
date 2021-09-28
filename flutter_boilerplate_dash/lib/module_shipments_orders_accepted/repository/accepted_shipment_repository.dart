@@ -6,8 +6,9 @@ import 'package:pasco_shipping/consts/urls.dart';
 import 'package:pasco_shipping/module_auth/service/auth_service/auth_service.dart';
 import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_network/http_client/http_client.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/deliered_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/measured_shipment_request.dart';
-import 'package:pasco_shipping/module_shipments_orders_accepted/request/received_deliered_shipment_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/receiver_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipemnt_finance_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_finance_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
@@ -106,7 +107,7 @@ class AcceptedShipmentRepository{
     }
   }
 
-  Future<ConfirmResponse?> recivedOrDeliverdShipment(ReceivedOrDeliveredRequest request) async{
+  Future<ConfirmResponse?> deliverdShipment(DeliveredRequest request) async{
     // await _authService.refreshToken();
     var token =  await _authService.getToken();
     try {
@@ -127,6 +128,42 @@ class AcceptedShipmentRepository{
       return null;
     }
     }
+
+  Future<ConfirmResponse?> receivedShipment(ReceivedRequest receivedRequest) async{
+    // await _authService.refreshToken();
+    var token =  await _authService.getToken();
+    try {
+      var response = await _apiClient.post(Urls.RECEIVED_SHIPMENT, receivedRequest.toJson()
+          ,headers: {'Authorization': 'Bearer $token'});
+
+      String? statusCode = AcceptedShipmentDetailsResponse.fromJson(response!).statusCode;
+      String? msg = AcceptedShipmentDetailsResponse.fromJson(response).msg;
+      if(statusCode =='201'){
+        DeliveredRequest request = DeliveredRequest(shipmentId: receivedRequest.shipmentId, trackNumber: receivedRequest.trackNumber, shipmentStatus: 'received', isInOneHolder: false, statusDetails: receivedRequest.notes, packed: false);
+        try {
+          var response = await _apiClient.put(Urls.CHANGE_SHIPMENTS_STATUS_RECEIVED, request.toJson()
+              ,headers: {'Authorization': 'Bearer $token'});
+          String? statusCode = AcceptedShipmentDetailsResponse.fromJson(response!).statusCode;
+          String? msg = AcceptedShipmentDetailsResponse.fromJson(response).msg;
+          if(statusCode =='204'){
+            print('confirm');
+            return ConfirmResponse(true, msg!);
+          }else {
+            return ConfirmResponse(false, msg!);
+          }
+        }catch(e){
+          print(e);
+          return null;
+        }
+      }else {
+        return ConfirmResponse(false, msg!);
+      }
+
+    }catch(e){
+      print(e);
+      return null;
+    }
+  }
 
   Future<ConfirmResponse?> measuredShipment(MeasuredRequest request) async{
     // await _authService.refreshToken();

@@ -2,8 +2,9 @@
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/manager/accepted_shipment_manager.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/deliered_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/measured_shipment_request.dart';
-import 'package:pasco_shipping/module_shipments_orders_accepted/request/received_deliered_shipment_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/receiver_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipemnt_finance_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_finance_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_request.dart';
@@ -28,8 +29,11 @@ class AcceptedShipmentService{
  Future<AcceptedShipmentDetailsModel?> getShipmentDetails(String id) {
    return _manager.getShipmentDetails(id);
  }
- Future<ConfirmResponse?> changeShipmentStatus(ReceivedOrDeliveredRequest id) {
-   return _manager.changeShipmentStatus(id);
+ Future<ConfirmResponse?> deliveredShipment(DeliveredRequest id) {
+   return _manager.deliveredShipment(id);
+ }
+ Future<ConfirmResponse?> receivedShipment(ReceivedRequest id) {
+   return _manager.receivedShipment(id);
  }
  Future<ConfirmResponse?> measuredShipment(MeasuredRequest id) {
    return _manager.measuredShipment(id);

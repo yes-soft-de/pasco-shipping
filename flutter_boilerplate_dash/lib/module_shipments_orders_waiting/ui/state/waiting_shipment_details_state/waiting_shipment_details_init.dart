@@ -13,6 +13,7 @@ import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:collection/collection.dart';
 
 class WaitingShipmentDetailsInit extends StatelessWidget {
   final WaitingShipmentModel shipment;
@@ -22,6 +23,8 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map  releaseDateMap = shipment.pendingHolders.groupListsBy((m) => m.specificationName);
+
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -270,6 +273,22 @@ class WaitingShipmentDetailsInit extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(S.of(context).holder ,style: AppTextStyle.mediumBlack, ),
+            ),
+            ListView.builder(itemBuilder: (context , index){
+              String key = releaseDateMap.keys.elementAt(index);
+              var valueCount = releaseDateMap.values.elementAt(index);
+              return Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                  key.isNotEmpty?  Text(key+': ' ,style: AppTextStyle.mediumBlack,) :Text(S.of(context).holderCount+': ' ,style: AppTextStyle.mediumBlack,) ,
+                    Text(valueCount.length.toString(),style: AppTextStyle.smallBlueBold,)
+                  ],
+                ),
+              );
+            },itemCount: releaseDateMap.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
             ),
             ListView.builder(itemBuilder:(context , index) {
               return Padding(

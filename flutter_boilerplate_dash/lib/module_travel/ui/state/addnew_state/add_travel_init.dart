@@ -25,7 +25,7 @@ class AddTravelInit extends StatefulWidget {
 }
 
 class _AddCountryInitState extends State<AddTravelInit> {
- late TextEditingController travelNumber ;
+ // late TextEditingController travelNumber ;
 
  late DropListModel dropListModelSubContract;
  late Entry optionItemSelectedSubContract;
@@ -147,42 +147,42 @@ class _AddCountryInitState extends State<AddTravelInit> {
                 ],
               ),
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).travelNumber , style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  padding: EdgeInsets.only(
-                      top: 4,left: 16, right: 16, bottom: 4
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(15)
-                      ),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 5
-                        )
-                      ]
-                  ),
-                  child: TextField(
-
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: S.of(context).number,
-                    ),
-                    controller: travelNumber,
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Row(children: [
+              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+              //     SizedBox(width: 5,),
+              //     Text(S.of(context).travelNumber , style: AppTextStyle.mediumBlackBold,)
+              //   ],),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.all(10.0),
+              //   child: Container(
+              //     padding: EdgeInsets.only(
+              //         top: 4,left: 16, right: 16, bottom: 4
+              //     ),
+              //     decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.all(
+              //             Radius.circular(15)
+              //         ),
+              //         color: Colors.white,
+              //         boxShadow: [
+              //           BoxShadow(
+              //               color: Colors.black12,
+              //               blurRadius: 5
+              //           )
+              //         ]
+              //     ),
+              //     child: TextField(
+              //
+              //       decoration: InputDecoration(
+              //         border: InputBorder.none,
+              //         hintText: S.of(context).number,
+              //       ),
+              //       controller: travelNumber,
+              //     ),
+              //   ),
+              // ),
 
               // Padding(
               //   padding: const EdgeInsets.all(8.0),
@@ -419,7 +419,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
                     // launchCountry: launchCountry ,
                     // shipperID: shipperID,
                     // carrierID: optionItemSelectedCarrier.id
-                    travelNumber: travelNumber.text
+                    travelNumber: ''
                    );
                   widget.onSave(re);
 
@@ -445,7 +445,7 @@ class _AddCountryInitState extends State<AddTravelInit> {
     // entrySub= <Entry>[];
     // entryCarrier= <Entry>[];
 
-    travelNumber =TextEditingController();
+    // travelNumber =TextEditingController();
     status=TravelStatusName[TravelStatus.CURRENT]!;
 
     selectedRadioType = 1;

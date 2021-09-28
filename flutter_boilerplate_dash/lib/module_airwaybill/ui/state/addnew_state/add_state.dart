@@ -8,10 +8,9 @@ class AddAirwaybillState{}
 
 class InitAddState extends AddAirwaybillState{
   List<SubcontractModel> subcontracts;
-  List<AirwaybillSpecificationModel> specifications;
   List<ClientModel> clients;
   List<HarborModel> harbors;
-  InitAddState({required  this.subcontracts  , required this.specifications , required this.clients , required this.harbors});
+  InitAddState({required  this.subcontracts , required this.clients , required this.harbors});
 }
 class LoadingAddState extends AddAirwaybillState{}
 

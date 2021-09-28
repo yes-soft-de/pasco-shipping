@@ -15,7 +15,6 @@ import 'package:pasco_shipping/module_shipment_request/ui/widget/choice_card.dar
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/measured_shipment_request.dart';
-import 'package:pasco_shipping/module_shipments_orders_accepted/request/received_deliered_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/widget/shipment_status_card.dart';
@@ -114,7 +113,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
 
 
    for(GunnyModel item in widget.gunnies){
-     Entry v = Entry(item.identificationNumber! ,item.id! ,[]);
+     Entry v = Entry(item.identificationNumber ??'' ,item.id! ,[]);
      entryGunny.add(v);
    }
    dropListModelGunny = DropListModel(entryGunny);

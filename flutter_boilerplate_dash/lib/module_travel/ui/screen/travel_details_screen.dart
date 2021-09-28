@@ -101,7 +101,7 @@ class _CountriesScreenState extends State<TravelDetailsScreen> {
               DateTime launchDate = DateTime(startDate.year , startDate.month ,startDate.day);
               request.launchDate = launchDate.toUtc().toString();
               widget._stateManager.updateTravelStatus(request);
-            });
+            },true);
           }
           if( request.status == TravelStatusName[TravelStatus.RELEASED]) {
             _selectStartDate(context,(){
@@ -109,7 +109,7 @@ class _CountriesScreenState extends State<TravelDetailsScreen> {
               DateTime arrivalDate = DateTime(startDate.year , startDate.month ,startDate.day);
               request.arrivalDate = arrivalDate.toUtc().toString();
               widget._stateManager.updateTravelStatus(request);
-            });
+            },false);
         }
 
       },onShowFinance: (id){
@@ -140,7 +140,7 @@ class _CountriesScreenState extends State<TravelDetailsScreen> {
       );
     }
   }
- void _selectStartDate(BuildContext context ,Function changeStatus)  {
+ void _selectStartDate(BuildContext context ,Function changeStatus,bool isStarted)  {
     showDialog(
         context: context,
         builder: (context) {
@@ -190,7 +190,7 @@ class _CountriesScreenState extends State<TravelDetailsScreen> {
                                 ),
                               ),
                             ),
-                            RoundedButton(radius: 12,style: AppTextStyle.mediumWhite,color:blue ,icon: '',lable: S.of(context).started,
+                            RoundedButton(radius: 12,style: AppTextStyle.mediumWhite,color:blue ,icon: '',lable:isStarted? S.of(context).started :S.of(context).released,
                               go:(){
                                 changeStatus();
                               } ,)

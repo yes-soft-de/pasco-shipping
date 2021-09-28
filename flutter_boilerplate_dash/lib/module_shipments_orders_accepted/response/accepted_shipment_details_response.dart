@@ -57,7 +57,7 @@ class AcceptedShipmentDetailsModel {
     this.imagePath,
     this.updatedByUser,
     this.subShipmentModelList,
-    this.pendingHolders
+   required this.pendingHolders
   });
 
   int? shipmentId;
@@ -93,7 +93,7 @@ class AcceptedShipmentDetailsModel {
   DateTime? createdAt;
   String? updatedByUser;
   List<SubShipmentModel> ? subShipmentModelList;
-  List<PendingHolders>? pendingHolders;
+  List<PendingHolders> pendingHolders =[];
 
   AcceptedShipmentDetailsModel.fromJson(Map<String, dynamic> json) {
     shipmentId = json["id"];
@@ -102,7 +102,7 @@ class AcceptedShipmentDetailsModel {
     target= json["target"];
     supplierName= json["supplierName"];
     distributorName= json["distributorName"];
-    exportWarehouseName=json["exportWarehouseName"];
+    exportWarehouseName=json["exportWarehouseName"]??'';
     importWarehouseName= json["importWarehouseName"];
     quantity= json["quantity"];
     holderCount= json["holderCount"];

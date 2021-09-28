@@ -12,8 +12,9 @@ import 'package:pasco_shipping/module_gunny/request/add_shipment_to_gunny_reques
 import 'package:pasco_shipping/module_gunny/response/gunny_response.dart';
 import 'package:pasco_shipping/module_gunny/response/stored_response.dart';
 import 'package:pasco_shipping/module_gunny/service/gunny_service.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/deliered_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/measured_shipment_request.dart';
-import 'package:pasco_shipping/module_shipments_orders_accepted/request/received_deliered_shipment_request.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/request/receiver_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/stored_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/service/accepted_shipment_service.dart';
@@ -55,20 +56,35 @@ class AcceptedShipmentsStatusStateManager {
     });
   }
 
-  void receivedOrDelevired(ReceivedOrDeliveredRequest request ,String cityName , bool isDelivred){
-    print("rahaf " + isDelivred.toString());
+  void deliveredShipment(DeliveredRequest request){
     _stateSubject.add(LoadingState());
-    _service.changeShipmentStatus(request).then((value) {
+    _service.deliveredShipment(request).then((value) {
       if(value != null){
         if(value.isConfirmed){
           _service.getAcceptedShipmentStatus(request.shipmentId.toString(),request.trackNumber).then((model) {
             if (model != null) {
-              print("is Deleivred");
-              if(isDelivred){
-                print(isDelivred);
-                _stateSubject.add(AcceptedStatusState(model));
-              }else {
-                print('received_status');
+              _stateSubject.add(AcceptedStatusState(model));
+            }else {
+              _stateSubject.add(ErrorState('Error'));
+            }
+          });
+        }else {
+          _stateSubject.add(ErrorState('Error'));
+        }
+      }else {
+        _stateSubject.add(ErrorState('Error'));
+      }
+    });
+  }
+
+
+  void receivedLocalWarehouse(ReceivedRequest request ,String cityName){
+    _stateSubject.add(LoadingState());
+    _service.receivedShipment(request).then((value) {
+      if(value != null){
+        if(value.isConfirmed){
+          _service.getAcceptedShipmentStatus(request.shipmentId.toString(),request.trackNumber).then((model) {
+            if (model != null) {
                 _subcontractService.getSubcontracts().then((subcontracts) {
                   if (subcontracts != null) {
                     // WarehouseFilterRequest request = WarehouseFilterRequest(cityName: cityName);
@@ -84,9 +100,7 @@ class AcceptedShipmentsStatusStateManager {
                     _stateSubject.add(ErrorState('Error'));
                   }
                 });
-              }}else {
-              _stateSubject.add(ErrorState('Error'));
-            }
+              }
           });
         }
       }else {
@@ -315,23 +329,6 @@ _warehouseService.getWarehouses(request).then((warehouses){
 
 
 
-  void delevired(ReceivedOrDeliveredRequest request ,String cityName){
-    _stateSubject.add(LoadingState());
-    _service.changeShipmentStatus(request).then((value) {
-      if(value != null){
-        if(value.isConfirmed){
-          _service.getAcceptedShipmentStatus(request.shipmentId.toString(),request.trackNumber).then((model) {
-            if (model != null) {
-              _stateSubject.add(AcceptedStatusState(model));
-            }else {
-              _stateSubject.add(ErrorState('Error'));
-            }
-          });
-        }
-      }
-    });
-  }
-
 
   void createGunny(List<AcceptedShipmentStatusModel> model ,  List<SubcontractModel> subcontracts ){
     _stateSubject.add(LoadingState());
@@ -363,9 +360,9 @@ _warehouseService.getWarehouses(request).then((warehouses){
   }
 
 
-  void receivedSeaShipmentFCLExternal(ReceivedOrDeliveredRequest request , ContainerFilterRequest containerFilterRequest ,TravelFilterRequest travelFilterRequest,String cityName){
+  void receivedSeaShipmentFCLExternal(ReceivedRequest request , ContainerFilterRequest containerFilterRequest ,TravelFilterRequest travelFilterRequest,String cityName){
     _stateSubject.add(LoadingState());
-    _service.changeShipmentStatus(request).then((value) {
+    _service.receivedShipment(request).then((value) {
       if(value != null){
         if(value.isConfirmed){
           _service.getAcceptedShipmentStatus(request.shipmentId.toString(),request.trackNumber).then((model) {
@@ -397,9 +394,9 @@ _warehouseService.getWarehouses(request).then((warehouses){
     });
   }
 
-  void receivedAirShipmentFCLExternal(ReceivedOrDeliveredRequest request , AirwaybillFilterRequest containerFilterRequest ,TravelFilterRequest travelFilterRequest,String cityName){
+  void receivedAirShipmentFCLExternal(ReceivedRequest request , AirwaybillFilterRequest containerFilterRequest ,TravelFilterRequest travelFilterRequest,String cityName){
     _stateSubject.add(LoadingState());
-    _service.changeShipmentStatus(request).then((value) {
+    _service.receivedShipment(request).then((value) {
       if(value != null){
         if(value.isConfirmed){
           _service.getAcceptedShipmentStatus(request.shipmentId.toString(),request.trackNumber).then((model) {

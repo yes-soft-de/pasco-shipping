@@ -497,6 +497,136 @@ class PdfParagraphApi {
     return saveDocument(name: 'airReport.pdf', pdf: pdf);
   }
 
+  static Future<File> generateReceivedReport(SubShipmentModel model
+      ,String ID,type,client,supplier,String quantity ,date) async {
+    final pdf = Document();
+
+    final ByteData bytes =
+    await rootBundle.load(StaticImage.logo);
+    final Uint8List byteList = bytes.buffer.asUint8List();
+    pdf.addPage(
+      MultiPage(
+        margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
+        pageFormat: PdfPageFormat.a4,
+        build: (context) => <Widget>[
+          Container(
+            padding: EdgeInsets.all( 5 * PdfPageFormat.mm),
+
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(width: 2, color: PdfColors.blue)),
+            ),
+            child: Row(
+              children: [
+                Image(
+                    MemoryImage(
+                      byteList,
+                    ),
+                    height: 150,
+                    width: 150,
+                    fit: BoxFit.contain),
+                SizedBox(width: 5 * PdfPageFormat.cm),
+                Column(
+                    children: [
+                      Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                      Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
+                    ]
+                )
+              ],
+            ),
+          ),
+          SizedBox(height: 0.5 * PdfPageFormat.cm),
+          Text(
+            'Received Report',
+            style: TextStyle( fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: PdfColors.blue,),
+          ),
+          SizedBox(height: 0.5 * PdfPageFormat.cm),
+          Table(
+            tableWidth: TableWidth.max,
+            border: TableBorder.all(),
+            children: [
+               TableRow(
+                  children: [
+                    Padding( padding: const EdgeInsets.all(8.0), child: Row(children: [
+                      Text('ID: ' ,style:TextStyle( fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: PdfColors.black,) ),
+                      Text(ID,style:TextStyle( fontSize: 16,
+                        color: PdfColors.blue,))
+                    ])),
+                    Padding( padding: const EdgeInsets.all(8.0), child: Row(children: [
+                      Text('Type: ' ,style:TextStyle( fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: PdfColors.black,) ),
+                      Text(type,style:TextStyle( fontSize: 16,
+                        color: PdfColors.blue,))
+                    ]),),
+                  ]),
+              TableRow(
+                  children: [
+                    Padding( padding: const EdgeInsets.all(8.0), child:   Row(children: [
+                      Text('Client: ' ,style:TextStyle( fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: PdfColors.black,) ),
+                      Text(client,style:TextStyle( fontSize: 16,
+                        color: PdfColors.blue,))
+                    ]),),
+                    Padding( padding: const EdgeInsets.all(8.0), child:    Row(children: [
+                      Text('Supplier: ' ,style:TextStyle( fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: PdfColors.black,) ),
+                      Text(supplier,style:TextStyle( fontSize: 16,
+                        color: PdfColors.blue,))
+                    ]),),
+
+                  ]),
+              TableRow(
+                  children: [
+                    Padding( padding: const EdgeInsets.all(8.0), child:  Row(children: [
+                      Text('Quantity: ' ,style:TextStyle( fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: PdfColors.black,) ),
+                      Text(quantity,style:TextStyle( fontSize: 16,
+                        color: PdfColors.blue,))
+                    ]),),
+                    Padding( padding: const EdgeInsets.all(8.0), child:   Row(children: [
+                      Text('Date: ' ,style:TextStyle( fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: PdfColors.black,) ),
+                      Text(date,style:TextStyle( fontSize: 16,
+                        color: PdfColors.blue,))
+                    ]),),
+                  ]),
+            ],
+
+
+            // headerPadding: Padding(padding: 12)
+          )
+
+
+          // Paragraph(text: LoremText().paragraph(60)),
+          // Paragraph(text: LoremText().paragraph(60)),
+          // Paragraph(text: LoremText().paragraph(60)),
+          // Paragraph(text: LoremText().paragraph(60)),
+          // Paragraph(text: LoremText().paragraph(60)),
+        ],
+        footer: (context) {
+          final text = 'Page ${context.pageNumber} of ${context.pagesCount}';
+
+          return Container(
+            alignment: Alignment.centerRight,
+            margin: EdgeInsets.only(top: 1 * PdfPageFormat.cm),
+            child: Text(
+              text,
+              style: TextStyle(color: PdfColors.black),
+            ),
+          );
+        },
+      ),
+    );
+    return saveDocument(name: 'Received.pdf', pdf: pdf);
+  }
 
   static Future openFile(File file) async {
     final url = file.path;

@@ -1,7 +1,6 @@
 class AirwaybillRequest {
   int? id;
 
-  int specificationID;
   String? airwaybillNumber;
   String status;
   String type;
@@ -19,7 +18,7 @@ class AirwaybillRequest {
       {
         this.id,
       required this.type,
-      required this.specificationID,
+
        this.airwaybillNumber,
         required this.status,
       required  this.location,
@@ -38,7 +37,6 @@ class AirwaybillRequest {
       return {
         'type': type,
         'airwaybillNumber':airwaybillNumber,
-        'specificationID': specificationID,
         'providedBy': providedBy,
         'consigneeID': consigneeID,
         'shipperID': shipperID,
@@ -53,7 +51,6 @@ class AirwaybillRequest {
         'id': id,
         'type': type,
         'airwaybillNumber':airwaybillNumber,
-        'specificationID': specificationID,
         'providedBy': providedBy,
         'consigneeID': consigneeID,
         'shipperID': shipperID,

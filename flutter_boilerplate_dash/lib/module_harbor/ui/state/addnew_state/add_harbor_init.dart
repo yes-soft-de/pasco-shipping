@@ -26,7 +26,8 @@ class _AddCountryInitState extends State<AddHarborInit> {
  late  TextEditingController location;
  late  TextEditingController city;
  // late  TextEditingController CountryName;
- late  TextEditingController type;
+ late int selectedRadioGender;
+ late String type;
 
  late DropListModel dropListModelCountries;
  late Entry optionItemSelectedCountry;
@@ -180,36 +181,65 @@ class _AddCountryInitState extends State<AddHarborInit> {
                   Text(S.of(context).type, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  padding: EdgeInsets.only(
-                      top: 4,left: 16, right: 16, bottom: 4
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(15)
-                      ),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 5
-                        )
-                      ]
-                  ),
-                  child: TextField(
-                    controller: type,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: S.of(context).type,
-
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: AppThemeDataService.AccentColor,
+                    ),
+                    onPressed: () {
+                    },
+                    child: Row(
+                      children: [
+                        Radio(
+                          onChanged: (value) {
+                            _setSelectedRadioGender(2);
+                          },
+                          value: 2,
+                          groupValue: selectedRadioGender,
+                          activeColor: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          S.of(context).airport,
+                          style: AppTextStyle.mediumWhite,
+                        ),
+                      ],
                     ),
                   ),
-                ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: AppThemeDataService.AccentColor,
+                    ),
+                    onPressed: () {
+                    },
+                    child: Row(
+                      children: [
+                        Radio(
+                          onChanged: (value) {
+                            _setSelectedRadioGender(1);
+                          },
+                          value: 1,
+                          groupValue: selectedRadioGender,
+                          activeColor: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          S.of(context).seaport,
+                          style: AppTextStyle.mediumWhite,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
-                  HarborRequest re = HarborRequest(location: location.text ,name: name.text ,city: city.text,type: type.text,countryID: optionItemSelectedCountry.id);
+                  HarborRequest re = HarborRequest(location: location.text ,name: name.text ,city: city.text,type: type,countryID: optionItemSelectedCountry.id);
                   widget.onSave(re);
 
               }, radius: 15)
@@ -237,12 +267,23 @@ class _AddCountryInitState extends State<AddHarborInit> {
     super.initState();
     optionItemSelectedCountry =  Entry('choose', 0, []);
     entryFrom =<Entry>[];
-
+    selectedRadioGender = 1;
+    type = 'seaport';
 
     name =TextEditingController();
     location = TextEditingController();
     city = TextEditingController();
-    type = TextEditingController();
-  }
 
+  }
+ void _setSelectedRadioGender(int val) {
+   setState(() {
+     selectedRadioGender = val;
+     if (val == 1) {
+       type = 'seaport';
+     } else if (val == 2) {
+       type = 'airport';
+     }
+     print(val);
+   });
+ }
 }

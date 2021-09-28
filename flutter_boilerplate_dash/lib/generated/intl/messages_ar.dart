@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "airTravel": MessageLookupByLibrary.simpleMessage("رحلات جوية"),
         "airWaybills":
             MessageLookupByLibrary.simpleMessage("بوليصات الشحن الجوي"),
+        "airport": MessageLookupByLibrary.simpleMessage("ميناء جوي"),
         "airwaybillArrived": MessageLookupByLibrary.simpleMessage(
             "تم الوصول الى المستودع الهدف"),
         "airwaybillFinance":
@@ -299,6 +300,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sea": MessageLookupByLibrary.simpleMessage("بحري"),
         "seaShipment": MessageLookupByLibrary.simpleMessage("شحنات بحرية"),
         "seaTravel": MessageLookupByLibrary.simpleMessage("رحلات بحرية"),
+        "seaport": MessageLookupByLibrary.simpleMessage("ميناء بحري"),
         "searchHere": MessageLookupByLibrary.simpleMessage("ابحث هنا..."),
         "selectMark": MessageLookupByLibrary.simpleMessage("أختر علامة"),
         "selectProvider":
@@ -389,7 +391,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "to": MessageLookupByLibrary.simpleMessage("الى"),
         "total": MessageLookupByLibrary.simpleMessage(" الكلي "),
         "totalCost": MessageLookupByLibrary.simpleMessage("الكلفة الكلية: "),
-        "totalShipment": MessageLookupByLibrary.simpleMessage("عدد الشحنات"),
+        "totalShipment": MessageLookupByLibrary.simpleMessage("عدد الواحدات"),
         "trackNumber": MessageLookupByLibrary.simpleMessage("رقم التعقب: "),
         "trackShipment": MessageLookupByLibrary.simpleMessage("تعقب شحنة"),
         "travelArrived":

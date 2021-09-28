@@ -12,7 +12,7 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill/airwaybill_module.dart';
 import 'package:pasco_shipping/module_airwaybill/airwaybill_routes.dart';
 import 'package:pasco_shipping/module_airwaybill/request/airwaybill_filter_request.dart';
-import 'package:pasco_shipping/module_airwaybill_specification/airwaybill_specification_routes.dart';
+// import 'package:pasco_shipping/module_airwaybill_specification/airwaybill_specification_routes.dart';
 import 'package:pasco_shipping/module_chat/chat_routes.dart';
 import 'package:pasco_shipping/module_client/client_routes.dart';
 import 'package:pasco_shipping/module_container/container_routes.dart';
@@ -624,32 +624,6 @@ class AppMenu extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(S.of(context).basicInfo,style: AppTextStyle.mediumDeepGrayBold,),
-              ),
-              ExpansionTile(
-                title: new Text(S.of(context).airwaybillSpecification),
-                leading: Icon(Icons.filter_list),
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      children: [
-                        ListTile(
-                            title: new Text(S.of(context).view),
-                            onTap: () {
-                              selectPage(context, ref, AirwaybillSpecificationRoutes.VIEW_ALL);
-
-                            }),
-                        ListTile(
-                            title: new Text(
-                              S.of(context).add,
-                            ),
-                            onTap: () {
-                              selectPage(context, ref, AirwaybillSpecificationRoutes.ADD_NEW);
-                            }),
-                      ],
-                    ),
-                  ),
-                ],
               ),
               ExpansionTile(
                 title: new Text(S.of(context).containerSpecification),

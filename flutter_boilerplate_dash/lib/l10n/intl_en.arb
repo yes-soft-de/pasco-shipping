@@ -398,6 +398,7 @@
   "yes": "yes",
   "no": "no",
   "harbors": "Harbors",
-  "totalShipment": "Total unit"
-
+  "totalShipment": "Total carton",
+  "seaport": "Sea Port",
+  "airport": "Air Port"
 }

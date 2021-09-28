@@ -75,12 +75,11 @@ class _AddNewCountryState extends State<AddNewAirwaybill> {
     }
     else if (currentState is InitAddState){
       InitAddState? state = currentState as InitAddState?;
-      specification = state!.specifications;
-      subs = state.subcontracts;
+      subs = state!.subcontracts;
       clients = state.clients;
       harbors=state.harbors;
       return RequestAirwaybillInit(
-        specifications: specification,
+
         subContracts: subs,
         clients: clients,
         onSave: (request){

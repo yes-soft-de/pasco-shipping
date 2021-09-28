@@ -108,6 +108,17 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Text(S.of(context).harbors),
+                      Text(widget.model.portName ?? ''),
+                    ],
+                  ),
+                ),
+                Divider(color: Colors.grey[300],thickness: 2,),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
                       Text(S.of(context).carrier),
                       Text(widget.model.carrierName ?? ''),
                     ],
