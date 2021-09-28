@@ -28,14 +28,16 @@ class ShipmentOrderService
     private $shipmentOrderManager;
     private $params;
     private $shipmentLogService;
+    private $shipmentStatusService;
     private $gunnyShipmentService;
 
     public function __construct(AutoMapping $autoMapping, ShipmentOrderManager $shipmentOrderManager, ParameterBagInterface $params,
-     ShipmentLogService $shipmentLogService, GunnyShipmentService $gunnyShipmentService)
+     ShipmentLogService $shipmentLogService, GunnyShipmentService $gunnyShipmentService, ShipmentStatusService $shipmentStatusService)
     {
         $this->autoMapping = $autoMapping;
         $this->shipmentOrderManager = $shipmentOrderManager;
         $this->shipmentLogService = $shipmentLogService;
+        $this->shipmentStatusService = $shipmentStatusService;
         $this->gunnyShipmentService = $gunnyShipmentService;
         $this->params = $params->get('upload_base_url') . '/';
     }
@@ -239,23 +241,21 @@ class ShipmentOrderService
     {
         $shipmentOrder = $this->shipmentOrderManager->getShipmentOrderById($id);
 
-        // Get gunny for each (shipmentID + trackNumber)
         if(!empty($shipmentOrder['tracks']))
         {
             foreach($shipmentOrder['tracks'] as $key => $val)
             {
-                $shipmentOrder['tracks'][$key]['gunny'] = $this->gunnyShipmentService->getGunnyByShipmentIdAndTrackNumber($id, $val['trackNumber']);
+                // Get gunny for each (shipmentID + trackNumber)
+                $shipmentOrder['gunny'] = $this->gunnyShipmentService->getGunnyByShipmentIdAndTrackNumber($id, $val['trackNumber']);
+
+                // Get holders status that the shipment stored in
+                $shipmentOrder['tracks'][$key]['holders'] = $this->shipmentStatusService->getHoldersOfShipmentByTrackNumber($val['trackNumber']);
             }
         }
 
         if($shipmentOrder)
         {
             $shipmentOrder['pendingHolders'] = $this->shipmentOrderManager->getPendingHoldersByShipmentIdAndShippingType($id, $shipmentOrder['transportationType']);
-        }
-
-        if($shipmentOrder['image'])
-        {
-            $shipmentOrder['image'] = $this->params . $shipmentOrder['image'];
         }
 
         if($shipmentOrder['images'])

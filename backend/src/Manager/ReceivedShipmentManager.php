@@ -44,4 +44,9 @@ class ReceivedShipmentManager
         return 0;
     }
 
+    public function getReceivedShipmentInfoByShipmentIdAndTrackNumber($shipmentID)
+    {
+        return $this->receivedShipmentEntityRepository->getReceivedShipmentInfoByShipmentIdAndTrackNumber($shipmentID);
+    }
+
 }

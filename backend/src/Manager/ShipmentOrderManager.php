@@ -35,13 +35,13 @@ class ShipmentOrderManager
     private $containerManager;
     private $airWaybillManager;
     private $containerSpecificationManager;
-    private $airWaybillSpecificationManager;
     private $pendingHolderManager;
     private $imageManager;
+    private $receivedShipmentManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, OrderShipmentEntityRepository $orderShipmentEntityRepository,
                                 ShipmentStatusManager $shipmentStatusManager, ContainerManager $containerManager, ImageManager $imageManager, AirwaybillManager $airWaybillManager,
-    PendingHolderManager $pendingHolderManager, AirwaybillSpecificationManager $airWaybillSpecificationManager, ContainerSpecificationManager $containerSpecificationManager)
+    PendingHolderManager $pendingHolderManager, ContainerSpecificationManager $containerSpecificationManager, ReceivedShipmentManager $receivedShipmentManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -50,9 +50,9 @@ class ShipmentOrderManager
         $this->containerManager = $containerManager;
         $this->airWaybillManager = $airWaybillManager;
         $this->containerSpecificationManager = $containerSpecificationManager;
-        $this->airWaybillSpecificationManager = $airWaybillSpecificationManager;
         $this->imageManager = $imageManager;
         $this->pendingHolderManager = $pendingHolderManager;
+        $this->receivedShipmentManager = $receivedShipmentManager;
     }
 
     public function createShipmentOrder(OrderShipmentCreateRequest $request)
@@ -284,6 +284,8 @@ class ShipmentOrderManager
             $order['images'] = $this->imageManager->getImagesByShipmentID($id);
 
             $order['tracks'] = $this->getShipmentStatusByShipmentID($id);
+
+            $order['receivingInfo'] = $this->receivedShipmentManager->getReceivedShipmentInfoByShipmentIdAndTrackNumber($id);
         }
 
         return $order;

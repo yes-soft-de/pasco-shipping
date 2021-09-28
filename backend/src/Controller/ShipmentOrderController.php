@@ -867,6 +867,21 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="extraSpecification"),
      *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="string", property="holderType"),
+     *                  @OA\Property(type="array", property="gunny",
+     *                      @OA\Items(
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="integer", property="gunnyID"),
+     *                          @OA\Property(type="string", property="gunnyIdentificationNumber"),
+     *                          @OA\Property(type="integer", property="shipmentID"),
+     *                          @OA\Property(type="string", property="trackNumber"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="object", property="updatedAt"),
+     *                          @OA\Property(type="string", property="createdByUser"),
+     *                          @OA\Property(type="string", property="createdByUserImage"),
+     *                          @OA\Property(type="string", property="updatedByUser"),
+     *                          @OA\Property(type="string", property="updatedByUserImage")
+     *                     )
+     *                  ),
      *                  @OA\Property(type="array", property="tracks", 
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),
@@ -887,22 +902,30 @@ class ShipmentOrderController extends BaseController
      *                          @OA\Property(type="string", property="shipmentStatusCreatedByUserImage"),
      *                          @OA\Property(type="string", property="shipmentStatusUpdatedByUser"),
      *                          @OA\Property(type="string", property="shipmentStatusUpdatedByUserImage"),
-     *                          @OA\Property(type="array", property="gunny",
+     *                          @OA\Property(type="array", property="holders",
      *                              @OA\Items(
      *                                  @OA\Property(type="integer", property="id"),
-     *                                  @OA\Property(type="integer", property="gunnyID"),
-     *                                  @OA\Property(type="string", property="gunnyIdentificationNumber"),
-     *                                  @OA\Property(type="integer", property="shipmentID"),
-     *                                  @OA\Property(type="string", property="trackNumber"),
+     *                                  @OA\Property(type="integer", property="shippingStatus"),
+     *                                  @OA\Property(type="integer", property="specificationID"),
+     *                                  @OA\Property(type="string", property="notes"),
+     *                                  @OA\Property(type="string", property="portName"),
+     *                                  @OA\Property(type="string", property="carrierName"),
+     *                                  @OA\Property(type="string", property="location"),
      *                                  @OA\Property(type="object", property="createdAt"),
-     *                                  @OA\Property(type="object", property="updatedAt"),
-     *                                  @OA\Property(type="string", property="createdByUser"),
-     *                                  @OA\Property(type="string", property="createdByUserImage"),
-     *                                  @OA\Property(type="string", property="updatedByUser"),
-     *                                  @OA\Property(type="string", property="updatedByUserImage")
+     *                                  @OA\Property(type="string", property="specificationName")
      *                              )
-     *                          )
+     *                          ),
      *                      )
+     *                  ),
+     *                  @OA\Property(type="object", property="receivingInfo",
+     *                          @OA\Property(type="integer", property="id"),
+     *                          @OA\Property(type="integer", property="shipmentID"),
+     *                          @OA\Property(type="integer", property="receivedQuantity"),
+     *                          @OA\Property(type="integer", property="supplierID"),
+     *                          @OA\Property(type="string", property="notes"),
+     *                          @OA\Property(type="object", property="createdAt"),
+     *                          @OA\Property(type="string", property="trackNumber"),
+     *                          @OA\Property(type="string", property="supplierName"),
      *                  ),
      *                  @OA\Property(type="array", property="pendingHolders",
      *                      @OA\Items(
