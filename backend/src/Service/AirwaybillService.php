@@ -7,6 +7,7 @@ use App\Constant\HolderTypeConstant;
 use App\Entity\AirwaybillEntity;
 use App\Manager\AirwaybillManager;
 use App\Request\AirwaybillCreateRequest;
+use App\Request\AirwaybillShippingStatusUpdateRequest;
 use App\Request\AirwaybillStatusUpdateRequest;
 use App\Request\AirwaybillUpdateRequest;
 use App\Request\DeleteRequest;
@@ -49,6 +50,13 @@ class AirwaybillService
     public function updateStatus(AirwaybillStatusUpdateRequest $request)
     {
         $airwaybillResult = $this->airwaybillManager->updateStatus($request);
+
+        return $this->autoMapping->map(AirwaybillEntity::class, AirwaybillGetResponse::class, $airwaybillResult);
+    }
+
+    public function updateShippingStatus(AirwaybillShippingStatusUpdateRequest $request)
+    {
+        $airwaybillResult = $this->airwaybillManager->updateShippingStatus($request);
 
         return $this->autoMapping->map(AirwaybillEntity::class, AirwaybillGetResponse::class, $airwaybillResult);
     }

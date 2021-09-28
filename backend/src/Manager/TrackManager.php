@@ -9,7 +9,9 @@ use App\Constant\ShipmentStatusConstant;
 use App\Constant\ShippingTypeConstant;
 use App\Entity\TrackEntity;
 use App\Repository\TrackEntityRepository;
+use App\Request\AirwaybillShippingStatusUpdateRequest;
 use App\Request\CheckHolderRequest;
+use App\Request\ContainerShippingStatusUpdateRequest;
 use App\Request\ShipmentLogCreateRequest;
 use App\Request\ShipmentOrderImportWarehouseUpdateRequest;
 use App\Request\ShipmentStatusCreateRequest;
@@ -172,6 +174,9 @@ class TrackManager
         }
         else
         {
+            // First, update the shippingStatus of the holder
+            $this->updateShippingStatusOfSpecificHolder($request->getHolderType(), $request->getHolderID(), $request->getShipmentStatus(), $request->getUpdatedBy());
+
             // Secondly, update the status in the ShipmentStatusEntity for all shipments
             foreach($tracks as $track)
             {
@@ -179,7 +184,8 @@ class TrackManager
                 {
                     /**
                      * Before continue, if the export warehouse of the shipment is external, and the holder is of type FCL,
-                     * then the measure phase will be passed, as a result, we have to insert a log of MEASURED status
+                     * then the cleared phase will be passed, as a result, we have to insert a log of CLEARED status when
+                     * the holder arrives the import warehouse
                      */
                     if($request->getShipmentStatus() == ShipmentStatusConstant::$ARRIVED_SHIPMENT_STATUS AND $this->checkIfExternalWarehouseAndFCLHolder($track->getShipmentID(), $request->getHolderType(), $request->getHolderID()))
                     {
@@ -200,6 +206,38 @@ class TrackManager
         }
     }
 
+    public function updateShippingStatusOfSpecificHolder($holderType, $holderID, $shippingStatus, $updatedBy)
+    {
+        if($holderType == HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE)
+        {
+            $airWaybillShippingStatusUpdateRequest = new AirwaybillShippingStatusUpdateRequest();
+
+            $airWaybillShippingStatusUpdateRequest->setId($holderID);
+            $airWaybillShippingStatusUpdateRequest->setShippingStatus($shippingStatus);
+            $airWaybillShippingStatusUpdateRequest->setUpdatedBy($updatedBy);
+
+            $this->airwaybillManager->updateShippingStatus($airWaybillShippingStatusUpdateRequest);
+        }
+        elseif($holderType == HolderTypeConstant::$CONTAINER_HOLDER_TYPE)
+        {
+            $containerShippingStatusUpdateRequest = new ContainerShippingStatusUpdateRequest();
+
+            $containerShippingStatusUpdateRequest->setId($holderID);
+            $containerShippingStatusUpdateRequest->setShippingStatus($shippingStatus);
+            $containerShippingStatusUpdateRequest->setUpdatedBy($updatedBy);
+
+            $this->containerManager->updateShippingStatus($containerShippingStatusUpdateRequest);
+        }
+    }
+
+    public function updateShippingStatusOfHolderOfSpecificTracks($tracks, $shippingStatus, $updatedBy)
+    {
+        foreach($tracks as $track)
+        {
+            $this->updateShippingStatusOfSpecificHolder($track->getHolderType(), $track->getHolderID(), $shippingStatus, $updatedBy);
+        }
+    }
+
     public function updateByTravelID(TrackUpdateByTravelIdRequest $request)
     {
         // First, check the status, if the travel started or arrived (released) then continue updating the shipments status
@@ -214,7 +252,10 @@ class TrackManager
             }
             else
             {
-                // Thirdly, update the status in the ShipmentStatusEntity for all shipments
+                // Thirdly, update the shippingStatus of all holders in the travel
+                $this->updateShippingStatusOfHolderOfSpecificTracks($tracks, $request->getShipmentStatus(), $request->getUpdatedBy());
+
+                // Fourthly, update the status in the ShipmentStatusEntity for all shipments
                 foreach($tracks as $track)
                 {
                     if($track)

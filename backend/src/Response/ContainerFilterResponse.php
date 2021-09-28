@@ -50,6 +50,8 @@ class ContainerFilterResponse
 
     public $shipmentID;
 
+    public $shippingStatus;
+
     public $shipments = [];
 
 }

@@ -48,6 +48,8 @@ class AirwaybillFilterResponse
 
     public $consignee;
 
+    public $shippingStatus;
+
     public $clientUserID;
 
     public $clientUserName;

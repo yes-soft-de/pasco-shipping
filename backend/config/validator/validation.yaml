@@ -281,8 +281,6 @@ App\Request\CountryCreateRequest:
 
 App\Request\AirwaybillCreateRequest:
   properties:
-    specificationID:
-      - NotBlank: ~
     type:
       - NotBlank: ~
     portID:
@@ -310,6 +308,15 @@ App\Request\AirwaybillStatusUpdateRequest:
     updatedBy:
       - NotBlank: ~
 
+App\Request\AirwaybillShippingStatusUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    shippingStatus:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
 App\Request\ContainerUpdateRequest:
   properties:
     id:
@@ -324,6 +331,15 @@ App\Request\ContainerStatusUpdateRequest:
     id:
       - NotBlank: ~
     status:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
+App\Request\ContainerShippingStatusUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    shippingStatus:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~

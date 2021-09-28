@@ -105,6 +105,11 @@ class ContainerEntity
      */
     private $consignee;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $shippingStatus;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -310,6 +315,18 @@ class ContainerEntity
     public function setConsignee(?string $consignee): self
     {
         $this->consignee = $consignee;
+
+        return $this;
+    }
+
+    public function getShippingStatus(): ?string
+    {
+        return $this->shippingStatus;
+    }
+
+    public function setShippingStatus(string $shippingStatus): self
+    {
+        $this->shippingStatus = $shippingStatus;
 
         return $this;
     }

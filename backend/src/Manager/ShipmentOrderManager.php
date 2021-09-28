@@ -433,27 +433,12 @@ class ShipmentOrderManager
 
         if($pendingHolders)
         {
+            // If the pending holder is container, then get the name of the specification
             if($shippingWay == ShippingWayConstant::$SEA_SHIPPING_WAY)
             {
                 foreach ($pendingHolders as $key => $val)
                 {
                     $specification = $this->containerSpecificationManager->getContainerSpecificationById($val['specificationID']);
-
-                    if($specification)
-                    {
-                        $pendingHolders[$key]['specificationName'] = $specification['name'];
-                    }
-                    else
-                    {
-                        $pendingHolders[$key]['specificationName'] = "";
-                    }
-                }
-            }
-            if($shippingWay == ShippingWayConstant::$AIR_SHIPPING_WAY)
-            {
-                foreach ($pendingHolders as $key => $val)
-                {
-                    $specification = $this->airWaybillSpecificationManager->getAirwaybillSpecificationByID($val['specificationID']);
 
                     if($specification)
                     {

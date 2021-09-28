@@ -100,7 +100,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('airwaybill')
             ->select('airwaybill.id', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.type', 'airwaybill.consigneeID', 'airwaybill.portID', 'airwaybill.location',
-            'airwaybill.shipperID', 'airwaybill.providedBy', 'airwaybill.carrierID', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'airwaybill.shipmentID', 'airwaybill.clientUserID', 'airwaybill.consignee', 'airwaybill.weight',
+            'airwaybill.shipperID', 'airwaybill.providedBy', 'airwaybill.carrierID', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'airwaybill.shipmentID', 'airwaybill.clientUserID', 'airwaybill.consignee', 'airwaybill.weight', 'airwaybill.shippingStatus',
                 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage', 'subcontractEntity.fullName as subcontractName',
             'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName', 'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName')
 
@@ -184,7 +184,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('airwaybill')
             ->select('airwaybill.id', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID', 'airwaybill.clientUserID', 'airwaybill.weight',
                 'airwaybill.shipmentID', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'airwaybill.portID', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
-                'airwaybill.consignee', 'airwaybill.shipperID', 'airwaybill.carrierID', 'adminProfile2.userName as updatedByUserImage', 'airwaybill.providedBy', 'airwaybill.type', 'airwaybill.location',
+                'airwaybill.consignee', 'airwaybill.shipperID', 'airwaybill.carrierID', 'adminProfile2.userName as updatedByUserImage', 'airwaybill.providedBy', 'airwaybill.type', 'airwaybill.location', 'airwaybill.shippingStatus',
                 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName', 'clientProfileEntity.userName as clientUserName',
                 'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName')
 

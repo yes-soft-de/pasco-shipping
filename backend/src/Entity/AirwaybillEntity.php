@@ -110,6 +110,11 @@ class AirwaybillEntity
      */
     private $weight;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $shippingStatus;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -327,6 +332,18 @@ class AirwaybillEntity
     public function setWeight(?float $weight): self
     {
         $this->weight = $weight;
+
+        return $this;
+    }
+
+    public function getShippingStatus(): ?string
+    {
+        return $this->shippingStatus;
+    }
+
+    public function setShippingStatus(string $shippingStatus): self
+    {
+        $this->shippingStatus = $shippingStatus;
 
         return $this;
     }

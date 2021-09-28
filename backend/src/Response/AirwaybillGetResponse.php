@@ -50,7 +50,7 @@ class AirwaybillGetResponse
 
     public $consignee;
 
-    public $totalReceivedShipmentsQuantity;
+    public $shippingStatus;
 
     public $shipments = [];
 

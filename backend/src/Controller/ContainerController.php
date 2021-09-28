@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\ContainerCreateRequest;
 use App\Request\ContainerFilterRequest;
+use App\Request\ContainerShippingStatusUpdateRequest;
 use App\Request\ContainerStatusUpdateRequest;
 use App\Request\ContainerUpdateRequest;
 use App\Request\DeleteRequest;
@@ -258,6 +259,82 @@ class ContainerController extends BaseController
     }
 
     /**
+     * @Route("containershippingstatus", name="updateShippingStatusOfContainer", methods={"PUT"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Container")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Update a specific container status",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="string", property="shippingStatus")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the container",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="containerNumber"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="type"),
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="string", property="consigneeName"),
+     *                  @OA\Property(type="string", property="shipperName"),
+     *                  @OA\Property(type="string", property="carrierName"),
+     *                  @OA\Property(type="string", property="consignee"),
+     *                  @OA\Property(type="string", property="specificationName"),
+     *                  @OA\Property(type="array", property="shipments",
+     *                      @OA\Items()
+     *                  )
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function updateShippingStatus(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ContainerShippingStatusUpdateRequest::class, (object)$data);
+
+        $request->setUpdatedBy($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->containerService->updateShippingStatus($request);
+
+        return $this->response($result, self::UPDATE);
+    }
+
+    /**
      * @Route("containers/{status}", name="getContainersByStatus", methods={"GET"})
      * @return JsonResponse
      * 
@@ -351,6 +428,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="integer", property="clientUserID"),
      *                  @OA\Property(type="integer", property="shipmentID"),
      *                  @OA\Property(type="string", property="consignee"),
+     *                  @OA\Property(type="string", property="shippingStatus"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),
@@ -456,6 +534,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="consignee"),
      *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="integer", property="shipmentID"),
+     *                  @OA\Property(type="string", property="shippingStatus"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
      *                  )
@@ -517,6 +596,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="consignee"),
      *                  @OA\Property(type="string", property="location"),
      *                  @OA\Property(type="string", property="specificationName"),
+     *                  @OA\Property(type="string", property="shippingStatus"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
      *                  )
