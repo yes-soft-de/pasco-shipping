@@ -483,7 +483,7 @@ class TrackManager
         {
             foreach($tracks as $key => $val)
             {
-                $tracks[$key]['receivedShipmentQuantity'] = $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentIdAndTrackNumber($val['shipmentID'], $val['trackNumber']);
+                $tracks[$key]['receivedShipmentQuantity'] = $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentID($val['shipmentID']);
             }
         }
 
@@ -678,7 +678,7 @@ class TrackManager
         {
             foreach($tracks as $track)
             {
-                $totalReceivedQuantity += $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentIdAndTrackNumber($track->getShipmentID(), $track->getTrackNumber());
+                $totalReceivedQuantity += $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentID($track->getShipmentID());
             }
         }
 
@@ -695,7 +695,7 @@ class TrackManager
         {
             foreach($tracks as $track)
             {
-                $totalReceivedQuantity += $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentIdAndTrackNumber($track->getShipmentID(), $track->getTrackNumber());
+                $totalReceivedQuantity += $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentID($track->getShipmentID());
             }
         }
 

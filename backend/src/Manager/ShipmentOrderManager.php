@@ -285,7 +285,7 @@ class ShipmentOrderManager
 
             $order['tracks'] = $this->getShipmentStatusByShipmentID($id);
 
-            $order['receivingInfo'] = $this->receivedShipmentManager->getReceivedShipmentInfoByShipmentIdAndTrackNumber($id);
+            $order['receivingInfo'] = $this->receivedShipmentManager->getReceivedShipmentInfoByShipmentID($id);
         }
 
         return $order;
