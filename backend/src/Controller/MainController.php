@@ -5,23 +5,33 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Entity\AdminProfileEntity;
 use App\Entity\AirwaybillEntity;
+use App\Entity\AirwaybillFinanceEntity;
 use App\Entity\AirwaybillSpecificationEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\ContainerEntity;
+use App\Entity\ContainerFinanceEntity;
+use App\Entity\ContainerSpecificationEntity;
 use App\Entity\CountryEntity;
 use App\Entity\DistributorEntity;
+use App\Entity\GunnyEntity;
+use App\Entity\GunnyShipmentEntity;
+use App\Entity\ImageEntity;
 use App\Entity\MarkEntity;
 use App\Entity\OrderShipmentEntity;
+use App\Entity\PendingHolderEntity;
 use App\Entity\ProductCategoryEntity;
 use App\Entity\ProxyEntity;
+use App\Entity\ReceivedShipmentEntity;
 use App\Entity\ResetPasswordRequestEntity;
 use App\Entity\SettingEntity;
+use App\Entity\ShipmentFinanceEntity;
 use App\Entity\ShipmentLogEntity;
 use App\Entity\ShipmentStatusEntity;
 use App\Entity\SubcontractEntity;
 use App\Entity\SupplierEntity;
 use App\Entity\TrackEntity;
 use App\Entity\TravelEntity;
+use App\Entity\TravelFinanceEntity;
 use App\Entity\UserEntity;
 use App\Entity\WarehouseEntity;
 use App\Request\UserUpdateRequest;
@@ -273,7 +283,115 @@ class MainController extends BaseController
     }
 
     /**
-     * @Route("dropalltables", name="deleteAllDatabaseTables", methods={"DELETE"})
+     * @Route("erasefirstgroup", name="deletAllShipmentsAndReleatedInfoAndHoldersAndTravels", methods={"DELETE"})
+     */
+    public function eraseAllShipmentsAndHoldersAndTravels()
+    {
+        try
+        {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->getRepository(AirwaybillEntity::class)->createQueryBuilder('airwaybill_entity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(AirwaybillSpecificationEntity::class)->createQueryBuilder('airwaybill_specification_entity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(AirwaybillFinanceEntity::class)->createQueryBuilder('airwaybill_finance_entity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(ContainerEntity::class)->createQueryBuilder('containerEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(ContainerSpecificationEntity::class)->createQueryBuilder('container_specification_entity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(ContainerFinanceEntity::class)->createQueryBuilder('container_finance_entity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(GunnyEntity::class)->createQueryBuilder('gunny_entity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(GunnyShipmentEntity::class)->createQueryBuilder('gunny_shipment_entity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(ImageEntity::class)->createQueryBuilder('image_entity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(PendingHolderEntity::class)->createQueryBuilder('pending_holder_entity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(ReceivedShipmentEntity::class)->createQueryBuilder('received_shipment_entity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(ShipmentFinanceEntity::class)->createQueryBuilder('shipment_finance_entity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(OrderShipmentEntity::class)->createQueryBuilder('orderShipmentEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(ShipmentLogEntity::class)->createQueryBuilder('shipmentLogEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(ShipmentStatusEntity::class)->createQueryBuilder('shipmentStatusEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(TrackEntity::class)->createQueryBuilder('trackEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(TravelEntity::class)->createQueryBuilder('travelEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(TravelFinanceEntity::class)->createQueryBuilder('travel_finance_entity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+        }
+        catch (\Exception $ex)
+        {
+            return $this->json($ex);
+        }
+
+        return new Response("All Database information were being deleted");
+    }
+
+    /**
+     * @Route("createnewschema", name="createNewSchema", methods={"DELETE"})
      */
     public function dropAllTablesOfDB()
     {
