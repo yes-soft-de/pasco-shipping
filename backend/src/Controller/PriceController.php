@@ -42,7 +42,9 @@ class PriceController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="number", property="oneKiloPrice"),
-     *          @OA\Property(type="number", property="oneCBMPrice")
+     *          @OA\Property(type="number", property="oneCBMPrice"),
+     *          @OA\Property(type="integer", property="containerSpecificationID"),
+     *          @OA\Property(type="number", property="containerSpecificationPrice"),
      *      )
      * )
      *
@@ -56,6 +58,12 @@ class PriceController extends BaseController
      *              @OA\Property(type="integer", property="id"),
      *              @OA\Property(type="number", property="oneKiloPrice"),
      *              @OA\Property(type="number", property="oneCBMPrice"),
+     *              @OA\Property(type="array", property="containerSpecifications",
+     *                  @OA\Items(
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="number", property="price")
+     *                  )
+     *              ),
      *              @OA\Property(type="object", property="updatedAt")
      *          )
      *      )
@@ -101,6 +109,23 @@ class PriceController extends BaseController
      *              @OA\Property(type="integer", property="id"),
      *              @OA\Property(type="number", property="oneKiloPrice"),
      *              @OA\Property(type="number", property="oneCBMPrice"),
+     *              @OA\Property(type="array", property="containerSpecifications",
+     *                  @OA\Items(
+     *                      @OA\Property(type="integer", property="id"),
+     *                      @OA\Property(type="string", property="name"),
+     *                      @OA\Property(type="number", property="capacityCPM"),
+     *                      @OA\Property(type="number", property="widthInMeter"),
+     *                      @OA\Property(type="number", property="hightInMeter"),
+     *                      @OA\Property(type="number", property="lengthInMeter"),
+     *                      @OA\Property(type="number", property="price"),
+     *                      @OA\Property(type="object", property="createdAt"),
+     *                      @OA\Property(type="object", property="updatedAt"),
+     *                      @OA\Property(type="string", property="createdByUser"),
+     *                      @OA\Property(type="string", property="createdByUserImage"),
+     *                      @OA\Property(type="string", property="updatedByUser"),
+     *                      @OA\Property(type="string", property="updatedByUserImage")
+     *                  )
+     *              ),
      *              @OA\Property(type="object", property="updatedAt"),
      *              @OA\Property(type="string", property="updatedByUser"),
      *              @OA\Property(type="string", property="updatedByUserImage")

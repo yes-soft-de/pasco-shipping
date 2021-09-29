@@ -10,6 +10,8 @@ class PriceGetResponse
 
     public $oneCBMPrice;
 
+    public $containerSpecifications;
+
     public $updatedAt;
 
     public $updatedByUser;

@@ -10,6 +10,8 @@ class PriceUpdateRequest
 
     private $oneCBMPrice;
 
+    private $containerSpecifications;
+
     private $updatedBy;
 
     public function getId()
@@ -20,6 +22,16 @@ class PriceUpdateRequest
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    public function getContainerSpecifications()
+    {
+        return $this->containerSpecifications;
     }
 
 }

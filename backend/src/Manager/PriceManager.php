@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Entity\PriceEntity;
 use App\Repository\PriceEntityRepository;
+use App\Request\ContainerSpecificationPriceUpdateRequest;
 use App\Request\PriceCreateRequest;
 use App\Request\PriceUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,12 +14,15 @@ class PriceManager
 {
     private $autoMapping;
     private $entityManager;
+    private $containerSpecificationManager;
     private $priceEntityRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, PriceEntityRepository $priceEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, PriceEntityRepository $priceEntityRepository,
+     ContainerSpecificationManager $containerSpecificationManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
+        $this->containerSpecificationManager = $containerSpecificationManager;
         $this->priceEntityRepository = $priceEntityRepository;
     }
 
@@ -50,13 +54,34 @@ class PriceManager
             $this->entityManager->flush();
             $this->entityManager->clear();
 
+            //Now update the price of specific container specification
+            $this->updateContainerSpecificationsPrices($request->getContainerSpecifications(), $request->getUpdatedBy());
+
             return $priceEntity;
+        }
+    }
+
+    public function updateContainerSpecificationsPrices($containerSpecificationsPricesArray, $updatedBy)
+    {
+        $updateSpecificationPriceRequest = new ContainerSpecificationPriceUpdateRequest();
+
+        foreach($containerSpecificationsPricesArray as $item)
+        {
+            $updateSpecificationPriceRequest->setId($item['id']);
+            $updateSpecificationPriceRequest->setPrice($item['price']);
+            $updateSpecificationPriceRequest->setUpdatedBy($updatedBy);
+
+            $this->containerSpecificationManager->updatePrice($updateSpecificationPriceRequest);
         }
     }
 
     public function getPrices()
     {
-        return $this->priceEntityRepository->getPrices();
+        $prices = $this->priceEntityRepository->getPrices();
+
+        $prices['containerSpecifications'] = $this->containerSpecificationManager->getAllContainerSpecifications();
+
+        return $prices;
     }
 
 }
