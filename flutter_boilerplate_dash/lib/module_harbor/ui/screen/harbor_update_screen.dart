@@ -2,35 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
-import 'package:pasco_shipping/module_airwaybill/response/airwaybill_response.dart';
-import 'package:pasco_shipping/module_airwaybill/state_manger/new_airwaybill_state_manger.dart';
-import 'package:pasco_shipping/module_airwaybill/ui/state/addnew_state/add_airwaybill_init.dart';
-import 'package:pasco_shipping/module_airwaybill/ui/state/addnew_state/add_state.dart';
-import 'package:pasco_shipping/module_airwaybill/ui/state/update_state/update_airwaybill_init.dart';
-import 'package:pasco_shipping/module_airwaybill_specification/response/airwaybill_specification_response.dart';
+import 'package:pasco_shipping/module_countries/response/country_response.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
-import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
-import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
+import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
+import 'package:pasco_shipping/module_harbor/state_manger/new_harbor_state_manger.dart';
+import 'package:pasco_shipping/module_harbor/ui/state/addnew_state/add_state.dart';
+import 'package:pasco_shipping/module_harbor/ui/state/update_state/update_harbor_init.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
 @injectable
-class UpdateAirwaybill extends StatefulWidget {
-  final AddAirwaybillStateManager _stateManager;
+class UpdateHarbor extends StatefulWidget {
+  final AddHarborStateManager _stateManager;
 
-  const UpdateAirwaybill(this._stateManager);
+  const UpdateHarbor(this._stateManager);
 
   @override
   _AddNewCountryState createState() => _AddNewCountryState();
 }
 
-class _AddNewCountryState extends State<UpdateAirwaybill> {
-  late AddAirwaybillState currentState;
-  late List<SubcontractModel> subs;
-  late List<AirwaybillSpecificationModel> specification;
-  late AirwaybillModel model;
-  late Entry option;
+class _AddNewCountryState extends State<UpdateHarbor> {
+  late AddHarborState currentState;
+  late List<CountryModel> countries;
+  late HarborModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +34,17 @@ class _AddNewCountryState extends State<UpdateAirwaybill> {
         goBack: (){
         },
         child: Screen(),
-        title: S.of(context).updateAirwaybill
+        title:S.of(context).updateHarbor
     );
   }
 
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    model =arguments['model'];
+  }
 
   @override
   void initState() {
@@ -53,20 +55,15 @@ class _AddNewCountryState extends State<UpdateAirwaybill> {
       currentState = event;
       if (this.mounted) {
         if(currentState is SuccessfullyAddState){
-          Navigator.pop(context,option);
+          Navigator.pop(context);
         }else {
           setState(() {});
         }
       }
     });
-    widget._stateManager.getSubContractAndSpecificationAndHarborAndShipper();
+    widget._stateManager.getCountries();
   }
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
-    model =arguments['airwaybillModel'];
-  }
+
   Widget Screen(){
     if(currentState is LoadingAddState){
       return Center(
@@ -81,15 +78,12 @@ class _AddNewCountryState extends State<UpdateAirwaybill> {
     }
     else if (currentState is InitAddState){
       InitAddState? state = currentState as InitAddState?;
-      subs = state!.subcontracts;
-      return UpdateAirwaybillInit(
-        subContracts: subs,
-        model: model,
-        harbors: state.harbors,
-        onUpdate: (request,c){
-          option = c;
-        widget._stateManager.updateAirwaybill(request);
-      }, shipper: state.shippers,);
+      countries = state!.countries;
+      return UpdateHarborInit(
+        countries: countries,
+        onSave: (request){
+        widget._stateManager.updateHarbor(request);
+      }, model: model,);
     }
     else {
       return Center(

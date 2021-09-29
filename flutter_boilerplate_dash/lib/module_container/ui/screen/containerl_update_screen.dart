@@ -83,6 +83,7 @@ class _AddNewCountryState extends State<UpdateContainer> {
       specification = state!.specifications;
       subs = state.subcontracts;
       return UpdateContainerInit(
+        harbors: state.harbor,
         specifications: specification,
         subContracts: subs,
         model: model,

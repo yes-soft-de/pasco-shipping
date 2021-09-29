@@ -378,5 +378,7 @@
   "harbors": "المرافئ",
   "totalShipment": "عدد الكراتين",
   "seaport": "ميناء بحري",
-  "airport": "ميناء جوي"
+  "airport": "ميناء جوي",
+  "prices": "الأسعار",
+  "updateHarbor": "تعديل الميناء"
 }

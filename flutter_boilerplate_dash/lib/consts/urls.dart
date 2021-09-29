@@ -176,6 +176,8 @@ class Urls {
   static const GET_HARBOR = BASE_API + 'filterharbors';
   static const HARBOR = BASE_API + 'harbor';
 
+  //price
+  static const PRICE = BASE_API + 'price';
 
   static const REPORT_API = BASE_API + '/report';
 

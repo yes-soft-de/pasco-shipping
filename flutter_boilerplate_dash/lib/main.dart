@@ -50,6 +50,7 @@ import 'module_countries/country_module.dart';
 import 'module_distributors/distributors_module.dart';
 import 'module_employees/employe_module.dart';
 import 'module_notifications/service/local_notification_service/local_notification_service.dart';
+import 'module_price/price_module.dart';
 import 'module_product_category/product_module.dart';
 import 'module_product_sub_category/sub_product_module.dart';
 import 'module_proxies/proxies_module.dart';
@@ -141,6 +142,7 @@ class MyApp extends StatefulWidget {
 
   final HarborModule _harborModule;
   final ShipperModule _shipperModule;
+  final PriceModule _priceModule;
 
 
   MyApp(
@@ -186,7 +188,8 @@ class MyApp extends StatefulWidget {
       this._employeeModule,
 
       this._harborModule,
-      this._shipperModule
+      this._shipperModule,
+      this._priceModule
       );
 
   @override

@@ -53,5 +53,7 @@ class StaticImage{
 
   static final String accounting='assets/images/accounting.png';
   static final String equal='assets/images/equal.png';
+  static final String price='assets/images/price.png';
+  static final String harbor='assets/images/harbor.png';
 
 }

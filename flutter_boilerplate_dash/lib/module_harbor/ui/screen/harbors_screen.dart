@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
+import 'package:pasco_shipping/module_harbor/harbor_routes.dart';
 import 'package:pasco_shipping/module_harbor/request/harbor_filter_request.dart';
 import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_harbor/state_manger/harbors_state_manager.dart';
@@ -72,7 +73,9 @@ class _CountriesScreenState extends State<HarborsScreen> {
         widget._stateManager.deleteHarbor(id.toString() ,request);
       },
         onEdit: (model){
-          // widget._stateManager.updateSupplier(request);
+          Navigator.pushNamed(context, HarborRoutes.UPDATE,arguments: {'model':model}).then((value) {
+            widget._stateManager.getHarbor(request);
+          });
         },
       );
     }

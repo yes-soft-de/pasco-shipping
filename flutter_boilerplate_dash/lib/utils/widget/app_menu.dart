@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasco_shipping/abstracts/module/yes_module.dart';
 import 'package:pasco_shipping/module_harbor/harbor_routes.dart';
 import 'package:pasco_shipping/module_home/ui/screen/home_screen.dart';
+import 'package:pasco_shipping/module_price/price_routes.dart';
 import 'package:pasco_shipping/module_shipper/shipper_routes.dart';
 import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_unit/unit_module.dart';
@@ -971,6 +972,24 @@ class AppMenu extends ConsumerWidget {
                               selectPage(context, ref, ShipperRoutes.ADD_NEW);
                               // Navigator.pushNamed(context, SupplierRoutes.ADD_NEW);
                             }),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              ExpansionTile(
+                title: new Text(S.of(context).prices),
+                leading: Icon(Icons.price_change),
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: new Text(S.of(context).view),
+                          onTap: () =>
+                              selectPage(context, ref, PriceRoutes.PRICE_SCREEN),
+                        ),
                       ],
                     ),
                   ),

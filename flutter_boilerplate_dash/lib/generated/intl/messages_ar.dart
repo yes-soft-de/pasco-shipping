@@ -262,6 +262,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("أدخل الرقم"),
         "previousMark":
             MessageLookupByLibrary.simpleMessage("العلامات السابقة"),
+        "prices": MessageLookupByLibrary.simpleMessage("الأسعار"),
         "privacy": MessageLookupByLibrary.simpleMessage("سياسة الخصوصية"),
         "productCategory":
             MessageLookupByLibrary.simpleMessage("نوع البضائع: "),
@@ -391,7 +392,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "to": MessageLookupByLibrary.simpleMessage("الى"),
         "total": MessageLookupByLibrary.simpleMessage(" الكلي "),
         "totalCost": MessageLookupByLibrary.simpleMessage("الكلفة الكلية: "),
-        "totalShipment": MessageLookupByLibrary.simpleMessage("عدد الواحدات"),
+        "totalShipment": MessageLookupByLibrary.simpleMessage("عدد الكراتين"),
         "trackNumber": MessageLookupByLibrary.simpleMessage("رقم التعقب: "),
         "trackShipment": MessageLookupByLibrary.simpleMessage("تعقب شحنة"),
         "travelArrived":
@@ -413,6 +414,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تعديل بوصيلة الشحن"),
         "updateContainer":
             MessageLookupByLibrary.simpleMessage("تعديل الحاوية"),
+        "updateHarbor": MessageLookupByLibrary.simpleMessage("تعديل الميناء"),
         "updateTravel": MessageLookupByLibrary.simpleMessage("تعديل رحلة"),
         "updateWarehouse": MessageLookupByLibrary.simpleMessage("تعديل مستودع"),
         "updatedAt": MessageLookupByLibrary.simpleMessage("تم التحديث في: "),

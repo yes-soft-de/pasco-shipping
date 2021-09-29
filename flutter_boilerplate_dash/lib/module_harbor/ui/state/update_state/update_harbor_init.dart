@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_countries/response/country_response.dart';
 import 'package:pasco_shipping/module_harbor/request/harbor_request.dart';
+import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_suppliers/request/suppliers_request.dart';
@@ -12,22 +13,20 @@ import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
-class AddHarborInit extends StatefulWidget {
+class UpdateHarborInit extends StatefulWidget {
   final Function onSave;
   final List<CountryModel> countries;
-  const AddHarborInit({ required this.onSave,required this.countries});
+  final HarborModel model;
+  const UpdateHarborInit({ required this.onSave,required this.countries,required this.model});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
 }
 
-class _AddCountryInitState extends State<AddHarborInit> {
+class _AddCountryInitState extends State<UpdateHarborInit> {
  late TextEditingController name ;
  late  TextEditingController location;
  late  TextEditingController city;
- // late  TextEditingController CountryName;
- late int selectedRadioGender;
- late String type;
 
  late DropListModel dropListModelCountries;
  late Entry optionItemSelectedCountry;
@@ -173,73 +172,8 @@ class _AddCountryInitState extends State<AddHarborInit> {
                 ),
               ),
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).type, style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: AppThemeDataService.AccentColor,
-                    ),
-                    onPressed: () {
-                    },
-                    child: Row(
-                      children: [
-                        Radio(
-                          onChanged: (value) {
-                            _setSelectedRadioGender(2);
-                          },
-                          value: 2,
-                          groupValue: selectedRadioGender,
-                          activeColor: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          S.of(context).airport,
-                          style: AppTextStyle.mediumWhite,
-                        ),
-                      ],
-                    ),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: AppThemeDataService.AccentColor,
-                    ),
-                    onPressed: () {
-                    },
-                    child: Row(
-                      children: [
-                        Radio(
-                          onChanged: (value) {
-                            _setSelectedRadioGender(1);
-                          },
-                          value: 1,
-                          groupValue: selectedRadioGender,
-                          activeColor: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          S.of(context).seaport,
-                          style: AppTextStyle.mediumWhite,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
-                  HarborRequest re = HarborRequest(location: location.text ,name: name.text ,city: city.text,type: type,countryID: optionItemSelectedCountry.id);
+                  HarborRequest re = HarborRequest(location: location.text ,name: name.text ,city: city.text,type: widget.model.type,countryID: optionItemSelectedCountry.id,id: widget.model.id);
                   widget.onSave(re);
 
               }, radius: 15)
@@ -265,25 +199,19 @@ class _AddCountryInitState extends State<AddHarborInit> {
   @override
   void initState() {
     super.initState();
-    optionItemSelectedCountry =  Entry('choose', 0, []);
+    optionItemSelectedCountry =  Entry(widget.model.countryName??'', widget.model.countryID??0, []);
     entryFrom =<Entry>[];
-    selectedRadioGender = 1;
-    type = 'seaport';
+
 
     name =TextEditingController();
+    name..text=widget.model.name??'';
+
     location = TextEditingController();
+    location..text=widget.model.location??'';
+
     city = TextEditingController();
+    city..text = widget.model.city??'';
 
   }
- void _setSelectedRadioGender(int val) {
-   setState(() {
-     selectedRadioGender = val;
-     if (val == 1) {
-       type = 'seaport';
-     } else if (val == 2) {
-       type = 'airport';
-     }
-     print(val);
-   });
- }
+
 }

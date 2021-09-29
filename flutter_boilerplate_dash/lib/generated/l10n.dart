@@ -3210,10 +3210,10 @@ class S {
     );
   }
 
-  /// `Total unit`
+  /// `Total carton`
   String get totalShipment {
     return Intl.message(
-      'Total unit',
+      'Total carton',
       name: 'totalShipment',
       desc: '',
       args: [],
@@ -3235,6 +3235,26 @@ class S {
     return Intl.message(
       'Air Port',
       name: 'airport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Prices`
+  String get prices {
+    return Intl.message(
+      'Prices',
+      name: 'prices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update harbor`
+  String get updateHarbor {
+    return Intl.message(
+      'Update harbor',
+      name: 'updateHarbor',
       desc: '',
       args: [],
     );

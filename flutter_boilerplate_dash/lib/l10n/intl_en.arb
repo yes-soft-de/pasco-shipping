@@ -400,5 +400,7 @@
   "harbors": "Harbors",
   "totalShipment": "Total carton",
   "seaport": "Sea Port",
-  "airport": "Air Port"
+  "airport": "Air Port",
+  "prices": "Prices",
+  "updateHarbor": "Update harbor"
 }
