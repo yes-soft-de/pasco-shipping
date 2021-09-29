@@ -125,7 +125,21 @@ class WarehouseManager
 
     public function getUniqueCitiesNamesOfWarehousesByCountryId($countryID)
     {
-        return $this->warehouseEntityRepository->getUniqueCitiesNamesOfWarehousesByCountryId($countryID);
+        $warehousesResult = [];
+
+        // First get just unique cities' names of the warehouses
+        $warehouses = $this->warehouseEntityRepository->getUniqueCitiesNamesOfWarehousesByCountryId($countryID);
+
+        // Then get the warehouse info of previous cities
+        if($warehouses)
+        {
+            foreach($warehouses as $warehouse)
+            {
+                $warehousesResult[] = $this->warehouseEntityRepository->getSingleWarehouseByCountryIdAndCity($countryID, $warehouse['city'])[0];
+            }
+
+            return $warehousesResult;
+        }
     }
 
     public function getByProxyID($proxyID)
