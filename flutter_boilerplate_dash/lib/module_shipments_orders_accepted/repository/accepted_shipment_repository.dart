@@ -16,6 +16,7 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/request/stored_s
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/response/gunny_shipment_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/shipment_finance_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/warehouse_response.dart';
 
@@ -233,6 +234,26 @@ class AcceptedShipmentRepository{
       return ConfirmResponse(true, msg!);
     }else {
       return ConfirmResponse(false, msg!);
+    }
+  }
+
+
+
+  Future<List<GunnyShipmentModel>?> getGunnyShipment(String shipmentID,String trackNumber) async {
+    // await _authService.refreshToken();
+    var token = await _authService.getToken();
+    try {
+      var response = await _apiClient.get(Urls.GUNNY_SHIPMENT+"/"+shipmentID+"/"+trackNumber,headers: {'Authorization': 'Bearer $token'});
+
+      GunnyShipmentResponse waitingShipmentResponse =  GunnyShipmentResponse.fromJson(response!);
+      List<GunnyShipmentModel> marks = [];
+      if(waitingShipmentResponse.data != null) {
+        marks =
+        GunnyShipmentResponse.fromJson(response).data!;
+      }
+      return marks;
+    } catch (e) {
+      return null;
     }
   }
 

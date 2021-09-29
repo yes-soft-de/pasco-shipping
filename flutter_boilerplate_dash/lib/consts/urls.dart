@@ -169,7 +169,7 @@ class Urls {
 
   //gunny
   static const CREATE_GUNNY = BASE_API + 'gunny';
-  static const ADD_SHIPMENT_TO_GUNNY = BASE_API + 'gunnyshipment';
+  static const GUNNY_SHIPMENT = BASE_API + 'gunnyshipment';
   static const GET_GUNNY = BASE_API + 'filtergunnies';
 
   //Harbors

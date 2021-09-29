@@ -21,8 +21,9 @@ class LoadingState extends RequestShipmentState{}
 class FirstOptionFetchingDataState extends RequestShipmentState{
   List<ProductModel> categories;
   List<Countries> warehouses;
+  List<Countries> countries;
 
-  FirstOptionFetchingDataState({required this.warehouses,required this.categories});
+  FirstOptionFetchingDataState({required this.warehouses,required this.categories , required this.countries});
 }
 
 class SecondOptionFetchingDataState extends RequestShipmentState{

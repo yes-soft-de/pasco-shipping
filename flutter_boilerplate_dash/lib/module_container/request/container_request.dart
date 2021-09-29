@@ -6,6 +6,7 @@ class ContainerRequest {
   String status;
   String type;
   String location;
+  String? consignee;
 
 
   int? shipperID;
@@ -29,7 +30,8 @@ class ContainerRequest {
       required this.shipperID,
         this.clientID,
        required this.portID,
-      required  this.location
+      required  this.location,
+        this.consignee
 
       });
 
@@ -62,7 +64,8 @@ class ContainerRequest {
         'clientUserID': clientID,
         'status': status,
         'location':location,
-        'portID':portID
+        'portID':portID,
+        'consignee':consignee
       };
     }
   }

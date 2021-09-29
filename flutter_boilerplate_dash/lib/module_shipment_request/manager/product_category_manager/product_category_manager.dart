@@ -13,5 +13,6 @@ class FirstOptionManager{
 
   Future<List<ProductModel>?> getCategories() => _repository.getProduct();
   Future<List<Countries>?> getWarehouses() => _repository.getWarehouses();
+  Future<List<Countries>?> getCountriesImport() => _repository.getCountriesImport();
   Future<ConfirmResponse?> addShipment(ShipmentRequest request) => _repository.addNewShipment(request);
 }

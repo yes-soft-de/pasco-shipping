@@ -17,6 +17,7 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/request/measured
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/receiver_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/stored_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/response/gunny_shipment_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/service/accepted_shipment_service.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_status_state/accepted_shipment_status_state.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
@@ -90,8 +91,13 @@ class AcceptedShipmentsStatusStateManager {
                     // WarehouseFilterRequest request = WarehouseFilterRequest(cityName: cityName);
                     _gunnyService.getGunnies().then((gunnies) {
                       if(gunnies != null){
-                        _stateSubject.add(ReceivedStatusState(
-                            model, subcontracts ,gunnies,StoredModel(remainedQuantity: '')));
+                        _service.getGunnyShipment(request.shipmentId.toString(),request.trackNumber).then((lastGunnies){
+                          if(lastGunnies != null){
+                            _stateSubject.add(ReceivedStatusState(
+                                model, subcontracts ,gunnies,StoredModel(remainedQuantity: '') ,lastGunnies));
+                          }
+                        });
+
                       }else{
                         _stateSubject.add(ErrorState('Error'));
                       }
@@ -263,7 +269,12 @@ class AcceptedShipmentsStatusStateManager {
           if(subcontracts != null){
             _gunnyService.getGunnies().then((gunnies) {
               if(gunnies != null){
-                _stateSubject.add(ReceivedStatusState(model , subcontracts ,gunnies,StoredModel(remainedQuantity: '')));
+                _service.getGunnyShipment(shipmentID,trackNumber).then((lastGunnies){
+                  if(lastGunnies != null){
+                    _stateSubject.add(ReceivedStatusState(
+                        model, subcontracts ,gunnies,StoredModel(remainedQuantity: '') ,lastGunnies));
+                  }
+                });
               }else{
                 _stateSubject.add(ErrorState('Error'));
               }
@@ -330,12 +341,12 @@ _warehouseService.getWarehouses(request).then((warehouses){
 
 
 
-  void createGunny(List<AcceptedShipmentStatusModel> model ,  List<SubcontractModel> subcontracts ){
+  void createGunny(List<AcceptedShipmentStatusModel> model ,  List<SubcontractModel> subcontracts ,List<GunnyShipmentModel> lastGunnies){
     _stateSubject.add(LoadingState());
     _gunnyService.createGunny().then((gunnies) {
       if(gunnies != null){
         _stateSubject.add(ReceivedStatusWithGunniesState(
-            model, subcontracts ,gunnies ,StoredModel(remainedQuantity: '')));
+            model, subcontracts ,gunnies ,StoredModel(remainedQuantity: ''),lastGunnies));
       }else{
         _stateSubject.add(ErrorState('Error'));
       }
@@ -343,15 +354,19 @@ _warehouseService.getWarehouses(request).then((warehouses){
 
   }
 
-  void storedShipmentInGunny(AddShipmentToGunnyRequest request,List<AcceptedShipmentStatusModel> model ,  List<SubcontractModel> subcontracts ){
+  void storedShipmentInGunny(AddShipmentToGunnyRequest request,List<AcceptedShipmentStatusModel> model ,  List<SubcontractModel> subcontracts){
     _stateSubject.add(LoadingState());
     _gunnyService.addShipmentToGunny(request).then((storedModel) {
       if(storedModel != null){
         print(storedModel.remainedQuantity);
         _gunnyService.getGunnies().then((gunnies){
           if(gunnies != null){
-            _stateSubject.add(ReceivedStatusState(
-                model, subcontracts ,gunnies ,storedModel));
+            _service.getGunnyShipment(request.shipmentID.toString(),request.trackNumber).then((lastGunnies){
+              if(lastGunnies != null){
+                _stateSubject.add(ReceivedStatusState(
+                    model, subcontracts ,gunnies,storedModel ,lastGunnies));
+              }
+            });
           }
         });
 

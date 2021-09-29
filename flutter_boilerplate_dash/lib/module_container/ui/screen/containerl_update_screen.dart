@@ -58,7 +58,7 @@ class _AddNewCountryState extends State<UpdateContainer> {
         }
       }
     });
-    widget._stateManager.getSubContractAndSpecificationAndHarbor();
+    widget._stateManager.getSubContractAndSpecificationAndHarborAndShipper();
   }
   @override
   void didChangeDependencies() {
@@ -86,6 +86,7 @@ class _AddNewCountryState extends State<UpdateContainer> {
         specifications: specification,
         subContracts: subs,
         model: model,
+        shippers: state.shippers,
         onUpdate: (request , c){
           option = c;
         widget._stateManager.updateContainer(request);

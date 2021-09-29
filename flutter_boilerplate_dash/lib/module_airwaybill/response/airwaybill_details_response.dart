@@ -42,6 +42,7 @@ class AirwaybillDetailsModel {
     this.freeWeight,
     this.shipmentID,
     this.portName,
+    this.location,
 
 
     this.createdAt,
@@ -64,6 +65,7 @@ class AirwaybillDetailsModel {
   String? freeWeight;
   int? shipmentID;
   String? portName;
+  String? location;
 
 
 
@@ -87,6 +89,7 @@ class AirwaybillDetailsModel {
     freeWeight: json['freeWeight'].toString(),
     shipmentID: json['shipmentID'],
     portName: json['portName'],
+    location: json['location'],
 
 
 
@@ -205,7 +208,7 @@ class ShipmentModel {
     paymentTime: json["paymentTime"],
     weight: json["weight"].toString(),
     qrCode: json["qrCode"],
-    guniQuantity: json["guniQuantity"],
+    guniQuantity: json['guniQuantity'],
     vehicleIdentificationNumber: json["vehicleIdentificationNumber"],
     extraSpecification: json["extraSpecification"],
     isExternalWarehouse: json["isExternalWarehouse"],

@@ -118,6 +118,17 @@ class _ContainerDetailsSuccessfullyState
                     ],
                   ),
                 ),
+                Divider(color: Colors.grey[300],thickness: 2,),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).location),
+                      Text(widget.model.location ?? ''),
+                    ],
+                  ),
+                ),
                 Divider(
                   color: Colors.grey[300],
                   thickness: 2,

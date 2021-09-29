@@ -310,10 +310,17 @@ class TravelDetailsSuccessfully extends StatelessWidget {
               //     Text(holderModel.containerNumber ?? '' , style: AppTextStyle.mediumBlueBold,),
               //   ],),
               // ),
-              ExpansionTile(title: Row(children: [
-                Text(type =='flight'? S.of(context).airwaybillNumber+': ' :S.of(context).containerNumber+': ', style: AppTextStyle.mediumBlack,),
-                Text(holderModel.containerNumber ?? '' , style: AppTextStyle.mediumBlueBold,),
+              ExpansionTile(
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('#'+holderModel.id.toString(),style: AppTextStyle.mediumBlackBold,),
+                    Row(children: [
+                    Text(type =='flight'? S.of(context).airwaybillNumber+': ' :S.of(context).containerNumber+': ', style: AppTextStyle.mediumBlack,),
+                    Text(holderModel.containerNumber ?? '' , style: AppTextStyle.mediumBlueBold,),
               ],),
+                  ],
+                ),
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),

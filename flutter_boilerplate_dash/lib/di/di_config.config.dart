@@ -763,7 +763,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
           get<_i136.SubcontractService>(),
           get<_i72.ContainerSpecificationService>(),
           get<_i67.ClientService>(),
-          get<_i96.HarborService>()));
+          get<_i96.HarborService>(),
+          get<_i126.ShipperService>()));
   gh.factory<_i169.AddCountryStateManager>(
       () => _i169.AddCountryStateManager(get<_i77.CountryService>()));
   gh.factory<_i170.AddDistributorStateManager>(
@@ -971,7 +972,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
           get<_i191.AirwaybillService>(),
           get<_i136.SubcontractService>(),
           get<_i67.ClientService>(),
-          get<_i96.HarborService>()));
+          get<_i96.HarborService>(),
+          get<_i126.ShipperService>()));
   gh.factory<_i247.AddNewAirwaybill>(
       () => _i247.AddNewAirwaybill(get<_i246.AddAirwaybillStateManager>()));
   gh.factory<_i248.AddNewAirwaybillSpecification>(() =>

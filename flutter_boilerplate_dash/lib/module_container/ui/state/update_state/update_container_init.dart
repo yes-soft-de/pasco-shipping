@@ -9,6 +9,8 @@ import 'package:pasco_shipping/module_container/response/container_response.dart
 import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
+import 'package:pasco_shipping/module_shipper/response/shipper_response.dart';
+import 'package:pasco_shipping/module_shipper/shipper_module.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
@@ -18,9 +20,10 @@ import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 class UpdateContainerInit extends StatefulWidget {
   final List<SubcontractModel> subContracts;
   final List<ContainerSpecificationModel> specifications;
+  final List<ShipperModel> shippers;
   final ContainerModel model;
   final Function onUpdate;
-  const UpdateContainerInit({ required this.onUpdate , required this.subContracts,required this.specifications,required this.model});
+  const UpdateContainerInit({ required this.onUpdate , required this.subContracts,required this.specifications,required this.model,required this.shippers});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
@@ -28,6 +31,7 @@ class UpdateContainerInit extends StatefulWidget {
 
 class _AddCountryInitState extends State<UpdateContainerInit> {
   late TextEditingController containerNumber ;
+  late TextEditingController consigneeController ;
 
   late DropListModel dropListModelProvidedBy;
   late Entry optionItemSelectedProvidedBy;
@@ -261,6 +265,33 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
                   setState(() {});
                 },
               ),
+            widget.model.type=='FCL'?  Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: 4,left: 16, right: 16, bottom: 4
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(15)
+                      ),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 5
+                        )
+                      ]
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: S.of(context).consignee,
+                    ),
+                    controller: consigneeController,
+                  ),
+                ),
+              ):Container(),
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -325,6 +356,7 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
                   ContainerRequest re = ContainerRequest(status: status,
                       type: type
                       ,
+                      consignee: consigneeController.text,
                       specificationID: optionItemSelectedSpecification.id,
                       consigneeID: optionItemSelectedConsignee.id,
                       shipperID: optionItemSelectedShipper.id,
@@ -355,6 +387,7 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
     entrySpecification = <Entry>[];
 
     containerNumber=TextEditingController();
+    consigneeController=TextEditingController();
     containerNumber..text = widget.model.containerNumber??'';
 
     status= widget.model.status!;
@@ -388,21 +421,19 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
       if(widget.model.consigneeName == item.fullName){
         optionItemSelectedConsignee = Entry(item.fullName! ,item.id! ,[]);
       }
-      if(widget.model.shipperName == item.fullName){
-        optionItemSelectedShipper = Entry(item.fullName! ,item.id! ,[]);
-      }if(widget.model.carrierName == item.fullName){
+      if(widget.model.carrierName == item.fullName){
         optionItemSelectedCarrier = Entry(item.fullName! ,item.id! ,[]);
       }
 
 
       Entry v = Entry(item.fullName! ,item.id! ,[]);
       entryProvidedBy.add(v);
-      entryShipper.add(v);
+
       entryConsignee.add(v);
       entryCarrier.add(v);
     }
     dropListModelProvidedBy = DropListModel(entryProvidedBy);
-    dropListModelShipper = DropListModel(entryShipper);
+
     dropListModelConsignee= DropListModel(entryConsignee);
     dropListModelCarrier= DropListModel(entryCarrier);
 
@@ -415,6 +446,16 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
       entrySpecification.add(v);
     }
     dropListModelSpecification = DropListModel(entrySpecification);
+
+
+    for(ShipperModel  item in widget.shippers){
+      if(widget.model.shipperName == item.fullName){
+        optionItemSelectedShipper = Entry(item.fullName! ,item.id! ,[]);
+      }
+      Entry v = Entry(item.fullName! ,item.id! ,[]);
+      entryShipper.add(v);
+    }
+    dropListModelShipper = DropListModel(entryShipper);
   }
 
   void _setSelectedRadioGender(int val) {

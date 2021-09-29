@@ -361,6 +361,73 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
           Divider(color: Colors.grey[300],thickness: 2,),
           Padding(
             padding: const EdgeInsets.all(8.0),
+            child: Text('Information from the receptionist'),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              color: Colors.red[100],
+              child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                  Row(children: [
+                    Text('Quantity received: '),
+                    Text(widget.shipment.info.receivedQuantity??'',style: AppTextStyle.mediumBlackBold,),
+                  ],),
+                  Row(children: [
+                    Text(S.of(context).supplierInfo),
+                    Text(widget.shipment.info.supplierName??'',style: AppTextStyle.mediumBlackBold,),
+                  ],),
+
+                ],),
+                Row(children: [
+                  Text(S.of(context).importantNote+': ',),
+                  Text(widget.shipment.info.notes??'',style: AppTextStyle.mediumBlackBold,),
+                ],)
+              ],),
+            ),),
+          ),
+
+          Divider(color: Colors.grey[300],thickness: 2,),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('Gunny' ,style: AppTextStyle.mediumBlack, ),
+          ),
+          ListView.builder(itemBuilder:(context,index){
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                  color: Colors.green[100],
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(S.of(context).gunnyNumber+': '),
+                            Text(widget.shipment.gunnyModel![index].gunnyIdentificationNumber!+',' , style: AppTextStyle.mediumBlackBold,),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(S.of(context).unitQuantity+': '),
+                            Text(widget.shipment.gunnyModel![index].quantity.toString() , style: AppTextStyle.mediumBlackBold,),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )),
+            );
+          },itemCount: widget.shipment.gunnyModel!.length,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+          ),
+          Divider(color: Colors.grey[300],thickness: 2,),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Text(S.of(context).holder ,style: AppTextStyle.mediumBlack, ),
           ),
         ListView.builder(itemBuilder: (context , index){
@@ -481,36 +548,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                 ],
               ),
 
-              SizedBox(
-                height: 10,
-              ),
-              Text('Gunny: ' , style: AppTextStyle.mediumBlueBold,),
-              ListView.builder(itemBuilder:(context,index){
-                return Card(
-                    color: Colors.green[100],
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                  children: [
-                      Row(
-                        children: [
-                          Text(S.of(context).gunnyNumber+': '),
-                          Text(subShipmentModel.gunnyModel![index].gunnyIdentificationNumber!+',' , style: AppTextStyle.mediumBlackBold,),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text(S.of(context).unitQuantity+': '),
-                          Text(subShipmentModel.gunnyModel![index].quantity.toString() , style: AppTextStyle.mediumBlackBold,),
-                        ],
-                      ),
-                  ],
-                ),
-                    ));
-              },itemCount: subShipmentModel.gunnyModel!.length,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-              ),
+
 
               Row(
                 children: [

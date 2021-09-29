@@ -9,6 +9,7 @@ import 'package:pasco_shipping/module_airwaybill/response/airwaybill_response.da
 import 'package:pasco_shipping/module_airwaybill_specification/response/airwaybill_specification_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
+import 'package:pasco_shipping/module_shipper/response/shipper_response.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
@@ -17,9 +18,10 @@ import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class UpdateAirwaybillInit extends StatefulWidget {
   final List<SubcontractModel> subContracts;
+  final List<ShipperModel> shipper;
   final AirwaybillModel model;
   final Function onUpdate;
-  const UpdateAirwaybillInit({ required this.onUpdate , required this.subContracts,required this.model});
+  const UpdateAirwaybillInit({ required this.onUpdate , required this.subContracts,required this.model,required this.shipper});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
@@ -27,6 +29,7 @@ class UpdateAirwaybillInit extends StatefulWidget {
 
 class _AddCountryInitState extends State<UpdateAirwaybillInit> {
  late TextEditingController containerNumber ;
+ late TextEditingController consigneeController ;
 
  late DropListModel dropListModelProvidedBy;
  late Entry optionItemSelectedProvidedBy;
@@ -265,6 +268,33 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
                   setState(() {});
                 },
               ),
+              widget.model.type=='FCL'?  Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: 4,left: 16, right: 16, bottom: 4
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(15)
+                      ),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 5
+                        )
+                      ]
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: S.of(context).consignee,
+                    ),
+                    controller: consigneeController,
+                  ),
+                ),
+              ):Container(),
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -343,6 +373,7 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
     entrySpecification = <Entry>[];
 
     containerNumber=TextEditingController();
+    consigneeController=TextEditingController();
     containerNumber..text = widget.model.airwaybillNumber??'';
 
     status= widget.model.status!;
@@ -366,24 +397,28 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
       if(widget.model.consigneeName == item.fullName){
         optionItemSelectedConsignee = Entry(item.fullName! ,item.id! ,[]);
       }
-      if(widget.model.shipperName == item.fullName){
-        optionItemSelectedShipper = Entry(item.fullName! ,item.id! ,[]);
-      }if(widget.model.carrierName == item.fullName){
+      if(widget.model.carrierName == item.fullName){
         optionItemSelectedCarrier = Entry(item.fullName! ,item.id! ,[]);
       }
 
 
       Entry v = Entry(item.fullName! ,item.id! ,[]);
       entryProvidedBy.add(v);
-      entryShipper.add(v);
       entryConsignee.add(v);
       entryCarrier.add(v);
     }
     dropListModelProvidedBy = DropListModel(entryProvidedBy);
-    dropListModelShipper = DropListModel(entryShipper);
     dropListModelConsignee= DropListModel(entryConsignee);
     dropListModelCarrier= DropListModel(entryCarrier);
 
+    for(ShipperModel  item in widget.shipper){
+      if(widget.model.shipperName == item.fullName){
+        optionItemSelectedShipper = Entry(item.fullName! ,item.id! ,[]);
+      }
+      Entry v = Entry(item.fullName! ,item.id! ,[]);
+      entryShipper.add(v);
+    }
+    dropListModelShipper = DropListModel(entryShipper);
 
   }
 

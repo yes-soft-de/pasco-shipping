@@ -151,7 +151,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   children: [
                     Icon(Icons.warning ,color: Colors.red),
                     SizedBox(width: 10,),
-                    Expanded(child: Text(widget.statusModel[3].statusDetails ??'' , style:  AppTextStyle.mediumRedBold)),
+                    Expanded(child: Text(widget.statusModel[1].statusDetails ??'' , style:  AppTextStyle.mediumRedBold)),
                   ],
                 ),
               ),

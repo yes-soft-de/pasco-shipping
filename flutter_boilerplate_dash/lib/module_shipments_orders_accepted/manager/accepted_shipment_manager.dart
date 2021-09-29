@@ -11,6 +11,7 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/request/stored_s
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/response/gunny_shipment_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/shipment_finance_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/warehouse_response.dart';
 
@@ -31,6 +32,7 @@ class AcceptedShipmentManager{
   Future<ConfirmResponse?> createShipmentFinance(ShipmentFinanceRequest request) => _repository.createShipmentFinance(request);
   // Future<ConfirmResponse?> deleteProxy(String id) => _repository.deleteProxy(id);
   Future<DataFinance?> getShipmentFinance(ShipmentFilterFinanceRequest request) => _repository.getShipmentFinance(request);
+  Future<List<GunnyShipmentModel>?> getGunnyShipment(String id, String trackNumber) => _repository.getGunnyShipment(id,trackNumber);
 // Future<ConfirmResponse?> updateProxy(ProxyRequest request) => _repository.updateProxy(request);
 
 }

@@ -59,7 +59,7 @@ class GunnyRepository{
     // await _authService.refreshToken();
     var token = await _authService.getToken();
 
-    var response = await _apiClient.post(Urls.ADD_SHIPMENT_TO_GUNNY, request.toJson(),
+    var response = await _apiClient.post(Urls.GUNNY_SHIPMENT, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
     StoredResponse responsee = StoredResponse.fromJson(response!);
     if(responsee.statusCode =='201'){

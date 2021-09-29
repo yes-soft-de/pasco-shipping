@@ -42,6 +42,7 @@ class ContainerDetailsModel {
     this.freeCapacity,
     this.shipmentID,
     this.portName,
+    this.location,
 
 
     this.createdAt,
@@ -63,6 +64,7 @@ class ContainerDetailsModel {
   String? specificationName;
   String? freeCapacity;
   String? portName;
+  String? location;
 
   int? shipmentID;
 
@@ -88,6 +90,7 @@ class ContainerDetailsModel {
     freeCapacity: json['freeCapacity'].toString(),
     shipmentID: json['shipmentID'],
     portName: json['portName'],
+    location: json['location'],
 
 
 

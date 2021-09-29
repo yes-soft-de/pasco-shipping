@@ -25,12 +25,14 @@ import 'package:image/image.dart' as ImageProcess;
 import 'package:pasco_shipping/utils/widget/text_edit.dart';
 
 class FirstOptionSuccessfully extends StatefulWidget {
+  final List<Countries> warehouses;
   final List<Countries> countries;
   final List<ProductModel> categories;
   final ShipmentRequest shipmentRequest;
   final Function goToSecondStep;
   FirstOptionSuccessfully(
       {required this.countries,
+        required this.warehouses,
       required this.categories,
       required this.shipmentRequest,required this.goToSecondStep});
 
@@ -106,7 +108,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
      widget.shipmentRequest.imageFilePath = [];
    }
    if(widget.shipmentRequest.exportWarehouseID !=0){
-     for (Countries item in widget.countries) {
+     for (Countries item in widget.warehouses) {
        if (item.warehouses!.isNotEmpty) {
          for (Warehouse warehouseItem in item.warehouses!) {
            if(warehouseItem.id ==widget.shipmentRequest.exportWarehouseID) {
@@ -137,7 +139,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
 
   void initShippingFrom() {
     List<Entry> children = <Entry>[];
-    for (Countries item in widget.countries) {
+    for (Countries item in widget.warehouses) {
       if (item.warehouses!.isNotEmpty && item.type=='export') {
         Entry country = Entry(item.name!, item.id!, children);
         print(country.id);

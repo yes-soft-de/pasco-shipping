@@ -18,6 +18,9 @@ class FirstOptionService {
   Future<List<Countries>?> getWarehouse() {
     return _manager.getWarehouses();
   }
+  Future<List<Countries>?> getCountriesImport() {
+    return _manager.getCountriesImport();
+  }
   Future<ConfirmResponse?> addShipment(ShipmentRequest request) {
     return _manager.addShipment(request);
   }

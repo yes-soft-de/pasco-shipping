@@ -174,7 +174,10 @@ class PendingHolders {
   int? id;
   int? shipmentID;
   int? specificationID;
-  String? specificationName;
+  String specificationName='';
+  String carrierName='';
+  String portName='';
+  String location='';
   String? notes;
 
   PendingHolders({required this.id,required this.shipmentID,required this.specificationID,
@@ -184,7 +187,10 @@ class PendingHolders {
     id = json['id'];
     shipmentID = json['shipmentID'];
     specificationID = json['specificationID'];
-    specificationName = json['specificationName'];
+    specificationName = json['specificationName']??'';
+    location = json['location']??'';
+    portName = json['portName']??'';
+    carrierName = json['carrierName']??'';
     notes = json['notes'];
   }
 }

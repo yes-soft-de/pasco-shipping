@@ -48,8 +48,13 @@ class RequestShipmentStateManger {
           if (categories == null) {
             _stateSubject.add(errorState('error connection'));
           } else {
-            _stateSubject.add(FirstOptionFetchingDataState(
-                categories: categories, warehouses: warehouses));
+            _firstOptionService.getCountriesImport().then((countries) {
+              if(countries != null){
+                _stateSubject.add(FirstOptionFetchingDataState(
+                    categories: categories, warehouses: warehouses,countries: countries));
+              }
+            });
+
           }
         });
       }
