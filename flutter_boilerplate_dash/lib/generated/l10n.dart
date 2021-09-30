@@ -3169,6 +3169,96 @@ class S {
       args: [],
     );
   }
+
+  /// `Our warehouse`
+  String get ourWarehouse {
+    return Intl.message(
+      'Our warehouse',
+      name: 'ourWarehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `yes`
+  String get yes {
+    return Intl.message(
+      'yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `no`
+  String get no {
+    return Intl.message(
+      'no',
+      name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Harbors`
+  String get harbors {
+    return Intl.message(
+      'Harbors',
+      name: 'harbors',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total carton`
+  String get totalShipment {
+    return Intl.message(
+      'Total carton',
+      name: 'totalShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sea Port`
+  String get seaport {
+    return Intl.message(
+      'Sea Port',
+      name: 'seaport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Air Port`
+  String get airport {
+    return Intl.message(
+      'Air Port',
+      name: 'airport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Prices`
+  String get prices {
+    return Intl.message(
+      'Prices',
+      name: 'prices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update harbor`
+  String get updateHarbor {
+    return Intl.message(
+      'Update harbor',
+      name: 'updateHarbor',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

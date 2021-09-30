@@ -19,14 +19,29 @@ class HolderCard extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(children: [
-          Row(children: [
+         pendingHolders.specificationName.isNotEmpty? Row(children: [
             Text(S.of(context).type+': ',style: AppTextStyle.mediumBlackBold),
-            Text(pendingHolders.specificationName ??'',style: AppTextStyle.mediumWhiteBold,)
-          ],),
+            Text(pendingHolders.specificationName ,style: AppTextStyle.mediumWhiteBold,)
+          ],):Container(),
           SizedBox(height: 15,),
           Row(children: [
             Text(S.of(context).importantNote+': ',style: AppTextStyle.mediumBlackBold),
             Expanded(child: Text(pendingHolders.notes ??'' , style: AppTextStyle.mediumWhiteBold,))
+          ],),
+          SizedBox(height: 15,),
+          Row(children: [
+            Text(S.of(context).carrier+': ',style: AppTextStyle.mediumBlackBold),
+            Expanded(child: Text(pendingHolders.carrierName , style: AppTextStyle.mediumWhiteBold,))
+          ],),
+          SizedBox(height: 15,),
+          Row(children: [
+            Text(S.of(context).harbors+': ',style: AppTextStyle.mediumBlackBold),
+            Expanded(child: Text(pendingHolders.portName  , style: AppTextStyle.mediumWhiteBold,))
+          ],),
+          SizedBox(height: 15,),
+          Row(children: [
+            Text(S.of(context).location+': ',style: AppTextStyle.mediumBlackBold),
+            Expanded(child: Text(pendingHolders.location  , style: AppTextStyle.mediumWhiteBold,))
           ],),
         ],),
       ),);

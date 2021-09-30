@@ -41,6 +41,8 @@ class ContainerDetailsModel {
     this.specificationName,
     this.freeCapacity,
     this.shipmentID,
+    this.portName,
+    this.location,
 
 
     this.createdAt,
@@ -61,6 +63,8 @@ class ContainerDetailsModel {
   String? carrierName;
   String? specificationName;
   String? freeCapacity;
+  String? portName;
+  String? location;
 
   int? shipmentID;
 
@@ -85,6 +89,8 @@ class ContainerDetailsModel {
     specificationName: json['specificationName'],
     freeCapacity: json['freeCapacity'].toString(),
     shipmentID: json['shipmentID'],
+    portName: json['portName'],
+    location: json['location'],
 
 
 
@@ -118,6 +124,7 @@ class ShipmentModel {
     this.quantity,
     this.image,
     this.productCategoryName,
+    this.subProductCategoryName,
     this.unit,
     this.receiverName,
     this.receiverPhoneNumber,
@@ -155,6 +162,7 @@ class ShipmentModel {
   int? quantity;
   String? image;
   String? productCategoryName;
+  String? subProductCategoryName;
   String? unit;
   String? receiverName;
   String? receiverPhoneNumber;
@@ -194,6 +202,7 @@ class ShipmentModel {
     quantity: json["quantity"],
     image: json["image"],
     productCategoryName: json["productCategoryName"],
+    subProductCategoryName: json["subProductCategoryName"],
     unit: json["unit"],
     receiverName: json["receiverName"],
     receiverPhoneNumber: json["receiverPhoneNumber"],

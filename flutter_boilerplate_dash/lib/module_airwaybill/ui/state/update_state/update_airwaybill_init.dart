@@ -7,8 +7,10 @@ import 'package:pasco_shipping/module_airwaybill/enums/airwaybill_status.dart';
 import 'package:pasco_shipping/module_airwaybill/request/airwaybill_request.dart';
 import 'package:pasco_shipping/module_airwaybill/response/airwaybill_response.dart';
 import 'package:pasco_shipping/module_airwaybill_specification/response/airwaybill_specification_response.dart';
+import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
+import 'package:pasco_shipping/module_shipper/response/shipper_response.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
@@ -17,10 +19,11 @@ import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class UpdateAirwaybillInit extends StatefulWidget {
   final List<SubcontractModel> subContracts;
-  final List<AirwaybillSpecificationModel> specifications;
+  final List<ShipperModel> shipper;
+  final List<HarborModel> harbors;
   final AirwaybillModel model;
   final Function onUpdate;
-  const UpdateAirwaybillInit({ required this.onUpdate , required this.subContracts,required this.specifications,required this.model});
+  const UpdateAirwaybillInit({ required this.onUpdate , required this.subContracts,required this.model,required this.shipper,required this.harbors});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
@@ -28,6 +31,9 @@ class UpdateAirwaybillInit extends StatefulWidget {
 
 class _AddCountryInitState extends State<UpdateAirwaybillInit> {
  late TextEditingController containerNumber ;
+ late TextEditingController consigneeController ;
+ DropListModel dropListModelLocation = DropListModel(location);
+ late Entry optionItemSelectedLocation;
 
  late DropListModel dropListModelProvidedBy;
  late Entry optionItemSelectedProvidedBy;
@@ -38,8 +44,8 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
  late DropListModel dropListModelShipper;
  late Entry optionItemSelectedShipper;
 
- late DropListModel dropListModelSpecification;
- late Entry optionItemSelectedSpecification;
+ late DropListModel dropListModelHarbor;
+ late Entry optionItemSelectedHarbor;
 
  late DropListModel dropListModelCarrier;
  late Entry optionItemSelectedCarrier;
@@ -48,7 +54,8 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
  late List<Entry> entryConsignee;
  late List<Entry> entryShipper;
  late List<Entry> entryCarrier;
- late List<Entry> entrySpecification;
+ // late List<Entry> entrySpecification;
+ late List<Entry> entryHarbor;
 
  late String status;
  late String type;
@@ -230,7 +237,40 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
                   ),
                 ),
               ),
-
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).location , style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              SelectDropList(
+                this.optionItemSelectedLocation,
+                this.dropListModelLocation,
+                    (optionItem) {
+                  FocusScope.of(context).unfocus();
+                  optionItemSelectedLocation = optionItem;
+                  setState(() {});
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).harbors , style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              SelectDropList(
+                this.optionItemSelectedHarbor,
+                this.dropListModelHarbor,
+                    (optionItem) {
+                  FocusScope.of(context).unfocus();
+                  optionItemSelectedHarbor = optionItem;
+                  setState(() {});
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
@@ -267,6 +307,33 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
                   setState(() {});
                 },
               ),
+              widget.model.type=='FCL'?  Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: 4,left: 16, right: 16, bottom: 4
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(15)
+                      ),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 5
+                        )
+                      ]
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: S.of(context).consignee,
+                    ),
+                    controller: consigneeController,
+                  ),
+                ),
+              ):Container(),
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -305,23 +372,6 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
               ),
 
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).specification , style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              SelectDropList(
-                this.optionItemSelectedSpecification,
-                this.dropListModelSpecification,
-                    (optionItem) {
-                  optionItemSelectedSpecification = optionItem;
-                  specificationID = optionItem.id;
-                  setState(() {});
-                },
-              ),
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(optionItemSelectedProvidedBy.id==0){
@@ -330,15 +380,15 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
                   Entry c = Entry(containerNumber.text, widget.model.id!, []);
 
                   AirwaybillRequest re = AirwaybillRequest(status: status,
-                      type: type
-                      ,
-                      specificationID: optionItemSelectedSpecification.id,
+                      type: type,
                       consigneeID: optionItemSelectedConsignee.id,
                       shipperID: optionItemSelectedShipper.id,
                       carrierID: optionItemSelectedCarrier.id
                       ,
                       airwaybillNumber: containerNumber.text,
                       providedBy: optionItemSelectedProvidedBy.id,
+                      location: optionItemSelectedLocation.title,
+                      portID: optionItemSelectedHarbor.id,
                       id: widget.model.id
                   );
                   widget.onUpdate(re, c);
@@ -359,9 +409,11 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
     entryConsignee= <Entry>[];
     entryCarrier= <Entry>[];
 
-    entrySpecification = <Entry>[];
+    // entrySpecification = <Entry>[];
+    entryHarbor= <Entry>[];
 
     containerNumber=TextEditingController();
+    consigneeController=TextEditingController();
     containerNumber..text = widget.model.airwaybillNumber??'';
 
     status= widget.model.status!;
@@ -371,9 +423,9 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
     optionItemSelectedProvidedBy =  Entry('choose', 0, []);
     optionItemSelectedShipper =  Entry('choose', 0, []);
     optionItemSelectedConsignee =  Entry('choose', 0, []);
-    optionItemSelectedSpecification =  Entry('choose', 0, []);
     optionItemSelectedCarrier =  Entry('choose', 0, []);
-
+    optionItemSelectedHarbor =  Entry('choose', 0, []);
+    optionItemSelectedLocation = Entry(widget.model.location??'', 0, []);
     initList();
 
   }
@@ -386,33 +438,36 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
       if(widget.model.consigneeName == item.fullName){
         optionItemSelectedConsignee = Entry(item.fullName! ,item.id! ,[]);
       }
-      if(widget.model.shipperName == item.fullName){
-        optionItemSelectedShipper = Entry(item.fullName! ,item.id! ,[]);
-      }if(widget.model.carrierName == item.fullName){
+      if(widget.model.carrierName == item.fullName){
         optionItemSelectedCarrier = Entry(item.fullName! ,item.id! ,[]);
       }
 
 
       Entry v = Entry(item.fullName! ,item.id! ,[]);
       entryProvidedBy.add(v);
-      entryShipper.add(v);
       entryConsignee.add(v);
       entryCarrier.add(v);
     }
     dropListModelProvidedBy = DropListModel(entryProvidedBy);
-    dropListModelShipper = DropListModel(entryShipper);
     dropListModelConsignee= DropListModel(entryConsignee);
     dropListModelCarrier= DropListModel(entryCarrier);
 
-
-    for(AirwaybillSpecificationModel  item in widget.specifications){
-      if(widget.model.specificationName == item.name){
-        optionItemSelectedSpecification = Entry(item.name! ,item.id! ,[]);
+    for(ShipperModel  item in widget.shipper){
+      if(widget.model.shipperName == item.fullName){
+        optionItemSelectedShipper = Entry(item.fullName! ,item.id! ,[]);
+      }
+      Entry v = Entry(item.fullName! ,item.id! ,[]);
+      entryShipper.add(v);
+    }
+    dropListModelShipper = DropListModel(entryShipper);
+    for(HarborModel  item in widget.harbors){
+      if(widget.model.portName == item.name){
+        optionItemSelectedHarbor = Entry(item.name! ,item.id! ,[]);
       }
       Entry v = Entry(item.name! ,item.id! ,[]);
-      entrySpecification.add(v);
+      entryHarbor.add(v);
     }
-    dropListModelSpecification = DropListModel(entrySpecification);
+    dropListModelHarbor = DropListModel(entryHarbor);
   }
 
  void _setSelectedRadioGender(int val) {

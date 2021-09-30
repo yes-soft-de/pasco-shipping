@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "airTravel": MessageLookupByLibrary.simpleMessage("رحلات جوية"),
         "airWaybills":
             MessageLookupByLibrary.simpleMessage("بوليصات الشحن الجوي"),
+        "airport": MessageLookupByLibrary.simpleMessage("ميناء جوي"),
         "airwaybillArrived": MessageLookupByLibrary.simpleMessage(
             "تم الوصول الى المستودع الهدف"),
         "airwaybillFinance":
@@ -172,6 +173,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "guniQuantity": MessageLookupByLibrary.simpleMessage("عدد الجوني"),
         "gunnyFull": MessageLookupByLibrary.simpleMessage("امتلئ الجوني"),
         "gunnyNumber": MessageLookupByLibrary.simpleMessage("رقم الجوني"),
+        "harbors": MessageLookupByLibrary.simpleMessage("المرافئ"),
         "haveSpace":
             MessageLookupByLibrary.simpleMessage("مازلت تمتلك بعض المساحة"),
         "heightInMeter":
@@ -227,6 +229,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("طلب شحنة جديد"),
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "nextStatus": MessageLookupByLibrary.simpleMessage("الحالة التالية"),
+        "no": MessageLookupByLibrary.simpleMessage("كلا"),
         "noAccount":
             MessageLookupByLibrary.simpleMessage("ليس لديك حساب ؟ إنشاء حساب"),
         "noChangeStatus": MessageLookupByLibrary.simpleMessage(
@@ -246,6 +249,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "operationCompletedSuccessfully":
             MessageLookupByLibrary.simpleMessage("تم العملية بنجاح"),
         "otherData": MessageLookupByLibrary.simpleMessage("معلومات اخرى"),
+        "ourWarehouse": MessageLookupByLibrary.simpleMessage("مستودعاتنا"),
         "packingBy": MessageLookupByLibrary.simpleMessage("غُلفت"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
         "passwordIsTooShort":
@@ -258,6 +262,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("أدخل الرقم"),
         "previousMark":
             MessageLookupByLibrary.simpleMessage("العلامات السابقة"),
+        "prices": MessageLookupByLibrary.simpleMessage("الأسعار"),
         "privacy": MessageLookupByLibrary.simpleMessage("سياسة الخصوصية"),
         "productCategory":
             MessageLookupByLibrary.simpleMessage("نوع البضائع: "),
@@ -296,6 +301,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sea": MessageLookupByLibrary.simpleMessage("بحري"),
         "seaShipment": MessageLookupByLibrary.simpleMessage("شحنات بحرية"),
         "seaTravel": MessageLookupByLibrary.simpleMessage("رحلات بحرية"),
+        "seaport": MessageLookupByLibrary.simpleMessage("ميناء بحري"),
         "searchHere": MessageLookupByLibrary.simpleMessage("ابحث هنا..."),
         "selectMark": MessageLookupByLibrary.simpleMessage("أختر علامة"),
         "selectProvider":
@@ -386,6 +392,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "to": MessageLookupByLibrary.simpleMessage("الى"),
         "total": MessageLookupByLibrary.simpleMessage(" الكلي "),
         "totalCost": MessageLookupByLibrary.simpleMessage("الكلفة الكلية: "),
+        "totalShipment": MessageLookupByLibrary.simpleMessage("عدد الكراتين"),
         "trackNumber": MessageLookupByLibrary.simpleMessage("رقم التعقب: "),
         "trackShipment": MessageLookupByLibrary.simpleMessage("تعقب شحنة"),
         "travelArrived":
@@ -407,6 +414,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تعديل بوصيلة الشحن"),
         "updateContainer":
             MessageLookupByLibrary.simpleMessage("تعديل الحاوية"),
+        "updateHarbor": MessageLookupByLibrary.simpleMessage("تعديل الميناء"),
         "updateTravel": MessageLookupByLibrary.simpleMessage("تعديل رحلة"),
         "updateWarehouse": MessageLookupByLibrary.simpleMessage("تعديل مستودع"),
         "updatedAt": MessageLookupByLibrary.simpleMessage("تم التحديث في: "),
@@ -434,6 +442,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "width": MessageLookupByLibrary.simpleMessage("الوزن"),
         "widthInMeter": MessageLookupByLibrary.simpleMessage("العرض بالمتر"),
         "writeDetails":
-            MessageLookupByLibrary.simpleMessage("اكتب ملاحظة عن هذه المرحلة")
+            MessageLookupByLibrary.simpleMessage("اكتب ملاحظة عن هذه المرحلة"),
+        "yes": MessageLookupByLibrary.simpleMessage("نعم")
       };
 }

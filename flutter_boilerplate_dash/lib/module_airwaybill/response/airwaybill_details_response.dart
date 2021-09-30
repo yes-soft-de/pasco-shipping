@@ -41,6 +41,8 @@ class AirwaybillDetailsModel {
     this.specificationName,
     this.freeWeight,
     this.shipmentID,
+    this.portName,
+    this.location,
 
 
     this.createdAt,
@@ -62,6 +64,8 @@ class AirwaybillDetailsModel {
   String? specificationName;
   String? freeWeight;
   int? shipmentID;
+  String? portName;
+  String? location;
 
 
 
@@ -84,6 +88,8 @@ class AirwaybillDetailsModel {
     specificationName: json['specificationName'],
     freeWeight: json['freeWeight'].toString(),
     shipmentID: json['shipmentID'],
+    portName: json['portName'],
+    location: json['location'],
 
 
 
@@ -117,6 +123,7 @@ class ShipmentModel {
     this.quantity,
     this.image,
     this.productCategoryName,
+    this.subProductCategoryName,
     this.unit,
     this.receiverName,
     this.receiverPhoneNumber,
@@ -153,6 +160,7 @@ class ShipmentModel {
   int? quantity;
   String? image;
   String? productCategoryName;
+  String? subProductCategoryName;
   String? unit;
   String? receiverName;
   String? receiverPhoneNumber;
@@ -191,6 +199,7 @@ class ShipmentModel {
     quantity: json["quantity"],
     image: json["image"],
     productCategoryName: json["productCategoryName"],
+    subProductCategoryName: json["subProductCategoryName"],
     unit: json["unit"],
     receiverName: json["receiverName"],
     receiverPhoneNumber: json["receiverPhoneNumber"],
@@ -199,7 +208,7 @@ class ShipmentModel {
     paymentTime: json["paymentTime"],
     weight: json["weight"].toString(),
     qrCode: json["qrCode"],
-    guniQuantity: json["guniQuantity"],
+    guniQuantity: json['guniQuantity'],
     vehicleIdentificationNumber: json["vehicleIdentificationNumber"],
     extraSpecification: json["extraSpecification"],
     isExternalWarehouse: json["isExternalWarehouse"],

@@ -7,6 +7,7 @@ import 'package:pasco_shipping/module_airwaybill/enums/airwaybill_status.dart';
 import 'package:pasco_shipping/module_airwaybill/request/airwaybill_request.dart';
 import 'package:pasco_shipping/module_airwaybill_specification/response/airwaybill_specification_response.dart';
 import 'package:pasco_shipping/module_client/response/client_response.dart';
+import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
@@ -17,17 +18,19 @@ import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class RequestAirwaybillInit extends StatefulWidget {
   final List<SubcontractModel> subContracts;
-  final List<AirwaybillSpecificationModel> specifications;
   final List<ClientModel> clients;
+  final List<HarborModel> harbors;
   final Function onSave;
-  const RequestAirwaybillInit({ required this.onSave , required this.subContracts,required this.specifications,required this.clients});
+  const RequestAirwaybillInit({ required this.onSave , required this.subContracts,required this.clients,required this.harbors});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
 }
 
 class _AddCountryInitState extends State<RequestAirwaybillInit> {
- late TextEditingController containerNumber ;
+ // late TextEditingController location ;
+  DropListModel dropListModelLocation = DropListModel(location);
+  late Entry optionItemSelectedLocation;
 
  late DropListModel dropListModelProvidedBy;
  late Entry optionItemSelectedProvidedBy;
@@ -47,12 +50,16 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
  late DropListModel dropListModelClient;
  late Entry optionItemSelectedClient;
 
+ late DropListModel dropListModelHarbor;
+ late Entry optionItemSelectedHarbor;
+
  late List<Entry> entryProvidedBy;
  late List<Entry> entryConsignee;
  late List<Entry> entryShipper;
  late List<Entry> entryCarrier;
  late List<Entry> entrySpecification;
  late List<Entry> entryClient;
+ late List<Entry> entryHarbor;
  late String status;
  late String type;
  late int selectedRadioType;
@@ -62,7 +69,7 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
  // late int providedByID;
  late int specificationID;
 
- // late int carrierID;
+ late int carrierID;
  late int clientID;
 
  // TimeOfDay selectedTimeStart = TimeOfDay.now();
@@ -160,61 +167,41 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                 ],
               ),
 
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Row(children: [
-              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-              //     SizedBox(width: 5,),
-              //     Text(S.of(context).airwaybillNumber , style: AppTextStyle.mediumBlackBold,)
-              //   ],),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.all(10.0),
-              //   child: Container(
-              //     padding: EdgeInsets.only(
-              //         top: 4,left: 16, right: 16, bottom: 4
-              //     ),
-              //     decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.all(
-              //             Radius.circular(15)
-              //         ),
-              //         color: Colors.white,
-              //         boxShadow: [
-              //           BoxShadow(
-              //               color: Colors.black12,
-              //               blurRadius: 5
-              //           )
-              //         ]
-              //     ),
-              //     child: TextField(
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).location , style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              SelectDropList(
+                this.optionItemSelectedLocation,
+                this.dropListModelLocation,
+                    (optionItem) {
+                  FocusScope.of(context).unfocus();
+                  optionItemSelectedLocation = optionItem;
+                  setState(() {});
+                },
+              ),
               //
-              //       decoration: InputDecoration(
-              //         border: InputBorder.none,
-              //         hintText: S.of(context).number,
-              //       ),
-              //       controller: containerNumber,
-              //     ),
-              //   ),
-              // ),
-              //
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Row(children: [
-              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-              //     SizedBox(width: 5,),
-              //     Text(S.of(context).provided , style: AppTextStyle.mediumBlackBold,)
-              //   ],),
-              // ),
-              // SelectDropList(
-              //   this.optionItemSelectedProvidedBy,
-              //   this.dropListModelProvidedBy,
-              //       (optionItem) {
-              //         FocusScope.of(context).unfocus();
-              //     optionItemSelectedProvidedBy = optionItem;
-              //         providedByID = optionItem.id;
-              //     setState(() {});
-              //   },
-              // ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).harbors , style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              SelectDropList(
+                this.optionItemSelectedHarbor,
+                this.dropListModelHarbor,
+                    (optionItem) {
+                      FocusScope.of(context).unfocus();
+                  optionItemSelectedHarbor = optionItem;
+                  setState(() {});
+                },
+              ),
               //
               // Padding(
               //   padding: const EdgeInsets.all(8.0),
@@ -252,23 +239,23 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
               //   },
               // ),
               //
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Row(children: [
-              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-              //     SizedBox(width: 5,),
-              //     Text(S.of(context).carrier , style: AppTextStyle.mediumBlackBold,)
-              //   ],),
-              // ),
-              // SelectDropList(
-              //   this.optionItemSelectedCarrier,
-              //   this.dropListModelCarrier,
-              //       (optionItem) {
-              //     optionItemSelectedCarrier= optionItem;
-              //     carrierID = optionItem.id;
-              //     setState(() {});
-              //   },
-              // ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).carrier , style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              SelectDropList(
+                this.optionItemSelectedCarrier,
+                this.dropListModelCarrier,
+                    (optionItem) {
+                  optionItemSelectedCarrier= optionItem;
+                  carrierID = optionItem.id;
+                  setState(() {});
+                },
+              ),
 
               selectedRadioType==2 ? Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -287,35 +274,37 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                   setState(() {});
                 },
               ):Container(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).specification , style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              SelectDropList(
-                this.optionItemSelectedSpecification,
-                this.dropListModelSpecification,
-                    (optionItem) {
-                  optionItemSelectedSpecification = optionItem;
-                  specificationID = optionItem.id;
-                  setState(() {});
-                },
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Row(children: [
+              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+              //     SizedBox(width: 5,),
+              //     Text(S.of(context).specification , style: AppTextStyle.mediumBlackBold,)
+              //   ],),
+              // ),
+              // SelectDropList(
+              //   this.optionItemSelectedSpecification,
+              //   this.dropListModelSpecification,
+              //       (optionItem) {
+              //     optionItemSelectedSpecification = optionItem;
+              //     specificationID = optionItem.id;
+              //     setState(() {});
+              //   },
+              // ),
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 // DateTime arrivalDate = DateTime(endDate.year , endDate.month ,endDate.day ,selectedTimeEnd.hour ,selectedTimeEnd.minute);
                 // DateTime launchDate = DateTime(startDate.year , startDate.month ,startDate.day ,selectedTimeStart.hour ,selectedTimeStart.minute);
 
-                AirwaybillRequest re = AirwaybillRequest(status: status ,type: type
-                    ,specificationID: optionItemSelectedSpecification.id ,
+                AirwaybillRequest re = AirwaybillRequest(status: status ,type: type,
                     consigneeID: optionItemSelectedConsignee.id ,
                     shipperID: optionItemSelectedShipper.id,
+
                     carrierID: optionItemSelectedCarrier.id
-                    ,airwaybillNumber: containerNumber.text,
-                  providedBy: optionItemSelectedProvidedBy.id
+                    ,location: optionItemSelectedLocation.title,
+                  providedBy: optionItemSelectedProvidedBy.id,
+                    portID: optionItemSelectedHarbor.id,
+
                 );
                   widget.onSave(re);
 
@@ -336,10 +325,11 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
     entryConsignee= <Entry>[];
     entryCarrier= <Entry>[];
     entryClient= <Entry>[];
+    entryHarbor= <Entry>[];
 
     entrySpecification = <Entry>[];
 
-    containerNumber=TextEditingController();
+    // location=TextEditingController();
 
     status= AirwaybillStatusName[AirwaybillStatus.NOTFULL]!;
 
@@ -352,6 +342,8 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
     optionItemSelectedSpecification =  Entry('choose', 0, []);
     optionItemSelectedCarrier =  Entry('choose', 0, []);
     optionItemSelectedClient =  Entry('choose', 0, []);
+    optionItemSelectedHarbor =  Entry('choose', 0, []);
+    optionItemSelectedLocation =  Entry('choose', 0, []);
     initList();
 
   }
@@ -370,17 +362,20 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
     dropListModelCarrier= DropListModel(entryCarrier);
 
 
-    for(AirwaybillSpecificationModel  item in widget.specifications){
-      Entry v = Entry(item.name! ,item.id! ,[]);
-      entrySpecification.add(v);
-    }
-    dropListModelSpecification = DropListModel(entrySpecification);
+
 
     for(ClientModel  item in widget.clients){
       Entry v = Entry(item.userName! ,item.id! ,[]);
       entryClient.add(v);
     }
     dropListModelClient = DropListModel(entryClient);
+
+
+    for(HarborModel  item in widget.harbors){
+      Entry v = Entry(item.name! ,item.id! ,[]);
+      entryHarbor.add(v);
+    }
+    dropListModelHarbor = DropListModel(entryHarbor);
   }
 
  void _setSelectedRadioGender(int val) {

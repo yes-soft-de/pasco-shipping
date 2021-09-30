@@ -42,6 +42,18 @@ class FirstOptionRepository {
       return null;
     }
   }
+  Future<List<Countries>?> getCountriesImport() async {
+    // await _authService.refreshToken();
+    var token =  await _authService.getToken();
+    try {
+      var response = await _apiClient
+          .get(Urls.COUNTRIES+'/import', headers: {'Authorization': 'Bearer $token'});
+      List<Countries>? warehouses = WarehouseResponse.fromJson(response!).data;
+      return warehouses;
+    } catch (_) {
+      return null;
+    }
+  }
 
   Future<ConfirmResponse> addNewShipment(ShipmentRequest request) async {
     // await _authService.refreshToken();

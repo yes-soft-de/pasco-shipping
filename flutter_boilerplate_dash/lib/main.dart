@@ -10,6 +10,7 @@ import 'package:pasco_shipping/module_auth/authoriazation_module.dart';
 import 'package:pasco_shipping/module_chat/chat_module.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_edit_shipment/edit_shipment_module.dart';
+import 'package:pasco_shipping/module_harbor/harbor_module.dart';
 import 'package:pasco_shipping/module_home/home_module.dart';
 import 'package:pasco_shipping/module_localization/service/localization_service/localization_service.dart';
 import 'package:pasco_shipping/module_mark/mark_module.dart';
@@ -22,6 +23,7 @@ import 'package:pasco_shipping/module_settings/settings_module.dart';
 import 'package:pasco_shipping/module_shipment_track/tracking_module.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/accepted_shipment_module.dart';
 import 'package:pasco_shipping/module_shipments_orders_waiting/waiting_shipment_module.dart';
+import 'package:pasco_shipping/module_shipper/shipper_module.dart';
 import 'package:pasco_shipping/module_splash/splash_routes.dart';
 import 'package:pasco_shipping/module_subcontract_services/response/sub_contract_service_response.dart';
 import 'package:pasco_shipping/module_subcontract_services/sub_contract_service_module.dart';
@@ -48,6 +50,7 @@ import 'module_countries/country_module.dart';
 import 'module_distributors/distributors_module.dart';
 import 'module_employees/employe_module.dart';
 import 'module_notifications/service/local_notification_service/local_notification_service.dart';
+import 'module_price/price_module.dart';
 import 'module_product_category/product_module.dart';
 import 'module_product_sub_category/sub_product_module.dart';
 import 'module_proxies/proxies_module.dart';
@@ -137,6 +140,10 @@ class MyApp extends StatefulWidget {
   final ReceiverModule _receiverModule;
   final EmployeeModule _employeeModule;
 
+  final HarborModule _harborModule;
+  final ShipperModule _shipperModule;
+  final PriceModule _priceModule;
+
 
   MyApp(
       this._themeDataService,
@@ -178,8 +185,11 @@ class MyApp extends StatefulWidget {
       this._subProductModule,
       this._warehouseModule,
       this._receiverModule,
-      this._employeeModule
+      this._employeeModule,
 
+      this._harborModule,
+      this._shipperModule,
+      this._priceModule
       );
 
   @override

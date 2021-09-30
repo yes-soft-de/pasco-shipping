@@ -1,3 +1,4 @@
+import 'package:barcode_scan2/platform_wrapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -68,7 +69,16 @@ class _HomeScreenState extends State<HomeScreen> {
         AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(trackNumber:trackNumber ,isExternalWarehouse: false,acceptedUntilCleared: false);
         Navigator.pushNamed(
             context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':false});
-      },);
+      }, onScan: (){
+        BarcodeScanner.scan().then((value) {
+          if (value.rawContent.isNotEmpty) {
+            print(value.rawContent);
+            String id = value.rawContent;
+            Navigator.pushNamed(
+                context, AcceptedShipmentRoutes.DETAILS, arguments: {'id': id});
+          }
+        });
+      });
     }
     else {
       return Center(

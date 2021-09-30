@@ -8,6 +8,7 @@ import 'package:pasco_shipping/module_airwaybill/ui/state/addnew_state/add_state
 import 'package:pasco_shipping/module_airwaybill_specification/response/airwaybill_specification_response.dart';
 import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
+import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
@@ -28,6 +29,7 @@ class _AddNewCountryState extends State<AddNewAirwaybill> {
   late List<SubcontractModel> subs;
   late List<AirwaybillSpecificationModel> specification;
   late List<ClientModel> clients;
+  late List<HarborModel> harbors;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class _AddNewCountryState extends State<AddNewAirwaybill> {
         }
       }
     });
-    widget._stateManager.getSubContractAndSpecification();
+    widget._stateManager.getSubContractAndSpecificationAndHarbor();
   }
 
   Widget Screen(){
@@ -73,16 +75,16 @@ class _AddNewCountryState extends State<AddNewAirwaybill> {
     }
     else if (currentState is InitAddState){
       InitAddState? state = currentState as InitAddState?;
-      specification = state!.specifications;
-      subs = state.subcontracts;
+      subs = state!.subcontracts;
       clients = state.clients;
+      harbors=state.harbors;
       return RequestAirwaybillInit(
-        specifications: specification,
+
         subContracts: subs,
         clients: clients,
         onSave: (request){
         widget._stateManager.requestAirwaybill(request);
-      },);
+      }, harbors: harbors,);
     }
     // else if (currentState is SuccessfullyAddState){
     //   Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);

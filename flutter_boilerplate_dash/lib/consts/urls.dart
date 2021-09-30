@@ -32,6 +32,11 @@ class Urls {
   static const SUPPLIERS = BASE_API + 'suppliers';
   static const SUPPLIER = BASE_API + 'supplier';
 
+  //suppliers
+  static const SHIPPERS = BASE_API + 'shippers';
+  static const SHIPPER = BASE_API + 'shipper';
+
+
   //employee
   static const EMPLOYEES = BASE_API + 'employees';
   static const EMPLOYEE = BASE_API + 'employee';
@@ -135,6 +140,7 @@ class Urls {
   static const CHANGE_SHIPMENTS_STATUS_RECEIVED=BASE_API+'shipmentstatus';
   static const WAREHOUSES=BASE_API+'warehouses';
   static const STORED_SHIPMENT=BASE_API+'track';
+  static const RECEIVED_SHIPMENT=BASE_API+'receivedshipment';
 
 
   static const CHECK_HOLDER=BASE_API+'checkholder';
@@ -163,9 +169,15 @@ class Urls {
 
   //gunny
   static const CREATE_GUNNY = BASE_API + 'gunny';
-  static const ADD_SHIPMENT_TO_GUNNY = BASE_API + 'gunnyshipment';
+  static const GUNNY_SHIPMENT = BASE_API + 'gunnyshipment';
   static const GET_GUNNY = BASE_API + 'filtergunnies';
 
+  //Harbors
+  static const GET_HARBOR = BASE_API + 'filterharbors';
+  static const HARBOR = BASE_API + 'harbor';
+
+  //price
+  static const PRICE = BASE_API + 'price';
 
   static const REPORT_API = BASE_API + '/report';
 

@@ -25,12 +25,14 @@ import 'package:image/image.dart' as ImageProcess;
 import 'package:pasco_shipping/utils/widget/text_edit.dart';
 
 class FirstOptionSuccessfully extends StatefulWidget {
+  final List<Countries> warehouses;
   final List<Countries> countries;
   final List<ProductModel> categories;
   final ShipmentRequest shipmentRequest;
   final Function goToSecondStep;
   FirstOptionSuccessfully(
       {required this.countries,
+        required this.warehouses,
       required this.categories,
       required this.shipmentRequest,required this.goToSecondStep});
 
@@ -87,6 +89,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
    }
     if(widget.shipmentRequest.isExternalWarehouse){
       selectedRadioWarehouse = 1;
+
     }else {selectedRadioWarehouse = 2;
     widget.shipmentRequest.isExternalWarehouse = false;
     }
@@ -105,7 +108,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
      widget.shipmentRequest.imageFilePath = [];
    }
    if(widget.shipmentRequest.exportWarehouseID !=0){
-     for (Countries item in widget.countries) {
+     for (Countries item in widget.warehouses) {
        if (item.warehouses!.isNotEmpty) {
          for (Warehouse warehouseItem in item.warehouses!) {
            if(warehouseItem.id ==widget.shipmentRequest.exportWarehouseID) {
@@ -136,7 +139,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
 
   void initShippingFrom() {
     List<Entry> children = <Entry>[];
-    for (Countries item in widget.countries) {
+    for (Countries item in widget.warehouses) {
       if (item.warehouses!.isNotEmpty && item.type=='export') {
         Entry country = Entry(item.name!, item.id!, children);
         print(country.id);
@@ -309,7 +312,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                       value: 2,
                       groupValue: selectedRadioWarehouse,
                     ),
-                    Text( S.of(context).inLocalWarehouse,
+                    Text( S.of(context).ourWarehouse,
                         style: TextStyle(
                           color: Colors.black,
                         ))
@@ -371,7 +374,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                     S.of(context).warehouseInfo,
                     style: AppTextStyle.mediumBlackBold,
                   ),
-                  TextEdit('info', 50, (info) {
+                  TextEdit(hint: 'info',title:  widget.shipmentRequest.externalWarehouseInfo, onChange:(info) {
                     widget.shipmentRequest.externalWarehouseInfo = info;
                   }),
                 ],),
@@ -606,7 +609,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                 alignment: AlignmentDirectional.bottomEnd,
                 child: FloatingActionButton.extended(
                   onPressed: () {
-                    if(optionItemSelectedCategory.id==0 ||optionItemSelectedT.id==0||widget.shipmentRequest.quantity==0){
+                    if(widget.shipmentRequest.productCategoryName.isEmpty ||widget.shipmentRequest.target.isEmpty||widget.shipmentRequest.quantity==0){
                       Fluttertoast.showToast(msg: S.of(context).fillAllField);
                     }else{
                     widget.shipmentRequest.imageFilePath =[];

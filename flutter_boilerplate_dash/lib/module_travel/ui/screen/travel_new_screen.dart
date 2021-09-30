@@ -42,7 +42,7 @@ class _AddNewCountryState extends State<AddNewTravel> {
   @override
   void initState() {
     super.initState();
-    currentState = LoadingAddState();
+    currentState = InitAddState(subcontracts: [],countries: []);
     widget._stateManager.stateStream.listen((event) {
       print("newEvent"+event.toString());
       currentState = event;
@@ -50,7 +50,7 @@ class _AddNewCountryState extends State<AddNewTravel> {
         setState(() {});
       }
     });
-    widget._stateManager.getCountriesAndSubContract();
+    // widget._stateManager.getCountriesAndSubContract();
   }
 
   Widget Screen(){
@@ -66,12 +66,12 @@ class _AddNewCountryState extends State<AddNewTravel> {
       );
     }
     else if (currentState is InitAddState){
-      InitAddState? state = currentState as InitAddState?;
-      countries = state!.countries;
-      subs = state.subcontracts;
+      // InitAddState? state = currentState as InitAddState?;
+      // countries = state!.countries;
+      // subs = state.subcontracts;
       return AddTravelInit(
-        countries: countries,
-        subContracts: subs,
+        // countries: countries,
+        // subContracts: subs,
         onSave: (request){
         widget._stateManager.createTravel(request);
       },);
@@ -79,8 +79,6 @@ class _AddNewCountryState extends State<AddNewTravel> {
     else if (currentState is SuccessfullyAddState){
       Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
       return AddTravelInit(
-        subContracts: subs,
-        countries: countries,
         onSave: (request){
         widget._stateManager.createTravel(request);
       },);

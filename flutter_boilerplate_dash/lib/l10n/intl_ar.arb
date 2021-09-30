@@ -371,5 +371,14 @@
   "deleteClient": "هل تريد حقا حذف هذا الموظف وإلغاء جميع صلاحياته",
   "unitQuantity": "عدد الواحدات",
   "selectProvider": "أختر المُقَدِم",
-  "selectMark": "أختر علامة"
+  "selectMark": "أختر علامة",
+  "ourWarehouse": "مستودعاتنا",
+  "yes": "نعم",
+  "no": "كلا",
+  "harbors": "المرافئ",
+  "totalShipment": "عدد الكراتين",
+  "seaport": "ميناء بحري",
+  "airport": "ميناء جوي",
+  "prices": "الأسعار",
+  "updateHarbor": "تعديل الميناء"
 }

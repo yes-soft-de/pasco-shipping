@@ -108,6 +108,28 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Text(S.of(context).harbors),
+                      Text(widget.model.portName ?? ''),
+                    ],
+                  ),
+                ),
+                Divider(color: Colors.grey[300],thickness: 2,),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).location),
+                      Text(widget.model.location ?? ''),
+                    ],
+                  ),
+                ),
+                Divider(color: Colors.grey[300],thickness: 2,),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
                       Text(S.of(context).carrier),
                       Text(widget.model.carrierName ?? ''),
                     ],
@@ -316,8 +338,15 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
-                  Text(S.of(context).productCategory , style: AppTextStyle.mediumBlack,),
+                  Text(S.of(context).category+': ' , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.productCategoryName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                ],),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Text(S.of(context).subCategory+': ' , style: AppTextStyle.mediumBlack,),
+                  Text(shipmentModel.subProductCategoryName ?? '' , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
               Padding(
@@ -332,6 +361,13 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                 child: Row(children: [
                   Text(S.of(context).exportWarehouse , style: AppTextStyle.mediumBlack,),
                   Text(shipmentModel.exportWarehouseName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                ],),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Text(S.of(context).guniQuantity+': ' , style: AppTextStyle.mediumBlack,),
+                  Text(shipmentModel.guniQuantity.toString() , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
             ],

@@ -59,7 +59,7 @@ class _AddNewCountryState extends State<UpdateAirwaybill> {
         }
       }
     });
-    widget._stateManager.getSubContractAndSpecification();
+    widget._stateManager.getSubContractAndSpecificationAndHarborAndShipper();
   }
   @override
   void didChangeDependencies() {
@@ -81,16 +81,15 @@ class _AddNewCountryState extends State<UpdateAirwaybill> {
     }
     else if (currentState is InitAddState){
       InitAddState? state = currentState as InitAddState?;
-      specification = state!.specifications;
-      subs = state.subcontracts;
+      subs = state!.subcontracts;
       return UpdateAirwaybillInit(
-        specifications: specification,
         subContracts: subs,
         model: model,
+        harbors: state.harbors,
         onUpdate: (request,c){
           option = c;
         widget._stateManager.updateAirwaybill(request);
-      },);
+      }, shipper: state.shippers,);
     }
     else {
       return Center(

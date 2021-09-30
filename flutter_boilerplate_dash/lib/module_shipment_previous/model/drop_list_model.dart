@@ -57,3 +57,15 @@ final List<Entry> holderTypeEx = <Entry>[
       'FCL', 1,[]
   ),
 ];
+
+final List<Entry> location = <Entry>[
+  Entry(
+      'Premera Local', 1,[]
+  ),
+  Entry(
+      'Jebel Ali', 1,[]
+  ),
+  Entry(
+      'Premeral Local & Jebel Ali', 1,[]
+  ),
+];

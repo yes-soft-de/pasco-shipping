@@ -6,6 +6,7 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill_specification/response/airwaybill_specification_response.dart';
 import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
+import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_mark/mark_routes.dart';
 import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
@@ -14,6 +15,7 @@ import 'package:pasco_shipping/module_shipment_request/response/specefication/sp
 import 'package:pasco_shipping/module_shipment_request/ui/widget/NumberInputWithIncrementDecrement.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/holder_request_card.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
+import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_unit/response/unit_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
@@ -27,11 +29,13 @@ class SecondOptionSuccessfully extends StatefulWidget {
   final List<ClientModel> marks;
   final List<UnitModel> units;
   final List<RequestedHolders> specifications;
+  final List<HarborModel> harbors;
+  final List<SubcontractModel> carriers;
   final ShipmentRequest shipmentRequest;
   final Function goBackStep;
   final Function goNextPage;
   final Function goToAddClient;
-  SecondOptionSuccessfully({required this.marks,required this.shipmentRequest,required this.goBackStep,required this.goNextPage,required this.goToAddClient,required this.units,required this.specifications});
+  SecondOptionSuccessfully({required this.marks,required this.shipmentRequest,required this.goBackStep,required this.goNextPage,required this.goToAddClient,required this.units,required this.specifications,required this.harbors,required this.carriers});
 
   @override
   _SecondOptionSuccessfullyState createState() => _SecondOptionSuccessfullyState();
@@ -45,12 +49,20 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   late Entry optionItemSelectedTim = Entry('choose', 0, []);
   late Entry optionItemSelectedType = Entry('choose', 0, []);
 
+  late Entry optionItemSelectedHarbor = Entry('choose', 0, []);
+  late Entry optionItemSelectedCarrier = Entry('choose', 0, []);
+  late DropListModel dropListModelHarbor;
+  late DropListModel dropListModelCarrier;
+
   late DropListModel dropListModelMark;
  late DropListModel dropListModelUnit;
   late DropListModel dropListModelFromMark;
   late List<Entry> marksEntry;
   late List<Entry> unitsEntry;
   late List<Entry> marksBackEntry;
+
+  late List<Entry> harborEntry;
+  late List<Entry> carrierEntry;
 
   late Entry optionItemSelectedU;
   late Entry optionItemSelectedMar;
@@ -60,7 +72,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   late String receiverPhone;
   late String initQuantity;
 
-  late List<RequestedHolders> holders;
+  // late List<RequestedHolders> holders;
 
   late RequestedHolders setSelectSpec;
 
@@ -125,9 +137,10 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
       optionItemSelectedType = Entry('choose', 0, []);
     }
 
-    if(widget.specifications.isNotEmpty){
-      setSelectSpec = widget.specifications[0];
-    }
+    // if(widget.specifications.isNotEmpty){
+    //   setSelectSpec = widget.specifications[0];
+    // }
+    initLists();
   }
 
   @override
@@ -137,6 +150,10 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
     marksEntry = <Entry>[];
     unitsEntry = <Entry>[];
     marksBackEntry = <Entry>[];
+
+    harborEntry = <Entry>[];
+    carrierEntry = <Entry>[];
+
     for(ClientModel item in widget.marks){
       Entry v = Entry(item.userName! ,item.id! ,[]);
       marksEntry.add(v);
@@ -150,7 +167,21 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
     }
     dropListModelUnit = DropListModel(unitsEntry);
   }
+  void initLists(){
+    for(HarborModel item in widget.harbors){
+      Entry v = Entry(item.name! ,item.id! ,[]);
+      harborEntry.add(v);
+    }
+    dropListModelHarbor = DropListModel(harborEntry);
 
+
+    for(SubcontractModel item in widget.carriers){
+      Entry v = Entry(item.fullName! ,item.id! ,[]);
+      carrierEntry.add(v);
+    }
+    dropListModelCarrier = DropListModel(carrierEntry);
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +192,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
           S.of(context).supplierInfo,
           style: AppTextStyle.mediumBlackBold,
         ),
-        TextEdit(supplierName, 50, (supplierName) {
+        TextEdit(title: widget.shipmentRequest.supplierName, hint:S.of(context).name,onChange:(supplierName) {
           widget.shipmentRequest.supplierName = supplierName;
         }),
         SizedBox(
@@ -180,6 +211,41 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
             setState(() {});
           },
         ),
+        SizedBox(
+          height: 15,
+        ),
+        (widget.shipmentRequest.isExternalWarehouse)?
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+              Text(
+                S.of(context).carrier,
+                style: AppTextStyle.mediumBlackBold,
+              ),
+              SelectDropList(
+                this.optionItemSelectedCarrier,
+                this.dropListModelCarrier,
+                    (optionItem) {
+                  optionItemSelectedCarrier = optionItem;
+                  setState(() {});
+                },
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Text(
+                S.of(context).harbors,
+                style: AppTextStyle.mediumBlackBold,
+              ),
+              SelectDropList(
+                this.optionItemSelectedHarbor,
+                this.dropListModelHarbor,
+                    (optionItem) {
+                  optionItemSelectedHarbor = optionItem;
+                  setState(() {});
+                },
+              ),
+            ],):Container(),
         SizedBox(
           height: 15,
         ),
@@ -204,10 +270,15 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
             ( optionItemSelectedType.title=='FCL' && widget.shipmentRequest.isExternalWarehouse)?
             InkWell(
                 onTap: (){
-                  showSingleChoiceDialog(context , (){
-                    Navigator.pop(context);
-                    setState(() {});
-                  });
+                  if(optionItemSelectedHarbor.id==0){
+                    Fluttertoast.showToast(msg: 'Select the harbor first');
+                  }else{
+                    showSingleChoiceDialog(context , (se){
+                      widget.shipmentRequest.holders.add(se);
+                      Navigator.pop(context);
+                      setState(() {});
+                    });
+                  }
                 },
                 child: Icon(Icons.add_circle , color: blue , size: 40,)) :Container(),
           ],
@@ -315,11 +386,12 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                 child: FloatingActionButton.extended(
                   onPressed: () {
                     if(
-                    optionItemSelectedTim.title=='choose'
-                    || optionItemSelectedType.title=='choose'
-                    || optionItemSelectedU.title=='choose'
-                    || optionItemSelectedMar.id==0
-                    ||(widget.shipmentRequest.isExternalWarehouse && holders.isEmpty)
+                   widget.shipmentRequest.paymentTime.isEmpty
+                    || widget.shipmentRequest.holderType.isEmpty
+                    || widget.shipmentRequest.unit.isEmpty
+                    || widget.shipmentRequest.userName.isEmpty
+                    ||(widget.shipmentRequest.isExternalWarehouse && optionItemSelectedHarbor.id==0)
+                    ||(widget.shipmentRequest.isExternalWarehouse && widget.shipmentRequest.holders.isEmpty)
                     ){
                       Fluttertoast.showToast(msg: S.of(context).fillAllField);
                     }
@@ -337,55 +409,69 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
     );
   }
 
- void showSingleChoiceDialog(BuildContext context, Function go) =>
-     showDialog(
-      context: context,
-      builder: (context) {
-        // var _singleNotifier = Provider.of<SingleNotifier>(context);
-        return StatefulBuilder(
-            builder: (context, setState) {
-              return AlertDialog(
-                  title: Text("Select one and then add note"),
-                  content: SingleChildScrollView(
-                    child: Container(
-                      width: double.maxFinite,
-                      // height: double.maxFinite,
-                      child: Column(
-                        children: [
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: widget.specifications
-                                .map((e) =>
-                                RadioListTile(
-                                  title: Text(e.name),
-                                  value: e,
-                                  groupValue: setSelectSpec,
-                                  selected: e.name == setSelectSpec.name,
-                                  onChanged: (value) {
-                                    if (value != setSelectSpec) {
-                                      setState(() {
-                                        setSelectSpec =
-                                        value as RequestedHolders;
-                                      });
-                                    }
-                                  },
-                                ))
-                                .toList(),
-                          ),
-                          TextEdit(S.of(context).importantNote , 50,(notes){
-                            setSelectSpec.notes = notes;
-                          }),
-                          RoundedButton(lable: S.of(context).save, icon: '',
-                              color: blue, style: AppTextStyle.mediumWhite,
-                              go: (){
-                                widget.shipmentRequest.holders.add(setSelectSpec);
-                                go();
-                              }, radius: 12)
-                        ],
-                      ),
-                    ),
-                  ));
-            });
-      });
-
+ void showSingleChoiceDialog(BuildContext context, Function go) {
+   showDialog(
+       context: context,
+       builder: (context) {
+         setSelectSpec = RequestedHolders(name: '',notes: '',carrierID: 0,portID: 0,specificationID: 0,portName: '',carrierName: '');
+         return StatefulBuilder(
+             builder: (context, setState) {
+               return AlertDialog(
+                   title: Text("Select one and then add note"),
+                   content: SingleChildScrollView(
+                     child: Container(
+                       width: double.maxFinite,
+                       // height: double.maxFinite,
+                       child: Column(
+                         children: [
+                           Column(
+                             mainAxisSize: MainAxisSize.min,
+                             children: widget.specifications
+                                 .map((e) =>
+                                 RadioListTile(
+                                   title: Text(e.name ?? ''),
+                                   value: e,
+                                   groupValue: setSelectSpec,
+                                   selected: e.name == setSelectSpec.name,
+                                   onChanged: (value) {
+                                     setState(() {
+                                       setSelectSpec =
+                                       value as RequestedHolders;
+                                     });
+                                   },
+                                 ))
+                                 .toList(),
+                           ),
+                           TextEdit(title: '', hint: S
+                               .of(context)
+                               .importantNote, onChange: (notes) {
+                             setSelectSpec.notes = notes;
+                           }),
+                           RoundedButton(lable: S
+                               .of(context)
+                               .save,
+                               icon: '',
+                               color: blue,
+                               style: AppTextStyle.mediumWhite,
+                               go: () {
+                                 setSelectSpec.portID =
+                                     optionItemSelectedHarbor.id;
+                                 setSelectSpec.carrierID =
+                                     optionItemSelectedCarrier.id;
+                                 setSelectSpec.carrierName =
+                                 optionItemSelectedCarrier.title == 'choose'
+                                     ? ''
+                                     : optionItemSelectedCarrier.title;
+                                 setSelectSpec.portName =
+                                     optionItemSelectedHarbor.title;
+                                 go(setSelectSpec);
+                               },
+                               radius: 12)
+                         ],
+                       ),
+                     ),
+                   ));
+             });
+       });
+ }
 }

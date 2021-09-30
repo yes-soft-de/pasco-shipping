@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pasco_shipping/abstracts/module/yes_module.dart';
+import 'package:pasco_shipping/module_harbor/harbor_routes.dart';
 import 'package:pasco_shipping/module_home/ui/screen/home_screen.dart';
+import 'package:pasco_shipping/module_price/price_routes.dart';
+import 'package:pasco_shipping/module_shipper/shipper_routes.dart';
 import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_unit/unit_module.dart';
 import 'package:pasco_shipping/module_unit/unit_routes.dart';
@@ -10,7 +13,7 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill/airwaybill_module.dart';
 import 'package:pasco_shipping/module_airwaybill/airwaybill_routes.dart';
 import 'package:pasco_shipping/module_airwaybill/request/airwaybill_filter_request.dart';
-import 'package:pasco_shipping/module_airwaybill_specification/airwaybill_specification_routes.dart';
+// import 'package:pasco_shipping/module_airwaybill_specification/airwaybill_specification_routes.dart';
 import 'package:pasco_shipping/module_chat/chat_routes.dart';
 import 'package:pasco_shipping/module_client/client_routes.dart';
 import 'package:pasco_shipping/module_container/container_routes.dart';
@@ -370,8 +373,8 @@ class AppMenu extends ConsumerWidget {
                     ListTile(
                         title: new Text(S.of(context).add),
                         onTap: () {
-                          Navigator.pushNamed(context, NewShipmentRoutes.NEW_SHIPMENTS);
-                          // selectPage(context, ref, NewShipmentRoutes.NEW_SHIPMENTS);
+                          // Navigator.pushNamed(context, NewShipmentRoutes.NEW_SHIPMENTS);
+                          selectPage(context, ref, NewShipmentRoutes.NEW_SHIPMENTS);
                         }),
                   ],
                 ),
@@ -569,7 +572,7 @@ class AppMenu extends ConsumerWidget {
                   ListTile(
                       title:Text(S.of(context).seaShipment),
                       onTap: () {
-                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false,acceptedUntilCleared: false);
+                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false,acceptedUntilCleared: true);
                         Navigator.pushNamed(
                             context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':true});
                       }),
@@ -578,7 +581,7 @@ class AppMenu extends ConsumerWidget {
                           S.of(context).airShipment
                       ),
                       onTap: () {
-                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false,acceptedUntilCleared: false);
+                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false,acceptedUntilCleared: true);
                         Navigator.pushNamed(
                             context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':true});
                       }),
@@ -622,32 +625,6 @@ class AppMenu extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(S.of(context).basicInfo,style: AppTextStyle.mediumDeepGrayBold,),
-              ),
-              ExpansionTile(
-                title: new Text(S.of(context).airwaybillSpecification),
-                leading: Icon(Icons.filter_list),
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      children: [
-                        ListTile(
-                            title: new Text(S.of(context).view),
-                            onTap: () {
-                              selectPage(context, ref, AirwaybillSpecificationRoutes.VIEW_ALL);
-
-                            }),
-                        ListTile(
-                            title: new Text(
-                              S.of(context).add,
-                            ),
-                            onTap: () {
-                              selectPage(context, ref, AirwaybillSpecificationRoutes.ADD_NEW);
-                            }),
-                      ],
-                    ),
-                  ),
-                ],
               ),
               ExpansionTile(
                 title: new Text(S.of(context).containerSpecification),
@@ -834,6 +811,31 @@ class AppMenu extends ConsumerWidget {
                 ],
               ),
               ExpansionTile(
+                title: new Text(S.of(context).harbors),
+                leading: Icon(Icons.support_sharp),
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                            title: new Text(S.of(context).view),
+                            onTap: () {
+                              selectPage(context, ref, HarborRoutes.VIEW_ALL);
+                            }),
+                        ListTile(
+                            title: new Text(
+                              S.of(context).add,
+                            ),
+                            onTap: () {
+                              selectPage(context, ref, HarborRoutes.ADD_NEW);
+                            }),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              ExpansionTile(
                 title: new Text(S.of(context).subcontractService),
                 leading: Icon(Icons.design_services),
                 children: <Widget>[
@@ -942,6 +944,52 @@ class AppMenu extends ConsumerWidget {
                               selectPage(context, ref, SupplierRoutes.ADD_NEW);
                               // Navigator.pushNamed(context, SupplierRoutes.ADD_NEW);
                             }),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              ExpansionTile(
+                title: new Text(S.of(context).shipper),
+                leading: Icon(Icons.filter_tilt_shift_rounded),
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                            title: new Text(S.of(context).view),
+                            onTap: () =>
+                              selectPage(context, ref, ShipperRoutes.VIEW_ALL),
+                              // Navigator.pushNamed(context, SupplierRoutes.VIEW_ALL);
+                            ),
+                        ListTile(
+                            title: new Text(
+                              S.of(context).add,
+                            ),
+                            onTap: () {
+                              print('adddddddd');
+                              selectPage(context, ref, ShipperRoutes.ADD_NEW);
+                              // Navigator.pushNamed(context, SupplierRoutes.ADD_NEW);
+                            }),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              ExpansionTile(
+                title: new Text(S.of(context).prices),
+                leading: Icon(Icons.price_change),
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: new Text(S.of(context).view),
+                          onTap: () =>
+                              selectPage(context, ref, PriceRoutes.PRICE_SCREEN),
+                        ),
                       ],
                     ),
                   ),

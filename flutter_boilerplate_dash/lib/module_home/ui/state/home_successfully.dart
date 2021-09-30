@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_home/response/home_response.dart';
 import 'package:pasco_shipping/module_home/ui/widget/chip_card.dart';
@@ -8,16 +9,38 @@ import 'package:pasco_shipping/utils/styles/static_images.dart';
 class HomeSuccessfully extends StatelessWidget {
   final StatisticModel model;
   final  Function onSearch;
-  const HomeSuccessfully({required this.model , required this.onSearch});
+  final  Function onScan;
+  const HomeSuccessfully({required this.model , required this.onSearch,required this.onScan});
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
-          SearchCard(onSearch: (trackNumber){
-            onSearch(trackNumber);
-          },),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Flexible(
+                flex: 3,
+                child: SearchCard(onSearch: (trackNumber){
+                  onSearch(trackNumber);
+                },),
+              ),
+              Flexible(
+                  flex: 1,
+                  child: InkWell(
+                    onTap: (){
+                      onScan();
+                    },
+                    child: Column(
+                      children: [
+                        Icon(Icons.qr_code_scanner_outlined , size: 50,),
+                        Text('Scan QR')
+                      ],
+                    ),
+                  ))
+            ],
+          ),
           OrderCard(model.orders!),
           TravelCard(model.travels!.flight!,S.of(context).flight),
           TravelCard(model.travels!.cruise!,S.of(context).cruise),

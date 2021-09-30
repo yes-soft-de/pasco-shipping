@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "airShipment": MessageLookupByLibrary.simpleMessage("Air shipment"),
         "airTravel": MessageLookupByLibrary.simpleMessage("Air travel"),
         "airWaybills": MessageLookupByLibrary.simpleMessage("Air Waybills"),
+        "airport": MessageLookupByLibrary.simpleMessage("Air Port"),
         "airwaybillArrived": MessageLookupByLibrary.simpleMessage(
             "this Air Waybill arrived to target warehouse"),
         "airwaybillFinance":
@@ -174,6 +175,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "guniQuantity": MessageLookupByLibrary.simpleMessage("Guni Quantity"),
         "gunnyFull": MessageLookupByLibrary.simpleMessage("Gunny is full"),
         "gunnyNumber": MessageLookupByLibrary.simpleMessage("Gunny Number"),
+        "harbors": MessageLookupByLibrary.simpleMessage("Harbors"),
         "haveSpace":
             MessageLookupByLibrary.simpleMessage("You still have some space"),
         "heightInMeter":
@@ -233,6 +235,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Request a new\n shipment"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "nextStatus": MessageLookupByLibrary.simpleMessage("Next Status"),
+        "no": MessageLookupByLibrary.simpleMessage("no"),
         "noAccount":
             MessageLookupByLibrary.simpleMessage("I have no account? sign up"),
         "noChangeStatus": MessageLookupByLibrary.simpleMessage(
@@ -253,6 +256,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "operationCompletedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Operation completed successfully"),
         "otherData": MessageLookupByLibrary.simpleMessage("Other Data"),
+        "ourWarehouse": MessageLookupByLibrary.simpleMessage("Our warehouse"),
         "packingBy": MessageLookupByLibrary.simpleMessage("Packing by"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordIsTooShort":
@@ -264,6 +268,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseInputPhoneNumber":
             MessageLookupByLibrary.simpleMessage("pleas input phone number"),
         "previousMark": MessageLookupByLibrary.simpleMessage("Previous Mark"),
+        "prices": MessageLookupByLibrary.simpleMessage("Prices"),
         "privacy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "productCategory":
             MessageLookupByLibrary.simpleMessage("Product Category: "),
@@ -307,6 +312,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sea": MessageLookupByLibrary.simpleMessage("Sea"),
         "seaShipment": MessageLookupByLibrary.simpleMessage("Sea shipment"),
         "seaTravel": MessageLookupByLibrary.simpleMessage("Sea travel"),
+        "seaport": MessageLookupByLibrary.simpleMessage("Sea Port"),
         "searchHere": MessageLookupByLibrary.simpleMessage("Search Here..."),
         "selectMark": MessageLookupByLibrary.simpleMessage("Select Mark"),
         "selectProvider":
@@ -402,6 +408,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "to": MessageLookupByLibrary.simpleMessage("To"),
         "total": MessageLookupByLibrary.simpleMessage(" Total "),
         "totalCost": MessageLookupByLibrary.simpleMessage("Total Cost: "),
+        "totalShipment": MessageLookupByLibrary.simpleMessage("Total carton"),
         "trackNumber": MessageLookupByLibrary.simpleMessage("Track Number: "),
         "trackShipment":
             MessageLookupByLibrary.simpleMessage("Tracking the shipment"),
@@ -424,6 +431,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Update Air waybill"),
         "updateContainer":
             MessageLookupByLibrary.simpleMessage("Update Container"),
+        "updateHarbor": MessageLookupByLibrary.simpleMessage("Update harbor"),
         "updateTravel": MessageLookupByLibrary.simpleMessage("Update Travel"),
         "updateWarehouse":
             MessageLookupByLibrary.simpleMessage("Update warehouse"),
@@ -453,6 +461,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "widthInMeter":
             MessageLookupByLibrary.simpleMessage("Width In Meter: "),
         "writeDetails": MessageLookupByLibrary.simpleMessage(
-            "Write a Details about this status")
+            "Write a Details about this status"),
+        "yes": MessageLookupByLibrary.simpleMessage("yes")
       };
 }

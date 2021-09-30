@@ -82,9 +82,11 @@ class TravelDetailsModel {
     carrierName: json['carrierName'],
 
 
-    launchDate: DateTime.fromMillisecondsSinceEpoch(
+    launchDate:json['launchDate'] == null? DateTime(0):
+    DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['launchDate']).timestamp! * 1000),
-    arrivalDate: DateTime.fromMillisecondsSinceEpoch(
+    arrivalDate: json['arrivalDate'] == null? DateTime(0):
+    DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['arrivalDate']).timestamp! * 1000),
 
 
@@ -170,6 +172,11 @@ class HolderModel {
     this.subcontractName,
     this.consigneeName,
     this.shipperName,
+
+    this.specificationName,
+    this.portName,
+    this.totalGunny,
+    this.totalReceivedShipmentsQuantity
   });
 
   int? id;
@@ -193,6 +200,11 @@ class HolderModel {
   String? subcontractName;
   String? consigneeName;
   String? shipperName;
+
+  String? specificationName;
+  String? portName;
+  int? totalGunny;
+  int? totalReceivedShipmentsQuantity;
 
   factory HolderModel.fromJson(Map<String, dynamic> json) => HolderModel(
     id: json["id"],
@@ -218,6 +230,11 @@ class HolderModel {
     subcontractName: json["subcontractName"],
     consigneeName: json["consigneeName"],
     shipperName: json["shipperName"],
+
+    specificationName: json['specificationName'],
+    portName: json['portName'],
+    totalGunny: json['totalGunny'],
+    totalReceivedShipmentsQuantity: json['totalReceivedShipmentsQuantity'],
   );
 }
 

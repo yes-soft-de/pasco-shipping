@@ -42,6 +42,8 @@ class ContainerModel {
     this.specificationName,
     this.carrierName,
     this.shipmentID,
+    this.portName,
+    this.location,
 
 
     this.createdAt,
@@ -61,6 +63,8 @@ class ContainerModel {
   String? shipperName;
   String? specificationName;
   String? carrierName;
+  String? portName;
+  String? location;
 
   int? shipmentID;
 
@@ -88,6 +92,8 @@ class ContainerModel {
     specificationName: json['specificationName']??'',
     shipmentID: json['shipmentID'],
     used: json['used'],
+    location: json['location'],
+    portName: json['portName'],
 
 
 

@@ -55,8 +55,9 @@ class _FirstOptionsState extends State<FirstOptions> {
       FirstOptionFetchingDataState? state =
           currentState as FirstOptionFetchingDataState?;
       return FirstOptionSuccessfully(
-        categories: state!.categories,
-        countries: state.warehouses,
+        warehouses: state!.warehouses,
+        categories: state.categories,
+        countries: state.countries,
         shipmentRequest: widget._shipmentRequest,
         goToSecondStep:(){
           widget.goToSecondStep();

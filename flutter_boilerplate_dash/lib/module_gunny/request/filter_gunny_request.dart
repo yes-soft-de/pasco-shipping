@@ -6,7 +6,7 @@ class FilterGunnyRequest {
   Map<String, dynamic> toJson() {
     return {
       'status': status,
-      'identificationNumber':identificationNumber,
+      'gunnyIdentificationNumber':identificationNumber,
     };
   }
 }

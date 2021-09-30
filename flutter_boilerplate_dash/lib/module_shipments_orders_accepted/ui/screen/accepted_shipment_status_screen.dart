@@ -136,7 +136,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
       AcceptedStatusState state = currentState as AcceptedStatusState;
       List<AcceptedShipmentStatusModel> statusModels = state.model;
       return AcceptedShipmentStatusSuccessfully(
-      statusModel: statusModels, onChangeStatus: (re , cityName , isDelivred){
+      statusModel: statusModels, onReceived: (re , cityName){
         CoolAlert.show(
           context: context,
           type: CoolAlertType.info,
@@ -160,7 +160,14 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
                           children: [
                             Text(S.of(context).details + ': ' , style: AppTextStyle.mediumBlackBold,),
                             Expanded
-                              (child: Text( re.statusDetails , style: AppTextStyle.mediumBlack,))
+                              (child: Text( re.notes , style: AppTextStyle.mediumBlack,))
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text('Received Quantity' + ': ' , style: AppTextStyle.mediumBlackBold,),
+                            Expanded
+                              (child: Text( re.receivedQuantity.toString() , style: AppTextStyle.mediumBlack,))
                           ],
                         ),
                       ],
@@ -181,12 +188,56 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
               widget._stateManager.receivedAirShipmentFCLExternal(re, airwaybillFilterRequest, travelFilterRequest,cityName);
             }
             else {
-              widget._stateManager.receivedOrDelevired(re,cityName,isDelivred);
+              widget._stateManager.receivedLocalWarehouse(re,cityName);
             }
           },
           text: S.of(context).changeStatusConfirm,
         );
       },
+        onDelivered: (req){
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            widget: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Scrollbar(
+                isAlwaysShown: true,
+                showTrackOnHover: true,
+                child: SingleChildScrollView(
+                  child: Container(
+                    color: Colors.grey[200],
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(S.of(context).reviewInformation , style: AppTextStyle.mediumRedBold,),
+                          Row(
+                            children: [
+                              Text(S.of(context).details + ': ' , style: AppTextStyle.mediumBlackBold,),
+                              Expanded
+                                (child: Text(req.statusDetails , style: AppTextStyle.mediumBlack,))
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+                widget._stateManager.deliveredShipment(req);
+            },
+            text: S.of(context).changeStatusConfirm,
+          );
+        },
       );
     }
     else if (currentState is ReceivedStatusState) {
@@ -197,7 +248,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
       return AcceptedShipmentStatusReceived(
         statusModel: statusModels,
         subcontracts:state.subContracts ,
-        // warehouse: state.warehouse,
+        lastGunnies: state.lastGunnies,
         onChangeStatus: (re , holderFilterRequest ,travelFilterRequest){
           CoolAlert.show(
             context: context,
@@ -293,7 +344,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
           );
       },
         createGunny: (){
-          widget._stateManager.createGunny(statusModels,state.subContracts);
+          widget._stateManager.createGunny(statusModels,state.subContracts,state.lastGunnies);
         }, infoStoredInGunny: state.storedModelInfo, onStoredInGunny: (m){
           widget._stateManager.storedShipmentInGunny(m,statusModels,state.subContracts);
       }, gunnies: state.gunnies,
@@ -307,7 +358,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
       return AcceptedShipmentStatusReceived(
         statusModel: statusModels,
         subcontracts:state.subContracts ,
-        // warehouse: state.warehouse,
+        lastGunnies: state.lastGunnies,
         onChangeStatus: (re , holderFilterRequest ,travelFilterRequest){
           CoolAlert.show(
             context: context,
@@ -403,7 +454,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
           );
         },
         createGunny: (){
-          widget._stateManager.createGunny(statusModels,state.subContracts,);
+          widget._stateManager.createGunny(statusModels,state.subContracts,state.lastGunnies);
         }, infoStoredInGunny: state.storedModelInfo, onStoredInGunny: (m){
         widget._stateManager.storedShipmentInGunny(m,statusModels,state.subContracts);
       }, gunnies: state.gunnies,
@@ -485,7 +536,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
                                 children: [
                                   Text(S.of(context).shipmentSeparation + ': ' , style: AppTextStyle.mediumBlackBold,),
                                   Expanded
-                                    (child: Text(isSeperate.toString() , style: AppTextStyle.mediumBlack,))
+                                    (child: Text(isSeperate?S.of(context).yes:S.of(context).no , style: AppTextStyle.mediumBlack,))
                                 ],
                               ),
                             ),
@@ -598,7 +649,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
                                 children: [
                                   Text(S.of(context).shipmentSeparation + ': ' , style: AppTextStyle.mediumBlackBold,),
                                   Expanded
-                                    (child: Text(isSeperate.toString() , style: AppTextStyle.mediumBlack,))
+                                    (child: Text(isSeperate?S.of(context).yes:S.of(context).no , style: AppTextStyle.mediumBlack,))
                                 ],
                               ),
                             ),

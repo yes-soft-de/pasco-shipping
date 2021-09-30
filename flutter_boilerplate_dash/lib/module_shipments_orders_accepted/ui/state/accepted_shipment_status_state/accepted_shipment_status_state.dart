@@ -4,6 +4,7 @@ import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_gunny/response/gunny_response.dart';
 import 'package:pasco_shipping/module_gunny/response/stored_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/response/gunny_shipment_response.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_subcontract_services/response/sub_contract_service_response.dart';
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
@@ -23,20 +24,20 @@ class DelivredStatusState extends AcceptedShipmentStatusState{
 class ReceivedStatusState extends AcceptedShipmentStatusState{
   List<AcceptedShipmentStatusModel> model;
   List<SubcontractModel> subContracts;
-  // List<WarehousesModel> warehouse;
+  List<GunnyShipmentModel> lastGunnies;
   List<GunnyModel> gunnies;
   StoredModel storedModelInfo;
-  ReceivedStatusState(this.model , this.subContracts  , this.gunnies ,this.storedModelInfo);
+  ReceivedStatusState(this.model , this.subContracts  , this.gunnies ,this.storedModelInfo, this.lastGunnies);
 }
 
 
 class ReceivedStatusWithGunniesState extends AcceptedShipmentStatusState{
   List<AcceptedShipmentStatusModel> model;
   List<SubcontractModel> subContracts;
-  // List<WarehousesModel> warehouse;
+  List<GunnyShipmentModel> lastGunnies;
   List<GunnyModel> gunnies;
   StoredModel storedModelInfo;
-  ReceivedStatusWithGunniesState(this.model , this.subContracts, this.gunnies ,this.storedModelInfo);
+  ReceivedStatusWithGunniesState(this.model , this.subContracts, this.gunnies ,this.storedModelInfo , this.lastGunnies);
 }
 
 

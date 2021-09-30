@@ -1,6 +1,8 @@
 import 'package:pasco_shipping/module_shipments_orders_waiting/response/waiting_shipment_response.dart';
 import 'package:pasco_shipping/utils/logger/logger.dart';
 
+import 'gunny_shipment_response.dart';
+
 class AcceptedShipmentDetailsResponse {
   AcceptedShipmentDetailsResponse({
     this.statusCode,
@@ -53,11 +55,13 @@ class AcceptedShipmentDetailsModel {
     this.holderType,
     this.transportationType,
     this.markNumber,
-    this.isExternalWarehouse,
+   required this.isExternalWarehouse,
     this.imagePath,
     this.updatedByUser,
     this.subShipmentModelList,
-    this.pendingHolders
+   required this.pendingHolders,
+    this.gunnyModel,
+   required this.info
   });
 
   int? shipmentId;
@@ -83,7 +87,7 @@ class AcceptedShipmentDetailsModel {
 
   String? transportationType;
   String? markNumber;
-  bool? isExternalWarehouse;
+  bool isExternalWarehouse=false;
 
   String? vehicleIdentificationNumber;
   String? extraSpecification;
@@ -93,7 +97,9 @@ class AcceptedShipmentDetailsModel {
   DateTime? createdAt;
   String? updatedByUser;
   List<SubShipmentModel> ? subShipmentModelList;
-  List<PendingHolders>? pendingHolders;
+  List<PendingHolders> pendingHolders =[];
+  List<GunnyShipmentModel>? gunnyModel;
+  ReceiverInfoModel info=ReceiverInfoModel();
 
   AcceptedShipmentDetailsModel.fromJson(Map<String, dynamic> json) {
     shipmentId = json["id"];
@@ -102,7 +108,7 @@ class AcceptedShipmentDetailsModel {
     target= json["target"];
     supplierName= json["supplierName"];
     distributorName= json["distributorName"];
-    exportWarehouseName=json["exportWarehouseName"];
+    exportWarehouseName=json["exportWarehouseName"]??'';
     importWarehouseName= json["importWarehouseName"];
     quantity= json["quantity"];
     holderCount= json["holderCount"];
@@ -126,6 +132,15 @@ class AcceptedShipmentDetailsModel {
     imagePath=List<ImagePa>.from(json['images'].map((x) => ImagePa.fromJson(x)));
     updatedByUser = json['orderUpdatedByUser'];
 
+    if (json['receivingInfo'] != null) {
+      info = ReceiverInfoModel();
+      try {
+        info = ReceiverInfoModel.fromJson(json['receivingInfo']);
+      } catch (e, stack) {
+        Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
+            StackTrace.current);
+      }
+    }
     if (json['tracks'] != null) {
       subShipmentModelList = <SubShipmentModel>[];
       try {
@@ -144,7 +159,15 @@ class AcceptedShipmentDetailsModel {
             StackTrace.current);
       }
     }
-
+    if (json['gunny'] != null) {
+      gunnyModel = <GunnyShipmentModel>[];
+      try {
+        gunnyModel = List<GunnyShipmentModel>.from(json['gunny'].map((x) => GunnyShipmentModel.fromJson(x)));
+      } catch (e, stack) {
+        Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
+            StackTrace.current);
+      }
+    }
   }
 
 }
@@ -152,21 +175,13 @@ class AcceptedShipmentDetailsModel {
 class SubShipmentModel {
   String? shipmentStatus;
   String? trackNumber;
-  List<GunnyShipmentModel>? gunnyModel;
 
-  SubShipmentModel({this.shipmentStatus , this.trackNumber , this.gunnyModel});
+
+  SubShipmentModel({this.shipmentStatus , this.trackNumber});
   SubShipmentModel.fromJson(Map<String, dynamic> json) {
           shipmentStatus= json['shipmentStatus'];
           trackNumber =  json['trackNumber'];
-          if (json['gunny'] != null) {
-            gunnyModel = <GunnyShipmentModel>[];
-            try {
-              gunnyModel = List<GunnyShipmentModel>.from(json['gunny'].map((x) => GunnyShipmentModel.fromJson(x)));
-            } catch (e, stack) {
-              Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
-                  StackTrace.current);
-            }
-          }
+
 
   }
 }
@@ -181,17 +196,18 @@ class CreatedAt {
   );
 }
 
+class ReceiverInfoModel {
+  String? receivedQuantity;
+  String? supplierName;
+  String? notes;
 
-class GunnyShipmentModel {
-  int id;
-  String? gunnyIdentificationNumber;
-  int? quantity;
 
-  GunnyShipmentModel({required this.id , this.gunnyIdentificationNumber ,this.quantity});
-  factory GunnyShipmentModel.fromJson(Map<String, dynamic> json) =>
-      GunnyShipmentModel(
-          id: json['id'],
-          gunnyIdentificationNumber :  json['gunnyIdentificationNumber'],
-        quantity: json['quantity']
-      );
+  ReceiverInfoModel({this.receivedQuantity , this.supplierName ,this.notes});
+  ReceiverInfoModel.fromJson(Map<String, dynamic> json) {
+    receivedQuantity= json['receivedQuantity'].toString();
+    supplierName =  json['supplierName'];
+    notes =  json['notes'];
+
+
+  }
 }

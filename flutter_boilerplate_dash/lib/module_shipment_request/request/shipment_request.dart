@@ -244,18 +244,31 @@ class ShipmentRequest {
 }
 
 class RequestedHolders{
-  int specificationID;
+  int? specificationID;
+  int? carrierID;
+  int? portID;
   String? notes;
-  String name;
+  String? name;
+  String? portName;
+  String? carrierName;
 
   RequestedHolders({
-    required this.specificationID,
-    required this.name,
-    this.notes});
+     this.specificationID,
+     this.name,
+    this.portID,
+    this.carrierID,
+    this.notes,
+    this.portName,
+    this.carrierName
+  });
 
   Map<String, dynamic> toJson() => {
     'specificationID': specificationID,
     'notes': notes,
-    'specificationName':name
+    'carrierID':carrierID,
+    'portID':portID,
+    'specificationName':name??'',
+    'portName':portName,
+  'carrierName':carrierName
   };
 }

@@ -19,14 +19,24 @@ class RequestHolderCard extends StatelessWidget {
     Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(children: [
-        Row(children: [
+        requestHolder.name!.isNotEmpty ?Row(children: [
           Text(S.of(context).type+': ',style: AppTextStyle.mediumBlackBold),
-          Text(requestHolder.name,style: AppTextStyle.mediumWhiteBold,)
-        ],),
+          Text(requestHolder.name??'',style: AppTextStyle.mediumWhiteBold,)
+        ],):Container(),
         SizedBox(height: 15,),
         Row(children: [
           Text(S.of(context).importantNote+': ',style: AppTextStyle.mediumBlackBold),
           Expanded(child: Text(requestHolder.notes ??'' , style: AppTextStyle.mediumWhiteBold,))
+        ],),
+        SizedBox(height: 15,),
+        Row(children: [
+          Text(S.of(context).harbors+': ',style: AppTextStyle.mediumBlackBold),
+          Expanded(child: Text(requestHolder.portName ??'' , style: AppTextStyle.mediumWhiteBold,))
+        ],),
+        SizedBox(height: 15,),
+        Row(children: [
+          Text(S.of(context).carrier+': ',style: AppTextStyle.mediumBlackBold),
+          Expanded(child: Text(requestHolder.carrierName ??'' , style: AppTextStyle.mediumWhiteBold,))
         ],),
       ],),
     ),);

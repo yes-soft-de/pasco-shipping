@@ -1,4 +1,4 @@
-class ReceivedOrDeliveredRequest{
+class DeliveredRequest{
   int shipmentId;
   String trackNumber;
   String shipmentStatus;
@@ -8,7 +8,7 @@ class ReceivedOrDeliveredRequest{
   bool isInOneHolder;
   bool packed;
 
-  ReceivedOrDeliveredRequest({required  this.shipmentId,required this.trackNumber ,required this.shipmentStatus , required this.isInOneHolder ,required this.statusDetails , required this.packed});
+  DeliveredRequest({required  this.shipmentId,required this.trackNumber ,required this.shipmentStatus , required this.isInOneHolder ,required this.statusDetails , required this.packed});
 
   Map<String, dynamic> toJson() => {
     'shipmentID': shipmentId,

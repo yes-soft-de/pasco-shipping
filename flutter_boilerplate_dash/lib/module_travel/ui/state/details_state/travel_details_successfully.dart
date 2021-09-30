@@ -70,7 +70,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(S.of(context).startDate),
-                      Text(model.launchDate.toString().split('.').first),
+                      Text(model.launchDate!.year ==0000?'': model.launchDate.toString().split(' ').first),
                     ],
                   ),
                 ),
@@ -92,7 +92,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(S.of(context).arrivalDate),
-                      Text(model.arrivalDate.toString().split('.').first),
+                      Text(model.arrivalDate!.year ==0000?'': model.arrivalDate.toString().split(' ').first),
                     ],
                   ),
                 ),
@@ -303,50 +303,93 @@ class TravelDetailsSuccessfully extends StatelessWidget {
               //     Text(holderModel.trackNumber?? '' , style: AppTextStyle.mediumBlueBold,),
               //   ],),
               // ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Text(type =='flight'? S.of(context).airwaybillNumber+': ' :S.of(context).containerNumber, style: AppTextStyle.mediumBlack,),
-                  Text(holderModel.containerNumber ?? '' , style: AppTextStyle.mediumBlueBold,),
-                ],),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Text(S.of(context).status+': ', style: AppTextStyle.mediumBlack,),
-                  Text(holderModel.status ?? '' , style: AppTextStyle.mediumBlueBold,),
-                ],),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Text(S.of(context).type+': ' , style: AppTextStyle.mediumBlack,),
-                  Text(holderModel.type ?? '' , style: AppTextStyle.mediumBlueBold,),
-                ],),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Text(S.of(context).subcontract+': ' , style: AppTextStyle.mediumBlack,),
-                  Text(holderModel.subcontractName ?? '' , style: AppTextStyle.mediumBlueBold,),
-                ],),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Row(children: [
+              //     Text(type =='flight'? S.of(context).airwaybillNumber+': ' :S.of(context).containerNumber, style: AppTextStyle.mediumBlack,),
+              //     Text(holderModel.containerNumber ?? '' , style: AppTextStyle.mediumBlueBold,),
+              //   ],),
+              // ),
+              ExpansionTile(
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(S.of(context).consignee+': ' , style: AppTextStyle.mediumBlack,),
-                    Text(holderModel.consigneeName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                    Text('#'+holderModel.id.toString(),style: AppTextStyle.mediumBlackBold,),
+                    Row(children: [
+                    Text(type =='flight'? S.of(context).airwaybillNumber+': ' :S.of(context).containerNumber+': ', style: AppTextStyle.mediumBlack,),
+                    Text(holderModel.containerNumber ?? '' , style: AppTextStyle.mediumBlueBold,),
+              ],),
                   ],
                 ),
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text(S.of(context).status+': ', style: AppTextStyle.mediumBlack,),
+                    Text(holderModel.status ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text(S.of(context).shippingType+': ' , style: AppTextStyle.mediumBlack,),
+                    Text(holderModel.type ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text(S.of(context).subcontract+': ' , style: AppTextStyle.mediumBlack,),
+                    Text(holderModel.subcontractName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Text(S.of(context).consignee+': ' , style: AppTextStyle.mediumBlack,),
+                      Text(holderModel.consigneeName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text(S.of(context).shipper+': ', style: AppTextStyle.mediumBlack,),
+                    Text(holderModel.shipperName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text(S.of(context).type+': ', style: AppTextStyle.mediumBlack,),
+                    Text(holderModel.specificationName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text(S.of(context).harbors+': ', style: AppTextStyle.mediumBlack,),
+                    Text(holderModel.portName ?? '' , style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text(S.of(context).guniQuantity+': ', style: AppTextStyle.mediumBlack,),
+                    Text(holderModel.totalGunny.toString(), style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Text(S.of(context).totalShipment+': ', style: AppTextStyle.mediumBlack,),
+                    Text(holderModel.totalReceivedShipmentsQuantity.toString(), style: AppTextStyle.mediumBlueBold,),
+                  ],),
+                ),
+              ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Text(S.of(context).shipper+': ', style: AppTextStyle.mediumBlack,),
-                  Text(holderModel.shipperName ?? '' , style: AppTextStyle.mediumBlueBold,),
-                ],),
-              )
+
             ],
           ),
         ),
@@ -388,12 +431,12 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                 }else {
                   TravelRequest travelRequest = TravelRequest(type: model.type??'', launchCountry: model.launchCountry??'', destinationCountry: model.destinationCountry??'', travelNumber:model.travelNumber??'', status: TravelStatusName[TravelStatus.STARTED]!);
                   TravelChangeStateRequest re = TravelChangeStateRequest(id: model.id!.toInt() ,status: TravelStatusName[TravelStatus.STARTED]!);
-                  onChangeStatus(travelRequest,re);
+                  onChangeStatus(re);
                 }
               }else{
-                TravelRequest travelRequest = TravelRequest(type: model.type??'', launchCountry: model.launchCountry??'', destinationCountry: model.destinationCountry??'', travelNumber:model.travelNumber??'', status: TravelStatusName[TravelStatus.RELEASED]!);
+                // TravelRequest travelRequest = TravelRequest(type: model.type??'', launchCountry: model.launchCountry??'', destinationCountry: model.destinationCountry??'', travelNumber:model.travelNumber??'', status: TravelStatusName[TravelStatus.RELEASED]!);
                 TravelChangeStateRequest re1 = TravelChangeStateRequest(id: model.id!.toInt() ,status: TravelStatusName[TravelStatus.RELEASED]!);
-                onChangeStatus(travelRequest,re1);
+                onChangeStatus(re1);
               }
 
             }, radius: 12)

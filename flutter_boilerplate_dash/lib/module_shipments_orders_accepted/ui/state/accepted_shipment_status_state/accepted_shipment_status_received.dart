@@ -15,9 +15,9 @@ import 'package:pasco_shipping/module_shipment_request/ui/widget/choice_card.dar
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/measured_shipment_request.dart';
-import 'package:pasco_shipping/module_shipments_orders_accepted/request/received_deliered_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_status_response.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/response/gunny_shipment_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/widget/shipment_status_card.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_subcontract_services/response/sub_contract_service_response.dart';
@@ -27,6 +27,7 @@ import 'package:pasco_shipping/module_travel/request/travel_filter_request.dart'
 import 'package:pasco_shipping/module_warehouses/response/warhouse_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class AcceptedShipmentStatusReceived extends StatefulWidget {
@@ -36,10 +37,11 @@ class AcceptedShipmentStatusReceived extends StatefulWidget {
   final Function onChangeStatus;
 
   final List<GunnyModel> gunnies;
+  final List<GunnyShipmentModel> lastGunnies;
   final StoredModel infoStoredInGunny;
   final Function onStoredInGunny;
   final Function createGunny;
-  const AcceptedShipmentStatusReceived({required this.statusModel,required this.onChangeStatus,required this.subcontracts,required this.gunnies,required this.infoStoredInGunny,required this.onStoredInGunny,required this.createGunny});
+  const AcceptedShipmentStatusReceived({required this.statusModel,required this.onChangeStatus,required this.subcontracts,required this.gunnies,required this.infoStoredInGunny,required this.onStoredInGunny,required this.createGunny,required this.lastGunnies});
 
   @override
   _AcceptedShipmentDetailsSuccessfullyState createState() =>
@@ -82,6 +84,12 @@ class _AcceptedShipmentDetailsSuccessfullyState
   late bool gunnyFull;
   late bool moreInfo;
 
+
+  TextEditingController lengthController = TextEditingController();
+  TextEditingController widthController = TextEditingController();
+  TextEditingController highteController = TextEditingController();
+  TextEditingController cartonController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -96,6 +104,12 @@ class _AcceptedShipmentDetailsSuccessfullyState
     packetingBy='';
     gunnyFull=false;
     moreInfo=false;
+    guniQuantityController..text=widget.lastGunnies.length.toString();
+
+    lengthController..text ='1';
+    widthController..text ='1';
+    cartonController..text ='1';
+    highteController..text ='1';
     iniList();
   }
  void iniList(){
@@ -114,7 +128,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
 
 
    for(GunnyModel item in widget.gunnies){
-     Entry v = Entry(item.identificationNumber! ,item.id! ,[]);
+     Entry v = Entry(item.identificationNumber ??'' ,item.id! ,[]);
      entryGunny.add(v);
    }
    dropListModelGunny = DropListModel(entryGunny);
@@ -151,7 +165,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   children: [
                     Icon(Icons.warning ,color: Colors.red),
                     SizedBox(width: 10,),
-                    Expanded(child: Text(widget.statusModel[3].statusDetails ??'' , style:  AppTextStyle.mediumRedBold)),
+                    Expanded(child: Text(widget.statusModel[1].statusDetails ??'' , style:  AppTextStyle.mediumRedBold)),
                   ],
                 ),
               ),
@@ -327,6 +341,64 @@ class _AcceptedShipmentDetailsSuccessfullyState
           ),
         ):Container(),
 
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Icon(
+                Icons.circle,
+                color: AppThemeDataService.AccentColor,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text('The shipment stored in: ' ,style: AppTextStyle.mediumBlackBold,),
+            ],
+          ),
+        ),
+        ListView.builder(itemBuilder:(context,index){
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+                color: Colors.green[100],
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(S.of(context).gunnyNumber+': '),
+                              Text(widget.lastGunnies[index].gunnyIdentificationNumber!+',' , style: AppTextStyle.mediumBlackBold,),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(S.of(context).unitQuantity+': '),
+                              Text(widget.lastGunnies[index].quantity.toString() , style: AppTextStyle.mediumBlackBold,),
+                            ],
+                          ),
+                        ],
+                      ),
+                      InkWell(
+                          onTap: (){
+                            _showGunnyAlert(widget.lastGunnies[index]);
+                          },
+                          child: Icon(Icons.print_rounded,size: 30,))
+                    ],
+                  ),
+                )),
+          );
+        },itemCount: widget.lastGunnies.length,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+        ),
+
+
         InkWell(
           onTap: (){
             setState(() {
@@ -416,6 +488,171 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   ),
                 ),
               ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).volume , style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Flexible(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        Text('W'),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(5)
+                                ),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 5
+                                  )
+                                ]
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.only(start: 5),
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+
+                                controller: widthController,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Icon(Icons.close),
+                  Flexible(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        Text('H'),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(5)
+                                ),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 5
+                                  )
+                                ]
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.only(start: 5),
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                                controller: highteController,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Icon(Icons.close),
+                  Flexible(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        Text('L'),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(5)
+                                ),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 5
+                                  )
+                                ]
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.only(start: 5),
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                                controller: lengthController,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Icon(Icons.close),
+                  Flexible(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        Text('Q'),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(5)
+                                ),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 5
+                                  )
+                                ]
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.only(start: 5),
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                                controller: cartonController,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],),
+              ),
+              InkWell(
+                  onTap: (){
+                    setState(() {
+                      volumeController.text =(int.parse(highteController.text) * int.parse(widthController.text) * int.parse(cartonController.text) *int.parse(lengthController.text)).toString() ;
+                    });
+                  },
+                  child: Center(child: Image.asset(StaticImage.equal))),
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Container(
@@ -444,32 +681,39 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   ),
                 ),
               ),
+
               Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  padding: EdgeInsets.only(
-                      top: 4,left: 16, right: 16, bottom: 4
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(15)
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Flexible(
+                        flex: 3,
+                        child: Text('The total number of Gunny used to store the shipment',style: AppTextStyle.mediumBlackBold,)),
+                    Flexible(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Container(
+                          padding: EdgeInsets.only(
+                              top: 4,left: 16, right: 16, bottom: 4
+                          ),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(15)
+                              ),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 5
+                                )
+                              ]
+                          ),
+                          child: Text(guniQuantityController.text),
+                        ),
                       ),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 5
-                        )
-                      ]
-                  ),
-                  child: TextField(
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: S.of(context).guniQuantity,
                     ),
-                    controller: guniQuantityController,
-                  ),
+                  ],
                 ),
               ),
               RoundedButton(lable:S.of(context).next, icon: '', color: blue, style: AppTextStyle.mediumWhite,
@@ -519,14 +763,63 @@ class _AcceptedShipmentDetailsSuccessfullyState
         ),
 
 
-
-
-
-
-
       ],
     );
+  }
+  _showGunnyAlert(GunnyShipmentModel model){
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            title: Text(S.of(context).shipmentQR),
+            content: SizedBox(
+              width: 200,
+              height: 130,
+              child: Column(
+                children: [
+                  Text('#'+shipmentID.toString(),style: AppTextStyle.largeBlackBold,),
+                  Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: Text(trackNumber,style: AppTextStyle.largeBlackBold,),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Text(S.of(context).gunnyNumber+': ',style: AppTextStyle.mediumBlackBold,),
+                        Text(model.gunnyIdentificationNumber??'',style: AppTextStyle.mediumBlue,)
+
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Text(S.of(context).unitQuantity+': ',style: AppTextStyle.mediumBlackBold,),
+                        Text(model.quantity.toString(),style: AppTextStyle.mediumBlue,)
+
+                      ],
+                    ),
+                  ),
+                ],
+              )
+            ),
+            actions: [
+              Row(children: [
+                FlatButton(onPressed: (){}, child: Row(children: [
+                  Icon(Icons.print, color: blue,size: 30,),
+                ],)),
+              ],
 
 
+              )
+
+            ],
+          );
+        });
   }
 }

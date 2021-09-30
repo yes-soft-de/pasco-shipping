@@ -20,7 +20,7 @@ class ShipmentFinanceRequest {
         'stageDescription': stageDescription,
         'stageCost': stageCost,
         'shipmentStatus': shipmentStatus,
-        'currency': currency
+        'currency': 'US Dollar'
       };
     } else {
       return {
@@ -29,7 +29,7 @@ class ShipmentFinanceRequest {
         'stageDescription': stageDescription,
         'stageCost': stageCost,
         'shipmentStatus': shipmentStatus,
-        'currency': currency
+        'currency': 'US Dollar'
       };
     }
   }
