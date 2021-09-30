@@ -252,16 +252,26 @@ class WarehouseEntityRepository extends ServiceEntityRepository
 
     public function getUniqueCitiesNamesOfWarehousesByCountryId($countryID)
     {
-        /**
-         * Exclamation: Here we returned countryID in the second time as id because for two reasons:
-         * First, if we try to return the id of the warehouse then the function DISTINCT would not work,
-         * second, the id value doesn't matter, we just need the id tag in the response
-         */
         return $this->createQueryBuilder('warehouse')
-            ->select('DISTINCT(warehouse.city) as city', 'warehouse.countryID', 'country.name as countryName', 'warehouse.name', 'warehouse.countryID as id')
+            ->select('DISTINCT(warehouse.city) as city', 'warehouse.countryID')
 
             ->andWhere('warehouse.countryID = :countryID')
             ->setParameter('countryID', $countryID)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getSingleWarehouseByCountryIdAndCity($countryID, $city)
+    {
+        return $this->createQueryBuilder('warehouse')
+            ->select('warehouse.id', 'warehouse.city', 'warehouse.name', 'warehouse.countryID', 'country.name as countryName')
+
+            ->andWhere('warehouse.countryID = :countryID')
+            ->setParameter('countryID', $countryID)
+
+            ->andWhere('warehouse.city LIKE :city')
+            ->setParameter('city', $city)
 
             ->leftJoin(
                 CountryEntity::class,
@@ -269,6 +279,8 @@ class WarehouseEntityRepository extends ServiceEntityRepository
                 Join::WITH,
                 'country.id = warehouse.countryID'
             )
+
+            ->setMaxResults(1)
 
             ->getQuery()
             ->getResult();
