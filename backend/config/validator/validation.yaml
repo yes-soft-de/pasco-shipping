@@ -585,4 +585,26 @@ App\Request\PriceUpdateRequest:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
+
+App\Request\ShiftingShipmentOrderCreateRequest:
+  properties:
+    shipmentID:
+      - NotBlank: ~
+    trackNumber:
+      - NotBlank: ~
+    fromImportWarehouseID:
+      - NotBlank: ~
+    toImportWarehouseID:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\ShiftingShipmentOrderStatusUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
       

@@ -80,7 +80,7 @@ class ShipmentOrderManager
         // Insert the requested holders of the shipment
         if(count($request->getRequestedHolders()) > 0)
         {
-            $this->createPendingHolders($request->getRequestedHolders(), $orderShipmentEntity->getId());
+            $this->createPendingHolders($request->getRequestedHolders(), $orderShipmentEntity->getId(), $orderShipmentEntity->getExternalWarehouseInfo());
         }
 
         return $orderShipmentEntity;
