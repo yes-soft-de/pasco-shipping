@@ -166,7 +166,11 @@ class ShiftingShipmentOrderController extends BaseController
      *                      @OA\Property(type="integer", property="shipmentID"),
      *                      @OA\Property(type="string", property="trackNumber"),
      *                      @OA\Property(type="integer", property="fromImportWarehouseID"),
+     *                      @OA\Property(type="string", property="fromImportWarehouseName"),
+     *                      @OA\Property(type="string", property="fromImportWarehouseCity"),
      *                      @OA\Property(type="integer", property="toImportWarehouseID"),
+     *                      @OA\Property(type="string", property="toImportWarehouseName"),
+     *                      @OA\Property(type="string", property="toImportWarehouseCity"),
      *                      @OA\Property(type="string", property="notes"),
      *                      @OA\Property(type="object", property="createdAt"),
      *                      @OA\Property(type="object", property="updatedAt")
@@ -207,7 +211,7 @@ class ShiftingShipmentOrderController extends BaseController
      *      )
      * )
      */
-    public function deleteMarkById(Request $request)
+    public function delete(Request $request)
     {
         $request = new DeleteRequest($request->get('id'));
 
