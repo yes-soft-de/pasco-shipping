@@ -585,8 +585,17 @@ class ShipmentOrderManager
 
         foreach ($requestedHoldersArray as $holder)
         {
+            //use following condition because Air waybill does not have specification
+            if(array_key_exists('specificationID', $holder))
+            {
+                $holderCreateRequest->setSpecificationID($holder['specificationID']);
+            }
+            else
+            {
+                $holderCreateRequest->setSpecificationID(0);
+            }
+
             $holderCreateRequest->setShipmentID($shipmentID);
-            $holderCreateRequest->setSpecificationID($holder['specificationID']);
             $holderCreateRequest->setCarrierID($holder['carrierID']);
             $holderCreateRequest->setLocation($warehouseInfo);
             $holderCreateRequest->setPortID($holder['portID']);
