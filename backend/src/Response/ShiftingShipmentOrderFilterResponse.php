@@ -16,7 +16,15 @@ class ShiftingShipmentOrderFilterResponse
 
     public $fromImportWarehouseID;
 
+    public $fromImportWarehouseName;
+
+    public $fromImportWarehouseCity;
+
     public $toImportWarehouseID;
+
+    public $toImportWarehouseName;
+
+    public $toImportWarehouseCity;
 
     public $notes;
 

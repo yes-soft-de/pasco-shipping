@@ -26,7 +26,8 @@ class ShiftingShipmentOrderEntityRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('shiftingShipmentOrderEntity')
             ->select('shiftingShipmentOrderEntity.id', 'shiftingShipmentOrderEntity.shipmentID', 'shiftingShipmentOrderEntity.trackNumber', 'shiftingShipmentOrderEntity.fromImportWarehouseID', 'shiftingShipmentOrderEntity.toImportWarehouseID',
-            'shiftingShipmentOrderEntity.status', 'shiftingShipmentOrderEntity.notes', 'shiftingShipmentOrderEntity.createdAt', 'shiftingShipmentOrderEntity.createdBy', 'shiftingShipmentOrderEntity.updatedAt', 'shiftingShipmentOrderEntity.updatedBy')
+            'shiftingShipmentOrderEntity.status', 'shiftingShipmentOrderEntity.notes', 'shiftingShipmentOrderEntity.createdAt', 'shiftingShipmentOrderEntity.createdBy', 'shiftingShipmentOrderEntity.updatedAt', 'shiftingShipmentOrderEntity.updatedBy',
+             'fromImportWarehouseEntity.name as fromImportWarehouseName', 'fromImportWarehouseEntity.city as fromImportWarehouseCity', 'toImportWarehouseEntity.name as toImportWarehouseName', 'toImportWarehouseEntity.city as toImportWarehouseCity')
 
             ->leftJoin(
                 WarehouseEntity::class,

@@ -28,7 +28,7 @@ class OrderShipmentByDashboardCreateRequest
 
     private $images = [];
 
-    private $productCategoryID;
+    private $subProductCategoryID;
 
     private $unit;
 

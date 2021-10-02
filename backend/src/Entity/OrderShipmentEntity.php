@@ -78,7 +78,7 @@ class OrderShipmentEntity
     /**
      * @ORM\Column(type="integer")
      */
-    private $productCategoryID;
+    private $subProductCategoryID;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -322,14 +322,14 @@ class OrderShipmentEntity
         return $this;
     }
 
-    public function getProductCategoryID(): ?int
+    public function getSubProductCategoryID(): ?int
     {
-        return $this->productCategoryID;
+        return $this->subProductCategoryID;
     }
 
-    public function setProductCategoryID(int $productCategoryID): self
+    public function setSubProductCategoryID(int $subProductCategoryID): self
     {
-        $this->productCategoryID = $productCategoryID;
+        $this->subProductCategoryID = $subProductCategoryID;
 
         return $this;
     }

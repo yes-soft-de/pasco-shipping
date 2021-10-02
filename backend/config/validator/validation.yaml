@@ -28,7 +28,7 @@ App\Request\OrderShipmentCreateRequest:
       - NotBlank: ~
     quantity:
       - NotBlank: ~
-    productCategoryID:
+    subProductCategoryID:
       - NotBlank: ~
     unit:
       - NotBlank: ~
@@ -47,7 +47,7 @@ App\Request\OrderShipmentByDashboardCreateRequest:
       - NotBlank: ~
     quantity:
       - NotBlank: ~
-    productCategoryID:
+    subProductCategoryID:
       - NotBlank: ~
     unit:
       - NotBlank: ~
