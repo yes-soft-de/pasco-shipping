@@ -64,7 +64,7 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="array", property="images",
      *              @OA\Items()
      *          ),
-     *          @OA\Property(type="integer", property="productCategoryID"),
+     *          @OA\Property(type="integer", property="subProductCategoryID"),
      *          @OA\Property(type="string", property="unit"),
      *          @OA\Property(type="string", property="receiverName"),
      *          @OA\Property(type="string", property="receiverPhoneNumber"),
@@ -163,7 +163,7 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="array", property="images",
      *              @OA\Items()
      *          ),
-     *          @OA\Property(type="string", property="productCategoryID"),
+     *          @OA\Property(type="string", property="subProductCategoryID"),
      *          @OA\Property(type="string", property="unit"),
      *          @OA\Property(type="string", property="receiverName"),
      *          @OA\Property(type="string", property="receiverPhoneNumber"),
@@ -598,7 +598,7 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="string", property="importWarehouseID"),
      *          @OA\Property(type="integer", property="distributorID"),
-     *          @OA\Property(type="integer", property="productCategoryID"),
+     *          @OA\Property(type="integer", property="subProductCategoryID"),
      *          @OA\Property(type="string", property="unit"),
      *          @OA\Property(type="integer", property="markID"),
      *          @OA\Property(type="string", property="paymentTime"),

@@ -10,7 +10,7 @@ class OrderShipmentByDashboardUpdateRequest
 
     private $distributorID;
 
-    private $productCategoryID;
+    private $subProductCategoryID;
 
     private $unit;
 

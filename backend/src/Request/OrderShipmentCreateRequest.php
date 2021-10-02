@@ -28,7 +28,7 @@ class OrderShipmentCreateRequest
 
     private $images = [];
 
-    private $productCategoryID;
+    private $subProductCategoryID;
 
     private $unit;
 

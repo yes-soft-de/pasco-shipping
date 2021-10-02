@@ -162,7 +162,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('shipment')
             ->select("shipment.id", "shipment.shipmentID", "shipment.shipmentStatus", "shipment.trackNumber", "shipment.statusDetails", "shipment.isInOneHolder", "shipment.packed", "shipment.createdBy", "shipment.updatedBy", "shipmentOrder.holderType",
                 "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.supplierName", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.isExternalWarehouse", 
-                "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "receiverEntity.fullName as receiverName", "shipmentOrder.externalWarehouseInfo",
+                "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.subProductCategoryID", "shipmentOrder.unit", "receiverEntity.fullName as receiverName", "shipmentOrder.externalWarehouseInfo",
                 "receiverEntity.phone as receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy",
                 "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage", "adminProfile2.userName as shipmentStatusUpdatedByUser", 
                 "adminProfile2.image as shipmentStatusUpdatedByUserImage", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage", 
@@ -241,7 +241,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 SubProductCategoryEntity::class,
                 'subProductCategoryEntity',
                 Join::WITH,
-                'subProductCategoryEntity.id = shipmentOrder.productCategoryID'
+                'subProductCategoryEntity.id = shipmentOrder.subProductCategoryID'
             )
 
             ->leftJoin(
@@ -269,7 +269,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('shipment')
             ->select("shipment.id", "shipment.shipmentID", "shipment.shipmentStatus", "shipment.trackNumber", "shipment.statusDetails", "shipment.isInOneHolder", "shipment.packed", "shipment.createdBy", "shipment.updatedBy", "shipmentOrder.holderType",
                 "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.supplierName", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.isExternalWarehouse",
-                "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "receiverEntity.fullName as receiverName", "shipmentOrder.externalWarehouseInfo",
+                "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.subProductCategoryID", "shipmentOrder.unit", "receiverEntity.fullName as receiverName", "shipmentOrder.externalWarehouseInfo",
                 "receiverEntity.phone as receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy",
                 "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage", "adminProfile2.userName as shipmentStatusUpdatedByUser", 
                 "adminProfile2.image as shipmentStatusUpdatedByUserImage", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage", 
@@ -347,7 +347,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 SubProductCategoryEntity::class,
                 'subProductCategoryEntity',
                 Join::WITH,
-                'subProductCategoryEntity.id = shipmentOrder.productCategoryID'
+                'subProductCategoryEntity.id = shipmentOrder.subProductCategoryID'
             )
 
             ->leftJoin(
@@ -375,7 +375,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('shipment')
             ->select("shipment.id", "shipment.shipmentID", "shipment.shipmentStatus", "shipment.trackNumber", "shipment.statusDetails", "shipment.isInOneHolder", "shipment.packed", "shipment.createdBy", "shipment.updatedBy", "shipmentOrder.holderType",
                 "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.supplierName", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.isExternalWarehouse",
-                "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "receiverEntity.fullName as receiverName", "shipmentOrder.externalWarehouseInfo",
+                "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.subProductCategoryID", "shipmentOrder.unit", "receiverEntity.fullName as receiverName", "shipmentOrder.externalWarehouseInfo",
                 "receiverEntity.phone as receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy",
                 "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage", "adminProfile2.userName as shipmentStatusUpdatedByUser",
                 "adminProfile2.image as shipmentStatusUpdatedByUserImage", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage",
@@ -451,14 +451,14 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 SubProductCategoryEntity::class,
                 'subProductCategoryEntity',
                 Join::WITH,
-                'subProductCategoryEntity.id = shipmentOrder.productCategoryID'
+                'subProductCategoryEntity.id = shipmentOrder.subProductCategoryID'
             )
 
             ->leftJoin(
                 ProductCategoryEntity::class,
                 'productCategory',
                 Join::WITH,
-                'productCategory.id = shipmentOrder.productCategoryID'
+                'productCategory.id = subProductCategoryEntity.productCategoryID'
             )
 
             ->leftJoin(
@@ -479,7 +479,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('shipment')
             ->select("shipment.id", "shipment.shipmentID", "shipment.shipmentStatus", "shipment.trackNumber", "shipment.statusDetails", "shipment.isInOneHolder", "shipment.packed", "shipment.createdBy", "shipment.updatedBy", "shipmentOrder.isExternalWarehouse", 
                 "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.supplierName", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.externalWarehouseInfo",
-                "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "receiverEntity.fullName as receiverName", "clientProfile.identificationNumber as clientIdentificationNumber",
+                "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.subProductCategoryID", "shipmentOrder.unit", "receiverEntity.fullName as receiverName", "clientProfile.identificationNumber as clientIdentificationNumber",
                 "receiverEntity.phone as receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.status",
                 "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "adminProfile1.userName as shipmentStatusCreatedByUser", "adminProfile1.image as shipmentStatusCreatedByUserImage", "adminProfile2.userName as shipmentStatusUpdatedByUser",
                 "adminProfile2.image as shipmentStatusUpdatedByUserImage", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage", "adminProfile3.userName as orderUpdatedByUser", "adminProfile3.image as orderUpdatedByUserImage", 
@@ -552,7 +552,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 SubProductCategoryEntity::class,
                 'subProductCategoryEntity',
                 Join::WITH,
-                'subProductCategoryEntity.id = shipmentOrder.productCategoryID'
+                'subProductCategoryEntity.id = shipmentOrder.subProductCategoryID'
             )
 
             ->leftJoin(
@@ -573,7 +573,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('shipmentStatus')
             ->select("shipmentStatus.id", "shipmentStatus.shipmentID", "shipmentStatus.shipmentStatus", "shipmentStatus.statusDetails", "shipmentStatus.trackNumber", "shipmentStatus.isInOneHolder", "shipmentStatus.packed", "shipmentOrder.isExternalWarehouse", 
                 "shipmentOrder.clientUserID", "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.createdAt as orderCreationDate", "shipmentOrder.externalWarehouseInfo", 
-                "shipmentOrder.updatedAt as orderUpdatingDate", "shipmentOrder.productCategoryID", "shipmentOrder.markID", "shipmentOrder.packetingBy as packetedBy", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "receiverEntity.phone as receiverPhoneNumber",
+                "shipmentOrder.updatedAt as orderUpdatingDate", "shipmentOrder.subProductCategoryID", "shipmentOrder.markID", "shipmentOrder.packetingBy as packetedBy", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "receiverEntity.phone as receiverPhoneNumber",
                 "receiverEntity.fullName as receiverName", "distributor.fullName as distributorName", "importWarehouse.name as importWarehouseName", "productCategory.name as productCategoryName", "subcontract.fullName as packetingBy", "subProductCategoryEntity.name as subProductCategoryName")
 
             ->andWhere('shipmentStatus.trackNumber = :trackNumber')
@@ -628,7 +628,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 SubProductCategoryEntity::class,
                 'subProductCategoryEntity',
                 Join::WITH,
-                'subProductCategoryEntity.id = shipmentOrder.productCategoryID'
+                'subProductCategoryEntity.id = shipmentOrder.subProductCategoryID'
             )
 
             ->leftJoin(
@@ -648,7 +648,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             ->select("shipmentStatus.id", "shipmentStatus.shipmentID", "shipmentStatus.shipmentStatus", "shipmentStatus.statusDetails", "shipmentStatus.trackNumber", "shipmentStatus.isInOneHolder", "shipmentStatus.packed",
                 "shipmentStatus.createdAt", "shipmentStatus.updatedAt", "shipmentStatus.createdBy", "shipmentStatus.updatedBy", "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierName",
                 "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt as orderCreationDate", "shipmentOrder.isExternalWarehouse",
-                "shipmentOrder.updatedAt as orderUpdatingDate", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "receiverEntity.fullName as receiverName", "receiverEntity.phone as receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy","shipmentOrder.externalWarehouseInfo",
+                "shipmentOrder.updatedAt as orderUpdatingDate", "shipmentOrder.subProductCategoryID", "shipmentOrder.unit", "receiverEntity.fullName as receiverName", "receiverEntity.phone as receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy","shipmentOrder.externalWarehouseInfo",
                 "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.volume",
                 "shipmentOrder.status", "track.id", "track.shipmentID", "track.trackNumber", "track.travelID", "track.holderType", "track.holderID", "track.amount", "track.createdAt", "track.updatedAt", "track.createdBy", "track.updatedBy",
                 "adminProfile4.userName as trackCreatedByUser", "adminProfile4.image as trackCreatedByUserImage", "adminProfile5.userName as trackUpdatedByUser", "adminProfile5.image as trackUpdatedByUserImage", "clientProfile.userName as clientUsername",
@@ -747,7 +747,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
                 SubProductCategoryEntity::class,
                 'subProductCategoryEntity',
                 Join::WITH,
-                'subProductCategoryEntity.id = shipmentOrder.productCategoryID'
+                'subProductCategoryEntity.id = shipmentOrder.subProductCategoryID'
             )
 
             ->leftJoin(
@@ -768,7 +768,7 @@ class ShipmentStatusEntityRepository extends ServiceEntityRepository
             ->select("shipmentStatus.id", "shipmentStatus.shipmentID", "shipmentStatus.shipmentStatus", "shipmentStatus.statusDetails", "shipmentStatus.trackNumber", "shipmentStatus.isInOneHolder", "shipmentStatus.packed",
                 "shipmentStatus.createdAt", "shipmentStatus.updatedAt", "shipmentStatus.createdBy", "shipmentStatus.updatedBy", "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierName",
                 "shipmentOrder.supplierID", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.image", "shipmentOrder.createdAt as orderCreationDate", "shipmentOrder.isExternalWarehouse",
-                "shipmentOrder.updatedAt as orderUpdatingDate", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy","shipmentOrder.externalWarehouseInfo",
+                "shipmentOrder.updatedAt as orderUpdatingDate", "shipmentOrder.subProductCategoryID", "shipmentOrder.unit", "shipmentOrder.receiverName", "shipmentOrder.receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy","shipmentOrder.externalWarehouseInfo",
                 "shipmentOrder.paymentTime", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.volume",
                 "shipmentOrder.status")
 
