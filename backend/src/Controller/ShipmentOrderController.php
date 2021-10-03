@@ -929,6 +929,7 @@ class ShipmentOrderController extends BaseController
      *                          @OA\Property(type="string", property="trackNumber"),
      *                          @OA\Property(type="string", property="supplierName"),
      *                  ),
+     *                  @OA\Property(type="integer", property="remainedQuantity"),
      *                  @OA\Property(type="array", property="pendingHolders",
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),
