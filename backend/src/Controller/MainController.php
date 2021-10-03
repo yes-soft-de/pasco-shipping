@@ -24,6 +24,7 @@ use App\Entity\ProxyEntity;
 use App\Entity\ReceivedShipmentEntity;
 use App\Entity\ResetPasswordRequestEntity;
 use App\Entity\SettingEntity;
+use App\Entity\ShiftingShipmentOrderEntity;
 use App\Entity\ShipmentFinanceEntity;
 use App\Entity\ShipmentLogEntity;
 use App\Entity\ShipmentStatusEntity;
@@ -362,6 +363,11 @@ class MainController extends BaseController
                 ->execute();
 
             $em->getRepository(ShipmentStatusEntity::class)->createQueryBuilder('shipmentStatusEntity')
+                ->delete()
+                ->getQuery()
+                ->execute();
+
+            $em->getRepository(ShiftingShipmentOrderEntity::class)->createQueryBuilder('shifting_shipment_order_entity')
                 ->delete()
                 ->getQuery()
                 ->execute();
