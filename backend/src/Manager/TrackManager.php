@@ -390,6 +390,7 @@ class TrackManager
                 {
                     // Get container info and added them to the holder record
                     $container = $this->containerManager->getContainerById($holders[$key]['holderID']);
+
                     if($container)
                     {
                         foreach ($container as $index=>$value)
@@ -412,6 +413,7 @@ class TrackManager
                 {
                     // Get air waybill info and added them to the holder record
                     $airwaybill = $this->airwaybillManager->getAirwaybillById($holders[$key]['holderID']);
+
                     if($airwaybill)
                     {
                         foreach ($airwaybill as $index=>$value)
@@ -678,7 +680,14 @@ class TrackManager
         {
             foreach($tracks as $track)
             {
-                $totalReceivedQuantity += $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentID($track->getShipmentID());
+                if($track->getAmount())
+                {
+                    $totalReceivedQuantity += $track->getAmount();
+                }
+                elseif($track->getAmount() == null)
+                {
+                    $totalReceivedQuantity += $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentID($track->getShipmentID());
+                }
             }
         }
 
@@ -695,7 +704,14 @@ class TrackManager
         {
             foreach($tracks as $track)
             {
-                $totalReceivedQuantity += $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentID($track->getShipmentID());
+                if($track->getAmount())
+                {
+                    $totalReceivedQuantity += $track->getAmount();
+                }
+                elseif($track->getAmount() == null)
+                {
+                    $totalReceivedQuantity += $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentID($track->getShipmentID());
+                }
             }
         }
 
