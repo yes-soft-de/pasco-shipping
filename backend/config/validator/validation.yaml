@@ -607,4 +607,11 @@ App\Request\ShiftingShipmentOrderStatusUpdateRequest:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
+
+App\Request\ContainerSpecificationUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
       

@@ -6,8 +6,10 @@ use App\AutoMapping;
 use App\Entity\ContainerSpecificationEntity;
 use App\Manager\ContainerSpecificationManager;
 use App\Request\ContainerSpecificationCreateRequest;
+use App\Request\ContainerSpecificationUpdateRequest;
 use App\Response\ContainerSpecificationCreateResponse;
 use App\Response\ContainerSpecificationGetResponse;
+use App\Response\ContainerSpecificationUpdateResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ContainerSpecificationService
@@ -28,6 +30,13 @@ class ContainerSpecificationService
         $containerSpecificationResult = $this->containerSpecificationManager->create($request);
 
         return $this->autoMapping->map(ContainerSpecificationEntity::class, ContainerSpecificationCreateResponse::class, $containerSpecificationResult);
+    }
+
+    public function update(ContainerSpecificationUpdateRequest $request)
+    {
+        $containerSpecificationResult = $this->containerSpecificationManager->update($request);
+
+        return $this->autoMapping->map(ContainerSpecificationEntity::class, ContainerSpecificationUpdateResponse::class, $containerSpecificationResult);
     }
 
     public function getAllContainerSpecifications()
