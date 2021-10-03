@@ -65,7 +65,7 @@ class TrackEntityRepository extends ServiceEntityRepository
             ->select("track.id", "track.shipmentID", "track.trackNumber", "track.travelID", "track.holderType", "track.holderID", "track.createdAt", "track.updatedAt", "track.createdBy", "track.updatedBy", "track.amount", 
             "shipmentStatusEntity.shipmentStatus", "shipmentStatusEntity.statusDetails", "shipmentStatusEntity.trackNumber", "shipmentStatusEntity.isInOneHolder", "shipmentStatusEntity.packed", "orderShipmentEntity.volume", 
             "orderShipmentEntity.clientUserID", "orderShipmentEntity.target", "orderShipmentEntity.supplierName", "orderShipmentEntity.supplierID", "orderShipmentEntity.distributorID", "orderShipmentEntity.exportWarehouseID", "orderShipmentEntity.importWarehouseID", 
-            "orderShipmentEntity.quantity", "orderShipmentEntity.image", "orderShipmentEntity.createdAt as orderCreationDate", "orderShipmentEntity.isExternalWarehouse", "orderShipmentEntity.updatedAt as orderUpdatingDate", "orderShipmentEntity.productCategoryID", 
+            "orderShipmentEntity.quantity", "orderShipmentEntity.image", "orderShipmentEntity.createdAt as orderCreationDate", "orderShipmentEntity.isExternalWarehouse", "orderShipmentEntity.updatedAt as orderUpdatingDate", "orderShipmentEntity.subProductCategoryID",
             "orderShipmentEntity.unit", "orderShipmentEntity.receiverName", "orderShipmentEntity.receiverPhoneNumber", "orderShipmentEntity.markID", "orderShipmentEntity.packetingBy", "orderShipmentEntity.externalWarehouseInfo", "orderShipmentEntity.paymentTime",
             "orderShipmentEntity.weight", "orderShipmentEntity.qrCode", "orderShipmentEntity.guniQuantity", "orderShipmentEntity.updatedBy as orderUpdatedByUser", "orderShipmentEntity.vehicleIdentificationNumber", "orderShipmentEntity.extraSpecification",
              "travelEntity.status as travelStatus", "subProductCategory.name as subProductCategoryName", "exportWarehouseEntity.name as exportWarehouseName", "importWarehouseEntity.name as importWarehouseName", "productCategoryEntity.name as productCategoryName",
@@ -96,7 +96,7 @@ class TrackEntityRepository extends ServiceEntityRepository
                 SubProductCategoryEntity::class,
                 'subProductCategory',
                 Join::WITH,
-                'subProductCategory.id = orderShipmentEntity.productCategoryID'
+                'subProductCategory.id = orderShipmentEntity.subProductCategoryID'
             )
 
             ->leftJoin(

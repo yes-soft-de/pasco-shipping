@@ -38,10 +38,11 @@ class ShipmentOrderManager
     private $pendingHolderManager;
     private $imageManager;
     private $receivedShipmentManager;
+    private $gunnyShipmentManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, OrderShipmentEntityRepository $orderShipmentEntityRepository,
                                 ShipmentStatusManager $shipmentStatusManager, ContainerManager $containerManager, ImageManager $imageManager, AirwaybillManager $airWaybillManager,
-    PendingHolderManager $pendingHolderManager, ContainerSpecificationManager $containerSpecificationManager, ReceivedShipmentManager $receivedShipmentManager)
+    PendingHolderManager $pendingHolderManager, ContainerSpecificationManager $containerSpecificationManager, ReceivedShipmentManager $receivedShipmentManager, GunnyShipmentManager $gunnyShipmentManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -53,6 +54,7 @@ class ShipmentOrderManager
         $this->imageManager = $imageManager;
         $this->pendingHolderManager = $pendingHolderManager;
         $this->receivedShipmentManager = $receivedShipmentManager;
+        $this->gunnyShipmentManager = $gunnyShipmentManager;
     }
 
     public function createShipmentOrder(OrderShipmentCreateRequest $request)
@@ -286,6 +288,13 @@ class ShipmentOrderManager
             $order['tracks'] = $this->getShipmentStatusByShipmentID($id);
 
             $order['receivingInfo'] = $this->receivedShipmentManager->getReceivedShipmentInfoByShipmentID($id);
+
+            /**
+             *  getRemainedShipmentQuantity function calculate the remained quantity of the shipment depending on
+             * the quantity that we want to store in the gunny, but here we won't to store, just to get the remained
+             * quantity, so we pass 0 to the function as the second parameter shows
+             */
+            $order['remainedQuantity'] = $this->gunnyShipmentManager->getRemainedShipmentQuantity($id, 0);
         }
 
         return $order;

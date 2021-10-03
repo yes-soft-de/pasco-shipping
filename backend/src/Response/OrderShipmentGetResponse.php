@@ -78,6 +78,8 @@ class OrderShipmentGetResponse
 
     public $receivingInfo;
 
+    public $remainedQuantity;
+
     public $pendingHolders = [];
 
     // external warehouse info

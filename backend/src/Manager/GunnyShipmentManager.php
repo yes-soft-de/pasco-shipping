@@ -36,7 +36,7 @@ class GunnyShipmentManager
         $gunnyShipmentEntity = $this->autoMapping->map(GunnyShipmentCreateRequest::class, GunnyShipmentEntity::class, $request);
 
         // First we have to check if the desired quantity to be stored is not over the whole quantity
-        $remainedQuantity = $this->checkIfQuantityOfShipmentCanBeStoredInGunny($request->getShipmentID(), $request->getQuantity());
+        $remainedQuantity = $this->getRemainedShipmentQuantity($request->getShipmentID(), $request->getQuantity());
 
         if($remainedQuantity >= 0)
         {
@@ -82,7 +82,7 @@ class GunnyShipmentManager
         return $this->gunnyShipmentEntityRepository->getGunnyCountByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
     }
 
-    public function checkIfQuantityOfShipmentCanBeStoredInGunny($shipmentID, $quantity)
+    public function getRemainedShipmentQuantity($shipmentID, $quantity)
     {
         // The real quantity of the shipment must be retrieve from ReceivedShipmentEntity
         $receivedQuantity = $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentID($shipmentID);
