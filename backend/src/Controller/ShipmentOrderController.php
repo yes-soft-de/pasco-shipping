@@ -1246,6 +1246,8 @@ class ShipmentOrderController extends BaseController
      *                                  @OA\Property(type="string", property="holderType"),
      *                                  @OA\Property(type="integer", property="holderID"),
      *                                  @OA\Property(type="integer", property="travelID"),
+     *                                  @OA\Property(type="boolean", property="hasShiftingOrder"),
+     *                                  @OA\Property(type="text", property="shiftingOrderStatus"),
      *                                  @OA\Property(type="string", property="shipmentStatusCreatedByUser"),
      *                                  @OA\Property(type="string", property="shipmentStatusCreatedByUserImage"),
      *                                  @OA\Property(type="string", property="shipmentStatusUpdatedByUser"),
