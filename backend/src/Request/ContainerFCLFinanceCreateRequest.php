@@ -2,7 +2,7 @@
 
 namespace App\Request;
 
-class ContainerFinanceCreateRequest
+class ContainerFCLFinanceCreateRequest
 {
     private $containerID;
 
@@ -13,6 +13,20 @@ class ContainerFinanceCreateRequest
     private $status;
 
     private $currency;
+
+    private $subcontractID;
+
+    private $importWarehouseID;
+
+    private $paymentType;
+
+    private $chequeNumber;
+
+    private $financialFundName;
+
+    private $trackNumber;
+
+    private $clientUserID;
 
     private $createdBy;
 

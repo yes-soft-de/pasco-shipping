@@ -495,7 +495,7 @@ App\Request\AirwaybillFinanceCreateRequest:
     createdBy:
       - NotBlank: ~
 
-App\Request\ContainerFinanceCreateRequest:
+App\Request\ContainerFCLFinanceCreateRequest:
   properties:
     containerID:
       - NotBlank: ~

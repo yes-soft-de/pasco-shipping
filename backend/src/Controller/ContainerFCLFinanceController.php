@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\ContainerDistributeStatusCostRequest;
-use App\Request\ContainerFinanceCreateRequest;
-use App\Request\ContainerFinanceFilterRequest;
-use App\Service\ContainerFinanceService;
+use App\Request\ContainerFCLFinanceCreateRequest;
+use App\Request\ContainerFCLFinanceFilterRequest;
+use App\Service\ContainerFCLFinanceService;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use stdClass;
@@ -17,35 +17,42 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ContainerFinanceController extends BaseController
+class ContainerFCLFinanceController extends BaseController
 {
     private $autoMapping;
     private $validator;
-    private $containerFinanceService;
+    private $containerFCLFinanceService;
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, ContainerFinanceService $containerFinanceService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, ContainerFCLFinanceService $containerFCLFinanceService)
     {
         parent::__construct($serializer);
 
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
-        $this->containerFinanceService = $containerFinanceService;
+        $this->containerFCLFinanceService = $containerFCLFinanceService;
     }
 
     /**
-     * @Route("containerfinance", name="createContainerFinance", methods={"POST"})
+     * @Route("containerfclfinance", name="createContainerFCLFinance", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      *
-     * @OA\Tag(name="Container Finance")
+     * @OA\Tag(name="Container FCL Finance")
      *
      * @OA\RequestBody(
-     *      description="Create new container finance",
+     *      description="Create new container fcl finance",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="containerID"),
      *          @OA\Property(type="string", property="stageDescription"),
      *          @OA\Property(type="number", property="stageCost"),
      *          @OA\Property(type="string", property="status"),
+     *          @OA\Property(type="integer", property="subcontractID"),
+     *          @OA\Property(type="integer", property="importWarehouseID"),
+     *          @OA\Property(type="string", property="paymentType"),
+     *          @OA\Property(type="string", property="chequeNumber"),
+     *          @OA\Property(type="string", property="financialFundName"),
+     *          @OA\Property(type="string", property="trackNumber"),
+     *          @OA\Property(type="integer", property="clientUserID"),
      *          @OA\Property(type="string", property="currency")
      *      )
      * )
@@ -68,7 +75,7 @@ class ContainerFinanceController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, ContainerFinanceCreateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, ContainerFCLFinanceCreateRequest::class, (object)$data);
 
         $request->setCreatedBy($this->getUserId());
 
@@ -81,17 +88,17 @@ class ContainerFinanceController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $result = $this->containerFinanceService->create($request);
+        $result = $this->containerFCLFinanceService->create($request);
 
         return $this->response($result, self::CREATE);
     }
 
     /**
-     * @Route("filtercontainerfinance", name="filterContainerFinances", methods={"POST"})
+     * @Route("filtercontainerfclfinance", name="filterContainerFCLFinances", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      *
-     * @OA\Tag(name="Container Finance")
+     * @OA\Tag(name="Container FCL Finance")
      *
      * @OA\RequestBody(
      *      description="Post a request with filtering option",
@@ -115,6 +122,12 @@ class ContainerFinanceController extends BaseController
      *                      @OA\Property(type="number", property="stageCost"),
      *                      @OA\Property(type="string", property="stageDescription"),
      *                      @OA\Property(type="string", property="currency"),
+     *                      @OA\Property(type="string", property="subcontractName"),
+     *                      @OA\Property(type="string", property="importWarehouseName"),
+     *                      @OA\Property(type="string", property="clientUsername"),
+     *                      @OA\Property(type="string", property="paymentType"),
+     *                      @OA\Property(type="string", property="financialFundName"),
+     *                      @OA\Property(type="string", property="chequeNumber"),
      *                      @OA\Property(type="object", property="createdAt"),
      *                      @OA\Property(type="object", property="updatedAt"),
      *                      @OA\Property(type="string", property="createdByUser"),
@@ -129,22 +142,13 @@ class ContainerFinanceController extends BaseController
      * )
      *
      */
-    public function filterContainerFinances(Request $request)
+    public function filterContainerFCLFinances(Request $request)
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, ContainerFinanceFilterRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, ContainerFCLFinanceFilterRequest::class, (object)$data);
 
-        $violations = $this->validator->validate($request);
-
-        if (\count($violations) > 0)
-        {
-            $violationsString = (string) $violations;
-
-            return new JsonResponse($violationsString, Response::HTTP_OK);
-        }
-
-        $result = $this->containerFinanceService->filterContainerFinances($request);
+        $result = $this->containerFCLFinanceService->filterContainerFCLFinances($request);
 
         return $this->response($result, self::FETCH);
     }
@@ -230,18 +234,18 @@ class ContainerFinanceController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $result = $this->containerFinanceService->distributeContainerCost($request);
+        $result = $this->containerFCLFinanceService->distributeContainerCost($request);
 
         return $this->response($result, self::UPDATE);
     }
 
     /**
-     * @Route("deleteallcontainersfinances", name="deleteAllContainersFinances", methods={"DELETE"})
+     * @Route("deleteallcontainersfclfinances", name="deleteAllContainersFCLFinances", methods={"DELETE"})
      * @return JsonResponse
      */
-    public function deleteAllContainersFinances()
+    public function deleteAllContainersFCLFinances()
     {
-        $result = $this->containerFinanceService->deleteAllContainersFinances();
+        $result = $this->containerFCLFinanceService->deleteAllContainersFCLFinances();
 
         return $this->response($result, self::DELETE);
     }

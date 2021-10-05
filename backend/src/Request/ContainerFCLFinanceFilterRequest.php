@@ -2,7 +2,7 @@
 
 namespace App\Request;
 
-class ContainerFinanceFilterRequest
+class ContainerFCLFinanceFilterRequest
 {
     private $containerID;
 

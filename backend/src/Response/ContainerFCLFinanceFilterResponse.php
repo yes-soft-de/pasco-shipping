@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class ContainerFinanceGetResponse
+class ContainerFCLFinanceFilterResponse
 {
     public $containerFinances = [];
 
