@@ -25,12 +25,12 @@ class MainManager
     private $adminManager;
     private $shipmentStatusManager;
     private $shipmentLogManager;
-    private $shipmentFinanceManager;
+    private $shipmentLCLFinanceManager;
     private $trackManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder, UserEntityRepository $userEntityRepository,
                                 ShipmentOrderManager $shipmentOrderManager, TravelManager $travelManager, ClientManager $userManager, AdminManager $adminManager, ShipmentStatusManager $shipmentStatusManager,
-                                ShipmentLogManager $shipmentLogManager, ShipmentFinanceManager $shipmentFinanceManager, TrackManager $trackManager)
+                                ShipmentLogManager $shipmentLogManager, ShipmentLCLFinanceManager $shipmentLCLFinanceManager, TrackManager $trackManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -42,7 +42,7 @@ class MainManager
         $this->adminManager = $adminManager;
         $this->shipmentStatusManager = $shipmentStatusManager;
         $this->shipmentLogManager = $shipmentLogManager;
-        $this->shipmentFinanceManager = $shipmentFinanceManager;
+        $this->shipmentLCLFinanceManager = $shipmentLCLFinanceManager;
         $this->trackManager = $trackManager;
     }
 
@@ -113,7 +113,7 @@ class MainManager
 
             $number = $number + $this->trackManager->deleteAllTracks();
 
-            $number = $number + $this->shipmentFinanceManager->deleteAllShipmentFinances();
+            $number = $number + $this->shipmentLCLFinanceManager->deleteAllShipmentLCLFinances();
 
             $number = $number + $this->shipmentLogManager->deleteAllShipmentsLogs();
 

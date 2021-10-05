@@ -3,17 +3,18 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\ContainerFCLFinancialStatusConstant;
 use App\Constant\HolderTypeConstant;
-use App\Entity\ContainerFinanceEntity;
-use App\Repository\ContainerFinanceEntityRepository;
+use App\Entity\ContainerFCLFinanceEntity;
+use App\Repository\ContainerFCLFinanceEntityRepository;
 use App\Request\ContainerDistributeStatusCostRequest;
-use App\Request\ContainerFinanceCreateRequest;
-use App\Request\ContainerFinanceFilterRequest;
-use App\Request\ShipmentFinanceCreateRequest;
+use App\Request\ContainerFCLFinanceCreateRequest;
+use App\Request\ContainerFCLFinanceFilterRequest;
+use App\Request\ShipmentLCLFinanceCreateRequest;
 use App\Request\ShipmentFinanceUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
-class ContainerFinanceManager
+class ContainerFCLFinanceManager
 {
     private $autoMapping;
     private $entityManager;
@@ -21,25 +22,32 @@ class ContainerFinanceManager
     private $trackManager;
     private $shipmentFinanceManager;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ContainerFinanceEntityRepository $containerFinanceEntityRepository, TrackManager $trackManager,
-     ShipmentFinanceManager $shipmentFinanceManager)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ContainerFCLFinanceEntityRepository $containerFCLFinanceEntityRepository, TrackManager $trackManager,
+                                ShipmentLCLFinanceManager $shipmentFinanceManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
-        $this->containerFinanceEntityRepository = $containerFinanceEntityRepository;
+        $this->containerFinanceEntityRepository = $containerFCLFinanceEntityRepository;
         $this->trackManager = $trackManager;
         $this->shipmentFinanceManager = $shipmentFinanceManager;
     }
 
-    public function create(ContainerFinanceCreateRequest $request)
+    public function create(ContainerFCLFinanceCreateRequest $request)
     {
-        $containerFinanceEntity = $this->autoMapping->map(ContainerFinanceCreateRequest::class, ContainerFinanceEntity::class, $request);
+        if(in_array($request->getStatus(), ContainerFCLFinancialStatusConstant::$FCL_CONTAINER_FINANCIAL_STATUS_ARRAY))
+        {
+            $containerFCLFinanceEntity = $this->autoMapping->map(ContainerFCLFinanceCreateRequest::class, ContainerFCLFinanceEntity::class, $request);
 
-        $this->entityManager->persist($containerFinanceEntity);
-        $this->entityManager->flush();
-        $this->entityManager->clear();
+            $this->entityManager->persist($containerFCLFinanceEntity);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
 
-        return $containerFinanceEntity;
+            return $containerFCLFinanceEntity;
+        }
+        else
+        {
+            return "Wrong status!";
+        }
     }
 
     public function getCurrentTotalCostByFilterOptions($containerID, $status)
@@ -47,10 +55,19 @@ class ContainerFinanceManager
         return $this->containerFinanceEntityRepository->getCurrentTotalCostByFilterOptions($containerID, $status);
     }
 
-    public function filterContainerFinances(ContainerFinanceFilterRequest $request)
+    public function filterContainerFCLFinances(ContainerFCLFinanceFilterRequest $request)
     {
-        $containerFinances['containerFinances'] = $this->containerFinanceEntityRepository->filterContainerFinances($request->getContainerID(), $request->getStatus());
-        
+        $containerFinances['containerFinances'] = $this->containerFinanceEntityRepository->filterContainerFCLFinances($request->getContainerID(), $request->getStatus());
+
+        // Get stored shipment info (ID + trackNumber) in the container
+        if($containerFinances['containerFinances'])
+        {
+            foreach($containerFinances['containerFinances'] as $key => $value)
+            {
+                $containerFinances['containerFinances'][$key]['shipmentInfo'] = $this->trackManager->getByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $value['containerID']);
+            }
+        }
+
         $currentTotalCost = $this->getCurrentTotalCostByFilterOptions($request->getContainerID(), $request->getStatus())['currentTotalCost'];
 
         if($currentTotalCost)
@@ -134,7 +151,7 @@ class ContainerFinanceManager
 
     public function createShipmentFinanceByContainer(ContainerDistributeStatusCostRequest $request, $shipmentID, $trackNumber, $stageCost)
     {
-        $shipmentFinanceRequest = new ShipmentFinanceCreateRequest();
+        $shipmentFinanceRequest = new ShipmentLCLFinanceCreateRequest();
 
         $shipmentFinanceRequest->setShipmentID($shipmentID);
         $shipmentFinanceRequest->setTrackNumber($trackNumber);
@@ -161,9 +178,9 @@ class ContainerFinanceManager
         $this->shipmentFinanceManager->update($shipmentFinanceUpdateRequest);
     }
 
-    public function deleteAllContainersFinances()
+    public function deleteAllContainersFCLFinances()
     {
-        return $this->containerFinanceEntityRepository->deleteAllContainersFinances();
+        return $this->containerFinanceEntityRepository->deleteAllContainersFCLFinances();
     }
 
 }

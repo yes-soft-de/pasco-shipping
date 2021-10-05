@@ -9,7 +9,7 @@ use App\Repository\AirwaybillFinanceEntityRepository;
 use App\Request\AirwaybillDistributeStatusCostRequest;
 use App\Request\AirwaybillFinanceCreateRequest;
 use App\Request\AirwaybillFinanceFilterRequest;
-use App\Request\ShipmentFinanceCreateRequest;
+use App\Request\ShipmentLCLFinanceCreateRequest;
 use App\Request\ShipmentFinanceUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -21,8 +21,8 @@ class AirwaybillFinanceManager
     private $trackManager;
     private $shipmentFinanceManager;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, AirwaybillFinanceEntityRepository $airwaybillFinanceEntityRepository, 
-     TrackManager $trackManager, ShipmentFinanceManager $shipmentFinanceManager)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, AirwaybillFinanceEntityRepository $airwaybillFinanceEntityRepository,
+                                TrackManager $trackManager, ShipmentLCLFinanceManager $shipmentFinanceManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -134,7 +134,7 @@ class AirwaybillFinanceManager
 
     public function createShipmentFinanceByAirwaybill(AirwaybillDistributeStatusCostRequest $request, $shipmentID, $trackNumber, $stageCost)
     {
-        $shipmentFinanceRequest = new ShipmentFinanceCreateRequest();
+        $shipmentFinanceRequest = new ShipmentLCLFinanceCreateRequest();
 
         $shipmentFinanceRequest->setShipmentID($shipmentID);
         $shipmentFinanceRequest->setTrackNumber($trackNumber);

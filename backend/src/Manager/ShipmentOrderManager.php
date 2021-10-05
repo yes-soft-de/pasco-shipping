@@ -39,10 +39,12 @@ class ShipmentOrderManager
     private $imageManager;
     private $receivedShipmentManager;
     private $gunnyShipmentManager;
+    private $shiftingShipmentOrderManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, OrderShipmentEntityRepository $orderShipmentEntityRepository,
                                 ShipmentStatusManager $shipmentStatusManager, ContainerManager $containerManager, ImageManager $imageManager, AirwaybillManager $airWaybillManager,
-    PendingHolderManager $pendingHolderManager, ContainerSpecificationManager $containerSpecificationManager, ReceivedShipmentManager $receivedShipmentManager, GunnyShipmentManager $gunnyShipmentManager)
+    PendingHolderManager $pendingHolderManager, ContainerSpecificationManager $containerSpecificationManager, ReceivedShipmentManager $receivedShipmentManager, GunnyShipmentManager $gunnyShipmentManager,
+     ShiftingShipmentOrderManager $shiftingShipmentOrderManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -55,6 +57,7 @@ class ShipmentOrderManager
         $this->pendingHolderManager = $pendingHolderManager;
         $this->receivedShipmentManager = $receivedShipmentManager;
         $this->gunnyShipmentManager = $gunnyShipmentManager;
+        $this->shiftingShipmentOrderManager = $shiftingShipmentOrderManager;
     }
 
     public function createShipmentOrder(OrderShipmentCreateRequest $request)
@@ -375,6 +378,26 @@ class ShipmentOrderManager
                 foreach($shipments as $key=>$val)
                 {
                     $shipments[$key]['shipmentStatusInfo'] = $this->getShipmentStatusAndTracksByShipmentID($val['id']);
+
+                    // Check and get if there is a shifting order for each shipment, and its status
+                    if($shipments[$key]['shipmentStatusInfo'])
+                    {
+                        foreach($shipments[$key]['shipmentStatusInfo'] as $index => $value)
+                        {
+                            $shiftingOrder = $this->shiftingShipmentOrderManager->getShiftingShipmentOrderStatusByShipmentIdAndTrackNumber($value['shipmentID'], $value['trackNumber']);
+
+                            if($shiftingOrder)
+                            {
+                                $shipments[$key]['shipmentStatusInfo'][$index]['hasShiftingOrder'] = true;
+                                $shipments[$key]['shipmentStatusInfo'][$index]['shiftingStatus'] = $shiftingOrder['status'];
+                            }
+                            else
+                            {
+                                $shipments[$key]['shipmentStatusInfo'][$index]['hasShiftingOrder'] = false;
+                                $shipments[$key]['shipmentStatusInfo'][$index]['shiftingStatus'] = "";
+                            }
+                        }
+                    }
                 }
             }
 

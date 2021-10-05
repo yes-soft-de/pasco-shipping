@@ -62,6 +62,11 @@ class ShiftingShipmentOrderManager
         return $this->shiftingShipmentOrderEntityRepository->filterShiftingShipmentOrders($request);
     }
 
+    public function getShiftingShipmentOrderStatusByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        return $this->shiftingShipmentOrderEntityRepository->getShiftingShipmentOrderStatusByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+    }
+
     public function delete(DeleteRequest $request)
     {
         $shiftingShipmentOrderEntity = $this->shiftingShipmentOrderEntityRepository->find($request->getId());

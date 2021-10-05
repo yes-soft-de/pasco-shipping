@@ -66,4 +66,19 @@ class ShiftingShipmentOrderEntityRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function getShiftingShipmentOrderStatusByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        return $this->createQueryBuilder('shiftingShipmentOrderEntity')
+            ->select('shiftingShipmentOrderEntity.status')
+
+            ->andWhere('shiftingShipmentOrderEntity.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->andWhere('shiftingShipmentOrderEntity.trackNumber = :trackNumber')
+            ->setParameter('trackNumber', $trackNumber)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

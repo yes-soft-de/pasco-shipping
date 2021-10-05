@@ -9,7 +9,7 @@ use App\Entity\AirwaybillFinanceEntity;
 use App\Entity\AirwaybillSpecificationEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\ContainerEntity;
-use App\Entity\ContainerFinanceEntity;
+use App\Entity\ContainerFCLFinanceEntity;
 use App\Entity\ContainerSpecificationEntity;
 use App\Entity\CountryEntity;
 use App\Entity\DistributorEntity;
@@ -25,7 +25,7 @@ use App\Entity\ReceivedShipmentEntity;
 use App\Entity\ResetPasswordRequestEntity;
 use App\Entity\SettingEntity;
 use App\Entity\ShiftingShipmentOrderEntity;
-use App\Entity\ShipmentFinanceEntity;
+use App\Entity\ShipmentLCLFinanceEntity;
 use App\Entity\ShipmentLogEntity;
 use App\Entity\ShipmentStatusEntity;
 use App\Entity\SubcontractEntity;
@@ -317,7 +317,7 @@ class MainController extends BaseController
                 ->getQuery()
                 ->execute();
 
-            $em->getRepository(ContainerFinanceEntity::class)->createQueryBuilder('container_finance_entity')
+            $em->getRepository(ContainerFCLFinanceEntity::class)->createQueryBuilder('container_finance_entity')
                 ->delete()
                 ->getQuery()
                 ->execute();
@@ -347,7 +347,7 @@ class MainController extends BaseController
                 ->getQuery()
                 ->execute();
 
-            $em->getRepository(ShipmentFinanceEntity::class)->createQueryBuilder('shipment_finance_entity')
+            $em->getRepository(ShipmentLCLFinanceEntity::class)->createQueryBuilder('shipment_finance_entity')
                 ->delete()
                 ->getQuery()
                 ->execute();

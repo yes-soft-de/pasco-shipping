@@ -2,7 +2,7 @@
 
 namespace App\Request;
 
-class ShipmentFinanceCreateRequest
+class ShipmentLCLFinanceCreateRequest
 {
     private $shipmentID;
 
@@ -19,6 +19,16 @@ class ShipmentFinanceCreateRequest
     private $holderType;
 
     private $holderID;
+
+    private $subcontractID;
+
+    private $importWarehouseID;
+
+    private $paymentType;
+
+    private $chequeNumber;
+
+    private $financialFundName;
 
     private $createdBy;
 
@@ -40,6 +50,11 @@ class ShipmentFinanceCreateRequest
     public function setShipmentStatus($shipmentStatus)
     {
         $this->shipmentStatus = $shipmentStatus;
+    }
+
+    public function getShipmentStatus()
+    {
+        return $this->shipmentStatus;
     }
 
     public function setCurrency($currency)

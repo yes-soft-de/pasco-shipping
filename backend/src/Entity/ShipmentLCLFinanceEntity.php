@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\ShipmentFinanceEntityRepository;
+use App\Repository\ShipmentLCLFinanceEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=ShipmentFinanceEntityRepository::class)
+ * @ORM\Entity(repositoryClass=ShipmentLCLFinanceEntityRepository::class)
  */
-class ShipmentFinanceEntity
+class ShipmentLCLFinanceEntity
 {
     /**
      * @ORM\Id
@@ -79,6 +79,31 @@ class ShipmentFinanceEntity
      * @ORM\Column(type="integer", nullable=true)
      */
     private $holderID;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $subcontractID;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $importWarehouseID;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $paymentType;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $chequeNumber;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $financialFundName;
 
     public function getId(): ?int
     {
@@ -225,6 +250,66 @@ class ShipmentFinanceEntity
     public function setHolderID(?int $holderID): self
     {
         $this->holderID = $holderID;
+
+        return $this;
+    }
+
+    public function getSubcontractID(): ?int
+    {
+        return $this->subcontractID;
+    }
+
+    public function setSubcontractID(?int $subcontractID): self
+    {
+        $this->subcontractID = $subcontractID;
+
+        return $this;
+    }
+
+    public function getImportWarehouseID(): ?int
+    {
+        return $this->importWarehouseID;
+    }
+
+    public function setImportWarehouseID(?int $importWarehouseID): self
+    {
+        $this->importWarehouseID = $importWarehouseID;
+
+        return $this;
+    }
+
+    public function getPaymentType(): ?string
+    {
+        return $this->paymentType;
+    }
+
+    public function setPaymentType(string $paymentType): self
+    {
+        $this->paymentType = $paymentType;
+
+        return $this;
+    }
+
+    public function getChequeNumber(): ?string
+    {
+        return $this->chequeNumber;
+    }
+
+    public function setChequeNumber(?string $chequeNumber): self
+    {
+        $this->chequeNumber = $chequeNumber;
+
+        return $this;
+    }
+
+    public function getFinancialFundName(): ?string
+    {
+        return $this->financialFundName;
+    }
+
+    public function setFinancialFundName(?string $financialFundName): self
+    {
+        $this->financialFundName = $financialFundName;
 
         return $this;
     }
