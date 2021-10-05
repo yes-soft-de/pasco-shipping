@@ -128,6 +128,21 @@ class ContainerFCLFinanceController extends BaseController
      *                      @OA\Property(type="string", property="paymentType"),
      *                      @OA\Property(type="string", property="financialFundName"),
      *                      @OA\Property(type="string", property="chequeNumber"),
+     *                      @OA\Property(type="array", property="shipmentInfo",
+     *                          @OA\Items(
+     *                              @OA\Property(type="integer", property="id"),
+     *                              @OA\Property(type="integer", property="shipmentID"),
+     *                              @OA\Property(type="string", property="trackNumber"),
+     *                              @OA\Property(type="integer", property="holderType"),
+     *                              @OA\Property(type="integer", property="holderID"),
+     *                              @OA\Property(type="integer", property="travelID"),
+     *                              @OA\Property(type="object", property="createdAt"),
+     *                              @OA\Property(type="object", property="updatedAt"),
+     *                              @OA\Property(type="integer", property="amount"),
+     *                              @OA\Property(type="integer", property="createdBy"),
+     *                              @OA\Property(type="integer", property="updatedBy")
+     *                          )
+     *                      ),
      *                      @OA\Property(type="object", property="createdAt"),
      *                      @OA\Property(type="object", property="updatedAt"),
      *                      @OA\Property(type="string", property="createdByUser"),

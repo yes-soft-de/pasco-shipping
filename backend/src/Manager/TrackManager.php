@@ -492,6 +492,12 @@ class TrackManager
         return $tracks;
     }
 
+    // For filter container fcl finances / air waybill fcl finances
+    public function getByHolderTypeAndHolderID($holderType, $holderID)
+    {
+        return $this->trackEntityRepository->getByHolderTypeAndHolderID($holderType, $holderID);
+    }
+
     public function checkHolderAvailability(CheckHolderRequest $request)
     {
         // Fist check the holder type then the status of the holder if it is full or not yes

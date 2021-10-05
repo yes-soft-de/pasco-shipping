@@ -58,7 +58,16 @@ class ContainerFCLFinanceManager
     public function filterContainerFCLFinances(ContainerFCLFinanceFilterRequest $request)
     {
         $containerFinances['containerFinances'] = $this->containerFinanceEntityRepository->filterContainerFCLFinances($request->getContainerID(), $request->getStatus());
-        
+
+        // Get stored shipment info (ID + trackNumber) in the container
+        if($containerFinances['containerFinances'])
+        {
+            foreach($containerFinances['containerFinances'] as $key => $value)
+            {
+                $containerFinances['containerFinances'][$key]['shipmentInfo'] = $this->trackManager->getByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $value['containerID']);
+            }
+        }
+
         $currentTotalCost = $this->getCurrentTotalCostByFilterOptions($request->getContainerID(), $request->getStatus())['currentTotalCost'];
 
         if($currentTotalCost)
