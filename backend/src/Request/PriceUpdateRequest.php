@@ -10,7 +10,9 @@ class PriceUpdateRequest
 
     private $oneCBMPrice;
 
-    private $containerSpecifications;
+    private $containerSpecificationID;
+
+    private $containerSpecificationPrice;
 
     private $updatedBy;
 
@@ -29,9 +31,14 @@ class PriceUpdateRequest
         return $this->updatedBy;
     }
 
-    public function getContainerSpecifications()
+    public function getContainerSpecificationID()
     {
-        return $this->containerSpecifications;
+        return $this->containerSpecificationID;
+    }
+
+    public function getContainerSpecificationPrice()
+    {
+        return $this->containerSpecificationPrice;
     }
 
 }

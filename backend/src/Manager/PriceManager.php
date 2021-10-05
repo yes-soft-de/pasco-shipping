@@ -55,24 +55,21 @@ class PriceManager
             $this->entityManager->clear();
 
             //Now update the price of specific container specification
-            $this->updateContainerSpecificationsPrices($request->getContainerSpecifications(), $request->getUpdatedBy());
+            $this->updateContainerSpecificationPrice($request->getContainerSpecificationID(), $request->getContainerSpecificationPrice(), $request->getUpdatedBy());
 
             return $priceEntity;
         }
     }
 
-    public function updateContainerSpecificationsPrices($containerSpecificationsPricesArray, $updatedBy)
+    public function updateContainerSpecificationPrice($containerSpecificationID, $containerSpecificationPrice, $updatedBy)
     {
         $updateSpecificationPriceRequest = new ContainerSpecificationPriceUpdateRequest();
 
-        foreach($containerSpecificationsPricesArray as $item)
-        {
-            $updateSpecificationPriceRequest->setId($item['id']);
-            $updateSpecificationPriceRequest->setPrice($item['price']);
-            $updateSpecificationPriceRequest->setUpdatedBy($updatedBy);
+        $updateSpecificationPriceRequest->setId($containerSpecificationID);
+        $updateSpecificationPriceRequest->setPrice($containerSpecificationPrice);
+        $updateSpecificationPriceRequest->setUpdatedBy($updatedBy);
 
-            $this->containerSpecificationManager->updatePrice($updateSpecificationPriceRequest);
-        }
+        $this->containerSpecificationManager->updatePrice($updateSpecificationPriceRequest);
     }
 
     public function getPrices()
