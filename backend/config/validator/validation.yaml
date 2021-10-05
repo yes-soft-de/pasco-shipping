@@ -467,7 +467,7 @@ App\Request\ReceiverCreateByDashboardRequest:
     createdBy:
       - NotBlank: ~
 
-App\Request\ShipmentFinanceCreateRequest:
+App\Request\ShipmentLCLFinanceCreateRequest:
   properties:
     shipmentID:
       - NotBlank: ~

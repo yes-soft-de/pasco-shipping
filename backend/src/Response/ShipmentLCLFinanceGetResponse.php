@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class ShipmentFinanceGetResponse
+class ShipmentLCLFinanceGetResponse
 {
     public $shipmentFinances = [];
 

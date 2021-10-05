@@ -4,23 +4,25 @@ namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
 use App\Entity\OrderShipmentEntity;
-use App\Entity\ShipmentFinanceEntity;
+use App\Entity\ShipmentLCLFinanceEntity;
+use App\Entity\SubcontractEntity;
 use App\Entity\TrackEntity;
+use App\Entity\WarehouseEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method ShipmentFinanceEntity|null find($id, $lockMode = null, $lockVersion = null)
- * @method ShipmentFinanceEntity|null findOneBy(array $criteria, array $orderBy = null)
- * @method ShipmentFinanceEntity[]    findAll()
- * @method ShipmentFinanceEntity[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ShipmentLCLFinanceEntity|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ShipmentLCLFinanceEntity|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ShipmentLCLFinanceEntity[]    findAll()
+ * @method ShipmentLCLFinanceEntity[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ShipmentFinanceEntityRepository extends ServiceEntityRepository
+class ShipmentLCLFinanceEntityRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ShipmentFinanceEntity::class);
+        parent::__construct($registry, ShipmentLCLFinanceEntity::class);
     }
 
     public function getAllCostsByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
@@ -128,12 +130,12 @@ class ShipmentFinanceEntityRepository extends ServiceEntityRepository
         return $query->getQuery()->getOneOrNullResult();
     }
 
-    public function filterShipmentFinances($shipmentID, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID, $containerID, $airwaybillID, $travelID)
+    public function filterShipmentLCLFinances($shipmentID, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID, $containerID, $airwaybillID, $travelID)
     {
         $query = $this->createQueryBuilder('shipmentFinance')
-            ->select('shipmentFinance.id', 'shipmentFinance.shipmentID', 'shipmentFinance.trackNumber', 'shipmentFinance.shipmentStatus', 'shipmentFinance.stageCost', 'shipmentFinance.stageDescription',
-            'shipmentFinance.currency', 'shipmentFinance.createdAt', 'shipmentFinance.updatedAt', 'shipmentFinance.createdBy', 'shipmentFinance.updatedBy', 
-            'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
+            ->select('shipmentFinance.id', 'shipmentFinance.shipmentID', 'shipmentFinance.trackNumber', 'shipmentFinance.shipmentStatus', 'shipmentFinance.stageCost', 'shipmentFinance.stageDescription', 'shipmentFinance.currency', 'shipmentFinance.createdAt',
+                'shipmentFinance.updatedAt', 'shipmentFinance.createdBy', 'shipmentFinance.importWarehouseID', 'shipmentFinance.subcontractID', 'shipmentFinance.paymentType', 'shipmentFinance.financialFundName', 'shipmentFinance.chequeNumber', 'shipmentFinance.updatedBy',
+                'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage', 'warehouseEntity.name as importWarehouseName', 'subcontractEntity.fullName as subcontractName')
 
             ->leftJoin(
                 OrderShipmentEntity::class,
@@ -161,6 +163,20 @@ class ShipmentFinanceEntityRepository extends ServiceEntityRepository
                 'adminProfile2',
                 Join::WITH,
                 'adminProfile2.userID = shipmentFinance.updatedBy'
+            )
+
+            ->leftJoin(
+                WarehouseEntity::class,
+                'warehouseEntity',
+                Join::WITH,
+                'warehouseEntity.id = shipmentFinance.importWarehouseID'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = shipmentFinance.subcontractID'
             )
 
             ->orderBy('shipmentFinance.id', 'DESC');
@@ -218,7 +234,7 @@ class ShipmentFinanceEntityRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
-    public function deleteAllShipmentFinances()
+    public function deleteAllShipmentLCLFinances()
     {
         return $this->createQueryBuilder('shipmentFinance')
             ->delete()

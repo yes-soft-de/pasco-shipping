@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class ShipmentFinanceCreateResponse
+class ShipmentLCLFinanceCreateResponse
 {
     public $createdAt;
 

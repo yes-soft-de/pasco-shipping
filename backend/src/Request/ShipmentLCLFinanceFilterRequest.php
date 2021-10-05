@@ -2,7 +2,7 @@
 
 namespace App\Request;
 
-class ShipmentFinanceFilterRequest
+class ShipmentLCLFinanceFilterRequest
 {
     private $shipmentID;
 

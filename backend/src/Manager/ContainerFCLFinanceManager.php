@@ -10,7 +10,7 @@ use App\Repository\ContainerFCLFinanceEntityRepository;
 use App\Request\ContainerDistributeStatusCostRequest;
 use App\Request\ContainerFCLFinanceCreateRequest;
 use App\Request\ContainerFCLFinanceFilterRequest;
-use App\Request\ShipmentFinanceCreateRequest;
+use App\Request\ShipmentLCLFinanceCreateRequest;
 use App\Request\ShipmentFinanceUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -23,7 +23,7 @@ class ContainerFCLFinanceManager
     private $shipmentFinanceManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ContainerFCLFinanceEntityRepository $containerFCLFinanceEntityRepository, TrackManager $trackManager,
-                                ShipmentFinanceManager $shipmentFinanceManager)
+                                ShipmentLCLFinanceManager $shipmentFinanceManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -142,7 +142,7 @@ class ContainerFCLFinanceManager
 
     public function createShipmentFinanceByContainer(ContainerDistributeStatusCostRequest $request, $shipmentID, $trackNumber, $stageCost)
     {
-        $shipmentFinanceRequest = new ShipmentFinanceCreateRequest();
+        $shipmentFinanceRequest = new ShipmentLCLFinanceCreateRequest();
 
         $shipmentFinanceRequest->setShipmentID($shipmentID);
         $shipmentFinanceRequest->setTrackNumber($trackNumber);
