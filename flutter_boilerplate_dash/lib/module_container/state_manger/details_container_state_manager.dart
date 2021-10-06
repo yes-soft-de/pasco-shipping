@@ -78,12 +78,12 @@ class ContainerDetailsStateManager {
         }
     });
   }
-  void clearedOrArrived(AddContainerToTravelRequest request) {
+  void clearedOrArrived(ContainerClearedOrArrivedRequest request) {
     _addStateSubject.add(LoadingDetailsState());
-    _service.uploadedContainerToTravelRequest(request).then((value) {
+    _service.updateContainerStatusClearedOrArrived(request).then((value) {
       if (value != null) {
         if (value.isConfirmed) {
-          _service.getContainerDetails(request.holderID.toString()).then((value) {
+          _service.getContainerDetails(request.id.toString()).then((value) {
             if(value != null) {
               _addStateSubject.add(SuccessfullyDetailsWithTravelsState(value));
             }

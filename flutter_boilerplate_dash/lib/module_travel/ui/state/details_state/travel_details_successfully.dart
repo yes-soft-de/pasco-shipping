@@ -359,7 +359,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                     Text(holderModel.shipperName ?? '' , style: AppTextStyle.mediumBlueBold,),
                   ],),
                 ),
-                Padding(
+                type =='flight'?Container() :  Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(children: [
                     Text(S.of(context).type+': ', style: AppTextStyle.mediumBlack,),

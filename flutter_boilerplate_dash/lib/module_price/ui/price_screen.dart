@@ -72,7 +72,7 @@ class _ProfileScreenState extends State<PriceScreen> {
       FetchedPriceSuccessfullyState? state = currentState as FetchedPriceSuccessfullyState?;
       return PriceSuccessfullyScreen(model: state!.model, updatePrice: (request){
         widget._stateManager.updatePrice(request);
-      },);
+      },specifications: state.specifications,);
     }
     else {
       return Center(

@@ -32,6 +32,7 @@ class UpdateAirwaybillInit extends StatefulWidget {
 class _AddCountryInitState extends State<UpdateAirwaybillInit> {
  late TextEditingController containerNumber ;
  late TextEditingController consigneeController ;
+ late TextEditingController weightController ;
  DropListModel dropListModelLocation = DropListModel(location);
  late Entry optionItemSelectedLocation;
 
@@ -237,6 +238,44 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
                   ),
                 ),
               ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).weight , style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: 4,left: 16, right: 16, bottom: 4
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(15)
+                      ),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 5
+                        )
+                      ]
+                  ),
+                  child: TextField(
+
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: S.of(context).number,
+                    ),
+                    controller: weightController,
+                  ),
+                ),
+              ),
+
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
@@ -382,9 +421,10 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
                   AirwaybillRequest re = AirwaybillRequest(status: status,
                       type: type,
                       consigneeID: optionItemSelectedConsignee.id,
+                      consignee: consigneeController.text,
                       shipperID: optionItemSelectedShipper.id,
-                      carrierID: optionItemSelectedCarrier.id
-                      ,
+                      carrierID: optionItemSelectedCarrier.id,
+                      weight: int.parse(weightController.text),
                       airwaybillNumber: containerNumber.text,
                       providedBy: optionItemSelectedProvidedBy.id,
                       location: optionItemSelectedLocation.title,
@@ -413,6 +453,8 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
     entryHarbor= <Entry>[];
 
     containerNumber=TextEditingController();
+    weightController=TextEditingController();
+    weightController..text = widget.model.weight??'';
     consigneeController=TextEditingController();
     containerNumber..text = widget.model.airwaybillNumber??'';
 

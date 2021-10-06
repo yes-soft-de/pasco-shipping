@@ -38,6 +38,7 @@ class ContainerSpecificationModel {
     this.hightInMeter,
     this.lengthInMeter,
     this.capacityCPM,
+    this.price,
 
     this.createdAt,
     this.updatedAt,
@@ -52,6 +53,7 @@ class ContainerSpecificationModel {
   String? widthInMeter;
   String? hightInMeter;
   String? lengthInMeter;
+  String? price;
 
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -67,6 +69,7 @@ class ContainerSpecificationModel {
     widthInMeter: json['widthInMeter'].toString(),
     hightInMeter: json['hightInMeter'].toString(),
     lengthInMeter: json['lengthInMeter'].toString(),
+    price: json['price'].toString(),
 
     createdAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),

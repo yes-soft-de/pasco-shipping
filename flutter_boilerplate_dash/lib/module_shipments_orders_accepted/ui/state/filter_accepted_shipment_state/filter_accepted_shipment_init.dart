@@ -118,6 +118,7 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
                         });
                         stats[index].isSelected = true;
                         widget.filterRequest.status = stats[index].description;
+                        widget.filterRequest.acceptedUntilCleared=false;
                         // widget.shipmentRequest.productCategoryID = widget.categories[index].id;
                         // widget.shipmentRequest.productCategoryName = widget.categories[index].name;
                       },

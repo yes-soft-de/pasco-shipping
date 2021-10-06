@@ -136,20 +136,17 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                   ),
                 ),
                 Divider(color: Colors.grey[300],thickness: 2,),
-
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(S.of(context).specification),
-                      Text(widget.model.specificationName ?? ''),
+                      Text(S.of(context).weight),
+                      Text(widget.model.weight ?? ''),
                     ],
                   ),
                 ),
                 Divider(color: Colors.grey[300],thickness: 2,),
-
-
 
                 Padding(
                   padding: const EdgeInsets.all(10.0),

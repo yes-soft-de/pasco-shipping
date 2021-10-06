@@ -23,7 +23,8 @@ class AcceptedShipmentDetailsSuccessfully extends StatefulWidget {
   // final List<ContainerModel> containers;
   final Function onShowStatus;
   final Function onShowFinance;
-  const AcceptedShipmentDetailsSuccessfully({required this.shipment,required this.onShowStatus,required this.onShowFinance});
+  final Function onRequestShift;
+  const AcceptedShipmentDetailsSuccessfully({required this.shipment,required this.onShowStatus,required this.onShowFinance,required this.onRequestShift});
 
   @override
   _AcceptedShipmentDetailsSuccessfullyState createState() => _AcceptedShipmentDetailsSuccessfullyState();
@@ -370,22 +371,19 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                  Row(children: [
-                    Text('Quantity received: '),
-                    Text(widget.shipment.info.receivedQuantity??'',style: AppTextStyle.mediumBlackBold,),
-                  ],),
-                  Row(children: [
-                    Text(S.of(context).supplierInfo),
-                    Text(widget.shipment.info.supplierName??'',style: AppTextStyle.mediumBlackBold,),
-                  ],),
-
+                Row(children: [
+                  Text('Quantity received: '),
+                  Text(widget.shipment.info.receivedQuantity??'',style: AppTextStyle.mediumBlackBold,),
                 ],),
+                SizedBox(height: 10,),
+                Row(children: [
+                  Expanded(child: Text(S.of(context).supplierInfo)),
+                  Expanded(child: Text(widget.shipment.info.supplierName??'',style: AppTextStyle.mediumBlackBold,)),
+                ],),
+                SizedBox(height: 10,),
                 Row(children: [
                   Text(S.of(context).importantNote+': ',),
-                  Text(widget.shipment.info.notes??'',style: AppTextStyle.mediumBlackBold,),
+                  Expanded(child: Text(widget.shipment.info.notes??'',style: AppTextStyle.mediumBlackBold,)),
                 ],)
               ],),
             ),),
@@ -547,9 +545,44 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                   ):Container()
                 ],
               ),
-
-
-
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Text( S.of(context).holder , style: AppTextStyle.mediumBlack,),
+                ],),
+              ),
+              ListView.builder(itemBuilder:(context,index){
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                      color: Colors.yellow[100],
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(S.of(context).number+': '),
+                                Text(subShipmentModel.storingHolder[index].holderInfoShipment.IdentificationNumber??"" , style: AppTextStyle.mediumBlackBold,),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(S.of(context).status+': '),
+                                Text(subShipmentModel.storingHolder[index].holderInfoShipment.shippingStatus??'' , style: AppTextStyle.mediumBlackBold,),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )),
+                );
+              },itemCount: subShipmentModel.storingHolder.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+              ),
+              RoundedButton(lable: 'Shift Shipment', icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
+                widget.onRequestShift(widget.shipment.shipmentId , subShipmentModel.trackNumber);
+              }, radius: 12),
               Row(
                 children: [
                   RoundedButton(lable: S.of(context).shipmentCost, icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){

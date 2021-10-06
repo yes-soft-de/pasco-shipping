@@ -13,12 +13,12 @@ import 'package:pasco_shipping/module_general/response/confirm_response.dart';
   Future<ConfirmResponse?> createContainerSpecification(ContainerSpecificationRequest request) {
     return _manager.createContainerSpecification(request);
   }
-  // Future<ConfirmResponse?> updateSupplier(SupplierRequest request) {
-  //   return _manager.updateSupplier(request);
-  // }
-  // Future<ConfirmResponse?> deleteSupplier(String id) {
-  //   return _manager.deleteSupplier(id);
-  // }
+  Future<ConfirmResponse?> updateSpecification(ContainerSpecificationRequest request) {
+    return _manager.updateSpecification(request);
+  }
+  Future<ConfirmResponse?> deleteSpecification(String id) {
+    return _manager.deleteSpecification(id);
+  }
   Future<List<ContainerSpecificationModel>?> getContainerSpecification() {
     return _manager.getContainerSpecifications();
   }

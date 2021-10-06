@@ -67,10 +67,10 @@ class _CountriesScreenState extends State<ContainerSpecificationsScreen> {
       items = state!.distributors;
       return ContainerSpecificationsSuccessfully(items: items ,
         onDelete: (id){
-        // widget._stateManager.deleteSupplier(id.toString());
+        widget._stateManager.deleteSpecification(id.toString());
       },
         onEdit: (request){
-          // widget._stateManager.updateSupplier(request);
+          widget._stateManager.updateSpecification(request);
         },
       );
     }

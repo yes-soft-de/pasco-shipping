@@ -353,6 +353,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Shipment Review"),
         "shipmentSeparation":
             MessageLookupByLibrary.simpleMessage("Shipment separation"),
+        "shipmentShifting":
+            MessageLookupByLibrary.simpleMessage("Shifting Shipment"),
         "shipmentStatus":
             MessageLookupByLibrary.simpleMessage("Shipment Status"),
         "shipmentSticker":

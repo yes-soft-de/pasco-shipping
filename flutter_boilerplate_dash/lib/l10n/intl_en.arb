@@ -402,5 +402,7 @@
   "seaport": "Sea Port",
   "airport": "Air Port",
   "prices": "Prices",
-  "updateHarbor": "Update harbor"
+  "updateHarbor": "Update harbor",
+  "shipmentShifting":"Shifting Shipment"
+
 }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_container_specification/request/container_specification_request.dart';
 import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 
@@ -18,22 +19,35 @@ class ContainerSpecificationCard extends StatefulWidget {
 }
 
 class _CountryCardState extends State<ContainerSpecificationCard> {
- late TextEditingController fullName;
- late TextEditingController phone;
- late TextEditingController address;
+ late TextEditingController name;
+ late TextEditingController capacity;
+ late TextEditingController length;
+ late TextEditingController width;
+ late TextEditingController height;
+ late TextEditingController price;
 
 
  @override
   void initState() {
    super.initState();
-   fullName =TextEditingController();
-   // fullName..text = widget.model.fullName!;
+   name =TextEditingController();
+   name..text = widget.model.name!;
 
-   phone =TextEditingController();
-   // phone..text = widget.model.phone!;
+   capacity =TextEditingController();
+   capacity..text = widget.model.capacityCPM!;
 
-   address =TextEditingController();
-   // address..text = widget.model.address!;
+   width =TextEditingController();
+   width..text = widget.model.widthInMeter!;
+
+   height =TextEditingController();
+   height..text = widget.model.hightInMeter!;
+
+   length =TextEditingController();
+   length..text = widget.model.lengthInMeter!;
+
+   price =TextEditingController();
+   price..text = widget.model.price!;
+
    widget.isEdtiable = false;
   }
 
@@ -47,7 +61,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
                 flex: 3,
@@ -62,7 +76,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                           style: AppTextStyle.mediumBlack,
                         ),
                          Expanded(child: widget.isEdtiable ?
-                        TextField(controller: fullName,):  Text(
+                        TextField(controller: name,):  Text(
                           widget.model.name ?? '',
                           style: AppTextStyle.mediumBlueBold,
                         ),
@@ -77,7 +91,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                           S.of(context).capacityCPM,
                           style: AppTextStyle.mediumBlack,
                         ),
-                      Expanded(child:   widget.isEdtiable ? TextField(controller: phone, keyboardType: TextInputType.phone,) :  Text(
+                      Expanded(child:   widget.isEdtiable ? TextField(controller: capacity, keyboardType: TextInputType.phone,) :  Text(
                           widget.model.capacityCPM.toString(),
                           style: AppTextStyle.mediumBlueBold,
                         ),
@@ -94,7 +108,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                         ),
                          Expanded(
                             child:widget.isEdtiable ?
-                        TextField(controller: address,) : Text(
+                        TextField(controller: length,) : Text(
                           widget.model.lengthInMeter.toString(),
                           style: AppTextStyle.mediumBlueBold,
                         ),
@@ -111,7 +125,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                         ),
                         Expanded(
                           child:widget.isEdtiable ?
-                          TextField(controller: address,) : Text(
+                          TextField(controller: height,) : Text(
                             widget.model.hightInMeter.toString(),
                             style: AppTextStyle.mediumBlueBold,
                           ),
@@ -128,13 +142,29 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                         ),
                         Expanded(
                           child:widget.isEdtiable ?
-                          TextField(controller: address,) : Text(
+                          TextField(controller: width,) : Text(
                             widget.model.widthInMeter.toString(),
                             style: AppTextStyle.mediumBlueBold,
                           ),
                         )],
                     ),
-
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          S.of(context).prices+': ',
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Expanded(
+                          child:widget.isEdtiable ?
+                          TextField(controller: price,) : Text(
+                            widget.model.price.toString(),
+                            style: AppTextStyle.mediumBlueBold,
+                          ),
+                        )],
+                    ),
                     SizedBox(
                       height: 20,
                     ),
@@ -196,6 +226,54 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                   ],
                 ),
               ),
+              Flexible(
+                flex: 1,
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.red,
+                      ),
+                      onPressed: () {
+                        widget.onDelete(widget.model.id);
+                      },
+                      child: Text(
+                        S.of(context).delete,
+                        style: AppTextStyle.mediumWhite,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    widget.isEdtiable ? ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                      ),
+                      onPressed: () {
+                        ContainerSpecificationRequest re = ContainerSpecificationRequest(id: widget.model.id ,widthInMeter: width.text,hightInMeter: height.text,lengthInMeter: length.text ,name: name.text,capacityCPM: capacity.text,price: price.text);
+                        widget.onEdit(re);
+                      },
+                      child: Text(
+                        S.of(context).save,
+                        style: AppTextStyle.mediumWhite,
+                      ),
+                    ) : ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          widget.isEdtiable= true;
+                        });
+                      },
+                      child: Text(
+                        S.of(context).edit,
+                        style: AppTextStyle.mediumWhite,
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),

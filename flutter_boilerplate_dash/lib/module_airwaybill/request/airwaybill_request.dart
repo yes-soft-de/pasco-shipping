@@ -5,6 +5,8 @@ class AirwaybillRequest {
   String status;
   String type;
   String location;
+  String? consignee;
+  int? weight;
 
 
   int? shipperID;
@@ -28,7 +30,8 @@ class AirwaybillRequest {
         required this.carrierID,
       required this.shipperID,
         this.clientID,
-       required this.portID
+       required this.portID,
+        this.weight,this.consignee
 
       });
 
@@ -44,7 +47,9 @@ class AirwaybillRequest {
         'clientUserID': clientID,
         'status': status,
         'portID':portID,
-        'location':location
+        'location':location,
+        'weight':weight,
+        'consignee':consignee
       };
     } else {
       return {
@@ -58,7 +63,9 @@ class AirwaybillRequest {
         'clientUserID': clientID,
         'status': status,
         'portID':portID,
-        'location':location
+        'location':location,
+        'weight':weight,
+        'consignee':consignee
       };
     }
   }

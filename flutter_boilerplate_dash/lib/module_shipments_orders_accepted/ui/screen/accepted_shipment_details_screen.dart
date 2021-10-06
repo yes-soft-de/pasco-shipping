@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
+import 'package:pasco_shipping/module_shifting_shipment/shifting_routes.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/state_manager/accepted_shipment_details_state_manager.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_details_state/accepted_shipment_details_state.dart';
@@ -81,6 +82,10 @@ class _CountriesScreenState extends State<AcceptedShipmentDetailsScreen> {
           });
       }, onShowFinance: (id , trackNumber){
         Navigator.pushNamed(context,AcceptedShipmentRoutes.FINANCE , arguments: {'id' : id ,'trackNumber': trackNumber} ).then((value){
+          widget._stateManager.getDetailsShipment(id.toString());
+        });
+      },onRequestShift: (id , trackNumber){
+        Navigator.pushNamed(context,ShiftingRoutes.ADD , arguments: {'id' : id ,'trackNumber': trackNumber} ).then((value){
           widget._stateManager.getDetailsShipment(id.toString());
         });
       },

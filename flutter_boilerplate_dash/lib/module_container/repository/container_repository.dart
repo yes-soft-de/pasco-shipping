@@ -102,6 +102,20 @@ class ContainerRepository{
       return ConfirmResponse(false, msg!);
     }
   }
+  Future<ConfirmResponse?> updateContainerStatusClearedOrArrived(ContainerClearedOrArrivedRequest request) async {
+    // await _authService.refreshToken();
+    var token = await _authService.getToken();
+
+    var response = await _apiClient.put(Urls.CLEARED_ARRIVED_CONTAINER, request.toJson(),
+        headers: {'Authorization': 'Bearer $token'});
+    String? statusCode = ContainerDetailsResponse.fromJson(response!).statusCode;
+    String? msg = ContainerDetailsResponse.fromJson(response).msg;
+    if(statusCode =='204'){
+      return ConfirmResponse(true, msg!);
+    }else {
+      return ConfirmResponse(false, msg!);
+    }
+  }
 
 
   Future<ConfirmResponse?> uploadedContainerToTravel(AddContainerToTravelRequest request) async {

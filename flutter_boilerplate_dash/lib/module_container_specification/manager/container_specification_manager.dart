@@ -10,9 +10,9 @@ class ContainerSpecificationManager{
   ContainerSpecificationManager(this._repository);
 
   Future<ConfirmResponse?> createContainerSpecification(ContainerSpecificationRequest request) => _repository.createContainerSpecification(request);
-  // Future<ConfirmResponse?> deleteSupplier(String id) => _repository.deleteSupplier(id);
+  Future<ConfirmResponse?> deleteSpecification(String id) => _repository.deleteSpecification(id);
   Future<List<ContainerSpecificationModel>?> getContainerSpecifications() => _repository.getContainerSpecification();
-  // Future<ConfirmResponse?> updateSupplier(SupplierRequest request) => _repository.updateSupplier(request);
+  Future<ConfirmResponse?> updateSpecification(ContainerSpecificationRequest request) => _repository.updateSpecification(request);
 
 
 }

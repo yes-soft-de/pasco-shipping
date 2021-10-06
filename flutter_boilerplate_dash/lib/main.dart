@@ -55,6 +55,7 @@ import 'module_product_category/product_module.dart';
 import 'module_product_sub_category/sub_product_module.dart';
 import 'module_proxies/proxies_module.dart';
 import 'module_receiver/recevier_module.dart';
+import 'module_shifting_shipment/shifting_module.dart';
 import 'module_shipment_previous/shipment_previous_module.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -144,6 +145,8 @@ class MyApp extends StatefulWidget {
   final ShipperModule _shipperModule;
   final PriceModule _priceModule;
 
+  final ShiftingModule _shiftingModule;
+
 
   MyApp(
       this._themeDataService,
@@ -189,7 +192,8 @@ class MyApp extends StatefulWidget {
 
       this._harborModule,
       this._shipperModule,
-      this._priceModule
+      this._priceModule,
+      this._shiftingModule
       );
 
   @override

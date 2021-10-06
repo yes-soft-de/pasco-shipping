@@ -20,6 +20,7 @@ class ContainerManager{
   Future<ConfirmResponse?> updateContainer(ContainerRequest request) => _repository.updateContainer(request);
   Future<ConfirmResponse?> deleteContainer(String id) => _repository.deleteContainer(id);
   Future<ConfirmResponse?> updateContainerStatus(ContainerChangeStateRequest request) => _repository.updateContainerStatus(request);
+  Future<ConfirmResponse?> updateContainerStatusClearedOrArrived(ContainerClearedOrArrivedRequest request) => _repository.updateContainerStatusClearedOrArrived(request);
   Future<ConfirmResponse?> uploadedContainerToTravel(AddContainerToTravelRequest request) => _repository.uploadedContainerToTravel(request);
   Future<ContainerDetailsModel?> getContainerDetails(String id) => _repository.getContainerDetails(id);
   Future<List<ContainerModel>?> getContainersWithFilter(ContainerFilterRequest request) => _repository.getContainerWithFilter(request);
