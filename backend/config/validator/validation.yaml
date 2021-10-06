@@ -508,6 +508,19 @@ App\Request\ContainerFCLFinanceCreateRequest:
     createdBy:
       - NotBlank: ~
 
+App\Request\ContainerLCLFinanceCreateRequest:
+  properties:
+    containerID:
+      - NotBlank: ~
+    stageCost:
+      - NotBlank: ~
+    currency:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
 App\Request\ReceiverUpdateRequest:
   properties:
     id:

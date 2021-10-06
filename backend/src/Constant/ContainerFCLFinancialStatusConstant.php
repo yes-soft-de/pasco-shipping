@@ -9,7 +9,7 @@ class ContainerFCLFinancialStatusConstant
      * either for local or external warehouse
      */
     static  $FCL_CONTAINER_FINANCIAL_STATUS_ARRAY = [
-        "transporting", "delayed", "shipping", "uploading", "fork", "cleared", "buyingCost", "SellingCost", "other"
+        "transporting", "delayed", "shipping", "uploading", "fork", "clearance", "buyingCost", "SellingCost", "other"
     ];
 
 }
