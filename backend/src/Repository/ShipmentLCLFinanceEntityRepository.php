@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Constant\ShipmentLCLFinancialStatusConstant;
 use App\Entity\AdminProfileEntity;
 use App\Entity\OrderShipmentEntity;
 use App\Entity\ShipmentLCLFinanceEntity;
@@ -53,6 +54,33 @@ class ShipmentLCLFinanceEntityRepository extends ServiceEntityRepository
             )
 
             ->orderBy('shipmentFinance.id', 'DESC')
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getShipmentLCLTotalCostByShipmentID($shipmentID)
+    {
+        return $this->createQueryBuilder('shipmentFinance')
+            ->select('SUM(shipmentFinance.stageCost) as currentTotalCost')
+
+            ->andWhere('shipmentFinance.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getShipmentLCLBillDetailsByShipmentID($shipmentID)
+    {
+        return $this->createQueryBuilder('shipmentFinance')
+            ->select('shipmentFinance.shipmentStatus', 'shipmentFinance.stageCost', 'shipmentFinance.stageDescription')
+
+            ->andWhere('shipmentFinance.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->andWhere('shipmentFinance.shipmentStatus IN (:shipmentStatus)')
+            ->setParameter('shipmentStatus', ShipmentLCLFinancialStatusConstant::$LCL_SHIPMENT_BILL_DETAILS)
 
             ->getQuery()
             ->getResult();

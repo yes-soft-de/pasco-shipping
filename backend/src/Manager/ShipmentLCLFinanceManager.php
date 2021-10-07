@@ -66,6 +66,16 @@ class ShipmentLCLFinanceManager
         return $this->shipmentLCLFinanceEntityRepository->getAllCostsByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
     }
 
+    public function getShipmentLCLTotalCostByShipmentID($shipmentID)
+    {
+        return $this->shipmentLCLFinanceEntityRepository->getShipmentLCLTotalCostByShipmentID($shipmentID);
+    }
+
+    public function getShipmentLCLBillDetailsByShipmentID($shipmentID)
+    {
+        return $this->shipmentLCLFinanceEntityRepository->getShipmentLCLBillDetailsByShipmentID($shipmentID);
+    }
+
     public function getCurrentTotalCostByFilterOptions($shipmentID, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID, $containerID, $airwaybillID, $travelID)
     {
         return $this->shipmentLCLFinanceEntityRepository->getCurrentTotalCostByFilterOptions($shipmentID, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID,

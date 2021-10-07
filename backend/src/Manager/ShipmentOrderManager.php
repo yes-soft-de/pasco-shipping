@@ -637,6 +637,11 @@ class ShipmentOrderManager
         }
     }
 
+    public function getHolderTypeAndTransportationTypeByShipmentOrderID($shipmentID)
+    {
+        return $this->orderShipmentEntityRepository->getHolderTypeAndTransportationTypeByShipmentOrderID($shipmentID);
+    }
+
     public function deleteShipmentOrder(DeleteRequest $request)
     {
         $item = $this->orderShipmentEntityRepository->find($request->getId());

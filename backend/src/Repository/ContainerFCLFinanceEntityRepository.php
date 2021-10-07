@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\AdminProfileEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\ContainerFCLFinanceEntity;
+use App\Entity\ShipmentStatusEntity;
 use App\Entity\SubcontractEntity;
 use App\Entity\WarehouseEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -42,6 +43,44 @@ class ContainerFCLFinanceEntityRepository extends ServiceEntityRepository
         }
         
         return $query->getQuery()->getOneOrNullResult();
+    }
+
+    public function getContainerFCLTotalCostByShipmentID($shipmentID)
+    {
+        return $this->createQueryBuilder('containerFinance')
+            ->select('SUM(containerFinance.stageCost) as currentTotalCost')
+
+            ->leftJoin(
+                ShipmentStatusEntity::class,
+                'shipmentStatusEntity',
+                Join::WITH,
+                'shipmentStatusEntity.trackNumber = containerFinance.trackNumber'
+            )
+
+            ->andWhere('shipmentStatusEntity.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getContainerFCLBillDetailsByShipmentID($shipmentID)
+    {
+        return $this->createQueryBuilder('containerFinance')
+            ->select('containerFinance.status', 'containerFinance.stageCost', 'containerFinance.stageDescription')
+
+            ->leftJoin(
+                ShipmentStatusEntity::class,
+                'shipmentStatusEntity',
+                Join::WITH,
+                'shipmentStatusEntity.trackNumber = containerFinance.trackNumber'
+            )
+
+            ->andWhere('shipmentStatusEntity.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->getQuery()
+            ->getResult();
     }
 
     public function filterContainerFCLFinances($containerID, $status)

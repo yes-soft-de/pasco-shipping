@@ -55,6 +55,16 @@ class ContainerFCLFinanceManager
         return $this->containerFinanceEntityRepository->getCurrentTotalCostByFilterOptions($containerID, $status);
     }
 
+    public function getContainerFCLTotalCostByShipmentID($shipmentID)
+    {
+        return $this->containerFinanceEntityRepository->getContainerFCLTotalCostByShipmentID($shipmentID);
+    }
+
+    public function getContainerFCLBillDetailsByShipmentID($shipmentID)
+    {
+        return $this->containerFinanceEntityRepository->getContainerFCLBillDetailsByShipmentID($shipmentID);
+    }
+
     public function filterContainerFCLFinances(ContainerFCLFinanceFilterRequest $request)
     {
         $containerFinances['containerFinances'] = $this->containerFinanceEntityRepository->filterContainerFCLFinances($request->getContainerID(), $request->getStatus());
@@ -82,6 +92,7 @@ class ContainerFCLFinanceManager
         return $containerFinances;
     }
 
+    // not used anymore
     public function distributeContainerCost(ContainerDistributeStatusCostRequest $request)
     {
         // get all shipments stored in the container
@@ -149,6 +160,7 @@ class ContainerFCLFinanceManager
         }
     }
 
+    // not used anymore
     public function createShipmentFinanceByContainer(ContainerDistributeStatusCostRequest $request, $shipmentID, $trackNumber, $stageCost)
     {
         $shipmentFinanceRequest = new ShipmentLCLFinanceCreateRequest();
@@ -168,6 +180,7 @@ class ContainerFCLFinanceManager
         $this->shipmentFinanceManager->create($shipmentFinanceRequest);
     }
 
+    // not used anymore
     public function updateShipmentFinanceByContainer($shipmentFinanceArray, $updatedBy, $shipmentCost)
     {
         $shipmentFinanceUpdateRequest = $this->autoMapping->map('array', ShipmentFinanceUpdateRequest::class, $shipmentFinanceArray);
