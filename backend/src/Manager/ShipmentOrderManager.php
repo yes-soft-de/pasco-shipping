@@ -647,6 +647,11 @@ class ShipmentOrderManager
         return $this->orderShipmentEntityRepository->getImportWarehouseIdByShipmentOrderID($shipmentID);
     }
 
+    public function getClientUserIdByShipmentOrderID($shipmentID)
+    {
+        return $this->orderShipmentEntityRepository->getClientUserIdByShipmentOrderID($shipmentID);
+    }
+
     public function deleteShipmentOrder(DeleteRequest $request)
     {
         $item = $this->orderShipmentEntityRepository->find($request->getId());

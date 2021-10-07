@@ -18,18 +18,20 @@ class ContainerFCLFinanceManager
 {
     private $autoMapping;
     private $entityManager;
-    private $containerFinanceEntityRepository;
     private $trackManager;
     private $shipmentFinanceManager;
+    private $shipmentOrderManager;
+    private $containerFinanceEntityRepository;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ContainerFCLFinanceEntityRepository $containerFCLFinanceEntityRepository, TrackManager $trackManager,
-                                ShipmentLCLFinanceManager $shipmentFinanceManager)
+                                ShipmentLCLFinanceManager $shipmentFinanceManager, ShipmentOrderManager $shipmentOrderManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
-        $this->containerFinanceEntityRepository = $containerFCLFinanceEntityRepository;
         $this->trackManager = $trackManager;
         $this->shipmentFinanceManager = $shipmentFinanceManager;
+        $this->shipmentOrderManager = $shipmentOrderManager;
+        $this->containerFinanceEntityRepository = $containerFCLFinanceEntityRepository;
     }
 
     public function create(ContainerFCLFinanceCreateRequest $request)
@@ -37,6 +39,10 @@ class ContainerFCLFinanceManager
         if(in_array($request->getStatus(), ContainerFCLFinancialStatusConstant::$FCL_CONTAINER_FINANCIAL_STATUS_ARRAY))
         {
             $containerFCLFinanceEntity = $this->autoMapping->map(ContainerFCLFinanceCreateRequest::class, ContainerFCLFinanceEntity::class, $request);
+
+            $containerFCLFinanceEntity->setTrackNumber($this->getTrackNumberByContainerID($request->getContainerID()));
+            $containerFCLFinanceEntity->setImportWarehouseID($this->getImportWarehouseIdByContainerID($request->getContainerID()));
+            $containerFCLFinanceEntity->setClientUserID($this->getClientUserIdByContainerID($request->getContainerID()));
 
             $this->entityManager->persist($containerFCLFinanceEntity);
             $this->entityManager->flush();
@@ -47,6 +53,36 @@ class ContainerFCLFinanceManager
         else
         {
             return "Wrong status!";
+        }
+    }
+
+    public function getTrackNumberByContainerID($containerID)
+    {
+        $track = $this->trackManager->getOneOrNullTrackByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $containerID);
+
+        if($track)
+        {
+            return $track->getTrackNumber();
+        }
+    }
+
+    public function getImportWarehouseIdByContainerID($containerID)
+    {
+        $track = $this->trackManager->getOneOrNullTrackByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $containerID);
+
+        if($track)
+        {
+            return $this->shipmentOrderManager->getImportWarehouseIdByShipmentOrderID($track->getShipmentID());
+        }
+    }
+
+    public function getClientUserIdByContainerID($containerID)
+    {
+        $track = $this->trackManager->getOneOrNullTrackByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $containerID);
+
+        if($track)
+        {
+            return $this->shipmentOrderManager->getClientUserIdByShipmentOrderID($track->getShipmentID());
         }
     }
 

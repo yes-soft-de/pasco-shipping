@@ -47,12 +47,9 @@ class ContainerFCLFinanceController extends BaseController
      *          @OA\Property(type="number", property="stageCost"),
      *          @OA\Property(type="string", property="status"),
      *          @OA\Property(type="integer", property="subcontractID"),
-     *          @OA\Property(type="integer", property="importWarehouseID"),
      *          @OA\Property(type="string", property="paymentType"),
      *          @OA\Property(type="string", property="chequeNumber"),
      *          @OA\Property(type="string", property="financialFundName"),
-     *          @OA\Property(type="string", property="trackNumber"),
-     *          @OA\Property(type="integer", property="clientUserID"),
      *          @OA\Property(type="string", property="currency")
      *      )
      * )
