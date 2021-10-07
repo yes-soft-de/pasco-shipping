@@ -52,6 +52,10 @@ class AirwaybillGetResponse
 
     public $shippingStatus;
 
+    public $totalGunnyQuantity;
+
+    public $totalReceivedShipmentsQuantity;
+
     public $shipments = [];
 
 }

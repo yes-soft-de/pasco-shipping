@@ -54,6 +54,10 @@ class AirwaybillFilterResponse
 
     public $clientUserName;
 
+    public $totalGunnyQuantity;
+
+    public $totalReceivedShipmentsQuantity;
+
     public $shipments = [];
 
 }

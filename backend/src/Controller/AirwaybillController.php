@@ -408,6 +408,8 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="consignee"),
      *                  @OA\Property(type="integer", property="weight"),
      *                  @OA\Property(type="string", property="shippingStatus"),
+     *                  @OA\Property(type="integer", property="totalGunnyQuantity"),
+     *                  @OA\Property(type="integer", property="totalReceivedShipmentsQuantity"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),
@@ -514,6 +516,8 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="consignee"),
      *                  @OA\Property(type="integer", property="weight"),
      *                  @OA\Property(type="string", property="shippingStatus"),
+     *                  @OA\Property(type="integer", property="totalGunnyQuantity"),
+     *                  @OA\Property(type="integer", property="totalReceivedShipmentsQuantity"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
      *                  )

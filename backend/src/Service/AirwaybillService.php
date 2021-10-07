@@ -89,6 +89,9 @@ class AirwaybillService
 
     public function getAirwaybillById($id)
     {
+        $airwaybill['totalGunnyQuantity'] = 0;
+        $airwaybill['totalReceivedShipmentsQuantity'] = 0;
+
         $airwaybill = $this->airwaybillManager->getAirwaybillById($id);
 
         if($airwaybill)
@@ -113,6 +116,10 @@ class AirwaybillService
 
             $airwaybill['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID("airwaybill", $id);
 
+            // get the sum of total gunny and the sum of total received shipments' quantity
+            $airwaybill['totalGunnyQuantity'] = $this->getTotalGunnyByAirWaybillID($id);
+            $airwaybill['totalReceivedShipmentsQuantity'] = $this->getTotalReceivedShipmentsQuantityByAirWaybillID($id);
+
             if ($airwaybill['createdByUserImage']) {
                 $airwaybill['createdByUserImage'] = $this->params . $airwaybill['createdByUserImage'];
             }
@@ -133,6 +140,10 @@ class AirwaybillService
 
         foreach($airwaybills as $airwaybill)
         {
+            // get the sum of total gunny and the sum of total received shipments' quantity
+            $airwaybill['totalGunnyQuantity'] = $this->getTotalGunnyByAirWaybillID($airwaybill['id']);
+            $airwaybill['totalReceivedShipmentsQuantity'] = $this->getTotalReceivedShipmentsQuantityByAirWaybillID($airwaybill['id']);
+
             if($airwaybill['type'] == ShippingTypeConstant::$FCL_SHIPPING_TYPE)
             {
                 if($airwaybill['consigneeID'] == null)
@@ -174,6 +185,40 @@ class AirwaybillService
         }
 
         return $airwaybillsResponse;
+    }
+
+    public function getTotalGunnyByAirWaybillID($airWaybillID)
+    {
+        $totalGunny = 0;
+
+        $shipments = $this->trackService->getTracksByHolderTypeAndHolderID("airwaybill", $airWaybillID);
+
+        if($shipments)
+        {
+            foreach($shipments as $shipment)
+            {
+                $totalGunny += $shipment->guniQuantity;
+            }
+        }
+
+        return $totalGunny;
+    }
+
+    public function getTotalReceivedShipmentsQuantityByAirWaybillID($airWaybillID)
+    {
+        $totalReceivedShipmentsQuantity = 0;
+
+        $shipments = $this->trackService->getTracksByHolderTypeAndHolderID("airwaybill", $airWaybillID);
+
+        if($shipments)
+        {
+            foreach($shipments as $shipment)
+            {
+                $totalReceivedShipmentsQuantity += $shipment->receivedShipmentQuantity;
+            }
+        }
+
+        return $totalReceivedShipmentsQuantity;
     }
 
     public function deleteAirWaybillById(DeleteRequest $request)
