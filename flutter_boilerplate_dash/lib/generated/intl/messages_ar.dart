@@ -312,6 +312,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "service": MessageLookupByLibrary.simpleMessage("الخدمة"),
         "serviceName": MessageLookupByLibrary.simpleMessage("نوع الخدمة"),
         "setting": MessageLookupByLibrary.simpleMessage("الإعدادات"),
+        "shiftingFrom": MessageLookupByLibrary.simpleMessage("تحولت من"),
+        "shiftingTo": MessageLookupByLibrary.simpleMessage("تحولت الى"),
         "shipment": MessageLookupByLibrary.simpleMessage("الشحنات"),
         "shipmentAccepted":
             MessageLookupByLibrary.simpleMessage("تم قبول الشحنة بنجاح"),

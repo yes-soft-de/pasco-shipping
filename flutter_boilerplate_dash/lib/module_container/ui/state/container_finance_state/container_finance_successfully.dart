@@ -5,7 +5,10 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/request/container_add_finance_request.dart';
 import 'package:pasco_shipping/module_container/response/container_finance_response.dart';
 import 'package:pasco_shipping/module_container/widget/container_finance_card.dart';
+import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
+import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
@@ -15,19 +18,32 @@ class ContainerFinanceSuccessfullyScreen extends StatefulWidget {
   final Data containerFinances;
   final Function addFinance;
   final int containerID;
-  ContainerFinanceSuccessfullyScreen({required this.addFinance ,required this.containerFinances,required this.containerID });
+  final String type;
+  final List<SubcontractModel> subContracts;
+  ContainerFinanceSuccessfullyScreen({required this.addFinance ,required this.containerFinances,required this.containerID,required this.type,required this.subContracts });
 
   @override
   _MarkSuccessfullyScreenState createState() => _MarkSuccessfullyScreenState();
 }
 
 class _MarkSuccessfullyScreenState extends State<ContainerFinanceSuccessfullyScreen> {
+  DropListModel dropListModelPayment = DropListModel(paymentType);
+  DropListModel dropListModelContainerFCLStatus = DropListModel(containerFclFinance);
+  DropListModel dropListModelContainerLCLStatus = DropListModel(containerLclFinance);
+  DropListModel dropListModelFund = DropListModel(fundName);
 
   TextEditingController cost = TextEditingController();
   TextEditingController description = TextEditingController();
-  late int selectedRadioType;
-  late String type;
 
+  TextEditingController checkNumber = TextEditingController();
+
+
+  late List<Entry> entrySub;
+  late DropListModel dropListModelSubContract;
+  late Entry optionItemSelectedSubContract;
+  late Entry optionItemSelectedPayment;
+  late Entry optionItemSelectedStatus;
+  late Entry optionItemSelectedFund;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -37,7 +53,7 @@ class _MarkSuccessfullyScreenState extends State<ContainerFinanceSuccessfullyScr
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Card(
-              color: Colors.grey[200],
+              color: Colors.grey[300],
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
 
               child: Padding(
@@ -66,7 +82,7 @@ class _MarkSuccessfullyScreenState extends State<ContainerFinanceSuccessfullyScr
                   );
                 }),
             Card(
-              color: Colors.grey[300],
+              color: Colors.grey[100],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
@@ -130,109 +146,124 @@ class _MarkSuccessfullyScreenState extends State<ContainerFinanceSuccessfullyScr
                         ),
                       ),
                     ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              primary: AppThemeDataService.AccentColor,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
-
-                          ),
-                          onPressed: () {
-                          },
-                          child: Row(
-                            children: [
-                              Radio(
-                                onChanged: (value) {
-                                  _setSelectedRadioGender(1);
-                                },
-                                value: 1,
-                                groupValue: selectedRadioType,
-                                activeColor: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                S.of(context).uploaded,
-                                style: AppTextStyle.mediumWhite,
-                              ),
-                            ],
-                          ),
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              primary: AppThemeDataService.AccentColor,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
-
-                          ),
-                          onPressed: () {
-                          },
-                          child: Row(
-                            children: [
-                              Radio(
-                                onChanged: (value) {
-                                  _setSelectedRadioGender(2);
-                                },
-                                value: 2,
-                                groupValue: selectedRadioType,
-                                activeColor: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                S.of(context).cleared,
-                                style: AppTextStyle.mediumWhite,
-                              ),
-                            ],
-                          ),
-                        ),
-
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(children: [
+                        Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                        SizedBox(width: 5,),
+                        Text(S.of(context).subcontract , style: AppTextStyle.mediumBlackBold,)
+                      ],),
                     ),
-                    SizedBox(height: 10,),
-                    SizedBox(
-                      width: 175,
-                      height: 50,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: AppThemeDataService.AccentColor,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15))
+                    SelectDropList(
+                      this.optionItemSelectedSubContract,
+                      this.dropListModelSubContract,
+                          (optionItem) {
+                        optionItemSelectedSubContract = optionItem;
+                        setState(() {});
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(children: [
+                        Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                        SizedBox(width: 5,),
+                        Text('Stage' , style: AppTextStyle.mediumBlackBold,)
+                      ],),
+                    ),
+                  widget.type=='LCL'?  SelectDropList(
+                      this.optionItemSelectedStatus,
+                      this.dropListModelContainerLCLStatus,
+                          (optionItem) {
+                        optionItemSelectedStatus = optionItem;
+                        setState(() {});
+                      },
+                    ) : SelectDropList(
+                    this.optionItemSelectedStatus,
+                    this.dropListModelContainerFCLStatus,
+                        (optionItem) {
+                      optionItemSelectedStatus = optionItem;
+                      setState(() {});
+                    },
+                  ),
 
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(children: [
+                        Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                        SizedBox(width: 5,),
+                        Text(S.of(context).paymentTime , style: AppTextStyle.mediumBlackBold,)
+                      ],),
+                    ),
+                    SelectDropList(
+                      this.optionItemSelectedPayment,
+                      this.dropListModelPayment,
+                          (optionItem) {
+                        optionItemSelectedPayment = optionItem;
+                        setState(() {});
+                      },
+                    ),
+
+                    optionItemSelectedPayment.title=='Check' ?  Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        padding: EdgeInsets.only(
+                            top: 4,left: 16, right: 16, bottom: 4
                         ),
-                        onPressed: () {
-                        },
-                        child: Row(
-                          children: [
-                            Radio(
-                              onChanged: (value) {
-                                _setSelectedRadioGender(3);
-                              },
-                              value: 3,
-                              groupValue: selectedRadioType,
-                              activeColor: Colors.white,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(15)
                             ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              S.of(context).arrived,
-                              style: AppTextStyle.mediumWhite,
-                            ),
-                          ],
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 5
+                              )
+                            ]
+                        ),
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Check Number',
+                          ),
+                          controller: checkNumber,
                         ),
                       ),
-                    ),
+                    ) : optionItemSelectedPayment.title=='Cash' ?Column(children: [
 
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(children: [
+                          Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                          SizedBox(width: 5,),
+                          Text('Fund Name' , style: AppTextStyle.mediumBlackBold,)
+                        ],),
+                      ),
+                      SelectDropList(
+                        this.optionItemSelectedFund,
+                        this.dropListModelFund,
+                            (optionItem) {
+                          optionItemSelectedFund = optionItem;
+                          setState(() {});
+                        },
+                      ),
+
+                    ],) :Container(),
                     RoundedButton(lable: S.of(context).add, icon: '', color: blue, style: AppTextStyle.mediumWhiteBold, go: (){
                       if(cost.text.isEmpty) {
                         Fluttertoast.showToast(msg: S.of(context).fillAllField);
                       }
                       else {
-                        ContainerAddFinanceRequest mark = ContainerAddFinanceRequest(travelStatus:type ,currency:' ',containerID: widget.containerID,stageCost: int.parse(cost.text) , stageDescription: description.text);
+                        ContainerAddFinanceRequest mark = ContainerAddFinanceRequest(
+                            status:optionItemSelectedStatus.title ,currency:' ',
+                            containerID: widget.containerID,
+                            stageCost: int.parse(cost.text) ,
+                            stageDescription: description.text,
+                          paymentType: optionItemSelectedPayment.title,
+                          subcontractID: optionItemSelectedSubContract.id,
+                          financialFundName: optionItemSelectedFund.title,chequeNumber: checkNumber.text
+                        );
                         widget.addFinance(mark);
                       }
                     }, radius: 12)
@@ -249,22 +280,19 @@ class _MarkSuccessfullyScreenState extends State<ContainerFinanceSuccessfullyScr
   @override
   void initState() {
     super.initState();
-    selectedRadioType = 1;
-    type =AcceptedShipmentStatusName[AcceptedShipmentStatus.UPLOADED]!;
+    entrySub= <Entry>[];
+    optionItemSelectedSubContract =  Entry('choose', 0, []);
+    optionItemSelectedPayment =  Entry('choose', 0, []);
+    optionItemSelectedStatus =  Entry('choose', 0, []);
+    optionItemSelectedFund =  Entry('choose', 0, []);
+    initSubs();
   }
 
-  void _setSelectedRadioGender(int val) {
-    setState(() {
-      selectedRadioType = val;
-      if (val == 1) {
-        type = AcceptedShipmentStatusName[AcceptedShipmentStatus.UPLOADED]!;
-      } else if (val == 2) {
-        type = AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]!;
-      }
-      else if (val == 3) {
-        type = AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!;
-      }
-      print(val);
-    });
+  void initSubs(){
+    for(SubcontractModel item in widget.subContracts){
+      Entry v = Entry(item.fullName! ,item.id! ,[]);
+      entrySub.add(v);
+    }
+    dropListModelSubContract = DropListModel(entrySub);
   }
 }

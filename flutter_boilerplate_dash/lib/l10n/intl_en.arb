@@ -403,6 +403,8 @@
   "airport": "Air Port",
   "prices": "Prices",
   "updateHarbor": "Update harbor",
-  "shipmentShifting":"Shifting Shipment"
+  "shipmentShifting":"Shifting Shipment",
+  "shiftingFrom": "Shifting From",
+  "shiftingTo": "Shifting To"
 
 }

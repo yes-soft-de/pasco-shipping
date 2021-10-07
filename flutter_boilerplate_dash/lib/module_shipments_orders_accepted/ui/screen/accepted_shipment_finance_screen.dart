@@ -9,11 +9,10 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/response/shipmen
 import 'package:pasco_shipping/module_shipments_orders_accepted/state_manager/accepted_shipment_finance_state_manager.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_finance_state/shipemnt_finance_successfully.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_finance_state/shipment_finance_state.dart';
+import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
-
-import '../../accepted_shipment_routes.dart';
 
 @injectable
 class AcceptedShipmentFinanceScreen extends StatefulWidget {
@@ -28,6 +27,7 @@ class AcceptedShipmentFinanceScreen extends StatefulWidget {
 class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
   late FinanceShipmentsState currentState;
   late List<ShipmentFinanceModel> finances;
+  late List<SubcontractModel> subcontracts;
 
   late String trackNumber;
   late int id;
@@ -49,14 +49,15 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
      id =arguments['id'];
      trackNumber =arguments['trackNumber'].toString();
-     ShipmentFilterFinanceRequest request = ShipmentFilterFinanceRequest(shipmentID: id,trackNumber: trackNumber);
-    widget._stateManager.getShipmentFinance(request);
+    ShipmentLCLFilterFinanceRequest request = ShipmentLCLFilterFinanceRequest(shipmentID: id,trackNumber: trackNumber);
+    widget._stateManager.getShipmentLCLFinance(request);
   }
 
   @override
   void initState() {
     super.initState();
     currentState = LoadingState();
+    subcontracts =[];
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
       if (this.mounted) {
@@ -79,13 +80,14 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
     }
     else if (currentState is SuccessfullyFetchState) {
       SuccessfullyFetchState state = currentState as SuccessfullyFetchState;
-
+      subcontracts = state.subcontracts;
       return ShipmentFinanceSuccessfullyScreen(
         trackNumber:trackNumber ,
      shipmentID: id,
      shipmentFinance: state.finances,
+     subContracts: subcontracts,
      addFinance: (request){
-          widget._stateManager.addShipmentFinance(request);
+          widget._stateManager.addShipmentFinance(request,subcontracts);
      },
       );
     }

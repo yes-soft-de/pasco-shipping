@@ -396,8 +396,8 @@ class AppMenu extends ConsumerWidget {
                           S.of(context).view,
                         ),
                         onTap: () {
-                          Navigator.pushNamed(context,ShiftingRoutes.VIEW_ALL);
-                          // selectPage(context, ref, ContainerRoutes.VIEW_ALL);
+                          // Navigator.pushNamed(context,ShiftingRoutes.VIEW_WAREHOUSE);
+                          selectPage(context, ref,ShiftingRoutes.VIEW_WAREHOUSE);
                         }),
                   ],
                 ),

@@ -132,36 +132,6 @@ class ContainerRepository{
       return ConfirmResponse(false, msg!);
     }
   }
-  Future<Data?> getContainerFinance(ContainerFilterFinanceRequest request) async {
-    // await _authService.refreshToken();
-    var token =  await _authService.getToken();
-    try {
-      var response = await _apiClient.post(Urls.GET_Container_FINANCE,request.toJson(),
-          headers: {'Authorization': 'Bearer $token'});
-
-      Data? model = ContainerFinanceResponse
-          .fromJson(response!).c;
-      return model;
-    } catch (e) {
-      print(e);
-      return null;
-    }
-  }
-
-  Future<ConfirmResponse?> createContainerFinance(ContainerAddFinanceRequest request) async {
-    // await _authService.refreshToken();
-    var token = await _authService.getToken();
-
-    var response = await _apiClient.post(Urls.ADD_Container_FINANCE, request.toJson(),
-        headers: {'Authorization': 'Bearer $token'});
-    String? statusCode = ContainerFinanceResponse.fromJson(response!).statusCode;
-    String? msg = ContainerFinanceResponse.fromJson(response).msg;
-    if(statusCode =='201'){
-      return ConfirmResponse(true, msg!);
-    }else {
-      return ConfirmResponse(false, msg!);
-    }
-  }
 
 
 

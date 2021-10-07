@@ -12,7 +12,7 @@ class ShipmentFinanceCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Card(
-        color: Colors.grey[100],
+        color: Colors.grey[200],
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -58,6 +58,66 @@ class ShipmentFinanceCard extends StatelessWidget {
                     ),
                     Text(
                       model.stageDescription ?? '',
+                      style: AppTextStyle.mediumBlueBold,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(
+                      S.of(context).subcontract+': ',
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    Text(
+                      model.subcontractName ?? '',
+                      style: AppTextStyle.mediumBlueBold,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(
+                      'Check Number: ',
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    Text(
+                      model.chequeNumber ?? '',
+                      style: AppTextStyle.mediumBlueBold,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(
+                      'Fund Name: ',
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    Text(
+                      model.financialFundName ?? '',
+                      style: AppTextStyle.mediumBlueBold,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(
+                      S.of(context).paymentTime,
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    Text(
+                      model.paymentType ?? '',
                       style: AppTextStyle.mediumBlueBold,
                     ),
                   ],

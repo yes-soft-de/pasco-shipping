@@ -381,5 +381,7 @@
   "airport": "ميناء جوي",
   "prices": "الأسعار",
   "updateHarbor": "تعديل الميناء",
-  "shipmentShifting":"الشحنات المحولة"
+  "shipmentShifting":"الشحنات المحولة",
+  "shiftingFrom": "تحولت من",
+  "shiftingTo": "تحولت الى"
 }

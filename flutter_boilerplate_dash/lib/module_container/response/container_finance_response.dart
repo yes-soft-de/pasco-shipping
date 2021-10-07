@@ -52,6 +52,10 @@ class ContainerFinanceModel {
     this.stageDescription,
     this.currency,
     this.status,
+    this.paymentType,
+    this.financialFundName,
+    this.chequeNumber,
+    this.subcontractName,
 
     this.createdAt,
     this.updatedAt,
@@ -65,7 +69,10 @@ class ContainerFinanceModel {
   String? stageDescription;
 
   String? currency;
-
+  String? paymentType;
+  String? financialFundName;
+  String? chequeNumber;
+  String? subcontractName;
 
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -80,7 +87,10 @@ class ContainerFinanceModel {
     stageCost: json['stageCost'],
     currency: json['currency'],
     status: json['status'],
-
+    paymentType: json['paymentType'],
+    chequeNumber: json['chequeNumber'],
+    subcontractName: json['subcontractName'],
+    financialFundName: json['financialFundName'],
 
     createdAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),

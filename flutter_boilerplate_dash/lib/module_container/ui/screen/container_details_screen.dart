@@ -108,8 +108,8 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
 
       },onShipmentReview: (model){
         Navigator.pushNamed(context, ContainerRoutes.CONTAINER_SHIPMENT_REVIEW , arguments:  model);
-      }, onShowFinance: (id){
-        Navigator.pushNamed(context, ContainerRoutes.CONTAINER_FINANCE ,arguments: {'id' :id});
+      }, onShowFinance: (id,type){
+        Navigator.pushNamed(context, ContainerRoutes.CONTAINER_FINANCE ,arguments: {'id' :id,'type':type});
       },
       );
     }
@@ -148,8 +148,8 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
             },
             text: S.of(context).changeStatusConfirm,
           );
-        },onShowFinance: (id){
-          Navigator.pushNamed(context, ContainerRoutes.CONTAINER_FINANCE ,arguments: {'id' :id});
+        },onShowFinance: (id,type){
+          Navigator.pushNamed(context, ContainerRoutes.CONTAINER_FINANCE ,arguments: {'id' :id,'type':type});
         },
       );
     }
@@ -188,8 +188,8 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
             },
             text: S.of(context).changeStatusConfirm,
           );
-        },onShowFinance: (id){
-          Navigator.pushNamed(context, ContainerRoutes.CONTAINER_FINANCE ,arguments: {'id' :id});
+        },onShowFinance: (id,type){
+          Navigator.pushNamed(context, ContainerRoutes.CONTAINER_FINANCE ,arguments: {'id' :id,'type':type});
         },
       );
     }

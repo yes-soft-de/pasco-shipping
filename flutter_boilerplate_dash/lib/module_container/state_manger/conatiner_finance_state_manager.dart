@@ -2,41 +2,85 @@ import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_container/request/conatiner_filter_finance_request.dart';
 import 'package:pasco_shipping/module_container/request/container_add_finance_request.dart';
 import 'package:pasco_shipping/module_container/service/container_service.dart';
+import 'package:pasco_shipping/module_container/service/finance_container_service.dart';
 import 'package:pasco_shipping/module_container/ui/state/container_finance_state/container_finance_state.dart';
+import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
+import 'package:pasco_shipping/module_sub_contract/service/subcontract_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 @injectable
 class ContainerFinanceStateManager {
-  final ContainerService _service;
+  final FinanceContainerService _service;
+  final SubcontractService _subcontractService;
 
   final PublishSubject<FinanceContainerState> _stateSubject = PublishSubject();
   Stream<FinanceContainerState> get stateStream => _stateSubject.stream;
 
-  ContainerFinanceStateManager(this._service);
+  ContainerFinanceStateManager(this._service, this._subcontractService);
   //
-  void getContainerFinance(ContainerFilterFinanceRequest request) {
+  void getContainerLCLFinance(ContainerFilterFinanceRequest request) {
     _stateSubject.add(LoadingState());
-    _service.getContainerFinance(request).then((value) {
+    _service.getContainerLCLFinance(request).then((value) {
       print(value);
       if (value != null) {
-        _stateSubject.add(SuccessfullyFetchState(value));
+        _subcontractService.getSubcontracts().then((subs) {
+          if(subs != null){
+            _stateSubject.add(SuccessfullyFetchState(value,subs));
+          }
+        });
+      } else {
+        _stateSubject.add(ErrorState('Error', false));
+      }
+    });
+  }
+  void getContainerFCLFinance(ContainerFilterFinanceRequest request) {
+    _stateSubject.add(LoadingState());
+    _service.getContainerFCLFinance(request).then((value) {
+      print(value);
+      if (value != null) {
+        _subcontractService.getSubcontracts().then((subs) {
+          if(subs != null){
+            _stateSubject.add(SuccessfullyFetchState(value,subs));
+          }
+        });
       } else {
         _stateSubject.add(ErrorState('Error', false));
       }
     });
   }
 
-  void addContainerFinance(ContainerAddFinanceRequest financeRequest) {
+  void createContainerFCLFinance(ContainerAddFinanceRequest financeRequest,List<SubcontractModel> subs) {
     _stateSubject.add(LoadingState());
-    _service.createContainerFinance(financeRequest).then((value) {
+    _service.createContainerFCLFinance(financeRequest).then((value) {
       if (value != null) {
         if (value.isConfirmed) {
           ContainerFilterFinanceRequest request = ContainerFilterFinanceRequest(id: financeRequest.containerID!);
           _service
-              .getContainerFinance(request)
+              .getContainerFCLFinance(request)
               .then((finances) {
             if (finances != null) {
-              _stateSubject.add(SuccessfullyFetchState(finances));
+              _stateSubject.add(SuccessfullyFetchState(finances,subs));
+            } else {
+              _stateSubject.add(ErrorState('Error', false));
+            }
+          });
+        } else {
+          _stateSubject.add(ErrorState('Error', false));
+        }
+      }
+    });
+  }
+  void createContainerLCLFinance(ContainerAddFinanceRequest financeRequest,List<SubcontractModel> subs) {
+    _stateSubject.add(LoadingState());
+    _service.createContainerLCLFinance(financeRequest).then((value) {
+      if (value != null) {
+        if (value.isConfirmed) {
+          ContainerFilterFinanceRequest request = ContainerFilterFinanceRequest(id: financeRequest.containerID!);
+          _service
+              .getContainerLCLFinance(request)
+              .then((finances) {
+            if (finances != null) {
+              _stateSubject.add(SuccessfullyFetchState(finances,subs));
             } else {
               _stateSubject.add(ErrorState('Error', false));
             }

@@ -53,6 +53,11 @@ class ShipmentFinanceModel {
     this.currency,
     this.status,
 
+    this.paymentType,
+    this.financialFundName,
+    this.chequeNumber,
+    this.subcontractName,
+
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
@@ -65,6 +70,11 @@ class ShipmentFinanceModel {
   String? stageDescription;
 
   String? currency;
+
+  String? paymentType;
+  String? financialFundName;
+  String? chequeNumber;
+  String? subcontractName;
 
 
   DateTime? createdAt;
@@ -80,6 +90,11 @@ class ShipmentFinanceModel {
     stageCost: json['stageCost'],
     currency: json['currency'],
     status: json['shipmentStatus'],
+
+    paymentType: json['paymentType'],
+    chequeNumber: json['chequeNumber'],
+    subcontractName: json['subcontractName'],
+    financialFundName: json['financialFundName'],
 
 
     createdAt: DateTime.fromMillisecondsSinceEpoch(
