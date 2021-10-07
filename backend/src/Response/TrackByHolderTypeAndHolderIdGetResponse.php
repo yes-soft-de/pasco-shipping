@@ -10,6 +10,10 @@ class TrackByHolderTypeAndHolderIdGetResponse
 
     public $shipmentStatus;
 
+    public $clientUsername;
+
+    public $categoriesNames;
+
     public $trackNumber;
 
     public $statusDetails;
