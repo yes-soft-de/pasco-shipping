@@ -47,7 +47,6 @@ class ShipmentLCLFinanceController extends BaseController
      *          @OA\Property(type="number", property="stageCost"),
      *          @OA\Property(type="string", property="shipmentStatus"),
      *          @OA\Property(type="integer", property="subcontractID"),
-     *          @OA\Property(type="integer", property="importWarehouseID"),
      *          @OA\Property(type="string", property="paymentType"),
      *          @OA\Property(type="string", property="chequeNumber"),
      *          @OA\Property(type="string", property="financialFundName"),

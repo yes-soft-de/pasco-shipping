@@ -627,4 +627,25 @@ App\Request\ContainerSpecificationUpdateRequest:
       - NotBlank: ~
     updatedBy:
       - NotBlank: ~
+
+App\Request\ShipmentInvoiceCreateRequest:
+  properties:
+    shipmentID:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
+App\Request\ShipmentInvoiceUpdatePaymentInfoRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
+App\Request\ShipmentInvoiceUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
       

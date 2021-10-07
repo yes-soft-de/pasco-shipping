@@ -67,4 +67,18 @@ class ShiftingShipmentOrderService
         }
     }
 
+    public function forcDelete($request)
+    {
+        $result = $this->shiftingShipmentOrderManager->forcDelete($request);
+
+        if($result instanceof ShiftingShipmentOrderEntity)
+        {
+            return $this->autoMapping->map(ShiftingShipmentOrderEntity::class, ShiftingShipmentOrderCreateResponse::class, $result);
+        }
+        else
+        {
+            return $result;
+        }
+    }
+
 }

@@ -22,8 +22,6 @@ class ShipmentLCLFinanceCreateRequest
 
     private $subcontractID;
 
-    private $importWarehouseID;
-
     private $paymentType;
 
     private $chequeNumber;
@@ -40,6 +38,11 @@ class ShipmentLCLFinanceCreateRequest
     public function setShipmentID($shipmentID)
     {
         $this->shipmentID = $shipmentID;
+    }
+
+    public function getShipmentID()
+    {
+        return $this->shipmentID;
     }
 
     public function setTrackNumber($trackNumber)

@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\AutoMapping;
 use App\Constant\HolderTypeConstant;
+use App\Constant\ShippingTypeConstant;
 use App\Entity\ContainerEntity;
 use App\Manager\ContainerManager;
 use App\Request\ContainerCreateRequest;
@@ -101,6 +102,14 @@ class ContainerService
 
         if($container)
         {
+            if($container['type'] == ShippingTypeConstant::$FCL_SHIPPING_TYPE)
+            {
+                if($container['consigneeID'] == null)
+                {
+                    $container['consigneeName'] = $container['consignee'];
+                }
+            }
+
             if($container['createdByUser'] == null)
             {
                 $container['createdByUser'] = $container['clientUserName'];
@@ -135,6 +144,14 @@ class ContainerService
 
         foreach($containers as $container)
         {
+            if($container['type'] == ShippingTypeConstant::$FCL_SHIPPING_TYPE)
+            {
+                if($container['consigneeID'] == null)
+                {
+                    $container['consigneeName'] = $container['consignee'];
+                }
+            }
+
             if($this->trackService->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $container['id']))
             {
                 $container['used'] = true;

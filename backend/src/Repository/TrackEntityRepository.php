@@ -58,6 +58,20 @@ class TrackEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getOneOrNullTrackByHolderTypeAndHolderID($holderType, $holderID)
+    {
+        return $this->createQueryBuilder('track')
+
+            ->andWhere('track.holderID = :holderID')
+            ->setParameter('holderID', $holderID)
+
+            ->andWhere('track.holderType = :holderType')
+            ->setParameter('holderType', $holderType)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     // For Get container/air waybill by ID
     public function getTracksByHolderTypeAndHolderID($holderType, $holderID)
     {

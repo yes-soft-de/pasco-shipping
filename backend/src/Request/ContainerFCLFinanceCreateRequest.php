@@ -16,19 +16,18 @@ class ContainerFCLFinanceCreateRequest
 
     private $subcontractID;
 
-    private $importWarehouseID;
-
     private $paymentType;
 
     private $chequeNumber;
 
     private $financialFundName;
 
-    private $trackNumber;
-
-    private $clientUserID;
-
     private $createdBy;
+
+    public function getContainerID()
+    {
+        return $this->containerID;
+    }
 
     public function setCreatedBy($createdBy)
     {

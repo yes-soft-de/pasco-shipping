@@ -15,12 +15,15 @@ class ShipmentLCLFinanceManager
 {
     private $autoMapping;
     private $entityManager;
+    private $shipmentOrderManager;
     private $shipmentLCLFinanceEntityRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ShipmentLCLFinanceEntityRepository $shipmentLCLFinanceEntityRepository)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ShipmentLCLFinanceEntityRepository $shipmentLCLFinanceEntityRepository,
+     ShipmentOrderManager $shipmentOrderManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
+        $this->shipmentOrderManager = $shipmentOrderManager;
         $this->shipmentLCLFinanceEntityRepository = $shipmentLCLFinanceEntityRepository;
     }
 
@@ -29,6 +32,13 @@ class ShipmentLCLFinanceManager
         if(in_array($request->getShipmentStatus(), ShipmentLCLFinancialStatusConstant::$LCL_SHIPMENT_FINANCIAL_STATUS_ARRAY))
         {
             $shipmentFinanceEntity = $this->autoMapping->map(ShipmentLCLFinanceCreateRequest::class, ShipmentLCLFinanceEntity::class, $request);
+
+            $importWarehouseID = $this->getImportWarehouseIdByShipmentID($request->getShipmentID());
+
+            if($importWarehouseID)
+            {
+                $shipmentFinanceEntity->setImportWarehouseID($importWarehouseID);
+            }
 
             $this->entityManager->persist($shipmentFinanceEntity);
             $this->entityManager->flush();
@@ -66,6 +76,16 @@ class ShipmentLCLFinanceManager
         return $this->shipmentLCLFinanceEntityRepository->getAllCostsByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
     }
 
+    public function getShipmentLCLTotalCostByShipmentID($shipmentID)
+    {
+        return $this->shipmentLCLFinanceEntityRepository->getShipmentLCLTotalCostByShipmentID($shipmentID);
+    }
+
+    public function getShipmentLCLBillDetailsByShipmentID($shipmentID)
+    {
+        return $this->shipmentLCLFinanceEntityRepository->getShipmentLCLBillDetailsByShipmentID($shipmentID);
+    }
+
     public function getCurrentTotalCostByFilterOptions($shipmentID, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID, $containerID, $airwaybillID, $travelID)
     {
         return $this->shipmentLCLFinanceEntityRepository->getCurrentTotalCostByFilterOptions($shipmentID, $trackNumber, $shipmentStatus, $exportWarehouseID, $importWarehouseID,
@@ -95,6 +115,11 @@ class ShipmentLCLFinanceManager
     public function getByShipmentIdAndTrackNumberAndHolderTypeAndHolderIdAndStatus($shipmentID, $trackNumber, $holderType, $holderID, $shipmentStatus)
     {
         return $this->shipmentLCLFinanceEntityRepository->getByShipmentIdAndTrackNumberAndHolderTypeAndHolderIdAndStatus($shipmentID, $trackNumber, $holderType, $holderID, $shipmentStatus);
+    }
+
+    public function getImportWarehouseIdByShipmentID($shipmentID)
+    {
+        return $this->shipmentOrderManager->getImportWarehouseIdByShipmentOrderID($shipmentID);
     }
     
     public function deleteAllShipmentLCLFinances()

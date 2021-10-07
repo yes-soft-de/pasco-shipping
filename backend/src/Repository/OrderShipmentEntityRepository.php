@@ -1008,6 +1008,42 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getHolderTypeAndTransportationTypeByShipmentOrderID($shipmentID)
+    {
+        return $this->createQueryBuilder('shipmentOrder')
+            ->select("shipmentOrder.holderType", "shipmentOrder.transportationType")
+
+            ->andWhere('shipmentOrder.id = :id')
+            ->setParameter('id', $shipmentID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getImportWarehouseIdByShipmentOrderID($shipmentID)
+    {
+        return $this->createQueryBuilder('shipmentOrder')
+            ->select("shipmentOrder.importWarehouseID")
+
+            ->andWhere('shipmentOrder.id = :id')
+            ->setParameter('id', $shipmentID)
+
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getClientUserIdByShipmentOrderID($shipmentID)
+    {
+        return $this->createQueryBuilder('shipmentOrder')
+            ->select("shipmentOrder.clientUserID")
+
+            ->andWhere('shipmentOrder.id = :id')
+            ->setParameter('id', $shipmentID)
+
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     /**
      * @param QueryBuilder $queryBuilder
      * @return QueryBuilder

@@ -4,6 +4,8 @@ namespace App\Service;
 
 use App\AutoMapping;
 use App\Constant\HolderTypeConstant;
+use App\Constant\ShippingTypeConstant;
+use App\Constant\ShippingWayConstant;
 use App\Entity\AirwaybillEntity;
 use App\Manager\AirwaybillManager;
 use App\Request\AirwaybillCreateRequest;
@@ -91,6 +93,14 @@ class AirwaybillService
 
         if($airwaybill)
         {
+            if($airwaybill['type'] == ShippingTypeConstant::$FCL_SHIPPING_TYPE)
+            {
+                if($airwaybill['consigneeID'] == null)
+                {
+                    $airwaybill['consigneeName'] = $airwaybill['consignee'];
+                }
+            }
+
             if($airwaybill['createdByUser'] == null)
             {
                 $airwaybill['createdByUser'] = $airwaybill['clientUserName'];
@@ -123,6 +133,14 @@ class AirwaybillService
 
         foreach($airwaybills as $airwaybill)
         {
+            if($airwaybill['type'] == ShippingTypeConstant::$FCL_SHIPPING_TYPE)
+            {
+                if($airwaybill['consigneeID'] == null)
+                {
+                    $airwaybill['consigneeName'] = $airwaybill['consignee'];
+                }
+            }
+
             if($this->trackService->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $airwaybill['id']))
             {
                 $airwaybill['used'] = true;

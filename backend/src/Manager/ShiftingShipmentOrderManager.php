@@ -92,4 +92,21 @@ class ShiftingShipmentOrderManager
         }
     }
 
+    public function forcDelete(DeleteRequest $request)
+    {
+        $shiftingShipmentOrderEntity = $this->shiftingShipmentOrderEntityRepository->find($request->getId());
+
+        if(!$shiftingShipmentOrderEntity)
+        {
+            return $shiftingShipmentOrderEntity;
+        }
+        else
+        {
+            $this->entityManager->remove($shiftingShipmentOrderEntity);
+            $this->entityManager->flush();
+
+            return $shiftingShipmentOrderEntity;
+        }
+    }
+
 }

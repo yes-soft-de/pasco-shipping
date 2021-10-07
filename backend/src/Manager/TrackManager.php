@@ -393,6 +393,14 @@ class TrackManager
 
                     if($container)
                     {
+                        if($container['type'] == ShippingTypeConstant::$FCL_SHIPPING_TYPE)
+                        {
+                            if($container['consigneeID'] == null)
+                            {
+                                $container['consigneeName'] = $container['consignee'];
+                            }
+                        }
+
                         foreach ($container as $index=>$value)
                         {
                             $holders[$key][$index] = $value;
@@ -416,6 +424,14 @@ class TrackManager
 
                     if($airwaybill)
                     {
+                        if($airwaybill['type'] == ShippingTypeConstant::$FCL_SHIPPING_TYPE)
+                        {
+                            if($airwaybill['consigneeID'] == null)
+                            {
+                                $airwaybill['consigneeName'] = $airwaybill['consignee'];
+                            }
+                        }
+
                         foreach ($airwaybill as $index=>$value)
                         {
                             $holders[$key][$index] = $value;
@@ -496,6 +512,12 @@ class TrackManager
     public function getByHolderTypeAndHolderID($holderType, $holderID)
     {
         return $this->trackEntityRepository->getByHolderTypeAndHolderID($holderType, $holderID);
+    }
+
+    // For create container / air waybill FCL finance
+    public function getOneOrNullTrackByHolderTypeAndHolderID($holderType, $holderID)
+    {
+        return $this->trackEntityRepository->getOneOrNullTrackByHolderTypeAndHolderID($holderType, $holderID);
     }
 
     public function checkHolderAvailability(CheckHolderRequest $request)
