@@ -220,4 +220,32 @@ class ShiftingShipmentOrderController extends BaseController
         return $this->response($result, self::DELETE);
     }
 
+    /**
+     * @Route("forcedeleteshiftingshipmentorder/{id}", name="forceDeleteShiftingShipmentOrder", methods={"DELETE"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Shifting Shipment Order")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the deleted shifting shipment order",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *              @OA\Property(type="object", property="createdAt")
+     *          )
+     *      )
+     * )
+     */
+    public function forcDelete(Request $request)
+    {
+        $request = new DeleteRequest($request->get('id'));
+
+        $result = $this->shiftingShipmentOrderService->forcDelete($request);
+
+        return $this->response($result, self::DELETE);
+    }
+
 }
