@@ -50,6 +50,10 @@ class ContainerGetResponse
 
     public $shippingStatus;
 
+    public $totalGunnyQuantity;
+
+    public $totalReceivedShipmentsQuantity;
+
     public $shipments = [];
 
 }
