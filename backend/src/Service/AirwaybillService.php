@@ -191,7 +191,7 @@ class AirwaybillService
     {
         $totalGunny = 0;
 
-        $shipments = $this->trackService->getTracksByHolderTypeAndHolderID("airwaybill", $airWaybillID);
+        $shipments = $this->trackService->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $airWaybillID);
 
         if($shipments)
         {
@@ -208,7 +208,7 @@ class AirwaybillService
     {
         $totalReceivedShipmentsQuantity = 0;
 
-        $shipments = $this->trackService->getTracksByHolderTypeAndHolderID("airwaybill", $airWaybillID);
+        $shipments = $this->trackService->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $airWaybillID);
 
         if($shipments)
         {
