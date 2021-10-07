@@ -290,6 +290,26 @@ class ShipmentOrderManager
 
             $order['tracks'] = $this->getShipmentStatusByShipmentID($id);
 
+            // Check if there is an order for shifting the shipment
+            if($order['tracks'])
+            {
+                foreach($order['tracks'] as $key => $value)
+                {
+                    $shiftingOrder = $this->shiftingShipmentOrderManager->getShiftingShipmentOrderStatusByShipmentIdAndTrackNumber($value['shipmentID'], $value['trackNumber']);
+
+                    if($shiftingOrder)
+                    {
+                        $order['tracks'][$key]['hasShiftingOrder'] = true;
+                        $order['tracks'][$key]['shiftingStatus'] = $shiftingOrder['status'];
+                    }
+                    else
+                    {
+                        $order['tracks'][$key]['hasShiftingOrder'] = false;
+                        $order['tracks'][$key]['shiftingStatus'] = "";
+                    }
+                }
+            }
+
             $order['receivingInfo'] = $this->receivedShipmentManager->getReceivedShipmentInfoByShipmentID($id);
 
             /**
