@@ -75,7 +75,7 @@ class TrackByHolderTypeAndHolderIdGetResponse
     // external warehouse info
     public $externalWarehouseInfo;
 
-    // indicates to whether external wharehouse is used or not.
+    // indicates to whether external warehouse is used or not.
     public $isExternalWarehouse;
 
     public $receivedShipmentQuantity;
