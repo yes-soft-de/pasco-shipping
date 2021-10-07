@@ -11,4 +11,11 @@ class ShipmentLCLFinancialStatusConstant
         "transporting", "delayed", "shipping", "uploading", "fork", "pocketing", "other"
     ];
 
+    /**
+     * Specific finance status that could display for the client
+     */
+    static $LCL_SHIPMENT_BILL_DETAILS = [
+        "transporting", "delayed", "shipping", "uploading", "fork", "pocketing", "other"
+    ];
+
 }
