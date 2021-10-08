@@ -429,6 +429,8 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="integer", property="shipmentID"),
      *                  @OA\Property(type="string", property="consignee"),
      *                  @OA\Property(type="string", property="shippingStatus"),
+     *                  @OA\Property(type="integer", property="totalGunnyQuantity"),
+     *                  @OA\Property(type="integer", property="totalReceivedShipmentsQuantity"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),
@@ -535,6 +537,8 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="integer", property="shipmentID"),
      *                  @OA\Property(type="string", property="shippingStatus"),
+     *                  @OA\Property(type="integer", property="totalGunnyQuantity"),
+     *                  @OA\Property(type="integer", property="totalReceivedShipmentsQuantity"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
      *                  )

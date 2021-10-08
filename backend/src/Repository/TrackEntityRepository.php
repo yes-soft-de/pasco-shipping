@@ -83,7 +83,7 @@ class TrackEntityRepository extends ServiceEntityRepository
             "orderShipmentEntity.unit", "orderShipmentEntity.receiverName", "orderShipmentEntity.receiverPhoneNumber", "orderShipmentEntity.markID", "orderShipmentEntity.packetingBy", "orderShipmentEntity.externalWarehouseInfo", "orderShipmentEntity.paymentTime",
             "orderShipmentEntity.weight", "orderShipmentEntity.qrCode", "orderShipmentEntity.guniQuantity", "orderShipmentEntity.updatedBy as orderUpdatedByUser", "orderShipmentEntity.vehicleIdentificationNumber", "orderShipmentEntity.extraSpecification",
              "travelEntity.status as travelStatus", "subProductCategory.name as subProductCategoryName", "exportWarehouseEntity.name as exportWarehouseName", "importWarehouseEntity.name as importWarehouseName", "productCategoryEntity.name as productCategoryName",
-            "markEntity.markNumber as markNumber")
+            "markEntity.markNumber as markNumber", "clientProfileEntity.userName as clientUsername", "CONCAT(productCategoryEntity.name, ' / ', subProductCategory.name) as categoriesNames")
 
             ->leftJoin(
                 ShipmentStatusEntity::class,
@@ -139,6 +139,13 @@ class TrackEntityRepository extends ServiceEntityRepository
                 'markEntity',
                 Join::WITH,
                 'markEntity.id = orderShipmentEntity.markID'
+            )
+
+            ->leftJoin(
+                ClientProfileEntity::class,
+                'clientProfileEntity',
+                Join::WITH,
+                'clientProfileEntity.userID = orderShipmentEntity.clientUserID'
             )
 
             ->andWhere('track.holderID = :holderID')

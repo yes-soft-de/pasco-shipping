@@ -521,6 +521,19 @@ App\Request\ContainerLCLFinanceCreateRequest:
     createdBy:
       - NotBlank: ~
 
+App\Request\AirwaybillLCLFinanceCreateRequest:
+  properties:
+    airwaybillID:
+      - NotBlank: ~
+    stageCost:
+      - NotBlank: ~
+    currency:
+      - NotBlank: ~
+    status:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
 App\Request\ReceiverUpdateRequest:
   properties:
     id:

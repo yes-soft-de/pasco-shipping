@@ -122,6 +122,10 @@ class ContainerService
 
             $container['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID("container", $id);
 
+            // get the sum of total gunny and the sum of total received shipments' quantity
+            $container['totalGunnyQuantity'] = $this->getTotalGunnyByContainerID($id);
+            $container['totalReceivedShipmentsQuantity'] = $this->getTotalReceivedShipmentsQuantityByContainerID($id);
+
             $container['freeCapacity'] = $this->trackService->getCurrentCapacityOfContainer($container);
 
             if ($container['createdByUserImage']) {
@@ -144,6 +148,10 @@ class ContainerService
 
         foreach($containers as $container)
         {
+            // get the sum of total gunny and the sum of total received shipments' quantity
+            $container['totalGunnyQuantity'] = $this->getTotalGunnyByContainerID($container['id']);
+            $container['totalReceivedShipmentsQuantity'] = $this->getTotalReceivedShipmentsQuantityByContainerID($container['id']);
+
             if($container['type'] == ShippingTypeConstant::$FCL_SHIPPING_TYPE)
             {
                 if($container['consigneeID'] == null)
@@ -185,6 +193,40 @@ class ContainerService
         }
 
         return $containersResponse;
+    }
+
+    public function getTotalGunnyByContainerID($containerID)
+    {
+        $totalGunny = 0;
+
+        $shipments = $this->trackService->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $containerID);
+
+        if($shipments)
+        {
+            foreach($shipments as $shipment)
+            {
+                $totalGunny += $shipment->guniQuantity;
+            }
+        }
+
+        return $totalGunny;
+    }
+
+    public function getTotalReceivedShipmentsQuantityByContainerID($containerID)
+    {
+        $totalReceivedShipmentsQuantity = 0;
+
+        $shipments = $this->trackService->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $containerID);
+
+        if($shipments)
+        {
+            foreach($shipments as $shipment)
+            {
+                $totalReceivedShipmentsQuantity += $shipment->receivedShipmentQuantity;
+            }
+        }
+
+        return $totalReceivedShipmentsQuantity;
     }
 
     public function deleteContainerById(DeleteRequest $request)
