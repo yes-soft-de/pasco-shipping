@@ -16,6 +16,22 @@ class ShipmentInvoiceFilterResponse
 
     public $clientImage;
 
+    public $clientPhone;
+
+    public $clientLocation;
+
+    public $clientCity;
+
+    public $clientCountry;
+
+    public $clientIdentificationNumber;
+
+    public $transportationType;
+
+    public $target;
+
+    public $paymentTime;
+
     public $createdAt;
 
     public $createdByUser;
