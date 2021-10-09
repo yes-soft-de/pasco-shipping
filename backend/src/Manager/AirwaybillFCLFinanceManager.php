@@ -101,6 +101,16 @@ class AirwaybillFCLFinanceManager
         return $this->airwaybillFCLFinanceEntityRepository->getAirWaybillFCLBillDetailsByShipmentID($shipmentID);
     }
 
+    public function getShipmentIdByAirWaybillID($airwaybillID)
+    {
+        $track = $this->trackManager->getOneOrNullTrackByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $airwaybillID);
+
+        if($track)
+        {
+            return $track->getShipmentID();
+        }
+    }
+
     public function filterAirWaybillFCLFinances(AirwaybillFCLFinanceFilterRequest $request)
     {
         $airwaybillFinances['airwaybillFinances'] = $this->airwaybillFCLFinanceEntityRepository->filterAirWaybillFCLFinances($request->getAirwaybillID(), $request->getStatus());

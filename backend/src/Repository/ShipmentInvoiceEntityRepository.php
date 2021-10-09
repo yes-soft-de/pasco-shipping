@@ -30,8 +30,9 @@ class ShipmentInvoiceEntityRepository extends ServiceEntityRepository
             ->select('shipmentInvoiceEntity.id', 'shipmentInvoiceEntity.shipmentID', 'shipmentInvoiceEntity.createdAt', 'shipmentInvoiceEntity.createdBy', 'shipmentInvoiceEntity.updatedAt', 'shipmentInvoiceEntity.updatedBy',
              'shipmentInvoiceEntity.totalCost', 'shipmentInvoiceEntity.receiptImage', 'shipmentInvoiceEntity.invoiceImage', 'shipmentInvoiceEntity.paidBy', 'shipmentInvoiceEntity.paidOnBehalfBy', 'shipmentInvoiceEntity.notes',
              'shipmentInvoiceEntity.discount', 'shipmentInvoiceEntity.billDetails', 'shipmentInvoiceEntity.paymentStatus', 'shipmentInvoiceEntity.paymentDate', 'adminProfileEntityOne.userName as createdByUser',
-                'adminProfileEntityOne.image as createdByUserImage', 'adminProfileEntityTwo.userName as updatedByUser', 'adminProfileEntityTwo.image as updatedByUserImage', 'clientProfileEntity.userName as clientUserName',
-             'clientProfileEntity.image as clientImage', 'clientProfileEntity.userID as clientUserID')
+             'adminProfileEntityOne.image as createdByUserImage', 'adminProfileEntityTwo.userName as updatedByUser', 'adminProfileEntityTwo.image as updatedByUserImage', 'clientProfileEntity.userName as clientUserName',
+             'clientProfileEntity.image as clientImage', 'clientProfileEntity.userID as clientUserID', 'orderShipmentEntity.transportationType', 'orderShipmentEntity.target', 'orderShipmentEntity.paymentTime', 'clientProfileEntity.phone as clientPhone',
+             'clientProfileEntity.identificationNumber as clientIdentificationNumber', 'clientProfileEntity.location as clientLocation', 'clientProfileEntity.city as clientCity', 'clientProfileEntity.country as clientCountry')
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -60,13 +61,6 @@ class ShipmentInvoiceEntityRepository extends ServiceEntityRepository
                 Join::WITH,
                 'clientProfileEntity.userID = orderShipmentEntity.clientUserID'
             )
-//
-//            ->leftJoin(
-//                ClientProfileEntity::class,
-//                'clientProfileEntityTwo',
-//                Join::WITH,
-//                'clientProfileEntityTwo.userID = orderShipmentEntity.clientUserID'
-//            )
 
             ->orderBy('shipmentInvoiceEntity.id', 'DESC');
 

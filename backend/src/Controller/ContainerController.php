@@ -554,15 +554,6 @@ class ContainerController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, ContainerFilterRequest::class, (object)$data);
 
-        $violations = $this->validator->validate($request);
-
-        if (\count($violations) > 0)
-        {
-            $violationsString = (string) $violations;
-
-            return new JsonResponse($violationsString, Response::HTTP_OK);
-        }
-
         $result = $this->containerService->filterContainers($request);
 
         return $this->response($result, self::FETCH);

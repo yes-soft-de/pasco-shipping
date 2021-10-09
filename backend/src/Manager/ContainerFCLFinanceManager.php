@@ -86,6 +86,16 @@ class ContainerFCLFinanceManager
         }
     }
 
+    public function geShipmentIdByContainerID($containerID)
+    {
+        $track = $this->trackManager->getOneOrNullTrackByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $containerID);
+
+        if($track)
+        {
+            return $track->getShipmentID();
+        }
+    }
+
     public function getCurrentTotalCostByFilterOptions($containerID, $status)
     {
         return $this->containerFinanceEntityRepository->getCurrentTotalCostByFilterOptions($containerID, $status);
