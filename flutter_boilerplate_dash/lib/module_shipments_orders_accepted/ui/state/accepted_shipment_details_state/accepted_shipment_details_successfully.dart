@@ -532,7 +532,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                   ),
                   subShipmentModel.shipmentStatus !='accepted'?   InkWell(
                     onTap: () async {
-                      final pdfFile = await PdfParagraphApi.generateReceivedReport(subShipmentModel ,widget.shipment.shipmentId.toString(),widget.shipment.transportationType,widget.shipment.clientUsername,widget.shipment.supplierName,widget.shipment.quantity.toString(),widget.shipment.updatedAt.toString().split(' ').first);
+                      final pdfFile = await PdfParagraphApi.generateReceivedReport(subShipmentModel ,widget.shipment.shipmentId.toString(),widget.shipment.transportationType,widget.shipment.clientUsername,widget.shipment.supplierName,widget.shipment.info.receivedQuantity.toString(),widget.shipment.updatedAt.toString().split(' ').first);
 
                       PdfParagraphApi.openFile(pdfFile);
                     },
@@ -585,9 +585,9 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               }, radius: 12),
               Row(
                 children: [
-                  RoundedButton(lable: S.of(context).shipmentCost, icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
+                 widget.shipment.holderType =='LCL'?  RoundedButton(lable: S.of(context).shipmentCost, icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
                     widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber);
-                  }, radius: 12),
+                  }, radius: 12) :Container(),
                   RoundedButton(lable: S.of(context).showStatus, icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
                     widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,widget.shipment.holderType, subShipmentModel.shipmentStatus,widget.shipment.transportationType ,widget.shipment.isExternalWarehouse, widget.shipment.clientUserID);
                   }, radius: 12),

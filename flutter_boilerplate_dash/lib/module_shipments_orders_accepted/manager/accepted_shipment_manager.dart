@@ -28,10 +28,6 @@ class AcceptedShipmentManager{
   Future<ConfirmResponse?> receivedShipment(ReceivedRequest id) => _repository.receivedShipment(id);
   Future<ConfirmResponse?> measuredShipment(MeasuredRequest request) => _repository.measuredShipment(request);
   Future<ConfirmResponse?> storedShipment(StoredRequest request) => _repository.storedShipment(request);
-
-  Future<ConfirmResponse?> createShipmentFinance(ShipmentFinanceRequest request) => _repository.createShipmentFinance(request);
-  // Future<ConfirmResponse?> deleteProxy(String id) => _repository.deleteProxy(id);
-  Future<DataFinance?> getShipmentFinance(ShipmentFilterFinanceRequest request) => _repository.getShipmentFinance(request);
   Future<List<GunnyShipmentModel>?> getGunnyShipment(String id, String trackNumber) => _repository.getGunnyShipment(id,trackNumber);
 // Future<ConfirmResponse?> updateProxy(ProxyRequest request) => _repository.updateProxy(request);
 

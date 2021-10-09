@@ -205,40 +205,6 @@ class AcceptedShipmentRepository{
       return null;
     }
   }
-
-
-
-  Future<DataFinance?> getShipmentFinance(ShipmentFilterFinanceRequest request) async {
-    // await _authService.refreshToken();
-    var token =  await _authService.getToken();
-    try {
-      var response = await _apiClient.post(Urls.GET_SHIPMENT_FINANCE,request.toJson()
-        ,  headers: {'Authorization': 'Bearer $token'});
-      DataFinance? model = ShipmentFinanceResponse
-          .fromJson(response!).c;
-      return model;
-    } catch (_) {
-      return null;
-    }
-  }
-
-  Future<ConfirmResponse?> createShipmentFinance(ShipmentFinanceRequest request) async {
-    // await _authService.refreshToken();
-    var token = await _authService.getToken();
-
-    var response = await _apiClient.post(Urls.ADD_SHIPMENT_FINANCE, request.toJson(),
-        headers: {'Authorization': 'Bearer $token'});
-    String? statusCode = ShipmentFinanceResponse.fromJson(response!).statusCode;
-    String? msg = ShipmentFinanceResponse.fromJson(response).msg;
-    if(statusCode =='201'){
-      return ConfirmResponse(true, msg!);
-    }else {
-      return ConfirmResponse(false, msg!);
-    }
-  }
-
-
-
   Future<List<GunnyShipmentModel>?> getGunnyShipment(String shipmentID,String trackNumber) async {
     // await _authService.refreshToken();
     var token = await _authService.getToken();

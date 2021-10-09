@@ -49,7 +49,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                 Text(S.of(context).containerInformation , style: AppTextStyle.largeBlueBold,),
                 InkWell(
                     onTap: (){
-                      widget.onShowFinance(widget.model.id);
+                      widget.onShowFinance(widget.model.id,widget.model.type);
                     },
                     child: Column(
                       children: [
@@ -221,11 +221,10 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                 child: Text('this container requested for specific shipment' , style: AppTextStyle.mediumRed,),
               ),)
           ):          (widget.model.shipments!.isNotEmpty
-              &&  widget.model.shipments![0].shipmentStatus != null
-              &&  widget.model.shipments![0].shipmentStatus
-                  == AcceptedShipmentStatusName[AcceptedShipmentStatus.STORED]) ?
+              &&  widget.model.shippingStatus
+                  == 'notuploaded') ?
           uploadToTravel():
-          (widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].travelStatus != null && widget.model.shipments![0].travelStatus == TravelStatusName[TravelStatus.RELEASED]) ?
+          (widget.model.shipments!.isNotEmpty  &&  widget.model.shippingStatus == TravelStatusName[TravelStatus.RELEASED]) ?
           changeContainerStatus():
 
               Container(child: Padding(
@@ -410,9 +409,8 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
   }
 
   Widget changeContainerStatus(){
-    if(widget.model.shipments!.isNotEmpty  &&  widget.model.shipments![0].travelStatus != null
-        && widget.model.shipments![0].travelStatus == TravelStatusName[TravelStatus.RELEASED]
-        && widget.model.shipments![0].shipmentStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED]
+    if(widget.model.shipments!.isNotEmpty
+        && widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED]
         && !(widget.model.type == 'FCL' &&
             widget.model.shipments![0].isExternalWarehouse!)
     )
@@ -441,10 +439,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
       ),
     );
     }else if (widget.model.shipments!.isNotEmpty &&
-        widget.model.shipments![0].travelStatus != null &&
-        widget.model.shipments![0].travelStatus ==
-            TravelStatusName[TravelStatus.RELEASED] &&
-        widget.model.shipments![0].shipmentStatus ==
+        widget.model.shippingStatus ==
             AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED] &&
         widget.model.type == 'FCL' &&
         widget.model.shipments![0].isExternalWarehouse!) {
@@ -471,7 +466,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
       );
     }
     else if (widget.model.shipments!.isNotEmpty
-        &&  widget.model.shipments![0].shipmentStatus != null && widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED])
+        &&  widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED])
     {
         return  Container(
           child: Column(
@@ -498,7 +493,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
         );
   }
     else if (widget.model.shipments!.isNotEmpty
-        &&  widget.model.shipments![0].shipmentStatus != null && widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]){
+        &&  widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]){
       return Padding(
         padding: const EdgeInsets.all(10.0),
         child: Text(S.of(context).containerArrived , style: AppTextStyle.mediumRedBold,),

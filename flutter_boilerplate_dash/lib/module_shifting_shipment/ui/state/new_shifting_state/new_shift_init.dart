@@ -40,7 +40,7 @@ class _NewShiftInitState extends State<NewShiftInit> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              S.of(context).shippingFrom,
+              S.of(context).shiftingFrom,
               style: AppTextStyle.mediumBlackBold,
             ),
             SelectDropListl(
@@ -52,7 +52,7 @@ class _NewShiftInitState extends State<NewShiftInit> {
               },
             ),
             Text(
-              S.of(context).shippingTo,
+              S.of(context).shiftingTo,
               style: AppTextStyle.mediumBlackBold,
             ),
             SelectDropListl(
@@ -90,7 +90,7 @@ class _NewShiftInitState extends State<NewShiftInit> {
   void initShippingFrom() {
     List<Entry> children = <Entry>[];
     for (Countries item in widget.warehouses) {
-      if (item.warehouses!.isNotEmpty) {
+      if (item.warehouses!.isNotEmpty && item.type=='import') {
         Entry country = Entry(item.name!, item.id!, children);
         print(country.id);
         children = [];

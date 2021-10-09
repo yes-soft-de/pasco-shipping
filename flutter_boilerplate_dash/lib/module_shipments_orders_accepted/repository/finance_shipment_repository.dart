@@ -1,7 +1,11 @@
 
+import 'dart:convert';
+
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/consts/urls.dart';
+import 'package:pasco_shipping/module_auth/service/auth_service/auth_service.dart';
 import 'package:pasco_shipping/module_general/response/confirm_response.dart';
-import 'package:pasco_shipping/module_shipments_orders_accepted/manager/accepted_shipment_manager.dart';
+import 'package:pasco_shipping/module_network/http_client/http_client.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/deliered_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/measured_shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/receiver_shipment_request.dart';
@@ -17,36 +21,40 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/response/shipmen
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/warehouse_response.dart';
 
 @injectable
-class AcceptedShipmentService{
- final AcceptedShipmentManager _manager;
-  AcceptedShipmentService(this._manager);
+class FinanceShipmentRepository{
+  final ApiClient _apiClient;
+  final AuthService _authService;
 
-  Future<Data?> getAcceptedShipment(AcceptedShipmentFilterRequest type) {
-    return _manager.getAcceptedShipment(type);
+  FinanceShipmentRepository(this._apiClient, this._authService);
+
+
+  Future<DataFinance?> getShipmentLCLFinance(ShipmentLCLFilterFinanceRequest request) async {
+    // await _authService.refreshToken();
+    var token =  await _authService.getToken();
+    try {
+      var response = await _apiClient.post(Urls.GET_SHIPMENT_LCL_FINANCE,request.toJson()
+          ,  headers: {'Authorization': 'Bearer $token'});
+      DataFinance? model = ShipmentFinanceResponse
+          .fromJson(response!).c;
+      return model;
+    } catch (_) {
+      return null;
+    }
   }
- Future<List<AcceptedShipmentStatusModel>?> getAcceptedShipmentStatus(String type,String trackNumber) {
-   return _manager.getAcceptedShipmentStatus(type,trackNumber);
- }
- Future<AcceptedShipmentDetailsModel?> getShipmentDetails(String id) {
-   return _manager.getShipmentDetails(id);
- }
- Future<ConfirmResponse?> deliveredShipment(DeliveredRequest id) {
-   return _manager.deliveredShipment(id);
- }
- Future<ConfirmResponse?> receivedShipment(ReceivedRequest id) {
-   return _manager.receivedShipment(id);
- }
- Future<ConfirmResponse?> measuredShipment(MeasuredRequest id) {
-   return _manager.measuredShipment(id);
 
- } Future<ConfirmResponse?> storedShipment(StoredRequest id) {
-   return _manager.storedShipment(id);
- }
- Future<List<WarehouseModel>?> getWarehouse(String type) {
-   return _manager.getWarehouse(type);
- }
- Future<List<GunnyShipmentModel>?> getGunnyShipment(String id ,track) {
-   return _manager.getGunnyShipment(id,track);
- }
+  Future<ConfirmResponse?> createShipmentFinance(ShipmentLCLFinanceRequest request) async {
+    // await _authService.refreshToken();
+    var token = await _authService.getToken();
+
+    var response = await _apiClient.post(Urls.ADD_SHIPMENT_FINANCE, request.toJson(),
+        headers: {'Authorization': 'Bearer $token'});
+    String? statusCode = ShipmentFinanceResponse.fromJson(response!).statusCode;
+    String? msg = ShipmentFinanceResponse.fromJson(response).msg;
+    if(statusCode =='201'){
+      return ConfirmResponse(true, msg!);
+    }else {
+      return ConfirmResponse(false, msg!);
+    }
+  }
 
 }

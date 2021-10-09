@@ -25,7 +25,4 @@ class ContainerManager{
   Future<ContainerDetailsModel?> getContainerDetails(String id) => _repository.getContainerDetails(id);
   Future<List<ContainerModel>?> getContainersWithFilter(ContainerFilterRequest request) => _repository.getContainerWithFilter(request);
 
-  Future<Data?> getContainerFinance(ContainerFilterFinanceRequest request) => _repository.getContainerFinance(request);
-  Future<ConfirmResponse?> createContainerFinance(ContainerAddFinanceRequest request) => _repository.createContainerFinance(request);
-
 }

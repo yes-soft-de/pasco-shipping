@@ -69,3 +69,93 @@ final List<Entry> location = <Entry>[
       'Premeral Local & Jebel Ali', 1,[]
   ),
 ];
+final List<Entry> paymentType = <Entry>[
+  Entry(
+      'Cash', 0,[]
+  ),
+  Entry(
+      'Check', 0,[]
+  ),
+];
+final List<Entry> shipmentLclFinance = <Entry>[
+  Entry(
+      'transporting', 0,[]
+  ),
+  Entry(
+      'delayed', 0,[]
+  ),
+  Entry(
+      'shipping', 0,[]
+  ),
+  Entry(
+      'uploading', 0,[]
+  ),
+  Entry(
+      'fork', 0,[]
+  ),
+  Entry(
+      'pocketing', 0,[]
+  ),
+  Entry(
+      'other', 0,[]
+  ),
+];
+final List<Entry> fundName = <Entry>[
+  Entry(
+      'Libya Fund', 0,[]
+  ),
+  Entry(
+      'Turkey Fund', 0,[]
+  ),
+];
+
+
+final List<Entry> containerLclFinance = <Entry>[
+  Entry(
+      'shipping', 0,[]
+  ),
+  Entry(
+      'uploading', 0,[]
+  ),
+  Entry(
+      'fork', 0,[]
+  ),
+  Entry(
+      'clearance', 0,[]
+  ),
+  Entry(
+      'buyingCost', 0,[]
+  ),
+  Entry(
+      'other', 0,[]
+  ),
+];
+final List<Entry> containerFclFinance = <Entry>[
+  Entry(
+      'transporting', 0,[]
+  ),
+  Entry(
+      'delayed', 0,[]
+  ),
+  Entry(
+      'shipping', 0,[]
+  ),
+  Entry(
+      'uploading', 0,[]
+  ),
+  Entry(
+      'fork', 0,[]
+  ),
+  Entry(
+      'clearance', 0,[]
+  ),
+  Entry(
+      'buyingCost', 0,[]
+  ),
+  Entry(
+      'SellingCost', 0,[]
+  ),
+  Entry(
+      'other', 0,[]
+  ),
+];

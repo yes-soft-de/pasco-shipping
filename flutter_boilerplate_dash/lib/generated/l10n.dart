@@ -3269,6 +3269,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Shifting From`
+  String get shiftingFrom {
+    return Intl.message(
+      'Shifting From',
+      name: 'shiftingFrom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shifting To`
+  String get shiftingTo {
+    return Intl.message(
+      'Shifting To',
+      name: 'shiftingTo',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

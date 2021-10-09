@@ -63,7 +63,66 @@ class ContainerFinanceCard extends StatelessWidget {
                   ],
                 ),
               ),
-
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(
+                      S.of(context).subcontract+': ',
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    Text(
+                      model.subcontractName ?? '',
+                      style: AppTextStyle.mediumBlueBold,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(
+                      'Check Number: ',
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    Text(
+                      model.chequeNumber ?? '',
+                      style: AppTextStyle.mediumBlueBold,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(
+                      'Fund Name: ',
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    Text(
+                      model.financialFundName ?? '',
+                      style: AppTextStyle.mediumBlueBold,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(
+                      S.of(context).paymentTime,
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    Text(
+                      model.paymentType ?? '',
+                      style: AppTextStyle.mediumBlueBold,
+                    ),
+                  ],
+                ),
+              ),
               // Padding(
               //   padding: const EdgeInsets.all(8.0),
               //   child: Row(

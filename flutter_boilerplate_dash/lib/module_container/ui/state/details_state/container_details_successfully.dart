@@ -47,17 +47,16 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(S.of(context).containerInformation , style: AppTextStyle.largeBlueBold,),
-                (ListEquality().equals ( ConstVar.Roles , EmployeeRoleName['Accountant']) || ListEquality().equals ( ConstVar.Roles , EmployeeRoleName['Super Admin']))?
                 InkWell(
                     onTap: (){
-                      widget.onShowFinance(widget.model.id);
+                      widget.onShowFinance(widget.model.id,widget.model.type);
                     },
                     child: Column(
                       children: [
                         Image.asset(StaticImage.accounting),
                         Text(S.of(context).cost,style: AppTextStyle.mediumBlackBold)
                       ],
-                    )) :Container()
+                    ))
               ],
             ),
           ),

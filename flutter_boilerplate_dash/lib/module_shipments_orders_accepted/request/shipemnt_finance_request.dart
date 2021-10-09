@@ -1,4 +1,4 @@
-class ShipmentFinanceRequest {
+class ShipmentLCLFinanceRequest {
   int shipmentID;
   String trackNumber;
   String stageDescription;
@@ -6,13 +6,25 @@ class ShipmentFinanceRequest {
   String shipmentStatus;
   String currency;
 
-  ShipmentFinanceRequest(
+  int? subcontractID;
+  String paymentType;
+  String? chequeNumber;
+  String? financialFundName;
+
+
+  ShipmentLCLFinanceRequest(
       {required this.shipmentID,
       required this.trackNumber,
       required this.stageDescription,
       required this.stageCost,
       required this.shipmentStatus,
-      required this.currency});
+      required this.currency,
+        this.subcontractID,
+        this.chequeNumber ,
+        this.financialFundName,
+       required this.paymentType
+
+      });
   Map<String, dynamic> toJson() {
     if (shipmentID == null) {
       return {
@@ -20,7 +32,11 @@ class ShipmentFinanceRequest {
         'stageDescription': stageDescription,
         'stageCost': stageCost,
         'shipmentStatus': shipmentStatus,
-        'currency': 'US Dollar'
+        'currency': 'US Dollar',
+        'subcontractID':subcontractID,
+        'chequeNumber':chequeNumber,
+        'financialFundName':financialFundName,
+        'paymentType':paymentType,
       };
     } else {
       return {
@@ -29,7 +45,11 @@ class ShipmentFinanceRequest {
         'stageDescription': stageDescription,
         'stageCost': stageCost,
         'shipmentStatus': shipmentStatus,
-        'currency': 'US Dollar'
+        'currency': 'US Dollar',
+        'subcontractID':subcontractID,
+        'chequeNumber':chequeNumber,
+        'financialFundName':financialFundName,
+        'paymentType':paymentType,
       };
     }
   }

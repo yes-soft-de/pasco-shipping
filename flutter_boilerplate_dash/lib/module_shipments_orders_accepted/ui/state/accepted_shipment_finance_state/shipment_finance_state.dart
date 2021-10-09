@@ -1,5 +1,6 @@
 import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/shipment_finance_response.dart';
+import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 
 class FinanceShipmentsState{}
 
@@ -12,9 +13,10 @@ class addFinanceSuccessfullyState extends FinanceShipmentsState{
 }
 
 class SuccessfullyFetchState extends FinanceShipmentsState{
+  List<SubcontractModel> subcontracts;
   DataFinance  finances;
 
-  SuccessfullyFetchState(this.finances);
+  SuccessfullyFetchState(this.finances, this.subcontracts);
 }
 
 class ErrorState extends FinanceShipmentsState{

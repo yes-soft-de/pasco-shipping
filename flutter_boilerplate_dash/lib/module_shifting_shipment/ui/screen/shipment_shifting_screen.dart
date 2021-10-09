@@ -43,7 +43,8 @@ class _CountriesScreenState extends State<ShipmentShiftingScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    request = ShiftingShipmentFilterRequest();
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    request = arguments['filterRequest'];
     widget._stateManager.getShiftingShipment(request);
   }
 

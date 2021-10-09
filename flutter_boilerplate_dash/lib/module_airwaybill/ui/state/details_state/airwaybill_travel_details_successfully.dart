@@ -270,14 +270,10 @@ class _ContainerDetailsSuccessfullyState
                   ),
                 ))
               : (widget.model.shipments!.isNotEmpty &&
-                      widget.model.shipments![0].shipmentStatus != null &&
-                      widget.model.shipments![0].shipmentStatus ==
-                          AcceptedShipmentStatusName[
-                              AcceptedShipmentStatus.STORED])
+                      widget.model.shippingStatus =='notuploaded')
                   ? uploadToTravel()
                   : (widget.model.shipments!.isNotEmpty &&
-                          widget.model.shipments![0].travelStatus != null &&
-                          widget.model.shipments![0].travelStatus ==
+                          widget.model.shippingStatus==
                               TravelStatusName[TravelStatus.RELEASED])
                       ? changeContainerStatus()
                       : Container(
@@ -499,10 +495,7 @@ class _ContainerDetailsSuccessfullyState
 
   Widget changeContainerStatus() {
     if (widget.model.shipments!.isNotEmpty &&
-        widget.model.shipments![0].travelStatus != null &&
-        widget.model.shipments![0].travelStatus ==
-            TravelStatusName[TravelStatus.RELEASED] &&
-        widget.model.shipments![0].shipmentStatus ==
+        widget.model.shippingStatus ==
             AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED] &&
         !(widget.model.type == 'FCL' &&
             widget.model.shipments![0].isExternalWarehouse!)) {
@@ -546,10 +539,7 @@ class _ContainerDetailsSuccessfullyState
         ),
       );
     } else if (widget.model.shipments!.isNotEmpty &&
-        widget.model.shipments![0].travelStatus != null &&
-        widget.model.shipments![0].travelStatus ==
-            TravelStatusName[TravelStatus.RELEASED] &&
-        widget.model.shipments![0].shipmentStatus ==
+        widget.model.shippingStatus ==
             AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED] &&
         widget.model.type == 'FCL' &&
         widget.model.shipments![0].isExternalWarehouse!) {
@@ -589,7 +579,6 @@ class _ContainerDetailsSuccessfullyState
       );
     }
     else if (widget.model.shipments!.isNotEmpty &&
-        widget.model.shipments![0].shipmentStatus != null &&
         widget.model.shippingStatus ==
             AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]) {
       return Container(
@@ -632,7 +621,6 @@ class _ContainerDetailsSuccessfullyState
         ),
       );
     } else if (widget.model.shipments!.isNotEmpty &&
-        widget.model.shipments![0].shipmentStatus != null &&
         widget.model.shippingStatus ==
             AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]) {
       return Padding(

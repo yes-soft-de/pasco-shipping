@@ -774,7 +774,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),
             ),
-            title: Text(S.of(context).shipmentQR),
+            title: Text('Gunny Details'),
             content: SizedBox(
               width: 200,
               height: 130,

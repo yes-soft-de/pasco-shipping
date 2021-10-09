@@ -44,11 +44,4 @@ import 'package:pasco_shipping/module_general/response/confirm_response.dart';
     return _manager.uploadedContainerToTravel(request);
   }
 
-  Future<ConfirmResponse?> createContainerFinance(ContainerAddFinanceRequest request) {
-    return _manager.createContainerFinance(request);
-  }
-
-  Future<Data?> getContainerFinance(ContainerFilterFinanceRequest request) {
-    return _manager.getContainerFinance(request);
-  }
 }

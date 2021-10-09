@@ -323,6 +323,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "service": MessageLookupByLibrary.simpleMessage("Service"),
         "serviceName": MessageLookupByLibrary.simpleMessage("Service Name: "),
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),
+        "shiftingFrom": MessageLookupByLibrary.simpleMessage("Shifting From"),
+        "shiftingTo": MessageLookupByLibrary.simpleMessage("Shifting To"),
         "shipment": MessageLookupByLibrary.simpleMessage("Shipments"),
         "shipmentAccepted": MessageLookupByLibrary.simpleMessage(
             "Shipment accepted successfully"),

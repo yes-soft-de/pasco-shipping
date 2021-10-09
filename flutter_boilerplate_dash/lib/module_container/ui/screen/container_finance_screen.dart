@@ -8,6 +8,7 @@ import 'package:pasco_shipping/module_container/state_manger/conatiner_finance_s
 import 'package:pasco_shipping/module_container/ui/state/container_finance_state/container_finance_state.dart';
 import 'package:pasco_shipping/module_container/ui/state/container_finance_state/container_finance_successfully.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
+import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
@@ -26,8 +27,10 @@ class ContainerFinanceScreen extends StatefulWidget {
 
 class _CountriesScreenState extends State<ContainerFinanceScreen> {
   late FinanceContainerState currentState;
+  late List<SubcontractModel> subs;
 
   late int id;
+  late String type;
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +48,19 @@ class _CountriesScreenState extends State<ContainerFinanceScreen> {
     super.didChangeDependencies();
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
      id =arguments['id'];
+     type =arguments['type'];
      ContainerFilterFinanceRequest request = ContainerFilterFinanceRequest(id: id);
-    widget._stateManager.getContainerFinance(request);
+    if(type =='LCL') {
+      widget._stateManager.getContainerLCLFinance(request);
+    }else {
+      widget._stateManager.getContainerFCLFinance(request);
+    }
   }
 
   @override
   void initState() {
     super.initState();
+    subs =[];
     currentState = LoadingState();
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
@@ -75,12 +84,18 @@ class _CountriesScreenState extends State<ContainerFinanceScreen> {
     }
     else if (currentState is SuccessfullyFetchState) {
       SuccessfullyFetchState state = currentState as SuccessfullyFetchState;
+      subs = state.subcontracts;
       return ContainerFinanceSuccessfullyScreen(
      containerID: id,
      containerFinances: state.finances,
      addFinance: (request){
-          widget._stateManager.addContainerFinance(request);
-     },
+       if(type=='LCL') {
+         widget._stateManager.createContainerLCLFinance(request,subs);
+       }else{
+         widget._stateManager.createContainerFCLFinance(request,subs);
+       }
+     }, subContracts: subs,
+        type: type,
       );
     }
     // else if(currentState is SuccessfullyModifyState){

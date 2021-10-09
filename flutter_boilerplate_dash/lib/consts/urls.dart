@@ -70,9 +70,11 @@ class Urls {
   static const CLEARED_ARRIVED_CONTAINER = BASE_API + 'containershippingstatus';
 
   //container finance
-  static const GET_Container_FINANCE = BASE_API + 'filtercontainerfinance';
-  static const ADD_Container_FINANCE = BASE_API + 'containerfinance';
+  static const ADD_Container_FCL_FINANCE = BASE_API + 'containerfclfinance';
+  static const GET_Container_FCL_FINANCE = BASE_API + 'filtercontainerfclfinance';
 
+  static const ADD_Container_LCL_FINANCE = BASE_API + 'containerlclfinance';
+  static const GET_Container_LCL_FINANCE = BASE_API + 'filtercontainerlclfinance';
 
   //airwaybill
   static const AIRWAYBILL = BASE_API + 'airwaybill';
@@ -161,8 +163,8 @@ class Urls {
   static const ADD_WAREHOUSE_FINANCE=BASE_API+'warehousefinance';
 
   //shipmentfinance
-  static const GET_SHIPMENT_FINANCE = BASE_API + 'filtershipmentfinance';
-  static const ADD_SHIPMENT_FINANCE = BASE_API + 'shipmentfinance';
+  static const GET_SHIPMENT_LCL_FINANCE = BASE_API + 'filtershipmentlclfinance';
+  static const ADD_SHIPMENT_FINANCE = BASE_API + 'shipmentlclfinance';
 
 //travel finance
   static const GET_Travel_FINANCE = BASE_API + 'filtertravelfinance';
