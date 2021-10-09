@@ -194,4 +194,9 @@ class ShipmentInvoiceManager
         return $this->shipmentInvoiceEntityRepository->filterShipmentInvoices($request);
     }
 
+    public function getShipmentInvoiceIdByShipmentID($shipmentID)
+    {
+        return $this->shipmentInvoiceEntityRepository->getShipmentInvoiceIdByShipmentID($shipmentID);
+    }
+
 }

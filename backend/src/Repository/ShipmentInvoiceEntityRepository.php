@@ -85,4 +85,16 @@ class ShipmentInvoiceEntityRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function getShipmentInvoiceIdByShipmentID($shipmentID)
+    {
+        return $this->createQueryBuilder('shipmentInvoiceEntity')
+            ->select('shipmentInvoiceEntity.id')
+
+            ->andWhere('shipmentInvoiceEntity.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }
