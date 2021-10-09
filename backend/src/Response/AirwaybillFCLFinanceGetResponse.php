@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class AirwaybillFinanceGetResponse
+class AirwaybillFCLFinanceGetResponse
 {
     public $airwaybillFinances = [];
 

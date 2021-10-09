@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\AirwaybillDistributeStatusCostRequest;
-use App\Request\AirwaybillFinanceCreateRequest;
-use App\Request\AirwaybillFinanceFilterRequest;
-use App\Service\AirwaybillFinanceService;
+use App\Request\AirwaybillFCLFinanceCreateRequest;
+use App\Request\AirwaybillFCLFinanceFilterRequest;
+use App\Service\AirwaybillFCLFinanceService;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use stdClass;
@@ -17,35 +17,39 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class AirwaybillFinanceController extends BaseController
+class AirwaybillFCLFinanceController extends BaseController
 {
     private $autoMapping;
     private $validator;
-    private $airwaybillFinanceService;
+    private $airwaybillFCLFinanceService;
 
-    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, AirwaybillFinanceService $airwaybillFinanceService)
+    public function __construct(SerializerInterface $serializer, AutoMapping $autoMapping, ValidatorInterface $validator, AirwaybillFCLFinanceService $airwaybillFCLFinanceService)
     {
         parent::__construct($serializer);
 
         $this->autoMapping = $autoMapping;
         $this->validator = $validator;
-        $this->airwaybillFinanceService = $airwaybillFinanceService;
+        $this->airwaybillFCLFinanceService = $airwaybillFCLFinanceService;
     }
 
     /**
-     * @Route("airwaybillfinance", name="createAirwaybillFinance", methods={"POST"})
+     * @Route("airwaybillfclfinance", name="createAirwaybillFCLFinance", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      *
-     * @OA\Tag(name="Airwaybill Finance")
+     * @OA\Tag(name="Airwaybill FCL Finance")
      *
      * @OA\RequestBody(
-     *      description="Create new airwaybill finance",
+     *      description="Create new airwaybill fcl finance",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="airwaybillID"),
      *          @OA\Property(type="string", property="stageDescription"),
      *          @OA\Property(type="number", property="stageCost"),
      *          @OA\Property(type="string", property="status"),
+     *          @OA\Property(type="integer", property="subcontractID"),
+     *          @OA\Property(type="string", property="paymentType"),
+     *          @OA\Property(type="string", property="chequeNumber"),
+     *          @OA\Property(type="string", property="financialFundName"),
      *          @OA\Property(type="string", property="currency")
      *      )
      * )
@@ -68,7 +72,7 @@ class AirwaybillFinanceController extends BaseController
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, AirwaybillFinanceCreateRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, AirwaybillFCLFinanceCreateRequest::class, (object)$data);
 
         $request->setCreatedBy($this->getUserId());
 
@@ -81,17 +85,17 @@ class AirwaybillFinanceController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $result = $this->airwaybillFinanceService->create($request);
+        $result = $this->airwaybillFCLFinanceService->create($request);
 
         return $this->response($result, self::CREATE);
     }
 
     /**
-     * @Route("filterairwaybillfinance", name="filterAirwaybillFinances", methods={"POST"})
+     * @Route("filterairwaybillfclfinance", name="filterAirwaybillFCLFinances", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      *
-     * @OA\Tag(name="Airwaybill Finance")
+     * @OA\Tag(name="Airwaybill FCL Finance")
      *
      * @OA\RequestBody(
      *      description="Post a request with filtering option",
@@ -115,6 +119,27 @@ class AirwaybillFinanceController extends BaseController
      *                      @OA\Property(type="number", property="stageCost"),
      *                      @OA\Property(type="string", property="stageDescription"),
      *                      @OA\Property(type="string", property="currency"),
+     *                      @OA\Property(type="string", property="subcontractName"),
+     *                      @OA\Property(type="string", property="importWarehouseName"),
+     *                      @OA\Property(type="string", property="clientUsername"),
+     *                      @OA\Property(type="string", property="paymentType"),
+     *                      @OA\Property(type="string", property="financialFundName"),
+     *                      @OA\Property(type="string", property="chequeNumber"),
+     *                      @OA\Property(type="array", property="shipmentInfo",
+     *                          @OA\Items(
+     *                              @OA\Property(type="integer", property="id"),
+     *                              @OA\Property(type="integer", property="shipmentID"),
+     *                              @OA\Property(type="string", property="trackNumber"),
+     *                              @OA\Property(type="integer", property="holderType"),
+     *                              @OA\Property(type="integer", property="holderID"),
+     *                              @OA\Property(type="integer", property="travelID"),
+     *                              @OA\Property(type="object", property="createdAt"),
+     *                              @OA\Property(type="object", property="updatedAt"),
+     *                              @OA\Property(type="integer", property="amount"),
+     *                              @OA\Property(type="integer", property="createdBy"),
+     *                              @OA\Property(type="integer", property="updatedBy")
+     *                          )
+     *                      ),
      *                      @OA\Property(type="object", property="createdAt"),
      *                      @OA\Property(type="object", property="updatedAt"),
      *                      @OA\Property(type="string", property="createdByUser"),
@@ -129,22 +154,13 @@ class AirwaybillFinanceController extends BaseController
      * )
      *
      */
-    public function filterAirwaybillFinances(Request $request)
+    public function filterAirWaybillFCLFinances(Request $request)
     {
         $data = json_decode($request->getContent(), true);
 
-        $request = $this->autoMapping->map(stdClass::class, AirwaybillFinanceFilterRequest::class, (object)$data);
+        $request = $this->autoMapping->map(stdClass::class, AirwaybillFCLFinanceFilterRequest::class, (object)$data);
 
-        $violations = $this->validator->validate($request);
-
-        if (\count($violations) > 0)
-        {
-            $violationsString = (string) $violations;
-
-            return new JsonResponse($violationsString, Response::HTTP_OK);
-        }
-
-        $result = $this->airwaybillFinanceService->filterAirwaybillFinances($request);
+        $result = $this->airwaybillFCLFinanceService->filterAirWaybillFCLFinances($request);
 
         return $this->response($result, self::FETCH);
     }
@@ -230,18 +246,18 @@ class AirwaybillFinanceController extends BaseController
             return new JsonResponse($violationsString, Response::HTTP_OK);
         }
 
-        $result = $this->airwaybillFinanceService->distributeAirwaybillCost($request);
+        $result = $this->airwaybillFCLFinanceService->distributeAirwaybillCost($request);
 
         return $this->response($result, self::UPDATE);
     }
 
     /**
-     * @Route("deleteallairwaybillsfinances", name="deleteAllAirwaybillsFinances", methods={"DELETE"})
+     * @Route("deleteallairwaybillsfclfinances", name="deleteAllAirwaybillsFCLFinances", methods={"DELETE"})
      * @return JsonResponse
      */
-    public function deleteAllAirwaybillsFinances()
+    public function deleteAllAirWaybillsFCLFinances()
     {
-        $result = $this->airwaybillFinanceService->deleteAllAirwaybillsFinances();
+        $result = $this->airwaybillFCLFinanceService->deleteAllAirWaybillsFCLFinances();
 
         return $this->response($result, self::DELETE);
     }

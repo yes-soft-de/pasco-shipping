@@ -2,7 +2,7 @@
 
 namespace App\Request;
 
-class AirwaybillFinanceCreateRequest
+class AirwaybillFCLFinanceCreateRequest
 {
     private $airwaybillID;
 
@@ -14,6 +14,14 @@ class AirwaybillFinanceCreateRequest
 
     private $currency;
 
+    private $subcontractID;
+
+    private $paymentType;
+
+    private $chequeNumber;
+
+    private $financialFundName;
+
     private $createdBy;
 
     public function setCreatedBy($createdBy)
@@ -24,6 +32,11 @@ class AirwaybillFinanceCreateRequest
     public function setAirwaybillID($airwaybillID)
     {
         $this->airwaybillID = $airwaybillID;
+    }
+
+    public function getAirwaybillID()
+    {
+        return $this->airwaybillID;
     }
 
     public function setStatus($status)

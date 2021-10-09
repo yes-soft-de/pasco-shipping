@@ -2,7 +2,7 @@
 
 namespace App\Response;
 
-class AirwaybillFinanceCreateResponse
+class AirwaybillFCLFinanceCreateResponse
 {
     public $createdAt;
 

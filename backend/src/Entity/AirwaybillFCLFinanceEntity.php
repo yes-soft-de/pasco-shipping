@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\AirwaybillFinanceEntityRepository;
+use App\Repository\AirwaybillFCLFinanceEntityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=AirwaybillFinanceEntityRepository::class)
+ * @ORM\Entity(repositoryClass=AirwaybillFCLFinanceEntityRepository::class)
  */
-class AirwaybillFinanceEntity
+class AirwaybillFCLFinanceEntity
 {
     /**
      * @ORM\Id
@@ -64,6 +64,41 @@ class AirwaybillFinanceEntity
      * @ORM\Column(type="integer", nullable=true)
      */
     private $updatedBy;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $subcontractID;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $importWarehouseID;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $trackNumber;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $clientUserID;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $paymentType;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $chequeNumber;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $financialFundName;
 
     public function getId(): ?int
     {
@@ -174,6 +209,90 @@ class AirwaybillFinanceEntity
     public function setUpdatedBy(?int $updatedBy): self
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getSubcontractID(): ?int
+    {
+        return $this->subcontractID;
+    }
+
+    public function setSubcontractID(?int $subcontractID): self
+    {
+        $this->subcontractID = $subcontractID;
+
+        return $this;
+    }
+
+    public function getImportWarehouseID(): ?int
+    {
+        return $this->importWarehouseID;
+    }
+
+    public function setImportWarehouseID(?int $importWarehouseID): self
+    {
+        $this->importWarehouseID = $importWarehouseID;
+
+        return $this;
+    }
+
+    public function getTrackNumber(): ?string
+    {
+        return $this->trackNumber;
+    }
+
+    public function setTrackNumber(string $trackNumber): self
+    {
+        $this->trackNumber = $trackNumber;
+
+        return $this;
+    }
+
+    public function getClientUserID(): ?int
+    {
+        return $this->clientUserID;
+    }
+
+    public function setClientUserID(int $clientUserID): self
+    {
+        $this->clientUserID = $clientUserID;
+
+        return $this;
+    }
+
+    public function getPaymentType(): ?string
+    {
+        return $this->paymentType;
+    }
+
+    public function setPaymentType(string $paymentType): self
+    {
+        $this->paymentType = $paymentType;
+
+        return $this;
+    }
+
+    public function getChequeNumber(): ?string
+    {
+        return $this->chequeNumber;
+    }
+
+    public function setChequeNumber(string $chequeNumber): self
+    {
+        $this->chequeNumber = $chequeNumber;
+
+        return $this;
+    }
+
+    public function getFinancialFundName(): ?string
+    {
+        return $this->financialFundName;
+    }
+
+    public function setFinancialFundName(string $financialFundName): self
+    {
+        $this->financialFundName = $financialFundName;
 
         return $this;
     }
