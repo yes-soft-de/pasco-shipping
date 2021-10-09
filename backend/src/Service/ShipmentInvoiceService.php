@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\ShipmentInvoiceEntity;
 use App\Manager\ShipmentInvoiceManager;
 use App\Request\ShipmentInvoiceCreateRequest;
+use App\Request\ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest;
 use App\Request\ShipmentInvoiceUpdatePaymentInfoRequest;
 use App\Request\ShipmentInvoiceUpdateRequest;
 use App\Response\ShipmentInvoiceCreateResponse;
@@ -29,9 +30,14 @@ class ShipmentInvoiceService
 
     public function create(ShipmentInvoiceCreateRequest $request)
     {
-        $countryResult = $this->shipmentInvoiceManager->create($request);
+        $shipmentInvoiceEntity = $this->shipmentInvoiceManager->create($request);
 
-        return $this->autoMapping->map(ShipmentInvoiceEntity::class, ShipmentInvoiceCreateResponse::class, $countryResult);
+        if($shipmentInvoiceEntity instanceof ShipmentInvoiceEntity)
+        {
+            return $this->autoMapping->map(ShipmentInvoiceEntity::class, ShipmentInvoiceCreateResponse::class, $shipmentInvoiceEntity);
+        }
+
+        return $shipmentInvoiceEntity;
     }
 
     public function update(ShipmentInvoiceUpdateRequest $request)
@@ -49,6 +55,18 @@ class ShipmentInvoiceService
     public function updatePaymentInfo(ShipmentInvoiceUpdatePaymentInfoRequest $request)
     {
         $shipmentInvoiceEntity = $this->shipmentInvoiceManager->updatePaymentInfo($request);
+
+        if($shipmentInvoiceEntity instanceof ShipmentInvoiceEntity)
+        {
+            return $this->autoMapping->map(ShipmentInvoiceEntity::class, ShipmentInvoiceUpdateResponse::class, $shipmentInvoiceEntity);
+        }
+
+        return $shipmentInvoiceEntity;
+    }
+
+    public function updateTotalCostAndBillDetails(ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest $request)
+    {
+        $shipmentInvoiceEntity = $this->shipmentInvoiceManager->updateTotalCostAndBillDetails($request);
 
         if($shipmentInvoiceEntity instanceof ShipmentInvoiceEntity)
         {
