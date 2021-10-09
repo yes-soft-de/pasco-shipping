@@ -6,6 +6,7 @@ class ContainerSpecificationRequest {
   String? widthInMeter;
   String? hightInMeter;
   String? lengthInMeter;
+  String? price;
 
   ContainerSpecificationRequest(
       {this.id,
@@ -13,7 +14,8 @@ class ContainerSpecificationRequest {
       required this.capacityCPM,
       required this.widthInMeter,
       required this.lengthInMeter,
-      required this.hightInMeter});
+      required this.hightInMeter,this.price
+      });
 
   Map<String, dynamic> toJson() {
     if (id == null) {
@@ -22,15 +24,18 @@ class ContainerSpecificationRequest {
         'capacityCPM': capacityCPM,
         'widthInMeter': widthInMeter,
         'hightInMeter': hightInMeter,
-        'lengthInMeter': lengthInMeter
+        'lengthInMeter': lengthInMeter,
+        'price': price
       };
     } else {
       return {
         'id': id,
+        'name': name,
         'capacityCPM': capacityCPM,
         'widthInMeter': widthInMeter,
         'hightInMeter': hightInMeter,
-        'lengthInMeter': lengthInMeter
+        'lengthInMeter': lengthInMeter,
+        'price': price,
       };
     }
   }

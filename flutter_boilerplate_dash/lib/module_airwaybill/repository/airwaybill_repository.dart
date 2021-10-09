@@ -52,6 +52,20 @@ class AirwaybillRepository{
       return ConfirmResponse(false, msg!);
     }
   }
+  Future<ConfirmResponse?> updateAirwaybillStatusClearedOrArrived(AirwaybillClearedOrArrivedRequest request) async {
+    // await _authService.refreshToken();
+    var token = await _authService.getToken();
+
+    var response = await _apiClient.put(Urls.CLEARED_ARRIVED_AIRWAYBILL, request.toJson(),
+        headers: {'Authorization': 'Bearer $token'});
+    String? statusCode = AirwaybillDetailsResponse.fromJson(response!).statusCode;
+    String? msg = AirwaybillDetailsResponse.fromJson(response).msg;
+    if(statusCode =='204'){
+      return ConfirmResponse(true, msg!);
+    }else {
+      return ConfirmResponse(false, msg!);
+    }
+  }
 
   Future<ConfirmResponse?> deleteAirwaybill(String id) async {
     // await _authService.refreshToken();

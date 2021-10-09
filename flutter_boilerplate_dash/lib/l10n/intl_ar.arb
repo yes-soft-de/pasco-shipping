@@ -380,5 +380,6 @@
   "seaport": "ميناء بحري",
   "airport": "ميناء جوي",
   "prices": "الأسعار",
-  "updateHarbor": "تعديل الميناء"
+  "updateHarbor": "تعديل الميناء",
+  "shipmentShifting":"الشحنات المحولة"
 }

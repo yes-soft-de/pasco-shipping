@@ -15,3 +15,22 @@ class ContainerChangeStateRequest {
       };
     }
 }
+
+
+class ContainerClearedOrArrivedRequest {
+  int id;
+  String status;
+
+  ContainerClearedOrArrivedRequest(
+      {
+        required this.id,
+        required this.status,
+      });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'shippingStatus': status
+    };
+  }
+}

@@ -50,7 +50,7 @@ class ShipmentRequest {
         "target": target,
         "supplierName": supplierName,
         "quantity": quantity,
-        "productCategoryID": productCategoryID,
+        "subProductCategoryID": productCategoryID,
         'productCategoryName': productCategoryName,
         'subProductCategoryName': subProductCategoryName,
         "unit": unit,

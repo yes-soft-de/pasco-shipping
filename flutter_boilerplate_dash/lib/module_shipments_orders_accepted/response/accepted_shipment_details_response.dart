@@ -175,14 +175,22 @@ class AcceptedShipmentDetailsModel {
 class SubShipmentModel {
   String? shipmentStatus;
   String? trackNumber;
+  List<StoringHolder> storingHolder=[];
 
 
-  SubShipmentModel({this.shipmentStatus , this.trackNumber});
+  SubShipmentModel({this.shipmentStatus , this.trackNumber ,required this.storingHolder});
   SubShipmentModel.fromJson(Map<String, dynamic> json) {
           shipmentStatus= json['shipmentStatus'];
           trackNumber =  json['trackNumber'];
-
-
+          if (json['holders'] != null) {
+            storingHolder = <StoringHolder>[];
+            try {
+              storingHolder = List<StoringHolder>.from(json['holders'].map((x) => StoringHolder.fromJson(x)));
+            } catch (e, stack) {
+              Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
+                  StackTrace.current);
+            }
+          }
   }
 }
 class CreatedAt {
@@ -209,5 +217,36 @@ class ReceiverInfoModel {
     notes =  json['notes'];
 
 
+  }
+}
+
+class StoringHolder{
+  int? holderID;
+  HolderInfoShipment holderInfoShipment=HolderInfoShipment();
+
+  StoringHolder(this.holderID, this.holderInfoShipment);
+
+  StoringHolder.fromJson(Map<String, dynamic> json) {
+    holderID= json['holderID'] ?? 0;
+    if (json['holderInfo'] != null) {
+      holderInfoShipment = HolderInfoShipment();
+      try {
+        holderInfoShipment = HolderInfoShipment.fromJson(json['holderInfo']);
+      } catch (e, stack) {
+        Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
+            StackTrace.current);
+      }
+    }
+  }
+
+}
+class HolderInfoShipment{
+  String? IdentificationNumber;
+  String? shippingStatus;
+
+  HolderInfoShipment({ this.IdentificationNumber, this.shippingStatus});
+  HolderInfoShipment.fromJson(Map<String, dynamic> json) {
+    IdentificationNumber= json['IdentificationNumber'] ??'';
+    shippingStatus =  json['shippingStatus']??'';
   }
 }

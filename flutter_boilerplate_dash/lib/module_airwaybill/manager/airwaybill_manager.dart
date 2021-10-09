@@ -20,6 +20,7 @@ class AirwaybillManager{
   Future<ConfirmResponse?> updateAirwaybill(AirwaybillRequest request) => _repository.updateAirwaybill(request);
   Future<ConfirmResponse?> deleteAirwaybill(String id) => _repository.deleteAirwaybill(id);
   Future<ConfirmResponse?> updateAirwaybillStatus(AirwaybillChangeStateRequest request) => _repository.updateAirwaybillStatus(request);
+  Future<ConfirmResponse?> updateAirwaybillStatusClearedOrArrived(AirwaybillClearedOrArrivedRequest request) => _repository.updateAirwaybillStatusClearedOrArrived(request);
   Future<ConfirmResponse?> uploadedAirwaybillToTravel(AddAirwaybillToTravelRequest request) => _repository.uploadedAirwaybillToTravel(request);
   Future<AirwaybillDetailsModel?> getAirwaybillDetails(String id) => _repository.getAirwaybillDetails(id);
   Future<List<AirwaybillModel>?> getAirwaybillsWithFilter(AirwaybillFilterRequest request) => _repository.getAirwaybillWithFilter(request);

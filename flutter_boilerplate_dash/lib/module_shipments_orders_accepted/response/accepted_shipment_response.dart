@@ -148,7 +148,7 @@ this.categoriesNames,
         distributorID = json['distributorID'];
         receiverID = json['receiverID'];
         markID = json['markID'];
-        productCategoryID = json['productCategoryID'];
+        productCategoryID = json['subProductCategoryID'];
         clientUserID = json['clientUserID'];
         guniQuantity = json['guniQuantity'];
   }

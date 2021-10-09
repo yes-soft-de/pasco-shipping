@@ -340,6 +340,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "shipmentReview": MessageLookupByLibrary.simpleMessage("مراجعة الشحنة"),
         "shipmentSeparation":
             MessageLookupByLibrary.simpleMessage("فصل الشحنة"),
+        "shipmentShifting":
+            MessageLookupByLibrary.simpleMessage("الشحنات المحولة"),
         "shipmentStatus": MessageLookupByLibrary.simpleMessage("حالة الشحنة"),
         "shipmentSticker": MessageLookupByLibrary.simpleMessage("ملصق الشحنة"),
         "shipmentUploadedHolder":

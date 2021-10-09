@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill/enums/airwaybill_status.dart';
 import 'package:pasco_shipping/module_airwaybill/request/add_airwaybill_to_travel_request.dart';
+import 'package:pasco_shipping/module_airwaybill/request/airwaybill_change_state_request.dart';
 import 'package:pasco_shipping/module_airwaybill/response/airwaybill_details_response.dart';
 import 'package:pasco_shipping/module_airwaybill/widget/status_card.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
@@ -88,20 +89,6 @@ class _ContainerDetailsSuccessfullyState
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(S.of(context).type),
-                      Text(widget.model.type ?? ''),
-                    ],
-                  ),
-                ),
-                Divider(
-                  color: Colors.grey[300],
-                  thickness: 2,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
                       Text(S.of(context).consignee),
                       Text(widget.model.consigneeName ?? ''),
                     ],
@@ -152,6 +139,20 @@ class _ContainerDetailsSuccessfullyState
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Text(S.of(context).shippingWay),
+                      Text(widget.model.type ?? ''),
+                    ],
+                  ),
+                ),
+                Divider(
+                  color: Colors.grey[300],
+                  thickness: 2,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
                       Text(S.of(context).subcontract),
                       Text(widget.model.subcontractName ?? ''),
                     ],
@@ -175,20 +176,18 @@ class _ContainerDetailsSuccessfullyState
                   color: Colors.grey[300],
                   thickness: 2,
                 ),
+
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(S.of(context).specification),
-                      Text(widget.model.specificationName ?? ''),
+                      Text(S.of(context).weight),
+                      Text(widget.model.weight ?? ''),
                     ],
                   ),
                 ),
-                Divider(
-                  color: Colors.grey[300],
-                  thickness: 2,
-                ),
+                Divider(color: Colors.grey[300],thickness: 2,),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
@@ -535,10 +534,10 @@ class _ContainerDetailsSuccessfullyState
                 color: AppThemeDataService.AccentColor,
                 style: AppTextStyle.mediumWhite,
                 go: () {
-                  AddAirwaybillToTravelRequest re1 =
-                      AddAirwaybillToTravelRequest(
-                          holderID: widget.model.id!,
-                          shipmentStatus: AcceptedShipmentStatusName[
+                  AirwaybillClearedOrArrivedRequest re1 =
+                  AirwaybillClearedOrArrivedRequest(
+                          id: widget.model.id!,
+                          status: AcceptedShipmentStatusName[
                               AcceptedShipmentStatus.CLEARED]!);
                   widget.onClearedOrArrived(re1);
                 },
@@ -577,10 +576,10 @@ class _ContainerDetailsSuccessfullyState
                 color: AppThemeDataService.AccentColor,
                 style: AppTextStyle.mediumWhite,
                 go: () {
-                  AddAirwaybillToTravelRequest re1 =
-                  AddAirwaybillToTravelRequest(
-                      holderID: widget.model.id!,
-                      shipmentStatus: AcceptedShipmentStatusName[
+                  AirwaybillClearedOrArrivedRequest re1 =
+                  AirwaybillClearedOrArrivedRequest(
+                      id: widget.model.id!,
+                      status: AcceptedShipmentStatusName[
                       AcceptedShipmentStatus.ARRIVED]!);
                   widget.onClearedOrArrived(re1);
                 },
@@ -591,7 +590,7 @@ class _ContainerDetailsSuccessfullyState
     }
     else if (widget.model.shipments!.isNotEmpty &&
         widget.model.shipments![0].shipmentStatus != null &&
-        widget.model.shipments![0].shipmentStatus ==
+        widget.model.shippingStatus ==
             AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]) {
       return Container(
         child: Column(
@@ -621,10 +620,10 @@ class _ContainerDetailsSuccessfullyState
                 color: AppThemeDataService.AccentColor,
                 style: AppTextStyle.mediumWhite,
                 go: () {
-                  AddAirwaybillToTravelRequest re1 =
-                      AddAirwaybillToTravelRequest(
-                          holderID: widget.model.id!,
-                          shipmentStatus: AcceptedShipmentStatusName[
+                  AirwaybillClearedOrArrivedRequest re1 =
+                  AirwaybillClearedOrArrivedRequest(
+                          id: widget.model.id!,
+                          status: AcceptedShipmentStatusName[
                               AcceptedShipmentStatus.ARRIVED]!);
                   widget.onClearedOrArrived(re1);
                 },
@@ -634,7 +633,7 @@ class _ContainerDetailsSuccessfullyState
       );
     } else if (widget.model.shipments!.isNotEmpty &&
         widget.model.shipments![0].shipmentStatus != null &&
-        widget.model.shipments![0].shipmentStatus ==
+        widget.model.shippingStatus ==
             AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]) {
       return Padding(
         padding: const EdgeInsets.all(10.0),

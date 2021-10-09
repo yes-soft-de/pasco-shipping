@@ -43,6 +43,8 @@ class AirwaybillDetailsModel {
     this.shipmentID,
     this.portName,
     this.location,
+    this.shippingStatus,
+    this.weight,
 
 
     this.createdAt,
@@ -66,6 +68,8 @@ class AirwaybillDetailsModel {
   int? shipmentID;
   String? portName;
   String? location;
+  String? shippingStatus;
+  String? weight;
 
 
 
@@ -90,6 +94,8 @@ class AirwaybillDetailsModel {
     shipmentID: json['shipmentID'],
     portName: json['portName'],
     location: json['location'],
+    shippingStatus: json['shippingStatus'],
+    weight: json['weight'].toString(),
 
 
 

@@ -21,7 +21,7 @@ class UpdateShipmentRequest {
 
   Map<String, dynamic> toJson() => {
     "id":id,
-    "productCategoryID": productCategoryID,
+    "subProductCategoryID": productCategoryID,
     "unit": unit,
     "markID": markId,
     "paymentTime": paymentTime,

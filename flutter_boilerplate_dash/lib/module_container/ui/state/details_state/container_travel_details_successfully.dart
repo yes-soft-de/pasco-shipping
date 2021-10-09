@@ -433,7 +433,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
               StatusCard(S.of(context).arrived ,false),
             ],),
          RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
-           AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]!);
+           ContainerClearedOrArrivedRequest re1 = ContainerClearedOrArrivedRequest(id: widget.model.id!,status:AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]!);
               widget.onClearedOrArrived(re1);
 
           },radius: 12)
@@ -462,7 +462,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                 StatusCard(S.of(context).arrived ,false),
               ],),
             RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
-              AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
+              ContainerClearedOrArrivedRequest re1 = ContainerClearedOrArrivedRequest(id: widget.model.id!,status:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
               widget.onClearedOrArrived(re1);
 
             },radius: 12)
@@ -471,7 +471,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
       );
     }
     else if (widget.model.shipments!.isNotEmpty
-        &&  widget.model.shipments![0].shipmentStatus != null && widget.model.shipments![0].shipmentStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED])
+        &&  widget.model.shipments![0].shipmentStatus != null && widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED])
     {
         return  Container(
           child: Column(
@@ -489,7 +489,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                   StatusCard(S.of(context).arrived ,false),
                 ],),
               RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
-                AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
+                ContainerClearedOrArrivedRequest re1 = ContainerClearedOrArrivedRequest(id: widget.model.id!,status:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
                 widget.onClearedOrArrived(re1);
 
               },radius: 12)
@@ -498,7 +498,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
         );
   }
     else if (widget.model.shipments!.isNotEmpty
-        &&  widget.model.shipments![0].shipmentStatus != null && widget.model.shipments![0].shipmentStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]){
+        &&  widget.model.shipments![0].shipmentStatus != null && widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]){
       return Padding(
         padding: const EdgeInsets.all(10.0),
         child: Text(S.of(context).containerArrived , style: AppTextStyle.mediumRedBold,),

@@ -4,6 +4,7 @@ import 'package:pasco_shipping/abstracts/module/yes_module.dart';
 import 'package:pasco_shipping/module_harbor/harbor_routes.dart';
 import 'package:pasco_shipping/module_home/ui/screen/home_screen.dart';
 import 'package:pasco_shipping/module_price/price_routes.dart';
+import 'package:pasco_shipping/module_shifting_shipment/shifting_routes.dart';
 import 'package:pasco_shipping/module_shipper/shipper_routes.dart';
 import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_unit/unit_module.dart';
@@ -381,6 +382,29 @@ class AppMenu extends ConsumerWidget {
               ),
             ],
           ) :Container(),
+
+          ExpansionTile(
+            title: new Text(S.of(context).shipmentShifting),
+            leading: Icon(Icons.inbox_outlined),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    ListTile(
+                        title: new Text(
+                          S.of(context).view,
+                        ),
+                        onTap: () {
+                          Navigator.pushNamed(context,ShiftingRoutes.VIEW_ALL);
+                          // selectPage(context, ref, ContainerRoutes.VIEW_ALL);
+                        }),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
           Divider(
             color: Colors.grey,
           ),
