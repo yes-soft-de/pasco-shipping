@@ -10,6 +10,10 @@ class ShipmentInvoiceFilterResponse
 
     public $paidByClient;
 
+    public $clientUserName;
+
+    public $clientUserID;
+
     public $clientImage;
 
     public $createdAt;
@@ -28,6 +32,7 @@ class ShipmentInvoiceFilterResponse
 
     public $paymentDate;
 
+    // client user ID
     public $paidBy;
 
     public $paidOnBehalfBy;

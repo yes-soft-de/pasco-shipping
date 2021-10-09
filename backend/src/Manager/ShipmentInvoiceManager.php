@@ -20,16 +20,19 @@ class ShipmentInvoiceManager
     private $shipmentOrderManager;
     private $shipmentLCLFinanceManager;
     private $containerFCLFinanceManager;
+    private $airWaybillFCLFinanceManager;
     private $shipmentInvoiceEntityRepository;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ShipmentInvoiceEntityRepository $shipmentInvoiceEntityRepository,
-                                ShipmentOrderManager $shipmentOrderManager, ShipmentLCLFinanceManager $shipmentLCLFinanceManager, ContainerFCLFinanceManager $containerFCLFinanceManager)
+                                ShipmentOrderManager $shipmentOrderManager, ShipmentLCLFinanceManager $shipmentLCLFinanceManager, ContainerFCLFinanceManager $containerFCLFinanceManager,
+     AirwaybillFCLFinanceManager $airWaybillFCLFinanceManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->shipmentOrderManager = $shipmentOrderManager;
         $this->shipmentLCLFinanceManager = $shipmentLCLFinanceManager;
         $this->containerFCLFinanceManager = $containerFCLFinanceManager;
+        $this->airWaybillFCLFinanceManager = $airWaybillFCLFinanceManager;
         $this->shipmentInvoiceEntityRepository = $shipmentInvoiceEntityRepository;
     }
 
@@ -74,7 +77,7 @@ class ShipmentInvoiceManager
             }
             elseif($shipmentOrder['transportationType'] == ShippingWayConstant::$AIR_SHIPPING_WAY)
             {
-
+                return $this->airWaybillFCLFinanceManager->getAirWaybillFCLTotalCostByShipmentID($shipmentID);
             }
         }
     }
@@ -120,7 +123,17 @@ class ShipmentInvoiceManager
             }
             elseif($shipmentOrder['transportationType'] == ShippingWayConstant::$AIR_SHIPPING_WAY)
             {
+                $airWaybillStatusResults = $this->airWaybillFCLFinanceManager->getAirWaybillFCLBillDetailsByShipmentID($shipmentID);
 
+                if($airWaybillStatusResults)
+                {
+                    foreach($airWaybillStatusResults as $result)
+                    {
+                        $billDetailsResponse[] = $result;
+                    }
+
+                    return $billDetailsResponse;
+                }
             }
         }
     }
@@ -168,12 +181,6 @@ class ShipmentInvoiceManager
             {
                 $shipmentInvoiceEntity->setPaymentDate($request->getPaymentDate());
             }
-
-            // Check if there is a discount, and update the total cost according to it
-//            if($request->getDiscount() != null)
-//            {
-//                $shipmentInvoiceEntity->setTotalCost($shipmentInvoiceEntity->getTotalCost() * $request->getDiscount() / 100);
-//            }
 
             $this->entityManager->flush();
             $this->entityManager->clear();

@@ -245,6 +245,8 @@ class ShipmentInvoiceController extends BaseController
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="integer", property="shipmentID"),
      *                  @OA\Property(type="string", property="paidByClient"),
+     *                  @OA\Property(type="string", property="clientUserName"),
+     *                  @OA\Property(type="integer", property="clientUserID"),
      *                  @OA\Property(type="string", property="clientImage"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="string", property="createdByUser"),
