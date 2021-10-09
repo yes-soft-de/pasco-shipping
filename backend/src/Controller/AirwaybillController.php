@@ -533,15 +533,6 @@ class AirwaybillController extends BaseController
 
         $request = $this->autoMapping->map(stdClass::class, AirwaybillFilterRequest::class, (object)$data);
 
-        $violations = $this->validator->validate($request);
-
-        if (\count($violations) > 0)
-        {
-            $violationsString = (string) $violations;
-
-            return new JsonResponse($violationsString, Response::HTTP_OK);
-        }
-
         $result = $this->airwaybillService->filterAirwaybills($request);
 
         return $this->response($result, self::FETCH);
