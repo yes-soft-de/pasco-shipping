@@ -482,7 +482,7 @@ App\Request\ShipmentLCLFinanceCreateRequest:
     createdBy:
       - NotBlank: ~
 
-App\Request\AirwaybillFinanceCreateRequest:
+App\Request\AirwaybillFCLFinanceCreateRequest:
   properties:
     airwaybillID:
       - NotBlank: ~

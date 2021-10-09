@@ -2,7 +2,7 @@
 
 namespace App\Request;
 
-class AirwaybillFinanceFilterRequest
+class AirwaybillFCLFinanceFilterRequest
 {
     private $airwaybillID;
 

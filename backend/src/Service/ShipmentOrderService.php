@@ -30,15 +30,18 @@ class ShipmentOrderService
     private $shipmentLogService;
     private $shipmentStatusService;
     private $gunnyShipmentService;
+    private $shipmentInvoiceService;
 
-    public function __construct(AutoMapping $autoMapping, ShipmentOrderManager $shipmentOrderManager, ParameterBagInterface $params,
-     ShipmentLogService $shipmentLogService, GunnyShipmentService $gunnyShipmentService, ShipmentStatusService $shipmentStatusService)
+    public function __construct(AutoMapping $autoMapping, ShipmentOrderManager $shipmentOrderManager, ParameterBagInterface $params, ShipmentLogService $shipmentLogService,
+                                GunnyShipmentService $gunnyShipmentService, ShipmentStatusService $shipmentStatusService, ShipmentInvoiceService $shipmentInvoiceService)
     {
         $this->autoMapping = $autoMapping;
         $this->shipmentOrderManager = $shipmentOrderManager;
         $this->shipmentLogService = $shipmentLogService;
         $this->shipmentStatusService = $shipmentStatusService;
         $this->gunnyShipmentService = $gunnyShipmentService;
+        $this->shipmentInvoiceService = $shipmentInvoiceService;
+
         $this->params = $params->get('upload_base_url') . '/';
     }
 
@@ -274,6 +277,14 @@ class ShipmentOrderService
         if($shipmentOrder['orderUpdatedByUserImage'])
         {
             $shipmentOrder['orderUpdatedByUserImage'] = $this->params . $shipmentOrder['orderUpdatedByUserImage'];
+        }
+
+        // Get shipment invoice id
+        $invoiceID = $this->shipmentInvoiceService->getShipmentInvoiceIdByShipmentID($id);
+
+        if($invoiceID)
+        {
+            $shipmentOrder['shipmentInvoiceID'] = $invoiceID->id;
         }
 
         return $this->autoMapping->map('array', OrderShipmentGetResponse::class, $shipmentOrder);

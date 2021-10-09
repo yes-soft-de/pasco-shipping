@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Entity\AdminProfileEntity;
 use App\Entity\AirwaybillEntity;
-use App\Entity\AirwaybillFinanceEntity;
+use App\Entity\AirwaybillFCLFinanceEntity;
 use App\Entity\AirwaybillSpecificationEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\ContainerEntity;
@@ -302,7 +302,7 @@ class MainController extends BaseController
                 ->getQuery()
                 ->execute();
 
-            $em->getRepository(AirwaybillFinanceEntity::class)->createQueryBuilder('airwaybill_finance_entity')
+            $em->getRepository(AirwaybillFCLFinanceEntity::class)->createQueryBuilder('airwaybill_finance_entity')
                 ->delete()
                 ->getQuery()
                 ->execute();

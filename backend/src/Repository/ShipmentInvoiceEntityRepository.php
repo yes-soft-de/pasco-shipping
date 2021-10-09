@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
 use App\Entity\ClientProfileEntity;
+use App\Entity\OrderShipmentEntity;
 use App\Entity\ShipmentInvoiceEntity;
 use App\Request\ShipmentInvoiceFilterRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -29,8 +30,8 @@ class ShipmentInvoiceEntityRepository extends ServiceEntityRepository
             ->select('shipmentInvoiceEntity.id', 'shipmentInvoiceEntity.shipmentID', 'shipmentInvoiceEntity.createdAt', 'shipmentInvoiceEntity.createdBy', 'shipmentInvoiceEntity.updatedAt', 'shipmentInvoiceEntity.updatedBy',
              'shipmentInvoiceEntity.totalCost', 'shipmentInvoiceEntity.receiptImage', 'shipmentInvoiceEntity.invoiceImage', 'shipmentInvoiceEntity.paidBy', 'shipmentInvoiceEntity.paidOnBehalfBy', 'shipmentInvoiceEntity.notes',
              'shipmentInvoiceEntity.discount', 'shipmentInvoiceEntity.billDetails', 'shipmentInvoiceEntity.paymentStatus', 'shipmentInvoiceEntity.paymentDate', 'adminProfileEntityOne.userName as createdByUser',
-                'adminProfileEntityOne.image as createdByUserImage', 'adminProfileEntityTwo.userName as updatedByUser', 'adminProfileEntityTwo.image as updatedByUserImage', 'clientProfileEntity.userName as paidByClient',
-             'clientProfileEntity.image as clientImage')
+                'adminProfileEntityOne.image as createdByUserImage', 'adminProfileEntityTwo.userName as updatedByUser', 'adminProfileEntityTwo.image as updatedByUserImage', 'clientProfileEntity.userName as clientUserName',
+             'clientProfileEntity.image as clientImage', 'clientProfileEntity.userID as clientUserID')
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -47,11 +48,25 @@ class ShipmentInvoiceEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
+                OrderShipmentEntity::class,
+                'orderShipmentEntity',
+                Join::WITH,
+                'orderShipmentEntity.id = shipmentInvoiceEntity.shipmentID'
+            )
+
+            ->leftJoin(
                 ClientProfileEntity::class,
                 'clientProfileEntity',
                 Join::WITH,
-                'clientProfileEntity.userID = shipmentInvoiceEntity.paidBy'
+                'clientProfileEntity.userID = orderShipmentEntity.clientUserID'
             )
+//
+//            ->leftJoin(
+//                ClientProfileEntity::class,
+//                'clientProfileEntityTwo',
+//                Join::WITH,
+//                'clientProfileEntityTwo.userID = orderShipmentEntity.clientUserID'
+//            )
 
             ->orderBy('shipmentInvoiceEntity.id', 'DESC');
 
@@ -68,6 +83,18 @@ class ShipmentInvoiceEntityRepository extends ServiceEntityRepository
         }
 
         return $query->getQuery()->getResult();
+    }
+
+    public function getShipmentInvoiceIdByShipmentID($shipmentID)
+    {
+        return $this->createQueryBuilder('shipmentInvoiceEntity')
+            ->select('shipmentInvoiceEntity.id')
+
+            ->andWhere('shipmentInvoiceEntity.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
 }

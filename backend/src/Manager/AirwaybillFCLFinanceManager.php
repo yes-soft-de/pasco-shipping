@@ -3,53 +3,116 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\AirwaybillFCLFinancialStatusConstant;
 use App\Constant\HolderTypeConstant;
-use App\Entity\AirwaybillFinanceEntity;
-use App\Repository\AirwaybillFinanceEntityRepository;
+use App\Entity\AirwaybillFCLFinanceEntity;
+use App\Repository\AirwaybillFCLFinanceEntityRepository;
 use App\Request\AirwaybillDistributeStatusCostRequest;
-use App\Request\AirwaybillFinanceCreateRequest;
-use App\Request\AirwaybillFinanceFilterRequest;
+use App\Request\AirwaybillFCLFinanceCreateRequest;
+use App\Request\AirwaybillFCLFinanceFilterRequest;
 use App\Request\ShipmentLCLFinanceCreateRequest;
 use App\Request\ShipmentFinanceUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 
-class AirwaybillFinanceManager
+class AirwaybillFCLFinanceManager
 {
     private $autoMapping;
     private $entityManager;
-    private $airwaybillFinanceEntityRepository;
     private $trackManager;
+    private $shipmentOrderManager;
     private $shipmentFinanceManager;
+    private $airwaybillFCLFinanceEntityRepository;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, AirwaybillFinanceEntityRepository $airwaybillFinanceEntityRepository,
-                                TrackManager $trackManager, ShipmentLCLFinanceManager $shipmentFinanceManager)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, AirwaybillFCLFinanceEntityRepository $airwaybillFCLFinanceEntityRepository,
+                                TrackManager $trackManager, ShipmentLCLFinanceManager $shipmentFinanceManager, ShipmentOrderManager $shipmentOrderManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
-        $this->airwaybillFinanceEntityRepository = $airwaybillFinanceEntityRepository;
+        $this->shipmentOrderManager = $shipmentOrderManager;
         $this->trackManager = $trackManager;
         $this->shipmentFinanceManager = $shipmentFinanceManager;
+        $this->airwaybillFCLFinanceEntityRepository = $airwaybillFCLFinanceEntityRepository;
     }
 
-    public function create(AirwaybillFinanceCreateRequest $request)
+    public function create(AirwaybillFCLFinanceCreateRequest $request)
     {
-        $airwaybillFinanceEntity = $this->autoMapping->map(AirwaybillFinanceCreateRequest::class, AirwaybillFinanceEntity::class, $request);
+        if(in_array($request->getStatus(), AirwaybillFCLFinancialStatusConstant::$FCL_AIR_WAYBILL_FINANCIAL_STATUS_ARRAY))
+        {
+            $airwaybillFinanceEntity = $this->autoMapping->map(AirwaybillFCLFinanceCreateRequest::class, AirwaybillFCLFinanceEntity::class, $request);
 
-        $this->entityManager->persist($airwaybillFinanceEntity);
-        $this->entityManager->flush();
-        $this->entityManager->clear();
+            $airwaybillFinanceEntity->setTrackNumber($this->getTrackNumberByAirWaybillID($request->getAirwaybillID()));
+            $airwaybillFinanceEntity->setImportWarehouseID($this->getImportWarehouseIdByAirWaybillID($request->getAirwaybillID()));
+            $airwaybillFinanceEntity->setClientUserID($this->getClientUserIdByAirWaybillID($request->getAirwaybillID()));
 
-        return $airwaybillFinanceEntity;
+            $this->entityManager->persist($airwaybillFinanceEntity);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $airwaybillFinanceEntity;
+        }
+        else
+        {
+            return "Wrong status!";
+        }
+    }
+
+    public function getTrackNumberByAirWaybillID($airWaybillID)
+    {
+        $track = $this->trackManager->getOneOrNullTrackByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $airWaybillID);
+
+        if($track)
+        {
+            return $track->getTrackNumber();
+        }
+    }
+
+    public function getImportWarehouseIdByAirWaybillID($airWaybillID)
+    {
+        $track = $this->trackManager->getOneOrNullTrackByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $airWaybillID);
+
+        if($track)
+        {
+            return $this->shipmentOrderManager->getImportWarehouseIdByShipmentOrderID($track->getShipmentID());
+        }
+    }
+
+    public function getClientUserIdByAirWaybillID($airWaybillID)
+    {
+        $track = $this->trackManager->getOneOrNullTrackByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $airWaybillID);
+
+        if($track)
+        {
+            return $this->shipmentOrderManager->getClientUserIdByShipmentOrderID($track->getShipmentID());
+        }
     }
 
     public function getCurrentTotalCostByFilterOptions($airwaybillID, $status)
     {
-        return $this->airwaybillFinanceEntityRepository->getCurrentTotalCostByFilterOptions($airwaybillID, $status);
+        return $this->airwaybillFCLFinanceEntityRepository->getCurrentTotalCostByFilterOptions($airwaybillID, $status);
     }
 
-    public function filterAirwaybillFinances(AirwaybillFinanceFilterRequest $request)
+    public function getAirWaybillFCLTotalCostByShipmentID($shipmentID)
     {
-        $airwaybillFinances['airwaybillFinances'] = $this->airwaybillFinanceEntityRepository->filterAirwaybillFinances($request->getAirwaybillID(), $request->getStatus());
+        return $this->airwaybillFCLFinanceEntityRepository->getAirWaybillFCLTotalCostByShipmentID($shipmentID);
+    }
+
+    public function getAirWaybillFCLBillDetailsByShipmentID($shipmentID)
+    {
+        return $this->airwaybillFCLFinanceEntityRepository->getAirWaybillFCLBillDetailsByShipmentID($shipmentID);
+    }
+
+    public function filterAirWaybillFCLFinances(AirwaybillFCLFinanceFilterRequest $request)
+    {
+        $airwaybillFinances['airwaybillFinances'] = $this->airwaybillFCLFinanceEntityRepository->filterAirWaybillFCLFinances($request->getAirwaybillID(), $request->getStatus());
+
+        // Get stored shipment info (ID + trackNumber) in the air waybill
+        if($airwaybillFinances['airwaybillFinances'])
+        {
+            foreach($airwaybillFinances['airwaybillFinances'] as $key => $value)
+            {
+                $airwaybillFinances['airwaybillFinances'][$key]['shipmentInfo'] = $this->trackManager->getByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $value['airwaybillID']);
+            }
+        }
 
         $currentTotalCost = $this->getCurrentTotalCostByFilterOptions($request->getAirwaybillID(), $request->getStatus())['currentTotalCost'];
 
@@ -65,6 +128,7 @@ class AirwaybillFinanceManager
         return $airwaybillFinances;
     }
 
+    // Not used any more
     public function distributeAirwaybillCost(AirwaybillDistributeStatusCostRequest $request)
     {
         // get all shipments stored in the air waybill
@@ -132,6 +196,7 @@ class AirwaybillFinanceManager
         }
     }
 
+    // Not used any more
     public function createShipmentFinanceByAirwaybill(AirwaybillDistributeStatusCostRequest $request, $shipmentID, $trackNumber, $stageCost)
     {
         $shipmentFinanceRequest = new ShipmentLCLFinanceCreateRequest();
@@ -151,6 +216,7 @@ class AirwaybillFinanceManager
         $this->shipmentFinanceManager->create($shipmentFinanceRequest);
     }
 
+    // Not used any more
     public function updateShipmentFinanceByAirwaybill($shipmentFinanceArray, $updatedBy, $shipmentCost)
     {
         $shipmentFinanceUpdateRequest = $this->autoMapping->map('array', ShipmentFinanceUpdateRequest::class, $shipmentFinanceArray);
@@ -161,9 +227,9 @@ class AirwaybillFinanceManager
         $this->shipmentFinanceManager->update($shipmentFinanceUpdateRequest);
     }
 
-    public function deleteAllAirwaybillsFinances()
+    public function deleteAllAirWaybillsFCLFinances()
     {
-        return $this->airwaybillFinanceEntityRepository->deleteAllAirwaybillsFinances();
+        return $this->airwaybillFCLFinanceEntityRepository->deleteAllAirwaybillsFCLFinances();
     }
 
 }

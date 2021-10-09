@@ -10,6 +10,7 @@ use App\Request\ShipmentInvoiceUpdatePaymentInfoRequest;
 use App\Request\ShipmentInvoiceUpdateRequest;
 use App\Response\ShipmentInvoiceCreateResponse;
 use App\Response\ShipmentInvoiceFilterResponse;
+use App\Response\ShipmentInvoiceIDGetResponse;
 use App\Response\ShipmentInvoiceUpdateResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -95,6 +96,13 @@ class ShipmentInvoiceService
         }
 
         return $shipmentInvoicesResponse;
+    }
+
+    public function getShipmentInvoiceIdByShipmentID($shipmentID)
+    {
+        $result = $this->shipmentInvoiceManager->getShipmentInvoiceIdByShipmentID($shipmentID);
+
+        return $this->autoMapping->map('array', ShipmentInvoiceIDGetResponse::class, $result);
     }
 
 }
