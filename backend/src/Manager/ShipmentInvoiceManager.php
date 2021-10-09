@@ -59,6 +59,10 @@ class ShipmentInvoiceManager
 
                 $shipmentInvoiceEntity->setTotalCost($totalCost - ($totalCost * $request->getDiscount() / 100));
             }
+            else
+            {
+                $shipmentInvoiceEntity->setTotalCost($this->getShipmentFinanceTotalCostByShipmentID($request->getShipmentID()));
+            }
 
             $this->entityManager->persist($shipmentInvoiceEntity);
             $this->entityManager->flush();
