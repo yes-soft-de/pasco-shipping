@@ -3,11 +3,13 @@
 namespace App\Service;
 
 use App\AutoMapping;
+use App\Constant\AirwaybillFCLFinancialStatusConstant;
 use App\Entity\AirwaybillFCLFinanceEntity;
 use App\Manager\AirwaybillFCLFinanceManager;
 use App\Request\AirwaybillDistributeStatusCostRequest;
 use App\Request\AirwaybillFCLFinanceCreateRequest;
 use App\Request\AirwaybillFCLFinanceFilterRequest;
+use App\Request\ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest;
 use App\Response\AirwaybillFCLFinanceCreateResponse;
 use App\Response\AirwaybillFCLFinanceGetResponse;
 use App\Response\DeleteAllGetResponse;
@@ -18,12 +20,15 @@ class AirwaybillFCLFinanceService
 {
     private $autoMapping;
     private $airwaybillFCLFinanceManager;
+    private $shipmentInvoiceService;
     private $params;
 
-    public function __construct(AutoMapping $autoMapping, AirwaybillFCLFinanceManager $airwaybillFCLFinanceManager, ParameterBagInterface $params)
+    public function __construct(AutoMapping $autoMapping, AirwaybillFCLFinanceManager $airwaybillFCLFinanceManager, ParameterBagInterface $params,
+     ShipmentInvoiceService $shipmentInvoiceService)
     {
         $this->autoMapping = $autoMapping;
         $this->airwaybillFCLFinanceManager = $airwaybillFCLFinanceManager;
+        $this->shipmentInvoiceService = $shipmentInvoiceService;
 
         $this->params = $params->get('upload_base_url') . '/';
     }
@@ -34,10 +39,40 @@ class AirwaybillFCLFinanceService
 
         if($airwaybillFCLFinanceEntity instanceof AirwaybillFCLFinanceEntity)
         {
+            if(in_array($request->getStatus(), AirwaybillFCLFinancialStatusConstant::$FCL_AIR_WAYBILL_BILL_DETAILS))
+            {
+                /**
+                 * Check if shipment has a previous invoice, if it does, then updated the total cost
+                 * If it does not have an invoice, then do nothing
+                 */
+                $invoice = $this->shipmentInvoiceService->getShipmentInvoiceIdByShipmentID($this->getShipmentIdByAirWaybillID($request->getAirwaybillID()));
+
+                if($invoice)
+                {
+                    $this->updateShipmentInvoiceTotalCostByInvoiceIdAndShipmentID($this->getShipmentIdByAirWaybillID($request->getAirwaybillID()), $invoice->id);
+                }
+            }
+
             return $this->autoMapping->map(AirwaybillFCLFinanceEntity::class, AirwaybillFCLFinanceCreateResponse::class, $airwaybillFCLFinanceEntity);
         }
 
         return $airwaybillFCLFinanceEntity;
+    }
+
+    public function updateShipmentInvoiceTotalCostByInvoiceIdAndShipmentID($shipmentID, $invoiceID)
+    {
+        $invoiceUpdateRequest = new ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest();
+
+        $invoiceUpdateRequest->setId($invoiceID);
+        $invoiceUpdateRequest->setTotalCost($this->airwaybillFCLFinanceManager->getAirWaybillFCLTotalCostByShipmentID($shipmentID));
+        $invoiceUpdateRequest->setBillDetails($this->airwaybillFCLFinanceManager->getAirWaybillFCLBillDetailsByShipmentID($shipmentID));
+
+        $this->shipmentInvoiceService->updateTotalCostAndBillDetails($invoiceUpdateRequest);
+    }
+
+    public function getShipmentIdByAirWaybillID($airWaybillID)
+    {
+        return $this->airwaybillFCLFinanceManager->getShipmentIdByAirWaybillID($airWaybillID);
     }
 
     public function filterAirWaybillFCLFinances(AirwaybillFCLFinanceFilterRequest $request)
