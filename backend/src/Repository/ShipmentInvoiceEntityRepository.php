@@ -60,13 +60,6 @@ class ShipmentInvoiceEntityRepository extends ServiceEntityRepository
                 Join::WITH,
                 'clientProfileEntity.userID = orderShipmentEntity.clientUserID'
             )
-//
-//            ->leftJoin(
-//                ClientProfileEntity::class,
-//                'clientProfileEntityTwo',
-//                Join::WITH,
-//                'clientProfileEntityTwo.userID = orderShipmentEntity.clientUserID'
-//            )
 
             ->orderBy('shipmentInvoiceEntity.id', 'DESC');
 
