@@ -662,6 +662,7 @@ class ShipmentOrderManager
         return $this->orderShipmentEntityRepository->getHolderTypeAndTransportationTypeByShipmentOrderID($shipmentID);
     }
 
+    // For create container / air waybill FCL finance + for create shifting shipment order
     public function getImportWarehouseIdByShipmentOrderID($shipmentID)
     {
         return $this->orderShipmentEntityRepository->getImportWarehouseIdByShipmentOrderID($shipmentID);

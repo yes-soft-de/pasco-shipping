@@ -16,9 +16,19 @@ class ShiftingShipmentOrderCreateRequest
 
     private $notes;
 
+    public function getShipmentID()
+    {
+        return $this->shipmentID;
+    }
+
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
+    }
+
+    public function setFromImportWarehouseID($fromImportWarehouseID)
+    {
+        $this->fromImportWarehouseID = $fromImportWarehouseID;
     }
 
 }

@@ -618,8 +618,6 @@ App\Request\ShiftingShipmentOrderCreateRequest:
       - NotBlank: ~
     trackNumber:
       - NotBlank: ~
-    fromImportWarehouseID:
-      - NotBlank: ~
     toImportWarehouseID:
       - NotBlank: ~
     createdBy:

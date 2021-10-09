@@ -45,7 +45,6 @@ class ShiftingShipmentOrderController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="shipmentID"),
      *          @OA\Property(type="string", property="trackNumber"),
-     *          @OA\Property(type="integer", property="fromImportWarehouseID"),
      *          @OA\Property(type="integer", property="toImportWarehouseID"),
      *          @OA\Property(type="string", property="notes")
      *      )
@@ -239,11 +238,11 @@ class ShiftingShipmentOrderController extends BaseController
      *      )
      * )
      */
-    public function forcDelete(Request $request)
+    public function forceDelete(Request $request)
     {
         $request = new DeleteRequest($request->get('id'));
 
-        $result = $this->shiftingShipmentOrderService->forcDelete($request);
+        $result = $this->shiftingShipmentOrderService->forceDelete($request);
 
         return $this->response($result, self::DELETE);
     }
