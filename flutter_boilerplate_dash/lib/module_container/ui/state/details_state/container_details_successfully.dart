@@ -13,6 +13,7 @@ import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.da
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
+import 'package:pasco_shipping/utils/helpers/pdf_paragraph_api.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
@@ -58,6 +59,23 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
                       ],
                     ))
               ],
+            ),
+          ),
+          Center(
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue[800],
+              ),
+              onPressed: () async {
+                final pdfFile = await PdfParagraphApi.generateContainerDetailsReport(widget.model);
+
+                PdfParagraphApi.openFile(pdfFile);
+              },
+              icon: Icon(Icons.document_scanner_sharp),
+              label: Text(
+                S.of(context).reports,
+                style: AppTextStyle.mediumWhite,
+              ),
             ),
           ),
           Container(
@@ -196,7 +214,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
             padding: const EdgeInsets.all(10.0),
             child: Text(S.of(context).shipmentInformation, style: AppTextStyle.largeBlueBold,),
           ),
-           widget.model.shipments!.isEmpty?
+           widget.model.shipments.isEmpty?
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(S.of(context).noShipmentAdd ,style: AppTextStyle.mediumRed,),
@@ -207,13 +225,13 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
               itemBuilder: (context , index){
                 return InkWell(
                   onTap: (){
-                    widget.onShipmentReview(widget.model.shipments![index]);
+                    widget.onShipmentReview(widget.model.shipments[index]);
                   },
-                  child: shipmentCard(widget.model.shipments![index] ,
+                  child: shipmentCard(widget.model.shipments[index] ,
                   ),
                 );
               },
-              itemCount: widget.model.shipments!.length,
+              itemCount: widget.model.shipments.length,
             ),
           statusCard()
         ],
@@ -326,6 +344,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
+              Text('#'+shipmentModel.id.toString() , style: AppTextStyle.mediumBlackBold,),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
@@ -375,6 +394,13 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
                   Text(shipmentModel.guniQuantity.toString() , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Text(S.of(context).quantity , style: AppTextStyle.mediumBlack,),
+                  Text(shipmentModel.quantity.toString() , style: AppTextStyle.mediumBlueBold,),
+                ],),
+              ),
             ],
           ),
         ),
@@ -407,7 +433,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
               StatusCard(S.of(context).full ,isFull),
           ],),
          isFull ? Container() :  RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
-          if (widget.model.shipments!.isEmpty){
+          if (widget.model.shipments.isEmpty){
               Fluttertoast.showToast(msg: S.of(context).noChangeStatus);
             }else {
               ContainerChangeStateRequest re1 = ContainerChangeStateRequest(id: widget.model.id!.toInt() ,status: ContainerStatusName[ContainerStatus.FULL]!);

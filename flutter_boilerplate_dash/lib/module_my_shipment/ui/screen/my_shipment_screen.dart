@@ -48,7 +48,7 @@ class _ShipmentTrackingScreenState extends State<MyShipmentScreen> {
             onSearch: (trackNumber) {
               Navigator.pushNamed(context,
                 TracingRoutes.TRACKING_SCREEN , arguments: {'trackNumber': trackNumber}, );
-            },
+            },title: 'Enter the track number',
           ),
           Padding(
             padding: const EdgeInsets.all(0.0),

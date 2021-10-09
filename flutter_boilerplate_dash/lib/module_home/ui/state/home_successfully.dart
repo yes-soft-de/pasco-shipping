@@ -24,7 +24,7 @@ class HomeSuccessfully extends StatelessWidget {
                 flex: 3,
                 child: SearchCard(onSearch: (trackNumber){
                   onSearch(trackNumber);
-                },),
+                },title: 'Enter the track number',),
               ),
               Flexible(
                   flex: 1,

@@ -38,7 +38,7 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: SearchCard(onSearch: (number) {
               onSearch(number);
-            }),
+            },title: 'Enter the track number',),
           ),
           ( filterRequest.status != AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED] && !filterRequest.isExternalWarehouse! && !hideAddButton)?
           Container() :

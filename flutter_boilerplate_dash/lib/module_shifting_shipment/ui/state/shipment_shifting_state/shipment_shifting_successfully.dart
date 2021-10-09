@@ -9,10 +9,12 @@ import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 class ShiftingShipmentSuccessfully extends StatelessWidget {
   final List<ShipmentShiftingModel> items;
   final Function onChangeStatus;
+  final bool hideButton;
 
    ShiftingShipmentSuccessfully({
     required this.items,
     required this.onChangeStatus,
+    required this.hideButton
     // required this.onDetails,
   });
 
@@ -24,7 +26,7 @@ class ShiftingShipmentSuccessfully extends StatelessWidget {
           model: items[index],
           onChangeStatus: (model,status) {
             onChangeStatus(model,status);
-          },
+          }, hideButton: hideButton,
         );
       },
       itemCount: items.length,

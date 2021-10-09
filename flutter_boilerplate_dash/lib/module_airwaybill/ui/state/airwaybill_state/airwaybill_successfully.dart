@@ -33,7 +33,7 @@ class AirwaybillSuccessfully extends StatelessWidget {
       children: [
         SearchCard(onSearch: (number){
           onSearch(number);
-        }),
+        },title: 'Enter the track number',),
         ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             primary: Colors.blue[800],

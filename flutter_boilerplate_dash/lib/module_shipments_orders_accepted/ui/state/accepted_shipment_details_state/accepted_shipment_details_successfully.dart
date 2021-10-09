@@ -24,7 +24,9 @@ class AcceptedShipmentDetailsSuccessfully extends StatefulWidget {
   final Function onShowStatus;
   final Function onShowFinance;
   final Function onRequestShift;
-  const AcceptedShipmentDetailsSuccessfully({required this.shipment,required this.onShowStatus,required this.onShowFinance,required this.onRequestShift});
+  final Function onCreateInvoice;
+  final Function onShowInvoice;
+  const AcceptedShipmentDetailsSuccessfully({required this.shipment,required this.onShowStatus,required this.onShowFinance,required this.onRequestShift,required this.onCreateInvoice,required this.onShowInvoice});
 
   @override
   _AcceptedShipmentDetailsSuccessfullyState createState() => _AcceptedShipmentDetailsSuccessfullyState();
@@ -359,6 +361,48 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               ],
             ),
           ),
+
+          Divider(color: Colors.grey[300],thickness: 2,),
+      widget.shipment.shipmentInvoiceID != 0 ?
+      Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Show Invoice'),
+            InkWell(
+              onTap: (){
+                widget.onShowInvoice(widget.shipment.shipmentId);
+              },
+              child: Icon(
+                Icons.remove_red_eye,
+                size: 50,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+      )
+       :Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Create Invoice'),
+                InkWell(
+                  onTap: (){
+                  widget.onCreateInvoice(widget.shipment.shipmentId);
+                  },
+                  child: Icon(
+                    Icons.insert_invitation_outlined,
+                    size: 50,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
           Divider(color: Colors.grey[300],thickness: 2,),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -580,17 +624,19 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
               ),
-              RoundedButton(lable: 'Shift Shipment', icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
-                widget.onRequestShift(widget.shipment.shipmentId , subShipmentModel.trackNumber);
+              RoundedButton(lable: S.of(context).showStatus, icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
+                widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,widget.shipment.holderType, subShipmentModel.shipmentStatus,widget.shipment.transportationType ,widget.shipment.isExternalWarehouse, widget.shipment.clientUserID);
               }, radius: 12),
+
               Row(
                 children: [
+                  RoundedButton(lable: 'Shift Shipment', icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
+                    widget.onRequestShift(widget.shipment.shipmentId , subShipmentModel.trackNumber);
+                  }, radius: 12),
                  widget.shipment.holderType =='LCL'?  RoundedButton(lable: S.of(context).shipmentCost, icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
                     widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber);
                   }, radius: 12) :Container(),
-                  RoundedButton(lable: S.of(context).showStatus, icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
-                    widget.onShowStatus(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.target,widget.shipment.holderType, subShipmentModel.shipmentStatus,widget.shipment.transportationType ,widget.shipment.isExternalWarehouse, widget.shipment.clientUserID);
-                  }, radius: 12),
+
                 ],
               )
 

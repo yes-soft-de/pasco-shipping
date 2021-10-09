@@ -233,7 +233,7 @@ class HolderModel {
 
     specificationName: json['specificationName'],
     portName: json['portName'],
-    totalGunny: json['totalGunny'],
+    totalGunny: json['totalGunny'] ?? 0,
     totalReceivedShipmentsQuantity: json['totalReceivedShipmentsQuantity'],
   );
 }

@@ -8,7 +8,9 @@ import 'package:pasco_shipping/module_container/ui/state/addnew_state/add_state.
 import 'package:pasco_shipping/module_container/ui/state/update_state/update_container_init.dart';
 import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
+import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
+import 'package:pasco_shipping/module_shipper/response/shipper_response.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
@@ -28,6 +30,8 @@ class _AddNewCountryState extends State<UpdateContainer> {
   late AddContainerState currentState;
   late List<SubcontractModel> subs;
   late List<ContainerSpecificationModel> specification;
+  late List<ShipperModel> shippers;
+  late List<HarborModel> harbors;
   late ContainerModel model;
   late Entry option;
 
@@ -82,16 +86,31 @@ class _AddNewCountryState extends State<UpdateContainer> {
       InitAddState? state = currentState as InitAddState?;
       specification = state!.specifications;
       subs = state.subcontracts;
+      harbors = state.harbor;
+      shippers = state.shippers;
       return UpdateContainerInit(
-        harbors: state.harbor,
+        harbors: harbors,
         specifications: specification,
         subContracts: subs,
         model: model,
-        shippers: state.shippers,
+        shippers: shippers,
         onUpdate: (request , c){
           option = c;
         widget._stateManager.updateContainer(request);
       },);
+    }else if (currentState is ErrorAddState){
+      ErrorAddState? state = currentState as ErrorAddState?;
+      Fluttertoast.showToast(msg: state!.error);
+      return UpdateContainerInit(
+        harbors: harbors,
+        specifications: specification,
+        subContracts: subs,
+        model: model,
+        shippers: shippers,
+        onUpdate: (request , c){
+          option = c;
+          widget._stateManager.updateContainer(request);
+        },);
     }
     else {
       return Center(

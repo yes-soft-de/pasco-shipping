@@ -29,7 +29,8 @@ class ShiftWarehouseScreen extends StatefulWidget {
 class _CountriesScreenState extends State<ShiftWarehouseScreen> {
   late WarehousesState currentState;
   late List<WarehousesModel> items;
-  late int selectedRadioGender;
+  late bool from;
+  // late int selectedRadioGender;
 
  late ShiftingShipmentFilterRequest request;
   @override
@@ -47,13 +48,15 @@ class _CountriesScreenState extends State<ShiftWarehouseScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    from = arguments['from'];
     widget._stateManager.getWarehouses(WarehouseFilterRequest(typeOfCountry: 'import'));
   }
 
   @override
   void initState() {
     super.initState();
-    selectedRadioGender = 1;
+    // selectedRadioGender = 1;
     currentState = LoadingState();
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
@@ -84,67 +87,67 @@ class _CountriesScreenState extends State<ShiftWarehouseScreen> {
           padding: const EdgeInsets.all(15.0),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: AppThemeDataService.AccentColor,
-                    ),
-                    onPressed: () {
-                    },
-                    child: Row(
-                      children: [
-                        Radio(
-                          onChanged: (value) {
-                            _setSelectedRadioGender(1);
-                          },
-                          value: 1,
-                          groupValue: selectedRadioGender,
-                          activeColor: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          S.of(context).shiftingFrom,
-                          style: AppTextStyle.mediumWhite,
-                        ),
-                      ],
-                    ),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: AppThemeDataService.AccentColor,
-                    ),
-                    onPressed: () {
-                    },
-                    child: Row(
-                      children: [
-                        Radio(
-                          onChanged: (value) {
-                            _setSelectedRadioGender(2);
-                          },
-                          value: 2,
-                          groupValue: selectedRadioGender,
-                          activeColor: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          S.of(context).shiftingTo,
-                          style: AppTextStyle.mediumWhite,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //   children: [
+              //     ElevatedButton(
+              //       style: ElevatedButton.styleFrom(
+              //         primary: AppThemeDataService.AccentColor,
+              //       ),
+              //       onPressed: () {
+              //       },
+              //       child: Row(
+              //         children: [
+              //           Radio(
+              //             onChanged: (value) {
+              //               _setSelectedRadioGender(1);
+              //             },
+              //             value: 1,
+              //             groupValue: selectedRadioGender,
+              //             activeColor: Colors.white,
+              //           ),
+              //           SizedBox(
+              //             width: 5,
+              //           ),
+              //           Text(
+              //             S.of(context).shiftingFrom,
+              //             style: AppTextStyle.mediumWhite,
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //     ElevatedButton(
+              //       style: ElevatedButton.styleFrom(
+              //         primary: AppThemeDataService.AccentColor,
+              //       ),
+              //       onPressed: () {
+              //       },
+              //       child: Row(
+              //         children: [
+              //           Radio(
+              //             onChanged: (value) {
+              //               _setSelectedRadioGender(2);
+              //             },
+              //             value: 2,
+              //             groupValue: selectedRadioGender,
+              //             activeColor: Colors.white,
+              //           ),
+              //           SizedBox(
+              //             width: 5,
+              //           ),
+              //           Text(
+              //             S.of(context).shiftingTo,
+              //             style: AppTextStyle.mediumWhite,
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ],
+              // ),
               SelectShiftingWarehousesSuccessfully(
                 items: items,
                 goToShiftShipment: (id){
-                  if(selectedRadioGender == 1){
+                  if(from){
                     request = ShiftingShipmentFilterRequest(fromImportWarehouseID: id);
                     Navigator.pushNamed(context, ShiftingRoutes.VIEW_ALL , arguments: {'filterRequest' : request});
                   }else{
@@ -170,15 +173,15 @@ class _CountriesScreenState extends State<ShiftWarehouseScreen> {
       );
     }
   }
-  void _setSelectedRadioGender(int val) {
-    setState(() {
-      selectedRadioGender = val;
-      if (val == 1) {
-
-      } else if (val == 2) {
-
-      }
-      print(val);
-    });
-  }
+  // void _setSelectedRadioGender(int val) {
+  //   setState(() {
+  //     selectedRadioGender = val;
+  //     if (val == 1) {
+  //
+  //     } else if (val == 2) {
+  //
+  //     }
+  //     print(val);
+  //   });
+  // }
 }

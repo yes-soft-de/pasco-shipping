@@ -191,7 +191,7 @@ class _MarkSuccessfullyScreenState extends State<ContainerFinanceSuccessfullyScr
                       child: Row(children: [
                         Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                         SizedBox(width: 5,),
-                        Text(S.of(context).paymentTime , style: AppTextStyle.mediumBlackBold,)
+                        Text(S.of(context).paymentType , style: AppTextStyle.mediumBlackBold,)
                       ],),
                     ),
                     SelectDropList(
@@ -262,7 +262,7 @@ class _MarkSuccessfullyScreenState extends State<ContainerFinanceSuccessfullyScr
                             stageDescription: description.text,
                           paymentType: optionItemSelectedPayment.title,
                           subcontractID: optionItemSelectedSubContract.id,
-                          financialFundName: optionItemSelectedFund.title,chequeNumber: checkNumber.text
+                          financialFundName: optionItemSelectedFund.title =='choose'?'' :optionItemSelectedFund.title,
                         );
                         widget.addFinance(mark);
                       }

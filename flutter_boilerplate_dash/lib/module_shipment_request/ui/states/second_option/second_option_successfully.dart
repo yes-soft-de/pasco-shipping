@@ -218,21 +218,8 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              Text(
-                S.of(context).carrier,
-                style: AppTextStyle.mediumBlackBold,
-              ),
-              SelectDropList(
-                this.optionItemSelectedCarrier,
-                this.dropListModelCarrier,
-                    (optionItem) {
-                  optionItemSelectedCarrier = optionItem;
-                  setState(() {});
-                },
-              ),
-              SizedBox(
-                height: 15,
-              ),
+
+
               Text(
                 S.of(context).harbors,
                 style: AppTextStyle.mediumBlackBold,
@@ -441,6 +428,18 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                                    },
                                  ))
                                  .toList(),
+                           ),
+                           Text(
+                             S.of(context).carrier,
+                             style: AppTextStyle.mediumBlackBold,
+                           ),
+                           SelectDropList(
+                             this.optionItemSelectedCarrier,
+                             this.dropListModelCarrier,
+                                 (optionItem) {
+                               optionItemSelectedCarrier = optionItem;
+                               setState(() {});
+                             },
                            ),
                            TextEdit(title: '', hint: S
                                .of(context)

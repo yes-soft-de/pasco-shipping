@@ -61,11 +61,13 @@ class AcceptedShipmentDetailsModel {
     this.subShipmentModelList,
    required this.pendingHolders,
     this.gunnyModel,
+    this.shipmentInvoiceID,
    required this.info
   });
 
   int? shipmentId;
   int? clientUserID;
+  int? shipmentInvoiceID;
   String? clientUsername;
   String? target;
 
@@ -104,11 +106,12 @@ class AcceptedShipmentDetailsModel {
   AcceptedShipmentDetailsModel.fromJson(Map<String, dynamic> json) {
     shipmentId = json["id"];
     clientUserID  = json["clientUserID"]??14;
+    shipmentInvoiceID  = json['shipmentInvoiceID'];
     clientUsername= json['clientUsername'];
     target= json["target"];
     supplierName= json["supplierName"];
     distributorName= json["distributorName"];
-    exportWarehouseName=json["exportWarehouseName"]??'';
+    exportWarehouseName=json["exportWarehouseName"]?? json['externalWarehouseInfo'];
     importWarehouseName= json["importWarehouseName"];
     quantity= json["quantity"];
     holderCount= json["holderCount"];

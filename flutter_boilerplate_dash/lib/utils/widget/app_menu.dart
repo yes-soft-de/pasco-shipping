@@ -5,6 +5,8 @@ import 'package:pasco_shipping/module_harbor/harbor_routes.dart';
 import 'package:pasco_shipping/module_home/ui/screen/home_screen.dart';
 import 'package:pasco_shipping/module_price/price_routes.dart';
 import 'package:pasco_shipping/module_shifting_shipment/shifting_routes.dart';
+import 'package:pasco_shipping/module_shipment_invoices/invoice_shipment_routes.dart';
+import 'package:pasco_shipping/module_shipment_invoices/request/invoice_filter_request.dart';
 import 'package:pasco_shipping/module_shipper/shipper_routes.dart';
 import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_unit/unit_module.dart';
@@ -393,11 +395,19 @@ class AppMenu extends ConsumerWidget {
                   children: [
                     ListTile(
                         title: new Text(
-                          S.of(context).view,
+                          'Received shifting request',
                         ),
                         onTap: () {
-                          // Navigator.pushNamed(context,ShiftingRoutes.VIEW_WAREHOUSE);
-                          selectPage(context, ref,ShiftingRoutes.VIEW_WAREHOUSE);
+                          Navigator.pushNamed(context,ShiftingRoutes.VIEW_WAREHOUSE,arguments: {'from':false});
+                          // selectPage(context, ref,ShiftingRoutes.VIEW_WAREHOUSE);
+                        }),
+                    ListTile(
+                        title: new Text(
+                          'Sended shifting request',
+                        ),
+                        onTap: () {
+                          Navigator.pushNamed(context,ShiftingRoutes.VIEW_WAREHOUSE,arguments: {'from':true});
+                          // selectPage(context, ref,ShiftingRoutes.VIEW_WAREHOUSE);
                         }),
                   ],
                 ),
@@ -640,7 +650,40 @@ class AppMenu extends ConsumerWidget {
             ],
           ) :Container(),
 
-
+          //invoices
+          (ListEquality().equals ( role , EmployeeRoleName['Admin Report']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Invoices' ,style: AppTextStyle.mediumDeepGrayBold,),
+              ),
+              ExpansionTile(
+                title: new Text('Shipment invoices'),
+                leading: Icon(Icons.insert_invitation_outlined),
+                children: <Widget>[
+                  ListTile(
+                      title:Text('Paid'),
+                      onTap: () {
+                        InvoiceFilterRequest request =InvoiceFilterRequest(paymentStatus: 'paid');
+                        Navigator.pushNamed(
+                            context, InvoiceShipmentRoutes.VIEW_ALL ,arguments: {'filterRequest' :request});
+                      }),
+                  ListTile(
+                      title:Text('Not Paid'),
+                      onTap: () {
+                        InvoiceFilterRequest request =InvoiceFilterRequest(paymentStatus: 'notpaid');
+                        Navigator.pushNamed(
+                            context, InvoiceShipmentRoutes.VIEW_ALL,arguments: {'filterRequest' :request});
+                      }),
+                ],
+              ),
+              Divider(
+                color: Colors.grey,
+              ),
+            ],
+          ) :Container(),
           // /BasicInfo
           (ListEquality().equals ( role , EmployeeRoleName['Admin Data Entry']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
           Column(

@@ -1,6 +1,6 @@
 class ConfirmResponse{
   bool isConfirmed;
-  String message;
+  String? message;
 
   ConfirmResponse(this.isConfirmed, this.message);
 }

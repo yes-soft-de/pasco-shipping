@@ -1,17 +1,26 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_shifting_shipment/shifting_routes.dart';
+import 'package:pasco_shipping/module_shipment_invoices/invoice_shipment_routes.dart';
+import 'package:pasco_shipping/module_shipment_invoices/request/create_invoice_request.dart';
+import 'package:pasco_shipping/module_shipment_invoices/request/invoice_filter_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/state_manager/accepted_shipment_details_state_manager.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_details_state/accepted_shipment_details_state.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_details_state/accepted_shipment_details_successfully.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
+import 'package:pasco_shipping/utils/widget/roundedButton.dart';
+import 'package:pasco_shipping/utils/widget/text_edit.dart';
 
 import '../../accepted_shipment_routes.dart';
 
@@ -88,6 +97,48 @@ class _CountriesScreenState extends State<AcceptedShipmentDetailsScreen> {
         Navigator.pushNamed(context,ShiftingRoutes.ADD , arguments: {'id' : id ,'trackNumber': trackNumber} ).then((value){
           widget._stateManager.getDetailsShipment(id.toString());
         });
+      }, onCreateInvoice: (id){
+       CreateInvoiceRequest request =  CreateInvoiceRequest(shipmentID: id);
+       showDialog(
+           context: context,
+           builder: (context) {
+             return StatefulBuilder(
+                 builder: (context, setState) {
+                   return AlertDialog(
+                       title: Text('Create Invoice'),
+                       content: SingleChildScrollView(
+                         child: Container(
+                           width: double.maxFinite,
+                           child: Column(
+                             children: [
+                               TextEdit(title: '', hint: S
+                                   .of(context)
+                                   .importantNote, onChange: (notes) {
+                                 request.notes = notes;
+                               }),
+                               TextEdit(title: '', hint: 'Discount', onChange: (notes) {
+                                 request.discount = int.parse(notes);
+                               }),
+                               RoundedButton(lable: S
+                                   .of(context)
+                                   .save,
+                                   icon: '',
+                                   color: blue,
+                                   style: AppTextStyle.mediumWhite,
+                                   go: () {
+                                 Navigator.pop(context);
+                                 widget._stateManager.createInvoice(request, detailsModel);
+                                   },
+                                   radius: 12)
+                             ],
+                           ),
+                         ),
+                       ));
+                 });
+           });
+      },onShowInvoice: (id){
+        InvoiceFilterRequest request =InvoiceFilterRequest(shipmentID: id);
+       Navigator.pushNamed(context, InvoiceShipmentRoutes.VIEW_ALL,arguments: {'filterRequest' : request});
       },
       );
     }

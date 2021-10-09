@@ -47,7 +47,7 @@ class AddContainerStateManager {
         if (value.isConfirmed) {
           _addStateSubject.add(SuccessfullyAddState(value));
         } else {
-          _addStateSubject.add(ErrorAddState('error'));
+          _addStateSubject.add(ErrorAddState(value.message ??'error'));
         }
       } else {
         _addStateSubject.add(ErrorAddState('error'));

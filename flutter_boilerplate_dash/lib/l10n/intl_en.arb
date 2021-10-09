@@ -405,6 +405,7 @@
   "updateHarbor": "Update harbor",
   "shipmentShifting":"Shifting Shipment",
   "shiftingFrom": "Shifting From",
-  "shiftingTo": "Shifting To"
+  "shiftingTo": "Shifting To",
+  "paymentType": "Payment type"
 
 }

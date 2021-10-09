@@ -9,45 +9,18 @@ class ShipmentFinanceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Card(
-        color: Colors.grey[200],
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
+    return Card(
+      color: Colors.grey[300],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      child: ExpansionTile(
+        title:ListTile(title: Text(model.status.toString() ,style: AppTextStyle.largeBlackBold, ),subtitle:Padding(
+          padding: const EdgeInsetsDirectional.only(top: 10),
+          child: Text(model.stageCost.toString(),style: AppTextStyle.largeBlue, ),
+        ),),
+        leading: Icon(Icons.monetization_on,size: 30,),
+        children: [
+          Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Text(
-                     S.of(context).stageCost,
-                      style: AppTextStyle.mediumBlack,
-                    ),
-                    Text(
-                      model.stageCost.toString(),
-                      style: AppTextStyle.mediumBlueBold,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Text(
-                      S.of(context).shipmentStatus+': ',
-                      style: AppTextStyle.mediumBlack,
-                    ),
-                    Text(
-                      model.status ?? '',
-                      style: AppTextStyle.mediumBlueBold,
-                    ),
-                  ],
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -156,7 +129,7 @@ class ShipmentFinanceCard extends StatelessWidget {
               // ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

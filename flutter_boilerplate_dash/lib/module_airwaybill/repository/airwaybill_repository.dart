@@ -103,7 +103,8 @@ class AirwaybillRepository{
     var token = await _authService.getToken();
     try {
       var response = await _apiClient.post(Urls.AIRWAYBILL_FILTER,filters.toJson(),
-          headers: {'Authorization': 'Bearer $token'});
+          headers: {'Authorization': 'Bearer $token'}
+          );
       AirwaybillResponse travelResponse =  AirwaybillResponse.fromJson(response!);
       List<AirwaybillModel>? travels = [];
       if(travelResponse.data != null) {

@@ -75,7 +75,8 @@ class ContainerRepository{
     var token =  await _authService.getToken();
     try {
       var response = await _apiClient.post(Urls.CONTAINER_FILTER,filters.toJson(),
-          headers: {'Authorization': 'Bearer $token'});
+          // headers: {'Authorization': 'Bearer $token'}
+          );
       ContainerResponse travelResponse =  ContainerResponse.fromJson(response!);
       List<ContainerModel>? travels = [];
       if(travelResponse.data != null) {
@@ -141,12 +142,17 @@ Future<ConfirmResponse?> updateContainer(ContainerRequest request) async {
 
   var response = await _apiClient.put(Urls.CONTAINER, request.toJson(),
       headers: {'Authorization': 'Bearer $token'});
-  String? statusCode = ContainerResponse.fromJson(response!).statusCode;
-  String? msg = ContainerResponse.fromJson(response).msg;
+  ContainerResponse responsev =  ContainerResponse.fromJson(response!);
+  String? statusCode = responsev.statusCode;
+  // String? msg = responsev.data;
   if(statusCode =='204'){
-    return ConfirmResponse(true, msg!);
+    if(responsev.data is String) {
+      return ConfirmResponse(false, responsev.data);
+    }else{
+      return ConfirmResponse(true, responsev.msg);
+    }
   }else {
-    return ConfirmResponse(false, msg!);
+    return ConfirmResponse(false, 'error');
   }
 }
   }

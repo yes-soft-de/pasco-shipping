@@ -28,12 +28,11 @@ class ShipmentsShiftingStateManager {
     });
   }
 
-  void updateStatus(UpdateShiftingStatusRequest request) {
+  void updateStatus(UpdateShiftingStatusRequest request,ShiftingShipmentFilterRequest request5) {
     _stateSubject.add(LoadingState());
     _service.updateShiftStatus(request).then((value) {
       if (value != null) {
         if (value.isConfirmed) {
-          ShiftingShipmentFilterRequest  request5 = ShiftingShipmentFilterRequest();
           _service.getShiftingShipment(request5).then((marks) {
             if (marks != null && marks.isNotEmpty) {
               _stateSubject.add(SuccessfullyFetchState(marks));

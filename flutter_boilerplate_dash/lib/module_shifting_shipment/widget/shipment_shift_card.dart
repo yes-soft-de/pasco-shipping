@@ -6,7 +6,8 @@ import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 class ShipmentShiftCard extends StatelessWidget {
   final ShipmentShiftingModel model;
   final Function onChangeStatus;
-  const ShipmentShiftCard({Key? key,required this.model,required this.onChangeStatus}) : super(key: key);
+  final bool hideButton;
+  const ShipmentShiftCard({Key? key,required this.model,required this.onChangeStatus,required this.hideButton}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class ShipmentShiftCard extends StatelessWidget {
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
-                  flex: 3,
+                  flex: 2,
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,7 +116,7 @@ class ShipmentShiftCard extends StatelessWidget {
                             )],
                         ),
                       ])),
-              Flexible(
+             hideButton ?Container(): Flexible(
                 flex: 1,
                 child: Column(
                   children: [
