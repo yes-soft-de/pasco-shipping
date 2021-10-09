@@ -3,11 +3,13 @@
 namespace App\Service;
 
 use App\AutoMapping;
+use App\Constant\ContainerFCLFinancialStatusConstant;
 use App\Entity\ContainerFCLFinanceEntity;
 use App\Manager\ContainerFCLFinanceManager;
 use App\Request\ContainerDistributeStatusCostRequest;
 use App\Request\ContainerFCLFinanceCreateRequest;
 use App\Request\ContainerFCLFinanceFilterRequest;
+use App\Request\ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest;
 use App\Response\ContainerFCLFinanceCreateResponse;
 use App\Response\ContainerFCLFinanceFilterResponse;
 use App\Response\DeleteAllGetResponse;
@@ -18,12 +20,15 @@ class ContainerFCLFinanceService
 {
     private $autoMapping;
     private $containerFCLFinanceManager;
+    private $shipmentInvoiceService;
     private $params;
 
-    public function __construct(AutoMapping $autoMapping, ContainerFCLFinanceManager $containerFCLFinanceManager, ParameterBagInterface $params)
+    public function __construct(AutoMapping $autoMapping, ContainerFCLFinanceManager $containerFCLFinanceManager, ParameterBagInterface $params,
+     ShipmentInvoiceService $shipmentInvoiceService)
     {
         $this->autoMapping = $autoMapping;
         $this->containerFCLFinanceManager = $containerFCLFinanceManager;
+        $this->shipmentInvoiceService = $shipmentInvoiceService;
 
         $this->params = $params->get('upload_base_url') . '/';
     }
@@ -34,10 +39,40 @@ class ContainerFCLFinanceService
 
         if($containerFinanceResult instanceof ContainerFCLFinanceEntity)
         {
+            if(in_array($request->getStatus(), ContainerFCLFinancialStatusConstant::$FCL_CONTAINER_BILL_DETAILS))
+            {
+                /**
+                 * Check if shipment has a previous invoice, if it does, then updated the total cost
+                 * If it does not have an invoice, then do nothing
+                 */
+                $invoice = $this->shipmentInvoiceService->getShipmentInvoiceIdByShipmentID($this->getShipmentIdByContainerID($request->getContainerID()));
+
+                if($invoice)
+                {
+                    $this->updateShipmentInvoiceTotalCostByInvoiceIdAndShipmentID($this->getShipmentIdByContainerID($request->getContainerID()), $invoice->id);
+                }
+            }
+
             return $this->autoMapping->map(ContainerFCLFinanceEntity::class, ContainerFCLFinanceCreateResponse::class, $containerFinanceResult);
         }
 
         return $containerFinanceResult;
+    }
+
+    public function updateShipmentInvoiceTotalCostByInvoiceIdAndShipmentID($shipmentID, $invoiceID)
+    {
+        $invoiceUpdateRequest = new ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest();
+
+        $invoiceUpdateRequest->setId($invoiceID);
+        $invoiceUpdateRequest->setTotalCost($this->containerFCLFinanceManager->getContainerFCLTotalCostByShipmentID($shipmentID));
+        $invoiceUpdateRequest->setBillDetails($this->containerFCLFinanceManager->getContainerFCLBillDetailsByShipmentID($shipmentID));
+
+        $this->shipmentInvoiceService->updateTotalCostAndBillDetails($invoiceUpdateRequest);
+    }
+
+    public function getShipmentIdByContainerID($containerID)
+    {
+        return $this->containerFCLFinanceManager->geShipmentIdByContainerID($containerID);
     }
 
     public function filterContainerFCLFinances(ContainerFCLFinanceFilterRequest $request)
