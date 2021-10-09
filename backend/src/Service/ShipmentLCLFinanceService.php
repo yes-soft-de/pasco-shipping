@@ -44,7 +44,7 @@ class ShipmentLCLFinanceService
 
             if($invoice)
             {
-                $this->updateShipmentInvoiceTotalCostByInvoiceID($request->getShipmentID(), $invoice->id);
+                $this->updateShipmentInvoiceTotalCostByInvoiceIdAndShipmentID($request->getShipmentID(), $invoice->id);
             }
 
             return $this->autoMapping->map(ShipmentLCLFinanceEntity::class, ShipmentLCLFinanceCreateResponse::class, $shipmentLCLFinanceResult);
@@ -53,7 +53,7 @@ class ShipmentLCLFinanceService
         return $shipmentLCLFinanceResult;
     }
 
-    public function updateShipmentInvoiceTotalCostByInvoiceID($shipmentID, $invoiceID)
+    public function updateShipmentInvoiceTotalCostByInvoiceIdAndShipmentID($shipmentID, $invoiceID)
     {
         $invoiceUpdateRequest = new ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest();
 
