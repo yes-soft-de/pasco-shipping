@@ -123,4 +123,18 @@ class ShipmentInvoiceService
         return $this->autoMapping->map('array', ShipmentInvoiceIDGetResponse::class, $result);
     }
 
+    public function delete($request)
+    {
+        $shipmentInvoiceEntity = $this->shipmentInvoiceManager->delete($request);
+
+        if($shipmentInvoiceEntity instanceof ShipmentInvoiceEntity)
+        {
+            return $this->autoMapping->map(ShipmentInvoiceEntity::class, ShipmentInvoiceCreateResponse::class, $shipmentInvoiceEntity);
+        }
+        else
+        {
+            return $shipmentInvoiceEntity;
+        }
+    }
+
 }

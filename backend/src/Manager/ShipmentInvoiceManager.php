@@ -8,6 +8,7 @@ use App\Constant\ShippingTypeConstant;
 use App\Constant\ShippingWayConstant;
 use App\Entity\ShipmentInvoiceEntity;
 use App\Repository\ShipmentInvoiceEntityRepository;
+use App\Request\DeleteRequest;
 use App\Request\ShipmentInvoiceCreateRequest;
 use App\Request\ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest;
 use App\Request\ShipmentInvoiceUpdatePaymentInfoRequest;
@@ -240,6 +241,23 @@ class ShipmentInvoiceManager
     public function getShipmentInvoiceIdByShipmentID($shipmentID)
     {
         return $this->shipmentInvoiceEntityRepository->getShipmentInvoiceIdByShipmentID($shipmentID);
+    }
+
+    public function delete(DeleteRequest $request)
+    {
+        $shipmentInvoiceEntity = $this->shipmentInvoiceEntityRepository->find($request->getId());
+
+        if(!$shipmentInvoiceEntity)
+        {
+            return "No invoice was found!";
+        }
+        else
+        {
+            $this->entityManager->remove($shipmentInvoiceEntity);
+            $this->entityManager->flush();
+
+            return $shipmentInvoiceEntity;
+        }
     }
 
 }
