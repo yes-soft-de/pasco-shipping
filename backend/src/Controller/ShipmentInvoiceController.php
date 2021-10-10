@@ -283,6 +283,7 @@ class ShipmentInvoiceController extends BaseController
      *                  @OA\Property(type="string", property="invoiceImage"),
      *                  @OA\Property(type="string", property="receiptImage"),
      *                  @OA\Property(type="integer", property="totalCost"),
+     *                  @OA\Property(type="integer", property="finalAmount"),
      *                  @OA\Property(type="integer", property="discount"),
      *                  @OA\Property(type="string", property="notes"),
      *                  @OA\Property(type="object", property="billDetails")

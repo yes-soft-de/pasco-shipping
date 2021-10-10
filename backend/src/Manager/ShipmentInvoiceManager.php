@@ -54,15 +54,19 @@ class ShipmentInvoiceManager
             $shipmentInvoiceEntity->setBillDetails($this->getShipmentBillDetailsByShipmentID($request->getShipmentID()));
 
             // Check if there is a discount, and update the total cost according to it
-            if ($request->getDiscount())
+            if($request->getDiscount())
             {
                 $totalCost = $this->getShipmentFinanceTotalCostByShipmentID($request->getShipmentID());
 
-                $shipmentInvoiceEntity->setTotalCost($totalCost - ($totalCost * $request->getDiscount() / 100));
+                $shipmentInvoiceEntity->setTotalCost($totalCost);
+
+                $shipmentInvoiceEntity->setFinalAmount($totalCost - ($totalCost * $request->getDiscount() / 100));
             }
             else
             {
                 $shipmentInvoiceEntity->setTotalCost($this->getShipmentFinanceTotalCostByShipmentID($request->getShipmentID()));
+
+                $shipmentInvoiceEntity->setFinalAmount($this->getShipmentFinanceTotalCostByShipmentID($request->getShipmentID()));
             }
 
             $this->entityManager->persist($shipmentInvoiceEntity);
@@ -169,7 +173,7 @@ class ShipmentInvoiceManager
             // Check if there is a discount, and update the total cost according to it
             if($request->getDiscount() != null)
             {
-                $shipmentInvoiceEntity->setTotalCost($shipmentInvoiceEntity->getTotalCost() - ($shipmentInvoiceEntity->getTotalCost() * $request->getDiscount() / 100));
+                $shipmentInvoiceEntity->setFinalAmount($shipmentInvoiceEntity->getTotalCost() - ($shipmentInvoiceEntity->getTotalCost() * $request->getDiscount() / 100));
             }
 
             $this->entityManager->flush();
@@ -216,15 +220,13 @@ class ShipmentInvoiceManager
         {
             if($shipmentInvoiceEntity->getDiscount())
             {
-                $totalCostAfterDiscounting = $request->getTotalCost() - ($request->getTotalCost() * $shipmentInvoiceEntity->getDiscount() / 100);
-
-                $newTotalCost = $shipmentInvoiceEntity->getTotalCost() + $totalCostAfterDiscounting;
-
-                $request->setTotalCost($newTotalCost);
+                $finalAmount = $request->getTotalCost() - ($request->getTotalCost() * $shipmentInvoiceEntity->getDiscount() / 100);
             }
 
             $shipmentInvoiceEntity = $this->autoMapping->mapToObject(ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest::class, ShipmentInvoiceEntity::class,
                 $request, $shipmentInvoiceEntity);
+
+            $shipmentInvoiceEntity->setFinalAmount($finalAmount);
 
             $this->entityManager->flush();
             $this->entityManager->clear();

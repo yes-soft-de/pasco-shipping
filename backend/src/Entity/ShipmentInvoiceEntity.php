@@ -95,6 +95,11 @@ class ShipmentInvoiceEntity
      */
     private $billDetails;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $finalAmount;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -276,6 +281,18 @@ class ShipmentInvoiceEntity
     public function setBillDetails($billDetails): self
     {
         $this->billDetails = $billDetails;
+
+        return $this;
+    }
+
+    public function getFinalAmount(): ?float
+    {
+        return $this->finalAmount;
+    }
+
+    public function setFinalAmount(?float $finalAmount): self
+    {
+        $this->finalAmount = $finalAmount;
 
         return $this;
     }
