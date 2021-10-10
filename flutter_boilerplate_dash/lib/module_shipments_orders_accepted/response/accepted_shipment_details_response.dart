@@ -43,6 +43,7 @@ class AcceptedShipmentDetailsModel {
     this.quantity,
     this.holderCount,
     this.updatedAt,
+    this.remainedQuantity,
     this.productCategoryName,
     this.subProductCategoryName,
     this.unit,
@@ -68,6 +69,7 @@ class AcceptedShipmentDetailsModel {
   int? shipmentId;
   int? clientUserID;
   int? shipmentInvoiceID;
+  int? remainedQuantity;
   String? clientUsername;
   String? target;
 
@@ -115,6 +117,7 @@ class AcceptedShipmentDetailsModel {
     importWarehouseName= json["importWarehouseName"];
     quantity= json["quantity"];
     holderCount= json["holderCount"];
+    remainedQuantity = json['remainedQuantity'];
     updatedAt= DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json["updatedAt"]).timestamp! * 1000);
     productCategoryName= json["productCategoryName"];

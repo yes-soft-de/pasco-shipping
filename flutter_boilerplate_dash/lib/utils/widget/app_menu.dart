@@ -403,7 +403,7 @@ class AppMenu extends ConsumerWidget {
                         }),
                     ListTile(
                         title: new Text(
-                          'Sended shifting request',
+                          'Sent shifting request',
                         ),
                         onTap: () {
                           Navigator.pushNamed(context,ShiftingRoutes.VIEW_WAREHOUSE,arguments: {'from':true});

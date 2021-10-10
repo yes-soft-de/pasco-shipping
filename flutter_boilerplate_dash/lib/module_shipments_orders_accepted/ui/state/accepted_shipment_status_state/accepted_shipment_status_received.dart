@@ -57,6 +57,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
   late String transportation;
   late bool isExternalWarehouse;
   late String holderType;
+  late int remainedQuantity;
 
   TextEditingController editingController = TextEditingController();
 
@@ -145,6 +146,8 @@ class _AcceptedShipmentDetailsSuccessfullyState
     isExternalWarehouse =arguments['isExternalWarehouse'];
 
     holderType =arguments['holderType'];
+    remainedQuantity =arguments['remainedQuantity'];
+    print('nnnnnnnnnnnn'+remainedQuantity.toString());
   }
 
   @override
@@ -180,7 +183,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
-              color: Colors.grey,
+              color: Colors.grey[400],
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               child: Column(children: [
                 Padding(
@@ -319,7 +322,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   if(optionItemSelectedGunny.id ==0){
                     Fluttertoast.showToast(msg: S.of(context).chooseGunny);
                   }else{
-                    AddShipmentToGunnyRequest m  = AddShipmentToGunnyRequest(shipmentID: shipmentID ,trackNumber: trackNumber ,gunnyID: optionItemSelectedGunny.id,quantity: int.parse(quantityController.text), gunnyStatus:gunnyFull?'full':'notfull');
+                    AddShipmentToGunnyRequest m  = AddShipmentToGunnyRequest(shipmentID: shipmentID ,trackNumber: trackNumber ,gunnyID: optionItemSelectedGunny.id,quantity: int.parse(quantityController.text), gunnyStatus:gunnyFull?'full':'notfull',gunnyNumber:optionItemSelectedGunny.title);
                     widget.onStoredInGunny(m);
                   }
                 }, radius: 5),
@@ -339,7 +342,19 @@ class _AcceptedShipmentDetailsSuccessfullyState
               )
             ],
           ),
-        ):Container(),
+        ):Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Text(S.of(context).remainedQuantity+': ',style: AppTextStyle.mediumBlackBold),
+                  Text(remainedQuantity.toString(),style: AppTextStyle.largeBlueBold)
+                ],
+              )
+            ],
+          ),
+        ),
 
         Padding(
           padding: const EdgeInsets.all(8.0),

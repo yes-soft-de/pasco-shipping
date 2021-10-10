@@ -38,6 +38,7 @@ class InvoiceModel {
     this.paidOnBehalfBy,
     this.paymentDate,
     this.totalCost,
+    this.finalAmount,
     this.invoiceImage,
     this.receiptImage,
     this.paymentStatus,
@@ -61,6 +62,7 @@ class InvoiceModel {
   String? invoiceImage;
   String? receiptImage;
   String? totalCost;
+  String? finalAmount;
   int? discount;
   String? notes;
 
@@ -86,8 +88,9 @@ class InvoiceModel {
     shipmentID= json['shipmentID'];
     clientUserID= json["clientUserID"]??'';
     clientUserName= json["clientUserName"]??'';
+    finalAmount= json["finalAmount"].toString();
 
-    paidByClient= json['paidByClient'];
+    paidByClient= json['paidBy'] != null ? json["clientUserName"] :'';
     paymentStatus= json['paymentStatus'];
 
     paidOnBehalfBy= json['paidOnBehalfBy'];

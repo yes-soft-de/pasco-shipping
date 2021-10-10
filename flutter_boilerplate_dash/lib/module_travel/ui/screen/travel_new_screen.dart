@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
@@ -47,7 +48,12 @@ class _AddNewCountryState extends State<AddNewTravel> {
       print("newEvent"+event.toString());
       currentState = event;
       if (this.mounted) {
-        setState(() {});
+        if(currentState is SuccessfullyAddState){
+            Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
+          Navigator.pop(context);
+        }else {
+          setState(() {});
+        }
       }
     });
     // widget._stateManager.getCountriesAndSubContract();
@@ -66,23 +72,31 @@ class _AddNewCountryState extends State<AddNewTravel> {
       );
     }
     else if (currentState is InitAddState){
-      // InitAddState? state = currentState as InitAddState?;
-      // countries = state!.countries;
-      // subs = state.subcontracts;
-      return AddTravelInit(
-        // countries: countries,
-        // subContracts: subs,
-        onSave: (request){
-        widget._stateManager.createTravel(request);
-      },);
-    }
-    else if (currentState is SuccessfullyAddState){
-      Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
       return AddTravelInit(
         onSave: (request){
-        widget._stateManager.createTravel(request);
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.createTravel(request);
+            },
+            text: 'Do you really want to create a new travel',
+          );
+
       },);
     }
+    // else if (currentState is SuccessfullyAddState){
+    //   Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
+    //   return AddTravelInit(
+    //     onSave: (request){
+    //     widget._stateManager.createTravel(request);
+    //   },);
+    // }
     else {
       return Center(
         child: Column(

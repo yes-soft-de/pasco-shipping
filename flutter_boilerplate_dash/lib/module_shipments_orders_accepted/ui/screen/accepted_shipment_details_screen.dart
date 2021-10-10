@@ -85,8 +85,8 @@ class _CountriesScreenState extends State<AcceptedShipmentDetailsScreen> {
       AcceptedShipmentDetailsModel detailsModel = state.model;
       // List<ContainerModel> containers = state.containers;
       return AcceptedShipmentDetailsSuccessfully(
-     shipment: detailsModel, onShowStatus: (id , trackNumber, cityName,holderType,status , transportationType,isExternalWarehouse,clientUserID){
-          Navigator.pushNamed(context,AcceptedShipmentRoutes.STATUS , arguments: {'id' : id ,'trackNumber': trackNumber ,'cityName':cityName , 'holderType':holderType,'status':status , 'transportation':transportationType,'isExternalWarehouse':isExternalWarehouse,'clientUserID':clientUserID , 'quantity':detailsModel.quantity} ).then((value){
+     shipment: detailsModel, onShowStatus: (id , trackNumber, cityName,holderType,status , transportationType,isExternalWarehouse,clientUserID,remainedQuantity){
+          Navigator.pushNamed(context,AcceptedShipmentRoutes.STATUS , arguments: {'id' : id ,'trackNumber': trackNumber ,'cityName':cityName , 'holderType':holderType,'status':status , 'transportation':transportationType,'isExternalWarehouse':isExternalWarehouse,'clientUserID':clientUserID , 'quantity':detailsModel.quantity,'remainedQuantity':remainedQuantity} ).then((value){
             widget._stateManager.getDetailsShipment(id.toString());
           });
       }, onShowFinance: (id , trackNumber){

@@ -832,79 +832,97 @@ class PdfParagraphApi {
               color: PdfColors.blue,),
           ),
           SizedBox(height: 0.5 * PdfPageFormat.cm),
-          Column(
-            children:[
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                Row(children: [
-                  Text('Invoice Number: ', style:TextStyle( fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: PdfColors.black,
-                  )),
-                  Text(model.id.toString(),
-                      style:TextStyle( fontSize: 18,
-                        color: PdfColors.black,
-                      )
-                  ),
-                ]),
-                Row(children: [
-                  Text('Payment Date: ', style:TextStyle( fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: PdfColors.black,
-                  )),
-                  Text(model.paymentDate.toString().split(' ').first.toString(),
-                      style:TextStyle( fontSize: 18,
-                        color: PdfColors.black,
-                      )
-                  ),
-                ]),
+          Padding(padding: EdgeInsets.all( 8 * PdfPageFormat.mm) ,child:  Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children:[
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(children: [
+                        Text('Invoice Number: ', style:TextStyle( fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: PdfColors.black,
+                        )),
+                        Text(model.id.toString(),
+                            style:TextStyle( fontSize: 18,
+                              color: PdfColors.black,
+                            )
+                        ),
+                      ]),
+                      Row(children: [
+                        Text('Payment Date: ', style:TextStyle( fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: PdfColors.black,
+                        )),
+                        Text(model.paymentDate.toString().split(' ').first.toString(),
+                            style:TextStyle( fontSize: 18,
+                              color: PdfColors.black,
+                            )
+                        ),
+                      ]),
 
-              ])
-            ]
-          ),
+
+                    ]),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(children: [
+                        Text('Client Name: ', style:TextStyle( fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: PdfColors.black,
+                        )),
+                        Text(model.clientUserName.toString().split(' ').first.toString(),
+                            style:TextStyle( fontSize: 18,
+                              color: PdfColors.black,
+                            )
+                        ),
+                      ]),
+                      Row(children: [
+                        Text('Client Phone: ', style:TextStyle( fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: PdfColors.black,
+                        )),
+                        Text(model.clientPhone.toString().split(' ').first.toString(),
+                            style:TextStyle( fontSize: 18,
+                              color: PdfColors.black,
+                            )
+                        ),
+                      ]),
+
+
+                    ]),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(children: [
+                        Text('Serial Number: ', style:TextStyle( fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: PdfColors.black,
+                        )),
+                        Text(model.clientIdentificationNumber.toString().split(' ').first.toString(),
+                            style:TextStyle( fontSize: 18,
+                              color: PdfColors.black,
+                            )
+                        ),
+                      ]),
+                      Row(children: [
+                        Text('Payment Time: ', style:TextStyle( fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: PdfColors.black,
+                        )),
+                        Text(model.paymentTime.toString().split(' ').first.toString(),
+                            style:TextStyle( fontSize: 18,
+                              color: PdfColors.black,
+                            )
+                        ),
+                      ]),
+
+
+                    ]),
+              ]
+          ),),
+
           SizedBox(height: 0.5 * PdfPageFormat.cm),
-          // Table(
-          //   tableWidth: TableWidth.max,
-          //   border: TableBorder.all(),
-          //   children: [
-          //     TableRow(
-          //         children: [
-          //           Padding( padding: const EdgeInsets.all(8.0), child: Row(children: [
-          //             Text('ID: ' ,style:TextStyle( fontSize: 18,
-          //               fontWeight: FontWeight.bold,
-          //               color: PdfColors.black,) ),
-          //             Text(model.id.toString(),style:TextStyle( fontSize: 16,
-          //               color: PdfColors.blue,))
-          //           ])),
-          //           Padding( padding: const EdgeInsets.all(8.0), child: Row(children: [
-          //             Text('Shipment ID'+': ' ,style:TextStyle( fontSize: 18,
-          //               fontWeight: FontWeight.bold,
-          //               color: PdfColors.black,) ),
-          //             Text(model.shipmentID.toString(),style:TextStyle( fontSize: 16,
-          //               color: PdfColors.blue,))
-          //           ]),),
-          //         ]),
-          //     TableRow(
-          //         children: [
-          //           Padding( padding: const EdgeInsets.all(8.0), child:   Row(children: [
-          //             Text(S.current.cost+': ' ,style:TextStyle( fontSize: 18,
-          //               fontWeight: FontWeight.bold,
-          //               color: PdfColors.black,) ),
-          //             Text(model.totalCost ??'',style:TextStyle( fontSize: 16,
-          //               color: PdfColors.blue,))
-          //           ]),),
-          //           Padding( padding: const EdgeInsets.all(8.0), child:   Row(children: [
-          //             Text('Discount: ' ,style:TextStyle( fontSize: 18,
-          //               fontWeight: FontWeight.bold,
-          //               color: PdfColors.black,) ),
-          //             Text(model.discount.toString(),style:TextStyle( fontSize: 16,
-          //               color: PdfColors.blue,))
-          //           ]),),
-          //         ]),
-          //   ],
-          // ),
-          // SizedBox(height: 0.5 * PdfPageFormat.cm),
           Text(
             'Invoice Details',
             style: TextStyle( fontSize: 24,
@@ -966,7 +984,7 @@ class PdfParagraphApi {
                           fontWeight: FontWeight.bold,
                           color: PdfColors.black,
                         )),
-                        Text(model.totalCost.toString().split(' ').first.toString(),
+                        Text(model.finalAmount.toString().split(' ').first.toString(),
                             style:TextStyle( fontSize: 18,
                               color: PdfColors.black,
                             )

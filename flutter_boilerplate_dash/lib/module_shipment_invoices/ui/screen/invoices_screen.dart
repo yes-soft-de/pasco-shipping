@@ -125,8 +125,9 @@ class _CountriesScreenState extends State<InvoicesScreen> {
                                   request.paymentStatus='paid';
                                   request.paymentDate = DateTime.now().toUtc().toString();
                                   if(request.paidOnBehalfBy.isEmpty){
-                                    request.paidBy=model.clientUserID;
+                                    request.paidBy=int.parse(model.clientUserID);
                                   }
+                                  Navigator.pop(context);
                                   widget._stateManager.payBill(request, invoiceFilterRequest);
                                     },
                                     radius: 12)

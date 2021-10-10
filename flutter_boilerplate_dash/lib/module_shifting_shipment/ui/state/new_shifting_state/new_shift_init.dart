@@ -39,18 +39,18 @@ class _NewShiftInitState extends State<NewShiftInit> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              S.of(context).shiftingFrom,
-              style: AppTextStyle.mediumBlackBold,
-            ),
-            SelectDropListl(
-              this.optionItemSelectedF,
-              this.dropListModelFrom,
-                  (optionItem) {
-                optionItemSelectedF = optionItem;
-                setState(() {});
-              },
-            ),
+            // Text(
+            //   S.of(context).shiftingFrom,
+            //   style: AppTextStyle.mediumBlackBold,
+            // ),
+            // SelectDropListl(
+            //   this.optionItemSelectedF,
+            //   this.dropListModelFrom,
+            //       (optionItem) {
+            //     optionItemSelectedF = optionItem;
+            //     setState(() {});
+            //   },
+            // ),
             Text(
               S.of(context).shiftingTo,
               style: AppTextStyle.mediumBlackBold,
@@ -102,11 +102,11 @@ class _NewShiftInitState extends State<NewShiftInit> {
           children.add(warehouse);
         }
         country.children = children;
-        shippingFrom.add(country);
+        // shippingFrom.add(country);
         shippingTo.add(country);
       }
     }
-    dropListModelFrom = DropListModel(shippingFrom);
+    // dropListModelFrom = DropListModel(shippingFrom);
     dropListModelTo = DropListModel(shippingTo);
   }
 }
