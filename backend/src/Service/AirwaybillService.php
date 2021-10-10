@@ -120,6 +120,8 @@ class AirwaybillService
             $airwaybill['totalGunnyQuantity'] = $this->getTotalGunnyByAirWaybillID($id);
             $airwaybill['totalReceivedShipmentsQuantity'] = $this->getTotalReceivedShipmentsQuantityByAirWaybillID($id);
 
+            $airwaybill['freeWeight'] = $this->trackService->getCurrentFreeWeightOfAirWaybill($airwaybill);
+
             if ($airwaybill['createdByUserImage']) {
                 $airwaybill['createdByUserImage'] = $this->params . $airwaybill['createdByUserImage'];
             }

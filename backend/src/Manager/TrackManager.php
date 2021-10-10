@@ -579,7 +579,7 @@ class TrackManager
                     if($request->getIsInOneHolder() == true)
                     {
                         // Get current weight (volume) of the air waybill
-                        $currentAirwaybillWeight = $airwaybill['weight'];
+                        $currentAirwaybillWeight = $this->getCurrentFreeWeightOfAirWaybill($airwaybill);
                         
                         // Get the whole weight of the shipment
                         $shipmentWeight = $this->getWholeShipmentAmountByMeasure($request->getShipmentID(), "weight");
@@ -590,7 +590,7 @@ class TrackManager
                     elseif($request->getIsInOneHolder() == false)
                     {
                         // Get current weight (volume) of the air waybill
-                        $currentAirwaybillWeight = $airwaybill['weight'];
+                        $currentAirwaybillWeight = $this->getCurrentFreeWeightOfAirWaybill($airwaybill);
                                             
                         // Compare the weight of the air waybill with the weight of the shipment that we want to store
                         return $this->compareTwoValues($currentAirwaybillWeight, $request->getAmount());
@@ -644,6 +644,46 @@ class TrackManager
             }
 
             return (float)number_format($capacity - $shipmentsVolumes, 2);
+        }
+    }
+
+    public function getCurrentFreeWeightOfAirWaybill($airWaybill)
+    {
+        if($airWaybill['weight'])
+        {
+            $weight = $airWaybill['weight'];
+        }
+        else
+        {
+            $weight = 0;
+        }
+
+        // First, get all shipments' weight that stored in the air waybill
+        $tracks = $this->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $airWaybill['id']);
+
+        if(!$tracks)
+        {
+            // There is not any shipment stored in the air waybill yet. Returned the whole weight of the air waybill.
+            return (float)number_format($weight, 2);
+        }
+        else
+        {
+            // There is/are shipment/s stored into the air waybill already. Sum their weight.
+            $shipmentsWeight = 0;
+
+            foreach($tracks as $track)
+            {
+                if($track['isInOneHolder'] == true)
+                {
+                    $shipmentsWeight = $shipmentsWeight + $track['weight'];
+                }
+                else
+                {
+                    $shipmentsWeight = $shipmentsWeight + $track['amount'];
+                }
+            }
+
+            return (float)number_format($weight - $shipmentsWeight, 2);
         }
     }
 

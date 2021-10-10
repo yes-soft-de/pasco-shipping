@@ -127,4 +127,10 @@ class TrackService
         return $this->trackManager->getCurrentCapacityOfContainer($container);
     }
 
+    // For Get air waybill by ID
+    public function getCurrentFreeWeightOfAirWaybill($airWaybillID)
+    {
+        return $this->trackManager->getCurrentFreeWeightOfAirWaybill($airWaybillID);
+    }
+
 }
