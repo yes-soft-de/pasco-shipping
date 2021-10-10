@@ -114,7 +114,7 @@ class AirwaybillService
                 }
             }
 
-            $airwaybill['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID("airwaybill", $id);
+            $airwaybill['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $id);
 
             // get the sum of total gunny and the sum of total received shipments' quantity
             $airwaybill['totalGunnyQuantity'] = $this->getTotalGunnyByAirWaybillID($id);

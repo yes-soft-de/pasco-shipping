@@ -120,7 +120,7 @@ class ContainerService
                 }
             }
 
-            $container['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID("container", $id);
+            $container['shipments'] = $this->trackService->getTracksByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $id);
 
             // get the sum of total gunny and the sum of total received shipments' quantity
             $container['totalGunnyQuantity'] = $this->getTotalGunnyByContainerID($id);
