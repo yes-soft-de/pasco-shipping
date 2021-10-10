@@ -59,6 +59,8 @@ class ShipmentInvoiceFilterResponse
 
     public $totalCost;
 
+    public $finalAmount;
+
     public $discount;
 
     public $notes;

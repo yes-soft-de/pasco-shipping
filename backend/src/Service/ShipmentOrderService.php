@@ -356,6 +356,11 @@ class ShipmentOrderService
         return $this->autoMapping->map('array', ShipmentFilterResponse::class, $orders);
     }
 
+    public function getImportWarehouseIdByShipmentOrderID($shipmentID)
+    {
+        return $this->shipmentOrderManager->getImportWarehouseIdByShipmentOrderID($shipmentID);
+    }
+
     public function deleteShipmentOrder($request)
     {
         $result = $this->shipmentOrderManager->deleteShipmentOrder($request);

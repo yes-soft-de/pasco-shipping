@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\AutoMapping;
+use App\Request\DeleteRequest;
 use App\Request\ShipmentInvoiceCreateRequest;
 use App\Request\ShipmentInvoiceFilterRequest;
 use App\Request\ShipmentInvoiceUpdatePaymentInfoRequest;
@@ -56,7 +57,20 @@ class ShipmentInvoiceController extends BaseController
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
-     *                  @OA\Property(type="object", property="createdAt")
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="shipmentID"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="paymentStatus"),
+     *                  @OA\Property(type="object", property="paymentDate"),
+     *                  @OA\Property(type="integer", property="paidBy"),
+     *                  @OA\Property(type="string", property="paidOnBehalfBy"),
+     *                  @OA\Property(type="string", property="invoiceImage"),
+     *                  @OA\Property(type="string", property="receiptImage"),
+     *                  @OA\Property(type="integer", property="totalCost"),
+     *                  @OA\Property(type="integer", property="discount"),
+     *                  @OA\Property(type="string", property="notes"),
+     *                  @OA\Property(type="object", property="billDetails")
      *          )
      *      )
      * )
@@ -269,6 +283,7 @@ class ShipmentInvoiceController extends BaseController
      *                  @OA\Property(type="string", property="invoiceImage"),
      *                  @OA\Property(type="string", property="receiptImage"),
      *                  @OA\Property(type="integer", property="totalCost"),
+     *                  @OA\Property(type="integer", property="finalAmount"),
      *                  @OA\Property(type="integer", property="discount"),
      *                  @OA\Property(type="string", property="notes"),
      *                  @OA\Property(type="object", property="billDetails")
@@ -288,6 +303,47 @@ class ShipmentInvoiceController extends BaseController
         $result = $this->shipmentInvoiceService->filterShipmentInvoices($request);
 
         return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("shipmentinvoice/{id}", name="deleteShipmentInvoice", methods={"DELETE"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Shipment Invoice")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the deleted shipment invoice",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="shipmentID"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="paymentStatus"),
+     *                  @OA\Property(type="object", property="paymentDate"),
+     *                  @OA\Property(type="integer", property="paidBy"),
+     *                  @OA\Property(type="string", property="paidOnBehalfBy"),
+     *                  @OA\Property(type="string", property="invoiceImage"),
+     *                  @OA\Property(type="string", property="receiptImage"),
+     *                  @OA\Property(type="integer", property="totalCost"),
+     *                  @OA\Property(type="integer", property="discount"),
+     *                  @OA\Property(type="string", property="notes"),
+     *                  @OA\Property(type="object", property="billDetails")
+     *          )
+     *      )
+     * )
+     */
+    public function delete(Request $request)
+    {
+        $request = new DeleteRequest($request->get('id'));
+
+        $result = $this->shipmentInvoiceService->delete($request);
+
+        return $this->response($result, self::DELETE);
     }
 
 }

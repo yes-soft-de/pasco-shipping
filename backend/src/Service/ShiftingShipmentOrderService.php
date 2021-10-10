@@ -16,17 +16,23 @@ class ShiftingShipmentOrderService
 {
     private $autoMapping;
     private $shiftingShipmentOrderManager;
+    private $shipmentOrderService;
     private $params;
 
-    public function __construct(AutoMapping $autoMapping, ShiftingShipmentOrderManager $shiftingShipmentOrderManager, ParameterBagInterface $params)
+    public function __construct(AutoMapping $autoMapping, ShiftingShipmentOrderManager $shiftingShipmentOrderManager, ParameterBagInterface $params,
+     ShipmentOrderService $shipmentOrderService)
     {
         $this->autoMapping = $autoMapping;
         $this->shiftingShipmentOrderManager = $shiftingShipmentOrderManager;
+        $this->shipmentOrderService = $shipmentOrderService;
+
         $this->params = $params->get('upload_base_url') . '/';
     }
 
     public function create(ShiftingShipmentOrderCreateRequest $request)
     {
+        $request->setFromImportWarehouseID($this->shipmentOrderService->getImportWarehouseIdByShipmentOrderID($request->getShipmentID()));
+
         $countryResult = $this->shiftingShipmentOrderManager->create($request);
 
         return $this->autoMapping->map(ShiftingShipmentOrderEntity::class, ShiftingShipmentOrderCreateResponse::class, $countryResult);
@@ -67,9 +73,9 @@ class ShiftingShipmentOrderService
         }
     }
 
-    public function forcDelete($request)
+    public function forceDelete($request)
     {
-        $result = $this->shiftingShipmentOrderManager->forcDelete($request);
+        $result = $this->shiftingShipmentOrderManager->forceDelete($request);
 
         if($result instanceof ShiftingShipmentOrderEntity)
         {
