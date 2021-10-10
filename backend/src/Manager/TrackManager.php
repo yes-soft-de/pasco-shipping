@@ -714,7 +714,7 @@ class TrackManager
         {
             foreach($tracks as $track)
             {
-                $totalGunny += $this->gunnyShipmentManager->getGunnyCountByShipmentIdAndTrackNumber($track->getShipmentID(), $track->getTrackNumber());
+                $totalGunny += $this->gunnyShipmentManager->getGunnyCountByShipmentID($track->getShipmentID());
             }
         }
 
@@ -731,7 +731,7 @@ class TrackManager
         {
             foreach($tracks as $track)
             {
-                $totalGunny += $this->gunnyShipmentManager->getGunnyCountByShipmentIdAndTrackNumber($track->getShipmentID(), $track->getTrackNumber());
+                $totalGunny += $this->gunnyShipmentManager->getGunnyCountByShipmentID($track->getShipmentID());
             }
         }
 

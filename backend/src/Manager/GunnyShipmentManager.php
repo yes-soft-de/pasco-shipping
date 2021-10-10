@@ -82,6 +82,11 @@ class GunnyShipmentManager
         return $this->gunnyShipmentEntityRepository->getGunnyCountByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
     }
 
+    public function getGunnyCountByShipmentID($shipmentID)
+    {
+        return $this->gunnyShipmentEntityRepository->getGunnyCountByShipmentID($shipmentID);
+    }
+
     public function getRemainedShipmentQuantity($shipmentID, $quantity)
     {
         // The real quantity of the shipment must be retrieve from ReceivedShipmentEntity
