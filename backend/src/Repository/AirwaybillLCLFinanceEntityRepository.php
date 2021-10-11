@@ -36,7 +36,7 @@ class AirwaybillLCLFinanceEntityRepository extends ServiceEntityRepository
 
         if($status)
         {
-            $query->andWhere('containerFinance.status = :status');
+            $query->andWhere('airWaybillLCLFinanceEntity.status = :status');
             $query->setParameter('status', $status);
         }
         
