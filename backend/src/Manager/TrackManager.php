@@ -184,21 +184,22 @@ class TrackManager
                 {
                     /**
                      * Before continue, if the export warehouse of the shipment is external, and the holder is of type FCL,
-                     * then the cleared phase will be passed, as a result, we have to insert a log of CLEARED status when
-                     * the holder arrives the import warehouse
+                     * then we do not have to update the shipment status any more because it is already reach the Delivered state
                      */
                     if($request->getShipmentStatus() == ShipmentStatusConstant::$ARRIVED_SHIPMENT_STATUS AND $this->checkIfExternalWarehouseAndFCLHolder($track->getShipmentID(), $request->getHolderType(), $request->getHolderID()))
                     {
-                        $this->createShipmentLog($track->getShipmentID(), $track->getTrackNumber(), ShipmentStatusConstant::$CLEARED_SHIPMENT_STATUS, $request->getUpdatedBy());
+                       // Do not update the shipment status
                     }
+                    else
+                    {
+                        $shipmentStatusRequest = $this->autoMapping->map(TrackUpdateByHolderTypeAndIdRequest::class, ShipmentStatusOfHolderUpdateRequest::class, $request);
 
-                    $shipmentStatusRequest = $this->autoMapping->map(TrackUpdateByHolderTypeAndIdRequest::class, ShipmentStatusOfHolderUpdateRequest::class, $request);
+                        $shipmentStatusRequest->setShipmentID($track->getShipmentID());
+                        $shipmentStatusRequest->setTrackNumber($track->getTrackNumber());
+                        $shipmentStatusRequest->setUpdatedBy($request->getUpdatedBy());
 
-                    $shipmentStatusRequest->setShipmentID($track->getShipmentID());
-                    $shipmentStatusRequest->setTrackNumber($track->getTrackNumber());
-                    $shipmentStatusRequest->setUpdatedBy($request->getUpdatedBy());
-
-                    $this->shipmentStatusManager->updateShipmentStatusOfSpecificHolder($shipmentStatusRequest);
+                        $this->shipmentStatusManager->updateShipmentStatusOfSpecificHolder($shipmentStatusRequest);
+                    }
                 }
             }
      
