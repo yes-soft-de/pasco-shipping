@@ -76,12 +76,12 @@ class AirwaybillDetailsStateManager {
         }
     });
   }
-  void clearedOrArrived(AirwaybillClearedOrArrivedRequest request) {
+  void clearedOrArrived(AddAirwaybillToTravelRequest request) {
     _addStateSubject.add(LoadingDetailsState());
     _service.updateAirwaybillStatusClearedOrArrived(request).then((value) {
       if (value != null) {
         if (value.isConfirmed) {
-          _service.getAirwaybillDetails(request.id.toString()).then((value) {
+          _service.getAirwaybillDetails(request.holderID.toString()).then((value) {
             if(value != null) {
               _addStateSubject.add(SuccessfullyDetailsWithTravelsState(value));
             }

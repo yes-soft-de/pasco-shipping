@@ -3299,6 +3299,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Do you want to add these costs?`
+  String get addCostConfirm {
+    return Intl.message(
+      'Do you want to add these costs?',
+      name: 'addCostConfirm',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

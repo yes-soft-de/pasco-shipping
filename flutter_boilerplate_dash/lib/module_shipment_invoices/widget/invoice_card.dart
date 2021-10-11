@@ -150,6 +150,22 @@ class InvoiceCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
+                          'Final Amount: ',
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Expanded(
+                          child: Text(
+                            model.finalAmount ?? '',
+                            style: AppTextStyle.mediumBlueBold,
+                          ),
+                        )],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Text(
                           'Discount'+': ',
                           style: AppTextStyle.mediumBlack,
                         ),

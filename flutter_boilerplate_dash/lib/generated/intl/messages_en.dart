@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "acceptedShipment":
             MessageLookupByLibrary.simpleMessage("Accepted Shipment"),
         "add": MessageLookupByLibrary.simpleMessage("Add new"),
+        "addCostConfirm": MessageLookupByLibrary.simpleMessage(
+            "Do you want to add these costs?"),
         "addedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Item added successfully"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),

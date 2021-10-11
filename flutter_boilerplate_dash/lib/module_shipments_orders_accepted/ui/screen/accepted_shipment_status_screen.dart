@@ -93,7 +93,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
     if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.ACCEPTED]!) {
       widget._stateManager.getShipmentStatus(id,trackNumber);
     }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]! && !(holderType =='FCL' && isExternalWarehouse)){
-      widget._stateManager.getReceivedStatus(id,cityName,trackNumber);
+      widget._stateManager.getReceivedStatus(id,cityName,trackNumber,remainedQuantity);
     }
 
     else if (status == AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]! && transportation=='sea' ||(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]! && holderType =='FCL' && isExternalWarehouse && transportation=='sea') ){
@@ -189,7 +189,9 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
               widget._stateManager.receivedAirShipmentFCLExternal(re, airwaybillFilterRequest, travelFilterRequest,cityName);
             }
             else {
-              widget._stateManager.receivedLocalWarehouse(re,cityName);
+              print('Move_Move');
+              print(re.receivedQuantity);
+              widget._stateManager.receivedLocalWarehouse(re,cityName,re.receivedQuantity);
             }
           },
           text: S.of(context).changeStatusConfirm,
@@ -345,7 +347,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
           );
       },
         createGunny: (){
-          widget._stateManager.createGunny(statusModels,state.subContracts,state.lastGunnies);
+          widget._stateManager.createGunny(statusModels,state.subContracts,state.lastGunnies,int.parse(state.storedModelInfo.remainedQuantity));
         }, infoStoredInGunny: state.storedModelInfo, onStoredInGunny: (m){
         CoolAlert.show(
           context: context,
@@ -415,7 +417,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
           },
           text: S.of(context).changeStatusConfirm,
         );
-        }, gunnies: state.gunnies,
+        }, gunnies: state.gunnies, remainedQuantity: int.parse(state.storedModelInfo.remainedQuantity),
       );
     }
     else if (currentState is ReceivedStatusWithGunniesState) {
@@ -427,6 +429,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         statusModel: statusModels,
         subcontracts:state.subContracts ,
         lastGunnies: state.lastGunnies,
+        remainedQuantity: int.parse(state.storedModelInfo.remainedQuantity),
         onChangeStatus: (re , holderFilterRequest ,travelFilterRequest){
           CoolAlert.show(
             context: context,
@@ -522,7 +525,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
           );
         },
         createGunny: (){
-          widget._stateManager.createGunny(statusModels,state.subContracts,state.lastGunnies);
+          widget._stateManager.createGunny(statusModels,state.subContracts,state.lastGunnies,int.parse(state.storedModelInfo.remainedQuantity));
         }, infoStoredInGunny: state.storedModelInfo, onStoredInGunny: (m){
         CoolAlert.show(
           context: context,

@@ -638,12 +638,13 @@ class PdfParagraphApi {
     final Uint8List byteList = bytes.buffer.asUint8List();
     final headers =
     ['ID',S.current.paymentTime,S.current.guniQuantity,
-      S.current.quantity,S.current.trackNumber,S.current.targetWarehouse
+      S.current.quantity,S.current.trackNumber,S.current.targetWarehouse,S.current.productType
     ];
     final data = model.shipments.map((user) =>
     [user.id,user.paymentTime, user.guniQuantity,
       user.quantity,user.trackNumber,
       user.target,
+      user.categoriesNames
     ]).toList();
     pdf.addPage(
       MultiPage(
@@ -747,6 +748,7 @@ class PdfParagraphApi {
               4: FixedColumnWidth(30),
 
               5: FixedColumnWidth(30),
+              6: FixedColumnWidth(30),
 
               // 8: FixedColumnWidth(30),
             },
@@ -757,6 +759,7 @@ class PdfParagraphApi {
               3: Alignment.center,
               4: Alignment.center,
               5: Alignment.center,
+              6: Alignment.center,
               // 8: Alignment.center,
             },
             // headerPadding: Padding(padding: 12)

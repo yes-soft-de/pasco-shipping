@@ -384,5 +384,6 @@
   "shipmentShifting":"الشحنات المحولة",
   "shiftingFrom": "تحولت من",
   "shiftingTo": "تحولت الى",
-  "paymentType": "طريقة الدفع"
+  "paymentType": "طريقة الدفع",
+  "addCostConfirm": "هل تريد اضافة هذه المصاريف؟"
 }

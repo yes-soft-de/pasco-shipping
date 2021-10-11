@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
@@ -87,7 +88,19 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
      shipmentFinance: state.finances,
      subContracts: subcontracts,
      addFinance: (request){
-          widget._stateManager.addShipmentFinance(request,subcontracts);
+       CoolAlert.show(
+         context: context,
+         type: CoolAlertType.info,
+         title:  S.of(context).careful,
+         confirmBtnText: S.of(context).ok,
+         backgroundColor:AppThemeDataService.PrimaryColor,
+         confirmBtnColor:AppThemeDataService.AccentColor,
+         onConfirmBtnTap: (){
+           Navigator.pop(context);
+           widget._stateManager.addShipmentFinance(request,subcontracts);
+         },
+         text: S.of(context).addCostConfirm,
+       );
      },
       );
     }

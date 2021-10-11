@@ -406,6 +406,7 @@
   "shipmentShifting":"Shifting Shipment",
   "shiftingFrom": "Shifting From",
   "shiftingTo": "Shifting To",
-  "paymentType": "Payment type"
+  "paymentType": "Payment type",
+  "addCostConfirm": "Do you want to add these costs?"
 
 }

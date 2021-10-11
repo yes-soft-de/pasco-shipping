@@ -31,19 +31,19 @@ class TravelDetailsSuccessfully extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(S.of(context).travelInformation , style: AppTextStyle.largeBlueBold,),
-                InkWell(
-                    onTap: (){
-                      onShowFinance(model.id);
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset(StaticImage.accounting),
-                        Text(S.of(context).cost ,style: AppTextStyle.mediumBlackBold,)
-                      ],
-                    )),
+                // InkWell(
+                //     onTap: (){
+                //       onShowFinance(model.id);
+                //     },
+                //     child: Column(
+                //       children: [
+                //         Image.asset(StaticImage.accounting),
+                //         Text(S.of(context).cost ,style: AppTextStyle.mediumBlackBold,)
+                //       ],
+                //     )),
               ],
             ),
           ),
