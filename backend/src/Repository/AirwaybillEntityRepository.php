@@ -302,7 +302,8 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
 
         if($isExternalWarehouse)
         {
-            $query->andWhere("orderShipmentEntity.isExternalWarehouse = 1");
+            $query->andWhere("orderShipmentEntity.isExternalWarehouse = :isExternalWarehouse");
+            $query->setParameter('isExternalWarehouse', 1);
         }
         elseif (isset($isExternalWarehouse) AND $isExternalWarehouse == false)
         {
