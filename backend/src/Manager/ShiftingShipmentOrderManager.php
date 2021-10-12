@@ -26,15 +26,24 @@ class ShiftingShipmentOrderManager
 
     public function create(ShiftingShipmentOrderCreateRequest $request)
     {
-        $shiftingShipmentOrderEntity = $this->autoMapping->map(ShiftingShipmentOrderCreateRequest::class, ShiftingShipmentOrderEntity::class, $request);
+        // First, check if there is a previous shifting order for the same shipment
+        // If it is, then do not create another shifting order
+        if($this->getShiftingShipmentOrderByShipmentIdAndTrackNumber($request->getShipmentID(), $request->getTrackNumber()))
+        {
+            return "There is already shifting order for the same shipment!";
+        }
+        else
+        {
+            $shiftingShipmentOrderEntity = $this->autoMapping->map(ShiftingShipmentOrderCreateRequest::class, ShiftingShipmentOrderEntity::class, $request);
 
-        $shiftingShipmentOrderEntity->setStatus(ShiftingShipmentOrderStatusConstant::$STARTED_SHIFTING_SHIPMENT_ORDER);
+            $shiftingShipmentOrderEntity->setStatus(ShiftingShipmentOrderStatusConstant::$STARTED_SHIFTING_SHIPMENT_ORDER);
 
-        $this->entityManager->persist($shiftingShipmentOrderEntity);
-        $this->entityManager->flush();
-        $this->entityManager->clear();
+            $this->entityManager->persist($shiftingShipmentOrderEntity);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
 
-        return $shiftingShipmentOrderEntity;
+            return $shiftingShipmentOrderEntity;
+        }
     }
 
     public function updateStatus(ShiftingShipmentOrderStatusUpdateRequest $request)
@@ -65,6 +74,11 @@ class ShiftingShipmentOrderManager
     public function getShiftingShipmentOrderStatusByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
         return $this->shiftingShipmentOrderEntityRepository->getShiftingShipmentOrderStatusByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
+    }
+
+    public function getShiftingShipmentOrderByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
+    {
+        return $this->shiftingShipmentOrderEntityRepository->getShiftingShipmentOrderByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
     }
 
     public function delete(DeleteRequest $request)
