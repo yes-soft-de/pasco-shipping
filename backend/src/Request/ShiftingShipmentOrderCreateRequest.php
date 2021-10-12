@@ -21,6 +21,11 @@ class ShiftingShipmentOrderCreateRequest
         return $this->shipmentID;
     }
 
+    public function getTrackNumber()
+    {
+        return $this->trackNumber;
+    }
+
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;

@@ -33,9 +33,14 @@ class ShiftingShipmentOrderService
     {
         $request->setFromImportWarehouseID($this->shipmentOrderService->getImportWarehouseIdByShipmentOrderID($request->getShipmentID()));
 
-        $countryResult = $this->shiftingShipmentOrderManager->create($request);
+        $shiftingShipmentResult = $this->shiftingShipmentOrderManager->create($request);
 
-        return $this->autoMapping->map(ShiftingShipmentOrderEntity::class, ShiftingShipmentOrderCreateResponse::class, $countryResult);
+        if($shiftingShipmentResult instanceof ShiftingShipmentOrderEntity)
+        {
+            return $this->autoMapping->map(ShiftingShipmentOrderEntity::class, ShiftingShipmentOrderCreateResponse::class, $shiftingShipmentResult);
+        }
+
+        return $shiftingShipmentResult;
     }
 
     public function updateStatus(ShiftingShipmentOrderStatusUpdateRequest $request)
