@@ -10,6 +10,8 @@ class ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest
 
     private $billDetails;
 
+    private $buyingDetails;
+
     public function setId($id)
     {
         $this->id = $id;
@@ -38,6 +40,16 @@ class ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest
     public function getBillDetails()
     {
         return $this->billDetails;
+    }
+
+    public function getBuyingDetails()
+    {
+        return $this->buyingDetails;
+    }
+
+    public function setBuyingDetails($buyingDetails)
+    {
+        $this->buyingDetails = $buyingDetails;
     }
 
 }

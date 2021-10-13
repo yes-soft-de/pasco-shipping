@@ -100,6 +100,11 @@ class ShipmentInvoiceEntity
      */
     private $finalAmount;
 
+    /**
+     * @ORM\Column(type="object", nullable=true)
+     */
+    private $buyingDetails;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -293,6 +298,18 @@ class ShipmentInvoiceEntity
     public function setFinalAmount(?float $finalAmount): self
     {
         $this->finalAmount = $finalAmount;
+
+        return $this;
+    }
+
+    public function getBuyingDetails()
+    {
+        return $this->buyingDetails;
+    }
+
+    public function setBuyingDetails($buyingDetails): self
+    {
+        $this->buyingDetails = $buyingDetails;
 
         return $this;
     }

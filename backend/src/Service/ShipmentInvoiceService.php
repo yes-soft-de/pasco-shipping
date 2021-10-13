@@ -64,9 +64,9 @@ class ShipmentInvoiceService
         return $shipmentInvoiceEntity;
     }
 
-    public function updateTotalCostAndBillDetails(ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest $request)
+    public function updateTotalCostAndBillDetailsAndBuyingDetails(ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest $request)
     {
-        $shipmentInvoiceEntity = $this->shipmentInvoiceManager->updateTotalCostAndBillDetails($request);
+        $shipmentInvoiceEntity = $this->shipmentInvoiceManager->updateTotalCostAndBillDetailsAndBuyingDetails($request);
 
         if($shipmentInvoiceEntity instanceof ShipmentInvoiceEntity)
         {
