@@ -254,6 +254,12 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             ->orderBy('airwaybill.id', 'DESC')
             ->setMaxResults(100);
 
+        if($request->getId())
+        {
+            $query->andWhere('airwaybill.id = :id');
+            $query->setParameter('id', $request->getId());
+        }
+
         if($request->getAirwaybillNumber())
         {
             $query->andWhere('airwaybill.airwaybillNumber = :airwaybillNumber');

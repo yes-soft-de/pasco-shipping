@@ -4,6 +4,8 @@ namespace App\Request;
 
 class AirwaybillFilterRequest
 {
+    private $id;
+
     private $specificationID;
 
     private $airwaybillNumber;
@@ -29,6 +31,11 @@ class AirwaybillFilterRequest
     private $isRequested;
 
     private $portID;
+
+    public function getId()
+    {
+        return $this->id;
+    }
 
     public function getSpecificationID()
     {

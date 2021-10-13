@@ -477,6 +477,7 @@ class AirwaybillController extends BaseController
      * @OA\RequestBody(
      *      description="Post a request with filtering option",
      *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="string", property="airwaybillNumber"),
      *          @OA\Property(type="string", property="type"),
      *          @OA\Property(type="string", property="status"),
