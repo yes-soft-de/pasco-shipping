@@ -471,8 +471,8 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
 
         if($request->getTrackNumber())
         {
-            $query->andWhere('shipmentStatusEntity.trackNumber = :trackNumber');
-            $query->setParameter('trackNumber', $request->getTrackNumber());
+            $query->andWhere('shipmentStatusEntity.trackNumber LIKE :trackNumber');
+            $query->setParameter('trackNumber', '%'.$request->getTrackNumber().'%');
         }
 
         if($request->getStatus() && $request->getDateOne() == null && $request->getDateTwo() == null)
