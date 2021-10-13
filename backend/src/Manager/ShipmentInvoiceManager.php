@@ -264,6 +264,10 @@ class ShipmentInvoiceManager
             {
                 $finalAmount = $request->getTotalCost() - ($request->getTotalCost() * $shipmentInvoiceEntity->getDiscount() / 100);
             }
+            else
+            {
+                $finalAmount = $request->getTotalCost();
+            }
 
             $shipmentInvoiceEntity = $this->autoMapping->mapToObject(ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest::class, ShipmentInvoiceEntity::class,
                 $request, $shipmentInvoiceEntity);

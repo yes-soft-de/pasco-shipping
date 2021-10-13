@@ -7,6 +7,7 @@ use App\Constant\HolderStatusConstant;
 use App\Constant\HolderTypeConstant;
 use App\Constant\ShipmentStatusConstant;
 use App\Constant\ShippingTypeConstant;
+use App\Constant\ShippingWayConstant;
 use App\Entity\TrackEntity;
 use App\Repository\TrackEntityRepository;
 use App\Request\AirwaybillShippingStatusUpdateRequest;
@@ -182,24 +183,27 @@ class TrackManager
             {
                 if($track)
                 {
+                    $shipmentStatusRequest = $this->autoMapping->map(TrackUpdateByHolderTypeAndIdRequest::class, ShipmentStatusOfHolderUpdateRequest::class, $request);
+
+                    $shipmentStatusRequest->setShipmentID($track->getShipmentID());
+                    $shipmentStatusRequest->setTrackNumber($track->getTrackNumber());
+                    $shipmentStatusRequest->setUpdatedBy($request->getUpdatedBy());
+
                     /**
-                     * Before continue, if the export warehouse of the shipment is external, and the holder is of type FCL,
-                     * then we do not have to update the shipment status any more because it is already reach the Delivered state
+                     * Before continue, if the holder is of type FCL, and the status that we want to update the holder to is Arrived,
+                     * then we have to update the shipment status to reach the Delivered state
                      */
-                    if($request->getShipmentStatus() == ShipmentStatusConstant::$ARRIVED_SHIPMENT_STATUS AND $this->checkIfExternalWarehouseAndFCLHolder($track->getShipmentID(), $request->getHolderType(), $request->getHolderID()))
+                    if($request->getShipmentStatus() == ShipmentStatusConstant::$ARRIVED_SHIPMENT_STATUS AND ($this->checkIfHolderIsFCLByHolderTypeAndHolderID($request->getHolderType(), $request->getHolderID())))
                     {
-                       // Do not update the shipment status
-                    }
-                    else
-                    {
-                        $shipmentStatusRequest = $this->autoMapping->map(TrackUpdateByHolderTypeAndIdRequest::class, ShipmentStatusOfHolderUpdateRequest::class, $request);
+                        // set the final status that the shipment will take in ShipmentStatusEntity to DELIVERED
+                        $shipmentStatusRequest->setShipmentStatus(ShipmentStatusConstant::$DELIVERED_SHIPMENT_STATUS);
 
-                        $shipmentStatusRequest->setShipmentID($track->getShipmentID());
-                        $shipmentStatusRequest->setTrackNumber($track->getTrackNumber());
-                        $shipmentStatusRequest->setUpdatedBy($request->getUpdatedBy());
-
-                        $this->shipmentStatusManager->updateShipmentStatusOfSpecificHolder($shipmentStatusRequest);
+                        // Insert log for the shipment starting from RELEASED status till ARRIVED status
+                        $this->shipmentLogManager->createShipmentLogsForSpecificGroupOfStatus($track->getShipmentID(), $track->getTrackNumber(), ShipmentStatusConstant::$RELEASED_SHIPMENT_STATUS,
+                            ShipmentStatusConstant::$ARRIVED_SHIPMENT_STATUS, $request->getUpdatedBy());
                     }
+
+                    $this->shipmentStatusManager->updateShipmentStatusOfSpecificHolder($shipmentStatusRequest);
                 }
             }
      
@@ -266,20 +270,7 @@ class TrackManager
                         $shipmentStatusRequest->setShipmentID($track->getShipmentID());
                         $shipmentStatusRequest->setTrackNumber($track->getTrackNumber());
 
-                        /**
-                         * If the status of the travel is released AND if the holder of the travel is of type FCL,
-                         * then we have to insert all rest status of the shipment in the Shipment Log table
-                         */
-                        if($request->getShipmentStatus() == ShipmentStatusConstant::$RELEASED_SHIPMENT_STATUS && $this->checkIfHolderIsFCLByHolderTypeAndHolderID($track->getHolderType(), $track->getHolderID()))
-                        {
-                            $shipmentStatusRequest->setShipmentStatus(ShipmentStatusConstant::$DELIVERED_SHIPMENT_STATUS);
-
-                            $this->shipmentStatusManager->updateShipmentStatusOfFCLHolder($shipmentStatusRequest);
-                        }
-                        else
-                        {
-                            $this->shipmentStatusManager->updateShipmentStatusOfSpecificHolder($shipmentStatusRequest);
-                        }
+                        $this->shipmentStatusManager->updateShipmentStatusOfSpecificHolder($shipmentStatusRequest);
                     }
                 }
         

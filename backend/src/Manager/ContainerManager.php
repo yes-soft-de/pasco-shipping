@@ -162,6 +162,11 @@ class ContainerManager
         return $this->containerEntityRepository->getContainersBySpecificationID($specificationID);
     }
 
+    public function getSpecificationIdByContainerID($containerID)
+    {
+        return $this->containerEntityRepository->getSpecificationIdByContainerID($containerID);
+    }
+
     public function validateContainerNumber($containerNumber)
     {
         /**

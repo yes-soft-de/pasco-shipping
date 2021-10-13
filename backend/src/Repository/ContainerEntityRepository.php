@@ -568,6 +568,18 @@ class ContainerEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getSpecificationIdByContainerID($containerID)
+    {
+        return $this->createQueryBuilder('container')
+            ->select('container.specificationID')
+
+            ->andWhere('container.id = :id')
+            ->setParameter('id', $containerID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function deleteAllContainers()
     {
         return $this->createQueryBuilder('container')
