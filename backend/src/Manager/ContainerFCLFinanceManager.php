@@ -21,16 +21,20 @@ class ContainerFCLFinanceManager
     private $trackManager;
     private $shipmentFinanceManager;
     private $shipmentOrderManager;
+    private $containerManager;
+    private $containerSpecificationManager;
     private $containerFinanceEntityRepository;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ContainerFCLFinanceEntityRepository $containerFCLFinanceEntityRepository, TrackManager $trackManager,
-                                ShipmentLCLFinanceManager $shipmentFinanceManager, ShipmentOrderManager $shipmentOrderManager)
+                                ShipmentLCLFinanceManager $shipmentFinanceManager, ShipmentOrderManager $shipmentOrderManager, ContainerManager $containerManager, ContainerSpecificationManager $containerSpecificationManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->trackManager = $trackManager;
         $this->shipmentFinanceManager = $shipmentFinanceManager;
         $this->shipmentOrderManager = $shipmentOrderManager;
+        $this->containerManager = $containerManager;
+        $this->containerSpecificationManager = $containerSpecificationManager;
         $this->containerFinanceEntityRepository = $containerFCLFinanceEntityRepository;
     }
 
@@ -258,6 +262,23 @@ class ContainerFCLFinanceManager
         $shipmentFinanceUpdateRequest->setStageCost($shipmentCost);
         
         $this->shipmentFinanceManager->update($shipmentFinanceUpdateRequest);
+    }
+
+    public function getContainerSpecificationPriceByContainerID($containerID)
+    {
+        $specificationResult = $this->containerManager->getSpecificationIdByContainerID($containerID);
+
+        if($specificationResult)
+        {
+            $priceResult = $this->containerSpecificationManager->getContainerSpecificationPriceBySpecificationID($specificationResult['specificationID']);
+
+            if($priceResult)
+            {
+                return $priceResult['price'];
+            }
+        }
+
+        return 0;
     }
 
     public function deleteAllContainersFCLFinances()
