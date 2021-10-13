@@ -4,6 +4,8 @@ namespace App\Request;
 
 class ContainerFilterRequest
 {
+    private $id;
+
     private $specificationID;
 
     private $containerNumber;
@@ -29,6 +31,11 @@ class ContainerFilterRequest
     private $isRequested;
 
     private $portID;
+
+    public function getId()
+    {
+        return $this->id;
+    }
 
     public function getSpecificationID()
     {

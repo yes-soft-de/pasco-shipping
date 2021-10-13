@@ -267,6 +267,12 @@ class ContainerEntityRepository extends ServiceEntityRepository
             ->orderBy('container.id', 'DESC')
             ->setMaxResults(100);
 
+        if($request->getId())
+        {
+            $query->andWhere('container.id = :id');
+            $query->setParameter('id', $request->getId());
+        }
+        
         if($request->getSpecificationID())
         {
             $query->andWhere('container.specificationID = :specificationID');

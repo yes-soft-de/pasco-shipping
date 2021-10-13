@@ -52,6 +52,7 @@ class ShipmentInvoiceManager
 
             $shipmentInvoiceEntity->setPaymentStatus(ShipmentInvoicePaymentStatusConstant::$NOT_PAID_SHIPMENT_INVOICE_PAYMENT_STATUS);
             $shipmentInvoiceEntity->setBillDetails($this->getShipmentBillDetailsByShipmentID($request->getShipmentID()));
+            $shipmentInvoiceEntity->setBuyingDetails($this->getShipmentBuyingDetailsByShipmentID($request->getShipmentID()));
 
             // Check if there is a discount, and update the total cost according to it
             if($request->getDiscount())
@@ -92,11 +93,11 @@ class ShipmentInvoiceManager
             // Use container / air waybill fcl finances to calculate the total cost
             if($shipmentOrder['transportationType'] == ShippingWayConstant::$SEA_SHIPPING_WAY)
             {
-                return $this->containerFCLFinanceManager->getContainerFCLTotalCostByShipmentID($shipmentID);
+                return $this->containerFCLFinanceManager->getContainerFCLTotalSellingCostByShipmentID($shipmentID);
             }
             elseif($shipmentOrder['transportationType'] == ShippingWayConstant::$AIR_SHIPPING_WAY)
             {
-                return $this->airWaybillFCLFinanceManager->getAirWaybillFCLTotalCostByShipmentID($shipmentID);
+                return $this->airWaybillFCLFinanceManager->getAirWaybillFCLTotalSellingCostByShipmentID($shipmentID);
             }
         }
     }
@@ -157,6 +158,47 @@ class ShipmentInvoiceManager
         }
     }
 
+    public function getShipmentBuyingDetailsByShipmentID($shipmentID)
+    {
+        // Get buying status details of the FCL holder in order to save them in the invoice under buying details column
+        $buyingDetailsResponse = [];
+
+        $shipmentOrder = $this->shipmentOrderManager->getHolderTypeAndTransportationTypeByShipmentOrderID($shipmentID);
+
+        if($shipmentOrder['holderType'] == ShippingTypeConstant::$FCL_SHIPPING_TYPE)
+        {
+            // then we have to get the bill details from the corresponding holder
+            if($shipmentOrder['transportationType'] == ShippingWayConstant::$SEA_SHIPPING_WAY)
+            {
+                $containerStatusResults = $this->containerFCLFinanceManager->getContainerFCLBuyingDetailsByShipmentID($shipmentID);
+
+                if($containerStatusResults)
+                {
+                    foreach($containerStatusResults as $result)
+                    {
+                        $buyingDetailsResponse[] = $result;
+                    }
+
+                    return $buyingDetailsResponse;
+                }
+            }
+            elseif($shipmentOrder['transportationType'] == ShippingWayConstant::$AIR_SHIPPING_WAY)
+            {
+                $airWaybillStatusResults = $this->airWaybillFCLFinanceManager->getAirWaybillFCLBuyingDetailsByShipmentID($shipmentID);
+
+                if($airWaybillStatusResults)
+                {
+                    foreach($airWaybillStatusResults as $result)
+                    {
+                        $buyingDetailsResponse[] = $result;
+                    }
+
+                    return $buyingDetailsResponse;
+                }
+            }
+        }
+    }
+
     public function update(ShipmentInvoiceUpdateRequest $request)
     {
         $shipmentInvoiceEntity = $this->shipmentInvoiceEntityRepository->find($request->getId());
@@ -208,7 +250,7 @@ class ShipmentInvoiceManager
         }
     }
 
-    public function updateTotalCostAndBillDetails(ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest $request)
+    public function updateTotalCostAndBillDetailsAndBuyingDetails(ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest $request)
     {
         $shipmentInvoiceEntity = $this->shipmentInvoiceEntityRepository->find($request->getId());
 

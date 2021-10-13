@@ -25,10 +25,10 @@ class ContainerFCLFinanceEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, ContainerFCLFinanceEntity::class);
     }
 
-    public function getCurrentTotalCostByFilterOptions($containerID, $status)
+    public function getCurrentTotalBuyingCostByFilterOptions($containerID, $status)
     {
         $query = $this->createQueryBuilder('containerFinance')
-            ->select('SUM(containerFinance.stageCost) as currentTotalCost');
+            ->select('SUM(containerFinance.buyingCost) as currentTotalBuyingCost');
 
         if($containerID)
         {
@@ -45,10 +45,30 @@ class ContainerFCLFinanceEntityRepository extends ServiceEntityRepository
         return $query->getQuery()->getOneOrNullResult();
     }
 
-    public function getContainerFCLTotalCostByShipmentID($shipmentID)
+    public function getCurrentTotalSellingCostByFilterOptions($containerID, $status)
+    {
+        $query = $this->createQueryBuilder('containerFinance')
+            ->select('SUM(containerFinance.sellingCost) as currentTotalSellingCost');
+
+        if($containerID)
+        {
+            $query->andWhere('containerFinance.containerID = :containerID');
+            $query->setParameter('containerID', $containerID);
+        }
+
+        if($status)
+        {
+            $query->andWhere('containerFinance.status = :status');
+            $query->setParameter('status', $status);
+        }
+
+        return $query->getQuery()->getOneOrNullResult();
+    }
+
+    public function getContainerFCLTotalSellingCostByShipmentID($shipmentID)
     {
         return $this->createQueryBuilder('containerFinance')
-            ->select('SUM(containerFinance.stageCost) as currentTotalCost')
+            ->select('SUM(containerFinance.sellingCost) as currentTotalCost')
 
             ->leftJoin(
                 ShipmentStatusEntity::class,
@@ -67,7 +87,7 @@ class ContainerFCLFinanceEntityRepository extends ServiceEntityRepository
     public function getContainerFCLBillDetailsByShipmentID($shipmentID)
     {
         return $this->createQueryBuilder('containerFinance')
-            ->select('containerFinance.status', 'containerFinance.stageCost', 'containerFinance.stageDescription')
+            ->select('containerFinance.status', 'containerFinance.sellingCost', 'containerFinance.stageDescription')
 
             ->leftJoin(
                 ShipmentStatusEntity::class,
@@ -79,6 +99,29 @@ class ContainerFCLFinanceEntityRepository extends ServiceEntityRepository
             ->andWhere('shipmentStatusEntity.shipmentID = :shipmentID')
             ->setParameter('shipmentID', $shipmentID)
 
+            ->andWhere("containerFinance.buyingCost IS NULL")
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getContainerFCLBuyingDetailsByShipmentID($shipmentID)
+    {
+        return $this->createQueryBuilder('containerFinance')
+            ->select('containerFinance.status', 'containerFinance.buyingCost', 'containerFinance.stageDescription')
+
+            ->leftJoin(
+                ShipmentStatusEntity::class,
+                'shipmentStatusEntity',
+                Join::WITH,
+                'shipmentStatusEntity.trackNumber = containerFinance.trackNumber'
+            )
+
+            ->andWhere('shipmentStatusEntity.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->andWhere("containerFinance.sellingCost IS NULL")
+
             ->getQuery()
             ->getResult();
     }
@@ -88,8 +131,8 @@ class ContainerFCLFinanceEntityRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('containerFinance')
             ->select('containerFinance.id', 'containerFinance.containerID', 'containerFinance.status', 'containerFinance.stageCost', 'containerFinance.stageDescription', 'containerFinance.currency', 'containerFinance.createdAt',
                 'containerFinance.updatedAt', 'containerFinance.createdBy', 'containerFinance.updatedBy', 'containerFinance.subcontractID', 'containerFinance.importWarehouseID', 'containerFinance.clientUserID', 'containerFinance.paymentType',
-                'containerFinance.financialFundName', 'containerFinance.chequeNumber', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
-             'subcontractEntity.fullName as subcontractName', 'warehouseEntity.name as importWarehouseName', 'clientProfileEntity.userName as clientUsername')
+                'containerFinance.buyingCost', 'containerFinance.sellingCost', 'containerFinance.financialFundName', 'containerFinance.chequeNumber', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage',
+                'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage', 'subcontractEntity.fullName as subcontractName', 'warehouseEntity.name as importWarehouseName', 'clientProfileEntity.userName as clientUsername')
 
             ->leftJoin(
                 AdminProfileEntity::class,

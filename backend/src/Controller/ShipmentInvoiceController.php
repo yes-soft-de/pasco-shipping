@@ -137,7 +137,8 @@ class ShipmentInvoiceController extends BaseController
      *                  @OA\Property(type="integer", property="totalCost"),
      *                  @OA\Property(type="integer", property="discount"),
      *                  @OA\Property(type="string", property="notes"),
-     *                  @OA\Property(type="object", property="billDetails")
+     *                  @OA\Property(type="object", property="billDetails"),
+     *                  @OA\Property(type="object", property="buyingDetails")
      *          )
      *      )
      * )
@@ -204,7 +205,8 @@ class ShipmentInvoiceController extends BaseController
      *                  @OA\Property(type="integer", property="totalCost"),
      *                  @OA\Property(type="integer", property="discount"),
      *                  @OA\Property(type="string", property="notes"),
-     *                  @OA\Property(type="object", property="billDetails")
+     *                  @OA\Property(type="object", property="billDetails"),
+     *                  @OA\Property(type="object", property="buyingDetails")
      *          )
      *      )
      * )
@@ -286,7 +288,8 @@ class ShipmentInvoiceController extends BaseController
      *                  @OA\Property(type="integer", property="finalAmount"),
      *                  @OA\Property(type="integer", property="discount"),
      *                  @OA\Property(type="string", property="notes"),
-     *                  @OA\Property(type="object", property="billDetails")
+     *                  @OA\Property(type="object", property="billDetails"),
+     *                  @OA\Property(type="object", property="buyingDetails")
      *              )
      *          )
      *      )
@@ -332,7 +335,8 @@ class ShipmentInvoiceController extends BaseController
      *                  @OA\Property(type="integer", property="totalCost"),
      *                  @OA\Property(type="integer", property="discount"),
      *                  @OA\Property(type="string", property="notes"),
-     *                  @OA\Property(type="object", property="billDetails")
+     *                  @OA\Property(type="object", property="billDetails"),
+     *                  @OA\Property(type="object", property="buyingDetails")
      *          )
      *      )
      * )

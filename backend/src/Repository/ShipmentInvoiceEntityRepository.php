@@ -28,7 +28,7 @@ class ShipmentInvoiceEntityRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('shipmentInvoiceEntity')
             ->select('shipmentInvoiceEntity.id', 'shipmentInvoiceEntity.shipmentID', 'shipmentInvoiceEntity.createdAt', 'shipmentInvoiceEntity.createdBy', 'shipmentInvoiceEntity.updatedAt', 'shipmentInvoiceEntity.updatedBy',
-             'shipmentInvoiceEntity.totalCost', 'shipmentInvoiceEntity.receiptImage', 'shipmentInvoiceEntity.invoiceImage', 'shipmentInvoiceEntity.paidBy', 'shipmentInvoiceEntity.paidOnBehalfBy', 'shipmentInvoiceEntity.notes',
+             'shipmentInvoiceEntity.totalCost', 'shipmentInvoiceEntity.receiptImage', 'shipmentInvoiceEntity.invoiceImage', 'shipmentInvoiceEntity.paidBy', 'shipmentInvoiceEntity.paidOnBehalfBy', 'shipmentInvoiceEntity.notes', 'shipmentInvoiceEntity.buyingDetails',
              'shipmentInvoiceEntity.discount', 'shipmentInvoiceEntity.finalAmount', 'shipmentInvoiceEntity.billDetails', 'shipmentInvoiceEntity.paymentStatus', 'shipmentInvoiceEntity.paymentDate', 'adminProfileEntityOne.userName as createdByUser',
              'adminProfileEntityOne.image as createdByUserImage', 'adminProfileEntityTwo.userName as updatedByUser', 'adminProfileEntityTwo.image as updatedByUserImage', 'clientProfileEntity.userName as clientUserName',
              'clientProfileEntity.image as clientImage', 'clientProfileEntity.userID as clientUserID', 'orderShipmentEntity.transportationType', 'orderShipmentEntity.target', 'orderShipmentEntity.paymentTime', 'clientProfileEntity.phone as clientPhone',

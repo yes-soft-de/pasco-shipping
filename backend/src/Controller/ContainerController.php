@@ -497,6 +497,7 @@ class ContainerController extends BaseController
      * @OA\RequestBody(
      *      description="Post a request with filtering option",
      *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
      *          @OA\Property(type="string", property="containerNumber"),
      *          @OA\Property(type="string", property="type"),
      *          @OA\Property(type="string", property="status"),

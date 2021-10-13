@@ -61,7 +61,7 @@ class ShipmentLCLFinanceService
         $invoiceUpdateRequest->setTotalCost($this->shipmentLCLFinanceManager->getShipmentLCLTotalCostByShipmentID($shipmentID));
         $invoiceUpdateRequest->setBillDetails($this->shipmentLCLFinanceManager->getShipmentLCLBillDetailsByShipmentID($shipmentID));
 
-        $this->shipmentInvoiceService->updateTotalCostAndBillDetails($invoiceUpdateRequest);
+        $this->shipmentInvoiceService->updateTotalCostAndBillDetailsAndBuyingDetails($invoiceUpdateRequest);
     }
 
     public function getAllCostsByShipmentIdAndTrackNumber($shipmentID, $trackNumber)

@@ -6,6 +6,10 @@ class AirwaybillFCLFinanceGetResponse
 {
     public $airwaybillFinances = [];
 
-    public $currentTotalCost;
+    public $currentTotalCost = 0;
+
+    public $currentTotalBuyingCost;
+
+    public $currentTotalSellingCost;
 
 }

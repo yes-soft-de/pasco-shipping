@@ -486,8 +486,6 @@ App\Request\AirwaybillFCLFinanceCreateRequest:
   properties:
     airwaybillID:
       - NotBlank: ~
-    stageCost:
-      - NotBlank: ~
     currency:
       - NotBlank: ~
     status:
@@ -498,8 +496,6 @@ App\Request\AirwaybillFCLFinanceCreateRequest:
 App\Request\ContainerFCLFinanceCreateRequest:
   properties:
     containerID:
-      - NotBlank: ~
-    stageCost:
       - NotBlank: ~
     currency:
       - NotBlank: ~
@@ -512,8 +508,6 @@ App\Request\ContainerLCLFinanceCreateRequest:
   properties:
     containerID:
       - NotBlank: ~
-    stageCost:
-      - NotBlank: ~
     currency:
       - NotBlank: ~
     status:
@@ -524,8 +518,6 @@ App\Request\ContainerLCLFinanceCreateRequest:
 App\Request\AirwaybillLCLFinanceCreateRequest:
   properties:
     airwaybillID:
-      - NotBlank: ~
-    stageCost:
       - NotBlank: ~
     currency:
       - NotBlank: ~
