@@ -56,4 +56,29 @@ class StatusCodeHelper {
       return '';
     }
   }
+
+  static String addStageNameFinance(String stageName){
+    if(stageName =='transporting') {
+      return S.current.transporting;
+    }  else  if(stageName =='delayed') {
+      return S.current.delayed;
+    } else  if(stageName =='shipping') {
+      return S.current.shipping;
+    }else  if(stageName =='uploading') {
+      return S.current.uploading;
+    }else  if(stageName =='fork') {
+      return S.current.fork;
+    }else  if(stageName =='clearance') {
+      return S.current.clearance;
+    }else  if(stageName =='buyingCost') {
+      return S.current.buyingCost;
+    }else  if(stageName =='sellingCost') {
+      return S.current.sellingCost;
+    }else  if(stageName =='pocketing') {
+      return S.current.pocketing;
+    }
+    else {
+      return '';
+    }
+  }
 }

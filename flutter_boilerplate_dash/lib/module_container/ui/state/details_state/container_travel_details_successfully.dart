@@ -441,11 +441,9 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
   Widget changeContainerStatus(){
     if(widget.model.shipments.isNotEmpty
         && widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED]
-        && !(widget.model.type == 'FCL' &&
-            widget.model.shipments[0].isExternalWarehouse!)
+        && !(widget.model.type == 'FCL')
     )
       {
-        print('clearded');
       return  Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -472,8 +470,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
     }else if (widget.model.shipments.isNotEmpty &&
         widget.model.shippingStatus ==
             AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED] &&
-        widget.model.type == 'FCL' &&
-        widget.model.shipments[0].isExternalWarehouse!) {
+        widget.model.type == 'FCL') {
       return  Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -485,7 +482,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                StatusCard(S.of(context).arrived ,false),
+                StatusCard(S.of(context).shipmentDelivered ,false),
               ],),
             RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
               AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
@@ -524,7 +521,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
         );
   }
     else if (widget.model.shipments.isNotEmpty
-        &&  widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]){
+        &&  widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED] ||  widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.DELIVERED]){
       return Padding(
         padding: const EdgeInsets.all(10.0),
         child: Text(S.of(context).containerArrived , style: AppTextStyle.mediumRedBold,),

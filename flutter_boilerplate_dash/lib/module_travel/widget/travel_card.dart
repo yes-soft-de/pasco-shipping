@@ -67,21 +67,21 @@ class _CountryCardState extends State<TravelsCard> {
                       SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        children: [
-                          Text(
-                           S.of(context).subcontract+': ',
-                            style: AppTextStyle.mediumBlack,
-                          ),
-                        Expanded(child:Text(
-                            widget.model.subcontractName ?? '',
-                            style: AppTextStyle.mediumBlueBold,
-                          ),
-                        )],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      // Row(
+                      //   children: [
+                      //     Text(
+                      //      S.of(context).subcontract+': ',
+                      //       style: AppTextStyle.mediumBlack,
+                      //     ),
+                      //   Expanded(child:Text(
+                      //       widget.model.subcontractName ?? '',
+                      //       style: AppTextStyle.mediumBlueBold,
+                      //     ),
+                      //   )],
+                      // ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
 
                       Row(
                         children: [

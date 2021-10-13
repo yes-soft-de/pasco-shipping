@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
@@ -70,7 +71,19 @@ class _CountriesScreenState extends State<HarborsScreen> {
       SuccessfullyFetchState? state = currentState as SuccessfullyFetchState?;
       items = state!.distributors;
       return HarborsSuccessfully(items: items ,onDelete: (id){
-        widget._stateManager.deleteHarbor(id.toString() ,request);
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.error,
+          title:  S.of(context).careful,
+          confirmBtnText: S.of(context).ok,
+          backgroundColor:AppThemeDataService.PrimaryColor,
+          confirmBtnColor:AppThemeDataService.AccentColor,
+          onConfirmBtnTap: (){
+            Navigator.pop(context);
+            widget._stateManager.deleteHarbor(id.toString() ,request);          },
+          text: 'Do you really want to delete the harbor',
+        );
+
       },
         onEdit: (model){
           Navigator.pushNamed(context, HarborRoutes.UPDATE,arguments: {'model':model}).then((value) {

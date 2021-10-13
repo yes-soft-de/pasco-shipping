@@ -25,7 +25,7 @@ class AirwaybillManager{
   Future<AirwaybillDetailsModel?> getAirwaybillDetails(String id) => _repository.getAirwaybillDetails(id);
   Future<List<AirwaybillModel>?> getAirwaybillsWithFilter(AirwaybillFilterRequest request) => _repository.getAirwaybillWithFilter(request);
 
-  Future<Data?> getAirwaybillFinance(AirwaybillFilterFinanceRequest request) => _repository.getAirwaybillFinance(request);
-  Future<ConfirmResponse?> createAirwaybillFinance(AirwaybillAddFinanceRequest request) => _repository.createAirwaybillFinance(request);
+  // Future<Data?> getAirwaybillFinance(AirwaybillFilterFinanceRequest request) => _repository.getAirwaybillFinance(request);
+  // Future<ConfirmResponse?> createAirwaybillFinance(AirwaybillAddFinanceRequest request) => _repository.createAirwaybillFinance(request);
 
 }

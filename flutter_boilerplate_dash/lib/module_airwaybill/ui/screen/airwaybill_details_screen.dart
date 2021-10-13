@@ -181,8 +181,8 @@ class _CountriesScreenState extends State<AirwaybillDetailsScreen> {
             text: S.of(context).changeStatusConfirm,
           );
 
-        },onShowFinance: (id){
-          Navigator.pushNamed(context, AirwaybillRoutes.FINANCE ,arguments: {'id' :id});
+        },onShowFinance: (id,type){
+          Navigator.pushNamed(context, AirwaybillRoutes.FINANCE ,arguments: {'id' :id,'type':type});
         },
       );
     }

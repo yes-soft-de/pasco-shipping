@@ -658,9 +658,9 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
 
               Row(
                 children: [
-                  RoundedButton(lable: 'Shift Shipment', icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
+                  subShipmentModel.shipmentStatus =='arrived'?   RoundedButton(lable: 'Shift Shipment', icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
                     widget.onRequestShift(widget.shipment.shipmentId , subShipmentModel.trackNumber);
-                  }, radius: 12),
+                  }, radius: 12) :Container(),
                  widget.shipment.holderType =='LCL'?  RoundedButton(lable: S.of(context).shipmentCost, icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
                     widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber);
                   }, radius: 12) :Container(),

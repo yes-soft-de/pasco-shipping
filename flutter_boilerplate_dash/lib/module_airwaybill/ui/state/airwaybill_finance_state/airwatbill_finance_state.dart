@@ -1,5 +1,6 @@
 import 'package:pasco_shipping/module_airwaybill/response/airwaybill_finance_response.dart';
 import 'package:pasco_shipping/module_general/response/confirm_response.dart';
+import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 
 class FinanceAirwaybillState{}
 
@@ -13,8 +14,8 @@ class addFinanceSuccessfullyState extends FinanceAirwaybillState{
 
 class SuccessfullyFetchState extends FinanceAirwaybillState{
   Data  finances;
-
-  SuccessfullyFetchState(this.finances);
+  List<SubcontractModel> subcontracts;
+  SuccessfullyFetchState(this.finances ,this.subcontracts);
 }
 
 class ErrorState extends FinanceAirwaybillState{

@@ -115,7 +115,9 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
     }else{
       receiverPhone=S.of(context).phone;
     }
-
+    if(widget.shipmentRequest.holders.isNotEmpty){
+      optionItemSelectedHarbor = Entry(widget.shipmentRequest.holders[0].portName??'', widget.shipmentRequest.holders[0].portID??0, []);;
+    }
 
     if(widget.shipmentRequest.unit.isNotEmpty){
       optionItemSelectedU = Entry(widget.shipmentRequest.unit, 1, []);

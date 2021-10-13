@@ -1,3 +1,4 @@
+import 'package:pasco_shipping/utils/helpers/status_code_helper.dart';
 import 'package:pasco_shipping/utils/logger/logger.dart';
 
 class ContainerFinanceResponse {
@@ -23,17 +24,28 @@ class ContainerFinanceResponse {
 class Data{
   Data({
     this.data,
-    this.currentTotalCost
+    this.currentTotalCost,
+    this.currentTotalSellingCost,
+    this.currentTotalBuyingCost
 
 
 });
 List<ContainerFinanceModel>? data;
 String? currentTotalCost;
+String? currentTotalSellingCost;
+String? currentTotalBuyingCost;
 
 
 
    Data.fromJson(Map<String, dynamic> json) {
     currentTotalCost= json['currentTotalCost'].toString();
+    try{
+      currentTotalSellingCost= json['currentTotalSellingCost'].toString();
+      currentTotalBuyingCost= json['currentTotalBuyingCost'].toString();
+    } catch (e, stack) {
+      Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
+          StackTrace.current);
+    }
       if (json['containerFinances'] != null) {
   data = <ContainerFinanceModel>[];
   try {
@@ -56,7 +68,7 @@ class ContainerFinanceModel {
     this.financialFundName,
     this.chequeNumber,
     this.subcontractName,
-
+this.buyingCost,this.sellingCost,
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
@@ -66,6 +78,8 @@ class ContainerFinanceModel {
   int? containerID;
   String? status;
   int? stageCost;
+  int? buyingCost;
+  int? sellingCost;
   String? stageDescription;
 
   String? currency;
@@ -84,9 +98,11 @@ class ContainerFinanceModel {
     containerID: json['containerID'],
     stageDescription: json['stageDescription'],
 
-    stageCost: json['stageCost'],
+sellingCost: json['sellingCost'] ??0,
+buyingCost: json['buyingCost']??0,
+    stageCost: json['stageCost']??0,
     currency: json['currency'],
-    status: json['status'],
+    status : StatusCodeHelper.addStageNameFinance( json['status']),
     paymentType: json['paymentType'],
     chequeNumber: json['chequeNumber'],
     subcontractName: json['subcontractName'],

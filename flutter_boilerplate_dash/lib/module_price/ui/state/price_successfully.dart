@@ -58,6 +58,7 @@ class _ProfileSuccessfullyScreenState extends State<PriceSuccessfullyScreen> {
     entrySpecification = <Entry>[];
     optionItemSelectedSpecification = Entry('choose', 0, []);
     _price = TextEditingController();
+    _price..text = '0';
   }
 
   @override

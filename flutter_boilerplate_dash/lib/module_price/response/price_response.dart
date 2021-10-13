@@ -1,4 +1,6 @@
 
+import 'package:pasco_shipping/utils/logger/logger.dart';
+
 class PriceResponse {
   PriceResponse({
     this.statusCode,
@@ -10,12 +12,16 @@ class PriceResponse {
   String? msg;
  PriceModel? data;
 
-  factory PriceResponse.fromJson(Map<String, dynamic> json) => PriceResponse(
-    statusCode: json['status_code'],
-    msg: json['msg'],
-    data: PriceModel.fromJson(json['Data']),
-  );
-}
+ PriceResponse.fromJson(Map<String, dynamic> json) {
+    statusCode =  json['status_code'];
+    msg= json['msg'];
+    try {
+      data= PriceModel.fromJson(json['Data']);
+    } catch (e, stack) {
+      Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
+          StackTrace.current);
+    }
+}}
 
 class PriceModel {
   PriceModel({

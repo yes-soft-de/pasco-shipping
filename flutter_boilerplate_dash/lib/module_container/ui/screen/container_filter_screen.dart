@@ -25,7 +25,7 @@ class ContainerFilterScreen extends StatefulWidget {
 class _AddNewCountryState extends State<ContainerFilterScreen> {
   late FilterContainerState currentState;
   late List<SubcontractModel> subs;
-  // late String type;
+  late bool isExternalWarehouse;
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +39,12 @@ class _AddNewCountryState extends State<ContainerFilterScreen> {
   }
 
 
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   // final arguments = ModalRoute.of(context)!.settings.arguments as Map;
-  //   // type =arguments['type'].toString();
-  // }
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    isExternalWarehouse =arguments['isExternalWarehouse'];
+  }
 
   @override
   void initState() {
@@ -79,7 +79,8 @@ class _AddNewCountryState extends State<ContainerFilterScreen> {
         specification: state.specification,
         subContracts: subs,
         onSave: (request){
-          Navigator.pop(context , {'filter' : request});
+          request.isExternalWarehouse =isExternalWarehouse;
+          Navigator.pop(context , request);
         },);
     }
     // else if (currentState is SuccessfullyAddState){

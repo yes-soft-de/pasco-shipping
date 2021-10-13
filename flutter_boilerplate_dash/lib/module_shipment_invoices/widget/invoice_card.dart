@@ -139,7 +139,7 @@ class InvoiceCard extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            model.totalCost ?? '',
+                            model.totalCost ?? '0',
                             style: AppTextStyle.mediumBlueBold,
                           ),
                         )],
@@ -304,7 +304,11 @@ class InvoiceCard extends StatelessWidget {
                         color: Colors.green, style: AppTextStyle.mediumWhiteBold,
                         go: (){
                           payBill(model);
-                        }, radius: 12) :Container(),
+                        }, radius: 12) :RoundedButton(lable: 'Print receipt', icon: '',
+                        color: Colors.grey, style: AppTextStyle.mediumWhiteBold,
+                        go: (){
+                          _showSerAlert(context);
+                        }, radius: 12),
                   ],
                 ),
               )
@@ -313,5 +317,29 @@ class InvoiceCard extends StatelessWidget {
           ),
         ),
     );
+  }
+  _showSerAlert(BuildContext context){
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            title: Text('Receipt'),
+            content: Text('${model.finalAmount.toString()} has been received from ${model.clientUserName} at ${model.paymentDate.toString().split(' ').first}'),
+            actions: [
+              Row(
+                children: [
+                  FlatButton(onPressed: (){}, child: Row(children: [
+                    Icon(Icons.print, color: blue,size: 30,),
+                  ],)),
+                  Text('Print receipt')
+                ],
+              )
+
+            ],
+          );
+        });
   }
 }

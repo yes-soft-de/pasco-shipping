@@ -84,8 +84,11 @@ class Urls {
 
 
   //Air waybill finance
-  static const GET_Airwaybill_FINANCE = BASE_API + 'filterairwaybillfinance';
-  static const ADD_Airwaybill_FINANCE = BASE_API + 'airwaybillfinance';
+  static const ADD_Airwaybill_FCL_FINANCE = BASE_API + 'airwaybillfclfinance';
+  static const GET_Airwaybill_FCL_FINANCE = BASE_API + 'filterairwaybillfclfinance';
+
+  static const ADD_Airwaybill_LCL_FINANCE = BASE_API + 'airwaybilllclfinance';
+  static const GET_Airwaybill_LCL_FINANCE = BASE_API + 'filterairwaybilllclfinance';
 
 
   // specification

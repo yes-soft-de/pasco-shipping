@@ -22,7 +22,7 @@ class ClientCard extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: Row(
             children: [
-              model.image ==null ? Image.asset(StaticImage.profile , width: 100,height: 100,): Image.network(model.image!,width: 100,height: 100,),
+              (model.image ==null || model.image!.isEmpty ) ? Image.asset(StaticImage.profile , width: 100,height: 100,): Image.network(model.image!,width: 100,height: 100,),
               SizedBox(width: 20,),
               Expanded(
                 child: Column(

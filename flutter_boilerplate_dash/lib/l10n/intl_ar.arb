@@ -385,5 +385,18 @@
   "shiftingFrom": "تحولت من",
   "shiftingTo": "تحولت الى",
   "paymentType": "طريقة الدفع",
-  "addCostConfirm": "هل تريد اضافة هذه المصاريف؟"
+  "addCostConfirm": "هل تريد اضافة هذه المصاريف؟",
+  "enterContainerNumber": "أدخل رقم الحاوية",
+  "enterAirwaybillNumber": "أدخل رقم يوليصة الشحن",
+  "confirmAddCountry": "هل تريد حقا إضافى هذه الدولة",
+  "sellingCost": "سعر المبيع",
+  "buyingCost": "سعر الشراء",
+
+  "transporting": "Transporting",
+  "delayed": "Delayed",
+  "uploading": "Uploading",
+  "fork": "Fork",
+  "clearance": "Clearance",
+  "other": "Other",
+  "pocketing": "Pocketing"
 }

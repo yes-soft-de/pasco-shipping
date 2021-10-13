@@ -354,7 +354,7 @@
   "shipmentUploadedToTravel": "The shipment was loaded into a travel",
   "travelStarted": "The travel has started",
   "travelArrived": "the travel has arrived the destination country",
-  "containerCleared": "The container has cleared",
+  "containerCleared": "The holder has cleared",
   "shipmentArrived": "The shipment has arrived to warehouse",
   "shipmentDelivered": "Shipments delivered to client",
   "shipmentWaiting": "Shipment waiting for acceptance",
@@ -407,6 +407,19 @@
   "shiftingFrom": "Shifting From",
   "shiftingTo": "Shifting To",
   "paymentType": "Payment type",
-  "addCostConfirm": "Do you want to add these costs?"
+  "addCostConfirm": "Do you want to add these costs?",
+  "enterContainerNumber": "Enter container number",
+  "enterAirwaybillNumber": "Enter airway bill number",
+  "confirmAddCountry": "Do you really want to add this country?",
+
+  "sellingCost": "Selling cost",
+  "buyingCost": "Buying cost",
+  "transporting": "Transporting",
+  "delayed": "Delayed",
+  "uploading": "Uploading",
+  "fork": "Fork",
+  "clearance": "Clearance",
+  "other": "Other",
+  "pocketing": "Pocketing"
 
 }

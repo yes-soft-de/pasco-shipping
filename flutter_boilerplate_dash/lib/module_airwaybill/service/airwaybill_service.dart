@@ -43,11 +43,4 @@ import 'package:pasco_shipping/module_general/response/confirm_response.dart';
   Future<ConfirmResponse?> uploadedAirwaybillToTravel(AddAirwaybillToTravelRequest request) {
     return _manager.uploadedAirwaybillToTravel(request);
   }
-  Future<ConfirmResponse?> createAirwaybillFinance(AirwaybillAddFinanceRequest request) {
-    return _manager.createAirwaybillFinance(request);
-  }
-
-  Future<Data?> getAirwaybillFinance(AirwaybillFilterFinanceRequest request) {
-    return _manager.getAirwaybillFinance(request);
-  }
 }

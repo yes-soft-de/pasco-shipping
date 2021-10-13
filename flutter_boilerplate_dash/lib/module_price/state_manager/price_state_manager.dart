@@ -32,10 +32,17 @@ class PriceStateManager {
   void updatePrice(PriceRequest request){
     _stateSubject.add(LoadingPriceState());
     _profileService.updatePrice(request).then((modelUpdated) {
-      if(modelUpdated != null) {
-        _containerSpecificationService.getContainerSpecification().then((specification) {
-          if(specification != null){
-            _stateSubject.add(FetchedPriceSuccessfullyState(modelUpdated,specification));
+      if(modelUpdated != null && modelUpdated.isConfirmed) {
+        print('Done');
+        _profileService.getPrice().then((model) {
+          if(model != null) {
+            _containerSpecificationService.getContainerSpecification().then((specification) {
+              if(specification != null){
+                _stateSubject.add(FetchedPriceSuccessfullyState(model,specification));
+              }
+            });
+          }else {
+            _stateSubject.add(ErrorPriceState('connection error'));
           }
         });
       }else {

@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
@@ -81,7 +82,20 @@ class _AddNewCountryState extends State<AddNewShift> {
         shipmentID: shipmentID,
         warehouses: state!.wearhouses,
         onRequest: (request){
-          widget._stateManager.createShift(request);
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.createShift(request);
+            },
+            text: 'Do you really want to shift the shipment',
+          );
+
         },);
     }
     else {

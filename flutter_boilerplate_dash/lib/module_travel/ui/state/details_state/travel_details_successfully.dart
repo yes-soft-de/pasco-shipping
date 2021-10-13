@@ -97,29 +97,29 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                   ),
                 ),
 
-                Divider(color: Colors.grey[300],thickness: 2,),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(S.of(context).subcontract),
-                      Text(model.subcontractName ?? ''),
-                    ],
-                  ),
-                ),
-
-                Divider(color: Colors.grey[300],thickness: 2,),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(S.of(context).carrier),
-                      Text(model.carrierName ?? ''),
-                    ],
-                  ),
-                ),
+                // Divider(color: Colors.grey[300],thickness: 2,),
+                // Padding(
+                //   padding: const EdgeInsets.all(10.0),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       Text(S.of(context).subcontract),
+                //       Text(model.subcontractName ?? ''),
+                //     ],
+                //   ),
+                // ),
+                //
+                // Divider(color: Colors.grey[300],thickness: 2,),
+                // Padding(
+                //   padding: const EdgeInsets.all(10.0),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       Text(S.of(context).carrier),
+                //       Text(model.carrierName ?? ''),
+                //     ],
+                //   ),
+                // ),
             ],
             ),
           ),

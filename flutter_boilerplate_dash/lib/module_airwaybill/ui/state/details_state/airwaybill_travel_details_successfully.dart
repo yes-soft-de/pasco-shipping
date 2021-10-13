@@ -68,7 +68,7 @@ class _ContainerDetailsSuccessfullyState
                 ),
                 InkWell(
                     onTap: () {
-                      widget.onShowFinance(widget.model.id);
+                      widget.onShowFinance(widget.model.id,widget.model.type);
                     },
                     child: Column(
                       children: [
@@ -496,8 +496,7 @@ class _ContainerDetailsSuccessfullyState
     if (widget.model.shipments!.isNotEmpty &&
         widget.model.shippingStatus ==
             AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED] &&
-        !(widget.model.type == 'FCL' &&
-            widget.model.shipments![0].isExternalWarehouse!)) {
+        !(widget.model.type == 'FCL')) {
       return Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -540,8 +539,7 @@ class _ContainerDetailsSuccessfullyState
     } else if (widget.model.shipments!.isNotEmpty &&
         widget.model.shippingStatus ==
             AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED] &&
-        widget.model.type == 'FCL' &&
-        widget.model.shipments![0].isExternalWarehouse!) {
+        widget.model.type == 'FCL') {
       return Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -556,7 +554,7 @@ class _ContainerDetailsSuccessfullyState
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                StatusCard(S.of(context).arrived, false),
+                StatusCard(S.of(context).shipmentDelivered, false),
               ],
             ),
             RoundedButton(

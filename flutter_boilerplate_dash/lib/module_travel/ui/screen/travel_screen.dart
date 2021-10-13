@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -92,7 +93,19 @@ class _CountriesScreenState extends State<TravelScreen> {
       SuccessfullyFetchState? state = currentState as SuccessfullyFetchState?;
       items = state!.travels;
       return TravelSuccessfully(items: items ,onDelete: (id){
-        widget._stateManager.deleteTravel(id.toString() ,travelFilterRequest);
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.error,
+          title:  S.of(context).careful,
+          confirmBtnText: S.of(context).ok,
+          backgroundColor:AppThemeDataService.PrimaryColor,
+          confirmBtnColor:AppThemeDataService.AccentColor,
+          onConfirmBtnTap: (){
+            Navigator.pop(context);
+            widget._stateManager.deleteTravel(id.toString() ,travelFilterRequest);
+          },
+          text: 'Do you really want to delete the travel',
+        );
       },
         onEdit: (model){
         Navigator.pushNamed(context, TravelRoutes.UPDATE ,arguments: {'travelModel':model}).then((value) {

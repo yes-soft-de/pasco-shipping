@@ -79,25 +79,25 @@ final List<Entry> paymentType = <Entry>[
 ];
 final List<Entry> shipmentLclFinance = <Entry>[
   Entry(
-      'transporting', 0,[]
+      'Transporting', 0,[Entry('transporting', 0, [])]
   ),
   Entry(
-      'delayed', 0,[]
+      'Delayed', 0,[Entry('delayed', 0, [])]
   ),
   Entry(
-      'shipping', 0,[]
+      'Shipping', 0,[Entry('shipping', 0, [])]
   ),
   Entry(
-      'uploading', 0,[]
+      'Uploading', 0,[Entry('uploading', 0, [])]
   ),
   Entry(
-      'fork', 0,[]
+      'Fork', 0,[Entry('fork', 0, [])]
   ),
   Entry(
-      'pocketing', 0,[]
+      'Pocketing', 0,[Entry('pocketing', 0, [])]
   ),
   Entry(
-      'other', 0,[]
+      'Other', 0,[Entry('other', 0, [])]
   ),
 ];
 final List<Entry> fundName = <Entry>[
@@ -107,55 +107,85 @@ final List<Entry> fundName = <Entry>[
   Entry(
       'Turkey Fund', 0,[]
   ),
+  Entry(
+      'UAE Fund', 0,[]
+  ),
+  Entry(
+      'Spain Fund', 0,[]
+  ),
 ];
 
 
 final List<Entry> containerLclFinance = <Entry>[
   Entry(
-      'shipping', 0,[]
+      'Shipping',0,[Entry('shipping', 0, [])]
   ),
   Entry(
-      'uploading', 0,[]
+      'Uploading', 0,[Entry('uploading', 0, [])]
   ),
   Entry(
-      'fork', 0,[]
+      'Fork', 0,[Entry('fork', 0, [])]
   ),
   Entry(
-      'clearance', 0,[]
+      'Clearance', 0,[Entry('clearance', 0, [])]
   ),
   Entry(
-      'buyingCost', 0,[]
+      'Buying cost', 0,[Entry('buyingCost', 0, [])]
   ),
   Entry(
-      'other', 0,[]
+      'other', 0,[Entry('other', 0, [])]
   ),
 ];
 final List<Entry> containerFclFinance = <Entry>[
   Entry(
-      'transporting', 0,[]
+      'Transporting', 0,[Entry('transporting', 0, [])]
   ),
   Entry(
-      'delayed', 0,[]
+      'Delayed', 0,[Entry('delayed', 0, [])]
   ),
   Entry(
-      'shipping', 0,[]
+      'Shipping', 0,[Entry('shipping', 0, [])]
   ),
   Entry(
-      'uploading', 0,[]
+      'Uploading', 0,[Entry('uploading', 0, [])]
   ),
   Entry(
-      'fork', 0,[]
+      'Fork', 0,[Entry('fork', 0, [])]
   ),
   Entry(
-      'clearance', 0,[]
+      'Clearance', 0,[Entry('clearance', 0, [])]
   ),
   Entry(
-      'buyingCost', 0,[]
+      'Container', 0,[Entry('container', 0, [])]
   ),
   Entry(
-      'SellingCost', 0,[]
+      'Other', 0,[Entry('other', 0, [])]
+  ),
+];
+
+final List<Entry> airwaybillFclFinance = <Entry>[
+  Entry(
+      'Transporting', 0,[Entry('transporting', 0, [])]
   ),
   Entry(
-      'other', 0,[]
+      'Delayed', 0,[Entry('delayed', 0, [])]
+  ),
+  Entry(
+      'Shipping', 0,[Entry('shipping', 0, [])]
+  ),
+  Entry(
+      'Uploading', 0,[Entry('uploading', 0, [])]
+  ),
+  Entry(
+      'Fork', 0,[Entry('fork', 0, [])]
+  ),
+  Entry(
+      'Clearance', 0,[Entry('clearance', 0, [])]
+  ),
+  Entry(
+      'Air waybill', 0,[Entry('airwaybill', 0, [])]
+  ),
+  Entry(
+      'Other', 0,[Entry('other', 0, [])]
   ),
 ];

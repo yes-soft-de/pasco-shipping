@@ -11,6 +11,9 @@ class ContainerAddFinanceRequest {
   String? chequeNumber;
   String? financialFundName;
 
+  int? sellingCost;
+  int? buyingCost ;
+
   ContainerAddFinanceRequest(
       {required this.containerID,
         required this.stageDescription,
@@ -21,6 +24,8 @@ class ContainerAddFinanceRequest {
         this.financialFundName,
         this.chequeNumber,
         this.subcontractID,
+        this.buyingCost,
+        this.sellingCost
         // this.clientUserID
 
       });
@@ -35,6 +40,8 @@ class ContainerAddFinanceRequest {
         'chequeNumber':chequeNumber,
         'financialFundName':financialFundName,
         'paymentType':paymentType,
+        "sellingCost":sellingCost,
+        "buyingCost":buyingCost
         // 'clientUserID':clientUserID
       };
     } else {
@@ -48,6 +55,8 @@ class ContainerAddFinanceRequest {
         'chequeNumber':chequeNumber,
         'financialFundName':financialFundName,
         'paymentType':paymentType,
+        "sellingCost":sellingCost,
+        "buyingCost":buyingCost
         // 'clientUserID':clientUserID
       };
     }

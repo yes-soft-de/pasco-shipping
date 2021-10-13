@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -38,9 +39,9 @@ class _CountriesScreenState extends State<ContainerScreen> {
         goBack: ()  {
           // final arguments = ModalRoute.of(context)!.settings.arguments as Map;
           // TravelFilterRequest filterRequest =arguments['travelFilter'];
-          Navigator.pushNamed(context, ContainerRoutes.FILTER ).then((value) {
-            containerFilterRequest = (value as Map)['filter'];
-
+          Navigator.pushNamed(context, ContainerRoutes.FILTER,arguments: {'isExternalWarehouse':isExternalWarehouse} ).then((value) {
+            containerFilterRequest = value as ContainerFilterRequest;
+            print(containerFilterRequest);
             widget._stateManager.getContainersWithFilter(containerFilterRequest);
 
           });
@@ -93,7 +94,19 @@ class _CountriesScreenState extends State<ContainerScreen> {
       SuccessfullyFetchState? state = currentState as SuccessfullyFetchState?;
       items = state!.travels;
       return ContainerSuccessfully(items: items ,onDelete: (id){
-        widget._stateManager.deleteContainer(id.toString() ,containerFilterRequest);
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.error,
+          title:  S.of(context).careful,
+          confirmBtnText: S.of(context).ok,
+          backgroundColor:AppThemeDataService.PrimaryColor,
+          confirmBtnColor:AppThemeDataService.AccentColor,
+          onConfirmBtnTap: (){
+            Navigator.pop(context);
+            widget._stateManager.deleteContainer(id.toString() ,containerFilterRequest);
+          },
+          text: 'Do you really want to delete the container',
+        );
       },isExternal: isExternalWarehouse,
         onEdit: (model){
           Navigator.pushNamed(context, ContainerRoutes.UPDATE ,arguments: {'containerModel':model}).then((value) {

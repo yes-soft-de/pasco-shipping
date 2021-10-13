@@ -88,7 +88,7 @@ class InvoiceModel {
     shipmentID= json['shipmentID'];
     clientUserID= json["clientUserID"]??'';
     clientUserName= json["clientUserName"]??'';
-    finalAmount= json["finalAmount"].toString();
+    finalAmount= json["finalAmount"].toString() =='null' ? '0' : json["finalAmount"].toString();
 
     paidByClient= json['paidBy'] != null ? json["clientUserName"] :'';
     paymentStatus= json['paymentStatus'];
@@ -96,18 +96,18 @@ class InvoiceModel {
     paidOnBehalfBy= json['paidOnBehalfBy'];
     invoiceImage= json['invoiceImage'] ??'';
     receiptImage= json['receiptImage'] ??'';
-    totalCost= json['totalCost'].toString();
+    totalCost= json['totalCost'].toString() =='null' ? '0': json['totalCost'].toString();
     discount= json['discount']??0;
     notes= json['notes'];
 
-    clientPhone =json['clientPhone'];
-    clientLocation =json['clientLocation'];
-    clientCity =json['clientCity'];
-    clientCountry =json['clientCountry'];
+    clientPhone =json['clientPhone'] ??'';
+    clientLocation =json['clientLocation']??'';
+    clientCity =json['clientCity']??'';
+    clientCountry =json['clientCountry']??'';
     clientIdentificationNumber =json['clientIdentificationNumber'];
     transportationType =json['transportationType'];
-    target =json['target'];
-    paymentTime =json['paymentTime'];
+    target =json['target']??'';
+    paymentTime =json['paymentTime']??'';
 
 
     if(json['billDetails'] != null){

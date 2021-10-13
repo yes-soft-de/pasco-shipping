@@ -29,8 +29,8 @@ class UpdateTravelInit extends StatefulWidget {
 class _AddCountryInitState extends State<UpdateTravelInit> {
  late TextEditingController travelNumber ;
 
- late DropListModel dropListModelSubContract;
- late Entry optionItemSelectedSubContract;
+ // late DropListModel dropListModelSubContract;
+ // late Entry optionItemSelectedSubContract;
 
  late DropListModel dropListModelCarrier;
  late Entry optionItemSelectedCarrier;
@@ -375,40 +375,40 @@ class _AddCountryInitState extends State<UpdateTravelInit> {
               ),
               SizedBox(height: 30,),
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).carrier , style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              SelectDropList(
-                this.optionItemSelectedCarrier,
-                this.dropListModelCarrier,
-                    (optionItem) {
-                  optionItemSelectedCarrier = optionItem;
-                  setState(() {});
-                },
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Row(children: [
+              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+              //     SizedBox(width: 5,),
+              //     Text(S.of(context).carrier , style: AppTextStyle.mediumBlackBold,)
+              //   ],),
+              // ),
+              // SelectDropList(
+              //   this.optionItemSelectedCarrier,
+              //   this.dropListModelCarrier,
+              //       (optionItem) {
+              //     optionItemSelectedCarrier = optionItem;
+              //     setState(() {});
+              //   },
+              // ),
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).shipper , style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              SelectDropList(
-                this.optionItemSelectedSubContract,
-                this.dropListModelSubContract,
-                    (optionItem) {
-                  optionItemSelectedSubContract = optionItem;
-                  // shipperID = optionItem.id;
-                  setState(() {});
-                },
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Row(children: [
+              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+              //     SizedBox(width: 5,),
+              //     Text(S.of(context).shipper , style: AppTextStyle.mediumBlackBold,)
+              //   ],),
+              // ),
+              // SelectDropList(
+              //   this.optionItemSelectedSubContract,
+              //   this.dropListModelSubContract,
+              //       (optionItem) {
+              //     optionItemSelectedSubContract = optionItem;
+              //     // shipperID = optionItem.id;
+              //     setState(() {});
+              //   },
+              // ),
 
               RoundedButton(lable: 'Update', icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 DateTime arrivalDate = DateTime(endDate.year , endDate.month ,endDate.day ,selectedTimeEnd.hour ,selectedTimeEnd.minute);
@@ -417,9 +417,9 @@ class _AddCountryInitState extends State<UpdateTravelInit> {
                   TravelRequest re = TravelRequest(status: status ,type: type
                     ,destinationCountry: optionItemSelectedTo.title ,
                     launchCountry: optionItemSelectedFrom.title ,
-                    shipperID: optionItemSelectedSubContract.id,
-                    carrierID: optionItemSelectedCarrier.id
-                    ,travelNumber: travelNumber.text
+                    // shipperID: optionItemSelectedSubContract.id,
+                    // carrierID: optionItemSelectedCarrier.id
+                    travelNumber: travelNumber.text
                     ,arrivalDate:arrivalDate.toUtc().toString()
                     ,launchDate: launchDate.toUtc().toString(),
                   id: widget.model.id
@@ -459,8 +459,8 @@ class _AddCountryInitState extends State<UpdateTravelInit> {
 
     optionItemSelectedFrom =  Entry('choose', 0, []);
     optionItemSelectedTo =  Entry('choose', 0, []);
-    optionItemSelectedSubContract =  Entry('choose', 0, []);
-    optionItemSelectedCarrier =  Entry('choose', 0, []);
+    // optionItemSelectedSubContract =  Entry('choose', 0, []);
+    // optionItemSelectedCarrier =  Entry('choose', 0, []);
 
 
 
@@ -486,19 +486,19 @@ class _AddCountryInitState extends State<UpdateTravelInit> {
     formattedTimeEnd=selectedTimeEnd.format(context);
 
 
-    for(SubcontractModel item in widget.subContracts){
-      if(widget.model.subcontractName == item.fullName){
-        optionItemSelectedSubContract = Entry(item.fullName! ,item.id! ,[]);
-      }
-      if(widget.model.carrierName == item.fullName){
-        optionItemSelectedCarrier = Entry(item.fullName! ,item.id! ,[]);
-      }
-      Entry v = Entry(item.fullName! ,item.id! ,[]);
-      entrySub.add(v);
-      entryCarrier.add(v);
-    }
-    dropListModelSubContract = DropListModel(entrySub);
-    dropListModelCarrier = DropListModel(entryCarrier);
+    // for(SubcontractModel item in widget.subContracts){
+    //   if(widget.model.subcontractName == item.fullName){
+    //     optionItemSelectedSubContract = Entry(item.fullName! ,item.id! ,[]);
+    //   }
+    //   if(widget.model.carrierName == item.fullName){
+    //     optionItemSelectedCarrier = Entry(item.fullName! ,item.id! ,[]);
+    //   }
+    //   Entry v = Entry(item.fullName! ,item.id! ,[]);
+    //   entrySub.add(v);
+    //   entryCarrier.add(v);
+    // }
+    // dropListModelSubContract = DropListModel(entrySub);
+    // dropListModelCarrier = DropListModel(entryCarrier);
 
 
     for(CountryModel item in widget.countries){

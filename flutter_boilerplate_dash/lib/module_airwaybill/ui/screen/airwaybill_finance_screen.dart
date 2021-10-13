@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
@@ -7,6 +8,7 @@ import 'package:pasco_shipping/module_airwaybill/state_manger/airwaybill_finance
 import 'package:pasco_shipping/module_airwaybill/ui/state/airwaybill_finance_state/airwatbill_finance_state.dart';
 import 'package:pasco_shipping/module_airwaybill/ui/state/airwaybill_finance_state/airwaybill_finance_successfully.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
+import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
@@ -25,8 +27,9 @@ class AirwaybillFinanceScreen extends StatefulWidget {
 
 class _CountriesScreenState extends State<AirwaybillFinanceScreen> {
   late FinanceAirwaybillState currentState;
-
+  late List<SubcontractModel> subs;
   late int id;
+  late String type;
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +46,20 @@ class _CountriesScreenState extends State<AirwaybillFinanceScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
-     id =arguments['id'];
+    id =arguments['id'];
+    type =arguments['type'];
     AirwaybillFilterFinanceRequest request = AirwaybillFilterFinanceRequest(id: id);
-    widget._stateManager.getAirwaybillFinance(request);
+    if(type =='LCL') {
+      widget._stateManager.getAirwaybillLCLFinance(request);
+    }else {
+      widget._stateManager.getAirwaybillFCLFinance(request);
+    }
   }
 
   @override
   void initState() {
     super.initState();
+    subs=[];
     currentState = LoadingState();
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
@@ -74,11 +83,30 @@ class _CountriesScreenState extends State<AirwaybillFinanceScreen> {
     }
     else if (currentState is SuccessfullyFetchState) {
       SuccessfullyFetchState state = currentState as SuccessfullyFetchState;
+      subs = state.subcontracts;
       return AirwaybillFinanceSuccessfullyScreen(
      airwaybillID: id,
+     type: type,
+     subContracts: subs,
      airwaybillFinances: state.finances,
      addFinance: (request){
-          widget._stateManager.addAirwaybillFinance(request);
+       CoolAlert.show(
+         context: context,
+         type: CoolAlertType.info,
+         title:  S.of(context).careful,
+         confirmBtnText: S.of(context).ok,
+         backgroundColor:AppThemeDataService.PrimaryColor,
+         confirmBtnColor:AppThemeDataService.AccentColor,
+         onConfirmBtnTap: (){
+           Navigator.pop(context);
+           if(type=='LCL') {
+             widget._stateManager.createAirwaybillLCLFinance(request,subs);
+           }else{
+             widget._stateManager.createAirwaybillFCLFinance(request,subs);
+           }
+         },
+         text: S.of(context).addCostConfirm,
+       );
      },
       );
     }

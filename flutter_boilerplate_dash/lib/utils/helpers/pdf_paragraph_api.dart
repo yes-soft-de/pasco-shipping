@@ -60,6 +60,9 @@ class PdfParagraphApi {
     ]).toList();
     pdf.addPage(
       MultiPage(
+        theme: ThemeData.withFont(
+          base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+        ),
         margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
         pageFormat: PdfPageFormat.a4,
         orientation: PageOrientation.landscape,
@@ -188,6 +191,9 @@ class PdfParagraphApi {
     ]).toList();
     pdf.addPage(
       MultiPage(
+        theme: ThemeData.withFont(
+          base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+        ),
         build: (context) => <Widget>[
           Container(
             padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
@@ -293,6 +299,9 @@ class PdfParagraphApi {
     ]).toList();
     pdf.addPage(
       MultiPage(
+        theme: ThemeData.withFont(
+          base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+        ),
         build: (context) => <Widget>[
           Container(
             padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
@@ -399,6 +408,9 @@ class PdfParagraphApi {
     ]).toList();
     pdf.addPage(
       MultiPage(
+        theme: ThemeData.withFont(
+          base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+        ),
         margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
         pageFormat: PdfPageFormat.a4,
         build: (context) => <Widget>[
@@ -508,6 +520,9 @@ class PdfParagraphApi {
     final Uint8List byteList = bytes.buffer.asUint8List();
     pdf.addPage(
       MultiPage(
+        theme: ThemeData.withFont(
+          base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+        ),
         margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
         pageFormat: PdfPageFormat.a4,
         build: (context) => <Widget>[
@@ -637,7 +652,7 @@ class PdfParagraphApi {
     await rootBundle.load(StaticImage.logo);
     final Uint8List byteList = bytes.buffer.asUint8List();
     final headers =
-    ['ID',S.current.paymentTime,S.current.guniQuantity,
+    ['ShipmentID',S.current.paymentTime,S.current.guniQuantity,
       S.current.quantity,S.current.trackNumber,S.current.targetWarehouse,S.current.productType
     ];
     final data = model.shipments.map((user) =>
@@ -648,6 +663,9 @@ class PdfParagraphApi {
     ]).toList();
     pdf.addPage(
       MultiPage(
+        theme: ThemeData.withFont(
+          base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+        ),
         margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
         pageFormat: PdfPageFormat.a4,
         build: (context) => <Widget>[
@@ -793,13 +811,16 @@ class PdfParagraphApi {
     await rootBundle.load(StaticImage.logo);
     final Uint8List byteList = bytes.buffer.asUint8List();
     final headers =
-    [S.current.shipmentStatus,S.current.stageCost,S.current.description,
+    ['Stage Name',S.current.stageCost,S.current.description,
     ];
     final data = model.billingDetails.map((user) =>
     [user.shipmentStatus,user.stageCost, user.stageDescription,
     ]).toList();
     pdf.addPage(
       MultiPage(
+        theme: ThemeData.withFont(
+          base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+        ),
         margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
         pageFormat: PdfPageFormat.a4,
         build: (context) => <Widget>[
@@ -938,7 +959,6 @@ class PdfParagraphApi {
             headerStyle: TextStyle(fontWeight: FontWeight.bold),
             headerDecoration: BoxDecoration(color: PdfColors.grey300),
             cellHeight: 30,
-
             columnWidths: {
               0: FixedColumnWidth(15),
               1: FixedColumnWidth(30),
