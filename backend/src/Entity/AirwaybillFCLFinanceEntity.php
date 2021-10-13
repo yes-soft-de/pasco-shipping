@@ -34,7 +34,7 @@ class AirwaybillFCLFinanceEntity
     private $stageDescription;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $stageCost;
 
@@ -99,6 +99,16 @@ class AirwaybillFCLFinanceEntity
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $financialFundName;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $sellingCost;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $buyingCost;
 
     public function getId(): ?int
     {
@@ -293,6 +303,30 @@ class AirwaybillFCLFinanceEntity
     public function setFinancialFundName(string $financialFundName): self
     {
         $this->financialFundName = $financialFundName;
+
+        return $this;
+    }
+
+    public function getSellingCost(): ?float
+    {
+        return $this->sellingCost;
+    }
+
+    public function setSellingCost(?float $sellingCost): self
+    {
+        $this->sellingCost = $sellingCost;
+
+        return $this;
+    }
+
+    public function getBuyingCost(): ?float
+    {
+        return $this->buyingCost;
+    }
+
+    public function setBuyingCost(?float $buyingCost): self
+    {
+        $this->buyingCost = $buyingCost;
 
         return $this;
     }

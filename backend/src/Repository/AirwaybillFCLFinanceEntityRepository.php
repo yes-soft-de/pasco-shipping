@@ -25,10 +25,10 @@ class AirwaybillFCLFinanceEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, AirwaybillFCLFinanceEntity::class);
     }
 
-    public function getCurrentTotalCostByFilterOptions($airwaybillID, $status)
+    public function getCurrentTotalBuyingCostByFilterOptions($airwaybillID, $status)
     {
         $query = $this->createQueryBuilder('airwaybillFinance')
-            ->select('SUM(airwaybillFinance.stageCost) as currentTotalCost');
+            ->select('SUM(airwaybillFinance.buyingCost) as currentTotalBuyingCost');
 
         if($airwaybillID)
         {
@@ -45,10 +45,30 @@ class AirwaybillFCLFinanceEntityRepository extends ServiceEntityRepository
         return $query->getQuery()->getOneOrNullResult();
     }
 
-    public function getAirWaybillFCLTotalCostByShipmentID($shipmentID)
+    public function getCurrentTotalSellingCostByFilterOptions($airwaybillID, $status)
+    {
+        $query = $this->createQueryBuilder('airwaybillFinance')
+            ->select('SUM(airwaybillFinance.sellingCost) as currentTotalSellingCost');
+
+        if($airwaybillID)
+        {
+            $query->andWhere('airwaybillFinance.airwaybillID = :airwaybillID');
+            $query->setParameter('airwaybillID', $airwaybillID);
+        }
+
+        if($status)
+        {
+            $query->andWhere('airwaybillFinance.status = :status');
+            $query->setParameter('status', $status);
+        }
+
+        return $query->getQuery()->getOneOrNullResult();
+    }
+
+    public function getAirWaybillFCLTotalSellingCostByShipmentID($shipmentID)
     {
         return $this->createQueryBuilder('airwaybillFCLFinanceEntity')
-            ->select('SUM(airwaybillFCLFinanceEntity.stageCost) as currentTotalCost')
+            ->select('SUM(airwaybillFCLFinanceEntity.sellingCost) as currentTotalCost')
 
             ->leftJoin(
                 ShipmentStatusEntity::class,
@@ -67,7 +87,7 @@ class AirwaybillFCLFinanceEntityRepository extends ServiceEntityRepository
     public function getAirWaybillFCLBillDetailsByShipmentID($shipmentID)
     {
         return $this->createQueryBuilder('airwaybillFCLFinanceEntity')
-            ->select('airwaybillFCLFinanceEntity.status', 'airwaybillFCLFinanceEntity.stageCost', 'airwaybillFCLFinanceEntity.stageDescription')
+            ->select('airwaybillFCLFinanceEntity.status', 'airwaybillFCLFinanceEntity.sellingCost', 'airwaybillFCLFinanceEntity.stageDescription')
 
             ->leftJoin(
                 ShipmentStatusEntity::class,
@@ -79,6 +99,29 @@ class AirwaybillFCLFinanceEntityRepository extends ServiceEntityRepository
             ->andWhere('shipmentStatusEntity.shipmentID = :shipmentID')
             ->setParameter('shipmentID', $shipmentID)
 
+            ->andWhere("airwaybillFCLFinanceEntity.buyingCost IS NULL")
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAirWaybillFCLBuyingDetailsByShipmentID($shipmentID)
+    {
+        return $this->createQueryBuilder('airwaybillFCLFinanceEntity')
+            ->select('airwaybillFCLFinanceEntity.status', 'airwaybillFCLFinanceEntity.buyingCost', 'airwaybillFCLFinanceEntity.stageDescription')
+
+            ->leftJoin(
+                ShipmentStatusEntity::class,
+                'shipmentStatusEntity',
+                Join::WITH,
+                'shipmentStatusEntity.trackNumber = airwaybillFCLFinanceEntity.trackNumber'
+            )
+
+            ->andWhere('shipmentStatusEntity.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->andWhere("airwaybillFCLFinanceEntity.sellingCost IS NULL")
+
             ->getQuery()
             ->getResult();
     }
@@ -88,8 +131,8 @@ class AirwaybillFCLFinanceEntityRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('airwaybillFinance')
             ->select('airwaybillFinance.id', 'airwaybillFinance.airwaybillID', 'airwaybillFinance.status', 'airwaybillFinance.stageCost', 'airwaybillFinance.stageDescription', 'airwaybillFinance.clientUserID', 'airwaybillFinance.chequeNumber',
             'airwaybillFinance.currency', 'airwaybillFinance.createdAt', 'airwaybillFinance.updatedAt', 'airwaybillFinance.createdBy', 'airwaybillFinance.updatedBy', 'airwaybillFinance.subcontractID', 'airwaybillFinance.importWarehouseID',
-            'airwaybillFinance.paymentType', 'airwaybillFinance.financialFundName', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
-                'subcontractEntity.fullName as subcontractName', 'warehouseEntity.name as importWarehouseName', 'clientProfileEntity.userName as clientUsername')
+            'airwaybillFinance.buyingCost', 'airwaybillFinance.sellingCost', 'airwaybillFinance.paymentType', 'airwaybillFinance.financialFundName', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage',
+                'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage', 'subcontractEntity.fullName as subcontractName', 'warehouseEntity.name as importWarehouseName', 'clientProfileEntity.userName as clientUsername')
 
             ->leftJoin(
                 AdminProfileEntity::class,

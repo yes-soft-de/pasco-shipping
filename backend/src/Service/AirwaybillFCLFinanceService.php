@@ -39,7 +39,7 @@ class AirwaybillFCLFinanceService
 
         if($airwaybillFCLFinanceEntity instanceof AirwaybillFCLFinanceEntity)
         {
-            if(in_array($request->getStatus(), AirwaybillFCLFinancialStatusConstant::$FCL_AIR_WAYBILL_BILL_DETAILS))
+            if($request->getSellingCost())
             {
                 /**
                  * Check if shipment has a previous invoice, if it does, then updated the total cost
@@ -49,7 +49,7 @@ class AirwaybillFCLFinanceService
 
                 if($invoice)
                 {
-                    $this->updateShipmentInvoiceTotalCostByInvoiceIdAndShipmentID($this->getShipmentIdByAirWaybillID($request->getAirwaybillID()), $invoice->id);
+                    $this->updateShipmentInvoiceTotalCostAndBillDetailsAndBuyingDetailsByInvoiceIdAndShipmentID($this->getShipmentIdByAirWaybillID($request->getAirwaybillID()), $invoice->id);
                 }
             }
 
@@ -59,15 +59,16 @@ class AirwaybillFCLFinanceService
         return $airwaybillFCLFinanceEntity;
     }
 
-    public function updateShipmentInvoiceTotalCostByInvoiceIdAndShipmentID($shipmentID, $invoiceID)
+    public function updateShipmentInvoiceTotalCostAndBillDetailsAndBuyingDetailsByInvoiceIdAndShipmentID($shipmentID, $invoiceID)
     {
         $invoiceUpdateRequest = new ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest();
 
         $invoiceUpdateRequest->setId($invoiceID);
-        $invoiceUpdateRequest->setTotalCost($this->airwaybillFCLFinanceManager->getAirWaybillFCLTotalCostByShipmentID($shipmentID));
+        $invoiceUpdateRequest->setTotalCost($this->airwaybillFCLFinanceManager->getAirWaybillFCLTotalSellingCostByShipmentID($shipmentID));
         $invoiceUpdateRequest->setBillDetails($this->airwaybillFCLFinanceManager->getAirWaybillFCLBillDetailsByShipmentID($shipmentID));
+        $invoiceUpdateRequest->setBuyingDetails($this->airwaybillFCLFinanceManager->getAirWaybillFCLBuyingDetailsByShipmentID($shipmentID));
 
-        $this->shipmentInvoiceService->updateTotalCostAndBillDetails($invoiceUpdateRequest);
+        $this->shipmentInvoiceService->updateTotalCostAndBillDetailsAndBuyingDetails($invoiceUpdateRequest);
     }
 
     public function getShipmentIdByAirWaybillID($airWaybillID)

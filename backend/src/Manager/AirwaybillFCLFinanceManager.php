@@ -86,19 +86,29 @@ class AirwaybillFCLFinanceManager
         }
     }
 
-    public function getCurrentTotalCostByFilterOptions($airwaybillID, $status)
+    public function getCurrentTotalBuyingCostByFilterOptions($airwaybillID, $status)
     {
-        return $this->airwaybillFCLFinanceEntityRepository->getCurrentTotalCostByFilterOptions($airwaybillID, $status);
+        return $this->airwaybillFCLFinanceEntityRepository->getCurrentTotalBuyingCostByFilterOptions($airwaybillID, $status);
     }
 
-    public function getAirWaybillFCLTotalCostByShipmentID($shipmentID)
+    public function getCurrentTotalSellingCostByFilterOptions($airwaybillID, $status)
     {
-        return $this->airwaybillFCLFinanceEntityRepository->getAirWaybillFCLTotalCostByShipmentID($shipmentID);
+        return $this->airwaybillFCLFinanceEntityRepository->getCurrentTotalSellingCostByFilterOptions($airwaybillID, $status);
+    }
+
+    public function getAirWaybillFCLTotalSellingCostByShipmentID($shipmentID)
+    {
+        return $this->airwaybillFCLFinanceEntityRepository->getAirWaybillFCLTotalSellingCostByShipmentID($shipmentID);
     }
 
     public function getAirWaybillFCLBillDetailsByShipmentID($shipmentID)
     {
         return $this->airwaybillFCLFinanceEntityRepository->getAirWaybillFCLBillDetailsByShipmentID($shipmentID);
+    }
+
+    public function getAirWaybillFCLBuyingDetailsByShipmentID($shipmentID)
+    {
+        return $this->airwaybillFCLFinanceEntityRepository->getAirWaybillFCLBuyingDetailsByShipmentID($shipmentID);
     }
 
     public function getShipmentIdByAirWaybillID($airwaybillID)
@@ -120,19 +130,32 @@ class AirwaybillFCLFinanceManager
         {
             foreach($airwaybillFinances['airwaybillFinances'] as $key => $value)
             {
-                $airwaybillFinances['airwaybillFinances'][$key]['shipmentInfo'] = $this->trackManager->getByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $value['airwaybillID']);
+                $airwaybillFinances['airwaybillFinances'][$key]['shipmentInfo'] = $this->trackManager->getByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $value['airwaybillID']);
             }
         }
 
-        $currentTotalCost = $this->getCurrentTotalCostByFilterOptions($request->getAirwaybillID(), $request->getStatus())['currentTotalCost'];
+        // Get current total buying cost
+        $currentTotalBuyingCost = $this->getCurrentTotalBuyingCostByFilterOptions($request->getAirwaybillID(), $request->getStatus())['currentTotalBuyingCost'];
 
-        if($currentTotalCost)
+        if($currentTotalBuyingCost)
         {
-            $airwaybillFinances['currentTotalCost'] = $currentTotalCost;
+            $airwaybillFinances['currentTotalBuyingCost'] = $currentTotalBuyingCost;
         }
         else
         {
-            $airwaybillFinances['currentTotalCost'] = 0;
+            $airwaybillFinances['currentTotalBuyingCost'] = 0;
+        }
+
+        // Get current total selling cost
+        $currentTotalSellingCost = $this->getCurrentTotalSellingCostByFilterOptions($request->getAirwaybillID(), $request->getStatus())['currentTotalSellingCost'];
+
+        if($currentTotalSellingCost)
+        {
+            $airwaybillFinances['currentTotalSellingCost'] = $currentTotalSellingCost;
+        }
+        else
+        {
+            $airwaybillFinances['currentTotalSellingCost'] = 0;
         }
 
         return $airwaybillFinances;
