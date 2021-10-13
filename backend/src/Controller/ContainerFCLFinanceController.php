@@ -45,6 +45,8 @@ class ContainerFCLFinanceController extends BaseController
      *          @OA\Property(type="integer", property="containerID"),
      *          @OA\Property(type="string", property="stageDescription"),
      *          @OA\Property(type="number", property="stageCost"),
+     *          @OA\Property(type="number", property="sellingCost"),
+     *          @OA\Property(type="number", property="buyingCost"),
      *          @OA\Property(type="string", property="status"),
      *          @OA\Property(type="integer", property="subcontractID"),
      *          @OA\Property(type="string", property="paymentType"),
@@ -117,6 +119,8 @@ class ContainerFCLFinanceController extends BaseController
      *                      @OA\Property(type="integer", property="containerID"),
      *                      @OA\Property(type="string", property="status"),
      *                      @OA\Property(type="number", property="stageCost"),
+     *                      @OA\Property(type="number", property="sellingCost"),
+     *                      @OA\Property(type="number", property="buyingCost"),
      *                      @OA\Property(type="string", property="stageDescription"),
      *                      @OA\Property(type="string", property="currency"),
      *                      @OA\Property(type="string", property="subcontractName"),
@@ -148,7 +152,8 @@ class ContainerFCLFinanceController extends BaseController
      *                      @OA\Property(type="string", property="updatedByUserImage")
      *                  )
      *              ),
-     *              @OA\Property(type="number", property="currentTotalCost")
+     *              @OA\Property(type="number", property="currentTotalBuyingCost"),
+     *              @OA\Property(type="number", property="currentTotalSellingCost")
      *          )
      *      )
      * )

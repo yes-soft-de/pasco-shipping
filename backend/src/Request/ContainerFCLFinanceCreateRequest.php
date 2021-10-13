@@ -10,6 +10,10 @@ class ContainerFCLFinanceCreateRequest
 
     private $stageCost;
 
+    private $sellingCost;
+
+    private $buyingCost;
+
     private $status;
 
     private $currency;
@@ -52,6 +56,11 @@ class ContainerFCLFinanceCreateRequest
     public function getStageCost()
     {
         return $this->stageCost;
+    }
+
+    public function getSellingCost()
+    {
+        return $this->sellingCost;
     }
 
 }

@@ -39,7 +39,7 @@ class ContainerFCLFinanceService
 
         if($containerFinanceResult instanceof ContainerFCLFinanceEntity)
         {
-            if(in_array($request->getStatus(), ContainerFCLFinancialStatusConstant::$FCL_CONTAINER_BILL_DETAILS))
+            if($request->getSellingCost())
             {
                 /**
                  * Check if shipment has a previous invoice, if it does, then updated the total cost
@@ -49,7 +49,7 @@ class ContainerFCLFinanceService
 
                 if($invoice)
                 {
-                    $this->updateShipmentInvoiceTotalCostByInvoiceIdAndShipmentID($this->getShipmentIdByContainerID($request->getContainerID()), $invoice->id);
+                    $this->updateShipmentInvoiceTotalCostAndBillDetailsAndBuyingDetailsByInvoiceIdAndShipmentID($this->getShipmentIdByContainerID($request->getContainerID()), $invoice->id);
                 }
             }
 
@@ -59,15 +59,16 @@ class ContainerFCLFinanceService
         return $containerFinanceResult;
     }
 
-    public function updateShipmentInvoiceTotalCostByInvoiceIdAndShipmentID($shipmentID, $invoiceID)
+    public function updateShipmentInvoiceTotalCostAndBillDetailsAndBuyingDetailsByInvoiceIdAndShipmentID($shipmentID, $invoiceID)
     {
         $invoiceUpdateRequest = new ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest();
 
         $invoiceUpdateRequest->setId($invoiceID);
-        $invoiceUpdateRequest->setTotalCost($this->containerFCLFinanceManager->getContainerFCLTotalCostByShipmentID($shipmentID));
+        $invoiceUpdateRequest->setTotalCost($this->containerFCLFinanceManager->getContainerFCLTotalSellingCostByShipmentID($shipmentID));
         $invoiceUpdateRequest->setBillDetails($this->containerFCLFinanceManager->getContainerFCLBillDetailsByShipmentID($shipmentID));
+        $invoiceUpdateRequest->setBuyingDetails($this->containerFCLFinanceManager->getContainerFCLBuyingDetailsByShipmentID($shipmentID));
 
-        $this->shipmentInvoiceService->updateTotalCostAndBillDetails($invoiceUpdateRequest);
+        $this->shipmentInvoiceService->updateTotalCostAndBillDetailsAndBuyingDetails($invoiceUpdateRequest);
     }
 
     public function getShipmentIdByContainerID($containerID)

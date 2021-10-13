@@ -96,19 +96,29 @@ class ContainerFCLFinanceManager
         }
     }
 
-    public function getCurrentTotalCostByFilterOptions($containerID, $status)
+    public function getCurrentTotalBuyingCostByFilterOptions($containerID, $status)
     {
-        return $this->containerFinanceEntityRepository->getCurrentTotalCostByFilterOptions($containerID, $status);
+        return $this->containerFinanceEntityRepository->getCurrentTotalBuyingCostByFilterOptions($containerID, $status);
     }
 
-    public function getContainerFCLTotalCostByShipmentID($shipmentID)
+    public function getCurrentTotalSellingCostByFilterOptions($containerID, $status)
     {
-        return $this->containerFinanceEntityRepository->getContainerFCLTotalCostByShipmentID($shipmentID);
+        return $this->containerFinanceEntityRepository->getCurrentTotalSellingCostByFilterOptions($containerID, $status);
+    }
+
+    public function getContainerFCLTotalSellingCostByShipmentID($shipmentID)
+    {
+        return $this->containerFinanceEntityRepository->getContainerFCLTotalSellingCostByShipmentID($shipmentID);
     }
 
     public function getContainerFCLBillDetailsByShipmentID($shipmentID)
     {
         return $this->containerFinanceEntityRepository->getContainerFCLBillDetailsByShipmentID($shipmentID);
+    }
+
+    public function getContainerFCLBuyingDetailsByShipmentID($shipmentID)
+    {
+        return $this->containerFinanceEntityRepository->getContainerFCLBuyingDetailsByShipmentID($shipmentID);
     }
 
     public function filterContainerFCLFinances(ContainerFCLFinanceFilterRequest $request)
@@ -124,15 +134,28 @@ class ContainerFCLFinanceManager
             }
         }
 
-        $currentTotalCost = $this->getCurrentTotalCostByFilterOptions($request->getContainerID(), $request->getStatus())['currentTotalCost'];
+        // Get current total buying cost
+        $currentTotalBuyingCost = $this->getCurrentTotalBuyingCostByFilterOptions($request->getContainerID(), $request->getStatus())['currentTotalBuyingCost'];
 
-        if($currentTotalCost)
+        if($currentTotalBuyingCost)
         {
-            $containerFinances['currentTotalCost'] = $currentTotalCost;
+            $containerFinances['currentTotalBuyingCost'] = $currentTotalBuyingCost;
         }
         else
         {
-            $containerFinances['currentTotalCost'] = 0;
+            $containerFinances['currentTotalBuyingCost'] = 0;
+        }
+
+        // Get current total selling cost
+        $currentTotalSellingCost = $this->getCurrentTotalSellingCostByFilterOptions($request->getContainerID(), $request->getStatus())['currentTotalSellingCost'];
+
+        if($currentTotalSellingCost)
+        {
+            $containerFinances['currentTotalSellingCost'] = $currentTotalSellingCost;
+        }
+        else
+        {
+            $containerFinances['currentTotalSellingCost'] = 0;
         }
 
         return $containerFinances;
