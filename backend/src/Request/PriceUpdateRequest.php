@@ -10,6 +10,14 @@ class PriceUpdateRequest
 
     private $oneCBMPrice;
 
+    private $exportCountryID;
+
+    private $exportCity;
+
+    private $importCountryID;
+
+    private $importCity;
+
     private $containerSpecificationID;
 
     private $containerSpecificationPrice;

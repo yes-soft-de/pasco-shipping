@@ -4,18 +4,8 @@ namespace App\Response;
 
 class PriceGetResponse
 {
-    public $id;
-
-    public $oneKiloPrice;
-
-    public $oneCBMPrice;
+    public $prices;
 
     public $containerSpecifications;
-
-    public $updatedAt;
-
-    public $updatedByUser;
-
-    public $updatedByUserImage;
 
 }

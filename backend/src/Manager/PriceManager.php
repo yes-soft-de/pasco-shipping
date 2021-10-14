@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\PriceEntity;
 use App\Repository\PriceEntityRepository;
 use App\Request\ContainerSpecificationPriceUpdateRequest;
+use App\Request\DeleteRequest;
 use App\Request\PriceCreateRequest;
 use App\Request\PriceUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
@@ -43,9 +44,7 @@ class PriceManager
 
         if(!$priceEntity)
         {
-            $priceCreateRequest = $this->autoMapping->map(PriceUpdateRequest::class, PriceCreateRequest::class, $request);
 
-            return $this->create($priceCreateRequest);
         }
         else
         {
@@ -54,8 +53,11 @@ class PriceManager
             $this->entityManager->flush();
             $this->entityManager->clear();
 
-            //Now update the price of specific container specification
-            $this->updateContainerSpecificationPrice($request->getContainerSpecificationID(), $request->getContainerSpecificationPrice(), $request->getUpdatedBy());
+            if($request->getContainerSpecificationID())
+            {
+                //Now update the price of specific container specification
+                $this->updateContainerSpecificationPrice($request->getContainerSpecificationID(), $request->getContainerSpecificationPrice(), $request->getUpdatedBy());
+            }
 
             return $priceEntity;
         }
@@ -74,11 +76,30 @@ class PriceManager
 
     public function getPrices()
     {
-        $prices = $this->priceEntityRepository->getPrices();
+        $result = [];
 
-        $prices['containerSpecifications'] = $this->containerSpecificationManager->getAllContainerSpecifications();
+        $result['prices'] = $this->priceEntityRepository->getAllPrices();
 
-        return $prices;
+        $result['containerSpecifications'] = $this->containerSpecificationManager->getAllContainerSpecifications();
+
+        return $result;
+    }
+
+    public function delete(DeleteRequest $request)
+    {
+        $item = $this->priceEntityRepository->find($request->getId());
+
+        if(!$item)
+        {
+            return "No prices record was found!";
+        }
+        else
+        {
+            $this->entityManager->remove($item);
+            $this->entityManager->flush();
+
+            return $item;
+        }
     }
 
 }
