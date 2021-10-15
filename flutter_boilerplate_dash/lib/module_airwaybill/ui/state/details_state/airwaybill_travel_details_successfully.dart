@@ -525,10 +525,10 @@ class _ContainerDetailsSuccessfullyState
                 color: AppThemeDataService.AccentColor,
                 style: AppTextStyle.mediumWhite,
                 go: () {
-                  AirwaybillClearedOrArrivedRequest re1 =
-                  AirwaybillClearedOrArrivedRequest(
-                          id: widget.model.id!,
-                          status: AcceptedShipmentStatusName[
+                  AddAirwaybillToTravelRequest re1 =
+                  AddAirwaybillToTravelRequest(
+                          holderID: widget.model.id!,
+                          shipmentStatus: AcceptedShipmentStatusName[
                               AcceptedShipmentStatus.CLEARED]!);
                   widget.onClearedOrArrived(re1);
                 },

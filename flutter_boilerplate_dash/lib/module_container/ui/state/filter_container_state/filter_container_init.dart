@@ -157,10 +157,10 @@ class _AddCountryInitState extends State<FilterContainerInit> {
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(S.of(context).enterShipmentNumber , style: AppTextStyle.mediumBlackBold,),
+                child: Text('Enter container ID', style: AppTextStyle.mediumBlackBold,),
               ),
-              TextEdit(hint: S.of(context).enterShipmentNumber, title: '', onChange: (shipmentID){
-                containerFilterRequest.shipmentID = int.parse(shipmentID);
+              TextEdit(hint: 'Enter container ID', title: '', onChange: (containerID){
+                containerFilterRequest.containerID = int.parse(containerID);
               }),
             Padding(
               padding: const EdgeInsets.all(8.0),

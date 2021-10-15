@@ -266,7 +266,7 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                         }
                         else {
                           ShipmentLCLFinanceRequest mark = ShipmentLCLFinanceRequest(
-                              shipmentStatus:optionItemSelectedStatus.title
+                              shipmentStatus:optionItemSelectedStatus.children[0].title
                               ,trackNumber: widget.trackNumber,currency: '',
                               shipmentID: widget.shipmentID,
                               stageCost: int.parse(cost.text) ,

@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
@@ -128,7 +129,7 @@ class _CountriesScreenState extends State<InvoicesScreen> {
                                     request.paidBy=int.parse(model.clientUserID);
                                   }
                                   Navigator.pop(context);
-                                  widget._stateManager.payBill(request, invoiceFilterRequest);
+                                  _showConfrim(request);
                                     },
                                     radius: 12)
                               ],
@@ -167,5 +168,21 @@ class _CountriesScreenState extends State<InvoicesScreen> {
         ),
       );
     }
+  }
+
+  _showConfrim(PayBillRequest request){
+    CoolAlert.show(
+      context: context,
+      type: CoolAlertType.info,
+      title:  S.of(context).careful,
+      confirmBtnText: S.of(context).ok,
+      backgroundColor:AppThemeDataService.PrimaryColor,
+      confirmBtnColor:AppThemeDataService.AccentColor,
+      onConfirmBtnTap: (){
+        Navigator.pop(context);
+        widget._stateManager.payBill(request, invoiceFilterRequest);
+      },
+      text: 'Do you really want to pay the bill',
+    );
   }
 }

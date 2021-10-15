@@ -127,7 +127,7 @@ class _CountriesScreenState extends State<AcceptedShipmentDetailsScreen> {
                                    style: AppTextStyle.mediumWhite,
                                    go: () {
                                  Navigator.pop(context);
-                                 widget._stateManager.createInvoice(request, detailsModel);
+                                 _showConfirm(request,detailsModel);
                                    },
                                    radius: 12)
                              ],
@@ -183,5 +183,20 @@ class _CountriesScreenState extends State<AcceptedShipmentDetailsScreen> {
         ),
       );
     }
+  }
+  _showConfirm(request,detailsModel){
+    CoolAlert.show(
+      context: context,
+      type: CoolAlertType.info,
+      title:  S.of(context).careful,
+      confirmBtnText: S.of(context).ok,
+      backgroundColor:AppThemeDataService.PrimaryColor,
+      confirmBtnColor:AppThemeDataService.AccentColor,
+      onConfirmBtnTap: (){
+        Navigator.pop(context);
+        widget._stateManager.createInvoice(request, detailsModel);
+      },
+      text: 'Do you really want to create the bill',
+    );
   }
 }
