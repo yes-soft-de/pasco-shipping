@@ -4,8 +4,10 @@ namespace App\Manager;
 
 use App\AutoMapping;
 use App\Constant\ShipmentLCLFinancialStatusConstant;
+use App\Constant\ShippingWayConstant;
 use App\Entity\ShipmentLCLFinanceEntity;
 use App\Repository\ShipmentLCLFinanceEntityRepository;
+use App\Request\PricesFilterRequest;
 use App\Request\ShipmentLCLFinanceCreateRequest;
 use App\Request\ShipmentLCLFinanceFilterRequest;
 use App\Request\ShipmentFinanceUpdateRequest;
@@ -16,14 +18,16 @@ class ShipmentLCLFinanceManager
     private $autoMapping;
     private $entityManager;
     private $shipmentOrderManager;
+    private $priceManager;
     private $shipmentLCLFinanceEntityRepository;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ShipmentLCLFinanceEntityRepository $shipmentLCLFinanceEntityRepository,
-     ShipmentOrderManager $shipmentOrderManager)
+     ShipmentOrderManager $shipmentOrderManager, PriceManager $priceManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->shipmentOrderManager = $shipmentOrderManager;
+        $this->priceManager = $priceManager;
         $this->shipmentLCLFinanceEntityRepository = $shipmentLCLFinanceEntityRepository;
     }
 
@@ -97,6 +101,16 @@ class ShipmentLCLFinanceManager
         $shipmentFinances['shipmentFinances'] = $this->shipmentLCLFinanceEntityRepository->filterShipmentLCLFinances($request->getShipmentID(), $request->getTrackNumber(), $request->getShipmentStatus(),
         $request->getExportWarehouseID(), $request->getImportWarehouseID(), $request->getContainerID(), $request->getAirwaybillID(), $request->getTravelID());
 
+        // Get price of one Kilo / CBM
+        if($shipmentFinances['shipmentFinances'])
+        {
+            foreach($shipmentFinances['shipmentFinances'] as $key => $value)
+            {
+                $shipmentFinances['shipmentFinances'][$key]['price'] = $this->getOneKiloOrCBMPriceByShipmentID($value['shipmentID']);
+            }
+        }
+
+        // Get total Cost of the stages
         $currentTotalCost = $this->getCurrentTotalCostByFilterOptions($request->getShipmentID(), $request->getTrackNumber(), $request->getShipmentStatus(),
         $request->getExportWarehouseID(), $request->getImportWarehouseID(), $request->getContainerID(), $request->getAirwaybillID(), $request->getTravelID())['currentTotalCost'];
 
@@ -120,6 +134,26 @@ class ShipmentLCLFinanceManager
     public function getImportWarehouseIdByShipmentID($shipmentID)
     {
         return $this->shipmentOrderManager->getImportWarehouseIdByShipmentOrderID($shipmentID);
+    }
+
+    public function getOneKiloOrCBMPriceByShipmentID($shipmentID)
+    {
+        $result = $this->shipmentOrderManager->getHolderTypeAndTransportationTypeByShipmentOrderID($shipmentID);
+
+        if($result)
+        {
+            if($result['transportationType'] == ShippingWayConstant::$SEA_SHIPPING_WAY)
+            {
+                // Get one CBM price
+                return $this->priceManager->getOneCBMPriceByShipmentID($shipmentID);
+
+            }
+            elseif($result['transportationType'] == ShippingWayConstant::$AIR_SHIPPING_WAY)
+            {
+                // Get one Kilo price
+                return $this->priceManager->getOneKiloPriceByShipmentID($shipmentID);
+            }
+        }
     }
     
     public function deleteAllShipmentLCLFinances()

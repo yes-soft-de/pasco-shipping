@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\AdminProfileEntity;
 use App\Entity\CountryEntity;
 use App\Entity\PriceEntity;
+use App\Request\PricesFilterRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
@@ -59,6 +60,38 @@ class PriceEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getResult();
+    }
+
+    public function filterPrices(PricesFilterRequest $request)
+    {
+        $query = $this->createQueryBuilder('priceEntity')
+            ->select('priceEntity.id', 'priceEntity.oneKiloPrice', 'priceEntity.oneCBMPrice', 'priceEntity.updatedAt', 'priceEntity.updatedBy', 'priceEntity.createdAt',
+                'priceEntity.createdBy', 'priceEntity.exportCountryID', 'priceEntity.exportCity', 'priceEntity.importCountryID', 'priceEntity.importCity',
+                'exportCountryEntity.name as exportCountryName', 'importCountryEntity.name as importCountryName')
+
+            ->leftJoin(
+                CountryEntity::class,
+                'exportCountryEntity',
+                Join::WITH,
+                'exportCountryEntity.id = priceEntity.exportCountryID'
+            )
+
+            ->leftJoin(
+                CountryEntity::class,
+                'importCountryEntity',
+                Join::WITH,
+                'importCountryEntity.id = priceEntity.importCountryID'
+            )
+
+            ->orderBy('priceEntity.id', 'DESC');
+
+        if($request->getExportCountryID())
+        {
+            $query->andWhere('priceEntity.exportCountryID = :exportCountryID');
+            $query->setParameter('exportCountryID', $request->getExportCountryID());
+        }
+
+        return $query->getQuery()->getResult();
     }
 
 }
