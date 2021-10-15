@@ -8,11 +8,19 @@ class PriceCreateRequest
 
     private $oneCBMPrice;
 
-    private $updatedBy;
+    private $exportCountryID;
 
-    public function setUpdatedBy($updatedBy)
+    private $exportCity;
+
+    private $importCountryID;
+
+    private $importCity;
+
+    private $createdBy;
+
+    public function setCreatedBy($createdBy)
     {
-        $this->updatedBy = $updatedBy;
+        $this->createdBy = $createdBy;
     }
 
 }

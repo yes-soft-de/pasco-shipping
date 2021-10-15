@@ -29,7 +29,7 @@ class PriceEntity
     private $oneCBMPrice;
 
     /**
-     * @Gedmo\Timestampable(on="create")
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
@@ -38,6 +38,37 @@ class PriceEntity
      * @ORM\Column(type="integer", nullable=true)
      */
     private $updatedBy;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $exportCountryID;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $exportCity;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $importCountryID;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $importCity;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $createdBy;
 
     public function getId(): ?int
     {
@@ -88,6 +119,78 @@ class PriceEntity
     public function setUpdatedBy(?int $updatedBy): self
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getExportCountryID(): ?int
+    {
+        return $this->exportCountryID;
+    }
+
+    public function setExportCountryID(int $exportCountryID): self
+    {
+        $this->exportCountryID = $exportCountryID;
+
+        return $this;
+    }
+
+    public function getExportCity(): ?string
+    {
+        return $this->exportCity;
+    }
+
+    public function setExportCity(string $exportCity): self
+    {
+        $this->exportCity = $exportCity;
+
+        return $this;
+    }
+
+    public function getImportCountryID(): ?int
+    {
+        return $this->importCountryID;
+    }
+
+    public function setImportCountryID(int $importCountryID): self
+    {
+        $this->importCountryID = $importCountryID;
+
+        return $this;
+    }
+
+    public function getImportCity(): ?string
+    {
+        return $this->importCity;
+    }
+
+    public function setImportCity(string $importCity): self
+    {
+        $this->importCity = $importCity;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?int
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(int $createdBy): self
+    {
+        $this->createdBy = $createdBy;
 
         return $this;
     }

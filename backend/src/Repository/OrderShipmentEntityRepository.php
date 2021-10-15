@@ -1032,6 +1032,18 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    public function getExportWarehouseIdByShipmentOrderID($shipmentID)
+    {
+        return $this->createQueryBuilder('shipmentOrder')
+            ->select("shipmentOrder.exportWarehouseID")
+
+            ->andWhere('shipmentOrder.id = :id')
+            ->setParameter('id', $shipmentID)
+
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function getClientUserIdByShipmentOrderID($shipmentID)
     {
         return $this->createQueryBuilder('shipmentOrder')

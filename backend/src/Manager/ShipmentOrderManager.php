@@ -668,6 +668,11 @@ class ShipmentOrderManager
         return $this->orderShipmentEntityRepository->getImportWarehouseIdByShipmentOrderID($shipmentID);
     }
 
+    public function getExportWarehouseIdByShipmentOrderID($shipmentID)
+    {
+        return $this->orderShipmentEntityRepository->getExportWarehouseIdByShipmentOrderID($shipmentID);
+    }
+
     public function getClientUserIdByShipmentOrderID($shipmentID)
     {
         return $this->orderShipmentEntityRepository->getClientUserIdByShipmentOrderID($shipmentID);

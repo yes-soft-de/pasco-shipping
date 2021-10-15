@@ -74,6 +74,18 @@ class WarehouseEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getCountryIdAndCityOfWarehouseByWarehouseID($warehouseID)
+    {
+        return $this->createQueryBuilder('warehouse')
+            ->select('warehouse.city', 'warehouse.countryID')
+
+            ->andWhere('warehouse.id = :warehouseID')
+            ->setParameter('warehouseID', $warehouseID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function filterWarehouses(WarehouseFilterRequest $request)
     {
         $query = $this->createQueryBuilder('warehouse')

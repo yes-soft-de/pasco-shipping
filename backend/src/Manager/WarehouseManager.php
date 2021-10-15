@@ -91,6 +91,11 @@ class WarehouseManager
         return $this->warehouseEntityRepository->getAllWarehouses();
     }
 
+    public function getCountryIdAndCityOfWarehouseByWarehouseID($warehouseID)
+    {
+        return $this->warehouseEntityRepository->getCountryIdAndCityOfWarehouseByWarehouseID($warehouseID);
+    }
+
     public function filterWarehouses(WarehouseFilterRequest $request)
     {
         /**

@@ -10,6 +10,14 @@ class PriceUpdateResponse
 
     public $oneCBMPrice;
 
+    public $exportCountryID;
+
+    public $exportCity;
+
+    public $importCountryID;
+
+    public $importCity;
+
     public $updatedAt;
 
 }
