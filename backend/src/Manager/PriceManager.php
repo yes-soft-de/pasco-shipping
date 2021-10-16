@@ -59,12 +59,6 @@ class PriceManager
             $this->entityManager->flush();
             $this->entityManager->clear();
 
-            if($request->getContainerSpecificationID())
-            {
-                //Now update the price of specific container specification
-                $this->updateContainerSpecificationPrice($request->getContainerSpecificationID(), $request->getContainerSpecificationPrice(), $request->getUpdatedBy());
-            }
-
             return $priceEntity;
         }
     }

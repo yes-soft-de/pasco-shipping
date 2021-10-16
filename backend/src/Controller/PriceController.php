@@ -104,9 +104,7 @@ class PriceController extends BaseController
      *          @OA\Property(type="integer", property="exportCountryID"),
      *          @OA\Property(type="string", property="exportCity"),
      *          @OA\Property(type="integer", property="importCountryID"),
-     *          @OA\Property(type="string", property="importCity"),
-     *          @OA\Property(type="integer", property="containerSpecificationID"),
-     *          @OA\Property(type="number", property="containerSpecificationPrice"),
+     *          @OA\Property(type="string", property="importCity")
      *      )
      * )
      *
@@ -124,12 +122,6 @@ class PriceController extends BaseController
      *              @OA\Property(type="string", property="exportCity"),
      *              @OA\Property(type="integer", property="importCountryID"),
      *              @OA\Property(type="string", property="importCity"),
-     *              @OA\Property(type="array", property="containerSpecifications",
-     *                  @OA\Items(
-     *                      @OA\Property(type="integer", property="id"),
-     *                      @OA\Property(type="number", property="price")
-     *                  )
-     *              ),
      *              @OA\Property(type="object", property="updatedAt")
      *          )
      *      )
