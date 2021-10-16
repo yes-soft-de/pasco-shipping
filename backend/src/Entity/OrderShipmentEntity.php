@@ -185,6 +185,11 @@ class OrderShipmentEntity
      */
     private $holderCount;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $exportCountryID;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -582,6 +587,18 @@ class OrderShipmentEntity
     public function setHolderCount(?int $holderCount): self
     {
         $this->holderCount = $holderCount;
+
+        return $this;
+    }
+
+    public function getExportCountryID(): ?int
+    {
+        return $this->exportCountryID;
+    }
+
+    public function setExportCountryID(?int $exportCountryID): self
+    {
+        $this->exportCountryID = $exportCountryID;
 
         return $this;
     }

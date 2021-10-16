@@ -106,7 +106,9 @@ class ShipmentLCLFinanceManager
         {
             foreach($shipmentFinances['shipmentFinances'] as $key => $value)
             {
-                $shipmentFinances['shipmentFinances'][$key]['price'] = $this->getOneKiloOrCBMPriceByShipmentID($value['shipmentID']);
+                $shipmentFinances['shippingType'] = $this->getShippingTypeByShipmentID($value['shipmentID']);
+
+                $shipmentFinances['price'] = $this->getOneKiloOrCBMPriceByShipmentID($value['shipmentID']);
             }
         }
 
@@ -153,6 +155,16 @@ class ShipmentLCLFinanceManager
                 // Get one Kilo price
                 return $this->priceManager->getOneKiloPriceByShipmentID($shipmentID);
             }
+        }
+    }
+
+    public function getShippingTypeByShipmentID($shipmentID)
+    {
+        $result = $this->shipmentOrderManager->getHolderTypeAndTransportationTypeByShipmentOrderID($shipmentID);
+
+        if($result)
+        {
+            return $result['transportationType'];
         }
     }
     

@@ -129,6 +129,7 @@ class ContainerFCLFinanceController extends BaseController
      *                      @OA\Property(type="string", property="paymentType"),
      *                      @OA\Property(type="string", property="financialFundName"),
      *                      @OA\Property(type="string", property="chequeNumber"),
+     *                      @OA\Property(type="number", property="price"),
      *                      @OA\Property(type="array", property="shipmentInfo",
      *                          @OA\Items(
      *                              @OA\Property(type="integer", property="id"),
@@ -153,7 +154,8 @@ class ContainerFCLFinanceController extends BaseController
      *                  )
      *              ),
      *              @OA\Property(type="number", property="currentTotalBuyingCost"),
-     *              @OA\Property(type="number", property="currentTotalSellingCost")
+     *              @OA\Property(type="number", property="currentTotalSellingCost"),
+     *              @OA\Property(type="number", property="price"),
      *          )
      *      )
      * )

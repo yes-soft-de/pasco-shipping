@@ -18,10 +18,6 @@ class PriceUpdateRequest
 
     private $importCity;
 
-    private $containerSpecificationID;
-
-    private $containerSpecificationPrice;
-
     private $updatedBy;
 
     public function getId()
@@ -37,16 +33,6 @@ class PriceUpdateRequest
     public function getUpdatedBy()
     {
         return $this->updatedBy;
-    }
-
-    public function getContainerSpecificationID()
-    {
-        return $this->containerSpecificationID;
-    }
-
-    public function getContainerSpecificationPrice()
-    {
-        return $this->containerSpecificationPrice;
     }
 
 }

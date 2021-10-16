@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Entity\ContainerSpecificationEntity;
 use App\Manager\ContainerSpecificationManager;
 use App\Request\ContainerSpecificationCreateRequest;
+use App\Request\ContainerSpecificationPriceUpdateRequest;
 use App\Request\ContainerSpecificationUpdateRequest;
 use App\Response\ContainerSpecificationCreateResponse;
 use App\Response\ContainerSpecificationGetResponse;
@@ -35,6 +36,13 @@ class ContainerSpecificationService
     public function update(ContainerSpecificationUpdateRequest $request)
     {
         $containerSpecificationResult = $this->containerSpecificationManager->update($request);
+
+        return $this->autoMapping->map(ContainerSpecificationEntity::class, ContainerSpecificationUpdateResponse::class, $containerSpecificationResult);
+    }
+
+    public function updatePrice(ContainerSpecificationPriceUpdateRequest $request)
+    {
+        $containerSpecificationResult = $this->containerSpecificationManager->updatePrice($request);
 
         return $this->autoMapping->map(ContainerSpecificationEntity::class, ContainerSpecificationUpdateResponse::class, $containerSpecificationResult);
     }
