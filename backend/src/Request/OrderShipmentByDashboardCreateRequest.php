@@ -18,6 +18,8 @@ class OrderShipmentByDashboardCreateRequest
 
     private $importWarehouseID;
 
+    private $exportCountryID;
+
     private $markID;
 
     private $exportWarehouseID;

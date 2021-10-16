@@ -74,6 +74,7 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="extraSpecification"),
      *          @OA\Property(type="string", property="holderType", description="public or private container"),
      *          @OA\Property(type="text", property="externalWarehouseInfo"),
+     *          @OA\Property(type="string", property="exportCountryID"),
      *          @OA\Property(type="boolean", property="isExternalWarehouse"),
      *          @OA\Property(type="array", property="requestedHolders",
      *              @OA\Items(
@@ -159,6 +160,7 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="supplierName"),
      *          @OA\Property(type="integer", property="distributorID"),
      *          @OA\Property(type="string", property="exportWarehouseID"),
+     *          @OA\Property(type="string", property="exportCountryID"),
      *          @OA\Property(type="string", property="quantity"),
      *          @OA\Property(type="array", property="images",
      *              @OA\Items()
