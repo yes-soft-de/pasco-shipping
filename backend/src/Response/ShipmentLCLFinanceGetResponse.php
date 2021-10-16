@@ -8,4 +8,8 @@ class ShipmentLCLFinanceGetResponse
 
     public $currentTotalCost;
 
+    public $price;
+
+    public $shippingType;
+
 }

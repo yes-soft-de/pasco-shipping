@@ -192,7 +192,9 @@ class ShipmentLCLFinanceController extends BaseController
      *                      @OA\Property(type="string", property="updatedByUserImage")
      *                  )
      *              ),
-     *              @OA\Property(type="number", property="currentTotalCost")
+     *              @OA\Property(type="number", property="currentTotalCost"),
+     *              @OA\Property(type="string", property="shippingType"),
+     *              @OA\Property(type="number", property="price")
      *          )
      *      )
      * )
