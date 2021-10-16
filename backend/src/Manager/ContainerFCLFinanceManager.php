@@ -137,6 +137,8 @@ class ContainerFCLFinanceManager
                 $containerFinances['containerFinances'][$key]['shipmentInfo'] = $this->trackManager->getByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $value['containerID']);
 
                 $containerFinances['containerFinances'][$key]['price'] = $this->getContainerSpecificationPriceByContainerID($value['containerID']);
+
+                $containerFinances['price'] = $this->getContainerSpecificationPriceByContainerID($value['containerID']);
             }
         }
 

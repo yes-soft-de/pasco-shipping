@@ -154,7 +154,8 @@ class ContainerFCLFinanceController extends BaseController
      *                  )
      *              ),
      *              @OA\Property(type="number", property="currentTotalBuyingCost"),
-     *              @OA\Property(type="number", property="currentTotalSellingCost")
+     *              @OA\Property(type="number", property="currentTotalSellingCost"),
+     *              @OA\Property(type="number", property="price"),
      *          )
      *      )
      * )

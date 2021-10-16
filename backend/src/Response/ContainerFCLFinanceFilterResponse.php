@@ -12,4 +12,6 @@ class ContainerFCLFinanceFilterResponse
 
     public $currentTotalSellingCost;
 
+    public $price;
+
 }
