@@ -30,7 +30,16 @@ class _AddNewCountryState extends State<AddNewCountry> {
       showFilter: false,
         goBack: (){
         },
-        child: Screen(),
+        child:Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child: Screen()),
+          ),
+        ),
         title: S.of(context).add
     );
   }
@@ -65,6 +74,7 @@ class _AddNewCountryState extends State<AddNewCountry> {
     else if (currentState is InitAddCountriesState){
       return AddCountryInit(onSave: (request){
         CoolAlert.show(
+          width: 150,
           context: context,
           type: CoolAlertType.info,
           title:  S.of(context).careful,
@@ -82,6 +92,7 @@ class _AddNewCountryState extends State<AddNewCountry> {
       Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
       return AddCountryInit(onSave: (request){
         CoolAlert.show(
+          width: 150,
           context: context,
           type: CoolAlertType.info,
           title:  S.of(context).careful,

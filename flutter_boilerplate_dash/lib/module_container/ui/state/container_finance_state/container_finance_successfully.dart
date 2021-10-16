@@ -432,7 +432,7 @@ class _MarkSuccessfullyScreenState extends State<ContainerFinanceSuccessfullyScr
     optionItemSelectedFund =  Entry('choose', 0, []);
     cost..text='0';
     buying..text='0';
-    selling..text='0';
+    selling..text=widget.containerFinances.price??'';
     initSubs();
   }
 

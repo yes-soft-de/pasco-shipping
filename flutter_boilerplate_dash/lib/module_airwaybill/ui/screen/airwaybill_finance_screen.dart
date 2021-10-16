@@ -91,6 +91,7 @@ class _CountriesScreenState extends State<AirwaybillFinanceScreen> {
      airwaybillFinances: state.finances,
      addFinance: (request){
        CoolAlert.show(
+         width: 150,
          context: context,
          type: CoolAlertType.info,
          title:  S.of(context).careful,

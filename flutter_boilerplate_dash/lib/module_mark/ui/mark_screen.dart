@@ -50,7 +50,16 @@ class _MarkScreenState extends State<MarkScreen> {
       },
       // controller: controller,
       // isHome: false,
-        child: Screen(),
+        child: Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child: Screen()),
+          ),
+        ),
         title: S.of(context).marks
       // ,currentIndex: -1,
       // isResultScreen: false,
@@ -161,6 +170,7 @@ class _MarkScreenState extends State<MarkScreen> {
   void _showDialog(BuildContext context , String msg) {
     // flutter defined function
     CoolAlert.show(
+      width: 150,
       context: context,
       type: CoolAlertType.success,
       // title: S.of(context).success,

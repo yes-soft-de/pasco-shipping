@@ -40,7 +40,16 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
         showFilter: false,
         goBack: (){
         },
-        child: Screen(),
+        child: Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child:  Screen()),
+          ),
+        ),
         title:S.of(context).details
     );
   }
@@ -93,6 +102,7 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
 
       return ContainerDetailsSuccessfully(model:items ,onChangeStatus:(request){
         CoolAlert.show(
+          width: 150,
           context: context,
           type: CoolAlertType.info,
           title:  S.of(context).careful,
@@ -121,6 +131,7 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
           Navigator.pushNamed(context, ContainerRoutes.CONTAINER_SHIPMENT_REVIEW , arguments:  model);
         }, onUploadedToTravel: (addContainerToTravelRequest){
           CoolAlert.show(
+            width: 150,
             context: context,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
@@ -136,6 +147,7 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
         },
         onClearedOrArrived: (re){
           CoolAlert.show(
+            width: 150,
             context: context,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
@@ -161,6 +173,7 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
           Navigator.pushNamed(context, ContainerRoutes.CONTAINER_SHIPMENT_REVIEW , arguments:  model);
         }, onUploadedToTravel: (addContainerToTravelRequest){
           CoolAlert.show(
+            width: 150,
             context: context,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
@@ -176,6 +189,7 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
         },
         onClearedOrArrived: (re){
           CoolAlert.show(
+            width: 150,
             context: context,
             type: CoolAlertType.info,
             title:  S.of(context).careful,

@@ -263,6 +263,7 @@ class _waitingShipmentCardState extends State<waitingShipmentCard> {
     // flutter defined function
     CoolAlert.show(
       context: context,
+      width: 150,
       type: CoolAlertType.confirm,
       text: 'This shipment will be requested',
       backgroundColor:AppThemeDataService.PrimaryColor,

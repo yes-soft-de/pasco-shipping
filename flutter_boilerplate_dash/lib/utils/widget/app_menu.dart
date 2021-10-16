@@ -1057,6 +1057,11 @@ class AppMenu extends ConsumerWidget {
                           onTap: () =>
                               selectPage(context, ref, PriceRoutes.PRICE_SCREEN),
                         ),
+                        ListTile(
+                          title: new Text(S.of(context).add),
+                          onTap: () =>
+                              selectPage(context, ref, PriceRoutes.ADD_LINE_PRICE_SCREEN),
+                        ),
                       ],
                     ),
                   ),
@@ -1174,8 +1179,7 @@ class AppMenu extends ConsumerWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, ChatRoutes.chatRoute, (route) => false);
+              selectPage(context, ref, ChatRoutes.chatRoute);
             },
             title: Text(S.of(context).directSupport),
             leading: Icon(Icons.phone_in_talk),

@@ -90,6 +90,7 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
      addFinance: (request){
        CoolAlert.show(
          context: context,
+         width: 150,
          type: CoolAlertType.info,
          title:  S.of(context).careful,
          confirmBtnText: S.of(context).ok,

@@ -68,6 +68,7 @@ class Urls {
   static const CONTAINER_STATUS = BASE_API + 'containerstatus';
   static const UPLOADED_CONTAINER_TO_TRAVEL = BASE_API + 'trackbyholder';
   static const CLEARED_ARRIVED_CONTAINER = BASE_API + 'containershippingstatus';
+  static const UPDATE_CONTAINER_PRICE = BASE_API + 'containerspecificationprice';
 
   //container finance
   static const ADD_Container_FCL_FINANCE = BASE_API + 'containerfclfinance';

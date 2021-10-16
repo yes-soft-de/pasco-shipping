@@ -30,7 +30,16 @@ class _AddNewCountryState extends State<UpdateInvoiceAttached> {
         showFilter: false,
         goBack: (){
         },
-        child: Screen(),
+        child: Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child: Screen()),
+          ),
+        ),
         title:'Update Invoice Document'
     );
   }

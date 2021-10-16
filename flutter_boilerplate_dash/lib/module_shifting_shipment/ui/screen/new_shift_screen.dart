@@ -83,6 +83,7 @@ class _AddNewCountryState extends State<AddNewShift> {
         warehouses: state!.wearhouses,
         onRequest: (request){
           CoolAlert.show(
+            width: 150,
             context: context,
             type: CoolAlertType.info,
             title:  S.of(context).careful,

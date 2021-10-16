@@ -1,11 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
 import 'package:pasco_shipping/module_price/request/price_request.dart';
 import 'package:pasco_shipping/module_price/response/price_response.dart';
+import 'package:pasco_shipping/module_price/widget/container_price_dart.dart';
+import 'package:pasco_shipping/module_price/widget/line_price_card.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
@@ -22,11 +25,12 @@ import 'package:pasco_shipping/utils/widget/background.dart';
 class PriceSuccessfullyScreen extends StatefulWidget {
   final PriceModel model;
   final List<ContainerSpecificationModel> specifications;
-  final Function updatePrice;
+  final Function updateContainerPrice;
+  final Function updateLinesPrice;
   const PriceSuccessfullyScreen(
       {required this.model,
-      required this.updatePrice,
-      required this.specifications});
+      required this.updateContainerPrice,
+      required this.specifications,required this.updateLinesPrice});
 
   @override
   _ProfileSuccessfullyScreenState createState() =>
@@ -40,7 +44,7 @@ class _ProfileSuccessfullyScreenState extends State<PriceSuccessfullyScreen> {
 
   late ScrollController controller;
 
-  late PriceRequest _priceRequest;
+  late ContainerPriceRequest _priceRequest;
 
   late DropListModel dropListModelSpecification;
   late Entry optionItemSelectedSpecification;
@@ -48,11 +52,11 @@ class _ProfileSuccessfullyScreenState extends State<PriceSuccessfullyScreen> {
   @override
   void initState() {
     super.initState();
-    _oneCBMPrice = TextEditingController();
-    _oneCBMPrice..text = widget.model.oneCBMPrice!;
-
-    _oneKiloPrice = TextEditingController();
-    _oneKiloPrice..text = widget.model.oneKiloPrice!;
+    // _oneCBMPrice = TextEditingController();
+    // _oneCBMPrice..text = widget.model.oneCBMPrice!;
+    //
+    // _oneKiloPrice = TextEditingController();
+    // _oneKiloPrice..text = widget.model.oneKiloPrice!;
 
     controller = ScrollController();
     entrySpecification = <Entry>[];
@@ -86,99 +90,34 @@ class _ProfileSuccessfullyScreenState extends State<PriceSuccessfullyScreen> {
                 padding: const EdgeInsets.all(10.0),
                 child: Image.asset(StaticImage.price),
               )),
-          Padding(
-            padding:
-                const EdgeInsetsDirectional.only(start: 30, end: 30, top: 15),
-            child: Card(
-              margin: new EdgeInsets.symmetric(vertical: 20.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              elevation: 5.0,
-              color: Colors.white,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        Container(
-                          child: TextFormField(
-                            cursorColor: AppThemeDataService.AccentColor,
-                            controller: _oneKiloPrice,
-                            decoration: InputDecoration(
-                                enabledBorder: new UnderlineInputBorder(
-                                    borderSide:
-                                        new BorderSide(color: Colors.black)),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color:
-                                            AppThemeDataService.AccentColor)),
-                                suffixIcon: Icon(Icons.monetization_on_outlined,
-                                    color: blue),
-                                labelText: 'One kilo price',
-                                labelStyle: AppTextStyle.largeBlack),
-                            style: AppTextStyle.mediumBlue,
-                            keyboardType: TextInputType.number,
-                            textInputAction: TextInputAction.next,
-                            // onEditingComplete: () => node.nextFocus(),
-                            // Move focus to next
-                            validator: (result) {
-                              if (result == null) {
-                                return S.of(context).required;
-                              } else {
-                                if (result.isEmpty) {
-                                  return S.of(context).required;
-                                }
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        Container(
-                          child: TextFormField(
-                            cursorColor: AppThemeDataService.AccentColor,
-                            controller: _oneCBMPrice,
-                            decoration: InputDecoration(
-                                enabledBorder: new UnderlineInputBorder(
-                                    borderSide:
-                                        new BorderSide(color: Colors.black)),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color:
-                                            AppThemeDataService.AccentColor)),
-                                suffixIcon: Icon(
-                                  Icons.monetization_on_outlined,
-                                  color: blue,
-                                ),
-                                labelText: 'One CBM Price',
-                                labelStyle: AppTextStyle.largeBlack),
-                            style: AppTextStyle.mediumBlue,
-                            textInputAction: TextInputAction.next,
-                            keyboardType: TextInputType.number,
-                            // Move focus to next
-                            validator: (result) {
-                              if (result == null) {
-                                return S.of(context).required;
-                              } else {
-                                if (result.isEmpty) {
-                                  return S.of(context).required;
-                                }
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          Text(
+            'Lines Prices',
+            style: AppTextStyle.largeBlackBold,
           ),
+          ListView.builder(itemBuilder: (context ,index){
+            return LinePriceCard(model: widget.model.linesPrice[index],
+              onEditLines: (model){
+              widget.updateLinesPrice(model);
+            },);
+          },
+            shrinkWrap: true,
+            itemCount: widget.model.linesPrice.length,
+            physics: NeverScrollableScrollPhysics(),
+          ),
+          // Text(
+          //   'Container Prices',
+          //   style: AppTextStyle.largeBlackBold,
+          // ),
+          // ListView.builder(itemBuilder: (context ,index){
+          //   return ContainerPriceCard(model: widget.model.containerPrice[index],);
+          // },
+          //   shrinkWrap: true,
+          //   itemCount: widget.model.containerPrice.length,
+          //   physics: NeverScrollableScrollPhysics(),
+          // ),
           Text(
             'Container Prices',
-            style: AppTextStyle.mediumBlackBold,
+            style: AppTextStyle.largeBlackBold,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -248,13 +187,10 @@ class _ProfileSuccessfullyScreenState extends State<PriceSuccessfullyScreen> {
               icon: StaticImage.edit,
               color: AppThemeDataService.AccentColor,
               go: () {
-                _priceRequest = PriceRequest(
-                    oneKiloPrice: _oneKiloPrice.text,
-                    oneCBMPrice: _oneCBMPrice.text,
+                _priceRequest = ContainerPriceRequest(
                     containerSpecificationID: optionItemSelectedSpecification.id,
-                    containerSpecificationPrice:int.parse(_price.text),
-                    id: widget.model.id);
-                widget.updatePrice(_priceRequest);
+                    containerSpecificationPrice:int.parse(_price.text),);
+                widget.updateContainerPrice(_priceRequest);
               },
               style: AppTextStyle.mediumWhiteBold,
             ),

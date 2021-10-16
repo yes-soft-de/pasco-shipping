@@ -47,7 +47,16 @@ class _CountriesScreenState extends State<TravelScreen> {
           });
 
         },
-        child: Screen(),
+        child: Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child: Screen()),
+          ),
+        ),
         title: S.of(context).travels
     );
   }
@@ -96,6 +105,7 @@ class _CountriesScreenState extends State<TravelScreen> {
         CoolAlert.show(
           context: context,
           type: CoolAlertType.error,
+          width: 150,
           title:  S.of(context).careful,
           confirmBtnText: S.of(context).ok,
           backgroundColor:AppThemeDataService.PrimaryColor,

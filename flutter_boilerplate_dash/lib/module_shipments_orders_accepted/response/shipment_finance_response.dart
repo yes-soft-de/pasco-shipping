@@ -23,17 +23,27 @@ class ShipmentFinanceResponse {
 class DataFinance{
   DataFinance({
     this.data,
-    this.currentTotalCost
+    this.currentTotalCost,
+    this.price,this.shippingType
 
 
   });
   List<ShipmentFinanceModel>? data;
   String? currentTotalCost;
+  String? price;
+  String? shippingType;
 
 
 
   DataFinance.fromJson(Map<String, dynamic> json) {
-    currentTotalCost= json['currentTotalCost'].toString();
+    try{
+      currentTotalCost= json['currentTotalCost'].toString();
+      price= json['price'].toString();
+      shippingType= json['shippingType'] ??'sea';
+    }catch (e, stack) {
+      Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
+          StackTrace.current);
+    }
     if (json['shipmentFinances'] != null) {
       data = <ShipmentFinanceModel>[];
       try {
@@ -67,6 +77,7 @@ class ShipmentFinanceModel {
   int? shipmentID;
   String? status;
   int? stageCost;
+  int? price;
   String? stageDescription;
 
   String? currency;

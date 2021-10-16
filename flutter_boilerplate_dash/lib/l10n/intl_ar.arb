@@ -398,5 +398,9 @@
   "fork": "Fork",
   "clearance": "Clearance",
   "other": "Other",
-  "pocketing": "Pocketing"
+  "pocketing": "Pocketing",
+
+
+  "oneKiloPrice": "سعر الكليو الواحد",
+  "oneCBMPrice": "سعر CBM واحد"
 }

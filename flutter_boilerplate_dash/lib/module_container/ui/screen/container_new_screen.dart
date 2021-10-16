@@ -38,7 +38,16 @@ class _AddNewCountryState extends State<AddNewContainer> {
       showFilter: false,
         goBack: (){
         },
-        child: Screen(),
+        child: Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child:  Screen()),
+          ),
+        ),
         title: S.of(context).add
     );
   }
@@ -87,6 +96,7 @@ class _AddNewCountryState extends State<AddNewContainer> {
         harbors: harbors,
         onSave: (request){
           CoolAlert.show(
+            width: 150,
             context: context,
             type: CoolAlertType.info,
             title:  S.of(context).careful,

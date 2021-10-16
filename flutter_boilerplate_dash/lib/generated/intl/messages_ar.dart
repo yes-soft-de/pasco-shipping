@@ -258,6 +258,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("الإشعارت"),
         "number": MessageLookupByLibrary.simpleMessage("الرقم"),
         "ok": MessageLookupByLibrary.simpleMessage("تم"),
+        "oneCBMPrice": MessageLookupByLibrary.simpleMessage("سعر CBM واحد"),
+        "oneKiloPrice":
+            MessageLookupByLibrary.simpleMessage("سعر الكليو الواحد"),
         "operationCompletedSuccessfully":
             MessageLookupByLibrary.simpleMessage("تم العملية بنجاح"),
         "other": MessageLookupByLibrary.simpleMessage("Other"),

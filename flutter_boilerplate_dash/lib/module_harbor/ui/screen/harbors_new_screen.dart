@@ -31,7 +31,16 @@ class _AddNewCountryState extends State<AddNewHarbor> {
       showFilter: false,
         goBack: (){
         },
-        child: Screen(),
+        child:Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child: Screen()),
+          ),
+        ),
         title: S.of(context).add
     );
   }

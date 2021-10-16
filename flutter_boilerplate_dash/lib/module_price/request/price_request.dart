@@ -1,17 +1,32 @@
-class PriceRequest{
-  int id;
+class ContainerPriceRequest{
   int containerSpecificationID;
   int containerSpecificationPrice;
-  String oneKiloPrice;
-  String oneCBMPrice;
 
-  PriceRequest({required this.containerSpecificationPrice , required this.containerSpecificationID, required this.oneCBMPrice,required this.oneKiloPrice ,required this.id});
+  ContainerPriceRequest({required this.containerSpecificationPrice , required this.containerSpecificationID});
 
   Map<String, dynamic> toJson() => {
-    'oneKiloPrice': oneKiloPrice,
-    'oneCBMPrice': oneCBMPrice,
+    'id':containerSpecificationID,
+    'price':containerSpecificationPrice
+};
+}
+class ShippingLinePriceRequest{
+  int? id;
+  double oneKiloPrice;
+  double oneCBMPrice;
+  int exportCountryID;
+  int importCountryID;
+  String exportCity;
+  String importCity;
+
+  ShippingLinePriceRequest({required this.oneCBMPrice , required this.oneKiloPrice ,required this.importCity ,required this.exportCity ,required this.importCountryID, required this.exportCountryID ,this.id});
+
+  Map<String, dynamic> toJson() => {
     'id':id,
-    'containerSpecificationID':containerSpecificationID,
-    'containerSpecificationPrice':containerSpecificationPrice
+    'oneKiloPrice':oneKiloPrice,
+    'oneCBMPrice':oneCBMPrice,
+    'exportCountryID':exportCountryID,
+    'importCountryID':importCountryID,
+    'exportCity':exportCity,
+    'importCity':importCity,
 };
 }

@@ -61,7 +61,16 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         showFilter: false,
         goBack: ()  {
         },
-        child: Screen(),
+        child:Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child:  Screen()),
+          ),
+        ),
         title: S.of(context).shipmentStatus
     );
   }
@@ -140,6 +149,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
       statusModel: statusModels, onReceived: (re , cityName){
         CoolAlert.show(
           context: context,
+          width: 150,
           type: CoolAlertType.info,
           title:  S.of(context).careful,
           widget: Padding(
@@ -200,6 +210,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         onDelivered: (req){
           CoolAlert.show(
             context: context,
+            width: 150,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
             widget: Padding(
@@ -255,6 +266,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         onChangeStatus: (re , holderFilterRequest ,travelFilterRequest){
           CoolAlert.show(
             context: context,
+            width: 150,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
             widget: Container(
@@ -351,6 +363,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         }, infoStoredInGunny: state.storedModelInfo, onStoredInGunny: (m){
         CoolAlert.show(
           context: context,
+          width: 150,
           type: CoolAlertType.info,
           title:  S.of(context).careful,
           widget: Container(
@@ -433,6 +446,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         onChangeStatus: (re , holderFilterRequest ,travelFilterRequest){
           CoolAlert.show(
             context: context,
+            width: 150,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
             widget: Container(
@@ -609,6 +623,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         onChangeStatus: (request , isSeperate){
           CoolAlert.show(
             context: context,
+            width: 150,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
             widget: Container(
@@ -721,6 +736,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         travels: state.travels,
         onChangeStatus: (request , isSeperate){
           CoolAlert.show(
+            width: 150,
             context: context,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
@@ -869,6 +885,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
   _showAlert(BuildContext context,String gunnyNumber){
     return CoolAlert.show(
       context: context,
+        width: 150,
       type: CoolAlertType.success,
       title:  S.of(context).success,
       confirmBtnText: S.of(context).ok,

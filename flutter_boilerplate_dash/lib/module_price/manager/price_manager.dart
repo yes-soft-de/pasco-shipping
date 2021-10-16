@@ -12,5 +12,7 @@ class PriceManager{
   PriceManager(this._repository);
 
   Future<PriceModel?> getPrice() => _repository.getPrice();
-  Future<ConfirmResponse?> updatePrice(PriceRequest request) => _repository.updatePrice(request);
+  Future<ConfirmResponse?> updateContainerPrice(ContainerPriceRequest request) => _repository.updateContainerPrice(request);
+  Future<ConfirmResponse?> createShippingLinePrice(ShippingLinePriceRequest request) => _repository.createShippingLinePrice(request);
+  Future<ConfirmResponse?> updateShippingLinePrice(ShippingLinePriceRequest request) => _repository.updateShippingLinePrice(request);
 }

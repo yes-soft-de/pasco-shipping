@@ -34,7 +34,16 @@ class _CountriesScreenState extends State<HarborsScreen> {
       showFilter: false,
         goBack: (){
         },
-        child: Screen(),
+        child:Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child: Screen()),
+          ),
+        ),
         title: S.of(context).harbors
     );
   }
@@ -72,6 +81,7 @@ class _CountriesScreenState extends State<HarborsScreen> {
       items = state!.distributors;
       return HarborsSuccessfully(items: items ,onDelete: (id){
         CoolAlert.show(
+          width: 150,
           context: context,
           type: CoolAlertType.error,
           title:  S.of(context).careful,

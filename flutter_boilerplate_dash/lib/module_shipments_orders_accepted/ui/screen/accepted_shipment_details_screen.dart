@@ -43,7 +43,17 @@ class _CountriesScreenState extends State<AcceptedShipmentDetailsScreen> {
         showFilter: false,
         goBack: ()  {
         },
-        child: Screen(),
+
+        child:Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child:  Screen()),
+          ),
+        ),
         title: S.of(context).details
     );
   }
@@ -187,6 +197,7 @@ class _CountriesScreenState extends State<AcceptedShipmentDetailsScreen> {
   _showConfirm(request,detailsModel){
     CoolAlert.show(
       context: context,
+      width: 150,
       type: CoolAlertType.info,
       title:  S.of(context).careful,
       confirmBtnText: S.of(context).ok,

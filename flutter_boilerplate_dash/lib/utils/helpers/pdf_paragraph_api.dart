@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:open_file/open_file.dart';
@@ -20,7 +21,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 
 class PdfParagraphApi {
-  static Future<File> generateShipmentReport(List<AcceptedShipmentModel> model) async {
+   static Future<Uint8List> generateShipmentReport(List<AcceptedShipmentModel> model) async {
     final pdf = Document();
     // pdf.setMargins(0 , 0 , 0 , 0);
 
@@ -168,10 +169,10 @@ class PdfParagraphApi {
       ),
     );
 
-    return saveDocument(name: 'shipmentReport.pdf', pdf: pdf);
+    return await pdf.save();
   }
 
-  static Future<File> generateContainerReport(List<ContainerModel> model) async {
+  static Future<Uint8List> generateContainerReport(List<ContainerModel> model) async {
     final pdf = Document();
     final customFont =
     Font.ttf(await rootBundle.load('assets/OpenSans-Regular.ttf'));
@@ -276,10 +277,10 @@ class PdfParagraphApi {
         },
       ),
     );
-    return saveDocument(name: 'containerReport.pdf', pdf: pdf);
+    return await pdf.save();
   }
 
-  static Future<File> generateAirwaybillReport(List<AirwaybillModel> model) async {
+  static  Future<Uint8List> generateAirwaybillReport(List<AirwaybillModel> model) async {
     final pdf = Document();
     final customFont =
     Font.ttf(await rootBundle.load('assets/OpenSans-Regular.ttf'));
@@ -384,10 +385,10 @@ class PdfParagraphApi {
         },
       ),
     );
-    return saveDocument(name: 'airReport.pdf', pdf: pdf);
+    return await pdf.save();
   }
 
-  static Future<File> generateTravelReport(List<TravelModel> model) async {
+  static Future<Uint8List> generateTravelReport(List<TravelModel> model) async {
     final pdf = Document();
 
     final ByteData bytes =
@@ -508,10 +509,10 @@ class PdfParagraphApi {
         },
       ),
     );
-    return saveDocument(name: 'airReport.pdf', pdf: pdf);
+    return await pdf.save();
   }
 
-  static Future<File> generateReceivedReport(SubShipmentModel model
+  static Future<Uint8List> generateReceivedReport(SubShipmentModel model
       ,String ID,type,client,supplier,String quantity ,date) async {
     final pdf = Document();
 
@@ -642,11 +643,11 @@ class PdfParagraphApi {
         },
       ),
     );
-    return saveDocument(name: 'Received.pdf', pdf: pdf);
+    return await pdf.save();
   }
 
 
-  static Future<File> generateContainerDetailsReport(ContainerDetailsModel model) async {
+  static Future<Uint8List> generateContainerDetailsReport(ContainerDetailsModel model) async {
     final pdf = Document();
     final ByteData bytes =
     await rootBundle.load(StaticImage.logo);
@@ -803,9 +804,9 @@ class PdfParagraphApi {
         },
       ),
     );
-    return saveDocument(name: 'containerReport.pdf', pdf: pdf);
+    return await pdf.save();
   }
-  static Future<File> generateShipmentInvoiceReport(InvoiceModel model) async {
+  static Future<Uint8List> generateShipmentInvoiceReport(InvoiceModel model) async {
     final pdf = Document();
     final ByteData bytes =
     await rootBundle.load(StaticImage.logo);
@@ -1050,7 +1051,7 @@ class PdfParagraphApi {
         },
       ),
     );
-    return saveDocument(name: ' Invoice Report.pdf', pdf: pdf);
+    return await pdf.save();
   }
 
 
@@ -1121,15 +1122,16 @@ class PdfParagraphApi {
     var file =File('');
 
     try{
-      final dir = await getApplicationDocumentsDirectory();
-      file = File('${dir.path}/$name');
-
+      // final dir = await getApplicationDocumentsDirectory();
+      // file = File('${dir.path}/$name');
+      final file = File('$name');
+      await file.writeAsBytes(await pdf.save());
     }catch(e){
       await Fluttertoast.showToast(msg: e.toString());
     }
 
 
-    await file.writeAsBytes(bytes);
+    // await file.writeAsBytes(bytes);
 
     return file;
   }

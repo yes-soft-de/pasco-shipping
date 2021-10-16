@@ -5,6 +5,8 @@ import 'package:pasco_shipping/module_travel/response/travel_response.dart';
 import 'package:pasco_shipping/module_travel/widget/travel_card.dart';
 import 'package:pasco_shipping/utils/helpers/pdf_paragraph_api.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 
 class TravelSuccessfully extends StatelessWidget {
   final List<TravelModel> items;
@@ -28,9 +30,14 @@ class TravelSuccessfully extends StatelessWidget {
             primary: Colors.blue[800],
           ),
           onPressed: () async {
-            final pdfFile = await PdfParagraphApi.generateTravelReport(items);
-
-            PdfParagraphApi.openFile(pdfFile);
+            await Printing.layoutPdf(
+              // [onLayout] will be called multiple times
+              // when the user changes the printer or printer settings
+              onLayout: (PdfPageFormat format) {
+                // Any valid Pdf document can be returned here as a list of int
+                return PdfParagraphApi.generateTravelReport(items);
+              },
+            );
           },
           icon: Icon(Icons.document_scanner_sharp),
           label: Text(

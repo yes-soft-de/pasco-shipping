@@ -34,6 +34,7 @@ List<ContainerFinanceModel>? data;
 String? currentTotalCost;
 String? currentTotalSellingCost;
 String? currentTotalBuyingCost;
+String? price;
 
 
 
@@ -42,6 +43,7 @@ String? currentTotalBuyingCost;
     try{
       currentTotalSellingCost= json['currentTotalSellingCost'].toString();
       currentTotalBuyingCost= json['currentTotalBuyingCost'].toString();
+      price= json['price'].toString();
     } catch (e, stack) {
       Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
           StackTrace.current);

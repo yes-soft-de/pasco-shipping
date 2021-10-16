@@ -27,11 +27,11 @@ class PriceRepository{
     }
   }
 
-  Future<ConfirmResponse?> updatePrice(PriceRequest request) async {
+  Future<ConfirmResponse?> updateContainerPrice(ContainerPriceRequest request) async {
     // await _authService.refreshToken();
     var token =  await _authService.getToken();
     try {
-      var response = await _apiClient.put(Urls.PRICE,request.toJson(),
+      var response = await _apiClient.put(Urls.UPDATE_CONTAINER_PRICE,request.toJson(),
           headers: {'Authorization': 'Bearer $token'});
       String? statusCode = PriceResponse.fromJson(response!).statusCode;
       String? msg = PriceResponse.fromJson(response).msg;
@@ -45,4 +45,41 @@ class PriceRepository{
       return null;
     }
   }
+
+
+  Future<ConfirmResponse?> createShippingLinePrice(ShippingLinePriceRequest request) async {
+    // await _authService.refreshToken();
+    var token =  await _authService.getToken();
+    try {
+      var response = await _apiClient.post(Urls.PRICE,request.toJson(),
+          headers: {'Authorization': 'Bearer $token'});
+      String? statusCode = PriceResponse.fromJson(response!).statusCode;
+      String? msg = PriceResponse.fromJson(response).msg;
+      if(statusCode =='201'){
+        return ConfirmResponse(true, msg!);
+      }else {
+        return ConfirmResponse(false, msg!);
+      }
+    } catch (_) {
+      return null;
+    }
+  }
+  Future<ConfirmResponse?> updateShippingLinePrice(ShippingLinePriceRequest request) async {
+    // await _authService.refreshToken();
+    var token =  await _authService.getToken();
+    try {
+      var response = await _apiClient.put(Urls.PRICE,request.toJson(),
+          headers: {'Authorization': 'Bearer $token'});
+      String? statusCode = PriceResponse.fromJson(response!).statusCode;
+      String? msg = PriceResponse.fromJson(response).msg;
+      if(statusCode =='204'){
+        return ConfirmResponse(true, msg!);
+      }else {
+        return ConfirmResponse(false, msg!);
+      }
+    } catch (_) {
+      return null;
+    }
+  }
+
 }

@@ -48,7 +48,7 @@ class RequestShipmentStateManger {
           if (categories == null) {
             _stateSubject.add(errorState('error connection'));
           } else {
-            _firstOptionService.getCountriesImport().then((countries) {
+            _firstOptionService.getCountriesImport('import').then((countries) {
               if(countries != null){
                 _stateSubject.add(FirstOptionFetchingDataState(
                     categories: categories, warehouses: warehouses,countries: countries));

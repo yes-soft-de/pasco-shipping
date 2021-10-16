@@ -3429,6 +3429,26 @@ class S {
       args: [],
     );
   }
+
+  /// `One kilo price`
+  String get oneKiloPrice {
+    return Intl.message(
+      'One kilo price',
+      name: 'oneKiloPrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `One CBM price`
+  String get oneCBMPrice {
+    return Intl.message(
+      'One CBM price',
+      name: 'oneCBMPrice',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

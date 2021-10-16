@@ -10,8 +10,14 @@ class PriceService{
   final PriceManager _manager;
   PriceService(this._manager);
 
-  Future<ConfirmResponse?> updatePrice(PriceRequest request) {
-    return _manager.updatePrice(request);
+  Future<ConfirmResponse?> updateContainerPrice(ContainerPriceRequest request) {
+    return _manager.updateContainerPrice(request);
+  }
+  Future<ConfirmResponse?> createShippingLinePrice(ShippingLinePriceRequest request) {
+    return _manager.createShippingLinePrice(request);
+  }
+  Future<ConfirmResponse?> updateShippingLinePrice(ShippingLinePriceRequest request) {
+    return _manager.updateShippingLinePrice(request);
   }
   Future<PriceModel?> getPrice() {
     return _manager.getPrice();

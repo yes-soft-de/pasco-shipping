@@ -13,6 +13,8 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
+import '../../price_routes.dart';
+
 
 @injectable
 class PriceScreen extends StatefulWidget {
@@ -70,9 +72,14 @@ class _ProfileScreenState extends State<PriceScreen> {
     }
     else if (currentState is FetchedPriceSuccessfullyState){
       FetchedPriceSuccessfullyState? state = currentState as FetchedPriceSuccessfullyState?;
-      return PriceSuccessfullyScreen(model: state!.model, updatePrice: (request){
-        widget._stateManager.updatePrice(request);
-      },specifications: state.specifications,);
+      return PriceSuccessfullyScreen(model: state!.model,
+        updateContainerPrice: (request){
+        widget._stateManager.updateContainerPrice(request);
+      }, specifications: state.specifications,updateLinesPrice:(model){
+        Navigator.pushNamed(context, PriceRoutes.Update_LINE_PRICE_SCREEN,arguments: {'model':model}).then((value){
+          widget._stateManager.getPrice();
+        });
+        } ,);
     }
     else {
       return Center(

@@ -8,16 +8,16 @@ import 'package:rxdart/rxdart.dart';
 
 @injectable
 class PriceStateManager {
-  final PriceService _profileService;
+  final PriceService _priceService;
   final ContainerSpecificationService _containerSpecificationService;
   final PublishSubject<PriceState> _stateSubject = PublishSubject();
   Stream<PriceState> get stateStream => _stateSubject.stream;
 
-  PriceStateManager(this._profileService, this._containerSpecificationService);
+  PriceStateManager(this._priceService, this._containerSpecificationService);
 
   void getPrice(){
     _stateSubject.add(LoadingPriceState());
-    _profileService.getPrice().then((model) {
+    _priceService.getPrice().then((model) {
       if(model != null) {
         _containerSpecificationService.getContainerSpecification().then((specification) {
           if(specification != null){
@@ -29,12 +29,12 @@ class PriceStateManager {
       }
     });
   }
-  void updatePrice(PriceRequest request){
+  void updateContainerPrice(ContainerPriceRequest request){
     _stateSubject.add(LoadingPriceState());
-    _profileService.updatePrice(request).then((modelUpdated) {
+    _priceService.updateContainerPrice(request).then((modelUpdated) {
       if(modelUpdated != null && modelUpdated.isConfirmed) {
         print('Done');
-        _profileService.getPrice().then((model) {
+        _priceService.getPrice().then((model) {
           if(model != null) {
             _containerSpecificationService.getContainerSpecification().then((specification) {
               if(specification != null){

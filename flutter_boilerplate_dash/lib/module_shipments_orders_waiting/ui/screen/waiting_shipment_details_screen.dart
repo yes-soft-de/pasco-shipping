@@ -81,6 +81,7 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
       return WaitingShipmentDetailsInit(shipment: shipmentModel,
         onAccepted: (request) {
           CoolAlert.show(
+            width: 150,
             context: context,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
@@ -97,6 +98,7 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
         onRejected: (request) {
           CoolAlert.show(
             context: context,
+            width: 150,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
             backgroundColor:AppThemeDataService.PrimaryColor,

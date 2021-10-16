@@ -106,6 +106,24 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                   child: Column(
                     children: [
                       Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(children: [
+                          Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                          SizedBox(width: 5,),
+                          Text('Stage' , style: AppTextStyle.mediumBlackBold,)
+                        ],),
+                      ),
+                      SelectDropList(
+                        this.optionItemSelectedStatus,
+                        this.dropListModelShipmentStatus,
+                            (optionItem) {
+                          optionItemSelectedStatus = optionItem;
+                          setState(() {});
+                        },
+                      ),
+
+
+                      Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                           padding: EdgeInsets.only(
@@ -133,6 +151,12 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                           ),
                         ),
                       ),
+                  optionItemSelectedStatus.title=='Shipping'? Row(
+                        children: [
+                          Text(widget.shipmentFinance.shippingType=='sea'? S.of(context).oneCBMPrice:S.of(context).oneKiloPrice,style: AppTextStyle.mediumBlackBold,),
+                          Text(widget.shipmentFinance.price??'' ,style: AppTextStyle.mediumBlue,),
+                        ],
+                      ) :Container(),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
@@ -176,22 +200,7 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                           setState(() {});
                         },
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(children: [
-                          Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                          SizedBox(width: 5,),
-                          Text('Stage' , style: AppTextStyle.mediumBlackBold,)
-                        ],),
-                      ),
-                      SelectDropList(
-                        this.optionItemSelectedStatus,
-                        this.dropListModelShipmentStatus,
-                            (optionItem) {
-                          optionItemSelectedStatus = optionItem;
-                          setState(() {});
-                        },
-                      ),
+
 
                       Padding(
                         padding: const EdgeInsets.all(8.0),

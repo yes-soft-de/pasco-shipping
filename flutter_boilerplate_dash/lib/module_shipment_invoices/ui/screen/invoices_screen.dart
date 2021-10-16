@@ -40,7 +40,16 @@ class _CountriesScreenState extends State<InvoicesScreen> {
         showFilter: false,
         goBack: ()  {
         },
-        child: Screen(),
+        child: Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child: Screen()),
+          ),
+        ),
         title: 'Invoices'
     );
   }
@@ -172,6 +181,7 @@ class _CountriesScreenState extends State<InvoicesScreen> {
 
   _showConfrim(PayBillRequest request){
     CoolAlert.show(
+      width: 150,
       context: context,
       type: CoolAlertType.info,
       title:  S.of(context).careful,

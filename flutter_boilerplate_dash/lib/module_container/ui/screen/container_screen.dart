@@ -47,7 +47,16 @@ class _CountriesScreenState extends State<ContainerScreen> {
           });
 
         },
-        child: Screen(),
+        child: Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child:  Screen()),
+          ),
+        ),
         title: S.of(context).containers
     );
   }
@@ -96,6 +105,7 @@ class _CountriesScreenState extends State<ContainerScreen> {
       return ContainerSuccessfully(items: items ,onDelete: (id){
         CoolAlert.show(
           context: context,
+          width: 150,
           type: CoolAlertType.error,
           title:  S.of(context).careful,
           confirmBtnText: S.of(context).ok,

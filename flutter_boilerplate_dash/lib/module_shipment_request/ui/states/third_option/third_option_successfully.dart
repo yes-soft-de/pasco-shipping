@@ -277,6 +277,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
     CoolAlert.show(
       context: context,
       type: CoolAlertType.success,
+      width: 150,
       backgroundColor: AppThemeDataService.PrimaryColor,
       confirmBtnColor: AppThemeDataService.AccentColor,
       onConfirmBtnTap: () async{

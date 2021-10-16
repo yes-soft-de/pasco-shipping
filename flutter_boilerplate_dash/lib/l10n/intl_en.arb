@@ -420,6 +420,7 @@
   "fork": "Fork",
   "clearance": "Clearance",
   "other": "Other",
-  "pocketing": "Pocketing"
-
+  "pocketing": "Pocketing",
+  "oneKiloPrice": "One kilo price",
+  "oneCBMPrice": "One CBM price"
 }

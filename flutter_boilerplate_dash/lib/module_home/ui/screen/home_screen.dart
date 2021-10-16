@@ -34,7 +34,16 @@ class _HomeScreenState extends State<HomeScreen> {
         showFilter: false,
         goBack: () {},
         title: S.of(context).dashboard,
-        child: Screen()
+        child: Container(
+              width: double.maxFinite,
+          child: Center(
+            child: Container(
+                  constraints: BoxConstraints(
+                  maxWidth: 600
+              ),
+                  child: Screen()),
+          ),
+        )
       );
   }
 

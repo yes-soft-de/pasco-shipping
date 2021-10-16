@@ -95,6 +95,7 @@ class _CountriesScreenState extends State<AirwaybillDetailsScreen> {
       return AirwaybillDetailsSuccessfully(model:items ,onChangeStatus:(request){
         CoolAlert.show(
           context: context,
+          width: 150,
           type: CoolAlertType.info,
           title:  S.of(context).careful,
           confirmBtnText: S.of(context).ok,
@@ -125,6 +126,7 @@ class _CountriesScreenState extends State<AirwaybillDetailsScreen> {
         }, onUploadedToTravel: (addContainerToTravelRequest){
           CoolAlert.show(
             context: context,
+            width: 150,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
             confirmBtnText: S.of(context).ok,
@@ -154,6 +156,7 @@ class _CountriesScreenState extends State<AirwaybillDetailsScreen> {
         }, onUploadedToTravel: (addContainerToTravelRequest){
           CoolAlert.show(
             context: context,
+            width: 150,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
             confirmBtnText: S.of(context).ok,
@@ -169,6 +172,7 @@ class _CountriesScreenState extends State<AirwaybillDetailsScreen> {
         },
         onClearedOrArrived: (re){
           CoolAlert.show(
+            width: 150,
             context: context,
             type: CoolAlertType.info,
             title:  S.of(context).careful,

@@ -7,6 +7,8 @@ import 'package:pasco_shipping/utils/helpers/pdf_paragraph_api.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 
 import 'billing_card.dart';
 
@@ -59,8 +61,14 @@ class InvoiceCard extends StatelessWidget {
             ],),
             leading: InkWell(
                 onTap: ()async{
-                  final pdfFile = await PdfParagraphApi.generateShipmentInvoiceReport(model);
-                  PdfParagraphApi.openFile(pdfFile);
+                  await Printing.layoutPdf(
+                    // [onLayout] will be called multiple times
+                    // when the user changes the printer or printer settings
+                    onLayout: (PdfPageFormat format) {
+                      // Any valid Pdf document can be returned here as a list of int
+                      return PdfParagraphApi.generateShipmentInvoiceReport(model);
+                    },
+                  );
                 },
                 child: Icon(Icons.print_rounded,color: blue,size: 30,)),
             children: [

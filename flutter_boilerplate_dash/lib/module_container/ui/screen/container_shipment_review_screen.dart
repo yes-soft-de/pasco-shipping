@@ -24,167 +24,176 @@ class _ContainerShipmentReviewState extends State<ContainerShipmentReview> {
       showFilter: false,
       title: S.of(context).shipmentReview,
       goBack: (){},
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              Expanded(
-                  child: ListTile(
-                      title: Text(
-                        S.of(context).shippingFrom,
-                        style: AppTextStyle.mediumBlack,
-                      ),
-                      subtitle: Text(
-                        shipment.exportWarehouseName.toString(),
-                        style: AppTextStyle.smallBlueBold,
-                      ))),
-              Expanded(
-                  child: ListTile(
-                      title: Text(
-                        S.of(context).shippingTo,
-                        style: AppTextStyle.mediumBlack,
-                      ),
-                      subtitle: Text(
-                        shipment.target ??'',
-                        style: AppTextStyle.smallBlueBold,
-                      ))),
-            ],
-          ),
-          Divider(color: Colors.grey[300],thickness: 2,),
-          Row(
-            children: [
-              Expanded(
-                  child: ListTile(
-                      title: Text(
-                        S.of(context).productCategory,
-                        style: AppTextStyle.mediumBlack,
-                      ),
-                      subtitle: Text(
-                        shipment.productCategoryName ?? '',
-                        style: AppTextStyle.smallBlueBold,
-                      ))),
-              Expanded(
-                  child: ListTile(
-                      title: Text(
-                        S.of(context).quantity,
-                        style: AppTextStyle.mediumBlack,
-                      ),
-                      subtitle: Text(
-                        shipment.quantity.toString(),
-                        style: AppTextStyle.smallBlueBold,
-                      ))),
-            ],
-          ),
-          Divider(color: Colors.grey[300],thickness: 2,),
-          Row(
-            children: [
-              Expanded(
-                child: ListTile(
-                    title: Text(
-                      S.of(context).supplierInfo,
-                      style: AppTextStyle.mediumBlack,
-                    ),
-                    subtitle: Text(
-                      shipment.supplierName ?? '',
-                      style: AppTextStyle.smallBlueBold,
-                    )),
-              ),
-              Expanded(
-                child: ListTile(
-                    title: Text(
-                      S.of(context).weight,
-                      style: AppTextStyle.mediumBlack,
-                    ),
-                    subtitle: Text(
-                      shipment.weight.toString(),
-                      style: AppTextStyle.smallBlueBold,
-                    )),
-              ),
-            ],
-          ),
-          Divider(color: Colors.grey[300],thickness: 2,),
-          Row(
-            children: [
-              Expanded(
-                child: ListTile(
-                    title: Text(
-                      S.of(context).receiverInfo,
-                      style: AppTextStyle.mediumBlack,
-                    )),
-              ),
-              Expanded(
-                  child: ListTile(
-                      title: Text(
-                        S.of(context).name,
-                        style: AppTextStyle.mediumBlack,
-                      ),
-                      subtitle: Text(
-                        shipment.receiverName ??'',
-                        style: AppTextStyle.smallBlueBold,
-                      ))),
-              Expanded(
-                  child: ListTile(
-                      title: Text(
-                        S.of(context).phone,
-                        style: AppTextStyle.mediumBlack,
-                      ),
-                      subtitle: Text(
-                        shipment.receiverPhoneNumber ??'',
-                        style: AppTextStyle.smallBlueBold,
-                      ))),
-            ],
-          ),
-          Divider(color: Colors.grey[300],thickness: 2,),
-          Row(
-            children: [
-              Flexible(
-                flex: 2,
-                child: Column(
+      child:  Container(
+        width: double.maxFinite,
+        child: Center(
+          child: Container(
+            constraints: BoxConstraints(
+                maxWidth: 600
+            ),
+            child:  Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
                   children: [
-                    ListTile(
-                        title: Text(
-                          S.of(context).unit,
-                          style: AppTextStyle.mediumBlack,
-                        ),
-                        subtitle: Text(
-                          shipment.unit ??'',
-                          style: AppTextStyle.smallBlueBold,
-                        )),
-                    ListTile(
-                        title: Text(
-                          S.of(context).mark,
-                          style: AppTextStyle.mediumBlack,
-                        ),
-                        subtitle: Text(
-                          shipment.markNumber??'',
-                          style: AppTextStyle.smallBlueBold,
-                        )),
-                    ListTile(
-                        title: Text(
-                          S.of(context).paymentTime,
-                          style: AppTextStyle.mediumBlack,
-                        ),
-                        subtitle: Text(
-                          shipment.paymentTime ?? '',
-                          style: AppTextStyle.smallBlueBold,
-                        )),
-                    ListTile(
-                        title: Text(
-                          S.of(context).extraSpecification,
-                          style: AppTextStyle.mediumBlack,
-                        ),
-                        subtitle: Text(
-                          shipment.extraSpecification ??'',
-                          style: AppTextStyle.smallBlueBold,
-                        )),
+                    Expanded(
+                        child: ListTile(
+                            title: Text(
+                              S.of(context).shippingFrom,
+                              style: AppTextStyle.mediumBlack,
+                            ),
+                            subtitle: Text(
+                              shipment.exportWarehouseName.toString(),
+                              style: AppTextStyle.smallBlueBold,
+                            ))),
+                    Expanded(
+                        child: ListTile(
+                            title: Text(
+                              S.of(context).shippingTo,
+                              style: AppTextStyle.mediumBlack,
+                            ),
+                            subtitle: Text(
+                              shipment.target ??'',
+                              style: AppTextStyle.smallBlueBold,
+                            ))),
                   ],
                 ),
-              ),
-            ],
-          ),
+                Divider(color: Colors.grey[300],thickness: 2,),
+                Row(
+                  children: [
+                    Expanded(
+                        child: ListTile(
+                            title: Text(
+                              S.of(context).productCategory,
+                              style: AppTextStyle.mediumBlack,
+                            ),
+                            subtitle: Text(
+                              shipment.productCategoryName ?? '',
+                              style: AppTextStyle.smallBlueBold,
+                            ))),
+                    Expanded(
+                        child: ListTile(
+                            title: Text(
+                              S.of(context).quantity,
+                              style: AppTextStyle.mediumBlack,
+                            ),
+                            subtitle: Text(
+                              shipment.quantity.toString(),
+                              style: AppTextStyle.smallBlueBold,
+                            ))),
+                  ],
+                ),
+                Divider(color: Colors.grey[300],thickness: 2,),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ListTile(
+                          title: Text(
+                            S.of(context).supplierInfo,
+                            style: AppTextStyle.mediumBlack,
+                          ),
+                          subtitle: Text(
+                            shipment.supplierName ?? '',
+                            style: AppTextStyle.smallBlueBold,
+                          )),
+                    ),
+                    Expanded(
+                      child: ListTile(
+                          title: Text(
+                            S.of(context).weight,
+                            style: AppTextStyle.mediumBlack,
+                          ),
+                          subtitle: Text(
+                            shipment.weight.toString(),
+                            style: AppTextStyle.smallBlueBold,
+                          )),
+                    ),
+                  ],
+                ),
+                Divider(color: Colors.grey[300],thickness: 2,),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ListTile(
+                          title: Text(
+                            S.of(context).receiverInfo,
+                            style: AppTextStyle.mediumBlack,
+                          )),
+                    ),
+                    Expanded(
+                        child: ListTile(
+                            title: Text(
+                              S.of(context).name,
+                              style: AppTextStyle.mediumBlack,
+                            ),
+                            subtitle: Text(
+                              shipment.receiverName ??'',
+                              style: AppTextStyle.smallBlueBold,
+                            ))),
+                    Expanded(
+                        child: ListTile(
+                            title: Text(
+                              S.of(context).phone,
+                              style: AppTextStyle.mediumBlack,
+                            ),
+                            subtitle: Text(
+                              shipment.receiverPhoneNumber ??'',
+                              style: AppTextStyle.smallBlueBold,
+                            ))),
+                  ],
+                ),
+                Divider(color: Colors.grey[300],thickness: 2,),
+                Row(
+                  children: [
+                    Flexible(
+                      flex: 2,
+                      child: Column(
+                        children: [
+                          ListTile(
+                              title: Text(
+                                S.of(context).unit,
+                                style: AppTextStyle.mediumBlack,
+                              ),
+                              subtitle: Text(
+                                shipment.unit ??'',
+                                style: AppTextStyle.smallBlueBold,
+                              )),
+                          ListTile(
+                              title: Text(
+                                S.of(context).mark,
+                                style: AppTextStyle.mediumBlack,
+                              ),
+                              subtitle: Text(
+                                shipment.markNumber??'',
+                                style: AppTextStyle.smallBlueBold,
+                              )),
+                          ListTile(
+                              title: Text(
+                                S.of(context).paymentTime,
+                                style: AppTextStyle.mediumBlack,
+                              ),
+                              subtitle: Text(
+                                shipment.paymentTime ?? '',
+                                style: AppTextStyle.smallBlueBold,
+                              )),
+                          ListTile(
+                              title: Text(
+                                S.of(context).extraSpecification,
+                                style: AppTextStyle.mediumBlack,
+                              ),
+                              subtitle: Text(
+                                shipment.extraSpecification ??'',
+                                style: AppTextStyle.smallBlueBold,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
 
-        ],
+              ],
+            ),),
+        ),
       ),
     );
   }

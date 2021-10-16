@@ -19,6 +19,8 @@ import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 import 'package:collection/collection.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 
 class ContainerDetailsSuccessfully extends StatefulWidget {
   final ContainerDetailsModel model;
@@ -67,9 +69,14 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
                 primary: Colors.blue[800],
               ),
               onPressed: () async {
-                final pdfFile = await PdfParagraphApi.generateContainerDetailsReport(widget.model);
-
-                PdfParagraphApi.openFile(pdfFile);
+                await Printing.layoutPdf(
+                  // [onLayout] will be called multiple times
+                  // when the user changes the printer or printer settings
+                  onLayout: (PdfPageFormat format) {
+                    // Any valid Pdf document can be returned here as a list of int
+                    return PdfParagraphApi.generateContainerDetailsReport(widget.model);
+                  },
+                );
               },
               icon: Icon(Icons.document_scanner_sharp),
               label: Text(
