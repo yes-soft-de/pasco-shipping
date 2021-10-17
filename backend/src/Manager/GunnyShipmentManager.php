@@ -77,6 +77,11 @@ class GunnyShipmentManager
         return $this->gunnyShipmentEntityRepository->getGunnyByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
     }
 
+    public function getByGunnyID($gunnyID)
+    {
+        return $this->gunnyShipmentEntityRepository->getByGunnyID($gunnyID);
+    }
+
     public function getGunnyCountByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
     {
         return $this->gunnyShipmentEntityRepository->getGunnyCountByShipmentIdAndTrackNumber($shipmentID, $trackNumber);

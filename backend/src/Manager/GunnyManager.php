@@ -84,7 +84,7 @@ class GunnyManager
 
         if(!$gunnyEntity)
         {
-
+            return "No gunny was found!";
         }
         else
         {
@@ -93,6 +93,18 @@ class GunnyManager
         }
 
         return $gunnyEntity;
+    }
+
+    public function getLastGunnyID()
+    {
+        $gunnyEntities = $this->gunnyEntityRepository->getLastGunnyID();
+
+        if($gunnyEntities)
+        {
+            return $gunnyEntities['id'];
+        }
+
+        return 0;
     }
 
     public function generateIdentificationNumber()
@@ -104,10 +116,14 @@ class GunnyManager
             $identificationNumber = "";
             $result = "";
 
-            for ($i = 0; $i < 7; $i++)
+            for ($i = 0; $i < (7 - strlen((string)$this->getLastGunnyID())); $i++)
             {
-                $identificationNumber .= random_int(0, 9);
+                $identificationNumber .= "0";
             }
+
+            $suffix = $this->getLastGunnyID() + 1;
+
+            $identificationNumber .= $suffix;
 
             // Check if it is exist
             $result = $this->getGunnyByIdentificationNumber($identificationNumber);

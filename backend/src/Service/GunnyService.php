@@ -16,11 +16,13 @@ class GunnyService
     private $autoMapping;
     private $gunnyManager;
     private $params;
+    private $gunnyShipmentService;
 
-    public function __construct(AutoMapping $autoMapping, GunnyManager $gunnyManager, ParameterBagInterface $params)
+    public function __construct(AutoMapping $autoMapping, GunnyManager $gunnyManager, ParameterBagInterface $params, GunnyShipmentService $gunnyShipmentService)
     {
         $this->autoMapping = $autoMapping;
         $this->gunnyManager = $gunnyManager;
+        $this->gunnyShipmentService = $gunnyShipmentService;
         $this->params = $params->get('upload_base_url') . '/';
     }
 
@@ -60,9 +62,24 @@ class GunnyService
 
     public function deleteGunnyById($request)
     {
-        $result = $this->gunnyManager->deleteGunnyById($request);
+        // Before delete check if shipment is stored in the gunny
+        $gunnyShipment = $this->gunnyShipmentService->getByGunnyID($request->getId());
 
-        return $this->autoMapping->map(GunnyEntity::class, GunnyDeleteResponse::class, $result);
+        if($gunnyShipment)
+        {
+            return "There are shipment stored in the gunny!";
+        }
+        else
+        {
+            $result = $this->gunnyManager->deleteGunnyById($request);
+
+            if($result instanceof GunnyEntity)
+            {
+                return $this->autoMapping->map(GunnyEntity::class, GunnyDeleteResponse::class, $result);
+            }
+
+            return $result;
+        }
     }
 
 }

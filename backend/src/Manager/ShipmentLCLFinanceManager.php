@@ -106,9 +106,16 @@ class ShipmentLCLFinanceManager
         {
             foreach($shipmentFinances['shipmentFinances'] as $key => $value)
             {
-                $shipmentFinances['shippingType'] = $this->getShippingTypeByShipmentID($value['shipmentID']);
+                $shipmentFinances['shippingType'] = $value['transportationType'];
 
                 $shipmentFinances['price'] = $this->getOneKiloOrCBMPriceByShipmentID($value['shipmentID']);
+
+                $shipmentFinances['volume'] = $value['volume'];
+
+                $shipmentFinances['weight'] = $value['weight'];
+
+                $shipmentFinances['shippingCost'] = round($this->getShippingCostByTransportationTypeAndShipmentVolumeAndWeight($value['shipmentID'], $value['transportationType'],
+                    $value['volume'], $value['weight']), 2);
             }
         }
 
@@ -158,13 +165,15 @@ class ShipmentLCLFinanceManager
         }
     }
 
-    public function getShippingTypeByShipmentID($shipmentID)
+    public function getShippingCostByTransportationTypeAndShipmentVolumeAndWeight($shipmentID, $transportationType, $volume, $weight)
     {
-        $result = $this->shipmentOrderManager->getHolderTypeAndTransportationTypeByShipmentOrderID($shipmentID);
-
-        if($result)
+        if($transportationType == ShippingWayConstant::$AIR_SHIPPING_WAY)
         {
-            return $result['transportationType'];
+            return $this->getOneKiloOrCBMPriceByShipmentID($shipmentID) * $weight;
+        }
+        elseif($transportationType == ShippingWayConstant::$SEA_SHIPPING_WAY)
+        {
+            return $this->getOneKiloOrCBMPriceByShipmentID($shipmentID) * $volume;
         }
     }
     

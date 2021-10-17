@@ -89,4 +89,17 @@ class GunnyEntityRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function getLastGunnyID()
+    {
+        return $this->createQueryBuilder('gunnyEntity')
+            ->select('gunnyEntity.id')
+
+            ->orderBy('gunnyEntity.id', 'DESC')
+
+            ->setMaxResults(1)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

@@ -163,7 +163,8 @@ class ShipmentLCLFinanceEntityRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('shipmentFinance')
             ->select('shipmentFinance.id', 'shipmentFinance.shipmentID', 'shipmentFinance.trackNumber', 'shipmentFinance.shipmentStatus', 'shipmentFinance.stageCost', 'shipmentFinance.stageDescription', 'shipmentFinance.currency', 'shipmentFinance.createdAt',
                 'shipmentFinance.updatedAt', 'shipmentFinance.createdBy', 'shipmentFinance.importWarehouseID', 'shipmentFinance.subcontractID', 'shipmentFinance.paymentType', 'shipmentFinance.financialFundName', 'shipmentFinance.chequeNumber', 'shipmentFinance.updatedBy',
-                'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage', 'warehouseEntity.name as importWarehouseName', 'subcontractEntity.fullName as subcontractName')
+                'orderShipmentEntity.volume', 'orderShipmentEntity.weight', 'orderShipmentEntity.transportationType', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
+                'warehouseEntity.name as importWarehouseName', 'subcontractEntity.fullName as subcontractName')
 
             ->leftJoin(
                 OrderShipmentEntity::class,

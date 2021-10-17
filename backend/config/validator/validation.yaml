@@ -18,6 +18,15 @@ App\Request\ClientRegisterByDashboardRequest:
     userID:
       - NotBlank: ~
 
+App\Request\ClientProfileUpdateByDashboardRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    userName:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
 App\Request\OrderShipmentCreateRequest:
   properties:
     clientUserID:

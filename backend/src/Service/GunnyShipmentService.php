@@ -56,6 +56,20 @@ class GunnyShipmentService
         return $gunnyResponse;
     }
 
+    public function getByGunnyID($gunnyID)
+    {
+        $gunnyShipmentResponse = [];
+
+        $gunnyResults = $this->gunnyShipmentManager->getByGunnyID($gunnyID);
+
+        foreach($gunnyResults as $gunny)
+        {
+            $gunnyShipmentResponse[] = $this->autoMapping->map('array', GunnyShipmentGetResponse::class, $gunny);
+        }
+
+        return $gunnyShipmentResponse;
+    }
+
     public function deleteGunnyShipmentById(DeleteRequest $request, $updatedGunnyStatusBy)
     {
         $result = $this->gunnyShipmentManager->deleteGunnyShipmentById($request, $updatedGunnyStatusBy);

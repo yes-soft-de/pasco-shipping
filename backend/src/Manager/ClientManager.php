@@ -8,6 +8,7 @@ use App\Entity\ClientProfileEntity;
 use App\Repository\UserEntityRepository;
 use App\Repository\ClientProfileEntityRepository;
 use App\Request\ClientFilterRequest;
+use App\Request\ClientProfileUpdateByDashboardRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\ClientRegisterByDashboardRequest;
 use App\Request\DeleteRequest;
@@ -24,9 +25,8 @@ class ClientManager
     private $clientProfileEntityRepository;
     private $markManager;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager,
-                                UserPasswordEncoderInterface $encoder, UserEntityRepository $userRepository, ClientProfileEntityRepository $clientProfileEntityRepository,
-                                MarkManager $markManager)
+    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder,
+                                UserEntityRepository $userRepository, ClientProfileEntityRepository $clientProfileEntityRepository, MarkManager $markManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -41,18 +41,18 @@ class ClientManager
         // First, create the user
         $userResult = $this->getUserByUserID($request->getUserID());
 
-        if ($userResult == null) 
+        if($userResult == null)
         {
             $userRegister = $this->autoMapping->map(ClientRegisterRequest::class, UserEntity::class, $request);
 
             $user = new UserEntity($request->getUserID());
 
-            if ($request->getPassword())
+            if($request->getPassword())
             {
                 $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
             }
 
-            if ($request->getRoles() == null)
+            if($request->getRoles() == null)
             {
                 $request->setRoles(['user']);
             }
@@ -66,7 +66,7 @@ class ClientManager
             // Second, create the client's profile
             $clientProfile = $this->getProfileByClientID($request->getUserID());
 
-            if ($clientProfile == null)
+            if($clientProfile == null)
             {
                 $clientProfile = $this->autoMapping->map(ClientRegisterRequest::class, ClientProfileEntity::class, $request);
 
@@ -84,7 +84,7 @@ class ClientManager
         {
             $clientProfile = $this->getProfileByClientID($userResult['id']);
 
-            if ($clientProfile == null)
+            if($clientProfile == null)
             {
                 $clientProfile = $this->autoMapping->map(ClientRegisterRequest::class, ClientProfileEntity::class, $request);
                 
@@ -105,18 +105,18 @@ class ClientManager
         // First, create the user
         $userResult = $this->getUserByUserID($request->getUserID());
 
-        if ($userResult == null) 
+        if($userResult == null)
         {
             $userRegister = $this->autoMapping->map(ClientRegisterByDashboardRequest::class, UserEntity::class, $request);
 
             $user = new UserEntity($request->getUserID());
 
-            if ($request->getPassword())
+            if($request->getPassword())
             {
                 $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
             }
 
-            if ($request->getRoles() == null)
+            if($request->getRoles() == null)
             {
                 $request->setRoles(['user']);
             }
@@ -130,7 +130,7 @@ class ClientManager
             // Second, create the client's profile
             $clientProfile = $this->getProfileByClientID($request->getUserID());
 
-            if ($clientProfile == null)
+            if($clientProfile == null)
             {
                 $clientProfile = $this->autoMapping->map(ClientRegisterByDashboardRequest::class, ClientProfileEntity::class, $request);
 
@@ -148,7 +148,7 @@ class ClientManager
         {
             $clientProfile = $this->getProfileByClientID($userResult['id']);
 
-            if ($clientProfile == null)
+            if($clientProfile == null)
             {
                 $clientProfile = $this->autoMapping->map(ClientRegisterByDashboardRequest::class, ClientProfileEntity::class, $request);
                 
@@ -185,7 +185,7 @@ class ClientManager
     {
         $item = $this->clientProfileEntityRepository->getClientProfile($request->getUserID());
         
-        if ($item)
+        if($item)
         {
             $item = $this->autoMapping->mapToObject(ClientProfileUpdateRequest::class, ClientProfileEntity::class, $request, $item);
 
@@ -193,6 +193,25 @@ class ClientManager
             $this->entityManager->clear();
 
             return $item;
+        }
+    }
+
+    public function clientProfileUpdateByDashboard(ClientProfileUpdateByDashboardRequest $request)
+    {
+        $clientProfileEntity = $this->clientProfileEntityRepository->find($request->getID());
+
+        if(!$clientProfileEntity)
+        {
+            return "No profile was found!";
+        }
+        else
+        {
+            $clientProfileEntity = $this->autoMapping->mapToObject(ClientProfileUpdateByDashboardRequest::class, ClientProfileEntity::class, $request, $clientProfileEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $clientProfileEntity;
         }
     }
 
@@ -220,7 +239,7 @@ class ClientManager
     {
         $clients = $this->userRepository->getAllClients();
         
-        foreach ($clients as $key=>$val)
+        foreach($clients as $key=>$val)
         {
             $clients[$key]['marks'] = $this->markManager->getAllMarksByUser($clients[$key]['id']);
         }
