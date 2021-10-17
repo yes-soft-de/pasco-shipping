@@ -529,31 +529,38 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             $query->setParameter('targetCountry', $request->getTargetCountry());
         }
 
-        if($request->getDateOne() != null && $request->getDateOne() != null && $request->getStatus() != null)
+        if($request->getDateOne() != null && $request->getDateTwo() != null && $request->getStatus() != null)
         {
-            $query->andWhere('shipmentLogEntity.createdAt BETWEEN :dateOne AND :dateTwo');
-            $query->setParameter('dateOne', $request->getDateOne());
-            $query->setParameter('dateTwo', $request->getDateOne());
+            if($request->getDateOne() == $request->getDateTwo())
+            {
+                $query->andWhere('shipmentLogEntity.createdAt BETWEEN :dateOne AND :dateTwo');
+                $query->setParameter('dateOne', $request->getDateOne());
+                $query->setParameter('dateTwo', (new \DateTime($request->getDateOne()))->modify('+1 day')->format('Y-m-d'));
+            }
+            else
+            {
+                $query->andWhere('shipmentLogEntity.createdAt >= :dateOne AND shipmentLogEntity.createdAt <= :dateTwo');
+                $query->setParameter('dateOne', $request->getDateOne());
+                $query->setParameter('dateTwo', $request->getDateTwo());
+            }
 
             $query->andWhere('shipmentLogEntity.shipmentStatus = :shipmentStatus');
             $query->setParameter('shipmentStatus', $request->getStatus());
         }
 
-        if($request->getDateOne() != null && $request->getDateOne() == null && $request->getStatus() != null)
+        if($request->getDateOne() != null && $request->getDateTwo() == null && $request->getStatus() != null)
         {
-            $query->andWhere('shipmentLogEntity.createdAt BETWEEN :dateOne AND :dateTwo');
+            $query->andWhere('shipmentLogEntity.createdAt >= :dateOne');
             $query->setParameter('dateOne', $request->getDateOne());
-            $query->setParameter('dateTwo', (new \DateTime($request->getDateOne()))->modify('+1 day')->format('Y-m-d'));
 
             $query->andWhere('shipmentLogEntity.shipmentStatus = :shipmentStatus');
             $query->setParameter('shipmentStatus', $request->getStatus());
         }
 
-        if($request->getDateOne() == null && $request->getDateOne() != null && $request->getStatus() != null)
+        if($request->getDateOne() == null && $request->getDateTwo() != null && $request->getStatus() != null)
         {
-            $query->andWhere('shipmentLogEntity.createdAt BETWEEN :dateTwo AND :dateThree');
-            $query->setParameter('dateTwo', $request->getDateOne());
-            $query->setParameter('dateThree', (new \DateTime($request->getDateOne()))->modify('+1 day')->format('Y-m-d'));
+            $query->andWhere('shipmentLogEntity.createdAt <= :dateTwo');
+            $query->setParameter('dateTwo', $request->getDateTwo());
 
             $query->andWhere('shipmentLogEntity.shipmentStatus = :shipmentStatus');
             $query->setParameter('shipmentStatus', $request->getStatus());
