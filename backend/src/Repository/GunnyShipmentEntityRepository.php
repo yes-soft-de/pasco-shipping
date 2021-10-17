@@ -101,4 +101,26 @@ class GunnyShipmentEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getByGunnyID($gunnyID)
+    {
+        return $this->createQueryBuilder('gunny_shipment_entity')
+            ->select('gunny_shipment_entity.id', 'gunny_shipment_entity.gunnyID', 'gunny_shipment_entity.shipmentID', 'gunny_shipment_entity.trackNumber', 'gunny_shipment_entity.quantity', 'gunny_shipment_entity.createdAt',
+                'gunny_shipment_entity.createdBy', 'gunny_shipment_entity.updatedAt', 'gunny_shipment_entity.updatedBy', 'gunnyEntity.identificationNumber as gunnyIdentificationNumber')
+
+            ->leftJoin(
+                GunnyEntity::class,
+                'gunnyEntity',
+                Join::WITH,
+                'gunnyEntity.id = gunny_shipment_entity.gunnyID'
+            )
+
+            ->andWhere('gunny_shipment_entity.gunnyID = :gunnyID')
+            ->setParameter('gunnyID', $gunnyID)
+
+            ->orderBy('gunny_shipment_entity.id', 'DESC')
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }
