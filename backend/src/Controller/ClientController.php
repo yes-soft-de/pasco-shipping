@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\ClientFilterRequest;
+use App\Request\ClientProfileUpdateByDashboardRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\ClientRegisterByDashboardRequest;
 use App\Request\ClientRegisterRequest;
@@ -212,6 +213,72 @@ class ClientController extends BaseController
         $request->setUserID($this->getUserId());
 
         $response = $this->clientService->clientProfileUpdate($request);
+
+        return $this->response($response, self::UPDATE);
+    }
+
+    /**
+     * @Route("clientprofilebydashboard", name="updateClientProfileByDashboard", methods={"PUT"})
+     *
+     * @OA\Tag(name="Client")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Updates the profile of a client by dashboard",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="id"),
+     *          @OA\Property(type="string", property="userName"),
+     *          @OA\Property(type="string", property="image"),
+     *          @OA\Property(type="string", property="city"),
+     *          @OA\Property(type="string", property="country"),
+     *          @OA\Property(type="string", property="location"),
+     *          @OA\Property(type="string", property="phone")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the updated profile of the client",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="string", property="userName"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="city"),
+     *                  @OA\Property(type="string", property="country"),
+     *                  @OA\Property(type="string", property="location"),
+     *                  @OA\Property(type="string", property="phone")
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function clientProfileUpdateByDashboard(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ClientProfileUpdateByDashboardRequest::class, (object)$data);
+
+        $request->setUpdatedBy($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $response = $this->clientService->clientProfileUpdateByDashboard($request);
 
         return $this->response($response, self::UPDATE);
     }

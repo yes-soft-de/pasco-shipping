@@ -7,6 +7,7 @@ use App\Entity\UserEntity;
 use App\Entity\ClientProfileEntity;
 use App\Manager\ClientManager;
 use App\Request\ClientFilterRequest;
+use App\Request\ClientProfileUpdateByDashboardRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\ClientRegisterByDashboardRequest;
 use App\Request\ClientRegisterRequest;
@@ -83,6 +84,13 @@ class ClientService
     public function clientProfileUpdate(ClientProfileUpdateRequest $request)
     {
         $item = $this->clientManager->clientProfileUpdate($request);
+
+        return $this->autoMapping->map(ClientProfileEntity::class, ClientProfileResponse::class, $item);
+    }
+
+    public function clientProfileUpdateByDashboard(ClientProfileUpdateByDashboardRequest $request)
+    {
+        $item = $this->clientManager->clientProfileUpdateByDashboard($request);
 
         return $this->autoMapping->map(ClientProfileEntity::class, ClientProfileResponse::class, $item);
     }
