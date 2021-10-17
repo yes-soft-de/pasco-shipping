@@ -12,4 +12,10 @@ class ShipmentLCLFinanceGetResponse
 
     public $shippingType;
 
+    public $volume;
+
+    public $weight;
+
+    public $shippingCost;
+
 }
