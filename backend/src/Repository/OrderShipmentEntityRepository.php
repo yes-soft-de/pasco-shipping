@@ -12,6 +12,7 @@ use App\Entity\ProductCategoryEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\MarkEntity;
 use App\Entity\ReceiverEntity;
+use App\Entity\ShiftingShipmentOrderEntity;
 use App\Entity\ShipmentLogEntity;
 use App\Entity\ShipmentStatusEntity;
 use App\Entity\SubcontractEntity;
@@ -495,8 +496,19 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
 
         if($request->getImportWarehouseID())
         {
-            $query->andWhere('shipmentOrder.importWarehouseID = :importWarehouseID');
-            $query->setParameter('importWarehouseID', $request->getImportWarehouseID());
+            if($this->checkIfShipmentHasShiftingOrder($query, $request->getImportWarehouseID()))
+            {
+               $query->andWhere('shiftingShipmentOrderEntity.toImportWarehouseID = :toImportWarehouseID');
+                $query->setParameter('toImportWarehouseID', $request->getImportWarehouseID());
+
+                $query->orWhere('shipmentOrder.importWarehouseID = :importWarehouseID');
+                $query->setParameter('importWarehouseID', $request->getImportWarehouseID());
+            }
+            else
+            {
+                $query->andWhere('shipmentOrder.importWarehouseID = :importWarehouseID');
+                $query->setParameter('importWarehouseID', $request->getImportWarehouseID());
+            }
         }
 
         if($request->getPaymentTime())
@@ -1069,6 +1081,22 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             'clientProfile.userID = shipmentOrder.clientUserID'
         )
             ->addSelect("clientProfile.identificationNumber as clientIdentificationNumber", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage");
+    }
+
+    public function checkIfShipmentHasShiftingOrder(QueryBuilder $queryBuilder, $importWarehouseID)
+    {
+        return $queryBuilder->leftJoin(
+            ShiftingShipmentOrderEntity::class,
+            'shiftingShipmentOrderEntity',
+            Join::WITH,
+            'shiftingShipmentOrderEntity.shipmentID = shipmentOrder.id AND shiftingShipmentOrderEntity.trackNumber = shipmentStatusEntity.trackNumber'
+        )
+
+            ->andWhere('shiftingShipmentOrderEntity.toImportWarehouseID = :importWarehouseID')
+            ->setParameter('importWarehouseID', $importWarehouseID)
+
+            ->getQuery()
+            ->getResult();
     }
 
     public function deleteAllOrders()
