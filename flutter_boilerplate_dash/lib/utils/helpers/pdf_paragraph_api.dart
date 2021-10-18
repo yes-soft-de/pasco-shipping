@@ -19,10 +19,12 @@ import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class PdfParagraphApi {
    static Future<Uint8List> generateShipmentReport(List<AcceptedShipmentModel> model) async {
     final pdf = Document();
+    String trasType = '';
     // pdf.setMargins(0 , 0 , 0 , 0);
 
     // final customFont =
@@ -31,33 +33,48 @@ class PdfParagraphApi {
     final ByteData bytes =
     await rootBundle.load(StaticImage.logo);
     final Uint8List byteList = bytes.buffer.asUint8List();
-    final headers =
-    ['ID',
+    if(model.isNotEmpty){
+      trasType = model[0].transportationType ?? '';
+    }
+    final headersSea =
+    [
+      'Date',
+      'ID',
+      'Q',
+      'G',
+      'Volume'
+      'Product type',
       'Client',
-      'S.N',
+      'Payment',
        'way'
-      ,'From' ,
-    'To'
 
-      ,'Mark' ,
-    'Product type',
-
-    'G',
-    'Q',
-    'Supplier',
-      'Date'
     ];
+    final headersAir =
+    [
+      'Date',
+      'ID',
+      'Q',
+      'G',
+      'weight'
+          'Product type',
+      'Client',
+      'Payment',
+      'way'
 
-    final data = model.map((user) => [
-      user.shipmentId, user.clientUsername,user.clientIdentificationNumber,
-      user.transportationType , user.exportWarehouseName , user.target,user.markNumber
-    ,user.categoriesNames,
+    ];
+    final dataSea = model.map((user) => [
+      user.updatedAt.toString().split(' ').first, user.shipmentId,
+      user.quantity,  user.guniQuantity,user.volume   ,user.categoriesNames,
+      user.clientUsername,
+      user.paymentTime , user.transportationType
 
+    ]).toList();
+    final dataAir = model.map((user) => [
+      user.updatedAt.toString().split(' ').first, user.shipmentId,
+      user.quantity,  user.guniQuantity,user.weight   ,user.categoriesNames,
+      user.clientUsername,
+      user.paymentTime , user.transportationType
 
-      user.guniQuantity,
-      user.quantity,
-      user.supplierName,
-      user.updatedAt.toString().split(' ').first
     ]).toList();
     pdf.addPage(
       MultiPage(
@@ -106,15 +123,15 @@ class PdfParagraphApi {
         //
         //   })),
           Table.fromTextArray(
-            headers: headers,
-            data: data,
+            headers:trasType=='sea'? headersSea:headersAir,
+            data:trasType=='sea'? dataSea : dataAir,
             headerStyle: TextStyle(fontWeight: FontWeight.bold),
             headerDecoration: BoxDecoration(color: PdfColors.grey300),
             cellHeight: 30,
 
               columnWidths: {
-                0: FixedColumnWidth(15),
-                1: FixedColumnWidth(40),
+                0: FixedColumnWidth(35),
+                1: FixedColumnWidth(15),
                 2: FixedColumnWidth(35),
 
                 3: FixedColumnWidth(15),
@@ -125,9 +142,9 @@ class PdfParagraphApi {
                 6: FixedColumnWidth(25),
                 7: FixedColumnWidth(60),
                 8: FixedColumnWidth(15),
-                9: FixedColumnWidth(15),
-                10: FixedColumnWidth(30),
-                11: FixedColumnWidth(35),
+                // 9: FixedColumnWidth(15),
+                // 10: FixedColumnWidth(30),
+                // 11: FixedColumnWidth(35),
               },
             cellAlignments: {
               0: Alignment.center,
@@ -147,7 +164,7 @@ class PdfParagraphApi {
           ),
           SizedBox(height: 0.5 * PdfPageFormat.cm),
           Text(
-            'Total: ' + data.length.toString(),
+            'Total: ' + model.length.toString(),
             style: TextStyle( fontSize: 18,
               fontWeight: FontWeight.bold,
               color: PdfColors.blue,),
@@ -1064,7 +1081,265 @@ class PdfParagraphApi {
     return await pdf.save();
   }
 
+   static Future<Uint8List> generateReceiptReceivedReport(String cost,String clientName,String  date) async {
+     final pdf = Document();
+     final ByteData bytes =
+     await rootBundle.load(StaticImage.logo);
+     final Uint8List byteList = bytes.buffer.asUint8List();
+     pdf.addPage(
+       Page(
+         theme: ThemeData.withFont(
+           base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+         ),
+         margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
+         pageFormat: PdfPageFormat.a4,
+         orientation: PageOrientation.landscape,
+         build: (context) =>
+         Column(
+             crossAxisAlignment: CrossAxisAlignment.center,
+             children: [
+             Container(
+                 padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
+                 decoration: BoxDecoration(
+                   border: Border(bottom: BorderSide(width: 2, color: PdfColors.blue)),
+                 ),
+                 child: Row(
+                   children: [
+                     Image(
+                         MemoryImage(
+                           byteList,
+                         ),
+                         height: 150,
+                         width: 150,
+                         fit: BoxFit.contain),
+                     SizedBox(width: 5 * PdfPageFormat.cm),
+                     Column(
+                         children: [
+                           Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                           Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
+                         ]
+                     )
+                   ],
+                 ),
+             ),
+                 SizedBox(height: 0.5 * PdfPageFormat.cm),
+                Padding(padding: EdgeInsets.all( 5 * PdfPageFormat.mm),
+                 child: Column(children: [
+               Text('Payment Information', style:TextStyle(
+                 fontSize: 24,
+                 fontWeight: FontWeight.bold,
+                 color: PdfColors.black,
+               ),),
+                   Padding(padding: EdgeInsets.all( 5 * PdfPageFormat.mm),),
 
+                   Row(children: [
+                 Text('The undersigned acknowledge that they received the sum of',
+                   style:TextStyle(
+                   fontSize: 24,
+                   color: PdfColors.black,
+                 ),),
+
+               ]),
+                   Row(children: [
+                     Text(cost+' US',style: TextStyle(
+                       decoration: TextDecoration.underline,
+                       fontSize: 24,
+                       fontWeight: FontWeight.bold,
+                       color: PdfColors.blue,
+                     ),),
+                     Padding(padding: EdgeInsets.all( 5 * PdfPageFormat.mm),),
+
+                     Text('from',style: TextStyle(
+                       fontSize: 24,
+                       color: PdfColors.black,
+                     )),
+                     Padding(padding: EdgeInsets.all( 5 * PdfPageFormat.mm),),
+
+                     Text(clientName,style: TextStyle(
+                       decoration: TextDecoration.underline,
+                       fontSize: 24,
+                       fontWeight: FontWeight.bold,
+                       color: PdfColors.blue,
+                     ),),
+                     Padding(padding: EdgeInsets.all( 5 * PdfPageFormat.mm),),
+
+                     Text('on',style:TextStyle(
+                       decoration: TextDecoration.underline,
+                       fontSize: 24,
+                       color: PdfColors.black,
+                     ),),
+                     Padding(padding: EdgeInsets.all( 5 * PdfPageFormat.mm),),
+
+                     Text(date,style: TextStyle(
+                       decoration: TextDecoration.underline,
+                       fontSize: 24,
+                       fontWeight: FontWeight.bold,
+                       color: PdfColors.blue,
+                     ),),
+                   ])
+
+             ]))
+     ]))
+     );
+     return await pdf.save();
+   }
+
+   static  Future<Uint8List> generateQR(String qr) async {
+     final pdf = Document();
+     // final customFont =
+     // Font.ttf(await rootBundle.load('assets/OpenSans-Regular.ttf'));
+
+     final ByteData bytes =
+     await rootBundle.load(StaticImage.logo);
+     final Uint8List byteList = bytes.buffer.asUint8List();
+
+     pdf.addPage(
+       MultiPage(
+         orientation: PageOrientation.portrait,
+         theme: ThemeData.withFont(
+           base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+         ),
+         build: (context) => <Widget>[
+           Container(
+             padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
+             decoration: BoxDecoration(
+               border: Border(bottom: BorderSide(width: 2, color: PdfColors.blue)),
+             ),
+             child: Row(
+               children: [
+                 Image(
+                     MemoryImage(
+                       byteList,
+                     ),
+                     height: 150,
+                     width: 150,
+                     fit: BoxFit.contain),
+                 SizedBox(width: 5 * PdfPageFormat.cm),
+                 Column(
+                     children: [
+                       Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                       Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
+                     ]
+                 )
+               ],
+             ),
+           ),
+           SizedBox(height: 0.5 * PdfPageFormat.cm),
+           SizedBox(height: 0.5 * PdfPageFormat.cm),
+           Center(child: BarcodeWidget(
+             data: qr,
+             width: 300,
+             height: 300,
+             barcode: Barcode.qrCode(),
+           ), )
+
+
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+         ],
+         footer: (context) {
+           final text = 'Page ${context.pageNumber} of ${context.pagesCount}';
+
+           return Container(
+             alignment: Alignment.centerRight,
+             margin: EdgeInsets.only(top: 1 * PdfPageFormat.cm),
+             child: Text(
+               text,
+               style: TextStyle(color: PdfColors.black),
+             ),
+           );
+         },
+       ),
+     );
+     return await pdf.save();
+   }
+   static  Future<Uint8List> generateSticker(String from ,String to,String number) async {
+     final pdf = Document();
+     // final customFont =
+     // Font.ttf(await rootBundle.load('assets/OpenSans-Regular.ttf'));
+
+     final ByteData bytes =
+     await rootBundle.load(StaticImage.logo);
+     final Uint8List byteList = bytes.buffer.asUint8List();
+
+     pdf.addPage(
+       MultiPage(
+         orientation: PageOrientation.portrait,
+         theme: ThemeData.withFont(
+           base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+         ),
+         build: (context) => <Widget>[
+           Container(
+             padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
+             decoration: BoxDecoration(
+               border: Border(bottom: BorderSide(width: 2, color: PdfColors.blue)),
+             ),
+             child: Row(
+               children: [
+                 Image(
+                     MemoryImage(
+                       byteList,
+                     ),
+                     height: 150,
+                     width: 150,
+                     fit: BoxFit.contain),
+                 SizedBox(width: 5 * PdfPageFormat.cm),
+                 Column(
+                     children: [
+                       Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                       Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
+                     ]
+                 )
+               ],
+             ),
+           ),
+           SizedBox(height: 0.5 * PdfPageFormat.cm),
+
+           Center(child: Column(
+               crossAxisAlignment: CrossAxisAlignment.center,
+               children: [
+             Row(children: [
+               Text('Shipping from: '),
+               Text(from , style: TextStyle(color: PdfColors.blue ,fontWeight: FontWeight.bold) )
+             ]),
+             SizedBox(height: 0.5 * PdfPageFormat.cm),
+             Row(children: [
+               Text('Shipping to: '),
+               Text(to,style: TextStyle(color: PdfColors.blue ,fontWeight: FontWeight.bold))
+             ]),
+             SizedBox(height: 0.5 * PdfPageFormat.cm),
+             Row(children: [
+               Text('Serial Number: '),
+               Text(number,style: TextStyle(color: PdfColors.blue ,fontWeight: FontWeight.bold))
+             ]),
+           ]))
+
+
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+         ],
+         footer: (context) {
+           final text = 'Page ${context.pageNumber} of ${context.pagesCount}';
+
+           return Container(
+             alignment: Alignment.centerRight,
+             margin: EdgeInsets.only(top: 1 * PdfPageFormat.cm),
+             child: Text(
+               text,
+               style: TextStyle(color: PdfColors.black),
+             ),
+           );
+         },
+       ),
+     );
+     return await pdf.save();
+   }
 
   static Future openFile(File file) async {
     final url = file.path;

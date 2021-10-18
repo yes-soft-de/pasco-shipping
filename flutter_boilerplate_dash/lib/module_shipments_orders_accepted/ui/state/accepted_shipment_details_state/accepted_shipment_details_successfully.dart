@@ -669,7 +669,7 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                     widget.onRequestShift(widget.shipment.shipmentId , subShipmentModel.trackNumber);
                   }, radius: 12) :Container(),
                  widget.shipment.holderType =='LCL'?  RoundedButton(lable: S.of(context).shipmentCost, icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
-                    widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber);
+                    widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.paymentTime);
                   }, radius: 12) :Container(),
 
                 ],
@@ -696,14 +696,24 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
         width: 200,
         height: 200,
         child: QrImage(
-          data: widget.shipment.toString(),
+          data: widget.shipment.shipmentId.toString(),
           // version: QrVersions.auto,
           size: 200,
         ),
       ),
       actions: [
         Row(children: [
-          FlatButton(onPressed: (){}, child: Row(children: [
+          FlatButton(onPressed: () async{
+            await Printing.layoutPdf(
+              // [onLayout] will be called multiple times
+              // when the user changes the printer or printer settings
+              onLayout: (PdfPageFormat format) {
+                // Any valid Pdf document can be returned here as a list of int
+                return PdfParagraphApi.generateQR(widget.shipment.shipmentId.toString());
+              },
+            );
+
+          }, child: Row(children: [
             Icon(Icons.print, color: blue,size: 30,),
           ],)),
           Text('1' +'\\'+ widget.shipment.quantity.toString()),
@@ -772,7 +782,17 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
             actions: [
               Row(
                 children: [
-                  FlatButton(onPressed: (){}, child: Row(children: [
+                  FlatButton(onPressed: ()async {
+                    await Printing.layoutPdf(
+                      // [onLayout] will be called multiple times
+                      // when the user changes the printer or printer settings
+                      onLayout: (PdfPageFormat format) {
+                        // Any valid Pdf document can be returned here as a list of int
+                        return PdfParagraphApi.generateSticker(widget.shipment.exportWarehouseName.toString() ,widget.shipment.target??'',widget.shipment.clientIdentificationNumber??'');
+                      },
+                    );
+
+                  }, child: Row(children: [
                     Icon(Icons.print, color: blue,size: 30,),
                   ],)),
                   Text('1' +'\\'+ widget.shipment.quantity.toString()),

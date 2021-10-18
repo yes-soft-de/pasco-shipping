@@ -1,25 +1,23 @@
 
 import 'package:injectable/injectable.dart';
-import 'package:pasco_shipping/module_container_specification/service/container_specification_service.dart';
-import 'package:pasco_shipping/module_price/request/price_request.dart';
-import 'package:pasco_shipping/module_price/service/price_service.dart';
-import 'package:pasco_shipping/module_price/ui/state/price_state.dart';
+import 'package:pasco_shipping/module_price/service/container_price_service.dart';
+import 'package:pasco_shipping/module_price/ui/state/container_price/container_price_state/conatiner_price_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 @injectable
-class PriceStateManager {
-  final PriceService _priceService;
-  final ContainerSpecificationService _containerSpecificationService;
-  final PublishSubject<PriceState> _stateSubject = PublishSubject();
-  Stream<PriceState> get stateStream => _stateSubject.stream;
+class ContainerPriceStateManager {
+  final ContainerPriceService _priceService;
+  // final ContainerSpecificationService _containerSpecificationService;
+  final PublishSubject<ContainerPriceState> _stateSubject = PublishSubject();
+  Stream<ContainerPriceState> get stateStream => _stateSubject.stream;
 
-  PriceStateManager(this._priceService, this._containerSpecificationService);
+  ContainerPriceStateManager(this._priceService);
 
   void getPrice(){
     _stateSubject.add(LoadingPriceState());
-    _priceService.getPrice().then((model) {
+    _priceService.getContainerPrice().then((model) {
       if(model != null) {
-        _stateSubject.add(FetchedPriceSuccessfullyState(model));
+        _stateSubject.add(FetchedContainerPriceSuccessfullyState(model));
       }else {
         _stateSubject.add(ErrorPriceState('connection error'));
       }

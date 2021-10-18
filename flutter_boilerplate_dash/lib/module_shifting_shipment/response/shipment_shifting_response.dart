@@ -38,6 +38,7 @@ class ShipmentShiftingModel {
   required  this.fromImportWarehouseName,
    required this.toImportWarehouseCity,
    required this.toImportWarehouseName,
+    required this.paymentStatus,
 
 
     this.createdAt,
@@ -50,6 +51,7 @@ class ShipmentShiftingModel {
   String? trackNumber;
   String? notes;
   String? status;
+  String? paymentStatus;
 
   String fromImportWarehouseName;
   String fromImportWarehouseCity;
@@ -74,6 +76,7 @@ class ShipmentShiftingModel {
     toImportWarehouseName: json['toImportWarehouseName'],
     fromImportWarehouseName: json['fromImportWarehouseName']??'',
     toImportWarehouseCity: json['toImportWarehouseCity'],
+    paymentStatus: json['paymentStatus'],
 
 
 

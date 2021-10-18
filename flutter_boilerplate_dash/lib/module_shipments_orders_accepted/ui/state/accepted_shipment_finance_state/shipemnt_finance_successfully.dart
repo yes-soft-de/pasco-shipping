@@ -19,9 +19,10 @@ class ShipmentFinanceSuccessfullyScreen extends StatefulWidget {
   final DataFinance shipmentFinance;
   final Function addFinance;
   final int shipmentID;
+  final String paymentWay;
   final String trackNumber;
   final List<SubcontractModel> subContracts;
-  ShipmentFinanceSuccessfullyScreen({required this.addFinance ,required this.shipmentFinance,required this.shipmentID,required this.trackNumber,required this.subContracts });
+  ShipmentFinanceSuccessfullyScreen({required this.addFinance ,required this.shipmentFinance,required this.shipmentID,required this.trackNumber,required this.subContracts,required this.paymentWay });
 
   @override
   _MarkSuccessfullyScreenState createState() => _MarkSuccessfullyScreenState();
@@ -221,70 +222,75 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                       ),
 
 
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(children: [
-                          Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                          SizedBox(width: 5,),
-                          Text(S.of(context).paymentWay , style: AppTextStyle.mediumBlackBold,)
-                        ],),
-                      ),
-                      SelectDropList(
-                        this.optionItemSelectedPayment,
-                        this.dropListModelPayment,
-                            (optionItem) {
-                          optionItemSelectedPayment = optionItem;
-                          setState(() {});
-                        },
-                      ),
-
-                      optionItemSelectedPayment.title=='Check' ?  Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          padding: EdgeInsets.only(
-                              top: 4,left: 16, right: 16, bottom: 4
-                          ),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(15)
-                              ),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black12,
-                                    blurRadius: 5
-                                )
-                              ]
-                          ),
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Check Number',
-                            ),
-                            controller: checkNumber,
-                          ),
-                        ),
-                      ) : optionItemSelectedPayment.title=='Cash' ?Column(children: [
-
+                   widget.paymentWay=='Collect'  ?Container(): Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(children: [
                             Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                             SizedBox(width: 5,),
-                            Text('Fund Name' , style: AppTextStyle.mediumBlackBold,)
+                            Text(S.of(context).paymentWay , style: AppTextStyle.mediumBlackBold,)
                           ],),
                         ),
                         SelectDropList(
-                          this.optionItemSelectedFund,
-                          this.dropListModelFund,
+                          this.optionItemSelectedPayment,
+                          this.dropListModelPayment,
                               (optionItem) {
-                            optionItemSelectedFund = optionItem;
+                            optionItemSelectedPayment = optionItem;
                             setState(() {});
                           },
                         ),
 
-                      ],) :Container(),
+                        optionItemSelectedPayment.title=='Check' ?  Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            padding: EdgeInsets.only(
+                                top: 4,left: 16, right: 16, bottom: 4
+                            ),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(15)
+                                ),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 5
+                                  )
+                                ]
+                            ),
+                            child: TextField(
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Check Number',
+                              ),
+                              controller: checkNumber,
+                            ),
+                          ),
+                        ) : optionItemSelectedPayment.title=='Cash' ?Column(children: [
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(children: [
+                              Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                              SizedBox(width: 5,),
+                              Text('Fund Name' , style: AppTextStyle.mediumBlackBold,)
+                            ],),
+                          ),
+                          SelectDropList(
+                            this.optionItemSelectedFund,
+                            this.dropListModelFund,
+                                (optionItem) {
+                              optionItemSelectedFund = optionItem;
+                              setState(() {});
+                            },
+                          ),
+
+                        ],) :Container(),
+                      ],),
+
 
 
 

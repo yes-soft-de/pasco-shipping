@@ -6,6 +6,7 @@ import 'package:pasco_shipping/module_container/ui/state/addnew_state/add_state.
 import 'package:pasco_shipping/module_container_specification/service/container_specification_service.dart';
 import 'package:pasco_shipping/module_harbor/request/harbor_filter_request.dart';
 import 'package:pasco_shipping/module_harbor/service/harbor_service.dart';
+import 'package:pasco_shipping/module_shipment_request/service/shipment_request_service/first_option_service.dart';
 import 'package:pasco_shipping/module_shipper/service/shipper_service.dart';
 import 'package:pasco_shipping/module_sub_contract/service/subcontract_service.dart';
 import 'package:pasco_shipping/module_subcontract_services/service/sub_contract_service.dart';
@@ -19,12 +20,13 @@ class AddContainerStateManager {
   final ClientService _clientService;
   final HarborService _harborService;
   final ShipperService _shipperService;
+  final FirstOptionService _firstOptionService;
 
   final PublishSubject<AddContainerState> _addStateSubject = PublishSubject();
   Stream<AddContainerState> get stateStream => _addStateSubject.stream;
 
   AddContainerStateManager(
-      this._service,this._subcontractService , this._containerSpecificationService, this._clientService, this._harborService, this._shipperService);
+      this._service,this._subcontractService , this._containerSpecificationService, this._clientService, this._harborService, this._shipperService, this._firstOptionService);
 
   void requestContainer(ContainerRequest request) {
     _addStateSubject.add(LoadingAddState());
@@ -54,7 +56,7 @@ class AddContainerStateManager {
       }
     });
   }
-  void getSubContractAndSpecificationAndHarbor() {
+  void getSubContractAndSpecificationAndHarborAndCountries() {
     _addStateSubject.add(LoadingAddState());
         _subcontractService.getSubcontracts().then((subs) {
           if (subs != null) {
@@ -65,8 +67,14 @@ class AddContainerStateManager {
                     HarborFilterRequest request =HarborFilterRequest(type: 'seaport');
                     _harborService.getHarbor(request).then((harbor) {
                       if(harbor != null){
-                        _addStateSubject
-                            .add(InitAddState(subcontracts: subs , specifications: value ,clients: clients,harbor: harbor,shippers: []));
+                        _firstOptionService.getCountriesImport('export').then((countries) {
+                          if(countries != null){
+                            _addStateSubject
+                                .add(InitAddState(subcontracts: subs , specifications: value ,clients: clients,harbor: harbor,shippers: [] ,countries: countries));
+                          }
+
+                        });
+
                       }
                     });
                   }
@@ -95,7 +103,7 @@ class AddContainerStateManager {
                         _shipperService.getShippers().then((shippers) {
                           if(shippers != null){
                             _addStateSubject
-                                .add(InitAddState(subcontracts: subs , specifications: value ,clients: clients,harbor: harbor,shippers: shippers));
+                                .add(InitAddState(subcontracts: subs , specifications: value ,clients: clients,harbor: harbor,shippers: shippers,countries: []));
                           }
                         });
                       }

@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
 import 'package:pasco_shipping/module_price/request/price_request.dart';
+import 'package:pasco_shipping/module_price/response/container_price_response.dart';
 import 'package:pasco_shipping/module_price/response/price_response.dart';
 import 'package:pasco_shipping/module_price/widget/container_price_dart.dart';
 import 'package:pasco_shipping/module_price/widget/line_price_card.dart';
@@ -22,19 +23,19 @@ import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 
-class PriceSuccessfullyScreen extends StatefulWidget {
-  final PriceModel model;
-  final Function updateLinesPrice;
-  const PriceSuccessfullyScreen(
+class ContainerPriceSuccessfullyScreen extends StatefulWidget {
+  final List<ContainerPriceModel> model;
+  final Function updateContainerPrice;
+  const ContainerPriceSuccessfullyScreen(
       {required this.model,
-      required this.updateLinesPrice});
+      required this.updateContainerPrice});
 
   @override
   _ProfileSuccessfullyScreenState createState() =>
       _ProfileSuccessfullyScreenState();
 }
 
-class _ProfileSuccessfullyScreenState extends State<PriceSuccessfullyScreen> {
+class _ProfileSuccessfullyScreenState extends State<ContainerPriceSuccessfullyScreen> {
   late final TextEditingController _oneKiloPrice;
   late final TextEditingController _oneCBMPrice;
   // late final TextEditingController _price;
@@ -87,100 +88,18 @@ class _ProfileSuccessfullyScreenState extends State<PriceSuccessfullyScreen> {
                 padding: const EdgeInsets.all(10.0),
                 child: Image.asset(StaticImage.price),
               )),
-          // Text(
-          //   'Container Prices',
-          //   style: AppTextStyle.largeBlackBold,
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: Row(
-          //     children: [
-          //       Icon(
-          //         Icons.circle,
-          //         color: AppThemeDataService.AccentColor,
-          //       ),
-          //       SizedBox(
-          //         width: 5,
-          //       ),
-          //       Text(
-          //         S.of(context).specification,
-          //         style: AppTextStyle.mediumBlackBold,
-          //       )
-          //     ],
-          //   ),
-          // ),
-          // SelectDropList(
-          //   this.optionItemSelectedSpecification,
-          //   this.dropListModelSpecification,
-          //       (optionItem) {
-          //     optionItemSelectedSpecification = optionItem;
-          //     setState(() {
-          //       _price..text = optionItemSelectedSpecification.children[0].title;
-          //     });
-          //   },
-          // ),
-          // optionItemSelectedSpecification.id != 0
-          //     ? Padding(
-          //   padding: const EdgeInsets.all(10.0),
-          //   child: Card(
-          //       child: Padding(
-          //         padding: const EdgeInsets.all(10.0),
-          //         child: Column(
-          //           children: [
-          //             Row(
-          //               children: [
-          //                 Text(S.of(context).type + ': '),
-          //                 Text(
-          //                   optionItemSelectedSpecification.title,
-          //                   style: AppTextStyle.mediumBlackBold,
-          //                 ),
-          //               ],
-          //             ),
-          //             Row(
-          //               children: [
-          //                 Flexible(
-          //                     flex: 1,
-          //                     child: Text(S.of(context).prices + ': ')),
-          //                 Flexible(
-          //                     flex: 3,
-          //                     child: TextField(controller: _price,))
-          //               ],
-          //             ),
-          //           ],
-          //         ),
-          //       )),
-          // )
-          //     : Container(),
-          // Padding(
-          //   padding: const EdgeInsetsDirectional.only(start: 10, end: 10),
-          //   child: RoundedButton(
-          //     radius: 15,
-          //     lable: S.of(context).saveInfo,
-          //     icon: StaticImage.edit,
-          //     color: AppThemeDataService.AccentColor,
-          //     go: () {
-          //       _priceRequest = ContainerPriceRequest(
-          //         containerSpecificationID: optionItemSelectedSpecification.id,
-          //         containerSpecificationPrice:int.parse(_price.text),);
-          //       widget.updateContainerPrice(_priceRequest);
-          //     },
-          //     style: AppTextStyle.mediumWhiteBold,
-          //   ),
-          // ),
-
-
           Text(
-            'Lines Prices',
+            'Container Prices',
             style: AppTextStyle.largeBlackBold,
           ),
           ListView.builder(itemBuilder: (context ,index){
-            return LinePriceCard(model: widget.model.linesPrice[index],
-              onEditLines: (model){
-              widget.updateLinesPrice(model);
+            return ContainerPriceCard(model: widget.model[index],
+              onEditPrice: (model){
+              widget.updateContainerPrice(model);
             },);
           },
             shrinkWrap: true,
-            itemCount: widget.model.linesPrice.length,
+            itemCount: widget.model.length,
             physics: NeverScrollableScrollPhysics(),
           ),
           // Text(

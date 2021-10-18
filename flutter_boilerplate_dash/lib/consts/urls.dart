@@ -195,6 +195,9 @@ class Urls {
   //price
   static const PRICE = BASE_API + 'price';
 
+  static const CONTAINER_PRICES = BASE_API + 'containerspecificationprices';
+  static const CONTAINER_PRICE = BASE_API + 'containerspecificationprice';
+
   //shift
   static const SHIFTING_SHIPMENT = BASE_API + 'filtershiftingshipmentorders';
   static const ORDER_SHIFTING = BASE_API + 'ordershiftingshipment';

@@ -31,6 +31,7 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
   late List<SubcontractModel> subcontracts;
 
   late String trackNumber;
+  late String paymentWay;
   late int id;
 
   @override
@@ -50,6 +51,7 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
      id =arguments['id'];
      trackNumber =arguments['trackNumber'].toString();
+    paymentWay =arguments['paymentWay'];
     ShipmentLCLFilterFinanceRequest request = ShipmentLCLFilterFinanceRequest(shipmentID: id,trackNumber: trackNumber);
     widget._stateManager.getShipmentLCLFinance(request);
   }
@@ -85,6 +87,7 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
       return ShipmentFinanceSuccessfullyScreen(
         trackNumber:trackNumber ,
      shipmentID: id,
+     paymentWay: paymentWay,
      shipmentFinance: state.finances,
      subContracts: subcontracts,
      addFinance: (request){

@@ -9,6 +9,7 @@ import 'package:pasco_shipping/module_container/request/container_request.dart';
 import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
 import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
+import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
@@ -21,8 +22,9 @@ class RequestContainerInit extends StatefulWidget {
   final List<ContainerSpecificationModel> specifications;
   final List<ClientModel> clients;
   final List<HarborModel> harbors;
+  final List<Countries> countriesExports;
   final Function onSave;
-  const RequestContainerInit({ required this.onSave , required this.subContracts,required this.specifications,required this.clients,required this.harbors});
+  const RequestContainerInit({ required this.onSave , required this.subContracts,required this.specifications,required this.clients,required this.harbors,required this.countriesExports});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
@@ -32,7 +34,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
  // late TextEditingController location ;
   DropListModel dropListModelLocation = DropListModel(location);
   late Entry optionItemSelectedLocation;
-
+  late DropListModel dropListModelFromCountries;
  late DropListModel dropListModelProvidedBy;
  late Entry optionItemSelectedProvidedBy;
 
@@ -73,7 +75,8 @@ class _AddCountryInitState extends State<RequestContainerInit> {
 
  late int carrierID;
  late int clientID;
-
+ late List<Entry> entryFrom;
+ late Entry optionItemSelectedFrom;
  // TimeOfDay selectedTimeStart = TimeOfDay.now();
  // TimeOfDay selectedTimeEnd = TimeOfDay.now();
  //
@@ -167,6 +170,27 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                     ),
                   ),
                 ],
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).from, style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              SelectDropListl(
+                this.optionItemSelectedFrom,
+                this.dropListModelFromCountries,
+                    (optionItem) {
+                  optionItemSelectedFrom = optionItem;
+                  print(optionItem.title);
+                  print(optionItem.id);
+                  // widget.shipmentRequest.exportWarehouseID =optionItem.id;
+                  // widget.shipmentRequest.exportWarehouseName =optionItem.title;
+                  setState(() {});
+                },
               ),
 
               Padding(
@@ -298,18 +322,26 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 // DateTime arrivalDate = DateTime(endDate.year , endDate.month ,endDate.day ,selectedTimeEnd.hour ,selectedTimeEnd.minute);
                 // DateTime launchDate = DateTime(startDate.year , startDate.month ,startDate.day ,selectedTimeStart.hour ,selectedTimeStart.minute);
 
-                ContainerRequest re = ContainerRequest(status: status ,type: type
-                    ,specificationID: optionItemSelectedSpecification.id ,
-                    consigneeID: optionItemSelectedConsignee.id ,
+                if(optionItemSelectedFrom.id ==0){
+                  Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                }else {
+                  ContainerRequest re = ContainerRequest(status: status,
+                    type: type
+                    ,
+                    specificationID: optionItemSelectedSpecification.id,
+                    consigneeID: optionItemSelectedConsignee.id,
                     shipperID: optionItemSelectedShipper.id,
                     carrierID: optionItemSelectedCarrier.id
-                    ,location: optionItemSelectedLocation.title,
-                  portID: optionItemSelectedHarbor.id,
-                  providedBy: optionItemSelectedProvidedBy.id,
-                  clientID: optionItemSelectedClient.id
-                );
+                    ,
+                    location: optionItemSelectedLocation.title,
+                    portID: optionItemSelectedHarbor.id,
+                    providedBy: optionItemSelectedProvidedBy.id,
+                    clientID: optionItemSelectedClient.id,
+                    exportCity: optionItemSelectedFrom.title,
+                    exportCountryID: optionItemSelectedFrom.id,
+                  );
                   widget.onSave(re);
-
+                }
               }, radius: 15)
             ],),
           ),
@@ -346,9 +378,10 @@ class _AddCountryInitState extends State<RequestContainerInit> {
     optionItemSelectedClient =  Entry('choose', 0, []);
     optionItemSelectedHarbor =  Entry('choose', 0, []);
     optionItemSelectedLocation =  Entry('choose', 0, []);
-
+    optionItemSelectedFrom=Entry('choose', 0, []);
+    entryFrom =[];
     initList();
-
+    initShippingFrom();
   }
 
   void initList(){
@@ -397,5 +430,22 @@ class _AddCountryInitState extends State<RequestContainerInit> {
      print(val);
    });
  }
-
+  void initShippingFrom() {
+    List<Entry> children = <Entry>[];
+    for (Countries item in widget.countriesExports) {
+      if (item.warehouses!.isNotEmpty && item.type=='export') {
+        Entry country = Entry(item.name!, item.id!, children);
+        print(country.id);
+        children = [];
+        for (Warehouse warehouseItem in item.warehouses!) {
+          print(warehouseItem.countryName);
+          Entry warehouse = Entry(warehouseItem.city!, warehouseItem.id!, []);
+          children.add(warehouse);
+        }
+        country.children = children;
+        entryFrom.add(country);
+      }
+    }
+    dropListModelFromCountries = DropListModel(entryFrom);
+  }
 }

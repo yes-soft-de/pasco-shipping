@@ -68,7 +68,7 @@ class _AddNewCountryState extends State<AddNewContainer> {
         }
       }
     });
-    widget._stateManager.getSubContractAndSpecificationAndHarbor();
+    widget._stateManager.getSubContractAndSpecificationAndHarborAndCountries();
   }
 
   Widget Screen(){
@@ -109,7 +109,7 @@ class _AddNewCountryState extends State<AddNewContainer> {
             text: 'Do you really want to request the shipment',
           );
 
-      },);
+      }, countriesExports: state.countries, );
     }
 
     else {
