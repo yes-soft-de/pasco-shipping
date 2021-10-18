@@ -76,16 +76,4 @@ class ContainerSpecificationEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function getContainerSpecificationPriceBySpecificationID($specificationID)
-    {
-        return $this->createQueryBuilder('containerSpecification')
-            ->select('containerSpecification.price')
-
-            ->andWhere('containerSpecification.id = :id')
-            ->setParameter('id', $specificationID)
-
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
 }
