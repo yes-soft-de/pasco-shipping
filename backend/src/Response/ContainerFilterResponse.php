@@ -52,6 +52,10 @@ class ContainerFilterResponse
 
     public $shippingStatus;
 
+    public $exportCity;
+
+    public $exportCountryName;
+
     public $totalGunnyQuantity;
 
     public $totalReceivedShipmentsQuantity;
