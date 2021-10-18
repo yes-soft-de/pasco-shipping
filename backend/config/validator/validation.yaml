@@ -644,6 +644,14 @@ App\Request\ContainerSpecificationPriceUpdateRequest:
   properties:
     id:
       - NotBlank: ~
+    containerSpecificationID:
+      - NotBlank: ~
+    exportCountryID:
+      - NotBlank: ~
+    exportCity:
+      - NotBlank: ~
+    destinationPortID:
+      - NotBlank: ~
     price:
       - NotBlank: ~
     updatedBy:
@@ -668,5 +676,20 @@ App\Request\ShipmentInvoiceUpdateRequest:
     id:
       - NotBlank: ~
     updatedBy:
+      - NotBlank: ~
+
+App\Request\ContainerSpecificationPriceCreateRequest:
+  properties:
+    containerSpecificationID:
+      - NotBlank: ~
+    exportCountryID:
+      - NotBlank: ~
+    exportCity:
+      - NotBlank: ~
+    destinationPortID:
+      - NotBlank: ~
+    price:
+      - NotBlank: ~
+    createdBy:
       - NotBlank: ~
       

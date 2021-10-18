@@ -1201,6 +1201,10 @@ class ShipmentOrderController extends BaseController
      *                      @OA\Property(type="integer", property="delivered")
      *                  ),
      *                  @OA\Property(type="integer", property="totalCount"),
+     *                  @OA\Property(type="integer", property="totalVolume"),
+     *                  @OA\Property(type="integer", property="totalWeight"),
+     *                  @OA\Property(type="integer", property="totalGunny"),
+     *                  @OA\Property(type="integer", property="totalReceivedQuantity"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),

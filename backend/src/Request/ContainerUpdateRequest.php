@@ -26,6 +26,10 @@ class ContainerUpdateRequest
 
     private $consignee;
 
+    private $exportCountryID;
+
+    private $exportCity;
+
     private $updatedBy;
 
     public function getId()

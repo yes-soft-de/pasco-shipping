@@ -6,6 +6,7 @@ use App\Entity\AdminProfileEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\ContainerEntity;
 use App\Entity\ContainerSpecificationEntity;
+use App\Entity\CountryEntity;
 use App\Entity\OrderShipmentEntity;
 use App\Entity\PortsEntity;
 use App\Entity\ShipperEntity;
@@ -100,9 +101,10 @@ class ContainerEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.createdBy', 'container.carrierID',
-            'container.shipperID', 'container.type', 'container.providedBy', 'container.shipmentID', 'container.portID', 'container.location', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'container.consignee',
-             'adminProfile2.userName as updatedByUserImage', 'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName',
-            'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'container.clientUserID', 'portsEntity.name as portName', 'container.shippingStatus')
+            'container.shipperID', 'container.type', 'container.providedBy', 'container.shipmentID', 'container.portID', 'container.location', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
+                'container.consignee', 'container.exportCity', 'container.exportCountryID', 'adminProfile2.userName as updatedByUserImage', 'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName',
+                'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName', 'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'container.clientUserID', 'portsEntity.name as portName', 'container.shippingStatus',
+                'countryEntity.name as exportCountryName')
 
             ->andWhere('container.id = :id')
             ->setParameter('id', $id)
@@ -177,6 +179,13 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 'clientProfileEntity.userID = container.clientUserID'
             )
 
+            ->leftJoin(
+                CountryEntity::class,
+                'countryEntity',
+                Join::WITH,
+                'countryEntity.id = container.exportCountryID'
+            )
+
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -191,8 +200,8 @@ class ContainerEntityRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.shipmentID', 'container.clientUserID', 'container.consignee',
                 'container.shipperID', 'container.carrierID', 'container.type', 'container.providedBy', 'container.portID', 'container.location', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
-                'container.shippingStatus', 'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName', 'clientProfileEntity.userName as clientUserName',
-                'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName')
+                'container.shippingStatus', 'container.exportCity', 'container.exportCountryID', 'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName',
+                'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName', 'countryEntity.name as exportCountryName')
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -262,6 +271,13 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 'clientProfileEntity',
                 Join::WITH,
                 'clientProfileEntity.userID = container.clientUserID'
+            )
+
+            ->leftJoin(
+                CountryEntity::class,
+                'countryEntity',
+                Join::WITH,
+                'countryEntity.id = container.exportCountryID'
             )
 
             ->orderBy('container.id', 'DESC')

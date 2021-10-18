@@ -8,6 +8,14 @@ class ShipmentFilterResponse
 
     public $totalCount;
 
+    public $totalVolume;
+
+    public $totalWeight;
+
+    public $totalGunny;
+
+    public $totalReceivedQuantity;
+
     public $shipments;
 
 }

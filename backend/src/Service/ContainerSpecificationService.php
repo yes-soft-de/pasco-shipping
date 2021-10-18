@@ -40,13 +40,6 @@ class ContainerSpecificationService
         return $this->autoMapping->map(ContainerSpecificationEntity::class, ContainerSpecificationUpdateResponse::class, $containerSpecificationResult);
     }
 
-    public function updatePrice(ContainerSpecificationPriceUpdateRequest $request)
-    {
-        $containerSpecificationResult = $this->containerSpecificationManager->updatePrice($request);
-
-        return $this->autoMapping->map(ContainerSpecificationEntity::class, ContainerSpecificationUpdateResponse::class, $containerSpecificationResult);
-    }
-
     public function getAllContainerSpecifications()
     {
         $containerSpecificationResponse = [];

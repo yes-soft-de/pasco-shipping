@@ -55,7 +55,9 @@ class ContainerController extends BaseController
      *          @OA\Property(type="integer", property="shipmentID"),
      *          @OA\Property(type="integer", property="clientUserID"),
      *          @OA\Property(type="integer", property="portID"),
-     *          @OA\Property(type="string", property="location")
+     *          @OA\Property(type="string", property="location"),
+     *          @OA\Property(type="integer", property="exportCountryID"),
+     *          @OA\Property(type="string", property="exportCity")
      *      )
      * )
      * 
@@ -124,7 +126,9 @@ class ContainerController extends BaseController
      *          @OA\Property(type="integer", property="carrierID"),
      *          @OA\Property(type="integer", property="portID"),
      *          @OA\Property(type="string", property="consignee"),
-     *          @OA\Property(type="string", property="location")
+     *          @OA\Property(type="string", property="location"),
+     *          @OA\Property(type="integer", property="exportCountryID"),
+     *          @OA\Property(type="string", property="exportCity")
      *      )
      * )
      *
@@ -431,6 +435,8 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="shippingStatus"),
      *                  @OA\Property(type="integer", property="totalGunnyQuantity"),
      *                  @OA\Property(type="integer", property="totalReceivedShipmentsQuantity"),
+     *                  @OA\Property(type="string", property="exportCountryName"),
+     *                  @OA\Property(type="string", property="exportCity"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),
@@ -547,6 +553,8 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="shippingStatus"),
      *                  @OA\Property(type="integer", property="totalGunnyQuantity"),
      *                  @OA\Property(type="integer", property="totalReceivedShipmentsQuantity"),
+     *                  @OA\Property(type="string", property="exportCountryName"),
+     *                  @OA\Property(type="string", property="exportCity"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
      *                  )
@@ -600,6 +608,8 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="location"),
      *                  @OA\Property(type="string", property="specificationName"),
      *                  @OA\Property(type="string", property="shippingStatus"),
+     *                  @OA\Property(type="string", property="exportCountryName"),
+     *                  @OA\Property(type="string", property="exportCity"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
      *                  )

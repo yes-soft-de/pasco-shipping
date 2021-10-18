@@ -110,6 +110,16 @@ class ContainerEntity
      */
     private $shippingStatus;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $exportCity;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $exportCountryID;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -327,6 +337,30 @@ class ContainerEntity
     public function setShippingStatus(string $shippingStatus): self
     {
         $this->shippingStatus = $shippingStatus;
+
+        return $this;
+    }
+
+    public function getExportCity(): ?string
+    {
+        return $this->exportCity;
+    }
+
+    public function setExportCity(?string $exportCity): self
+    {
+        $this->exportCity = $exportCity;
+
+        return $this;
+    }
+
+    public function getExportCountryID(): ?int
+    {
+        return $this->exportCountryID;
+    }
+
+    public function setExportCountryID(?int $exportCountryID): self
+    {
+        $this->exportCountryID = $exportCountryID;
 
         return $this;
     }

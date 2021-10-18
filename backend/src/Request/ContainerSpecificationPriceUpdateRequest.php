@@ -6,6 +6,14 @@ class ContainerSpecificationPriceUpdateRequest
 {
     private $id;
 
+    private $containerSpecificationID;
+
+    private $exportCountryID;
+
+    private $exportCity;
+
+    private $destinationPortID;
+
     private $price;
 
     private $updatedBy;

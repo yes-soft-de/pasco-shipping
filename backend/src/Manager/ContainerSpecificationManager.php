@@ -58,26 +58,6 @@ class ContainerSpecificationManager
         }
     }
 
-    public function updatePrice(ContainerSpecificationPriceUpdateRequest $request)
-    {
-        $specificationEntity = $this->containerSpecificationEntityRepository->find($request->getId());
-
-        if(!$specificationEntity)
-        {
-
-        }
-        else
-        {
-            $specificationEntity = $this->autoMapping->mapToObject(ContainerSpecificationPriceUpdateRequest::class, ContainerSpecificationEntity::class,
-             $request, $specificationEntity);
-
-            $this->entityManager->flush();
-            $this->entityManager->clear();
-
-            return $specificationEntity;
-        }
-    }
-
     public function getAllContainerSpecifications()
     {
         return $this->containerSpecificationEntityRepository->getAllContainerSpecifications();
