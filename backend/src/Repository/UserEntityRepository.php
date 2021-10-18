@@ -99,7 +99,7 @@ class UserEntityRepository extends ServiceEntityRepository implements PasswordUp
     public function getAllClients()
     {
         return $this->createQueryBuilder('user')
-            ->select('user.id', 'user.userID', 'user.roles', 'user.email', 'user.createAt', 'user.createdBy', 'user.updatedBy', 'clientProfile.userName',
+            ->select('user.id', 'user.userID', 'user.roles', 'user.email', 'user.createAt', 'user.createdBy', 'user.updatedBy', 'clientProfile.id as profileID', 'clientProfile.userName',
              'clientProfile.identificationNumber', 'clientProfile.city', 'clientProfile.image', 'clientProfile.country', 'clientProfile.location', 'clientProfile.phone', 'adminProfile1.userName as createdByUser',
              'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage')
 

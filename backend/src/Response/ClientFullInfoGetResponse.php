@@ -8,6 +8,8 @@ class ClientFullInfoGetResponse
 
     public $userID;
 
+    public $profileID;
+
     public $roles;
 
     public $email;

@@ -389,7 +389,10 @@ class ClientController extends BaseController
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="integer", property="Data"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="profileID"),
      *                  @OA\Property(type="string", property="userID"),
      *                  @OA\Property(type="array", property="roles",
      *                      @OA\Items(example="user")
@@ -406,6 +409,8 @@ class ClientController extends BaseController
      *                  @OA\Property(type="string", property="location"),
      *                  @OA\Property(type="string", property="phone"),
      *                  @OA\Property(type="string", property="identificationNumber")
+     *              )
+     *          )
      *      )
      * )
      *
