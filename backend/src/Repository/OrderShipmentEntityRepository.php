@@ -1051,6 +1051,32 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    public function getImportCountryNameAndPaymentTimeByShipmentOrderID($shipmentID)
+    {
+        return $this->createQueryBuilder('shipmentOrder')
+            ->select("shipmentOrder.paymentTime", "countryEntity.name as importCountryName")
+
+            ->andWhere('shipmentOrder.id = :id')
+            ->setParameter('id', $shipmentID)
+
+            ->leftJoin(
+                WarehouseEntity::class,
+                'warehouseEntity',
+                Join::WITH,
+                'warehouseEntity.id = shipmentOrder.importWarehouseID'
+            )
+
+            ->leftJoin(
+                CountryEntity::class,
+                'countryEntity',
+                Join::WITH,
+                'countryEntity.id = warehouseEntity.countryID'
+            )
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function getExportWarehouseIdByShipmentOrderID($shipmentID)
     {
         return $this->createQueryBuilder('shipmentOrder')

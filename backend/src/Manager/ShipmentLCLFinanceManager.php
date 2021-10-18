@@ -3,7 +3,9 @@
 namespace App\Manager;
 
 use App\AutoMapping;
+use App\Constant\PaymentTypeConstant;
 use App\Constant\ShipmentLCLFinancialStatusConstant;
+use App\Constant\ShipmentOrderPaymentTypeConstant;
 use App\Constant\ShippingWayConstant;
 use App\Entity\ShipmentLCLFinanceEntity;
 use App\Repository\ShipmentLCLFinanceEntityRepository;
@@ -37,11 +39,24 @@ class ShipmentLCLFinanceManager
         {
             $shipmentFinanceEntity = $this->autoMapping->map(ShipmentLCLFinanceCreateRequest::class, ShipmentLCLFinanceEntity::class, $request);
 
+            // Get the import warehouse id to insert it with the financial stage details
             $importWarehouseID = $this->getImportWarehouseIdByShipmentID($request->getShipmentID());
 
             if($importWarehouseID)
             {
                 $shipmentFinanceEntity->setImportWarehouseID($importWarehouseID);
+            }
+
+            /**
+             * Check if the payment time is Collect, then automatically set the payment type to cash, and the fund is the fund of
+             * the target country
+             */
+            $result = $this->getImportCountryNameAndPaymentTimeByShipmentOrderID($request->getShipmentID());
+
+            if($result['paymentTime'] == ShipmentOrderPaymentTypeConstant::$COLLECT_PAYMENT_TYPE)
+            {
+                $shipmentFinanceEntity->setPaymentType(PaymentTypeConstant::$CASH_PAYMENT_TYPE);
+                $shipmentFinanceEntity->setFinancialFundName($result['importCountryName'] . " Fund");
             }
 
             $this->entityManager->persist($shipmentFinanceEntity);
@@ -143,6 +158,11 @@ class ShipmentLCLFinanceManager
     public function getImportWarehouseIdByShipmentID($shipmentID)
     {
         return $this->shipmentOrderManager->getImportWarehouseIdByShipmentOrderID($shipmentID);
+    }
+
+    public function getImportCountryNameAndPaymentTimeByShipmentOrderID($shipmentID)
+    {
+        return $this->shipmentOrderManager->getImportCountryNameAndPaymentTimeByShipmentOrderID($shipmentID);
     }
 
     public function getOneKiloOrCBMPriceByShipmentID($shipmentID)
