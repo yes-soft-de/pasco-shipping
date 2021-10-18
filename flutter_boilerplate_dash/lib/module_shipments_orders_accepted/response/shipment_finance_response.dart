@@ -24,7 +24,7 @@ class DataFinance{
   DataFinance({
     this.data,
     this.currentTotalCost,
-    this.price,this.shippingType
+    this.price,this.shippingType,this.weight,this.volume
 
 
   });
@@ -32,6 +32,9 @@ class DataFinance{
   String? currentTotalCost;
   String? price;
   String? shippingType;
+  String? shippingCost;
+  String? volume ;
+  String? weight  ;
 
 
 
@@ -40,6 +43,9 @@ class DataFinance{
       currentTotalCost= json['currentTotalCost'].toString();
       price= json['price'].toString();
       shippingType= json['shippingType'] ??'sea';
+       volume = json['volume'].toString() =='null' ? '0' :json['volume'].toString() ;
+       weight  = json['weight'].toString() =='null'?'0':json['weight'].toString();
+      shippingCost   = json['shippingCost'].toString() =='null'?'0':json['shippingCost'].toString();
     }catch (e, stack) {
       Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
           StackTrace.current);

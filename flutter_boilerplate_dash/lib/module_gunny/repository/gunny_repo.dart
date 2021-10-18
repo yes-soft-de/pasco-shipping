@@ -52,6 +52,19 @@ class GunnyRepository{
       return marks;
     }
   }
+  Future<ConfirmResponse?> deleteGunny(String id) async {
+    var token = await _authService.getToken();
+
+    var response = await _apiClient.delete(Urls.CREATE_GUNNY +'/'+id,
+        headers: {'Authorization': 'Bearer $token'});
+    String? statusCode = GunnyResponse.fromJson(response!).statusCode;
+    String? msg = GunnyResponse.fromJson(response).msg;
+    if(statusCode =='401'){
+      return ConfirmResponse(true, msg!);
+    }else {
+      return ConfirmResponse(false, msg!);
+    }
+  }
 
 
 

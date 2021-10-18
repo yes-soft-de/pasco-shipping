@@ -2,6 +2,7 @@ import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_client/client_routes.dart';
 import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_client/state_manager/client_state_manager.dart';
 import 'package:pasco_shipping/module_client/ui/state/clients_state/client_state.dart';
@@ -90,8 +91,10 @@ class _CountriesScreenState extends State<ClientsScreen> {
         );
 
       },
-        onEdit: (request){
-          // widget._stateManager.updateSupplier(request);
+        onEdit: (model){
+         Navigator.pushNamed(context, ClientRoutes.UPDATE,arguments: {'model':model}).then((value) {
+           widget._stateManager.getClients();
+         });
         },
       );
     }

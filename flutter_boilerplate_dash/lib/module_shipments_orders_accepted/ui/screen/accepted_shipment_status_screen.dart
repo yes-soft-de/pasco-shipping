@@ -358,6 +358,22 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
             text: S.of(context).changeStatusConfirm,
           );
       },
+        deleteGunny: (id){
+          CoolAlert.show(
+            context: context,
+            width: 150,
+            type: CoolAlertType.error,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.deleteGunny(statusModels,state.subContracts,state.lastGunnies,int.parse(state.storedModelInfo.remainedQuantity),id.toString());
+            },
+            text: 'Do you really want to delete this gunny',
+          );
+        },
         createGunny: (){
           widget._stateManager.createGunny(statusModels,state.subContracts,state.lastGunnies,int.parse(state.storedModelInfo.remainedQuantity));
         }, infoStoredInGunny: state.storedModelInfo, onStoredInGunny: (m){
@@ -536,6 +552,22 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
               }
             },
             text: S.of(context).changeStatusConfirm,
+          );
+        },
+        deleteGunny: (id){
+          CoolAlert.show(
+            context: context,
+            width: 150,
+            type: CoolAlertType.error,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.deleteGunny(statusModels,state.subContracts,state.lastGunnies,int.parse(state.storedModelInfo.remainedQuantity),id.toString());
+            },
+            text: 'Do you really want to delete this gunny',
           );
         },
         createGunny: (){

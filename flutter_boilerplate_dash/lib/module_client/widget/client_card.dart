@@ -197,6 +197,32 @@ class ClientCard extends StatelessWidget {
                         ),
                       ),
                     ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                      ),
+                      onPressed: () {
+                        onEdit(model);
+                      },
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.edit,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              S.of(context).edit,
+                              style: AppTextStyle.mediumWhite,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
 
                   ],
                 ),

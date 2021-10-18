@@ -101,6 +101,10 @@ class PdfParagraphApi {
               color: PdfColors.blue,),
           ),
           SizedBox(height: 0.5 * PdfPageFormat.cm),
+        //   Column(children: List.generate(model.length, (index){
+        // return   Padding(padding: EdgeInsets.all(8.0) ,child: generateShipmentNewReport(model[index]));
+        //
+        //   })),
           Table.fromTextArray(
             headers: headers,
             data: data,
@@ -192,6 +196,7 @@ class PdfParagraphApi {
     ]).toList();
     pdf.addPage(
       MultiPage(
+        orientation: PageOrientation.landscape,
         theme: ThemeData.withFont(
           base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
         ),
@@ -300,6 +305,7 @@ class PdfParagraphApi {
     ]).toList();
     pdf.addPage(
       MultiPage(
+        orientation: PageOrientation.landscape,
         theme: ThemeData.withFont(
           base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
         ),
@@ -409,6 +415,7 @@ class PdfParagraphApi {
     ]).toList();
     pdf.addPage(
       MultiPage(
+        orientation: PageOrientation.landscape,
         theme: ThemeData.withFont(
           base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
         ),
@@ -521,6 +528,7 @@ class PdfParagraphApi {
     final Uint8List byteList = bytes.buffer.asUint8List();
     pdf.addPage(
       MultiPage(
+        orientation: PageOrientation.landscape,
         theme: ThemeData.withFont(
           base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
         ),
@@ -664,6 +672,7 @@ class PdfParagraphApi {
     ]).toList();
     pdf.addPage(
       MultiPage(
+        orientation: PageOrientation.landscape,
         theme: ThemeData.withFont(
           base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
         ),
@@ -824,6 +833,7 @@ class PdfParagraphApi {
         ),
         margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
         pageFormat: PdfPageFormat.a4,
+        orientation: PageOrientation.landscape,
         build: (context) => <Widget>[
           Container(
             padding: EdgeInsets.all( 5 * PdfPageFormat.mm),
@@ -1022,7 +1032,7 @@ class PdfParagraphApi {
                     fontWeight: FontWeight.bold,
                     color: PdfColors.black,
                   )),
-                  Text(model.discount.toString().split(' ').first.toString(),
+                  Text(model.discount.toString() +'%',
                       style:TextStyle( fontSize: 18,
                         color: PdfColors.black,
                       )
@@ -1135,4 +1145,212 @@ class PdfParagraphApi {
 
     return file;
   }
+
+
+   static Widget generateShipmentNewReport(AcceptedShipmentModel user)  {
+     // final pdf = Document();
+     // pdf.setMargins(0 , 0 , 0 , 0);
+
+     // final customFont =
+     // Font.ttf(await rootBundle.load('assets/OpenSans-Regular.ttf'));
+
+     // final ByteData bytes =
+     // await rootBundle.load(StaticImage.logo);
+     // final Uint8List byteList = bytes.buffer.asUint8List();
+     // final headers =
+     // [
+     //   'Client',
+     //   'S.N',
+     //   'way'
+     //   ,'From' ,
+     //   'To'
+     //
+     //   ,'Mark' ,
+     //   'Product type',
+     //
+     //   'G',
+     //   'Q',
+     //   'Supplier',
+     //   'Date'
+     // ];
+     //
+     // final data = [
+     //   user.shipmentId, user.clientUsername,user.clientIdentificationNumber,
+     //   user.transportationType , user.exportWarehouseName , user.target,user.markNumber
+     //   ,user.categoriesNames,
+     //
+     //
+     //   user.guniQuantity,
+     //   user.quantity,
+     //   user.supplierName,
+     //   user.updatedAt.toString().split(' ').first
+     // ];
+     // TableRow(
+     //     children: [
+     //   Text('Client'),
+     //   Text('S.N'),
+     //   Text('way'),
+     //   Text('From'),
+     //   Text('To'),
+     //   Text('Mark'),
+     // ]);
+     // TableRow(
+     //     children: [
+     //   Text(user.clientUsername ??''),
+     //   Text(user.clientIdentificationNumber ??''),
+     //   Text(user.transportationType ??''),
+     //   Text(user.exportWarehouseName ??''),
+     //   Text(user.target ??''),
+     //   Text(user.markNumber ??''),
+     // ]);
+     // TableRow(
+     //     children: [
+     //       Text('Product type'),
+     //       Text('G'),
+     //       Text('Q'),
+     //       Text('Supplier'),
+     //       Text('Date'),
+     //     ]);
+     // TableRow(
+     //     children: [
+     //       Text(user.categoriesNames ??''),
+     //       Text(user.guniQuantity.toString() ??''),
+     //       Text(user.quantity.toString() ??''),
+     //       Text(user.supplierName ??''),
+     //       Text(user.updatedAt.toString().split(' ').first),
+     //     ]);
+     return Column(
+
+crossAxisAlignment: CrossAxisAlignment.start,
+         children: [
+           Text(
+             user.shipmentId.toString(),
+             style: TextStyle( fontSize: 20,
+               fontWeight: FontWeight.bold,
+               color: PdfColors.black,),
+           ),
+     Padding(  padding: EdgeInsets.all(4), child:  Row(
+     children: [
+
+     Table(
+         columnWidths: {
+           0: FixedColumnWidth(90),
+           1: FixedColumnWidth(90),
+           2: FixedColumnWidth(90),
+
+           3: FixedColumnWidth(90),
+           4: FixedColumnWidth(90),
+
+           5: FixedColumnWidth(90),
+           6: FixedColumnWidth(90),
+
+           // 8: FixedColumnWidth(30),
+         },
+         border: TableBorder(
+           verticalInside: BorderSide(width: 1, color: PdfColors.black, style: BorderStyle.solid),
+             horizontalInside:
+         BorderSide(width: 1, color: PdfColors.black, style: BorderStyle.solid)
+         ),
+         tableWidth:TableWidth.max ,
+         children:[
+           TableRow(
+               decoration: BoxDecoration(
+                 border: Border.all(),
+                 color:PdfColors.grey300,
+
+               ),
+               children: [
+                 Padding(
+                     padding: const EdgeInsets.all(8.0),child:Text('Client'), ),
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),child: Text('S.N'), ),
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),child: Text('way'), ),
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),child: Text('From'), ),
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),child:  Text('To'), ),
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),child:  Text('Mark'),),
+               ]
+           ),
+
+     TableRow(
+         decoration: BoxDecoration(
+           border: Border.all(),
+
+         ),
+     children: [
+       Padding(
+         padding: const EdgeInsets.all(8.0),
+          child:
+       Text(user.clientUsername ??''),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:  Text(user.clientIdentificationNumber ??''),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:   Text(user.transportationType ??''),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:Text(user.exportWarehouseName ??''),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child: Text(user.target ??''),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child: Text(user.markNumber ??''),),
+     ]),
+     TableRow(
+         decoration: BoxDecoration(
+           border: Border.all(),
+           color:  PdfColors.grey300
+         ),
+     children: [
+       Padding(
+         padding: const EdgeInsets.all(8.0),child: Text('Product type'), ),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:Text('G'), ),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child: Text('Q'),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:  Text('Supplier'),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:   Text('Date'),),
+     ]),
+     TableRow(
+         decoration: BoxDecoration(
+           border: Border.all(),
+         ),
+     children: [
+       Padding(
+         padding: const EdgeInsets.all(8.0),child: Text(user.categoriesNames ??''),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:Text(user.guniQuantity.toString()),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:Text(user.quantity.toString()),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:Text(user.supplierName ??''),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:    Text(user.updatedAt.toString().split(' ').first),),
+
+     ]),
+     ] ),
+     ]) )
+     ]);
+
+
+
+     // pdf.addPage(
+     //   MultiPage(
+     //     theme: ThemeData.withFont(
+     //       base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+     //     ),
+     //     margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
+     //     pageFormat: PdfPageFormat.a4,
+     //     orientation: PageOrientation.portrait,
+     //     build: (context) => <Widget>[
+     //
+     //     ],
+     //   ),
+     // );
+     //
+     // return await pdf.save();
+   }
+
 }

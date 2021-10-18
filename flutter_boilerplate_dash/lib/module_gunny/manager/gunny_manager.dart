@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_gunny/repository/gunny_repo.dart';
 import 'package:pasco_shipping/module_gunny/request/add_shipment_to_gunny_request.dart';
 import 'package:pasco_shipping/module_gunny/response/gunny_response.dart';
@@ -10,6 +11,7 @@ class GunnyManager{
   GunnyManager(this._repository);
 
   Future<List<GunnyModel>?> createGunny() => _repository.createGunny();
+  Future<ConfirmResponse?> deleteGunny(String id) => _repository.deleteGunny(id);
 
   Future<List<GunnyModel>?> getGunnies() => _repository.getGunny();
 

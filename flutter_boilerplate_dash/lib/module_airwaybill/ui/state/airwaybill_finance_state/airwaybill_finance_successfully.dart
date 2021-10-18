@@ -151,6 +151,32 @@ class _MarkSuccessfullyScreenState extends State<AirwaybillFinanceSuccessfullySc
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(children: [
+                          Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                          SizedBox(width: 5,),
+                          Text('Stage' , style: AppTextStyle.mediumBlackBold,)
+                        ],),
+                      ),
+                      widget.type=='LCL'?  SelectDropList(
+                        this.optionItemSelectedStatus,
+                        this.dropListModelContainerLCLStatus,
+                            (optionItem) {
+                          optionItemSelectedStatus = optionItem;
+                          setState(() {});
+                        },
+                      ) : SelectDropList(
+                        this.optionItemSelectedStatus,
+                        this.dropListModelContainerFCLStatus,
+                            (optionItem) {
+                          optionItemSelectedStatus = optionItem;
+                          setState(() {});
+                        },
+                      ),
+
+
+
                       widget.type=='FCL'?
                       Column(children: [
                         Padding(
@@ -280,36 +306,14 @@ class _MarkSuccessfullyScreenState extends State<AirwaybillFinanceSuccessfullySc
                           setState(() {});
                         },
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(children: [
-                          Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                          SizedBox(width: 5,),
-                          Text('Stage' , style: AppTextStyle.mediumBlackBold,)
-                        ],),
-                      ),
-                      widget.type=='LCL'?  SelectDropList(
-                        this.optionItemSelectedStatus,
-                        this.dropListModelContainerLCLStatus,
-                            (optionItem) {
-                          optionItemSelectedStatus = optionItem;
-                          setState(() {});
-                        },
-                      ) : SelectDropList(
-                        this.optionItemSelectedStatus,
-                        this.dropListModelContainerFCLStatus,
-                            (optionItem) {
-                          optionItemSelectedStatus = optionItem;
-                          setState(() {});
-                        },
-                      ),
+
 
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(children: [
                           Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                           SizedBox(width: 5,),
-                          Text(S.of(context).paymentType , style: AppTextStyle.mediumBlackBold,)
+                          Text(S.of(context).paymentWay , style: AppTextStyle.mediumBlackBold,)
                         ],),
                       ),
                       SelectDropList(

@@ -272,6 +272,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("كلمة المرور قصيرة جدا"),
         "paymentTime": MessageLookupByLibrary.simpleMessage("وقت الدفع: "),
         "paymentType": MessageLookupByLibrary.simpleMessage("طريقة الدفع"),
+        "paymentWay": MessageLookupByLibrary.simpleMessage("طريقة الدفع"),
         "phone": MessageLookupByLibrary.simpleMessage("الهاتف"),
         "pleaseEnterYourEmail": MessageLookupByLibrary.simpleMessage(
             "الرجاء ادخال البريد الالكتروني"),

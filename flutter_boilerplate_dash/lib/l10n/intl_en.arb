@@ -422,5 +422,7 @@
   "other": "Other",
   "pocketing": "Pocketing",
   "oneKiloPrice": "One kilo price",
-  "oneCBMPrice": "One CBM price"
+  "oneCBMPrice": "One CBM price",
+
+  "paymentWay": "Payment way"
 }

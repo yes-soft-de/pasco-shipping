@@ -59,18 +59,18 @@ class ClientRepository{
     }
   }
   //
-  // Future<ConfirmResponse?> updateUnit(UnitRequest request) async {
-  //   // await _authService.refreshToken();
-  //   var token = Urls.token;  //await _authService.getToken();
-  //
-  //   var response = await _apiClient.put(Urls.UNIT, request.toJson(),
-  //       headers: {'Authorization': 'Bearer $token'});
-  //   String? statusCode = UnitResponse.fromJson(response!).statusCode;
-  //   String? msg = UnitResponse.fromJson(response).msg;
-  //   if(statusCode =='204'){
-  //     return ConfirmResponse(true, msg!);
-  //   }else {
-  //     return ConfirmResponse(false, msg!);
-  //   }
-  // }
+  Future<ConfirmResponse?> updateClient(CreateClientRequest request) async {
+    // await _authService.refreshToken();
+    var token = await _authService.getToken();
+
+    var response = await _apiClient.put(Urls.DELETE_CLIENT, request.toJson(),
+        headers: {'Authorization': 'Bearer $token'});
+    String? statusCode = ClientResponse.fromJson(response!).statusCode;
+    String? msg = ClientResponse.fromJson(response).msg;
+    if(statusCode =='204'){
+      return ConfirmResponse(true, msg!);
+    }else {
+      return ConfirmResponse(false, msg!);
+    }
+  }
 }

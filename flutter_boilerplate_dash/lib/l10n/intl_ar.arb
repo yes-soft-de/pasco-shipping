@@ -402,5 +402,7 @@
 
 
   "oneKiloPrice": "سعر الكليو الواحد",
-  "oneCBMPrice": "سعر CBM واحد"
+  "oneCBMPrice": "سعر CBM واحد",
+
+  "paymentWay": "طريقة الدفع"
 }

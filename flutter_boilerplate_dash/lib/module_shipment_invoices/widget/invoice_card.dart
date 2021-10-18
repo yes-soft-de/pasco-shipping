@@ -179,7 +179,7 @@ class InvoiceCard extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            model.discount.toString(),
+                            model.discount.toString() +'%',
                             style: AppTextStyle.mediumBlueBold,
                           ),
                         )],

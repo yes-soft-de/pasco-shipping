@@ -151,12 +151,31 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                           ),
                         ),
                       ),
-                  optionItemSelectedStatus.title=='Shipping'? Row(
+                  optionItemSelectedStatus.title=='Shipping'? Column(
+                    children: [
+                      Row(
                         children: [
-                          Text(widget.shipmentFinance.shippingType=='sea'? S.of(context).oneCBMPrice:S.of(context).oneKiloPrice,style: AppTextStyle.mediumBlackBold,),
-                          Text(widget.shipmentFinance.price??'' ,style: AppTextStyle.mediumBlue,),
+                          Text(widget.shipmentFinance.shippingType=='sea'? S.of(context).volume+': ':S.of(context).weight+': ',style: AppTextStyle.mediumBlackBold,),
+                          Text(widget.shipmentFinance.shippingType=='sea'? widget.shipmentFinance.volume.toString() :widget.shipmentFinance.weight.toString() ,style: AppTextStyle.mediumBlue,),
                         ],
-                      ) :Container(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsetsDirectional.only(top: 5,bottom: 5),
+                        child: Row(
+                              children: [
+                                Text(widget.shipmentFinance.shippingType=='sea'? S.of(context).oneCBMPrice+': ':S.of(context).oneKiloPrice+': ',style: AppTextStyle.mediumBlackBold,),
+                                Text(widget.shipmentFinance.price??'' ,style: AppTextStyle.mediumBlue,),
+                              ],
+                            ),
+                      ),
+                      Row(
+                            children: [
+                              Text('Shipping cost: ',style: AppTextStyle.mediumBlackBold,),
+                              Text(widget.shipmentFinance.shippingCost??'' ,style: AppTextStyle.mediumBlue,),
+                            ],
+                          ),
+                    ],
+                  ) :Container(),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
@@ -207,7 +226,7 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                         child: Row(children: [
                           Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                           SizedBox(width: 5,),
-                          Text(S.of(context).paymentType , style: AppTextStyle.mediumBlackBold,)
+                          Text(S.of(context).paymentWay , style: AppTextStyle.mediumBlackBold,)
                         ],),
                       ),
                       SelectDropList(

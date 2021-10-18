@@ -79,9 +79,6 @@ final List<Entry> paymentType = <Entry>[
 ];
 final List<Entry> shipmentLclFinance = <Entry>[
   Entry(
-      'Transporting', 0,[Entry('transporting', 0, [])]
-  ),
-  Entry(
       'Delayed', 0,[Entry('delayed', 0, [])]
   ),
   Entry(

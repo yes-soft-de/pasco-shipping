@@ -150,7 +150,7 @@ this.categoriesNames,
         markID = json['markID'];
         productCategoryID = json['subProductCategoryID'];
         clientUserID = json['clientUserID'];
-        guniQuantity = json['guniQuantity'];
+        guniQuantity = json['guniQuantity'] ??0 ;
   }
 
 }

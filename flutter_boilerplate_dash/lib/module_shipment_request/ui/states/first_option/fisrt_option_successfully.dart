@@ -96,11 +96,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
     }else {selectedRadioWarehouse = 2;
     widget.shipmentRequest.isExternalWarehouse = false;
     }
-   if(widget.shipmentRequest.quantity == 0){
-     initQuantity = '0';
-   }else {
-     initQuantity = widget.shipmentRequest.quantity.toString();
-   }
+
    if(widget.shipmentRequest.imageFilePath != null && widget.shipmentRequest.imageFilePath!.isNotEmpty){
      for(var i in widget.shipmentRequest.imageFilePath!){
        imageArray.add(File(i));
@@ -516,20 +512,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
             //         child: ChoiceCard(item));
             //   }).toList(),
             // ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Text(
-                  S.of(context).quantity,
-                  style: AppTextStyle.mediumBlackBold,
-                ),
-                NumberInputWithIncrementDecrement(initQuantity , (quantity){
-                  widget.shipmentRequest.quantity = int.parse(quantity);
-                }),
-              ],
-            ),
+
             SizedBox(
               height: 10,
             ),
@@ -655,7 +638,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                 alignment: AlignmentDirectional.bottomEnd,
                 child: FloatingActionButton.extended(
                   onPressed: () {
-                    if(widget.shipmentRequest.productCategoryName.isEmpty ||widget.shipmentRequest.target.isEmpty||widget.shipmentRequest.quantity==0){
+                    if(widget.shipmentRequest.productCategoryName.isEmpty ||widget.shipmentRequest.target.isEmpty){
                       Fluttertoast.showToast(msg: S.of(context).fillAllField);
                     }else{
                     widget.shipmentRequest.imageFilePath =[];

@@ -353,6 +353,25 @@ _warehouseService.getWarehouses(request).then((warehouses){
     });
 
   }
+  void deleteGunny(List<AcceptedShipmentStatusModel> model ,  List<SubcontractModel> subcontracts ,List<GunnyShipmentModel> lastGunnies ,int remainedQuantity,String id){
+    _stateSubject.add(LoadingState());
+    _gunnyService.deleteGunny(id).then((value) {
+      if(value != null){
+        if(value.isConfirmed) {
+          _gunnyService.getGunnies().then((gunnies) {
+            if(gunnies != null){
+              _stateSubject.add(ReceivedStatusState(
+                  model, subcontracts ,gunnies ,StoredModel(remainedQuantity: remainedQuantity.toString()),lastGunnies));
+            }
+          });
+
+        }
+      }else{
+        _stateSubject.add(ErrorState('Error'));
+      }
+    });
+
+  }
 
   void storedShipmentInGunny(AddShipmentToGunnyRequest request,List<AcceptedShipmentStatusModel> model ,  List<SubcontractModel> subcontracts){
     _stateSubject.add(LoadingState());

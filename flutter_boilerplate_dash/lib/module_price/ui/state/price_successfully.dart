@@ -91,31 +91,6 @@ class _ProfileSuccessfullyScreenState extends State<PriceSuccessfullyScreen> {
                 child: Image.asset(StaticImage.price),
               )),
           Text(
-            'Lines Prices',
-            style: AppTextStyle.largeBlackBold,
-          ),
-          ListView.builder(itemBuilder: (context ,index){
-            return LinePriceCard(model: widget.model.linesPrice[index],
-              onEditLines: (model){
-              widget.updateLinesPrice(model);
-            },);
-          },
-            shrinkWrap: true,
-            itemCount: widget.model.linesPrice.length,
-            physics: NeverScrollableScrollPhysics(),
-          ),
-          // Text(
-          //   'Container Prices',
-          //   style: AppTextStyle.largeBlackBold,
-          // ),
-          // ListView.builder(itemBuilder: (context ,index){
-          //   return ContainerPriceCard(model: widget.model.containerPrice[index],);
-          // },
-          //   shrinkWrap: true,
-          //   itemCount: widget.model.containerPrice.length,
-          //   physics: NeverScrollableScrollPhysics(),
-          // ),
-          Text(
             'Container Prices',
             style: AppTextStyle.largeBlackBold,
           ),
@@ -140,7 +115,7 @@ class _ProfileSuccessfullyScreenState extends State<PriceSuccessfullyScreen> {
           SelectDropList(
             this.optionItemSelectedSpecification,
             this.dropListModelSpecification,
-            (optionItem) {
+                (optionItem) {
               optionItemSelectedSpecification = optionItem;
               setState(() {
                 _price..text = optionItemSelectedSpecification.children[0].title;
@@ -149,35 +124,35 @@ class _ProfileSuccessfullyScreenState extends State<PriceSuccessfullyScreen> {
           ),
           optionItemSelectedSpecification.id != 0
               ? Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Card(
+                child: Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: Card(
-                      child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(S.of(context).type + ': '),
-                            Text(
-                              optionItemSelectedSpecification.title,
-                              style: AppTextStyle.mediumBlackBold,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Flexible(
-                                flex: 1,
-                                child: Text(S.of(context).prices + ': ')),
-                            Flexible(
-                                flex: 3,
-                                child: TextField(controller: _price,))
-                          ],
-                        ),
-                      ],
-                    ),
-                  )),
-                )
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(S.of(context).type + ': '),
+                          Text(
+                            optionItemSelectedSpecification.title,
+                            style: AppTextStyle.mediumBlackBold,
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Flexible(
+                              flex: 1,
+                              child: Text(S.of(context).prices + ': ')),
+                          Flexible(
+                              flex: 3,
+                              child: TextField(controller: _price,))
+                        ],
+                      ),
+                    ],
+                  ),
+                )),
+          )
               : Container(),
           Padding(
             padding: const EdgeInsetsDirectional.only(start: 10, end: 10),
@@ -188,13 +163,41 @@ class _ProfileSuccessfullyScreenState extends State<PriceSuccessfullyScreen> {
               color: AppThemeDataService.AccentColor,
               go: () {
                 _priceRequest = ContainerPriceRequest(
-                    containerSpecificationID: optionItemSelectedSpecification.id,
-                    containerSpecificationPrice:int.parse(_price.text),);
+                  containerSpecificationID: optionItemSelectedSpecification.id,
+                  containerSpecificationPrice:int.parse(_price.text),);
                 widget.updateContainerPrice(_priceRequest);
               },
               style: AppTextStyle.mediumWhiteBold,
             ),
-          )
+          ),
+
+
+          Text(
+            'Lines Prices',
+            style: AppTextStyle.largeBlackBold,
+          ),
+          ListView.builder(itemBuilder: (context ,index){
+            return LinePriceCard(model: widget.model.linesPrice[index],
+              onEditLines: (model){
+              widget.updateLinesPrice(model);
+            },);
+          },
+            shrinkWrap: true,
+            itemCount: widget.model.linesPrice.length,
+            physics: NeverScrollableScrollPhysics(),
+          ),
+          // Text(
+          //   'Container Prices',
+          //   style: AppTextStyle.largeBlackBold,
+          // ),
+          // ListView.builder(itemBuilder: (context ,index){
+          //   return ContainerPriceCard(model: widget.model.containerPrice[index],);
+          // },
+          //   shrinkWrap: true,
+          //   itemCount: widget.model.containerPrice.length,
+          //   physics: NeverScrollableScrollPhysics(),
+          // ),
+
         ],
       ),
     );

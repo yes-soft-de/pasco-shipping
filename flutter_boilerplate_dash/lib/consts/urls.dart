@@ -106,6 +106,7 @@ class Urls {
   static const GET_CLIENT_MARK = BASE_API + 'marks';
   static const GET_CLIENTS = BASE_API + 'clientprofileall';
   static const CLIENT = BASE_API + 'client';
+  static const DELETE_CLIENT = BASE_API + 'clientprofilebydashboard';
 
 
 
