@@ -28,6 +28,8 @@ class ShiftingShipmentOrderFilterResponse
 
     public $notes;
 
+    public $paymentStatus;
+
     public $status;
 
 }

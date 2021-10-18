@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ShiftingShipmentOrderEntity;
+use App\Entity\ShipmentInvoiceEntity;
 use App\Entity\WarehouseEntity;
 use App\Request\ShiftingShipmentOrderFilterRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -27,7 +28,8 @@ class ShiftingShipmentOrderEntityRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('shiftingShipmentOrderEntity')
             ->select('shiftingShipmentOrderEntity.id', 'shiftingShipmentOrderEntity.shipmentID', 'shiftingShipmentOrderEntity.trackNumber', 'shiftingShipmentOrderEntity.fromImportWarehouseID', 'shiftingShipmentOrderEntity.toImportWarehouseID',
             'shiftingShipmentOrderEntity.status', 'shiftingShipmentOrderEntity.notes', 'shiftingShipmentOrderEntity.createdAt', 'shiftingShipmentOrderEntity.createdBy', 'shiftingShipmentOrderEntity.updatedAt', 'shiftingShipmentOrderEntity.updatedBy',
-             'fromImportWarehouseEntity.name as fromImportWarehouseName', 'fromImportWarehouseEntity.city as fromImportWarehouseCity', 'toImportWarehouseEntity.name as toImportWarehouseName', 'toImportWarehouseEntity.city as toImportWarehouseCity')
+             'fromImportWarehouseEntity.name as fromImportWarehouseName', 'fromImportWarehouseEntity.city as fromImportWarehouseCity', 'toImportWarehouseEntity.name as toImportWarehouseName', 'toImportWarehouseEntity.city as toImportWarehouseCity',
+             'shipmentInvoiceEntity.paymentStatus')
 
             ->leftJoin(
                 WarehouseEntity::class,
@@ -41,6 +43,13 @@ class ShiftingShipmentOrderEntityRepository extends ServiceEntityRepository
                 'toImportWarehouseEntity',
                 Join::WITH,
                 'toImportWarehouseEntity.id = shiftingShipmentOrderEntity.toImportWarehouseID'
+            )
+
+            ->leftJoin(
+                ShipmentInvoiceEntity::class,
+                'shipmentInvoiceEntity',
+                Join::WITH,
+                'shipmentInvoiceEntity.shipmentID = shiftingShipmentOrderEntity.shipmentID'
             )
 
             ->orderBy('shiftingShipmentOrderEntity.id', 'DESC');

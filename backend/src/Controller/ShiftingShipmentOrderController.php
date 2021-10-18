@@ -171,6 +171,7 @@ class ShiftingShipmentOrderController extends BaseController
      *                      @OA\Property(type="string", property="toImportWarehouseName"),
      *                      @OA\Property(type="string", property="toImportWarehouseCity"),
      *                      @OA\Property(type="string", property="notes"),
+     *                      @OA\Property(type="string", property="paymentStatus"),
      *                      @OA\Property(type="object", property="createdAt"),
      *                      @OA\Property(type="object", property="updatedAt")
      *                  )
