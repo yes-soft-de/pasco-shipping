@@ -47,8 +47,7 @@ class ContainerSpecificationController extends BaseController
      *          @OA\Property(type="number", property="capacityCPM", description="of type Float"),
      *          @OA\Property(type="number", property="widthInMeter", description="of type Float"),
      *          @OA\Property(type="number", property="hightInMeter", description="of type Float"),
-     *          @OA\Property(type="number", property="lengthInMeter", description="of type Float"),
-     *          @OA\Property(type="number", property="price", description="of type Float")
+     *          @OA\Property(type="number", property="lengthInMeter", description="of type Float")
      *      )
      * )
      * 
@@ -103,8 +102,7 @@ class ContainerSpecificationController extends BaseController
      *          @OA\Property(type="number", property="capacityCPM", description="of type Float"),
      *          @OA\Property(type="number", property="widthInMeter", description="of type Float"),
      *          @OA\Property(type="number", property="hightInMeter", description="of type Float"),
-     *          @OA\Property(type="number", property="lengthInMeter", description="of type Float"),
-     *          @OA\Property(type="number", property="price", description="of type Float")
+     *          @OA\Property(type="number", property="lengthInMeter", description="of type Float")
      *      )
      * )
      *
@@ -121,7 +119,6 @@ class ContainerSpecificationController extends BaseController
      *                  @OA\Property(type="number", property="widthInMeter"),
      *                  @OA\Property(type="number", property="hightInMeter"),
      *                  @OA\Property(type="number", property="lengthInMeter"),
-     *                  @OA\Property(type="number", property="price"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
      *                  @OA\Property(type="string", property="createdBy"),
@@ -155,67 +152,6 @@ class ContainerSpecificationController extends BaseController
     }
 
     /**
-     * @Route("containerspecificationprice", name="updateContainerSpecificationPrice", methods={"PUT"})
-     * @param Request $request
-     * @return JsonResponse
-     *
-     * @OA\Tag(name="Container Specification")
-     *
-     * @OA\RequestBody(
-     *      description="update the price of a container specification",
-     *      @OA\JsonContent(
-     *          @OA\Property(type="integer", property="id"),
-     *          @OA\Property(type="number", property="price", description="of type Float")
-     *      )
-     * )
-     *
-     * @OA\Response(
-     *      response=200,
-     *      description="Returns the info of the specifications",
-     *      @OA\JsonContent(
-     *          @OA\Property(type="string", property="status_code"),
-     *          @OA\Property(type="string", property="msg"),
-     *          @OA\Property(type="object", property="Data",
-     *                  @OA\Property(type="integer", property="id"),
-     *                  @OA\Property(type="string", property="name"),
-     *                  @OA\Property(type="number", property="capacityCPM"),
-     *                  @OA\Property(type="number", property="widthInMeter"),
-     *                  @OA\Property(type="number", property="hightInMeter"),
-     *                  @OA\Property(type="number", property="lengthInMeter"),
-     *                  @OA\Property(type="number", property="price"),
-     *                  @OA\Property(type="object", property="createdAt"),
-     *                  @OA\Property(type="object", property="updatedAt"),
-     *                  @OA\Property(type="string", property="createdBy"),
-     *                  @OA\Property(type="string", property="updatedBy"),
-     *          )
-     *      )
-     * )
-     *
-     * @Security(name="Bearer")
-     */
-    public function updatePrice(Request $request)
-    {
-        $data = json_decode($request->getContent(), true);
-
-        $request = $this->autoMapping->map(stdClass::class, ContainerSpecificationPriceUpdateRequest::class, (object)$data);
-
-        $request->setUpdatedBy($this->getUserId());
-
-        $violations = $this->validator->validate($request);
-
-        if (\count($violations) > 0)
-        {
-            $violationsString = (string) $violations;
-
-            return new JsonResponse($violationsString, Response::HTTP_OK);
-        }
-
-        $result = $this->containerSpecificationService->updatePrice($request);
-
-        return $this->response($result, self::UPDATE);
-    }
-
-    /**
      * @Route("containerspecifications", name="getAllContainerSpecification", methods={"GET"})
      * @param Request $request
      * @return JsonResponse
@@ -236,7 +172,6 @@ class ContainerSpecificationController extends BaseController
      *                  @OA\Property(type="number", property="widthInMeter"),
      *                  @OA\Property(type="number", property="hightInMeter"),
      *                  @OA\Property(type="number", property="lengthInMeter"),
-     *                  @OA\Property(type="number", property="price"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
      *                  @OA\Property(type="string", property="createdByUser"),
@@ -276,7 +211,6 @@ class ContainerSpecificationController extends BaseController
      *                  @OA\Property(type="number", property="widthInMeter"),
      *                  @OA\Property(type="number", property="hightInMeter"),
      *                  @OA\Property(type="number", property="lengthInMeter"),
-     *                  @OA\Property(type="number", property="price"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
      *                  @OA\Property(type="string", property="createdByUser"),
