@@ -358,6 +358,14 @@ class ShipmentOrderManager
     {
         $response = [];
 
+        $response['totalVolume'] = 0;
+
+        $response['totalWeight'] = 0;
+
+        $response['totalGunny'] = 0;
+
+        $response['totalReceivedQuantity'] = 0;
+
         $container = $this->containerManager->getContainerByNumber($request->getContainerNumber());
 
         if($container)
@@ -418,6 +426,16 @@ class ShipmentOrderManager
                             }
                         }
                     }
+
+                    $response['totalVolume'] += $val['volume'];
+
+                    $response['totalWeight'] += $val['weight'];
+
+                    $response['totalWeight'] = round($response['totalWeight'], 2);
+
+                    $response['totalGunny'] += $val['guniQuantity'];
+
+                    $response['totalReceivedQuantity'] += $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentID($val['id']);
                 }
             }
 
