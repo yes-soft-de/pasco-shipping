@@ -11,6 +11,7 @@ use App\Entity\OrderShipmentEntity;
 use App\Entity\ProductCategoryEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\MarkEntity;
+use App\Entity\ProxyEntity;
 use App\Entity\ReceiverEntity;
 use App\Entity\ShiftingShipmentOrderEntity;
 use App\Entity\ShipmentLogEntity;
@@ -1051,26 +1052,26 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
-    public function getImportCountryNameAndPaymentTimeByShipmentOrderID($shipmentID)
+    public function getPaymentTimeAndImportAndExportProxiesIDsByShipmentOrderID($shipmentID)
     {
         return $this->createQueryBuilder('shipmentOrder')
-            ->select("shipmentOrder.paymentTime", "countryEntity.name as importCountryName")
+            ->select("shipmentOrder.paymentTime", "importWarehouseEntity.proxyID as importProxyID", "exportWarehouseEntity.proxyID as exportProxyID")
 
             ->andWhere('shipmentOrder.id = :id')
             ->setParameter('id', $shipmentID)
 
             ->leftJoin(
                 WarehouseEntity::class,
-                'warehouseEntity',
+                'importWarehouseEntity',
                 Join::WITH,
-                'warehouseEntity.id = shipmentOrder.importWarehouseID'
+                'importWarehouseEntity.id = shipmentOrder.importWarehouseID'
             )
 
             ->leftJoin(
-                CountryEntity::class,
-                'countryEntity',
+                WarehouseEntity::class,
+                'exportWarehouseEntity',
                 Join::WITH,
-                'countryEntity.id = warehouseEntity.countryID'
+                'exportWarehouseEntity.id = shipmentOrder.exportWarehouseID'
             )
 
             ->getQuery()

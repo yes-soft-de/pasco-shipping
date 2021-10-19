@@ -687,9 +687,9 @@ class ShipmentOrderManager
     }
 
     // For create shipment lcl finance
-    public function getImportCountryNameAndPaymentTimeByShipmentOrderID($shipmentID)
+    public function getPaymentTimeAndImportAndExportProxiesIDsByShipmentOrderID($shipmentID)
     {
-        return $this->orderShipmentEntityRepository->getImportCountryNameAndPaymentTimeByShipmentOrderID($shipmentID);
+        return $this->orderShipmentEntityRepository->getPaymentTimeAndImportAndExportProxiesIDsByShipmentOrderID($shipmentID);
     }
 
     public function getExportWarehouseIdByShipmentOrderID($shipmentID)
