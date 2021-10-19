@@ -100,6 +100,11 @@ class ContainerLCLFinanceEntity
      */
     private $buyingCost;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $proxyID;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -293,6 +298,18 @@ class ContainerLCLFinanceEntity
     public function setBuyingCost(?float $buyingCost): self
     {
         $this->buyingCost = $buyingCost;
+
+        return $this;
+    }
+
+    public function getProxyID(): ?int
+    {
+        return $this->proxyID;
+    }
+
+    public function setProxyID(?int $proxyID): self
+    {
+        $this->proxyID = $proxyID;
 
         return $this;
     }
