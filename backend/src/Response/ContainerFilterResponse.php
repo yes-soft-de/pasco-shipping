@@ -56,6 +56,8 @@ class ContainerFilterResponse
 
     public $exportCountryName;
 
+    public $exportCountryID;
+
     public $totalGunnyQuantity;
 
     public $totalReceivedShipmentsQuantity;

@@ -554,6 +554,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="integer", property="totalGunnyQuantity"),
      *                  @OA\Property(type="integer", property="totalReceivedShipmentsQuantity"),
      *                  @OA\Property(type="string", property="exportCountryName"),
+     *                  @OA\Property(type="integer", property="exportCountryID"),
      *                  @OA\Property(type="string", property="exportCity"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
