@@ -22,7 +22,7 @@ class ContainerLCLFinanceCreateRequest
 
     private $chequeNumber;
 
-    private $financialFundName;
+    private $proxyID;
 
     private $createdBy;
 

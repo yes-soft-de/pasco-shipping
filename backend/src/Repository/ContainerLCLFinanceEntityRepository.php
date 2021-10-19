@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
 use App\Entity\ContainerLCLFinanceEntity;
+use App\Entity\ProxyEntity;
 use App\Entity\SubcontractEntity;
 use App\Entity\WarehouseEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -48,8 +49,8 @@ class ContainerLCLFinanceEntityRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('containerFinance')
             ->select('containerFinance.id', 'containerFinance.containerID', 'containerFinance.status', 'containerFinance.stageCost', 'containerFinance.stageDescription', 'containerFinance.currency', 'containerFinance.createdAt',
                 'containerFinance.updatedAt', 'containerFinance.createdBy', 'containerFinance.updatedBy', 'containerFinance.subcontractID', 'containerFinance.importWarehouseID', 'containerFinance.paymentType',
-                'containerFinance.financialFundName', 'containerFinance.chequeNumber', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
-             'subcontractEntity.fullName as subcontractName', 'warehouseEntity.name as importWarehouseName')
+                'containerFinance.proxyID', 'containerFinance.chequeNumber', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
+             'subcontractEntity.fullName as subcontractName', 'warehouseEntity.name as importWarehouseName', 'proxyEntity.fullName as proxyName')
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -77,6 +78,13 @@ class ContainerLCLFinanceEntityRepository extends ServiceEntityRepository
                 'warehouseEntity',
                 Join::WITH,
                 'warehouseEntity.id = containerFinance.importWarehouseID'
+            )
+
+            ->leftJoin(
+                ProxyEntity::class,
+                'proxyEntity',
+                Join::WITH,
+                'proxyEntity.id = containerFinance.proxyID'
             )
 
             ->orderBy('containerFinance.id', 'DESC');
