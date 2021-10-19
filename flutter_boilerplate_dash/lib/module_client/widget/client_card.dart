@@ -22,7 +22,7 @@ class ClientCard extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: Row(
             children: [
-              model.image ==null ? Image.asset(StaticImage.profile , width: 100,height: 100,): Image.network(model.image!,width: 100,height: 100,),
+              (model.image ==null || model.image!.isEmpty ) ? Image.asset(StaticImage.profile , width: 100,height: 100,): Image.network(model.image!,width: 100,height: 100,),
               SizedBox(width: 20,),
               Expanded(
                 child: Column(
@@ -191,6 +191,32 @@ class ClientCard extends StatelessWidget {
                             ),
                             Text(
                               S.of(context).delete,
+                              style: AppTextStyle.mediumWhite,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                      ),
+                      onPressed: () {
+                        onEdit(model);
+                      },
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.edit,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              S.of(context).edit,
                               style: AppTextStyle.mediumWhite,
                             ),
                           ],

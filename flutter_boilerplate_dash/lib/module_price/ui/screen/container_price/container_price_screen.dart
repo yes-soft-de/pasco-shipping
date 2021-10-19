@@ -2,31 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
-import 'package:pasco_shipping/module_price/state_manager/price_state_manager.dart';
-import 'package:pasco_shipping/module_price/ui/state/price_state.dart';
-import 'package:pasco_shipping/module_price/ui/state/price_successfully.dart';
-import 'package:pasco_shipping/utils/widget/roundedButton.dart';
+import 'package:pasco_shipping/module_price/state_manager/container_price_state_manager/container_price_state_manager.dart';
+import 'package:pasco_shipping/module_price/ui/state/container_price/container_price_state/conatiner_price_state.dart';
+import 'package:pasco_shipping/module_price/ui/state/container_price/container_price_state/container_price_successfully.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
-import 'package:pasco_shipping/utils/styles/colors.dart';
-import 'package:pasco_shipping/utils/styles/static_images.dart';
-import 'package:pasco_shipping/utils/styles/text_style.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
-
 @injectable
-class PriceScreen extends StatefulWidget {
-  final PriceStateManager _stateManager;
+class ContainerPriceScreen extends StatefulWidget {
+  final ContainerPriceStateManager _stateManager;
 
-  PriceScreen(this._stateManager);
+  ContainerPriceScreen(this._stateManager);
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<PriceScreen> {
+class _ProfileScreenState extends State<ContainerPriceScreen> {
   ScrollController controller = ScrollController();
-  late PriceState currentState;
+  late ContainerPriceState currentState;
 
   @override
   Widget build(BuildContext context) {
@@ -68,12 +63,14 @@ class _ProfileScreenState extends State<PriceScreen> {
         ),
       );
     }
-    else if (currentState is FetchedPriceSuccessfullyState){
-      FetchedPriceSuccessfullyState? state = currentState as FetchedPriceSuccessfullyState?;
-      return PriceSuccessfullyScreen(model: state!.model, updatePrice: (request){
-        widget._stateManager.updatePrice(request);
-      },specifications: state.specifications,);
-    }
+    else if (currentState is FetchedContainerPriceSuccessfullyState){
+      FetchedContainerPriceSuccessfullyState? state = currentState as FetchedContainerPriceSuccessfullyState?;
+      return ContainerPriceSuccessfullyScreen(model: state!.model,
+        updateContainerPrice:(model){
+          // Navigator.pushNamed(context, PriceRoutes.Update_LINE_PRICE_SCREEN,arguments: {'model':model}).then((value){
+          //   widget._stateManager.getPrice();
+          });
+        }
     else {
       return Center(
         child: Column(

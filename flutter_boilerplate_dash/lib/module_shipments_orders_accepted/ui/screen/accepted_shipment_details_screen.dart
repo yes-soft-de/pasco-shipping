@@ -43,7 +43,17 @@ class _CountriesScreenState extends State<AcceptedShipmentDetailsScreen> {
         showFilter: false,
         goBack: ()  {
         },
-        child: Screen(),
+
+        child:Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child:  Screen()),
+          ),
+        ),
         title: S.of(context).details
     );
   }
@@ -89,8 +99,8 @@ class _CountriesScreenState extends State<AcceptedShipmentDetailsScreen> {
           Navigator.pushNamed(context,AcceptedShipmentRoutes.STATUS , arguments: {'id' : id ,'trackNumber': trackNumber ,'cityName':cityName , 'holderType':holderType,'status':status , 'transportation':transportationType,'isExternalWarehouse':isExternalWarehouse,'clientUserID':clientUserID , 'quantity':detailsModel.quantity,'remainedQuantity':remainedQuantity} ).then((value){
             widget._stateManager.getDetailsShipment(id.toString());
           });
-      }, onShowFinance: (id , trackNumber){
-        Navigator.pushNamed(context,AcceptedShipmentRoutes.FINANCE , arguments: {'id' : id ,'trackNumber': trackNumber} ).then((value){
+      }, onShowFinance: (id , trackNumber,paymentTime){
+        Navigator.pushNamed(context,AcceptedShipmentRoutes.FINANCE , arguments: {'id' : id ,'trackNumber': trackNumber,'paymentWay':paymentTime} ).then((value){
           widget._stateManager.getDetailsShipment(id.toString());
         });
       },onRequestShift: (id , trackNumber){
@@ -127,7 +137,7 @@ class _CountriesScreenState extends State<AcceptedShipmentDetailsScreen> {
                                    style: AppTextStyle.mediumWhite,
                                    go: () {
                                  Navigator.pop(context);
-                                 widget._stateManager.createInvoice(request, detailsModel);
+                                 _showConfirm(request,detailsModel);
                                    },
                                    radius: 12)
                              ],
@@ -183,5 +193,21 @@ class _CountriesScreenState extends State<AcceptedShipmentDetailsScreen> {
         ),
       );
     }
+  }
+  _showConfirm(request,detailsModel){
+    CoolAlert.show(
+      context: context,
+      width: 150,
+      type: CoolAlertType.info,
+      title:  S.of(context).careful,
+      confirmBtnText: S.of(context).ok,
+      backgroundColor:AppThemeDataService.PrimaryColor,
+      confirmBtnColor:AppThemeDataService.AccentColor,
+      onConfirmBtnTap: (){
+        Navigator.pop(context);
+        widget._stateManager.createInvoice(request, detailsModel);
+      },
+      text: 'Do you really want to create the bill',
+    );
   }
 }

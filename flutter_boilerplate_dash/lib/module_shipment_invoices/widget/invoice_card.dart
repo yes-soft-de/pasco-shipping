@@ -7,6 +7,8 @@ import 'package:pasco_shipping/utils/helpers/pdf_paragraph_api.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 
 import 'billing_card.dart';
 
@@ -59,8 +61,14 @@ class InvoiceCard extends StatelessWidget {
             ],),
             leading: InkWell(
                 onTap: ()async{
-                  final pdfFile = await PdfParagraphApi.generateShipmentInvoiceReport(model);
-                  PdfParagraphApi.openFile(pdfFile);
+                  await Printing.layoutPdf(
+                    // [onLayout] will be called multiple times
+                    // when the user changes the printer or printer settings
+                    onLayout: (PdfPageFormat format) {
+                      // Any valid Pdf document can be returned here as a list of int
+                      return PdfParagraphApi.generateShipmentInvoiceReport(model);
+                    },
+                  );
                 },
                 child: Icon(Icons.print_rounded,color: blue,size: 30,)),
             children: [
@@ -139,7 +147,23 @@ class InvoiceCard extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            model.totalCost ?? '',
+                            model.totalCost ?? '0',
+                            style: AppTextStyle.mediumBlueBold,
+                          ),
+                        )],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Final Amount: ',
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Expanded(
+                          child: Text(
+                            model.finalAmount ?? '',
                             style: AppTextStyle.mediumBlueBold,
                           ),
                         )],
@@ -155,7 +179,7 @@ class InvoiceCard extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            model.discount.toString(),
+                            model.discount.toString() +'%',
                             style: AppTextStyle.mediumBlueBold,
                           ),
                         )],
@@ -288,7 +312,11 @@ class InvoiceCard extends StatelessWidget {
                         color: Colors.green, style: AppTextStyle.mediumWhiteBold,
                         go: (){
                           payBill(model);
-                        }, radius: 12) :Container(),
+                        }, radius: 12) :RoundedButton(lable: 'Print receipt', icon: '',
+                        color: Colors.grey, style: AppTextStyle.mediumWhiteBold,
+                        go: (){
+                          _showSerAlert(context);
+                        }, radius: 12),
                   ],
                 ),
               )
@@ -297,5 +325,38 @@ class InvoiceCard extends StatelessWidget {
           ),
         ),
     );
+  }
+  _showSerAlert(BuildContext context){
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            title: Text('Receipt'),
+            content: Text('${model.finalAmount.toString()} has been received from ${model.clientUserName} at ${model.paymentDate.toString().split(' ').first}'),
+            actions: [
+              Row(
+                children: [
+                  FlatButton(onPressed: () async{
+                    await Printing.layoutPdf(
+                      // [onLayout] will be called multiple times
+                      // when the user changes the printer or printer settings
+                      onLayout: (PdfPageFormat format) {
+                        // Any valid Pdf document can be returned here as a list of int
+                        return PdfParagraphApi.generateReceiptReceivedReport(model.finalAmount.toString(),model.clientUserName??'',model.paymentDate.toString().split(' ').first);
+                      },
+                    );
+                  }, child: Row(children: [
+                    Icon(Icons.print, color: blue,size: 30,),
+                  ],)),
+                  Text('Print receipt')
+                ],
+              )
+
+            ],
+          );
+        });
   }
 }

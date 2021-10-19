@@ -143,6 +143,7 @@ class ShipmentModel {
     this.isExternalWarehouse,
     this.travelID,
     this.travelStatus,
+    this.categoriesNames,
 
     this.updatedAt,
     this.createdAt,
@@ -159,6 +160,7 @@ class ShipmentModel {
   String? transportationType;
   String? target;
   String? supplierName;
+  String? categoriesNames;
   String? distributorName;
   String? exportWarehouseName;
   String? importWarehouseName;
@@ -212,9 +214,10 @@ class ShipmentModel {
     markNumber: json["markNumber"],
     packetingBy: json["packetingBy"],
     paymentTime: json["paymentTime"],
-    weight: json["weight"].toString(),
-    volume: json["volume"].toString(),
+    weight: json["weight"].toString() =='null' ? '0' : json["weight"].toString(),
+    volume: json["volume"].toString() =='null' ? '0' :json["volume"].toString() ,
     qrCode: json["qrCode"],
+    categoriesNames: json['categoriesNames'],
     guniQuantity: json["guniQuantity"] ??0,
     vehicleIdentificationNumber: json["vehicleIdentificationNumber"],
     extraSpecification: json["extraSpecification"],

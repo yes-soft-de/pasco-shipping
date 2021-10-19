@@ -12,8 +12,8 @@ class ClientsSuccessfully extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(itemBuilder: (context , index){
       return ClientCard(model: items[index],
-        onEdit: (re){
-          // onEdit(re);
+        onEdit: (model){
+          onEdit(model);
         },
         onDelete: (id){
           onDelete(id);

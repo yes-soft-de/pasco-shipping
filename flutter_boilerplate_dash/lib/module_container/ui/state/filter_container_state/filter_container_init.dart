@@ -10,10 +10,12 @@ import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.da
 import 'package:pasco_shipping/module_shipment_request/response/product_categories/product_categories_response.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/choice_card.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
+import 'package:pasco_shipping/module_shipment_track/ui/widget/search_card.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
+import 'package:pasco_shipping/utils/widget/text_edit.dart';
 
 class FilterContainerInit extends StatefulWidget {
   final List<SubcontractModel> subContracts;
@@ -153,7 +155,13 @@ class _AddCountryInitState extends State<FilterContainerInit> {
                 ),
               ),
 
-
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Enter container ID', style: AppTextStyle.mediumBlackBold,),
+              ),
+              TextEdit(hint: 'Enter container ID', title: '', onChange: (containerID){
+                containerFilterRequest.containerID = int.parse(containerID);
+              }),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(S.of(context).provided , style: AppTextStyle.mediumBlackBold,),

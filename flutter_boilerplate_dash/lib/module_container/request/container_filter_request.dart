@@ -9,6 +9,7 @@ class ContainerFilterRequest {
   int? specificationID;
   int? shipmentID;
   int? clientUserID;
+  int? containerID;
 
   bool? isExternalWarehouse;
   bool? withoutNumber;
@@ -24,6 +25,7 @@ class ContainerFilterRequest {
     this.specificationID,
     this.isExternalWarehouse,
     this.shipmentID,
+    this.containerID,
     this.clientUserID,this.isRequested,this.withoutNumber
 
   });
@@ -40,6 +42,7 @@ class ContainerFilterRequest {
       'isExternalWarehouse':isExternalWarehouse,
       'shipmentID':shipmentID,
       'clientUserID':clientUserID,
+      'id':containerID,
       'isRequested':isRequested,
       'withoutNumber':withoutNumber
     };

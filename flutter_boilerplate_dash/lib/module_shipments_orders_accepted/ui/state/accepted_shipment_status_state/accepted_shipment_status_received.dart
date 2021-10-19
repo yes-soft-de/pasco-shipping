@@ -33,7 +33,7 @@ import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 class AcceptedShipmentStatusReceived extends StatefulWidget {
   final List<AcceptedShipmentStatusModel> statusModel;
   final List<SubcontractModel> subcontracts;
-  // final List<WarehousesModel> warehouse;
+  final int remainedQuantity;
   final Function onChangeStatus;
 
   final List<GunnyModel> gunnies;
@@ -41,7 +41,8 @@ class AcceptedShipmentStatusReceived extends StatefulWidget {
   final StoredModel infoStoredInGunny;
   final Function onStoredInGunny;
   final Function createGunny;
-  const AcceptedShipmentStatusReceived({required this.statusModel,required this.onChangeStatus,required this.subcontracts,required this.gunnies,required this.infoStoredInGunny,required this.onStoredInGunny,required this.createGunny,required this.lastGunnies});
+  final Function deleteGunny;
+  const AcceptedShipmentStatusReceived({required this.statusModel,required this.onChangeStatus,required this.subcontracts,required this.gunnies,required this.infoStoredInGunny,required this.onStoredInGunny,required this.createGunny,required this.lastGunnies,required this.remainedQuantity,required this.deleteGunny});
 
   @override
   _AcceptedShipmentDetailsSuccessfullyState createState() =>
@@ -57,7 +58,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
   late String transportation;
   late bool isExternalWarehouse;
   late String holderType;
-  late int remainedQuantity;
+
 
   TextEditingController editingController = TextEditingController();
 
@@ -146,8 +147,8 @@ class _AcceptedShipmentDetailsSuccessfullyState
     isExternalWarehouse =arguments['isExternalWarehouse'];
 
     holderType =arguments['holderType'];
-    remainedQuantity =arguments['remainedQuantity'];
-    print('nnnnnnnnnnnn'+remainedQuantity.toString());
+    // remainedQuantity =arguments['remainedQuantity'];
+    // print('nnnnnnnnnnnn'+remainedQuantity.toString());
   }
 
   @override
@@ -262,6 +263,11 @@ class _AcceptedShipmentDetailsSuccessfullyState
                   widget.createGunny();
                 },
                 child: Icon(Icons.add_circle , color: blue , size: 40,)),
+          optionItemSelectedGunny.id!=0?  InkWell(
+                onTap: (){
+                  widget.deleteGunny(optionItemSelectedGunny.id);
+                },
+                child: Icon(Icons.delete_forever_sharp , color: red , size: 40,)) :Container(),
           ],
         ),
         Padding(
@@ -349,7 +355,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
               Row(
                 children: [
                   Text(S.of(context).remainedQuantity+': ',style: AppTextStyle.mediumBlackBold),
-                  Text(remainedQuantity.toString(),style: AppTextStyle.largeBlueBold)
+                  Text(widget.remainedQuantity.toString(),style: AppTextStyle.largeBlueBold)
                 ],
               )
             ],
@@ -538,7 +544,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                             child: Padding(
                               padding: const EdgeInsetsDirectional.only(start: 5),
                               child: TextField(
-                                keyboardType: TextInputType.number,
+                                keyboardType: TextInputType.numberWithOptions(decimal: true),
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                 ),
@@ -575,7 +581,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                             child: Padding(
                               padding: const EdgeInsetsDirectional.only(start: 5),
                               child: TextField(
-                                keyboardType: TextInputType.number,
+                                keyboardType: TextInputType.numberWithOptions(decimal: true),
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                 ),
@@ -611,7 +617,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                             child: Padding(
                               padding: const EdgeInsetsDirectional.only(start: 5),
                               child: TextField(
-                                keyboardType: TextInputType.number,
+                                keyboardType: TextInputType.numberWithOptions(decimal: true),
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                 ),
@@ -647,7 +653,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                             child: Padding(
                               padding: const EdgeInsetsDirectional.only(start: 5),
                               child: TextField(
-                                keyboardType: TextInputType.number,
+                                keyboardType: TextInputType.numberWithOptions(decimal: true),
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                 ),
@@ -664,7 +670,8 @@ class _AcceptedShipmentDetailsSuccessfullyState
               InkWell(
                   onTap: (){
                     setState(() {
-                      volumeController.text =(int.parse(highteController.text) * int.parse(widthController.text) * int.parse(cartonController.text) *int.parse(lengthController.text)).toString() ;
+                      double bb= double.parse(highteController.text) * double.parse(widthController.text) * double.parse(cartonController.text) *double.parse(lengthController.text) ;
+                      volumeController.text =bb.toString() ;
                     });
                   },
                   child: Center(child: Image.asset(StaticImage.equal))),
@@ -687,7 +694,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
                       ]
                   ),
                   child: TextField(
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.numberWithOptions(decimal: true),
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText:S.of(context).volume,

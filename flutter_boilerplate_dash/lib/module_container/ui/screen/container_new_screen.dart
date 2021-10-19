@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
@@ -37,7 +38,16 @@ class _AddNewCountryState extends State<AddNewContainer> {
       showFilter: false,
         goBack: (){
         },
-        child: Screen(),
+        child: Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child:  Screen()),
+          ),
+        ),
         title: S.of(context).add
     );
   }
@@ -58,7 +68,7 @@ class _AddNewCountryState extends State<AddNewContainer> {
         }
       }
     });
-    widget._stateManager.getSubContractAndSpecificationAndHarbor();
+    widget._stateManager.getSubContractAndSpecificationAndHarborAndCountries();
   }
 
   Widget Screen(){
@@ -85,8 +95,21 @@ class _AddNewCountryState extends State<AddNewContainer> {
         clients: clients,
         harbors: harbors,
         onSave: (request){
-        widget._stateManager.requestContainer(request);
-      },);
+          CoolAlert.show(
+            width: 150,
+            context: context,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.requestContainer(request);},
+            text: 'Do you really want to request the shipment',
+          );
+
+      }, countriesExports: state.countries, );
     }
 
     else {

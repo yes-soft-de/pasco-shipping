@@ -9,9 +9,9 @@ class LoadingPriceState extends PriceState{}
 
 class FetchedPriceSuccessfullyState extends PriceState{
   PriceModel model;
-  List<ContainerSpecificationModel> specifications;
+  // List<ContainerSpecificationModel> specifications;
 
-  FetchedPriceSuccessfullyState(this.model ,this.specifications);
+  FetchedPriceSuccessfullyState(this.model);
 }
 class ErrorPriceState extends PriceState{
   String message;

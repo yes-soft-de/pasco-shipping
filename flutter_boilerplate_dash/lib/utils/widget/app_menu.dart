@@ -1052,11 +1052,67 @@ class AppMenu extends ConsumerWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: [
-                        ListTile(
-                          title: new Text(S.of(context).view),
-                          onTap: () =>
-                              selectPage(context, ref, PriceRoutes.PRICE_SCREEN),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              ExpansionTile(
+                                title: new Text('Line price'),
+                                // leading: Icon(Icons.sea),
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Column(
+                                      children: [
+                                        ListTile(
+                                          title: new Text(S.of(context).view),
+                                          onTap: () =>
+                                              selectPage(context, ref, PriceRoutes.PRICE_SCREEN),
+                                        ),
+                                        ListTile(
+                                          title: new Text(S.of(context).add),
+                                          onTap: () =>
+                                              selectPage(context, ref, PriceRoutes.ADD_LINE_PRICE_SCREEN),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              ExpansionTile(
+                                title: new Text('Container price'),
+                                // leading: Icon(Icons.sea),
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Column(
+                                      children: [
+                                        ListTile(
+                                            title: new Text(S.of(context).view),
+                                            onTap: () {
+                                              selectPage(context,ref,PriceRoutes.CONTAINER_PRICE_SCREEN);
+                                            }),
+                                        ListTile(
+                                            title: new Text(S.of(context).add),
+                                            onTap: () {
+                                              selectPage(context,ref,PriceRoutes.ADD_CONTAINER_PRICE_SCREEN);
+                                            }),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+
                       ],
                     ),
                   ),
@@ -1174,8 +1230,7 @@ class AppMenu extends ConsumerWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, ChatRoutes.chatRoute, (route) => false);
+              selectPage(context, ref, ChatRoutes.chatRoute);
             },
             title: Text(S.of(context).directSupport),
             leading: Icon(Icons.phone_in_talk),

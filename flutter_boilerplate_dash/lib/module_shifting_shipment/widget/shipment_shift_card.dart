@@ -106,6 +106,18 @@ class ShipmentShiftCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(
+                              'Payment status'+': ',
+                              style: AppTextStyle.mediumBlack,
+                            ),
+                            Expanded(child:Text(
+                              model.paymentStatus ??'',
+                              style: AppTextStyle.mediumBlueBold,
+                            ),
+                            )],
+                        ),
+                        Row(
+                          children: [
+                            Text(
                               S.of(context).status+': ',
                               style: AppTextStyle.mediumBlack,
                             ),

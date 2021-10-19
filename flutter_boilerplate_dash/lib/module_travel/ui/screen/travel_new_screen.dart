@@ -34,7 +34,16 @@ class _AddNewCountryState extends State<AddNewTravel> {
       showFilter: false,
         goBack: (){
         },
-        child: Screen(),
+        child: Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child: Screen()),
+          ),
+        ),
         title: S.of(context).add
     );
   }
@@ -76,6 +85,7 @@ class _AddNewCountryState extends State<AddNewTravel> {
         onSave: (request){
           CoolAlert.show(
             context: context,
+            width: 150,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
             confirmBtnText: S.of(context).ok,

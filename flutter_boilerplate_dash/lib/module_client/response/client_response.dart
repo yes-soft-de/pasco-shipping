@@ -70,7 +70,7 @@ this.marks,
         location= json['location'];
         country= json['country'];
         city= json['city'];
-        phone= json['phone'];
+        phone= json['phone'] ?? '';
         image=json['image'];
        if(json['marks'] != null){
         marks = List<MarkNumber>.from(json['marks'].map((x) => MarkNumber.fromJson(x)));

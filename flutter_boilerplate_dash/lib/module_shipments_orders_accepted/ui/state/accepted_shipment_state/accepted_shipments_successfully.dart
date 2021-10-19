@@ -11,6 +11,8 @@ import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 
 class AcceptedShipmentSuccessfully extends StatelessWidget {
   final Data items;
@@ -47,9 +49,14 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
               primary: Colors.blue[800],
             ),
             onPressed: () async {
-              final pdfFile = await PdfParagraphApi.generateShipmentReport(items.data!);
-
-              PdfParagraphApi.openFile(pdfFile);
+              await Printing.layoutPdf(
+                // [onLayout] will be called multiple times
+                // when the user changes the printer or printer settings
+                onLayout: (PdfPageFormat format) {
+                  // Any valid Pdf document can be returned here as a list of int
+                  return PdfParagraphApi.generateShipmentReport(items.data!);
+                },
+              );
             },
             icon: Icon(Icons.document_scanner_sharp),
             label: Text(

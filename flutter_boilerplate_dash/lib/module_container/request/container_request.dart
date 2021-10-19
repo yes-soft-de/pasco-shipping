@@ -15,6 +15,8 @@ class ContainerRequest {
   int? carrierID;
   int? clientID;
   int portID;
+  int? exportCountryID;
+  String? exportCity;
 
   ContainerRequest(
       {
@@ -23,7 +25,6 @@ class ContainerRequest {
       required this.specificationID,
        this.containerNumber,
         required this.status,
-
        this.consigneeID,
        required this.providedBy,
          this.carrierID,
@@ -31,7 +32,10 @@ class ContainerRequest {
         this.clientID,
        required this.portID,
       required  this.location,
-        this.consignee
+        this.consignee,
+
+        this.exportCountryID,
+        this.exportCity
 
       });
 
@@ -48,7 +52,9 @@ class ContainerRequest {
         'clientUserID': clientID,
         'status': status,
         'location':location,
-        'portID':portID
+        'portID':portID,
+        'exportCountryID':exportCountryID,
+        'exportCity':exportCity
       };
     } else {
       return {
@@ -65,7 +71,9 @@ class ContainerRequest {
         'status': status,
         'location':location,
         'portID':portID,
-        'consignee':consignee
+        'consignee':consignee,
+        'exportCountryID':exportCountryID,
+        'exportCity':exportCity
       };
     }
   }

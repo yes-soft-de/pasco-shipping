@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
@@ -30,6 +31,7 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
   late List<SubcontractModel> subcontracts;
 
   late String trackNumber;
+  late String paymentWay;
   late int id;
 
   @override
@@ -49,6 +51,7 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
      id =arguments['id'];
      trackNumber =arguments['trackNumber'].toString();
+    paymentWay =arguments['paymentWay'];
     ShipmentLCLFilterFinanceRequest request = ShipmentLCLFilterFinanceRequest(shipmentID: id,trackNumber: trackNumber);
     widget._stateManager.getShipmentLCLFinance(request);
   }
@@ -84,10 +87,24 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
       return ShipmentFinanceSuccessfullyScreen(
         trackNumber:trackNumber ,
      shipmentID: id,
+     paymentWay: paymentWay,
      shipmentFinance: state.finances,
      subContracts: subcontracts,
      addFinance: (request){
-          widget._stateManager.addShipmentFinance(request,subcontracts);
+       CoolAlert.show(
+         context: context,
+         width: 150,
+         type: CoolAlertType.info,
+         title:  S.of(context).careful,
+         confirmBtnText: S.of(context).ok,
+         backgroundColor:AppThemeDataService.PrimaryColor,
+         confirmBtnColor:AppThemeDataService.AccentColor,
+         onConfirmBtnTap: (){
+           Navigator.pop(context);
+           widget._stateManager.addShipmentFinance(request,subcontracts);
+         },
+         text: S.of(context).addCostConfirm,
+       );
      },
       );
     }

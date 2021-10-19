@@ -68,6 +68,7 @@ class Urls {
   static const CONTAINER_STATUS = BASE_API + 'containerstatus';
   static const UPLOADED_CONTAINER_TO_TRAVEL = BASE_API + 'trackbyholder';
   static const CLEARED_ARRIVED_CONTAINER = BASE_API + 'containershippingstatus';
+  static const UPDATE_CONTAINER_PRICE = BASE_API + 'containerspecificationprice';
 
   //container finance
   static const ADD_Container_FCL_FINANCE = BASE_API + 'containerfclfinance';
@@ -84,8 +85,11 @@ class Urls {
 
 
   //Air waybill finance
-  static const GET_Airwaybill_FINANCE = BASE_API + 'filterairwaybillfinance';
-  static const ADD_Airwaybill_FINANCE = BASE_API + 'airwaybillfinance';
+  static const ADD_Airwaybill_FCL_FINANCE = BASE_API + 'airwaybillfclfinance';
+  static const GET_Airwaybill_FCL_FINANCE = BASE_API + 'filterairwaybillfclfinance';
+
+  static const ADD_Airwaybill_LCL_FINANCE = BASE_API + 'airwaybilllclfinance';
+  static const GET_Airwaybill_LCL_FINANCE = BASE_API + 'filterairwaybilllclfinance';
 
 
   // specification
@@ -102,6 +106,7 @@ class Urls {
   static const GET_CLIENT_MARK = BASE_API + 'marks';
   static const GET_CLIENTS = BASE_API + 'clientprofileall';
   static const CLIENT = BASE_API + 'client';
+  static const DELETE_CLIENT = BASE_API + 'clientprofilebydashboard';
 
 
 
@@ -189,6 +194,9 @@ class Urls {
 
   //price
   static const PRICE = BASE_API + 'price';
+
+  static const CONTAINER_PRICES = BASE_API + 'containerspecificationprices';
+  static const CONTAINER_PRICE = BASE_API + 'containerspecificationprice';
 
   //shift
   static const SHIFTING_SHIPMENT = BASE_API + 'filtershiftingshipmentorders';

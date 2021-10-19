@@ -109,6 +109,8 @@ this.categoriesNames,
   DateTime? createdAt;
   String? updatedByUser;
   String? categoriesNames;
+  String? volume;
+  String? weight;
 
   int? distributorID;
   int? receiverID;
@@ -150,7 +152,9 @@ this.categoriesNames,
         markID = json['markID'];
         productCategoryID = json['subProductCategoryID'];
         clientUserID = json['clientUserID'];
-        guniQuantity = json['guniQuantity'];
+        guniQuantity = json['guniQuantity'] ??0 ;
+        volume = json['volume'].toString() =='null' ? '0' : json['volume'].toString();
+        weight =json['weight'].toString() =='null' ? '0' : json['weight'].toString();
   }
 
 }

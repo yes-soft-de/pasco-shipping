@@ -2870,10 +2870,10 @@ class S {
     );
   }
 
-  /// `The container has cleared`
+  /// `The holder has cleared`
   String get containerCleared {
     return Intl.message(
-      'The container has cleared',
+      'The holder has cleared',
       name: 'containerCleared',
       desc: '',
       args: [],
@@ -3295,6 +3295,166 @@ class S {
     return Intl.message(
       'Payment type',
       name: 'paymentType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to add these costs?`
+  String get addCostConfirm {
+    return Intl.message(
+      'Do you want to add these costs?',
+      name: 'addCostConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter container number`
+  String get enterContainerNumber {
+    return Intl.message(
+      'Enter container number',
+      name: 'enterContainerNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter airway bill number`
+  String get enterAirwaybillNumber {
+    return Intl.message(
+      'Enter airway bill number',
+      name: 'enterAirwaybillNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you really want to add this country?`
+  String get confirmAddCountry {
+    return Intl.message(
+      'Do you really want to add this country?',
+      name: 'confirmAddCountry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Selling cost`
+  String get sellingCost {
+    return Intl.message(
+      'Selling cost',
+      name: 'sellingCost',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Buying cost`
+  String get buyingCost {
+    return Intl.message(
+      'Buying cost',
+      name: 'buyingCost',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Transporting`
+  String get transporting {
+    return Intl.message(
+      'Transporting',
+      name: 'transporting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delayed`
+  String get delayed {
+    return Intl.message(
+      'Delayed',
+      name: 'delayed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Uploading`
+  String get uploading {
+    return Intl.message(
+      'Uploading',
+      name: 'uploading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fork`
+  String get fork {
+    return Intl.message(
+      'Fork',
+      name: 'fork',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clearance`
+  String get clearance {
+    return Intl.message(
+      'Clearance',
+      name: 'clearance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Other`
+  String get other {
+    return Intl.message(
+      'Other',
+      name: 'other',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pocketing`
+  String get pocketing {
+    return Intl.message(
+      'Pocketing',
+      name: 'pocketing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `One kilo price`
+  String get oneKiloPrice {
+    return Intl.message(
+      'One kilo price',
+      name: 'oneKiloPrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `One CBM price`
+  String get oneCBMPrice {
+    return Intl.message(
+      'One CBM price',
+      name: 'oneCBMPrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment way`
+  String get paymentWay {
+    return Intl.message(
+      'Payment way',
+      name: 'paymentWay',
       desc: '',
       args: [],
     );

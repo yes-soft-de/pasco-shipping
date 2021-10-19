@@ -16,6 +16,8 @@ import 'package:pasco_shipping/utils/helpers/pdf_paragraph_api.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:collection/collection.dart';
 
@@ -604,9 +606,14 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                   ),
                   subShipmentModel.shipmentStatus !='accepted'?   InkWell(
                     onTap: () async {
-                      final pdfFile = await PdfParagraphApi.generateReceivedReport(subShipmentModel ,widget.shipment.shipmentId.toString(),widget.shipment.transportationType,widget.shipment.clientUsername,widget.shipment.supplierName,widget.shipment.info.receivedQuantity.toString(),widget.shipment.updatedAt.toString().split(' ').first);
-
-                      PdfParagraphApi.openFile(pdfFile);
+                      await Printing.layoutPdf(
+                        // [onLayout] will be called multiple times
+                        // when the user changes the printer or printer settings
+                        onLayout: (PdfPageFormat format) {
+                          // Any valid Pdf document can be returned here as a list of int
+                          return PdfParagraphApi.generateReceivedReport(subShipmentModel ,widget.shipment.shipmentId.toString(),widget.shipment.transportationType,widget.shipment.clientUsername,widget.shipment.supplierName,widget.shipment.info.receivedQuantity.toString(),widget.shipment.updatedAt.toString().split(' ').first);
+                        },
+                      );
                     },
                     child: Column(
                       children: [
@@ -658,11 +665,11 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
 
               Row(
                 children: [
-                  RoundedButton(lable: 'Shift Shipment', icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
+                  subShipmentModel.shipmentStatus =='arrived'?   RoundedButton(lable: 'Shift Shipment', icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
                     widget.onRequestShift(widget.shipment.shipmentId , subShipmentModel.trackNumber);
-                  }, radius: 12),
+                  }, radius: 12) :Container(),
                  widget.shipment.holderType =='LCL'?  RoundedButton(lable: S.of(context).shipmentCost, icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
-                    widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber);
+                    widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.paymentTime);
                   }, radius: 12) :Container(),
 
                 ],
@@ -689,14 +696,24 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
         width: 200,
         height: 200,
         child: QrImage(
-          data: widget.shipment.toString(),
+          data: widget.shipment.shipmentId.toString(),
           // version: QrVersions.auto,
           size: 200,
         ),
       ),
       actions: [
         Row(children: [
-          FlatButton(onPressed: (){}, child: Row(children: [
+          FlatButton(onPressed: () async{
+            await Printing.layoutPdf(
+              // [onLayout] will be called multiple times
+              // when the user changes the printer or printer settings
+              onLayout: (PdfPageFormat format) {
+                // Any valid Pdf document can be returned here as a list of int
+                return PdfParagraphApi.generateQR(widget.shipment.shipmentId.toString());
+              },
+            );
+
+          }, child: Row(children: [
             Icon(Icons.print, color: blue,size: 30,),
           ],)),
           Text('1' +'\\'+ widget.shipment.quantity.toString()),
@@ -765,7 +782,17 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
             actions: [
               Row(
                 children: [
-                  FlatButton(onPressed: (){}, child: Row(children: [
+                  FlatButton(onPressed: ()async {
+                    await Printing.layoutPdf(
+                      // [onLayout] will be called multiple times
+                      // when the user changes the printer or printer settings
+                      onLayout: (PdfPageFormat format) {
+                        // Any valid Pdf document can be returned here as a list of int
+                        return PdfParagraphApi.generateSticker(widget.shipment.exportWarehouseName.toString() ,widget.shipment.target??'',widget.shipment.clientIdentificationNumber??'');
+                      },
+                    );
+
+                  }, child: Row(children: [
                     Icon(Icons.print, color: blue,size: 30,),
                   ],)),
                   Text('1' +'\\'+ widget.shipment.quantity.toString()),

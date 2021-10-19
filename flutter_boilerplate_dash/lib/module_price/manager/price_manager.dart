@@ -1,6 +1,7 @@
 
 
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_price/repository/price_repository.dart';
 import 'package:pasco_shipping/module_price/request/price_request.dart';
 import 'package:pasco_shipping/module_price/response/price_response.dart';
@@ -11,5 +12,7 @@ class PriceManager{
   PriceManager(this._repository);
 
   Future<PriceModel?> getPrice() => _repository.getPrice();
-  Future<PriceModel?> updatePrice(PriceRequest request) => _repository.updatePrice(request);
+  Future<ConfirmResponse?> updateContainerPrice(ContainerPriceRequest request) => _repository.updateContainerPrice(request);
+  Future<ConfirmResponse?> createShippingLinePrice(ShippingLinePriceRequest request) => _repository.createShippingLinePrice(request);
+  Future<ConfirmResponse?> updateShippingLinePrice(ShippingLinePriceRequest request) => _repository.updateShippingLinePrice(request);
 }

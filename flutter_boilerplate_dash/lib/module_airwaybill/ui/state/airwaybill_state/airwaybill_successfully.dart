@@ -7,6 +7,8 @@ import 'package:pasco_shipping/module_airwaybill/widget/airwaybill_card.dart';
 import 'package:pasco_shipping/module_shipment_track/ui/widget/search_card.dart';
 import 'package:pasco_shipping/utils/helpers/pdf_paragraph_api.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 
 class AirwaybillSuccessfully extends StatelessWidget {
   final List<AirwaybillModel> items;
@@ -33,15 +35,20 @@ class AirwaybillSuccessfully extends StatelessWidget {
       children: [
         SearchCard(onSearch: (number){
           onSearch(number);
-        },title: 'Enter the track number',),
+        },title:S.of(context).enterAirwaybillNumber,),
         ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             primary: Colors.blue[800],
           ),
           onPressed: () async {
-            final pdfFile = await PdfParagraphApi.generateAirwaybillReport(items);
-
-           await PdfParagraphApi.openFile(pdfFile);
+            await Printing.layoutPdf(
+              // [onLayout] will be called multiple times
+              // when the user changes the printer or printer settings
+              onLayout: (PdfPageFormat format) {
+                // Any valid Pdf document can be returned here as a list of int
+                return PdfParagraphApi.generateAirwaybillReport(items);
+              },
+            );
           },
           icon: Icon(Icons.document_scanner_sharp),
           label: Text(

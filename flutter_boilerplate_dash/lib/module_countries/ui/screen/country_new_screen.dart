@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
@@ -29,7 +30,16 @@ class _AddNewCountryState extends State<AddNewCountry> {
       showFilter: false,
         goBack: (){
         },
-        child: Screen(),
+        child:Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child: Screen()),
+          ),
+        ),
         title: S.of(context).add
     );
   }
@@ -63,13 +73,37 @@ class _AddNewCountryState extends State<AddNewCountry> {
     }
     else if (currentState is InitAddCountriesState){
       return AddCountryInit(onSave: (request){
-        widget._stateManager.createCountry(request);
+        CoolAlert.show(
+          width: 150,
+          context: context,
+          type: CoolAlertType.info,
+          title:  S.of(context).careful,
+          confirmBtnText: S.of(context).ok,
+          backgroundColor:AppThemeDataService.PrimaryColor,
+          confirmBtnColor:AppThemeDataService.AccentColor,
+          onConfirmBtnTap: (){
+            Navigator.pop(context);
+            widget._stateManager.createCountry(request);},
+          text: S.of(context).confirmAddCountry,
+        );
       },);
     }
     else if (currentState is SuccessfullyAddCountryState){
       Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
       return AddCountryInit(onSave: (request){
-        widget._stateManager.createCountry(request);
+        CoolAlert.show(
+          width: 150,
+          context: context,
+          type: CoolAlertType.info,
+          title:  S.of(context).careful,
+          confirmBtnText: S.of(context).ok,
+          backgroundColor:AppThemeDataService.PrimaryColor,
+          confirmBtnColor:AppThemeDataService.AccentColor,
+          onConfirmBtnTap: (){
+            Navigator.pop(context);
+            widget._stateManager.createCountry(request);},
+          text: S.of(context).confirmAddCountry,
+        );
       },);
     }
     else {

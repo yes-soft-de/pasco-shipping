@@ -105,6 +105,7 @@ dependencies:
   dropdown_search: ^0.6.3
   photo_view: ^0.12.0
   pdf: ^3.5.0
+  printing: ^5.6.0
   path_provider: ^2.0.3
   open_file: ^3.2.1
   barcode_scan2: ^4.1.4
@@ -140,6 +141,7 @@ flutter:
   assets:
     - assets/images/
     - assets/
+    - assets/arial.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -152,11 +154,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+  fonts:
+    - family: arial
+      fonts:
+        - asset: assets/arial.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
@@ -166,8 +167,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-  #  flutter_native_splash:
-  #    color: "#e1f5fe"
-  #    image: assets/images/logo.jpg
-  #    color_dark: "#042a49"
-  #    image_dark: assets/images/logo.jpg
+#flutter_native_splash:
+#  color: "#e1f5fe"
+#  image: assets/images/logo.png
+#  color_dark: "#042a49"
+#  image_dark: assets/images/logo.png

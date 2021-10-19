@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "acceptedShipment":
             MessageLookupByLibrary.simpleMessage("الشحنات المقبولة"),
         "add": MessageLookupByLibrary.simpleMessage("إضافة جديد"),
+        "addCostConfirm":
+            MessageLookupByLibrary.simpleMessage("هل تريد اضافة هذه المصاريف؟"),
         "addedSuccessfully":
             MessageLookupByLibrary.simpleMessage("تم إضافة العنصر بنجاح"),
         "address": MessageLookupByLibrary.simpleMessage("العنوان"),
@@ -70,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "attached": MessageLookupByLibrary.simpleMessage("الوثائق المرفقة"),
         "back": MessageLookupByLibrary.simpleMessage("السابق"),
         "basicInfo": MessageLookupByLibrary.simpleMessage("معلومات اساسية"),
+        "buyingCost": MessageLookupByLibrary.simpleMessage("سعر الشراء"),
         "callingCode": MessageLookupByLibrary.simpleMessage("رمز الاتصال: "),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
@@ -86,6 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseGunny": MessageLookupByLibrary.simpleMessage("اختر جوني"),
         "chooseTravel": MessageLookupByLibrary.simpleMessage("اختر الرحلة"),
         "city": MessageLookupByLibrary.simpleMessage("المدينة"),
+        "clearance": MessageLookupByLibrary.simpleMessage("Clearance"),
         "cleared": MessageLookupByLibrary.simpleMessage("جمركة"),
         "client": MessageLookupByLibrary.simpleMessage("العميل: "),
         "clients": MessageLookupByLibrary.simpleMessage("العملاء"),
@@ -94,6 +98,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "completedStored": MessageLookupByLibrary.simpleMessage(
             "الشحنة خُزنت بالكامل ضمن الجوني"),
         "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
+        "confirmAddCountry": MessageLookupByLibrary.simpleMessage(
+            "هل تريد حقا إضافى هذه الدولة"),
         "confirmCode": MessageLookupByLibrary.simpleMessage("تأكيد الرمز"),
         "confirmPass": MessageLookupByLibrary.simpleMessage("تأكيد كلمة السر"),
         "consignee": MessageLookupByLibrary.simpleMessage("المرسل إليه"),
@@ -124,6 +130,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dataDecodeError": MessageLookupByLibrary.simpleMessage(
             "هناك مشكلة في تفسير البيانات"),
         "date": MessageLookupByLibrary.simpleMessage("التاريخ"),
+        "delayed": MessageLookupByLibrary.simpleMessage("Delayed"),
         "delete": MessageLookupByLibrary.simpleMessage("حذف"),
         "deleteClient": MessageLookupByLibrary.simpleMessage(
             "هل تريد حقا حذف هذا الموظف وإلغاء جميع صلاحياته"),
@@ -144,6 +151,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "employees": MessageLookupByLibrary.simpleMessage("الموظفيين"),
         "emptyAmount": MessageLookupByLibrary.simpleMessage(
             "يمكنك ترك الحقل فارغًا ، إذا لم يتم تقسيم الشحنة"),
+        "enterAirwaybillNumber":
+            MessageLookupByLibrary.simpleMessage("أدخل رقم يوليصة الشحن"),
+        "enterContainerNumber":
+            MessageLookupByLibrary.simpleMessage("أدخل رقم الحاوية"),
         "enterMark": MessageLookupByLibrary.simpleMessage("أدخل علامة جديدة"),
         "enterNumber": MessageLookupByLibrary.simpleMessage("ادخل رقم التتبع"),
         "enterShipmentNumber":
@@ -165,6 +176,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("إملئ جميع الحقول"),
         "filterBy": MessageLookupByLibrary.simpleMessage("تصنف بواسطة"),
         "flight": MessageLookupByLibrary.simpleMessage("الرحلات الجوية"),
+        "fork": MessageLookupByLibrary.simpleMessage("Fork"),
         "freeCapacity": MessageLookupByLibrary.simpleMessage("السعة الحرة"),
         "freeWeight": MessageLookupByLibrary.simpleMessage("الوزن الحر"),
         "from": MessageLookupByLibrary.simpleMessage("من"),
@@ -246,8 +258,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("الإشعارت"),
         "number": MessageLookupByLibrary.simpleMessage("الرقم"),
         "ok": MessageLookupByLibrary.simpleMessage("تم"),
+        "oneCBMPrice": MessageLookupByLibrary.simpleMessage("سعر CBM واحد"),
+        "oneKiloPrice":
+            MessageLookupByLibrary.simpleMessage("سعر الكليو الواحد"),
         "operationCompletedSuccessfully":
             MessageLookupByLibrary.simpleMessage("تم العملية بنجاح"),
+        "other": MessageLookupByLibrary.simpleMessage("Other"),
         "otherData": MessageLookupByLibrary.simpleMessage("معلومات اخرى"),
         "ourWarehouse": MessageLookupByLibrary.simpleMessage("مستودعاتنا"),
         "packingBy": MessageLookupByLibrary.simpleMessage("غُلفت"),
@@ -256,11 +272,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("كلمة المرور قصيرة جدا"),
         "paymentTime": MessageLookupByLibrary.simpleMessage("وقت الدفع: "),
         "paymentType": MessageLookupByLibrary.simpleMessage("طريقة الدفع"),
+        "paymentWay": MessageLookupByLibrary.simpleMessage("طريقة الدفع"),
         "phone": MessageLookupByLibrary.simpleMessage("الهاتف"),
         "pleaseEnterYourEmail": MessageLookupByLibrary.simpleMessage(
             "الرجاء ادخال البريد الالكتروني"),
         "pleaseInputPhoneNumber":
             MessageLookupByLibrary.simpleMessage("أدخل الرقم"),
+        "pocketing": MessageLookupByLibrary.simpleMessage("Pocketing"),
         "previousMark":
             MessageLookupByLibrary.simpleMessage("العلامات السابقة"),
         "prices": MessageLookupByLibrary.simpleMessage("الأسعار"),
@@ -309,6 +327,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("أختر المُقَدِم"),
         "selectWarehouse":
             MessageLookupByLibrary.simpleMessage("اختر المستودع"),
+        "sellingCost": MessageLookupByLibrary.simpleMessage("سعر المبيع"),
         "serialNumber": MessageLookupByLibrary.simpleMessage("الرقم السري: "),
         "service": MessageLookupByLibrary.simpleMessage("الخدمة"),
         "serviceName": MessageLookupByLibrary.simpleMessage("نوع الخدمة"),
@@ -400,6 +419,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalShipment": MessageLookupByLibrary.simpleMessage("عدد الكراتين"),
         "trackNumber": MessageLookupByLibrary.simpleMessage("رقم التعقب: "),
         "trackShipment": MessageLookupByLibrary.simpleMessage("تعقب شحنة"),
+        "transporting": MessageLookupByLibrary.simpleMessage("Transporting"),
         "travelArrived":
             MessageLookupByLibrary.simpleMessage("وصلت الرحلة إلى بلد الهدف"),
         "travelFinance": MessageLookupByLibrary.simpleMessage("مصاريف الرحلة"),
@@ -429,6 +449,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadContainer":
             MessageLookupByLibrary.simpleMessage("تحميل الحاوية الى الرحلة"),
         "uploaded": MessageLookupByLibrary.simpleMessage("تحميل"),
+        "uploading": MessageLookupByLibrary.simpleMessage("Uploading"),
         "users": MessageLookupByLibrary.simpleMessage("المستخدمين"),
         "vehicleNumber":
             MessageLookupByLibrary.simpleMessage("رقم  تعريف السيارة"),

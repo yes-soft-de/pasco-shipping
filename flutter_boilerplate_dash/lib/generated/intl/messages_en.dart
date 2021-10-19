@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "acceptedShipment":
             MessageLookupByLibrary.simpleMessage("Accepted Shipment"),
         "add": MessageLookupByLibrary.simpleMessage("Add new"),
+        "addCostConfirm": MessageLookupByLibrary.simpleMessage(
+            "Do you want to add these costs?"),
         "addedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Item added successfully"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
@@ -69,6 +71,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "attached": MessageLookupByLibrary.simpleMessage("Document Attached"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "basicInfo": MessageLookupByLibrary.simpleMessage("Basic Info"),
+        "buyingCost": MessageLookupByLibrary.simpleMessage("Buying cost"),
         "callingCode": MessageLookupByLibrary.simpleMessage("Calling code: "),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("cancel"),
@@ -86,6 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseGunny": MessageLookupByLibrary.simpleMessage("Choose Gunny"),
         "chooseTravel": MessageLookupByLibrary.simpleMessage("Choose Travel"),
         "city": MessageLookupByLibrary.simpleMessage("City"),
+        "clearance": MessageLookupByLibrary.simpleMessage("Clearance"),
         "cleared": MessageLookupByLibrary.simpleMessage("Cleared"),
         "client": MessageLookupByLibrary.simpleMessage("Client: "),
         "clients": MessageLookupByLibrary.simpleMessage("Clients"),
@@ -94,6 +98,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "completedStored": MessageLookupByLibrary.simpleMessage(
             "Shipment Stored completely in Gunny"),
         "confirm": MessageLookupByLibrary.simpleMessage("confirm"),
+        "confirmAddCountry": MessageLookupByLibrary.simpleMessage(
+            "Do you really want to add this country?"),
         "confirmCode": MessageLookupByLibrary.simpleMessage("confirm Code"),
         "confirmPass": MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "consignee": MessageLookupByLibrary.simpleMessage("Consignee"),
@@ -101,7 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "containerArrived": MessageLookupByLibrary.simpleMessage(
             "this Container arrived to target warehouse"),
         "containerCleared":
-            MessageLookupByLibrary.simpleMessage("The container has cleared"),
+            MessageLookupByLibrary.simpleMessage("The holder has cleared"),
         "containerFinance":
             MessageLookupByLibrary.simpleMessage("Container Finances"),
         "containerInformation":
@@ -126,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dataDecodeError":
             MessageLookupByLibrary.simpleMessage("Error with Decoding Data"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
+        "delayed": MessageLookupByLibrary.simpleMessage("Delayed"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "deleteClient": MessageLookupByLibrary.simpleMessage(
             "Do you really want to delete this employee and revoke all his permissions"),
@@ -146,6 +153,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "employees": MessageLookupByLibrary.simpleMessage("Employees"),
         "emptyAmount": MessageLookupByLibrary.simpleMessage(
             "You can leave the field blank, if the shipment is not divided"),
+        "enterAirwaybillNumber":
+            MessageLookupByLibrary.simpleMessage("Enter airway bill number"),
+        "enterContainerNumber":
+            MessageLookupByLibrary.simpleMessage("Enter container number"),
         "enterMark": MessageLookupByLibrary.simpleMessage("Enter new mark"),
         "enterNumber":
             MessageLookupByLibrary.simpleMessage("Enter the track number"),
@@ -167,6 +178,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "fillAllField": MessageLookupByLibrary.simpleMessage("fill all filed"),
         "filterBy": MessageLookupByLibrary.simpleMessage("Filter By"),
         "flight": MessageLookupByLibrary.simpleMessage("Flight Travels"),
+        "fork": MessageLookupByLibrary.simpleMessage("Fork"),
         "freeCapacity": MessageLookupByLibrary.simpleMessage("Free Capacity"),
         "freeWeight": MessageLookupByLibrary.simpleMessage("Free Weight"),
         "from": MessageLookupByLibrary.simpleMessage("From"),
@@ -253,8 +265,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "number": MessageLookupByLibrary.simpleMessage("number"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
+        "oneCBMPrice": MessageLookupByLibrary.simpleMessage("One CBM price"),
+        "oneKiloPrice": MessageLookupByLibrary.simpleMessage("One kilo price"),
         "operationCompletedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Operation completed successfully"),
+        "other": MessageLookupByLibrary.simpleMessage("Other"),
         "otherData": MessageLookupByLibrary.simpleMessage("Other Data"),
         "ourWarehouse": MessageLookupByLibrary.simpleMessage("Our warehouse"),
         "packingBy": MessageLookupByLibrary.simpleMessage("Packing by"),
@@ -263,11 +278,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password is too short"),
         "paymentTime": MessageLookupByLibrary.simpleMessage("Payment time: "),
         "paymentType": MessageLookupByLibrary.simpleMessage("Payment type"),
+        "paymentWay": MessageLookupByLibrary.simpleMessage("Payment way"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "pleaseEnterYourEmail":
             MessageLookupByLibrary.simpleMessage("Please Enter Your Email"),
         "pleaseInputPhoneNumber":
             MessageLookupByLibrary.simpleMessage("pleas input phone number"),
+        "pocketing": MessageLookupByLibrary.simpleMessage("Pocketing"),
         "previousMark": MessageLookupByLibrary.simpleMessage("Previous Mark"),
         "prices": MessageLookupByLibrary.simpleMessage("Prices"),
         "privacy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
@@ -320,6 +337,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Select Provider"),
         "selectWarehouse":
             MessageLookupByLibrary.simpleMessage("Select Warehouse"),
+        "sellingCost": MessageLookupByLibrary.simpleMessage("Selling cost"),
         "serialNumber": MessageLookupByLibrary.simpleMessage("Serial Number: "),
         "service": MessageLookupByLibrary.simpleMessage("Service"),
         "serviceName": MessageLookupByLibrary.simpleMessage("Service Name: "),
@@ -417,6 +435,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "trackNumber": MessageLookupByLibrary.simpleMessage("Track Number: "),
         "trackShipment":
             MessageLookupByLibrary.simpleMessage("Tracking the shipment"),
+        "transporting": MessageLookupByLibrary.simpleMessage("Transporting"),
         "travelArrived": MessageLookupByLibrary.simpleMessage(
             "the travel has arrived the destination country"),
         "travelFinance": MessageLookupByLibrary.simpleMessage("Travel Finance"),
@@ -447,6 +466,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "uploadContainer":
             MessageLookupByLibrary.simpleMessage("Upload Container to travel"),
         "uploaded": MessageLookupByLibrary.simpleMessage("Uploaded"),
+        "uploading": MessageLookupByLibrary.simpleMessage("Uploading"),
         "users": MessageLookupByLibrary.simpleMessage("Users"),
         "vehicleNumber": MessageLookupByLibrary.simpleMessage(
             "Vehicle identification number (if vehicle)"),

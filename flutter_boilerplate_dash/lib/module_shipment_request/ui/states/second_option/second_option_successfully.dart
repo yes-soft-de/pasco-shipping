@@ -70,6 +70,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   late String supplierName;
   late String receiverName;
   late String receiverPhone;
+  late String initHolderQuantity;
   late String initQuantity;
 
   // late List<RequestedHolders> holders;
@@ -83,9 +84,9 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
     super.didChangeDependencies();
 
     if(widget.shipmentRequest.holderCount == 1){
-      initQuantity = '1';
+      initHolderQuantity = '1';
     }else {
-      initQuantity = widget.shipmentRequest.holderCount.toString();
+      initHolderQuantity = widget.shipmentRequest.holderCount.toString();
     }
 
     if(widget.shipmentRequest.userID !=0){
@@ -115,7 +116,9 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
     }else{
       receiverPhone=S.of(context).phone;
     }
-
+    if(widget.shipmentRequest.holders.isNotEmpty){
+      optionItemSelectedHarbor = Entry(widget.shipmentRequest.holders[0].portName??'', widget.shipmentRequest.holders[0].portID??0, []);;
+    }
 
     if(widget.shipmentRequest.unit.isNotEmpty){
       optionItemSelectedU = Entry(widget.shipmentRequest.unit, 1, []);
@@ -136,10 +139,14 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
     }else{
       optionItemSelectedType = Entry('choose', 0, []);
     }
-
-    // if(widget.specifications.isNotEmpty){
-    //   setSelectSpec = widget.specifications[0];
-    // }
+    if(widget.shipmentRequest.quantity == 0){
+      initQuantity = '0';
+    }else {
+      initQuantity = widget.shipmentRequest.quantity.toString();
+    }
+    if(widget.specifications.isNotEmpty){
+      setSelectSpec = widget.specifications[0];
+    }
     initLists();
   }
 
@@ -316,6 +323,20 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
         SizedBox(
           height: 15,
         ),
+        Row(
+          children: [
+            Text(
+              S.of(context).quantity,
+              style: AppTextStyle.mediumBlackBold,
+            ),
+            NumberInputWithIncrementDecrement(initQuantity , (quantity){
+              widget.shipmentRequest.quantity = int.parse(quantity);
+            }),
+          ],
+        ),
+        SizedBox(
+          height: 15,
+        ),
         Text(
           S.of(context).client,
           style: AppTextStyle.mediumBlackBold,
@@ -376,6 +397,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                    widget.shipmentRequest.paymentTime.isEmpty
                     || widget.shipmentRequest.holderType.isEmpty
                     || widget.shipmentRequest.unit.isEmpty
+                    ||widget.shipmentRequest.quantity==0
                     || widget.shipmentRequest.userName.isEmpty
                     ||(widget.shipmentRequest.isExternalWarehouse && optionItemSelectedHarbor.id==0)
                     ||(widget.shipmentRequest.isExternalWarehouse && widget.shipmentRequest.holders.isEmpty)

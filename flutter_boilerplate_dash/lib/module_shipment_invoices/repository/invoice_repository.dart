@@ -22,9 +22,13 @@ class InvoiceRepository{
     try {
       var response = await _apiClient.post(Urls.GET_SHIPMENT_INVOICES,request.toJson()
         ,  headers: {'Authorization': 'Bearer $token'});
-      List<InvoiceModel>? marks =
-          InvoiceResponse.fromJson(response!).data;
-      return marks;
+      InvoiceResponse invoiceResponse =  InvoiceResponse.fromJson(response!);
+      List<InvoiceModel>? invoices = [];
+      if(invoiceResponse.data != null) {
+        invoices =
+            InvoiceResponse.fromJson(response).data;
+      }
+      return invoices;
     } catch (_) {
       return null;
     }

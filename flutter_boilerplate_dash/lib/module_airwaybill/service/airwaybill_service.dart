@@ -37,17 +37,10 @@ import 'package:pasco_shipping/module_general/response/confirm_response.dart';
   Future<ConfirmResponse?> updateAirwaybillStatus(AirwaybillChangeStateRequest request) {
     return _manager.updateAirwaybillStatus(request);
   }
-  Future<ConfirmResponse?> updateAirwaybillStatusClearedOrArrived(AirwaybillClearedOrArrivedRequest request) {
-    return _manager.updateAirwaybillStatusClearedOrArrived(request);
+  Future<ConfirmResponse?> updateAirwaybillStatusClearedOrArrived(AddAirwaybillToTravelRequest request) {
+    return _manager.uploadedAirwaybillToTravel(request);
   }
   Future<ConfirmResponse?> uploadedAirwaybillToTravel(AddAirwaybillToTravelRequest request) {
     return _manager.uploadedAirwaybillToTravel(request);
-  }
-  Future<ConfirmResponse?> createAirwaybillFinance(AirwaybillAddFinanceRequest request) {
-    return _manager.createAirwaybillFinance(request);
-  }
-
-  Future<Data?> getAirwaybillFinance(AirwaybillFilterFinanceRequest request) {
-    return _manager.getAirwaybillFinance(request);
   }
 }

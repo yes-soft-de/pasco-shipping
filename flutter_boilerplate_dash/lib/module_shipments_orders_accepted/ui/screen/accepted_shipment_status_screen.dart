@@ -61,7 +61,16 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         showFilter: false,
         goBack: ()  {
         },
-        child: Screen(),
+        child:Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child:  Screen()),
+          ),
+        ),
         title: S.of(context).shipmentStatus
     );
   }
@@ -93,7 +102,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
     if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.ACCEPTED]!) {
       widget._stateManager.getShipmentStatus(id,trackNumber);
     }else if(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]! && !(holderType =='FCL' && isExternalWarehouse)){
-      widget._stateManager.getReceivedStatus(id,cityName,trackNumber);
+      widget._stateManager.getReceivedStatus(id,cityName,trackNumber,remainedQuantity);
     }
 
     else if (status == AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]! && transportation=='sea' ||(status == AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]! && holderType =='FCL' && isExternalWarehouse && transportation=='sea') ){
@@ -140,6 +149,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
       statusModel: statusModels, onReceived: (re , cityName){
         CoolAlert.show(
           context: context,
+          width: 150,
           type: CoolAlertType.info,
           title:  S.of(context).careful,
           widget: Padding(
@@ -189,7 +199,9 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
               widget._stateManager.receivedAirShipmentFCLExternal(re, airwaybillFilterRequest, travelFilterRequest,cityName);
             }
             else {
-              widget._stateManager.receivedLocalWarehouse(re,cityName);
+              print('Move_Move');
+              print(re.receivedQuantity);
+              widget._stateManager.receivedLocalWarehouse(re,cityName,re.receivedQuantity);
             }
           },
           text: S.of(context).changeStatusConfirm,
@@ -198,6 +210,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         onDelivered: (req){
           CoolAlert.show(
             context: context,
+            width: 150,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
             widget: Padding(
@@ -253,6 +266,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         onChangeStatus: (re , holderFilterRequest ,travelFilterRequest){
           CoolAlert.show(
             context: context,
+            width: 150,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
             widget: Container(
@@ -344,11 +358,28 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
             text: S.of(context).changeStatusConfirm,
           );
       },
+        deleteGunny: (id){
+          CoolAlert.show(
+            context: context,
+            width: 150,
+            type: CoolAlertType.error,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.deleteGunny(statusModels,state.subContracts,state.lastGunnies,int.parse(state.storedModelInfo.remainedQuantity),id.toString());
+            },
+            text: 'Do you really want to delete this gunny',
+          );
+        },
         createGunny: (){
-          widget._stateManager.createGunny(statusModels,state.subContracts,state.lastGunnies);
+          widget._stateManager.createGunny(statusModels,state.subContracts,state.lastGunnies,int.parse(state.storedModelInfo.remainedQuantity));
         }, infoStoredInGunny: state.storedModelInfo, onStoredInGunny: (m){
         CoolAlert.show(
           context: context,
+          width: 150,
           type: CoolAlertType.info,
           title:  S.of(context).careful,
           widget: Container(
@@ -415,7 +446,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
           },
           text: S.of(context).changeStatusConfirm,
         );
-        }, gunnies: state.gunnies,
+        }, gunnies: state.gunnies, remainedQuantity: int.parse(state.storedModelInfo.remainedQuantity),
       );
     }
     else if (currentState is ReceivedStatusWithGunniesState) {
@@ -427,9 +458,11 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         statusModel: statusModels,
         subcontracts:state.subContracts ,
         lastGunnies: state.lastGunnies,
+        remainedQuantity: int.parse(state.storedModelInfo.remainedQuantity),
         onChangeStatus: (re , holderFilterRequest ,travelFilterRequest){
           CoolAlert.show(
             context: context,
+            width: 150,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
             widget: Container(
@@ -521,8 +554,24 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
             text: S.of(context).changeStatusConfirm,
           );
         },
+        deleteGunny: (id){
+          CoolAlert.show(
+            context: context,
+            width: 150,
+            type: CoolAlertType.error,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              widget._stateManager.deleteGunny(statusModels,state.subContracts,state.lastGunnies,int.parse(state.storedModelInfo.remainedQuantity),id.toString());
+            },
+            text: 'Do you really want to delete this gunny',
+          );
+        },
         createGunny: (){
-          widget._stateManager.createGunny(statusModels,state.subContracts,state.lastGunnies);
+          widget._stateManager.createGunny(statusModels,state.subContracts,state.lastGunnies,int.parse(state.storedModelInfo.remainedQuantity));
         }, infoStoredInGunny: state.storedModelInfo, onStoredInGunny: (m){
         CoolAlert.show(
           context: context,
@@ -606,6 +655,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         onChangeStatus: (request , isSeperate){
           CoolAlert.show(
             context: context,
+            width: 150,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
             widget: Container(
@@ -718,6 +768,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         travels: state.travels,
         onChangeStatus: (request , isSeperate){
           CoolAlert.show(
+            width: 150,
             context: context,
             type: CoolAlertType.info,
             title:  S.of(context).careful,
@@ -866,6 +917,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
   _showAlert(BuildContext context,String gunnyNumber){
     return CoolAlert.show(
       context: context,
+        width: 150,
       type: CoolAlertType.success,
       title:  S.of(context).success,
       confirmBtnText: S.of(context).ok,

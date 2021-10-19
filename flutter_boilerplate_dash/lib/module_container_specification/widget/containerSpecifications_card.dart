@@ -45,8 +45,8 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
    length =TextEditingController();
    length..text = widget.model.lengthInMeter!;
 
-   price =TextEditingController();
-   price..text = widget.model.price!;
+   // price =TextEditingController();
+   // price..text = widget.model.price!;
 
    widget.isEdtiable = false;
   }
@@ -151,23 +151,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                     SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          S.of(context).prices+': ',
-                          style: AppTextStyle.mediumBlack,
-                        ),
-                        Expanded(
-                          child:widget.isEdtiable ?
-                          TextField(controller: price,) : Text(
-                            widget.model.price.toString(),
-                            style: AppTextStyle.mediumBlueBold,
-                          ),
-                        )],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
+
                     Row(
                       children: [
                         Text(

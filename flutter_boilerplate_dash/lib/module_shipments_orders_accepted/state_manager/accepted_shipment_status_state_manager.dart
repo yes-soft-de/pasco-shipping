@@ -79,7 +79,7 @@ class AcceptedShipmentsStatusStateManager {
   }
 
 
-  void receivedLocalWarehouse(ReceivedRequest request ,String cityName){
+  void receivedLocalWarehouse(ReceivedRequest request ,String cityName,int remainedQuantity){
     _stateSubject.add(LoadingState());
     _service.receivedShipment(request).then((value) {
       if(value != null){
@@ -94,7 +94,7 @@ class AcceptedShipmentsStatusStateManager {
                         _service.getGunnyShipment(request.shipmentId.toString(),request.trackNumber).then((lastGunnies){
                           if(lastGunnies != null){
                             _stateSubject.add(ReceivedStatusState(
-                                model, subcontracts ,gunnies,StoredModel(remainedQuantity: '') ,lastGunnies));
+                                model, subcontracts ,gunnies,StoredModel(remainedQuantity: remainedQuantity.toString()) ,lastGunnies));
                           }
                         });
 
@@ -262,7 +262,7 @@ class AcceptedShipmentsStatusStateManager {
   }
 
 
-  void getReceivedStatus(String shipmentID ,String cityName ,String trackNumber){
+  void getReceivedStatus(String shipmentID ,String cityName ,String trackNumber,  int remainedQuantity){
     _service.getAcceptedShipmentStatus(shipmentID,trackNumber).then((model) {
       if (model != null) {
         _subcontractService.getSubcontracts().then((subcontracts) {
@@ -272,7 +272,7 @@ class AcceptedShipmentsStatusStateManager {
                 _service.getGunnyShipment(shipmentID,trackNumber).then((lastGunnies){
                   if(lastGunnies != null){
                     _stateSubject.add(ReceivedStatusState(
-                        model, subcontracts ,gunnies,StoredModel(remainedQuantity: '') ,lastGunnies));
+                        model, subcontracts ,gunnies,StoredModel(remainedQuantity: remainedQuantity.toString()) ,lastGunnies));
                   }
                 });
               }else{
@@ -341,12 +341,31 @@ _warehouseService.getWarehouses(request).then((warehouses){
 
 
 
-  void createGunny(List<AcceptedShipmentStatusModel> model ,  List<SubcontractModel> subcontracts ,List<GunnyShipmentModel> lastGunnies){
+  void createGunny(List<AcceptedShipmentStatusModel> model ,  List<SubcontractModel> subcontracts ,List<GunnyShipmentModel> lastGunnies ,int remainedQuantity){
     _stateSubject.add(LoadingState());
     _gunnyService.createGunny().then((gunnies) {
       if(gunnies != null){
         _stateSubject.add(ReceivedStatusWithGunniesState(
-            model, subcontracts ,gunnies ,StoredModel(remainedQuantity: ''),lastGunnies));
+            model, subcontracts ,gunnies ,StoredModel(remainedQuantity: remainedQuantity.toString()),lastGunnies));
+      }else{
+        _stateSubject.add(ErrorState('Error'));
+      }
+    });
+
+  }
+  void deleteGunny(List<AcceptedShipmentStatusModel> model ,  List<SubcontractModel> subcontracts ,List<GunnyShipmentModel> lastGunnies ,int remainedQuantity,String id){
+    _stateSubject.add(LoadingState());
+    _gunnyService.deleteGunny(id).then((value) {
+      if(value != null){
+        if(value.isConfirmed) {
+          _gunnyService.getGunnies().then((gunnies) {
+            if(gunnies != null){
+              _stateSubject.add(ReceivedStatusState(
+                  model, subcontracts ,gunnies ,StoredModel(remainedQuantity: remainedQuantity.toString()),lastGunnies));
+            }
+          });
+
+        }
       }else{
         _stateSubject.add(ErrorState('Error'));
       }

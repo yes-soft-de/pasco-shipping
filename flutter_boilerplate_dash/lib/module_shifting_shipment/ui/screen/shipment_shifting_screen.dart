@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -84,8 +85,22 @@ class _CountriesScreenState extends State<ShipmentShiftingScreen> {
       items = state!.shipments;
       return ShiftingShipmentSuccessfully(items: items ,
         onChangeStatus: (model,status){
-          UpdateShiftingStatusRequest request =UpdateShiftingStatusRequest(model.id,status);
-        widget._stateManager.updateStatus(request,filterRequest);
+          CoolAlert.show(
+            context: context,
+            width: 150,
+            type: CoolAlertType.info,
+            title:  S.of(context).careful,
+            confirmBtnText: S.of(context).ok,
+            backgroundColor:AppThemeDataService.PrimaryColor,
+            confirmBtnColor:AppThemeDataService.AccentColor,
+            onConfirmBtnTap: (){
+              Navigator.pop(context);
+              UpdateShiftingStatusRequest request =UpdateShiftingStatusRequest(model.id,status);
+              widget._stateManager.updateStatus(request,filterRequest);
+            },
+            text: S.of(context).changeStatusConfirm,
+          );
+
         }, hideButton: hideButton,
         // onDetails: (id){
         // // Navigator.pushNamed(context, TravelRoutes.DETAILS , arguments: {'id' : id}).then((value){

@@ -9,45 +9,46 @@ class AirwaybillFinanceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Card(
-        color: Colors.grey[100],
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
+    return Card(
+      color: Colors.grey[300],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      child: ExpansionTile(
+        title:ListTile(title: Text(model.status.toString() ,style: AppTextStyle.largeBlackBold, ),subtitle:Padding(
+          padding: const EdgeInsetsDirectional.only(top: 10),
+          child:model.stageCost ==0?Column(children: [
+            Row(
+              children: [
+                Text(
+                  S.of(context).buyingCost+': ',
+                  style: AppTextStyle.mediumBlack,
+                ),
+                Text(
+                  model.buyingCost.toString(),
+                  style: AppTextStyle.mediumBlueBold,
+                ),
+              ],
+            ),
+            SizedBox(height: 5,),
+            Row(
+              children: [
+                Text(
+                  S.of(context).sellingCost+': ',
+                  style: AppTextStyle.mediumBlack,
+                ),
+                Text(
+                  model.sellingCost.toString(),
+                  style: AppTextStyle.mediumBlueBold,
+                ),
+              ],
+            ),
+          ],) :
+
+          Text(model.stageCost.toString(),style: AppTextStyle.largeBlue, ),
+        ),),
+        leading: Icon(Icons.monetization_on,size: 30,),
+        children: [
+          Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Text(
-                      S.of(context).stageCost,
-                      style: AppTextStyle.mediumBlack,
-                    ),
-                    Text(
-                      model.stageCost.toString(),
-                      style: AppTextStyle.mediumBlueBold,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Text(
-                     S.of(context).status+': ',
-                      style: AppTextStyle.mediumBlack,
-                    ),
-                    Text(
-                      model.status ?? '',
-                      style: AppTextStyle.mediumBlueBold,
-                    ),
-                  ],
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -58,6 +59,66 @@ class AirwaybillFinanceCard extends StatelessWidget {
                     ),
                     Text(
                       model.stageDescription ?? '',
+                      style: AppTextStyle.mediumBlueBold,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(
+                      S.of(context).subcontract+': ',
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    Text(
+                      model.subcontractName ?? '',
+                      style: AppTextStyle.mediumBlueBold,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(
+                      'Check Number: ',
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    Text(
+                      model.chequeNumber ?? '',
+                      style: AppTextStyle.mediumBlueBold,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(
+                      'Fund Name: ',
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    Text(
+                      model.financialFundName ?? '',
+                      style: AppTextStyle.mediumBlueBold,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(
+                      S.of(context).paymentTime,
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    Text(
+                      model.paymentType ?? '',
                       style: AppTextStyle.mediumBlueBold,
                     ),
                   ],
@@ -96,7 +157,7 @@ class AirwaybillFinanceCard extends StatelessWidget {
               // ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

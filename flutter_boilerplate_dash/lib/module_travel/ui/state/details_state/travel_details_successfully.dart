@@ -31,19 +31,19 @@ class TravelDetailsSuccessfully extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(S.of(context).travelInformation , style: AppTextStyle.largeBlueBold,),
-                InkWell(
-                    onTap: (){
-                      onShowFinance(model.id);
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset(StaticImage.accounting),
-                        Text(S.of(context).cost ,style: AppTextStyle.mediumBlackBold,)
-                      ],
-                    )),
+                // InkWell(
+                //     onTap: (){
+                //       onShowFinance(model.id);
+                //     },
+                //     child: Column(
+                //       children: [
+                //         Image.asset(StaticImage.accounting),
+                //         Text(S.of(context).cost ,style: AppTextStyle.mediumBlackBold,)
+                //       ],
+                //     )),
               ],
             ),
           ),
@@ -97,29 +97,29 @@ class TravelDetailsSuccessfully extends StatelessWidget {
                   ),
                 ),
 
-                Divider(color: Colors.grey[300],thickness: 2,),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(S.of(context).subcontract),
-                      Text(model.subcontractName ?? ''),
-                    ],
-                  ),
-                ),
-
-                Divider(color: Colors.grey[300],thickness: 2,),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(S.of(context).carrier),
-                      Text(model.carrierName ?? ''),
-                    ],
-                  ),
-                ),
+                // Divider(color: Colors.grey[300],thickness: 2,),
+                // Padding(
+                //   padding: const EdgeInsets.all(10.0),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       Text(S.of(context).subcontract),
+                //       Text(model.subcontractName ?? ''),
+                //     ],
+                //   ),
+                // ),
+                //
+                // Divider(color: Colors.grey[300],thickness: 2,),
+                // Padding(
+                //   padding: const EdgeInsets.all(10.0),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       Text(S.of(context).carrier),
+                //       Text(model.carrierName ?? ''),
+                //     ],
+                //   ),
+                // ),
             ],
             ),
           ),

@@ -30,7 +30,16 @@ class _CountriesScreenState extends State<EmployeesScreen> {
       showFilter: false,
         goBack: (){
         },
-        child: Screen(),
+        child:Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child: Screen()),
+          ),
+        ),
         title: S.of(context).employees
     );
   }
@@ -69,6 +78,7 @@ class _CountriesScreenState extends State<EmployeesScreen> {
       return EmployeesSuccessfully(items: items ,onDelete: (id){
 
         CoolAlert.show(
+            width: 150,
           context: context,
           type: CoolAlertType.warning,
           title:  S.of(context).deleteClient,

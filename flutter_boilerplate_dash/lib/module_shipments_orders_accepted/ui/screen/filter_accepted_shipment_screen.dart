@@ -32,7 +32,16 @@ class _CountriesScreenState extends State<AcceptedShipmentFilterScreen> {
         goBack: ()  {
 
         },
-        child: Screen(),
+        child: Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child:  Screen()),
+          ),
+        ),
 
         // FilterAcceptedShipmentInit(
         //   filterRequest: filterRequest,

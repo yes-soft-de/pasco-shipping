@@ -19,9 +19,10 @@ class ShipmentFinanceSuccessfullyScreen extends StatefulWidget {
   final DataFinance shipmentFinance;
   final Function addFinance;
   final int shipmentID;
+  final String paymentWay;
   final String trackNumber;
   final List<SubcontractModel> subContracts;
-  ShipmentFinanceSuccessfullyScreen({required this.addFinance ,required this.shipmentFinance,required this.shipmentID,required this.trackNumber,required this.subContracts });
+  ShipmentFinanceSuccessfullyScreen({required this.addFinance ,required this.shipmentFinance,required this.shipmentID,required this.trackNumber,required this.subContracts,required this.paymentWay });
 
   @override
   _MarkSuccessfullyScreenState createState() => _MarkSuccessfullyScreenState();
@@ -106,6 +107,24 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                   child: Column(
                     children: [
                       Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(children: [
+                          Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                          SizedBox(width: 5,),
+                          Text('Stage' , style: AppTextStyle.mediumBlackBold,)
+                        ],),
+                      ),
+                      SelectDropList(
+                        this.optionItemSelectedStatus,
+                        this.dropListModelShipmentStatus,
+                            (optionItem) {
+                          optionItemSelectedStatus = optionItem;
+                          setState(() {});
+                        },
+                      ),
+
+
+                      Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
                           padding: EdgeInsets.only(
@@ -133,6 +152,31 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                           ),
                         ),
                       ),
+                  optionItemSelectedStatus.title=='Shipping'? Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(widget.shipmentFinance.shippingType=='sea'? S.of(context).volume+': ':S.of(context).weight+': ',style: AppTextStyle.mediumBlackBold,),
+                          Text(widget.shipmentFinance.shippingType=='sea'? widget.shipmentFinance.volume.toString() :widget.shipmentFinance.weight.toString() ,style: AppTextStyle.mediumBlue,),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsetsDirectional.only(top: 5,bottom: 5),
+                        child: Row(
+                              children: [
+                                Text(widget.shipmentFinance.shippingType=='sea'? S.of(context).oneCBMPrice+': ':S.of(context).oneKiloPrice+': ',style: AppTextStyle.mediumBlackBold,),
+                                Text(widget.shipmentFinance.price??'' ,style: AppTextStyle.mediumBlue,),
+                              ],
+                            ),
+                      ),
+                      Row(
+                            children: [
+                              Text('Shipping cost: ',style: AppTextStyle.mediumBlackBold,),
+                              Text(widget.shipmentFinance.shippingCost??'' ,style: AppTextStyle.mediumBlue,),
+                            ],
+                          ),
+                    ],
+                  ) :Container(),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
@@ -176,87 +220,77 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                           setState(() {});
                         },
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(children: [
-                          Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                          SizedBox(width: 5,),
-                          Text('Stage' , style: AppTextStyle.mediumBlackBold,)
-                        ],),
-                      ),
-                      SelectDropList(
-                        this.optionItemSelectedStatus,
-                        this.dropListModelShipmentStatus,
-                            (optionItem) {
-                          optionItemSelectedStatus = optionItem;
-                          setState(() {});
-                        },
-                      ),
 
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(children: [
-                          Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                          SizedBox(width: 5,),
-                          Text(S.of(context).paymentType , style: AppTextStyle.mediumBlackBold,)
-                        ],),
-                      ),
-                      SelectDropList(
-                        this.optionItemSelectedPayment,
-                        this.dropListModelPayment,
-                            (optionItem) {
-                          optionItemSelectedPayment = optionItem;
-                          setState(() {});
-                        },
-                      ),
 
-                      optionItemSelectedPayment.title=='Check' ?  Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          padding: EdgeInsets.only(
-                              top: 4,left: 16, right: 16, bottom: 4
-                          ),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(15)
-                              ),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black12,
-                                    blurRadius: 5
-                                )
-                              ]
-                          ),
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Check Number',
-                            ),
-                            controller: checkNumber,
-                          ),
-                        ),
-                      ) : optionItemSelectedPayment.title=='Cash' ?Column(children: [
-
+                   widget.paymentWay=='Collect'  ?Container(): Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(children: [
                             Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                             SizedBox(width: 5,),
-                            Text('Fund Name' , style: AppTextStyle.mediumBlackBold,)
+                            Text(S.of(context).paymentWay , style: AppTextStyle.mediumBlackBold,)
                           ],),
                         ),
                         SelectDropList(
-                          this.optionItemSelectedFund,
-                          this.dropListModelFund,
+                          this.optionItemSelectedPayment,
+                          this.dropListModelPayment,
                               (optionItem) {
-                            optionItemSelectedFund = optionItem;
+                            optionItemSelectedPayment = optionItem;
                             setState(() {});
                           },
                         ),
 
-                      ],) :Container(),
+                        optionItemSelectedPayment.title=='Check' ?  Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            padding: EdgeInsets.only(
+                                top: 4,left: 16, right: 16, bottom: 4
+                            ),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(15)
+                                ),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 5
+                                  )
+                                ]
+                            ),
+                            child: TextField(
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Check Number',
+                              ),
+                              controller: checkNumber,
+                            ),
+                          ),
+                        ) : optionItemSelectedPayment.title=='Cash' ?Column(children: [
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(children: [
+                              Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                              SizedBox(width: 5,),
+                              Text('Fund Name' , style: AppTextStyle.mediumBlackBold,)
+                            ],),
+                          ),
+                          SelectDropList(
+                            this.optionItemSelectedFund,
+                            this.dropListModelFund,
+                                (optionItem) {
+                              optionItemSelectedFund = optionItem;
+                              setState(() {});
+                            },
+                          ),
+
+                        ],) :Container(),
+                      ],),
+
 
 
 
@@ -266,7 +300,7 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                         }
                         else {
                           ShipmentLCLFinanceRequest mark = ShipmentLCLFinanceRequest(
-                              shipmentStatus:optionItemSelectedStatus.title
+                              shipmentStatus:optionItemSelectedStatus.children[0].title
                               ,trackNumber: widget.trackNumber,currency: '',
                               shipmentID: widget.shipmentID,
                               stageCost: int.parse(cost.text) ,

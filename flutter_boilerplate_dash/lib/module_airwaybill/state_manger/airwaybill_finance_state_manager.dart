@@ -1,42 +1,85 @@
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_airwaybill/request/airwaybill_add_finance_request.dart';
 import 'package:pasco_shipping/module_airwaybill/request/airwaybill_filter_finance_request.dart';
-import 'package:pasco_shipping/module_airwaybill/service/airwaybill_service.dart';
+import 'package:pasco_shipping/module_airwaybill/service/finance_airwaybill_service.dart';
 import 'package:pasco_shipping/module_airwaybill/ui/state/airwaybill_finance_state/airwatbill_finance_state.dart';
+import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
+import 'package:pasco_shipping/module_sub_contract/service/subcontract_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 @injectable
 class AirwaybillFinanceStateManager {
-  final AirwaybillService _service;
+  final FinanceAirwaybillService _service;
+  final SubcontractService _subcontractService;
 
   final PublishSubject<FinanceAirwaybillState> _stateSubject = PublishSubject();
   Stream<FinanceAirwaybillState> get stateStream => _stateSubject.stream;
 
-  AirwaybillFinanceStateManager(this._service);
+  AirwaybillFinanceStateManager(this._service, this._subcontractService);
   //
-  void getAirwaybillFinance(AirwaybillFilterFinanceRequest request) {
+  void getAirwaybillLCLFinance(AirwaybillFilterFinanceRequest request) {
     _stateSubject.add(LoadingState());
-    _service.getAirwaybillFinance(request).then((value) {
+    _service.getAirwaybillLCLFinance(request).then((value) {
       print(value);
       if (value != null) {
-        _stateSubject.add(SuccessfullyFetchState(value));
+        _subcontractService.getSubcontracts().then((subs) {
+          if(subs != null){
+            _stateSubject.add(SuccessfullyFetchState(value,subs));
+          }
+        });
+      } else {
+        _stateSubject.add(ErrorState('Error', false));
+      }
+    });
+  }
+  void getAirwaybillFCLFinance(AirwaybillFilterFinanceRequest request) {
+    _stateSubject.add(LoadingState());
+    _service.getAirwaybillFCLFinance(request).then((value) {
+      print(value);
+      if (value != null) {
+        _subcontractService.getSubcontracts().then((subs) {
+          if(subs != null){
+            _stateSubject.add(SuccessfullyFetchState(value,subs));
+          }
+        });
       } else {
         _stateSubject.add(ErrorState('Error', false));
       }
     });
   }
 
-  void addAirwaybillFinance(AirwaybillAddFinanceRequest financeRequest) {
+  void createAirwaybillFCLFinance(AirwaybillAddFinanceRequest financeRequest,List<SubcontractModel> subs) {
     _stateSubject.add(LoadingState());
-    _service.createAirwaybillFinance(financeRequest).then((value) {
+    _service.createAirwaybillFCLFinance(financeRequest).then((value) {
+      if (value != null) {
+        if (value.isConfirmed) {
+          AirwaybillFilterFinanceRequest request =AirwaybillFilterFinanceRequest(id: financeRequest.airwaybillID!);
+          _service
+              .getAirwaybillFCLFinance(request)
+              .then((finances) {
+            if (finances != null) {
+              _stateSubject.add(SuccessfullyFetchState(finances,subs));
+            } else {
+              _stateSubject.add(ErrorState('Error', false));
+            }
+          });
+        } else {
+          _stateSubject.add(ErrorState('Error', false));
+        }
+      }
+    });
+  }
+  void createAirwaybillLCLFinance(AirwaybillAddFinanceRequest financeRequest,List<SubcontractModel> subs) {
+    _stateSubject.add(LoadingState());
+    _service.createAirwaybillLCLFinance(financeRequest).then((value) {
       if (value != null) {
         if (value.isConfirmed) {
           AirwaybillFilterFinanceRequest request = AirwaybillFilterFinanceRequest(id: financeRequest.airwaybillID!);
           _service
-              .getAirwaybillFinance(request)
+              .getAirwaybillLCLFinance(request)
               .then((finances) {
             if (finances != null) {
-              _stateSubject.add(SuccessfullyFetchState(finances));
+              _stateSubject.add(SuccessfullyFetchState(finances,subs));
             } else {
               _stateSubject.add(ErrorState('Error', false));
             }

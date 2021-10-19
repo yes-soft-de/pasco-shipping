@@ -42,12 +42,12 @@ class FirstOptionRepository {
       return null;
     }
   }
-  Future<List<Countries>?> getCountriesImport() async {
+  Future<List<Countries>?> getCountries(String type) async {
     // await _authService.refreshToken();
     var token =  await _authService.getToken();
     try {
       var response = await _apiClient
-          .get(Urls.COUNTRIES+'/import', headers: {'Authorization': 'Bearer $token'});
+          .get(Urls.COUNTRIES+'/'+type, headers: {'Authorization': 'Bearer $token'});
       List<Countries>? warehouses = WarehouseResponse.fromJson(response!).data;
       return warehouses;
     } catch (_) {

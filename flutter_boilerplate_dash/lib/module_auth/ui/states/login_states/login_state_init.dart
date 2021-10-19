@@ -19,23 +19,33 @@ class LoginStateInit extends LoginState {
 
   @override
   Widget getUI(BuildContext context) {
-    return Column(
-      children: [
-        Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
+    return Container(
+      width: double.maxFinite,
+      child: Center(
+        child: Container(
+          constraints: BoxConstraints(
+              maxWidth: 600
           ),
-          elevation: 5.0,
-          color: Colors.white,
-          child: EmailPasswordForm(
-            isLoading: false,
-            onLoginRequest: (email ,pass){
-              screen.loginClient(
-                  email, pass);
-            },
+          child: Column(
+            children: [
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                elevation: 5.0,
+                color: Colors.white,
+                child: EmailPasswordForm(
+                  isLoading: false,
+                  onLoginRequest: (email ,pass){
+                    screen.loginClient(
+                        email, pass);
+                  },
+                ),
+              )
+            ],
           ),
-        )
-      ],
+        ),
+      ),
     );
   }
 }

@@ -38,6 +38,7 @@ class LoginStateSuccess extends LoginState {
     // flutter defined function
     CoolAlert.show(
       context: context,
+      width: 150,
       type: CoolAlertType.success,
       // title: S.of(context).success,
       backgroundColor:AppThemeDataService.PrimaryColor,

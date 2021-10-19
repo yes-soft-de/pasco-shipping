@@ -46,7 +46,7 @@ class _CountryCardState extends State<TravelsCard> {
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Flexible(
-                  flex: 3,
+                  flex: 2,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,21 +67,21 @@ class _CountryCardState extends State<TravelsCard> {
                       SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        children: [
-                          Text(
-                           S.of(context).subcontract+': ',
-                            style: AppTextStyle.mediumBlack,
-                          ),
-                        Expanded(child:Text(
-                            widget.model.subcontractName ?? '',
-                            style: AppTextStyle.mediumBlueBold,
-                          ),
-                        )],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      // Row(
+                      //   children: [
+                      //     Text(
+                      //      S.of(context).subcontract+': ',
+                      //       style: AppTextStyle.mediumBlack,
+                      //     ),
+                      //   Expanded(child:Text(
+                      //       widget.model.subcontractName ?? '',
+                      //       style: AppTextStyle.mediumBlueBold,
+                      //     ),
+                      //   )],
+                      // ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
 
                       Row(
                         children: [

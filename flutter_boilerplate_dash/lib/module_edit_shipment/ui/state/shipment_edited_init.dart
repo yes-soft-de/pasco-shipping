@@ -321,7 +321,7 @@ class _ShipmentEditedScreenState extends State<ShipmentEditedScreen> {
                         paymentTime: optionItemSelectedTim.title,
                         unit: optionItemSelectedU.title,
                         receiverID: optionItemSelectedReceiver.id,
-                        extraSpecification: extra,
+                        extraSpecification: widget.shipment.extraSpecification,
                         vehicleIdentificationNumber: vehicle,
                         productCategoryID: optionItemSelectedCategory.id,
                       );

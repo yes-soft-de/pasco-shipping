@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'dart:convert';
 class ShipmentRequest {
+  late int _exportCountryID;
+  late String _exportCountryName;
   late String _transportationType;
 
   late int _exportWarehouseID;
@@ -46,6 +48,8 @@ class ShipmentRequest {
 
 
   Map<String, dynamic> toJson() => {
+    'exportCountryID':exportCountryID,
+    'exportCountryName':exportCountryName,
         "transportationType": transportationType,
         "target": target,
         "supplierName": supplierName,
@@ -78,6 +82,8 @@ class ShipmentRequest {
 
 
   ShipmentRequest(
+      this._exportCountryID,
+      this._exportCountryName,
       this._transportationType,
 
       this._exportWarehouseID,
@@ -120,6 +126,13 @@ class ShipmentRequest {
 
   set extraSpecification(String value) {
     _extraSpecification = value;
+  }
+
+
+  String get exportCountryName => _exportCountryName;
+
+  set exportCountryName(String value) {
+    _exportCountryName = value;
   }
 
   String get vehicleIdentificationNumber => _vehicleIdentificationNumber;
@@ -229,6 +242,12 @@ class ShipmentRequest {
 
   set holderCount(int value) {
     _holderCount = value;
+  }
+
+  int get exportCountryID => _exportCountryID;
+
+  set exportCountryID(int value) {
+    _exportCountryID = value;
   }
 
   @override

@@ -22,27 +22,47 @@ class AirwaybillFinanceResponse {
 
 class Data{
   Data({
-    this.data,
-    this.currentTotalCost
+   required this.data,
+    this.currentTotalCost,
+    this.currentTotalBuyingCost,
+    this.currentTotalSellingCost
 
 
 });
-List<AirwaybillFinanceModel>? data;
+List<AirwaybillFinanceModel> data=[];
 String? currentTotalCost;
-
+  String? currentTotalSellingCost;
+  String? currentTotalBuyingCost;
 
 
    Data.fromJson(Map<String, dynamic> json) {
     currentTotalCost= json['currentTotalCost'].toString();
-      if (json['airwaybillFinances'] != null) {
+    try{
+      currentTotalSellingCost= json['currentTotalSellingCost'].toString();
+      currentTotalBuyingCost= json['currentTotalBuyingCost'].toString();
+    } catch (e, stack) {
+      Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
+          StackTrace.current);
+    }
+      if (json['airWaybillFinances'] != null) {
   data = <AirwaybillFinanceModel>[];
   try {
-  data = List<AirwaybillFinanceModel>.from(json['airwaybillFinances'].map((x) => AirwaybillFinanceModel.fromJson(x)));
+  data = List<AirwaybillFinanceModel>.from(json['airWaybillFinances'].map((x) => AirwaybillFinanceModel.fromJson(x)));
   } catch (e, stack) {
+    print("nnnnnnnn");
   Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
   StackTrace.current);
   }
-}
+}else if (json['airwaybillFinances'] != null){
+        data = <AirwaybillFinanceModel>[];
+        try {
+          data = List<AirwaybillFinanceModel>.from(json['airwaybillFinances'].map((x) => AirwaybillFinanceModel.fromJson(x)));
+        } catch (e, stack) {
+          print("nnnnnnnn");
+          Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
+              StackTrace.current);
+        }
+      }
 }}
 
 class AirwaybillFinanceModel {
@@ -53,6 +73,13 @@ class AirwaybillFinanceModel {
     this.currency,
     this.status,
 
+    this.paymentType,
+    this.financialFundName,
+    this.chequeNumber,
+    this.subcontractName,
+    this.sellingCost,
+    this.buyingCost,
+
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
@@ -62,11 +89,16 @@ class AirwaybillFinanceModel {
   int? airwaybillID;
   String? status;
   int? stageCost;
+  int? buyingCost;
+  int? sellingCost;
   String? stageDescription;
 
   String? currency;
 
-
+  String? paymentType;
+  String? financialFundName;
+  String? chequeNumber;
+  String? subcontractName;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? updatedByUser;
@@ -77,10 +109,16 @@ class AirwaybillFinanceModel {
     airwaybillID: json['airwaybillID'],
     stageDescription: json['stageDescription'],
 
-    stageCost: json['stageCost'],
+    stageCost: json['stageCost']??0,
     currency: json['currency'],
     status: json['status'],
+    buyingCost: json['buyingCost']??0,
+    sellingCost: json['sellingCost']??0,
 
+    paymentType: json['paymentType'],
+    chequeNumber: json['chequeNumber'],
+    subcontractName: json['subcontractName'],
+    financialFundName: json['financialFundName'],
 
     createdAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),

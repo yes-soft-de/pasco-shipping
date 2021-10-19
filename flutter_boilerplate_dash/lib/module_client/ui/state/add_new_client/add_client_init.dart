@@ -338,7 +338,7 @@ class _AddCountryInitState extends State<AddClientInit> {
               ),
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
-                if(userName.text.isEmpty || userID.text.isEmpty || password.text.isEmpty) {
+                if(userName.text.isEmpty) {
                   Fluttertoast.showToast(msg: S.of(context).fillAllField);
                 }else {
                   CreateClientRequest re = CreateClientRequest(userName: userName.text , userID: userID.text , password: password.text, email: email.text,city: city.text,

@@ -103,7 +103,7 @@ class AirwaybillRepository{
     var token = await _authService.getToken();
     try {
       var response = await _apiClient.post(Urls.AIRWAYBILL_FILTER,filters.toJson(),
-          headers: {'Authorization': 'Bearer $token'}
+          // headers: {'Authorization': 'Bearer $token'}
           );
       AirwaybillResponse travelResponse =  AirwaybillResponse.fromJson(response!);
       List<AirwaybillModel>? travels = [];
@@ -148,36 +148,36 @@ class AirwaybillRepository{
     }
   }
 
-  Future<Data?> getAirwaybillFinance(AirwaybillFilterFinanceRequest request) async {
-    // await _authService.refreshToken();
-    var token = await _authService.getToken();
-    try {
-      var response = await _apiClient.post(Urls.GET_Airwaybill_FINANCE,request.toJson(),
-          headers: {'Authorization': 'Bearer $token'});
+  // Future<Data?> getAirwaybillFinance(AirwaybillFilterFinanceRequest request) async {
+  //   // await _authService.refreshToken();
+  //   var token = await _authService.getToken();
+  //   try {
+  //     var response = await _apiClient.post(Urls.GET_Airwaybill_FINANCE,request.toJson(),
+  //         headers: {'Authorization': 'Bearer $token'});
+  //
+  //     Data? model = AirwaybillFinanceResponse
+  //         .fromJson(response!).c;
+  //     return model;
+  //   } catch (e) {
+  //     print(e);
+  //     return null;
+  //   }
+  // }
 
-      Data? model = AirwaybillFinanceResponse
-          .fromJson(response!).c;
-      return model;
-    } catch (e) {
-      print(e);
-      return null;
-    }
-  }
-
-  Future<ConfirmResponse?> createAirwaybillFinance(AirwaybillAddFinanceRequest request) async {
-    // await _authService.refreshToken();
-    var token = await _authService.getToken();
-
-    var response = await _apiClient.post(Urls.ADD_Airwaybill_FINANCE, request.toJson(),
-        headers: {'Authorization': 'Bearer $token'});
-    String? statusCode = AirwaybillFinanceResponse.fromJson(response!).statusCode;
-    String? msg = AirwaybillFinanceResponse.fromJson(response).msg;
-    if(statusCode =='201'){
-      return ConfirmResponse(true, msg!);
-    }else {
-      return ConfirmResponse(false, msg!);
-    }
-  }
+  // Future<ConfirmResponse?> createAirwaybillFinance(AirwaybillAddFinanceRequest request) async {
+  //   // await _authService.refreshToken();
+  //   var token = await _authService.getToken();
+  //
+  //   var response = await _apiClient.post(Urls.ADD_Airwaybill_FINANCE, request.toJson(),
+  //       headers: {'Authorization': 'Bearer $token'});
+  //   String? statusCode = AirwaybillFinanceResponse.fromJson(response!).statusCode;
+  //   String? msg = AirwaybillFinanceResponse.fromJson(response).msg;
+  //   if(statusCode =='201'){
+  //     return ConfirmResponse(true, msg!);
+  //   }else {
+  //     return ConfirmResponse(false, msg!);
+  //   }
+  // }
 
 }
 

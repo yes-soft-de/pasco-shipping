@@ -68,7 +68,7 @@ class _ContainerDetailsSuccessfullyState
                 ),
                 InkWell(
                     onTap: () {
-                      widget.onShowFinance(widget.model.id);
+                      widget.onShowFinance(widget.model.id,widget.model.type);
                     },
                     child: Column(
                       children: [
@@ -273,8 +273,7 @@ class _ContainerDetailsSuccessfullyState
                       widget.model.shippingStatus =='notuploaded')
                   ? uploadToTravel()
                   : (widget.model.shipments!.isNotEmpty &&
-                          widget.model.shippingStatus==
-                              TravelStatusName[TravelStatus.RELEASED])
+              ( widget.model.shippingStatus == TravelStatusName[TravelStatus.RELEASED] ||widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED] || widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]))
                       ? changeContainerStatus()
                       : Container(
                           child: Padding(
@@ -497,8 +496,7 @@ class _ContainerDetailsSuccessfullyState
     if (widget.model.shipments!.isNotEmpty &&
         widget.model.shippingStatus ==
             AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED] &&
-        !(widget.model.type == 'FCL' &&
-            widget.model.shipments![0].isExternalWarehouse!)) {
+        !(widget.model.type == 'FCL')) {
       return Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -527,10 +525,10 @@ class _ContainerDetailsSuccessfullyState
                 color: AppThemeDataService.AccentColor,
                 style: AppTextStyle.mediumWhite,
                 go: () {
-                  AirwaybillClearedOrArrivedRequest re1 =
-                  AirwaybillClearedOrArrivedRequest(
-                          id: widget.model.id!,
-                          status: AcceptedShipmentStatusName[
+                  AddAirwaybillToTravelRequest re1 =
+                  AddAirwaybillToTravelRequest(
+                          holderID: widget.model.id!,
+                          shipmentStatus: AcceptedShipmentStatusName[
                               AcceptedShipmentStatus.CLEARED]!);
                   widget.onClearedOrArrived(re1);
                 },
@@ -541,8 +539,7 @@ class _ContainerDetailsSuccessfullyState
     } else if (widget.model.shipments!.isNotEmpty &&
         widget.model.shippingStatus ==
             AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED] &&
-        widget.model.type == 'FCL' &&
-        widget.model.shipments![0].isExternalWarehouse!) {
+        widget.model.type == 'FCL') {
       return Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -557,7 +554,7 @@ class _ContainerDetailsSuccessfullyState
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                StatusCard(S.of(context).arrived, false),
+                StatusCard(S.of(context).shipmentDelivered, false),
               ],
             ),
             RoundedButton(
@@ -566,10 +563,10 @@ class _ContainerDetailsSuccessfullyState
                 color: AppThemeDataService.AccentColor,
                 style: AppTextStyle.mediumWhite,
                 go: () {
-                  AirwaybillClearedOrArrivedRequest re1 =
-                  AirwaybillClearedOrArrivedRequest(
-                      id: widget.model.id!,
-                      status: AcceptedShipmentStatusName[
+                  AddAirwaybillToTravelRequest re1 =
+                  AddAirwaybillToTravelRequest(
+                      holderID: widget.model.id!,
+                      shipmentStatus: AcceptedShipmentStatusName[
                       AcceptedShipmentStatus.ARRIVED]!);
                   widget.onClearedOrArrived(re1);
                 },
@@ -609,10 +606,10 @@ class _ContainerDetailsSuccessfullyState
                 color: AppThemeDataService.AccentColor,
                 style: AppTextStyle.mediumWhite,
                 go: () {
-                  AirwaybillClearedOrArrivedRequest re1 =
-                  AirwaybillClearedOrArrivedRequest(
-                          id: widget.model.id!,
-                          status: AcceptedShipmentStatusName[
+                  AddAirwaybillToTravelRequest re1 =
+                  AddAirwaybillToTravelRequest(
+                          holderID: widget.model.id!,
+                          shipmentStatus: AcceptedShipmentStatusName[
                               AcceptedShipmentStatus.ARRIVED]!);
                   widget.onClearedOrArrived(re1);
                 },

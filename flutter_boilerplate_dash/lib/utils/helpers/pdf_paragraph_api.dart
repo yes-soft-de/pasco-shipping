@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:open_file/open_file.dart';
@@ -18,10 +19,12 @@ import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class PdfParagraphApi {
-  static Future<File> generateShipmentReport(List<AcceptedShipmentModel> model) async {
+   static Future<Uint8List> generateShipmentReport(List<AcceptedShipmentModel> model) async {
     final pdf = Document();
+    String trasType = '';
     // pdf.setMargins(0 , 0 , 0 , 0);
 
     // final customFont =
@@ -30,36 +33,54 @@ class PdfParagraphApi {
     final ByteData bytes =
     await rootBundle.load(StaticImage.logo);
     final Uint8List byteList = bytes.buffer.asUint8List();
-    final headers =
-    ['ID',
+    if(model.isNotEmpty){
+      trasType = model[0].transportationType ?? '';
+    }
+    final headersSea =
+    [
+      'Date',
+      'ID',
+      'Q',
+      'G',
+      'Volume'
+      'Product type',
       'Client',
-      'S.N',
+      'Payment',
        'way'
-      ,'From' ,
-    'To'
 
-      ,'Mark' ,
-    'Product type',
-
-    'G',
-    'Q',
-    'Supplier',
-      'Date'
     ];
+    final headersAir =
+    [
+      'Date',
+      'ID',
+      'Q',
+      'G',
+      'weight'
+          'Product type',
+      'Client',
+      'Payment',
+      'way'
 
-    final data = model.map((user) => [
-      user.shipmentId, user.clientUsername,user.clientIdentificationNumber,
-      user.transportationType , user.exportWarehouseName , user.target,user.markNumber
-    ,user.categoriesNames,
+    ];
+    final dataSea = model.map((user) => [
+      user.updatedAt.toString().split(' ').first, user.shipmentId,
+      user.quantity,  user.guniQuantity,user.volume   ,user.categoriesNames,
+      user.clientUsername,
+      user.paymentTime , user.transportationType
 
+    ]).toList();
+    final dataAir = model.map((user) => [
+      user.updatedAt.toString().split(' ').first, user.shipmentId,
+      user.quantity,  user.guniQuantity,user.weight   ,user.categoriesNames,
+      user.clientUsername,
+      user.paymentTime , user.transportationType
 
-      user.guniQuantity,
-      user.quantity,
-      user.supplierName,
-      user.updatedAt.toString().split(' ').first
     ]).toList();
     pdf.addPage(
       MultiPage(
+        theme: ThemeData.withFont(
+          base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+        ),
         margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
         pageFormat: PdfPageFormat.a4,
         orientation: PageOrientation.landscape,
@@ -97,16 +118,20 @@ class PdfParagraphApi {
               color: PdfColors.blue,),
           ),
           SizedBox(height: 0.5 * PdfPageFormat.cm),
+        //   Column(children: List.generate(model.length, (index){
+        // return   Padding(padding: EdgeInsets.all(8.0) ,child: generateShipmentNewReport(model[index]));
+        //
+        //   })),
           Table.fromTextArray(
-            headers: headers,
-            data: data,
+            headers:trasType=='sea'? headersSea:headersAir,
+            data:trasType=='sea'? dataSea : dataAir,
             headerStyle: TextStyle(fontWeight: FontWeight.bold),
             headerDecoration: BoxDecoration(color: PdfColors.grey300),
             cellHeight: 30,
 
               columnWidths: {
-                0: FixedColumnWidth(15),
-                1: FixedColumnWidth(40),
+                0: FixedColumnWidth(35),
+                1: FixedColumnWidth(15),
                 2: FixedColumnWidth(35),
 
                 3: FixedColumnWidth(15),
@@ -117,9 +142,9 @@ class PdfParagraphApi {
                 6: FixedColumnWidth(25),
                 7: FixedColumnWidth(60),
                 8: FixedColumnWidth(15),
-                9: FixedColumnWidth(15),
-                10: FixedColumnWidth(30),
-                11: FixedColumnWidth(35),
+                // 9: FixedColumnWidth(15),
+                // 10: FixedColumnWidth(30),
+                // 11: FixedColumnWidth(35),
               },
             cellAlignments: {
               0: Alignment.center,
@@ -139,7 +164,7 @@ class PdfParagraphApi {
           ),
           SizedBox(height: 0.5 * PdfPageFormat.cm),
           Text(
-            'Total: ' + data.length.toString(),
+            'Total: ' + model.length.toString(),
             style: TextStyle( fontSize: 18,
               fontWeight: FontWeight.bold,
               color: PdfColors.blue,),
@@ -165,10 +190,10 @@ class PdfParagraphApi {
       ),
     );
 
-    return saveDocument(name: 'shipmentReport.pdf', pdf: pdf);
+    return await pdf.save();
   }
 
-  static Future<File> generateContainerReport(List<ContainerModel> model) async {
+  static Future<Uint8List> generateContainerReport(List<ContainerModel> model) async {
     final pdf = Document();
     final customFont =
     Font.ttf(await rootBundle.load('assets/OpenSans-Regular.ttf'));
@@ -188,6 +213,10 @@ class PdfParagraphApi {
     ]).toList();
     pdf.addPage(
       MultiPage(
+        orientation: PageOrientation.landscape,
+        theme: ThemeData.withFont(
+          base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+        ),
         build: (context) => <Widget>[
           Container(
             padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
@@ -270,10 +299,10 @@ class PdfParagraphApi {
         },
       ),
     );
-    return saveDocument(name: 'containerReport.pdf', pdf: pdf);
+    return await pdf.save();
   }
 
-  static Future<File> generateAirwaybillReport(List<AirwaybillModel> model) async {
+  static  Future<Uint8List> generateAirwaybillReport(List<AirwaybillModel> model) async {
     final pdf = Document();
     final customFont =
     Font.ttf(await rootBundle.load('assets/OpenSans-Regular.ttf'));
@@ -293,6 +322,10 @@ class PdfParagraphApi {
     ]).toList();
     pdf.addPage(
       MultiPage(
+        orientation: PageOrientation.landscape,
+        theme: ThemeData.withFont(
+          base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+        ),
         build: (context) => <Widget>[
           Container(
             padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
@@ -375,10 +408,10 @@ class PdfParagraphApi {
         },
       ),
     );
-    return saveDocument(name: 'airReport.pdf', pdf: pdf);
+    return await pdf.save();
   }
 
-  static Future<File> generateTravelReport(List<TravelModel> model) async {
+  static Future<Uint8List> generateTravelReport(List<TravelModel> model) async {
     final pdf = Document();
 
     final ByteData bytes =
@@ -399,6 +432,10 @@ class PdfParagraphApi {
     ]).toList();
     pdf.addPage(
       MultiPage(
+        orientation: PageOrientation.landscape,
+        theme: ThemeData.withFont(
+          base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+        ),
         margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
         pageFormat: PdfPageFormat.a4,
         build: (context) => <Widget>[
@@ -496,10 +533,10 @@ class PdfParagraphApi {
         },
       ),
     );
-    return saveDocument(name: 'airReport.pdf', pdf: pdf);
+    return await pdf.save();
   }
 
-  static Future<File> generateReceivedReport(SubShipmentModel model
+  static Future<Uint8List> generateReceivedReport(SubShipmentModel model
       ,String ID,type,client,supplier,String quantity ,date) async {
     final pdf = Document();
 
@@ -508,6 +545,10 @@ class PdfParagraphApi {
     final Uint8List byteList = bytes.buffer.asUint8List();
     pdf.addPage(
       MultiPage(
+        orientation: PageOrientation.landscape,
+        theme: ThemeData.withFont(
+          base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+        ),
         margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
         pageFormat: PdfPageFormat.a4,
         build: (context) => <Widget>[
@@ -627,26 +668,31 @@ class PdfParagraphApi {
         },
       ),
     );
-    return saveDocument(name: 'Received.pdf', pdf: pdf);
+    return await pdf.save();
   }
 
 
-  static Future<File> generateContainerDetailsReport(ContainerDetailsModel model) async {
+  static Future<Uint8List> generateContainerDetailsReport(ContainerDetailsModel model) async {
     final pdf = Document();
     final ByteData bytes =
     await rootBundle.load(StaticImage.logo);
     final Uint8List byteList = bytes.buffer.asUint8List();
     final headers =
-    ['ID',S.current.paymentTime,S.current.guniQuantity,
-      S.current.quantity,S.current.trackNumber,S.current.targetWarehouse
+    ['ShipmentID',S.current.paymentTime,S.current.guniQuantity,
+      S.current.quantity,S.current.trackNumber,S.current.targetWarehouse,S.current.productType
     ];
     final data = model.shipments.map((user) =>
     [user.id,user.paymentTime, user.guniQuantity,
       user.quantity,user.trackNumber,
       user.target,
+      user.categoriesNames
     ]).toList();
     pdf.addPage(
       MultiPage(
+        orientation: PageOrientation.landscape,
+        theme: ThemeData.withFont(
+          base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+        ),
         margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
         pageFormat: PdfPageFormat.a4,
         build: (context) => <Widget>[
@@ -747,6 +793,7 @@ class PdfParagraphApi {
               4: FixedColumnWidth(30),
 
               5: FixedColumnWidth(30),
+              6: FixedColumnWidth(30),
 
               // 8: FixedColumnWidth(30),
             },
@@ -757,6 +804,7 @@ class PdfParagraphApi {
               3: Alignment.center,
               4: Alignment.center,
               5: Alignment.center,
+              6: Alignment.center,
               // 8: Alignment.center,
             },
             // headerPadding: Padding(padding: 12)
@@ -782,23 +830,27 @@ class PdfParagraphApi {
         },
       ),
     );
-    return saveDocument(name: 'containerReport.pdf', pdf: pdf);
+    return await pdf.save();
   }
-  static Future<File> generateShipmentInvoiceReport(InvoiceModel model) async {
+  static Future<Uint8List> generateShipmentInvoiceReport(InvoiceModel model) async {
     final pdf = Document();
     final ByteData bytes =
     await rootBundle.load(StaticImage.logo);
     final Uint8List byteList = bytes.buffer.asUint8List();
     final headers =
-    [S.current.shipmentStatus,S.current.stageCost,S.current.description,
+    ['Stage Name',S.current.stageCost,S.current.description,
     ];
     final data = model.billingDetails.map((user) =>
     [user.shipmentStatus,user.stageCost, user.stageDescription,
     ]).toList();
     pdf.addPage(
       MultiPage(
+        theme: ThemeData.withFont(
+          base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+        ),
         margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
         pageFormat: PdfPageFormat.a4,
+        orientation: PageOrientation.landscape,
         build: (context) => <Widget>[
           Container(
             padding: EdgeInsets.all( 5 * PdfPageFormat.mm),
@@ -935,7 +987,6 @@ class PdfParagraphApi {
             headerStyle: TextStyle(fontWeight: FontWeight.bold),
             headerDecoration: BoxDecoration(color: PdfColors.grey300),
             cellHeight: 30,
-
             columnWidths: {
               0: FixedColumnWidth(15),
               1: FixedColumnWidth(30),
@@ -998,7 +1049,7 @@ class PdfParagraphApi {
                     fontWeight: FontWeight.bold,
                     color: PdfColors.black,
                   )),
-                  Text(model.discount.toString().split(' ').first.toString(),
+                  Text(model.discount.toString() +'%',
                       style:TextStyle( fontSize: 18,
                         color: PdfColors.black,
                       )
@@ -1027,10 +1078,268 @@ class PdfParagraphApi {
         },
       ),
     );
-    return saveDocument(name: ' Invoice Report.pdf', pdf: pdf);
+    return await pdf.save();
   }
 
+   static Future<Uint8List> generateReceiptReceivedReport(String cost,String clientName,String  date) async {
+     final pdf = Document();
+     final ByteData bytes =
+     await rootBundle.load(StaticImage.logo);
+     final Uint8List byteList = bytes.buffer.asUint8List();
+     pdf.addPage(
+       Page(
+         theme: ThemeData.withFont(
+           base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+         ),
+         margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
+         pageFormat: PdfPageFormat.a4,
+         orientation: PageOrientation.landscape,
+         build: (context) =>
+         Column(
+             crossAxisAlignment: CrossAxisAlignment.center,
+             children: [
+             Container(
+                 padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
+                 decoration: BoxDecoration(
+                   border: Border(bottom: BorderSide(width: 2, color: PdfColors.blue)),
+                 ),
+                 child: Row(
+                   children: [
+                     Image(
+                         MemoryImage(
+                           byteList,
+                         ),
+                         height: 150,
+                         width: 150,
+                         fit: BoxFit.contain),
+                     SizedBox(width: 5 * PdfPageFormat.cm),
+                     Column(
+                         children: [
+                           Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                           Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
+                         ]
+                     )
+                   ],
+                 ),
+             ),
+                 SizedBox(height: 0.5 * PdfPageFormat.cm),
+                Padding(padding: EdgeInsets.all( 5 * PdfPageFormat.mm),
+                 child: Column(children: [
+               Text('Payment Information', style:TextStyle(
+                 fontSize: 24,
+                 fontWeight: FontWeight.bold,
+                 color: PdfColors.black,
+               ),),
+                   Padding(padding: EdgeInsets.all( 5 * PdfPageFormat.mm),),
 
+                   Row(children: [
+                 Text('The undersigned acknowledge that they received the sum of',
+                   style:TextStyle(
+                   fontSize: 24,
+                   color: PdfColors.black,
+                 ),),
+
+               ]),
+                   Row(children: [
+                     Text(cost+' US',style: TextStyle(
+                       decoration: TextDecoration.underline,
+                       fontSize: 24,
+                       fontWeight: FontWeight.bold,
+                       color: PdfColors.blue,
+                     ),),
+                     Padding(padding: EdgeInsets.all( 5 * PdfPageFormat.mm),),
+
+                     Text('from',style: TextStyle(
+                       fontSize: 24,
+                       color: PdfColors.black,
+                     )),
+                     Padding(padding: EdgeInsets.all( 5 * PdfPageFormat.mm),),
+
+                     Text(clientName,style: TextStyle(
+                       decoration: TextDecoration.underline,
+                       fontSize: 24,
+                       fontWeight: FontWeight.bold,
+                       color: PdfColors.blue,
+                     ),),
+                     Padding(padding: EdgeInsets.all( 5 * PdfPageFormat.mm),),
+
+                     Text('on',style:TextStyle(
+                       decoration: TextDecoration.underline,
+                       fontSize: 24,
+                       color: PdfColors.black,
+                     ),),
+                     Padding(padding: EdgeInsets.all( 5 * PdfPageFormat.mm),),
+
+                     Text(date,style: TextStyle(
+                       decoration: TextDecoration.underline,
+                       fontSize: 24,
+                       fontWeight: FontWeight.bold,
+                       color: PdfColors.blue,
+                     ),),
+                   ])
+
+             ]))
+     ]))
+     );
+     return await pdf.save();
+   }
+
+   static  Future<Uint8List> generateQR(String qr) async {
+     final pdf = Document();
+     // final customFont =
+     // Font.ttf(await rootBundle.load('assets/OpenSans-Regular.ttf'));
+
+     final ByteData bytes =
+     await rootBundle.load(StaticImage.logo);
+     final Uint8List byteList = bytes.buffer.asUint8List();
+
+     pdf.addPage(
+       MultiPage(
+         orientation: PageOrientation.portrait,
+         theme: ThemeData.withFont(
+           base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+         ),
+         build: (context) => <Widget>[
+           Container(
+             padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
+             decoration: BoxDecoration(
+               border: Border(bottom: BorderSide(width: 2, color: PdfColors.blue)),
+             ),
+             child: Row(
+               children: [
+                 Image(
+                     MemoryImage(
+                       byteList,
+                     ),
+                     height: 150,
+                     width: 150,
+                     fit: BoxFit.contain),
+                 SizedBox(width: 5 * PdfPageFormat.cm),
+                 Column(
+                     children: [
+                       Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                       Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
+                     ]
+                 )
+               ],
+             ),
+           ),
+           SizedBox(height: 0.5 * PdfPageFormat.cm),
+           SizedBox(height: 0.5 * PdfPageFormat.cm),
+           Center(child: BarcodeWidget(
+             data: qr,
+             width: 300,
+             height: 300,
+             barcode: Barcode.qrCode(),
+           ), )
+
+
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+         ],
+         footer: (context) {
+           final text = 'Page ${context.pageNumber} of ${context.pagesCount}';
+
+           return Container(
+             alignment: Alignment.centerRight,
+             margin: EdgeInsets.only(top: 1 * PdfPageFormat.cm),
+             child: Text(
+               text,
+               style: TextStyle(color: PdfColors.black),
+             ),
+           );
+         },
+       ),
+     );
+     return await pdf.save();
+   }
+   static  Future<Uint8List> generateSticker(String from ,String to,String number) async {
+     final pdf = Document();
+     // final customFont =
+     // Font.ttf(await rootBundle.load('assets/OpenSans-Regular.ttf'));
+
+     final ByteData bytes =
+     await rootBundle.load(StaticImage.logo);
+     final Uint8List byteList = bytes.buffer.asUint8List();
+
+     pdf.addPage(
+       MultiPage(
+         orientation: PageOrientation.portrait,
+         theme: ThemeData.withFont(
+           base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+         ),
+         build: (context) => <Widget>[
+           Container(
+             padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
+             decoration: BoxDecoration(
+               border: Border(bottom: BorderSide(width: 2, color: PdfColors.blue)),
+             ),
+             child: Row(
+               children: [
+                 Image(
+                     MemoryImage(
+                       byteList,
+                     ),
+                     height: 150,
+                     width: 150,
+                     fit: BoxFit.contain),
+                 SizedBox(width: 5 * PdfPageFormat.cm),
+                 Column(
+                     children: [
+                       Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                       Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
+                     ]
+                 )
+               ],
+             ),
+           ),
+           SizedBox(height: 0.5 * PdfPageFormat.cm),
+
+           Center(child: Column(
+               crossAxisAlignment: CrossAxisAlignment.center,
+               children: [
+             Row(children: [
+               Text('Shipping from: '),
+               Text(from , style: TextStyle(color: PdfColors.blue ,fontWeight: FontWeight.bold) )
+             ]),
+             SizedBox(height: 0.5 * PdfPageFormat.cm),
+             Row(children: [
+               Text('Shipping to: '),
+               Text(to,style: TextStyle(color: PdfColors.blue ,fontWeight: FontWeight.bold))
+             ]),
+             SizedBox(height: 0.5 * PdfPageFormat.cm),
+             Row(children: [
+               Text('Serial Number: '),
+               Text(number,style: TextStyle(color: PdfColors.blue ,fontWeight: FontWeight.bold))
+             ]),
+           ]))
+
+
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+         ],
+         footer: (context) {
+           final text = 'Page ${context.pageNumber} of ${context.pagesCount}';
+
+           return Container(
+             alignment: Alignment.centerRight,
+             margin: EdgeInsets.only(top: 1 * PdfPageFormat.cm),
+             child: Text(
+               text,
+               style: TextStyle(color: PdfColors.black),
+             ),
+           );
+         },
+       ),
+     );
+     return await pdf.save();
+   }
 
   static Future openFile(File file) async {
     final url = file.path;
@@ -1098,16 +1407,225 @@ class PdfParagraphApi {
     var file =File('');
 
     try{
-      final dir = await getApplicationDocumentsDirectory();
-      file = File('${dir.path}/$name');
-
+      // final dir = await getApplicationDocumentsDirectory();
+      // file = File('${dir.path}/$name');
+      final file = File('$name');
+      await file.writeAsBytes(await pdf.save());
     }catch(e){
       await Fluttertoast.showToast(msg: e.toString());
     }
 
 
-    await file.writeAsBytes(bytes);
+    // await file.writeAsBytes(bytes);
 
     return file;
   }
+
+
+   static Widget generateShipmentNewReport(AcceptedShipmentModel user)  {
+     // final pdf = Document();
+     // pdf.setMargins(0 , 0 , 0 , 0);
+
+     // final customFont =
+     // Font.ttf(await rootBundle.load('assets/OpenSans-Regular.ttf'));
+
+     // final ByteData bytes =
+     // await rootBundle.load(StaticImage.logo);
+     // final Uint8List byteList = bytes.buffer.asUint8List();
+     // final headers =
+     // [
+     //   'Client',
+     //   'S.N',
+     //   'way'
+     //   ,'From' ,
+     //   'To'
+     //
+     //   ,'Mark' ,
+     //   'Product type',
+     //
+     //   'G',
+     //   'Q',
+     //   'Supplier',
+     //   'Date'
+     // ];
+     //
+     // final data = [
+     //   user.shipmentId, user.clientUsername,user.clientIdentificationNumber,
+     //   user.transportationType , user.exportWarehouseName , user.target,user.markNumber
+     //   ,user.categoriesNames,
+     //
+     //
+     //   user.guniQuantity,
+     //   user.quantity,
+     //   user.supplierName,
+     //   user.updatedAt.toString().split(' ').first
+     // ];
+     // TableRow(
+     //     children: [
+     //   Text('Client'),
+     //   Text('S.N'),
+     //   Text('way'),
+     //   Text('From'),
+     //   Text('To'),
+     //   Text('Mark'),
+     // ]);
+     // TableRow(
+     //     children: [
+     //   Text(user.clientUsername ??''),
+     //   Text(user.clientIdentificationNumber ??''),
+     //   Text(user.transportationType ??''),
+     //   Text(user.exportWarehouseName ??''),
+     //   Text(user.target ??''),
+     //   Text(user.markNumber ??''),
+     // ]);
+     // TableRow(
+     //     children: [
+     //       Text('Product type'),
+     //       Text('G'),
+     //       Text('Q'),
+     //       Text('Supplier'),
+     //       Text('Date'),
+     //     ]);
+     // TableRow(
+     //     children: [
+     //       Text(user.categoriesNames ??''),
+     //       Text(user.guniQuantity.toString() ??''),
+     //       Text(user.quantity.toString() ??''),
+     //       Text(user.supplierName ??''),
+     //       Text(user.updatedAt.toString().split(' ').first),
+     //     ]);
+     return Column(
+
+crossAxisAlignment: CrossAxisAlignment.start,
+         children: [
+           Text(
+             user.shipmentId.toString(),
+             style: TextStyle( fontSize: 20,
+               fontWeight: FontWeight.bold,
+               color: PdfColors.black,),
+           ),
+     Padding(  padding: EdgeInsets.all(4), child:  Row(
+     children: [
+
+     Table(
+         columnWidths: {
+           0: FixedColumnWidth(90),
+           1: FixedColumnWidth(90),
+           2: FixedColumnWidth(90),
+
+           3: FixedColumnWidth(90),
+           4: FixedColumnWidth(90),
+
+           5: FixedColumnWidth(90),
+           6: FixedColumnWidth(90),
+
+           // 8: FixedColumnWidth(30),
+         },
+         border: TableBorder(
+           verticalInside: BorderSide(width: 1, color: PdfColors.black, style: BorderStyle.solid),
+             horizontalInside:
+         BorderSide(width: 1, color: PdfColors.black, style: BorderStyle.solid)
+         ),
+         tableWidth:TableWidth.max ,
+         children:[
+           TableRow(
+               decoration: BoxDecoration(
+                 border: Border.all(),
+                 color:PdfColors.grey300,
+
+               ),
+               children: [
+                 Padding(
+                     padding: const EdgeInsets.all(8.0),child:Text('Client'), ),
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),child: Text('S.N'), ),
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),child: Text('way'), ),
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),child: Text('From'), ),
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),child:  Text('To'), ),
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),child:  Text('Mark'),),
+               ]
+           ),
+
+     TableRow(
+         decoration: BoxDecoration(
+           border: Border.all(),
+
+         ),
+     children: [
+       Padding(
+         padding: const EdgeInsets.all(8.0),
+          child:
+       Text(user.clientUsername ??''),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:  Text(user.clientIdentificationNumber ??''),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:   Text(user.transportationType ??''),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:Text(user.exportWarehouseName ??''),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child: Text(user.target ??''),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child: Text(user.markNumber ??''),),
+     ]),
+     TableRow(
+         decoration: BoxDecoration(
+           border: Border.all(),
+           color:  PdfColors.grey300
+         ),
+     children: [
+       Padding(
+         padding: const EdgeInsets.all(8.0),child: Text('Product type'), ),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:Text('G'), ),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child: Text('Q'),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:  Text('Supplier'),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:   Text('Date'),),
+     ]),
+     TableRow(
+         decoration: BoxDecoration(
+           border: Border.all(),
+         ),
+     children: [
+       Padding(
+         padding: const EdgeInsets.all(8.0),child: Text(user.categoriesNames ??''),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:Text(user.guniQuantity.toString()),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:Text(user.quantity.toString()),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:Text(user.supplierName ??''),),
+       Padding(
+         padding: const EdgeInsets.all(8.0),child:    Text(user.updatedAt.toString().split(' ').first),),
+
+     ]),
+     ] ),
+     ]) )
+     ]);
+
+
+
+     // pdf.addPage(
+     //   MultiPage(
+     //     theme: ThemeData.withFont(
+     //       base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+     //     ),
+     //     margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
+     //     pageFormat: PdfPageFormat.a4,
+     //     orientation: PageOrientation.portrait,
+     //     build: (context) => <Widget>[
+     //
+     //     ],
+     //   ),
+     // );
+     //
+     // return await pdf.save();
+   }
+
 }

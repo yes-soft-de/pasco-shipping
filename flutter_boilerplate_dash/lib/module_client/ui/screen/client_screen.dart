@@ -2,6 +2,7 @@ import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_client/client_routes.dart';
 import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_client/state_manager/client_state_manager.dart';
 import 'package:pasco_shipping/module_client/ui/state/clients_state/client_state.dart';
@@ -30,7 +31,16 @@ class _CountriesScreenState extends State<ClientsScreen> {
         showFilter: false,
         goBack: (){
         },
-        child: Screen(),
+        child:Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child:  Screen()),
+          ),
+        ),
         title: S.of(context).clients
     );
   }
@@ -68,6 +78,7 @@ class _CountriesScreenState extends State<ClientsScreen> {
       items = state!.distributors;
       return ClientsSuccessfully(items: items ,onDelete: (id){
         CoolAlert.show(
+          width: 150,
           context: context,
           type: CoolAlertType.warning,
           title:  S.of(context).deleteClient,
@@ -80,8 +91,10 @@ class _CountriesScreenState extends State<ClientsScreen> {
         );
 
       },
-        onEdit: (request){
-          // widget._stateManager.updateSupplier(request);
+        onEdit: (model){
+         Navigator.pushNamed(context, ClientRoutes.UPDATE,arguments: {'model':model}).then((value) {
+           widget._stateManager.getClients();
+         });
         },
       );
     }

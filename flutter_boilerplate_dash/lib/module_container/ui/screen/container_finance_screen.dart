@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
@@ -89,11 +90,25 @@ class _CountriesScreenState extends State<ContainerFinanceScreen> {
      containerID: id,
      containerFinances: state.finances,
      addFinance: (request){
-       if(type=='LCL') {
-         widget._stateManager.createContainerLCLFinance(request,subs);
-       }else{
-         widget._stateManager.createContainerFCLFinance(request,subs);
-       }
+       CoolAlert.show(
+         width: 150,
+         context: context,
+         type: CoolAlertType.info,
+         title:  S.of(context).careful,
+         confirmBtnText: S.of(context).ok,
+         backgroundColor:AppThemeDataService.PrimaryColor,
+         confirmBtnColor:AppThemeDataService.AccentColor,
+         onConfirmBtnTap: (){
+           Navigator.pop(context);
+           if(type=='LCL') {
+             widget._stateManager.createContainerLCLFinance(request,subs);
+           }else{
+             widget._stateManager.createContainerFCLFinance(request,subs);
+           }
+         },
+         text: S.of(context).addCostConfirm,
+       );
+
      }, subContracts: subs,
         type: type,
       );

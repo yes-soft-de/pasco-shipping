@@ -12,6 +12,7 @@ import 'package:pasco_shipping/module_sub_contract/response/subcontract_response
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
+import 'package:pasco_shipping/utils/widget/text_edit.dart';
 
 class FilterAirwaybillInit extends StatefulWidget {
   final List<SubcontractModel> subContracts;
@@ -147,6 +148,13 @@ class _AddCountryInitState extends State<FilterAirwaybillInit> {
                 ),
               ),
 
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Enter air waybill ID', style: AppTextStyle.mediumBlackBold,),
+              ),
+              TextEdit(hint: 'Enter air waybill ID', title: '', onChange: (containerID){
+                containerFilterRequest.airwaybillid = int.parse(containerID);
+              }),
 
             Padding(
               padding: const EdgeInsets.all(8.0),
