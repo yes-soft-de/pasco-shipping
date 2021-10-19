@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\AdminProfileEntity;
 use App\Entity\AirwaybillFCLFinanceEntity;
 use App\Entity\ClientProfileEntity;
+use App\Entity\ProxyEntity;
 use App\Entity\ShipmentStatusEntity;
 use App\Entity\SubcontractEntity;
 use App\Entity\WarehouseEntity;
@@ -131,8 +132,9 @@ class AirwaybillFCLFinanceEntityRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('airwaybillFinance')
             ->select('airwaybillFinance.id', 'airwaybillFinance.airwaybillID', 'airwaybillFinance.status', 'airwaybillFinance.stageCost', 'airwaybillFinance.stageDescription', 'airwaybillFinance.clientUserID', 'airwaybillFinance.chequeNumber',
             'airwaybillFinance.currency', 'airwaybillFinance.createdAt', 'airwaybillFinance.updatedAt', 'airwaybillFinance.createdBy', 'airwaybillFinance.updatedBy', 'airwaybillFinance.subcontractID', 'airwaybillFinance.importWarehouseID',
-            'airwaybillFinance.buyingCost', 'airwaybillFinance.sellingCost', 'airwaybillFinance.paymentType', 'airwaybillFinance.financialFundName', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage',
-                'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage', 'subcontractEntity.fullName as subcontractName', 'warehouseEntity.name as importWarehouseName', 'clientProfileEntity.userName as clientUsername')
+            'airwaybillFinance.buyingCost', 'airwaybillFinance.sellingCost', 'airwaybillFinance.paymentType', 'airwaybillFinance.proxyID', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage',
+                'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage', 'subcontractEntity.fullName as subcontractName', 'warehouseEntity.name as importWarehouseName', 'clientProfileEntity.userName as clientUsername',
+             'proxyEntity.fullName as proxyName')
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -167,6 +169,13 @@ class AirwaybillFCLFinanceEntityRepository extends ServiceEntityRepository
                 'clientProfileEntity',
                 Join::WITH,
                 'clientProfileEntity.userID = airwaybillFinance.clientUserID'
+            )
+
+            ->leftJoin(
+                ProxyEntity::class,
+                'proxyEntity',
+                Join::WITH,
+                'proxyEntity.id = airwaybillFinance.proxyID'
             )
 
             ->orderBy('airwaybillFinance.id', 'DESC');

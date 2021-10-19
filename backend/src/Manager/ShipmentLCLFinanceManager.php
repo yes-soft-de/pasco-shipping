@@ -51,12 +51,20 @@ class ShipmentLCLFinanceManager
              * Check if the payment time is Collect, then automatically set the payment type to cash, and the fund is the fund of
              * the target country
              */
-            $result = $this->getImportCountryNameAndPaymentTimeByShipmentOrderID($request->getShipmentID());
+            $result = $this->getPaymentTimeAndImportAndExportProxiesIDsByShipmentOrderID($request->getShipmentID());
 
             if($result['paymentTime'] == ShipmentOrderPaymentTypeConstant::$COLLECT_PAYMENT_TYPE)
             {
                 $shipmentFinanceEntity->setPaymentType(PaymentTypeConstant::$CASH_PAYMENT_TYPE);
-                $shipmentFinanceEntity->setFinancialFundName($result['importCountryName'] . " Fund");
+                $shipmentFinanceEntity->setProxyID($result['importProxyID']);
+            }
+            elseif($result['paymentTime'] == ShipmentOrderPaymentTypeConstant::$PREPAID_PAYMENT_TYPE)
+            {
+                if($result['exportProxyID'])
+                {
+                    $shipmentFinanceEntity->setPaymentType(PaymentTypeConstant::$CASH_PAYMENT_TYPE);
+                    $shipmentFinanceEntity->setProxyID($result['exportProxyID']);
+                }
             }
 
             $this->entityManager->persist($shipmentFinanceEntity);
@@ -160,9 +168,9 @@ class ShipmentLCLFinanceManager
         return $this->shipmentOrderManager->getImportWarehouseIdByShipmentOrderID($shipmentID);
     }
 
-    public function getImportCountryNameAndPaymentTimeByShipmentOrderID($shipmentID)
+    public function getPaymentTimeAndImportAndExportProxiesIDsByShipmentOrderID($shipmentID)
     {
-        return $this->shipmentOrderManager->getImportCountryNameAndPaymentTimeByShipmentOrderID($shipmentID);
+        return $this->shipmentOrderManager->getPaymentTimeAndImportAndExportProxiesIDsByShipmentOrderID($shipmentID);
     }
 
     public function getOneKiloOrCBMPriceByShipmentID($shipmentID)

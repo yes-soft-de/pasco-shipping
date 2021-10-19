@@ -13,6 +13,7 @@ use App\Request\ClientProfileUpdateRequest;
 use App\Request\ClientRegisterByDashboardRequest;
 use App\Request\DeleteRequest;
 use App\Request\ClientRegisterRequest;
+use App\Request\ClientUpdatePasswordByDashboardRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -22,17 +23,20 @@ class ClientManager
     private $entityManager;
     private $encoder;
     private $userRepository;
+    private $userEntityRepository;
     private $clientProfileEntityRepository;
     private $markManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder,
-                                UserEntityRepository $userRepository, ClientProfileEntityRepository $clientProfileEntityRepository, MarkManager $markManager)
+                                UserEntityRepository $userRepository, ClientProfileEntityRepository $clientProfileEntityRepository, MarkManager $markManager,
+     UserEntityRepository $userEntityRepository)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->encoder = $encoder;
         $this->userRepository = $userRepository;
         $this->clientProfileEntityRepository = $clientProfileEntityRepository;
+        $this->userEntityRepository = $userEntityRepository;
         $this->markManager = $markManager;
     }
 
@@ -111,10 +115,7 @@ class ClientManager
 
             $user = new UserEntity($request->getUserID());
 
-            if($request->getPassword())
-            {
-                $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
-            }
+            $userRegister->setPassword($this->encoder->encodePassword($user, "ps000"));
 
             if($request->getRoles() == null)
             {
@@ -180,6 +181,27 @@ class ClientManager
     //         return true;
     //    }
     // }
+
+    public function updateClientPasswordByDashboard(ClientUpdatePasswordByDashboardRequest $request)
+    {
+        $userEntity = $this->userEntityRepository->find($request->getId());
+
+        if(!$userEntity)
+        {
+            return $userEntity;
+        }
+        else
+        {
+            $userEntity = $this->autoMapping->mapToObject(ClientUpdatePasswordByDashboardRequest::class, UserEntity::class, $request, $userEntity);
+
+            $userEntity->setPassword($this->encoder->encodePassword($userEntity, $request->getPassword()));
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $userEntity;
+        }
+    }
 
     public function clientProfileUpdate(ClientProfileUpdateRequest $request)
     {

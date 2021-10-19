@@ -1,14 +1,14 @@
 <?php
 
-
 namespace App\Request;
 
-
-class UserUpdateRequest
+class ClientUpdatePasswordByDashboardRequest
 {
     private $id;
 
     private $password;
+
+    private $updatedBy;
 
     public function getId()
     {
@@ -18,6 +18,11 @@ class UserUpdateRequest
     public function getPassword()
     {
         return $this->password;
+    }
+
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
     }
     
 }

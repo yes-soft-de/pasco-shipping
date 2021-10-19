@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\AdminProfileEntity;
 use App\Entity\AirwaybillLCLFinanceEntity;
+use App\Entity\ProxyEntity;
 use App\Entity\SubcontractEntity;
 use App\Entity\WarehouseEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -48,8 +49,8 @@ class AirwaybillLCLFinanceEntityRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('airWaybillLCLFinanceEntity')
             ->select('airWaybillLCLFinanceEntity.id', 'airWaybillLCLFinanceEntity.airwaybillID', 'airWaybillLCLFinanceEntity.status', 'airWaybillLCLFinanceEntity.stageCost', 'airWaybillLCLFinanceEntity.stageDescription', 'airWaybillLCLFinanceEntity.currency', 'airWaybillLCLFinanceEntity.createdAt',
                 'airWaybillLCLFinanceEntity.updatedAt', 'airWaybillLCLFinanceEntity.createdBy', 'airWaybillLCLFinanceEntity.updatedBy', 'airWaybillLCLFinanceEntity.subcontractID', 'airWaybillLCLFinanceEntity.importWarehouseID', 'airWaybillLCLFinanceEntity.paymentType',
-                'airWaybillLCLFinanceEntity.financialFundName', 'airWaybillLCLFinanceEntity.chequeNumber', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
-             'subcontractEntity.fullName as subcontractName', 'warehouseEntity.name as importWarehouseName')
+                'airWaybillLCLFinanceEntity.proxyID', 'airWaybillLCLFinanceEntity.chequeNumber', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
+             'subcontractEntity.fullName as subcontractName', 'warehouseEntity.name as importWarehouseName', 'proxyEntity.fullName as proxyName')
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -77,6 +78,13 @@ class AirwaybillLCLFinanceEntityRepository extends ServiceEntityRepository
                 'warehouseEntity',
                 Join::WITH,
                 'warehouseEntity.id = airWaybillLCLFinanceEntity.importWarehouseID'
+            )
+
+            ->leftJoin(
+                ProxyEntity::class,
+                'proxyEntity',
+                Join::WITH,
+                'proxyEntity.id = airWaybillLCLFinanceEntity.proxyID'
             )
 
             ->orderBy('airWaybillLCLFinanceEntity.id', 'DESC');

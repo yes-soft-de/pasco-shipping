@@ -48,7 +48,7 @@ class AirwaybillLCLFinanceController extends BaseController
      *          @OA\Property(type="integer", property="subcontractID"),
      *          @OA\Property(type="string", property="paymentType"),
      *          @OA\Property(type="string", property="chequeNumber"),
-     *          @OA\Property(type="string", property="financialFundName"),
+     *          @OA\Property(type="integer", property="proxyID"),
      *          @OA\Property(type="string", property="currency")
      *      )
      * )
@@ -121,7 +121,7 @@ class AirwaybillLCLFinanceController extends BaseController
      *                      @OA\Property(type="string", property="subcontractName"),
      *                      @OA\Property(type="string", property="importWarehouseName"),
      *                      @OA\Property(type="string", property="paymentType"),
-     *                      @OA\Property(type="string", property="financialFundName"),
+     *                      @OA\Property(type="string", property="proxyName"),
      *                      @OA\Property(type="string", property="chequeNumber"),
      *                      @OA\Property(type="object", property="createdAt"),
      *                      @OA\Property(type="object", property="updatedAt"),

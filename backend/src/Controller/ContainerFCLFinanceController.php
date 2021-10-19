@@ -51,7 +51,7 @@ class ContainerFCLFinanceController extends BaseController
      *          @OA\Property(type="integer", property="subcontractID"),
      *          @OA\Property(type="string", property="paymentType"),
      *          @OA\Property(type="string", property="chequeNumber"),
-     *          @OA\Property(type="string", property="financialFundName"),
+     *          @OA\Property(type="integer", property="proxyID"),
      *          @OA\Property(type="string", property="currency")
      *      )
      * )
@@ -127,7 +127,7 @@ class ContainerFCLFinanceController extends BaseController
      *                      @OA\Property(type="string", property="importWarehouseName"),
      *                      @OA\Property(type="string", property="clientUsername"),
      *                      @OA\Property(type="string", property="paymentType"),
-     *                      @OA\Property(type="string", property="financialFundName"),
+     *                      @OA\Property(type="string", property="proxyName"),
      *                      @OA\Property(type="string", property="chequeNumber"),
      *                      @OA\Property(type="number", property="price"),
      *                      @OA\Property(type="array", property="shipmentInfo",

@@ -6,19 +6,13 @@ use App\AutoMapping;
 use App\Constant\ShipmentOrderStatusConstant;
 use App\Constant\TravelStatusConstant;
 use App\Constant\TravelTypeConstant;
-use App\Entity\UserEntity;
 use App\Repository\UserEntityRepository;
-use App\Request\UserUpdateRequest;
-use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class MainManager
 {
     private $autoMapping;
-    private $entityManager;
     private $userEntityRepository;
-    private $encoder;
     private $shipmentOrderManager;
     private $travelManager;
     private $userManager;
@@ -28,14 +22,12 @@ class MainManager
     private $shipmentLCLFinanceManager;
     private $trackManager;
 
-    public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder, UserEntityRepository $userEntityRepository,
-                                ShipmentOrderManager $shipmentOrderManager, TravelManager $travelManager, ClientManager $userManager, AdminManager $adminManager, ShipmentStatusManager $shipmentStatusManager,
-                                ShipmentLogManager $shipmentLogManager, ShipmentLCLFinanceManager $shipmentLCLFinanceManager, TrackManager $trackManager)
+    public function __construct(AutoMapping $autoMapping,UserEntityRepository $userEntityRepository, ShipmentOrderManager $shipmentOrderManager, TravelManager $travelManager,
+                                ClientManager $userManager, AdminManager $adminManager, ShipmentStatusManager $shipmentStatusManager, ShipmentLogManager $shipmentLogManager,
+                                ShipmentLCLFinanceManager $shipmentLCLFinanceManager, TrackManager $trackManager)
     {
         $this->autoMapping = $autoMapping;
-        $this->entityManager = $entityManager;
         $this->userEntityRepository = $userEntityRepository;
-        $this->encoder = $encoder;
         $this->shipmentOrderManager = $shipmentOrderManager;
         $this->travelManager = $travelManager;
         $this->userManager = $userManager;
@@ -44,28 +36,6 @@ class MainManager
         $this->shipmentLogManager = $shipmentLogManager;
         $this->shipmentLCLFinanceManager = $shipmentLCLFinanceManager;
         $this->trackManager = $trackManager;
-    }
-
-    public function update(UserUpdateRequest $request)
-    {
-        $userEntity = $this->userEntityRepository->find($request->getId());
-        
-        if(!$userEntity)
-        {
-            return  $userEntity;
-        }
-        else
-        {
-            $userEntity = $this->autoMapping->mapToObject(UserUpdateRequest::class, UserEntity::class, 
-            $request, $userEntity);
-
-            $userEntity->setPassword($this->encoder->encodePassword($userEntity, $request->getPassword()));
-
-            $this->entityManager->flush();
-            $this->entityManager->clear();
-            
-            return $userEntity;
-        }
     }
 
     public function findAll()

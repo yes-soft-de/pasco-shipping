@@ -8,8 +8,6 @@ class ClientRegisterByDashboardRequest
 
     private $roles = [];
 
-    private $password;
-
     private $email;
 
     private $createdBy;
@@ -26,74 +24,39 @@ class ClientRegisterByDashboardRequest
 
     private $phone;
 
-    /**
-     * @return mixed
-     */
     public function getUserID()
     {
         return $this->userID;
     }
 
-    /**
-     * @param mixed $userID
-     */
-    public function setUserID($userID): void
+    public function setUserID($userID)
     {
         $this->userID = $userID;
     }
 
-    /**
-     * @return array
-     */
-    public function getRoles(): array
+    public function getRoles()
     {
         return $this->roles;
     }
 
-    /**
-     * @param array $roles
-     */
-    public function setRoles(array $roles): void
+    public function setRoles(array $roles)
     {
         $this->roles = $roles;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password): void
-    {
-        $this->password = $password;
-    }
-
-     /**
-     * @return mixed
-     */ 
     public function getEmail()
     {
         return $this->email;
     }
 
-   /**
-     * @param mixed $email
-     */ 
     public function setEmail($email)
     {
         $this->email = $email;
-
-        return $this;
     }
 
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
     }
+
 }

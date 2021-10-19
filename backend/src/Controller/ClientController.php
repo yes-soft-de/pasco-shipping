@@ -8,6 +8,7 @@ use App\Request\ClientProfileUpdateByDashboardRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\ClientRegisterByDashboardRequest;
 use App\Request\ClientRegisterRequest;
+use App\Request\ClientUpdatePasswordByDashboardRequest;
 use App\Request\DeleteRequest;
 use App\Service\ClientService;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -92,7 +93,6 @@ class ClientController extends BaseController
      *      description="Creates client and profile at the same time from dashboard",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="userID"),
-     *          @OA\Property(type="string", property="password"),
      *          @OA\Property(type="string", property="userName"),
      *          @OA\Property(type="string", property="email")
      *      )
@@ -158,6 +158,67 @@ class ClientController extends BaseController
 
     //     return $this->response($response, self::CREATE);
     // }
+
+    /**
+     * @Route("clientpassword", name="updateClientPassword", methods={"PUT"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Client")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Updates the password of a client",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="id"),
+     *          @OA\Property(type="string", property="password")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the roles and the creation date of the client",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="array", property="roles",
+     *                      @OA\Items(example="user")
+     *                  ),
+     *                  @OA\Property(type="object", property="createAt"),
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function updateClientPasswordByDashboard(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, ClientUpdatePasswordByDashboardRequest::class, (object)$data);
+
+        $request->setUpdatedBy($this->getUserId());
+
+        $violations = $this->validator->validate($request);
+
+        if (\count($violations) > 0)
+        {
+            $violationsString = (string) $violations;
+
+            return new JsonResponse($violationsString, Response::HTTP_OK);
+        }
+
+        $result = $this->clientService->updateClientPasswordByDashboard($request);
+
+        return $this->response($result, self::UPDATE);
+    }
 
     /**
      * @Route("clientprofile", name="updateClientProfile", methods={"PUT"})
@@ -284,7 +345,7 @@ class ClientController extends BaseController
     }
 
     /**
-     * @Route("clientprofile", name="getClientProfileByID",methods={"GET"})
+     * @Route("clientprofile", name="getClientProfileByID", methods={"GET"})
      * 
      * @OA\Tag(name="Client")
      * 
@@ -323,7 +384,7 @@ class ClientController extends BaseController
     }
 
     /**
-     * @Route("client/{userID}", name="getFullClientInfoByID",methods={"GET"})
+     * @Route("client/{userID}", name="getFullClientInfoByID", methods={"GET"})
      * 
      * @OA\Tag(name="Client")
      * 

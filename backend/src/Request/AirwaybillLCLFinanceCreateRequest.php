@@ -22,7 +22,7 @@ class AirwaybillLCLFinanceCreateRequest
 
     private $chequeNumber;
 
-    private $financialFundName;
+    private $proxyID;
 
     private $createdBy;
 
