@@ -167,14 +167,19 @@ class ContainerSpecificationPriceController extends BaseController
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="id"),
      *                  @OA\Property(type="integer", property="containerSpecificationID"),
-     *                  @OA\Property(type="integer", property="exportCountryName"),
+     *                  @OA\Property(type="string", property="containerSpecificationName"),
+     *                  @OA\Property(type="integer", property="exportCountryID"),
+     *                  @OA\Property(type="string", property="exportCountryName"),
      *                  @OA\Property(type="string", property="exportCity"),
-     *                  @OA\Property(type="integer", property="destinationPortName"),
+     *                  @OA\Property(type="integer", property="destinationPortID"),
+     *                  @OA\Property(type="string", property="destinationPortName"),
      *                  @OA\Property(type="number", property="price"),
      *                  @OA\Property(type="object", property="createdAt"),
      *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="integer", property="createdBy"),
      *                  @OA\Property(type="string", property="createdByUser"),
      *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="integer", property="updatedBy"),
      *                  @OA\Property(type="string", property="updatedByUser"),
      *                  @OA\Property(type="string", property="updatedByUserImage")
      *              )
