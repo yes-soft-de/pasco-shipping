@@ -3,12 +3,9 @@
 namespace App\Service;
 
 use App\AutoMapping;
-use App\Entity\UserEntity;
 use App\Manager\MainManager;
-use App\Request\UserUpdateRequest;
 use App\Response\DeleteAllGetResponse;
 use App\Response\StatisticsGetResponse;
-use App\Response\UserRegisterResponse;
 
 class MainService
 {
@@ -19,13 +16,6 @@ class MainService
     {
         $this->autoMapping = $autoMapping;
         $this->mainManager = $mainManager;
-    }
-
-    public function update(UserUpdateRequest $request)
-    {
-        $user = $this->mainManager->update($request);
-
-        return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $user);
     }
 
     public function findAll()

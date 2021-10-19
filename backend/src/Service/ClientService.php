@@ -11,6 +11,7 @@ use App\Request\ClientProfileUpdateByDashboardRequest;
 use App\Request\ClientProfileUpdateRequest;
 use App\Request\ClientRegisterByDashboardRequest;
 use App\Request\ClientRegisterRequest;
+use App\Request\ClientUpdatePasswordByDashboardRequest;
 use App\Response\ClientFullInfoGetResponse;
 use App\Response\ClientProfileResponse;
 use App\Response\ClientRegisterResponse;
@@ -80,6 +81,13 @@ class ClientService
     //         return $user;
     //     }
     // }
+
+    public function updateClientPasswordByDashboard(ClientUpdatePasswordByDashboardRequest $request)
+    {
+        $user = $this->clientManager->updateClientPasswordByDashboard($request);
+
+        return $this->autoMapping->map(UserEntity::class, UserRegisterResponse::class, $user);
+    }
 
     public function clientProfileUpdate(ClientProfileUpdateRequest $request)
     {

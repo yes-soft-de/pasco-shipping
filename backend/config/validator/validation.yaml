@@ -27,6 +27,13 @@ App\Request\ClientProfileUpdateByDashboardRequest:
     updatedBy:
       - NotBlank: ~
 
+App\Request\ClientUpdatePasswordByDashboardRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    updatedBy:
+      - NotBlank: ~
+
 App\Request\OrderShipmentCreateRequest:
   properties:
     clientUserID:
