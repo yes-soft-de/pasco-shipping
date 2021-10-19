@@ -12,7 +12,7 @@ class ContainerPriceService{
   Future<ConfirmResponse?> updateContainerPrice(ContainerPriceRequest request) {
     return _manager.updateContainerPrice(request);
   }
-  Future<ConfirmResponse?> createShippingLinePrice(ContainerPriceRequest request) {
+  Future<ConfirmResponse?> createContainerPrice(ContainerPriceRequest request) {
     return _manager.createContainerPrice(request);
   }
 

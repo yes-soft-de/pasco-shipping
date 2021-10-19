@@ -1,28 +1,41 @@
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/module_container_specification/service/container_specification_service.dart';
+import 'package:pasco_shipping/module_harbor/request/harbor_filter_request.dart';
+import 'package:pasco_shipping/module_harbor/service/harbor_service.dart';
 import 'package:pasco_shipping/module_price/request/price_request.dart';
+import 'package:pasco_shipping/module_price/service/container_price_service.dart';
 import 'package:pasco_shipping/module_price/service/price_service.dart';
-import 'package:pasco_shipping/module_price/ui/state/addNew_state/add__lines_state.dart';
+import 'package:pasco_shipping/module_price/ui/state/container_price/add_container_price_state/add_container_price_state.dart';
 import 'package:pasco_shipping/module_shipment_request/service/shipment_request_service/first_option_service.dart';
 import 'package:rxdart/rxdart.dart';
 
 @injectable
-class AddLinePriceStateManager {
-  final PriceService _priceService;
+class AddContainerPriceStateManager {
+  final ContainerPriceService _priceService;
   final FirstOptionService _firstOptionService;
+  final HarborService _harborService;
+  final ContainerSpecificationService _specificationService;
 
 
-  final PublishSubject<AddLinesPriceState> _addStateSubject = PublishSubject();
-  Stream<AddLinesPriceState> get stateStream => _addStateSubject.stream;
+  final PublishSubject<AddContainerPriceState> _addStateSubject = PublishSubject();
+  Stream<AddContainerPriceState> get stateStream => _addStateSubject.stream;
 
-  AddLinePriceStateManager(this._priceService, this._firstOptionService,);
+  AddContainerPriceStateManager(this._priceService, this._firstOptionService, this._harborService, this._specificationService,);
 
-  void getCountries(){
+  void getCountriesAndHarborAndSpecification(){
     _addStateSubject.add(LoadingAddState());
-    _firstOptionService.getCountriesImport('import').then((imports) {
-      if(imports != null){
-        _firstOptionService.getCountriesImport('export').then((exports) {
-          if(exports != null){
-            _addStateSubject.add(InitAddState(countriesExport: exports,countriesImport: imports));
+    _firstOptionService.getCountriesImport('export').then((export) {
+      if(export != null){
+        HarborFilterRequest harborFilterRequest =HarborFilterRequest(type: 'seaport');
+        _harborService.getHarbor(harborFilterRequest).then((harbor) {
+          if(harbor != null){
+            _specificationService.getContainerSpecification().then((specification) {
+              if(specification != null){
+                _addStateSubject.add(InitAddPriceContainerState(countriesExport: export, specification: specification, harbors: harbor));
+              }else{
+                _addStateSubject.add(ErrorAddState('error'));
+              }
+            });
           }else{
             _addStateSubject.add(ErrorAddState('error'));
           }
@@ -33,9 +46,9 @@ class AddLinePriceStateManager {
     });
   }
 
-  void createShippingLinePrice(ShippingLinePriceRequest request) {
+  void createContainerPrice(ContainerPriceRequest request) {
     _addStateSubject.add(LoadingAddState());
-    _priceService.createShippingLinePrice(request).then((value) {
+    _priceService.createContainerPrice(request).then((value) {
       if (value != null) {
         if (value.isConfirmed) {
           _addStateSubject.add(SuccessfullyAddState(value));
@@ -47,9 +60,9 @@ class AddLinePriceStateManager {
       }
     });
   }
-  void updateShippingLinePrice(ShippingLinePriceRequest request) {
+  void updateContainerPrice(ContainerPriceRequest request) {
     _addStateSubject.add(LoadingAddState());
-    _priceService.updateShippingLinePrice(request).then((value) {
+    _priceService.updateContainerPrice(request).then((value) {
       if (value != null) {
         if (value.isConfirmed) {
           _addStateSubject.add(SuccessfullyAddState(value));

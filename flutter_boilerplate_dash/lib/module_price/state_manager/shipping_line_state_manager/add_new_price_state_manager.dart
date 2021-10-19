@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_price/request/price_request.dart';
 import 'package:pasco_shipping/module_price/service/price_service.dart';
-import 'package:pasco_shipping/module_price/ui/state/addNew_state/add__lines_state.dart';
+import 'package:pasco_shipping/module_price/ui/state/shipline_price/addNew_state/add__lines_state.dart';
 import 'package:pasco_shipping/module_shipment_request/service/shipment_request_service/first_option_service.dart';
 import 'package:rxdart/rxdart.dart';
 

@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_container_specification/service/container_specification_service.dart';
 import 'package:pasco_shipping/module_price/request/price_request.dart';
 import 'package:pasco_shipping/module_price/service/price_service.dart';
-import 'package:pasco_shipping/module_price/ui/state/price_state.dart';
+import 'package:pasco_shipping/module_price/ui/state/shipline_price/get_shipline_price/price_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 @injectable

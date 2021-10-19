@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
-import 'package:pasco_shipping/module_price/state_manager/price_state_manager.dart';
-import 'package:pasco_shipping/module_price/ui/state/price_state.dart';
-import 'package:pasco_shipping/module_price/ui/state/price_successfully.dart';
+import 'package:pasco_shipping/module_price/state_manager/shipping_line_state_manager/price_state_manager.dart';
+import 'package:pasco_shipping/module_price/ui/state/shipline_price/get_shipline_price/price_state.dart';
+import 'package:pasco_shipping/module_price/ui/state/shipline_price/get_shipline_price/price_successfully.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
@@ -13,7 +13,7 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
-import '../../price_routes.dart';
+import '../../../price_routes.dart';
 
 
 @injectable

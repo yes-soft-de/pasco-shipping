@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
+import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_price/request/price_request.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
@@ -9,30 +11,35 @@ import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
-class AddShippingLinePriceInit extends StatefulWidget {
+  class AddContainerPriceInit extends StatefulWidget {
   // final List<SubcontractModel> subContracts;
-  final List<Countries> countriesImports;
   final List<Countries> countriesExports;
+  final List<HarborModel> harbors;
+  final List<ContainerSpecificationModel> specification;
   final Function onSave;
-  const AddShippingLinePriceInit({required this.countriesExports , required this.countriesImports,required this.onSave });
+  const AddContainerPriceInit({required this.countriesExports , required this.specification, required this.harbors,required this.onSave });
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
 }
 
-class _AddCountryInitState extends State<AddShippingLinePriceInit> {
-  late TextEditingController oneCPMPrice ;
-  late TextEditingController oneKiloPrice ;
+class _AddCountryInitState extends State<AddContainerPriceInit> {
+  late TextEditingController price ;
+  // late TextEditingController oneKiloPrice ;
 
 
 
   late DropListModel dropListModelFromCountries;
-  late DropListModel dropListModelToCountries;
+  late DropListModel dropListModelHarbor;
+  late DropListModel dropListModelSpecification;
+
   late Entry optionItemSelectedFrom;
-  late Entry optionItemSelectedTo;
+  late Entry optionItemSelectedHarbor;
+  late Entry optionItemSelectedSpecification;
 
   late List<Entry> entryFrom;
-  late List<Entry> entryTo;
+  late List<Entry> entryHarbor;
+  late List<Entry> entrySpecification;
 
   void initShippingFrom() {
     List<Entry> children = <Entry>[];
@@ -43,7 +50,7 @@ class _AddCountryInitState extends State<AddShippingLinePriceInit> {
         children = [];
         for (Warehouse warehouseItem in item.warehouses!) {
           print(warehouseItem.countryName);
-          Entry warehouse = Entry(warehouseItem.city!, warehouseItem.id!, []);
+          Entry warehouse = Entry(warehouseItem.city!, country.id, []);
           children.add(warehouse);
         }
         country.children = children;
@@ -52,25 +59,20 @@ class _AddCountryInitState extends State<AddShippingLinePriceInit> {
     }
     dropListModelFromCountries = DropListModel(entryFrom);
   }
-  void initShippingTo() {
-    List<Entry> children = <Entry>[];
-    for (Countries item in widget.countriesImports) {
-      if (item.warehouses!.isNotEmpty && item.type=='import') {
-        Entry country = Entry(item.name!, item.id!, children);
-        print(country.id);
-        children = [];
-        for (Warehouse warehouseItem in item.warehouses!) {
-          print(warehouseItem.countryName);
-          Entry warehouse = Entry(warehouseItem.city!, warehouseItem.id!, []);
-          children.add(warehouse);
-        }
-        print('Hii');
-        print(children.length);
-        country.children = children;
-        entryTo.add(country);
-      }
+
+  void initHarbor(){
+    for(HarborModel  item in widget.harbors){
+      Entry v = Entry(item.name! ,item.id! ,[]);
+      entryHarbor.add(v);
     }
-    dropListModelToCountries = DropListModel(entryTo);
+    dropListModelHarbor = DropListModel(entryHarbor);
+  }
+  void initSpecification(){
+    for(ContainerSpecificationModel  item in widget.specification){
+      Entry v = Entry(item.name! ,item.id! ,[]);
+      entrySpecification.add(v);
+    }
+    dropListModelSpecification = DropListModel(entrySpecification);
   }
 
   @override
@@ -111,14 +113,33 @@ class _AddCountryInitState extends State<AddShippingLinePriceInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).to, style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).type, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
-              SelectDropListl(
-                this.optionItemSelectedTo,
-                this.dropListModelToCountries,
+              SelectDropList(
+                this.optionItemSelectedSpecification,
+                this.dropListModelSpecification,
                     (optionItem) {
-                  optionItemSelectedTo = optionItem;
+                  optionItemSelectedSpecification = optionItem;
+                  // widget.shipmentRequest.exportWarehouseID =optionItem.id;
+                  // widget.shipmentRequest.exportWarehouseName =optionItem.title;
+                  setState(() {});
+                },
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).harbors, style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              SelectDropList(
+                this.optionItemSelectedHarbor,
+                this.dropListModelHarbor,
+                    (optionItem) {
+                  optionItemSelectedHarbor = optionItem;
                   // widget.shipmentRequest.exportWarehouseID =optionItem.id;
                   // widget.shipmentRequest.exportWarehouseName =optionItem.title;
                   setState(() {});
@@ -130,7 +151,7 @@ class _AddCountryInitState extends State<AddShippingLinePriceInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).oneKiloPrice , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).prices , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               Padding(
@@ -157,59 +178,24 @@ class _AddCountryInitState extends State<AddShippingLinePriceInit> {
                       border: InputBorder.none,
                       hintText: S.of(context).number,
                     ),
-                    controller: oneKiloPrice,
+                    controller: price,
                   ),
                 ),
               ),
 
-
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).oneCBMPrice , style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  padding: EdgeInsets.only(
-                      top: 4,left: 16, right: 16, bottom: 4
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(15)
-                      ),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 5
-                        )
-                      ]
-                  ),
-                  child: TextField(
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: S.of(context).number,
-                    ),
-                    controller: oneCPMPrice,
-                  ),
-                ),
-              ),
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
 
-                ShippingLinePriceRequest re = ShippingLinePriceRequest(
-                    oneCBMPrice: double.parse(oneCPMPrice.text),
-                    oneKiloPrice:  double.parse(oneKiloPrice.text),
+
+                ContainerPriceRequest re = ContainerPriceRequest(
+                    price: int.parse(price.text),
                   exportCity: optionItemSelectedFrom.title,
                   exportCountryID: optionItemSelectedFrom.id,
-                  importCity: optionItemSelectedTo.title,
-                  importCountryID: optionItemSelectedTo.id
+                  containerSpecificationID: optionItemSelectedSpecification.id,
+                destinationPortID: optionItemSelectedHarbor.id
                 );
+                print(re.exportCity);
+                print(re.exportCountryID);
                 widget.onSave(re);
 
               }, radius: 15)
@@ -225,17 +211,20 @@ class _AddCountryInitState extends State<AddShippingLinePriceInit> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     initShippingFrom();
-    initShippingTo();
+    initHarbor();
+    initSpecification();
   }
 
   @override
   void initState() {
     super.initState();
     entryFrom =[];
-    entryTo=[];
-    oneCPMPrice = TextEditingController();
-    oneKiloPrice = TextEditingController();
-    optionItemSelectedTo = Entry('choose', 0, []);
+    entryHarbor=[];
+    entrySpecification=[];
+    price = TextEditingController();
+
+    optionItemSelectedHarbor = Entry('choose', 0, []);
+    optionItemSelectedSpecification= Entry('choose', 0, []);
     optionItemSelectedFrom = Entry('choose', 0, []);
 
   }

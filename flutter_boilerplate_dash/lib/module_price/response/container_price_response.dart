@@ -28,7 +28,8 @@ class ContainerPriceModel {
     this.id,
     this.exportCity,
     this.price,
-    this.exportCountryName, this.containerSpecificationName,
+    this.exportCountryName,
+    this.containerSpecificationName,
     this.destinationPortName
 
   });

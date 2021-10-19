@@ -3,30 +3,28 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
-import 'package:pasco_shipping/module_price/response/price_response.dart';
-import 'package:pasco_shipping/module_price/state_manager/add_new_price_state_manager.dart';
-import 'package:pasco_shipping/module_price/ui/state/addNew_state/add__lines_state.dart';
-import 'package:pasco_shipping/module_price/ui/state/update_price_state/update_lines_price_init.dart';
+import 'package:pasco_shipping/module_price/state_manager/shipping_line_state_manager/add_new_price_state_manager.dart';
+import 'package:pasco_shipping/module_price/ui/state/shipline_price/addNew_state/add__lines_state.dart';
+import 'package:pasco_shipping/module_price/ui/state/shipline_price/addNew_state/add_lines_price_init.dart';
 import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
 @injectable
-class UpdateLinesPrice extends StatefulWidget {
+class AddNewLinesPrice extends StatefulWidget {
   final AddLinePriceStateManager _stateManager;
 
-  const UpdateLinesPrice(this._stateManager);
+  const AddNewLinesPrice(this._stateManager);
 
   @override
   _AddNewCountryState createState() => _AddNewCountryState();
 }
 
-class _AddNewCountryState extends State<UpdateLinesPrice> {
+class _AddNewCountryState extends State<AddNewLinesPrice> {
   late AddLinesPriceState currentState;
   late List<Countries> countriesImport;
   late List<Countries> countriesExport;
-  late LinesPrice model;
 
   @override
   Widget build(BuildContext context) {
@@ -44,17 +42,10 @@ class _AddNewCountryState extends State<UpdateLinesPrice> {
                 child: Screen()),
           ),
         ),
-        title: 'Update Shipping Line'
+        title: S.of(context).add
     );
   }
 
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
-    model =arguments['model'];
-  }
 
   @override
   void initState() {
@@ -66,11 +57,7 @@ class _AddNewCountryState extends State<UpdateLinesPrice> {
       print("newEvent"+event.toString());
       currentState = event;
       if (this.mounted) {
-        if(currentState is SuccessfullyAddState){
-          Navigator.pop(context);
-        }else {
-          setState(() {});
-        }
+        setState(() {});
       }
     });
     widget._stateManager.getCountries();
@@ -92,14 +79,18 @@ class _AddNewCountryState extends State<UpdateLinesPrice> {
       InitAddState? state = currentState as InitAddState?;
       countriesExport = state!.countriesExport;
       countriesImport = state.countriesImport;
-      return UpdateShippingLinePriceInit(
-        countriesImports:countriesImport ,
+      return AddShippingLinePriceInit(countriesImports:countriesImport ,countriesExports: countriesExport, onSave: (req){
+        widget._stateManager.createShippingLinePrice(req);
+      },);
+    }
+    else if (currentState is SuccessfullyAddState){
+      Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
+      return AddShippingLinePriceInit(
         countriesExports: countriesExport,
-        onUpdate: (req){
-        widget._stateManager.updateShippingLinePrice(req);
-      },
-        model:model ,
-      );
+        countriesImports: countriesImport,
+        onSave: (request){
+        // widget._stateManager.createUnit(request);
+      },);
     }
     else {
       return Center(

@@ -4,8 +4,9 @@ class ContainerPriceRequest{
   int destinationPortID;
   String exportCity;
   int price ;
+  int? id;
 
-  ContainerPriceRequest({required this.price , required this.containerSpecificationID , required this.exportCity ,required this.exportCountryID ,required this.destinationPortID});
+  ContainerPriceRequest({this.id, required this.price , required this.containerSpecificationID , required this.exportCity ,required this.exportCountryID ,required this.destinationPortID});
 
   Map<String, dynamic> toJson() => {
     'containerSpecificationID':containerSpecificationID,
@@ -13,6 +14,7 @@ class ContainerPriceRequest{
     'destinationPortID':destinationPortID,
     'exportCity':exportCity,
     'price':price,
+    'id':id
 };
 }
 class ShippingLinePriceRequest{

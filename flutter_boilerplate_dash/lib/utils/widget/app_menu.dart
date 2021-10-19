@@ -1102,6 +1102,7 @@ class AppMenu extends ConsumerWidget {
                                         ListTile(
                                             title: new Text(S.of(context).add),
                                             onTap: () {
+                                              selectPage(context,ref,PriceRoutes.ADD_CONTAINER_PRICE_SCREEN);
                                             }),
                                       ],
                                     ),
