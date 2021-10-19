@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\AdminProfileEntity;
 use App\Entity\ClientProfileEntity;
 use App\Entity\ContainerFCLFinanceEntity;
+use App\Entity\ProxyEntity;
 use App\Entity\ShipmentStatusEntity;
 use App\Entity\SubcontractEntity;
 use App\Entity\WarehouseEntity;
@@ -131,8 +132,9 @@ class ContainerFCLFinanceEntityRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('containerFinance')
             ->select('containerFinance.id', 'containerFinance.containerID', 'containerFinance.status', 'containerFinance.stageCost', 'containerFinance.stageDescription', 'containerFinance.currency', 'containerFinance.createdAt',
                 'containerFinance.updatedAt', 'containerFinance.createdBy', 'containerFinance.updatedBy', 'containerFinance.subcontractID', 'containerFinance.importWarehouseID', 'containerFinance.clientUserID', 'containerFinance.paymentType',
-                'containerFinance.buyingCost', 'containerFinance.sellingCost', 'containerFinance.financialFundName', 'containerFinance.chequeNumber', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage',
-                'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage', 'subcontractEntity.fullName as subcontractName', 'warehouseEntity.name as importWarehouseName', 'clientProfileEntity.userName as clientUsername')
+                'containerFinance.buyingCost', 'containerFinance.sellingCost', 'containerFinance.proxyID', 'containerFinance.chequeNumber', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage',
+                'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage', 'subcontractEntity.fullName as subcontractName', 'warehouseEntity.name as importWarehouseName', 'clientProfileEntity.userName as clientUsername',
+             'proxyEntity.fullName as proxyName')
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -167,6 +169,13 @@ class ContainerFCLFinanceEntityRepository extends ServiceEntityRepository
                 'clientProfileEntity',
                 Join::WITH,
                 'clientProfileEntity.userID = containerFinance.clientUserID'
+            )
+
+            ->leftJoin(
+                ProxyEntity::class,
+                'proxyEntity',
+                Join::WITH,
+                'proxyEntity.id = containerFinance.proxyID'
             )
 
             ->orderBy('containerFinance.id', 'DESC');
