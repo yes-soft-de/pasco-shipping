@@ -49,7 +49,7 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReview> {
       if (this.mounted) {
         if(currentState is SuccessfullyAddedShipment){
        Fluttertoast.showToast(msg: S.of(context).shipmentAddSuccessfully);
-        Navigator.pop(context);
+        Navigator.pushNamedAndRemoveUntil(context, HomeRoutes.controller, (route) => false);
         }else {
           setState(() {});
         }
@@ -77,7 +77,9 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReview> {
         widget._stateManger.addShipment(request);
       });
     }
-
+    if(currentState is SuccessfullyAddedShipment){
+      return Container();
+    }
     // else if(currentState is SuccessfullyModifyMarkState){
     //   SuccessfullyModifyMarkState state = currentState as SuccessfullyModifyMarkState;
     //   items = state.marks;

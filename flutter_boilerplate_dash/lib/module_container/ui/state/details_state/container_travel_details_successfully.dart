@@ -14,6 +14,7 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_s
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
+import 'package:pasco_shipping/utils/helpers/pdf_paragraph_api.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
@@ -58,6 +59,23 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                       ],
                     ))
               ],
+            ),
+          ),
+          Center(
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue[800],
+              ),
+              onPressed: () async {
+                final pdfFile = await PdfParagraphApi.generateContainerDetailsReport(widget.model);
+
+                PdfParagraphApi.openFile(pdfFile);
+              },
+              icon: Icon(Icons.document_scanner_sharp),
+              label: Text(
+                S.of(context).reports,
+                style: AppTextStyle.mediumWhite,
+              ),
             ),
           ),
           Container(
@@ -196,7 +214,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
             padding: const EdgeInsets.all(10.0),
             child: Text(S.of(context).shipmentInformation, style: AppTextStyle.largeBlueBold,),
           ),
-          widget.model.shipments!.isEmpty?
+          widget.model.shipments.isEmpty?
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(S.of(context).noShipmentAdd ,style: AppTextStyle.mediumRed,),
@@ -207,24 +225,24 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
             itemBuilder: (context , index){
               return InkWell(
                 onTap: (){
-                  widget.onShipmentReview(widget.model.shipments![index]);
+                  widget.onShipmentReview(widget.model.shipments[index]);
                 },
-                child: shipmentCard(widget.model.shipments![index] ,
+                child: shipmentCard(widget.model.shipments[index] ,
                 ),
               );
             },
-            itemCount: widget.model.shipments!.length,
+            itemCount: widget.model.shipments.length,
           ),
-          (widget.model.shipmentID !=null  && widget.model.shipments!.isEmpty)?(
+          (widget.model.shipmentID !=null  && widget.model.shipments.isEmpty)?(
               Container(child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Text('this container requested for specific shipment' , style: AppTextStyle.mediumRed,),
               ),)
-          ):          (widget.model.shipments!.isNotEmpty
+          ):          (widget.model.shipments.isNotEmpty
               &&  widget.model.shippingStatus
                   == 'notuploaded') ?
           uploadToTravel():
-          (widget.model.shipments!.isNotEmpty  &&  widget.model.shippingStatus == TravelStatusName[TravelStatus.RELEASED]) ?
+          (widget.model.shipments.isNotEmpty  && ( widget.model.shippingStatus == TravelStatusName[TravelStatus.RELEASED] ||widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED] || widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]) ) ?
           changeContainerStatus():
 
               Container(child: Padding(
@@ -340,7 +358,12 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('#'+shipmentModel.id.toString() , style: AppTextStyle.mediumBlackBold,),
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
@@ -390,6 +413,13 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                   Text(shipmentModel.guniQuantity.toString() , style: AppTextStyle.mediumBlueBold,),
                 ],),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Text(S.of(context).quantity , style: AppTextStyle.mediumBlack,),
+                  Text(shipmentModel.quantity.toString() , style: AppTextStyle.mediumBlueBold,),
+                ],),
+              ),
             ],
           ),
         ),
@@ -409,12 +439,13 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
   }
 
   Widget changeContainerStatus(){
-    if(widget.model.shipments!.isNotEmpty
+    if(widget.model.shipments.isNotEmpty
         && widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED]
         && !(widget.model.type == 'FCL' &&
-            widget.model.shipments![0].isExternalWarehouse!)
+            widget.model.shipments[0].isExternalWarehouse!)
     )
       {
+        print('clearded');
       return  Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -431,18 +462,18 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
               StatusCard(S.of(context).arrived ,false),
             ],),
          RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
-           ContainerClearedOrArrivedRequest re1 = ContainerClearedOrArrivedRequest(id: widget.model.id!,status:AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]!);
+           AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED]!);
               widget.onClearedOrArrived(re1);
 
           },radius: 12)
         ],
       ),
     );
-    }else if (widget.model.shipments!.isNotEmpty &&
+    }else if (widget.model.shipments.isNotEmpty &&
         widget.model.shippingStatus ==
             AcceptedShipmentStatusName[AcceptedShipmentStatus.RELEASED] &&
         widget.model.type == 'FCL' &&
-        widget.model.shipments![0].isExternalWarehouse!) {
+        widget.model.shipments[0].isExternalWarehouse!) {
       return  Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -457,7 +488,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                 StatusCard(S.of(context).arrived ,false),
               ],),
             RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
-              ContainerClearedOrArrivedRequest re1 = ContainerClearedOrArrivedRequest(id: widget.model.id!,status:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
+              AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
               widget.onClearedOrArrived(re1);
 
             },radius: 12)
@@ -465,7 +496,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
         ),
       );
     }
-    else if (widget.model.shipments!.isNotEmpty
+    else if (widget.model.shipments.isNotEmpty
         &&  widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.CLEARED])
     {
         return  Container(
@@ -484,7 +515,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
                   StatusCard(S.of(context).arrived ,false),
                 ],),
               RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
-                ContainerClearedOrArrivedRequest re1 = ContainerClearedOrArrivedRequest(id: widget.model.id!,status:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
+                AddContainerToTravelRequest re1 = AddContainerToTravelRequest(holderID: widget.model.id!,shipmentStatus:AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]!);
                 widget.onClearedOrArrived(re1);
 
               },radius: 12)
@@ -492,7 +523,7 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerTravelDetailsSuc
           ),
         );
   }
-    else if (widget.model.shipments!.isNotEmpty
+    else if (widget.model.shipments.isNotEmpty
         &&  widget.model.shippingStatus == AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]){
       return Padding(
         padding: const EdgeInsets.all(10.0),

@@ -11,7 +11,8 @@ import '../../tracking_routes.dart';
 
 class SearchCard extends StatelessWidget {
   final Function onSearch;
-  SearchCard({required this.onSearch});
+  final String title;
+  SearchCard({required this.onSearch,required this.title});
 
 
   @override
@@ -38,7 +39,7 @@ class SearchCard extends StatelessWidget {
                     controller: trackNumberController,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
-                      hintText: S.of(context).enterNumber,
+                      hintText: title,
                       hintStyle: black18text,
                       focusedBorder: InputBorder.none,
                       enabledBorder: InputBorder.none,

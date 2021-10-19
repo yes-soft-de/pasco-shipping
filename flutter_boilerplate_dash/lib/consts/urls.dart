@@ -170,6 +170,12 @@ class Urls {
   static const GET_Travel_FINANCE = BASE_API + 'filtertravelfinance';
   static const ADD_Travel_FINANCE = BASE_API + 'travelfinance';
 
+  //shipment invoices
+  static const ADD_SHIPMENT_INVOICES = BASE_API + 'shipmentinvoice';
+  static const GET_SHIPMENT_INVOICES = BASE_API + 'filtershipmentinvoices';
+  static const UPDATE_SHIPMENT_INVOICES = BASE_API + 'shipmentinvoicepaymentinfo';
+
+
 
 
   //gunny

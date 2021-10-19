@@ -56,16 +56,22 @@ class _CountriesScreenState extends State<ViewWarehouseScreen> {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     filterRequest =arguments['filterRequest'];
     withFilter = arguments['withFilter'];
-    request = WarehouseFilterRequest(typeOfCountry: typeOfCountry);
+    if(filterRequest.status=='arrived'){
+      typeOfCountry = 'import';
+      type = 'import';
+      request = WarehouseFilterRequest(typeOfCountry: typeOfCountry);
+    }else{
+      typeOfCountry = 'export';
+      type = 'export';
+      request = WarehouseFilterRequest(typeOfCountry: typeOfCountry);
+    }
     widget._stateManager.getWarehouses(request);
   }
 
   @override
   void initState() {
     super.initState();
-    typeOfCountry = 'import';
-    selectedRadioGender = 1;
-    type = 'import';
+    selectedRadioGender = 2;
     currentState = LoadingState();
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
@@ -109,9 +115,9 @@ class _CountriesScreenState extends State<ViewWarehouseScreen> {
                       children: [
                         Radio(
                           onChanged: (value) {
-                            _setSelectedRadioGender(1);
+                            _setSelectedRadioGender(2);
                           },
-                          value: 1,
+                          value: 2,
                           groupValue: selectedRadioGender,
                           activeColor: Colors.white,
                         ),
@@ -119,7 +125,7 @@ class _CountriesScreenState extends State<ViewWarehouseScreen> {
                           width: 5,
                         ),
                         Text(
-                          S.of(context).import,
+                          S.of(context).export,
                           style: AppTextStyle.mediumWhite,
                         ),
                       ],
@@ -135,9 +141,9 @@ class _CountriesScreenState extends State<ViewWarehouseScreen> {
                       children: [
                         Radio(
                           onChanged: (value) {
-                            _setSelectedRadioGender(2);
+                            _setSelectedRadioGender(1);
                           },
-                          value: 2,
+                          value: 1,
                           groupValue: selectedRadioGender,
                           activeColor: Colors.white,
                         ),
@@ -145,7 +151,7 @@ class _CountriesScreenState extends State<ViewWarehouseScreen> {
                           width: 5,
                         ),
                         Text(
-                          S.of(context).export,
+                          S.of(context).import,
                           style: AppTextStyle.mediumWhite,
                         ),
                       ],

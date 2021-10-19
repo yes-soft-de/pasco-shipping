@@ -28,7 +28,8 @@ class _CountriesScreenState extends State<ShipmentShiftingScreen> {
   late ShiftingState currentState;
   late List<ShipmentShiftingModel> items;
   late String type;
-  late ShiftingShipmentFilterRequest request;
+  late ShiftingShipmentFilterRequest filterRequest;
+  late bool hideButton;
   @override
   Widget build(BuildContext context) {
     return Background(
@@ -44,8 +45,13 @@ class _CountriesScreenState extends State<ShipmentShiftingScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
-    request = arguments['filterRequest'];
-    widget._stateManager.getShiftingShipment(request);
+    filterRequest = arguments['filterRequest'];
+    if(filterRequest.fromImportWarehouseID != null ){
+      hideButton = true;
+    }else {
+      hideButton = false;
+    }
+    widget._stateManager.getShiftingShipment(filterRequest);
   }
 
   @override
@@ -79,8 +85,8 @@ class _CountriesScreenState extends State<ShipmentShiftingScreen> {
       return ShiftingShipmentSuccessfully(items: items ,
         onChangeStatus: (model,status){
           UpdateShiftingStatusRequest request =UpdateShiftingStatusRequest(model.id,status);
-        widget._stateManager.updateStatus(request);
-        },
+        widget._stateManager.updateStatus(request,filterRequest);
+        }, hideButton: hideButton,
         // onDetails: (id){
         // // Navigator.pushNamed(context, TravelRoutes.DETAILS , arguments: {'id' : id}).then((value){
         // //   widget._stateManager.getTravelWithFilter(travelFilterRequest);

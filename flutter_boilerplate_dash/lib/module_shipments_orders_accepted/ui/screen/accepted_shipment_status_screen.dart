@@ -52,6 +52,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
  late bool updated;
  late String holderType;
  late String cityName;
+ late int remainedQuantity;
 
  late Entry optionItemSelectedContainer;
   @override
@@ -70,7 +71,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
     super.didChangeDependencies();
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
      id =arguments['id'].toString();
-    int shipmentID =arguments['id'];
+     remainedQuantity =arguments['remainedQuantity'];
     int clientUserID =arguments['clientUserID'];
     cityName =arguments['cityName'].toString();
     holderType =arguments['holderType'].toString();
@@ -346,8 +347,75 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         createGunny: (){
           widget._stateManager.createGunny(statusModels,state.subContracts,state.lastGunnies);
         }, infoStoredInGunny: state.storedModelInfo, onStoredInGunny: (m){
-          widget._stateManager.storedShipmentInGunny(m,statusModels,state.subContracts);
-      }, gunnies: state.gunnies,
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.info,
+          title:  S.of(context).careful,
+          widget: Container(
+            height: 200,
+            child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: Scrollbar(
+                isAlwaysShown: true,
+                showTrackOnHover: true,
+                child: SingleChildScrollView(
+                  child: Container(
+                    color: Colors.grey[200],
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(S.of(context).reviewInformation , style: AppTextStyle.mediumRedBold,),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text('Gunny number' + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                Expanded
+                                  (child: Text( m.gunnyNumber , style: AppTextStyle.mediumBlack,))
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text('Gunny Status' + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                Expanded
+                                  (child: Text( m.gunnyStatus , style: AppTextStyle.mediumBlack,))
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text(S.of(context).quantity , style: AppTextStyle.mediumBlackBold,),
+                                Expanded
+                                  (child: Text(m.quantity.toString(), style: AppTextStyle.mediumBlack,))
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          confirmBtnText: S.of(context).ok,
+          backgroundColor:AppThemeDataService.PrimaryColor,
+          confirmBtnColor:AppThemeDataService.AccentColor,
+          onConfirmBtnTap: (){
+            Navigator.pop(context);
+            widget._stateManager.storedShipmentInGunny(m,statusModels,state.subContracts);
+          },
+          text: S.of(context).changeStatusConfirm,
+        );
+        }, gunnies: state.gunnies,
       );
     }
     else if (currentState is ReceivedStatusWithGunniesState) {
@@ -456,7 +524,74 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
         createGunny: (){
           widget._stateManager.createGunny(statusModels,state.subContracts,state.lastGunnies);
         }, infoStoredInGunny: state.storedModelInfo, onStoredInGunny: (m){
-        widget._stateManager.storedShipmentInGunny(m,statusModels,state.subContracts);
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.info,
+          title:  S.of(context).careful,
+          widget: Container(
+            height: 200,
+            child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: Scrollbar(
+                isAlwaysShown: true,
+                showTrackOnHover: true,
+                child: SingleChildScrollView(
+                  child: Container(
+                    color: Colors.grey[200],
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(S.of(context).reviewInformation , style: AppTextStyle.mediumRedBold,),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text('Gunny number' + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                Expanded
+                                  (child: Text( m.gunnyNumber , style: AppTextStyle.mediumBlack,))
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text('Gunny Status' + ': ' , style: AppTextStyle.mediumBlackBold,),
+                                Expanded
+                                  (child: Text( m.gunnyStatus , style: AppTextStyle.mediumBlack,))
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text(S.of(context).quantity , style: AppTextStyle.mediumBlackBold,),
+                                Expanded
+                                  (child: Text(m.quantity.toString(), style: AppTextStyle.mediumBlack,))
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          confirmBtnText: S.of(context).ok,
+          backgroundColor:AppThemeDataService.PrimaryColor,
+          confirmBtnColor:AppThemeDataService.AccentColor,
+          onConfirmBtnTap: (){
+            Navigator.pop(context);
+            widget._stateManager.storedShipmentInGunny(m,statusModels,state.subContracts);
+          },
+          text: S.of(context).changeStatusConfirm,
+        );
       }, gunnies: state.gunnies,
       );
     }

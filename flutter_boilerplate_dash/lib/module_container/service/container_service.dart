@@ -37,8 +37,8 @@ import 'package:pasco_shipping/module_general/response/confirm_response.dart';
   Future<ConfirmResponse?> updateContainerStatus(ContainerChangeStateRequest request) {
     return _manager.updateContainerStatus(request);
   }
-  Future<ConfirmResponse?> updateContainerStatusClearedOrArrived(ContainerClearedOrArrivedRequest request) {
-    return _manager.updateContainerStatusClearedOrArrived(request);
+  Future<ConfirmResponse?> updateContainerStatusClearedOrArrived(AddContainerToTravelRequest request) {
+    return _manager.uploadedContainerToTravel(request);
   }
   Future<ConfirmResponse?> uploadedContainerToTravelRequest(AddContainerToTravelRequest request) {
     return _manager.uploadedContainerToTravel(request);

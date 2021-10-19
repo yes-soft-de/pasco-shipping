@@ -7,7 +7,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:open_file/open_file.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill/response/airwaybill_response.dart';
+import 'package:pasco_shipping/module_container/response/container_details_response.dart';
 import 'package:pasco_shipping/module_container/response/container_response.dart';
+import 'package:pasco_shipping/module_shipment_invoices/response/invoice_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_response.dart';
@@ -627,6 +629,408 @@ class PdfParagraphApi {
     );
     return saveDocument(name: 'Received.pdf', pdf: pdf);
   }
+
+
+  static Future<File> generateContainerDetailsReport(ContainerDetailsModel model) async {
+    final pdf = Document();
+    final ByteData bytes =
+    await rootBundle.load(StaticImage.logo);
+    final Uint8List byteList = bytes.buffer.asUint8List();
+    final headers =
+    ['ID',S.current.paymentTime,S.current.guniQuantity,
+      S.current.quantity,S.current.trackNumber,S.current.targetWarehouse
+    ];
+    final data = model.shipments.map((user) =>
+    [user.id,user.paymentTime, user.guniQuantity,
+      user.quantity,user.trackNumber,
+      user.target,
+    ]).toList();
+    pdf.addPage(
+      MultiPage(
+        margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
+        pageFormat: PdfPageFormat.a4,
+        build: (context) => <Widget>[
+          Container(
+            padding: EdgeInsets.all( 5 * PdfPageFormat.mm),
+
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(width: 2, color: PdfColors.blue)),
+            ),
+            child: Row(
+              children: [
+                Image(
+                    MemoryImage(
+                      byteList,
+                    ),
+                    height: 150,
+                    width: 150,
+                    fit: BoxFit.contain),
+                SizedBox(width: 5 * PdfPageFormat.cm),
+                Column(
+                    children: [
+                      Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                      Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
+                    ]
+                )
+              ],
+            ),
+          ),
+          SizedBox(height: 0.5 * PdfPageFormat.cm),
+          Text(
+            'Container Report',
+            style: TextStyle( fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: PdfColors.blue,),
+          ),
+          SizedBox(height: 0.5 * PdfPageFormat.cm),
+          Table(
+            tableWidth: TableWidth.max,
+            border: TableBorder.all(),
+            children: [
+              TableRow(
+                  children: [
+                    Padding( padding: const EdgeInsets.all(8.0), child: Row(children: [
+                      Text('ID: ' ,style:TextStyle( fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: PdfColors.black,) ),
+                      Text(model.id.toString(),style:TextStyle( fontSize: 16,
+                        color: PdfColors.blue,))
+                    ])),
+                    Padding( padding: const EdgeInsets.all(8.0), child: Row(children: [
+                      Text(S.current.containerNumber+': ' ,style:TextStyle( fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: PdfColors.black,) ),
+                      Text(model.containerNumber ??'',style:TextStyle( fontSize: 16,
+                        color: PdfColors.blue,))
+                    ]),),
+                  ]),
+              TableRow(
+                  children: [
+                    Padding( padding: const EdgeInsets.all(8.0), child:   Row(children: [
+                      Text(S.current.RequestedBy ,style:TextStyle( fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: PdfColors.black,) ),
+                      Text(model.updatedByUser ??'',style:TextStyle( fontSize: 16,
+                        color: PdfColors.blue,))
+                    ]),),
+                    Padding( padding: const EdgeInsets.all(8.0), child:    Row(children: [
+                      Text(S.current.shippingType+': ' ,style:TextStyle( fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: PdfColors.black,) ),
+                      Text(model.type ??'',style:TextStyle( fontSize: 16,
+                        color: PdfColors.blue,))
+                    ]),),
+
+                  ]),
+            ],
+          ),
+          SizedBox(height: 0.5 * PdfPageFormat.cm),
+          Text(
+            'Shipment in container',
+            style: TextStyle( fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: PdfColors.blue,),
+          ),
+          Table.fromTextArray(
+            headers: headers,
+            data: data,
+            headerStyle: TextStyle(fontWeight: FontWeight.bold),
+            headerDecoration: BoxDecoration(color: PdfColors.grey300),
+            cellHeight: 30,
+
+            columnWidths: {
+              0: FixedColumnWidth(15),
+              1: FixedColumnWidth(30),
+              2: FixedColumnWidth(30),
+
+              3: FixedColumnWidth(30),
+              4: FixedColumnWidth(30),
+
+              5: FixedColumnWidth(30),
+
+              // 8: FixedColumnWidth(30),
+            },
+            cellAlignments: {
+              0: Alignment.center,
+              1: Alignment.center,
+              2: Alignment.center,
+              3: Alignment.center,
+              4: Alignment.center,
+              5: Alignment.center,
+              // 8: Alignment.center,
+            },
+            // headerPadding: Padding(padding: 12)
+          ),
+
+          // Paragraph(text: LoremText().paragraph(60)),
+          // Paragraph(text: LoremText().paragraph(60)),
+          // Paragraph(text: LoremText().paragraph(60)),
+          // Paragraph(text: LoremText().paragraph(60)),
+          // Paragraph(text: LoremText().paragraph(60)),
+        ],
+        footer: (context) {
+          final text = 'Page ${context.pageNumber} of ${context.pagesCount}';
+
+          return Container(
+            alignment: Alignment.centerRight,
+            margin: EdgeInsets.only(top: 1 * PdfPageFormat.cm),
+            child: Text(
+              text,
+              style: TextStyle(color: PdfColors.black),
+            ),
+          );
+        },
+      ),
+    );
+    return saveDocument(name: 'containerReport.pdf', pdf: pdf);
+  }
+  static Future<File> generateShipmentInvoiceReport(InvoiceModel model) async {
+    final pdf = Document();
+    final ByteData bytes =
+    await rootBundle.load(StaticImage.logo);
+    final Uint8List byteList = bytes.buffer.asUint8List();
+    final headers =
+    [S.current.shipmentStatus,S.current.stageCost,S.current.description,
+    ];
+    final data = model.billingDetails.map((user) =>
+    [user.shipmentStatus,user.stageCost, user.stageDescription,
+    ]).toList();
+    pdf.addPage(
+      MultiPage(
+        margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
+        pageFormat: PdfPageFormat.a4,
+        build: (context) => <Widget>[
+          Container(
+            padding: EdgeInsets.all( 5 * PdfPageFormat.mm),
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(width: 2, color: PdfColors.blue)),
+            ),
+            child: Row(
+              children: [
+                Image(
+                    MemoryImage(
+                      byteList,
+                    ),
+                    height: 150,
+                    width: 150,
+                    fit: BoxFit.contain),
+                SizedBox(width: 5 * PdfPageFormat.cm),
+                Column(
+                    children: [
+                      Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                      Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
+                    ]
+                )
+              ],
+            ),
+          ),
+          SizedBox(height: 0.5 * PdfPageFormat.cm),
+          Text(
+            'Invoice Report',
+            style: TextStyle( fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: PdfColors.blue,),
+          ),
+          SizedBox(height: 0.5 * PdfPageFormat.cm),
+          Padding(padding: EdgeInsets.all( 8 * PdfPageFormat.mm) ,child:  Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children:[
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(children: [
+                        Text('Invoice Number: ', style:TextStyle( fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: PdfColors.black,
+                        )),
+                        Text(model.id.toString(),
+                            style:TextStyle( fontSize: 18,
+                              color: PdfColors.black,
+                            )
+                        ),
+                      ]),
+                      Row(children: [
+                        Text('Payment Date: ', style:TextStyle( fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: PdfColors.black,
+                        )),
+                        Text(model.paymentDate.toString().split(' ').first.toString(),
+                            style:TextStyle( fontSize: 18,
+                              color: PdfColors.black,
+                            )
+                        ),
+                      ]),
+
+
+                    ]),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(children: [
+                        Text('Client Name: ', style:TextStyle( fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: PdfColors.black,
+                        )),
+                        Text(model.clientUserName.toString().split(' ').first.toString(),
+                            style:TextStyle( fontSize: 18,
+                              color: PdfColors.black,
+                            )
+                        ),
+                      ]),
+                      Row(children: [
+                        Text('Client Phone: ', style:TextStyle( fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: PdfColors.black,
+                        )),
+                        Text(model.clientPhone.toString().split(' ').first.toString(),
+                            style:TextStyle( fontSize: 18,
+                              color: PdfColors.black,
+                            )
+                        ),
+                      ]),
+
+
+                    ]),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(children: [
+                        Text('Serial Number: ', style:TextStyle( fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: PdfColors.black,
+                        )),
+                        Text(model.clientIdentificationNumber.toString().split(' ').first.toString(),
+                            style:TextStyle( fontSize: 18,
+                              color: PdfColors.black,
+                            )
+                        ),
+                      ]),
+                      Row(children: [
+                        Text('Payment Time: ', style:TextStyle( fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: PdfColors.black,
+                        )),
+                        Text(model.paymentTime.toString().split(' ').first.toString(),
+                            style:TextStyle( fontSize: 18,
+                              color: PdfColors.black,
+                            )
+                        ),
+                      ]),
+
+
+                    ]),
+              ]
+          ),),
+
+          SizedBox(height: 0.5 * PdfPageFormat.cm),
+          Text(
+            'Invoice Details',
+            style: TextStyle( fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: PdfColors.blue,),
+          ),
+          Table.fromTextArray(
+            headers: headers,
+            data: data,
+            headerStyle: TextStyle(fontWeight: FontWeight.bold),
+            headerDecoration: BoxDecoration(color: PdfColors.grey300),
+            cellHeight: 30,
+
+            columnWidths: {
+              0: FixedColumnWidth(15),
+              1: FixedColumnWidth(30),
+              2: FixedColumnWidth(30),
+
+              3: FixedColumnWidth(30),
+              4: FixedColumnWidth(30),
+
+              5: FixedColumnWidth(30),
+
+              // 8: FixedColumnWidth(30),
+            },
+            cellAlignments: {
+              0: Alignment.center,
+              1: Alignment.center,
+              2: Alignment.center,
+              3: Alignment.center,
+              4: Alignment.center,
+              5: Alignment.center,
+              // 8: Alignment.center,
+            },
+            // headerPadding: Padding(padding: 12)
+          ),
+          SizedBox(height: 0.5 * PdfPageFormat.cm),
+          Divider(height: 1,thickness: 2),
+          SizedBox(height: 0.5 * PdfPageFormat.cm),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(children: [
+                  Row(children: [
+                    Text('Total: ', style:TextStyle( fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: PdfColors.black,
+                    )),
+                    Text(model.totalCost.toString(),
+                        style:TextStyle( fontSize: 18,
+                          color: PdfColors.black,
+                        )
+                    ),
+                  ]),
+                  SizedBox(height: 0.5 * PdfPageFormat.cm),
+                  Row(
+                      children: [
+                        Text('Final amount: ', style:TextStyle( fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: PdfColors.black,
+                        )),
+                        Text(model.finalAmount.toString().split(' ').first.toString(),
+                            style:TextStyle( fontSize: 18,
+                              color: PdfColors.black,
+                            )
+                        ),
+                      ]),
+                ]),
+
+
+                Row(children: [
+                  Text('Discount: ', style:TextStyle( fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: PdfColors.black,
+                  )),
+                  Text(model.discount.toString().split(' ').first.toString(),
+                      style:TextStyle( fontSize: 18,
+                        color: PdfColors.black,
+                      )
+                  ),
+                ]),
+
+              ]),
+
+          // Paragraph(text: LoremText().paragraph(60)),
+          // Paragraph(text: LoremText().paragraph(60)),
+          // Paragraph(text: LoremText().paragraph(60)),
+          // Paragraph(text: LoremText().paragraph(60)),
+          // Paragraph(text: LoremText().paragraph(60)),
+        ],
+        footer: (context) {
+          final text = 'Page ${context.pageNumber} of ${context.pagesCount}';
+
+          return Container(
+            alignment: Alignment.centerRight,
+            margin: EdgeInsets.only(top: 1 * PdfPageFormat.cm),
+            child: Text(
+              text,
+              style: TextStyle(color: PdfColors.black),
+            ),
+          );
+        },
+      ),
+    );
+    return saveDocument(name: ' Invoice Report.pdf', pdf: pdf);
+  }
+
+
 
   static Future openFile(File file) async {
     final url = file.path;

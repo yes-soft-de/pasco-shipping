@@ -15,7 +15,7 @@ class ContainerDetailsResponse {
     statusCode = json['status_code'];
     msg = json['msg'];
     if (json['Data'] != null) {
-      data = ContainerDetailsModel();
+      data = ContainerDetailsModel(shipments: []);
       try {
         data = ContainerDetailsModel.fromJson(json['Data']);
       } catch (e, stack) {
@@ -50,7 +50,7 @@ class ContainerDetailsModel {
     this.updatedAt,
     this.updatedByUser,
 
-    this.shipments
+   required this.shipments
   });
 
   int? id;
@@ -76,7 +76,7 @@ class ContainerDetailsModel {
   DateTime? updatedAt;
   String? updatedByUser;
 
-  List<ShipmentModel>? shipments;
+  List<ShipmentModel> shipments;
 
   factory ContainerDetailsModel.fromJson(Map<String, dynamic> json) => ContainerDetailsModel(
     id: json['id'],
@@ -200,7 +200,7 @@ class ShipmentModel {
     target: json["target"],
     supplierName: json["supplierName"],
     distributorName: json["distributorName"],
-    exportWarehouseName: json["exportWarehouseName"],
+    exportWarehouseName: json["exportWarehouseName"] ?? json['externalWarehouseInfo'],
     importWarehouseName: json["importWarehouseName"],
     quantity: json["quantity"],
     image: json["image"],
@@ -215,7 +215,7 @@ class ShipmentModel {
     weight: json["weight"].toString(),
     volume: json["volume"].toString(),
     qrCode: json["qrCode"],
-    guniQuantity: json["guniQuantity"],
+    guniQuantity: json["guniQuantity"] ??0,
     vehicleIdentificationNumber: json["vehicleIdentificationNumber"],
     extraSpecification: json["extraSpecification"],
     isExternalWarehouse: json["isExternalWarehouse"],

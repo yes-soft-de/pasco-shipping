@@ -243,16 +243,16 @@ class _SelectDropListState extends State<SelectDropList> {
         padding: const EdgeInsets.all(8.0),
         child: Container(
             child: Column(children: <Widget>[
-          Container(
+             Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-            decoration: new BoxDecoration(
-              borderRadius: BorderRadius.circular(20.0),
-              color: Colors.grey[200],
-              boxShadow: [
-                BoxShadow(
-                    blurRadius: 10, color: Colors.white, offset: Offset(0, 2))
-              ],
-            ),
+            // decoration: new BoxDecoration(
+            //   borderRadius: BorderRadius.circular(20.0),
+            //   color: Colors.grey[50],
+            //   // boxShadow: [
+            //   //   BoxShadow(
+            //   //       blurRadius: 2, color: Colors.white, offset: Offset(0, 2))
+            //   // ],
+            // ),
             child: new Row(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,

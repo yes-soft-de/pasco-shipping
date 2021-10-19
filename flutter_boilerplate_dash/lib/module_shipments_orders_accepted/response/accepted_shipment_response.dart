@@ -123,7 +123,7 @@ this.categoriesNames,
         target= json["target"];
         supplierName= json["supplierName"];
         distributorName= json["distributorName"];
-        exportWarehouseName=json["exportWarehouseName"];
+        exportWarehouseName=json["exportWarehouseName"] ?? json["externalWarehouseInfo"] ;
         importWarehouseName= json["importWarehouseName"];
         quantity= json["quantity"];
         updatedAt= DateTime.fromMillisecondsSinceEpoch(

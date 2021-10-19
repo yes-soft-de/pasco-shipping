@@ -11,7 +11,7 @@ class ContainerResponse {
 
   String? statusCode;
   String? msg;
-  List<ContainerModel>? data;
+  var data;
 
   ContainerResponse.fromJson(Map<String, dynamic> json) {
     statusCode = json['status_code'];
@@ -21,6 +21,7 @@ class ContainerResponse {
       try {
         data = List<ContainerModel>.from(json['Data'].map((x) => ContainerModel.fromJson(x)));
       } catch (e, stack) {
+        data = json['Data'];
         Logger().error('Network Error', '${e.toString()}:\n${stack.toString()}',
             StackTrace.current);
       }

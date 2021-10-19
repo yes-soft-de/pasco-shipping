@@ -3289,6 +3289,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Payment type`
+  String get paymentType {
+    return Intl.message(
+      'Payment type',
+      name: 'paymentType',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
