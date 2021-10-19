@@ -111,10 +111,7 @@ class ClientManager
 
             $user = new UserEntity($request->getUserID());
 
-            if($request->getPassword())
-            {
-                $userRegister->setPassword($this->encoder->encodePassword($user, $request->getPassword()));
-            }
+            $userRegister->setPassword($this->encoder->encodePassword($user, "ps000"));
 
             if($request->getRoles() == null)
             {

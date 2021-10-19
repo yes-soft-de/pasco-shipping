@@ -92,7 +92,6 @@ class ClientController extends BaseController
      *      description="Creates client and profile at the same time from dashboard",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="userID"),
-     *          @OA\Property(type="string", property="password"),
      *          @OA\Property(type="string", property="userName"),
      *          @OA\Property(type="string", property="email")
      *      )
