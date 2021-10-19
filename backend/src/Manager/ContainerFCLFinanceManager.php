@@ -22,11 +22,11 @@ class ContainerFCLFinanceManager
     private $shipmentFinanceManager;
     private $shipmentOrderManager;
     private $containerManager;
-    private $containerSpecificationManager;
+    private $containerSpecificationPriceManager;
     private $containerFinanceEntityRepository;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ContainerFCLFinanceEntityRepository $containerFCLFinanceEntityRepository, TrackManager $trackManager,
-                                ShipmentLCLFinanceManager $shipmentFinanceManager, ShipmentOrderManager $shipmentOrderManager, ContainerManager $containerManager, ContainerSpecificationManager $containerSpecificationManager)
+                                ShipmentLCLFinanceManager $shipmentFinanceManager, ShipmentOrderManager $shipmentOrderManager, ContainerManager $containerManager, ContainerSpecificationPriceManager $containerSpecificationPriceManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -34,7 +34,7 @@ class ContainerFCLFinanceManager
         $this->shipmentFinanceManager = $shipmentFinanceManager;
         $this->shipmentOrderManager = $shipmentOrderManager;
         $this->containerManager = $containerManager;
-        $this->containerSpecificationManager = $containerSpecificationManager;
+        $this->containerSpecificationPriceManager = $containerSpecificationPriceManager;
         $this->containerFinanceEntityRepository = $containerFCLFinanceEntityRepository;
     }
 
@@ -270,11 +270,12 @@ class ContainerFCLFinanceManager
 
     public function getContainerSpecificationPriceByContainerID($containerID)
     {
-        $specificationResult = $this->containerManager->getSpecificationIdByContainerID($containerID);
+        $containerResult = $this->containerManager->getSpecificationIdAndExportCountryAndExportCityAndPortIdByContainerID($containerID);
 
-        if($specificationResult)
+        if($containerResult)
         {
-            $priceResult = $this->containerSpecificationManager->getContainerSpecificationPriceBySpecificationID($specificationResult['specificationID']);
+            $priceResult = $this->containerSpecificationPriceManager->getContainerSpecificationPriceBySpecificationIdAndExportCountryIdAndExportCityAndDestinationPortID($containerResult['specificationID'],
+                $containerResult['exportCountryID'], $containerResult['exportCity'], $containerResult['portID']);
 
             if($priceResult)
             {

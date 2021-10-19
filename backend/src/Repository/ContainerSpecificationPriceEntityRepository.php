@@ -73,4 +73,25 @@ class ContainerSpecificationPriceEntityRepository extends ServiceEntityRepositor
             ->getResult();
     }
 
+    public function getContainerSpecificationPriceBySpecificationIdAndExportCountryIdAndExportCityAndDestinationPortID($specificationID, $exportCountryID, $exportCity, $destinationPortID)
+    {
+        return $this->createQueryBuilder('containerSpecificationPriceEntity')
+            ->select('containerSpecificationPriceEntity.price')
+
+            ->andWhere('containerSpecificationPriceEntity.containerSpecificationID = :containerSpecificationID')
+            ->setParameter('containerSpecificationID', $specificationID)
+
+            ->andWhere('containerSpecificationPriceEntity.exportCountryID = :exportCountryID')
+            ->setParameter('exportCountryID', $exportCountryID)
+
+            ->andWhere('containerSpecificationPriceEntity.exportCity = :exportCity')
+            ->setParameter('exportCity', $exportCity)
+
+            ->andWhere('containerSpecificationPriceEntity.destinationPortID = :destinationPortID')
+            ->setParameter('destinationPortID', $destinationPortID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

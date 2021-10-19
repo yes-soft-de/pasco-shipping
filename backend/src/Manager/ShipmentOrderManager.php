@@ -686,9 +686,20 @@ class ShipmentOrderManager
         return $this->orderShipmentEntityRepository->getImportWarehouseIdByShipmentOrderID($shipmentID);
     }
 
+    // For create shipment lcl finance
+    public function getImportCountryNameAndPaymentTimeByShipmentOrderID($shipmentID)
+    {
+        return $this->orderShipmentEntityRepository->getImportCountryNameAndPaymentTimeByShipmentOrderID($shipmentID);
+    }
+
     public function getExportWarehouseIdByShipmentOrderID($shipmentID)
     {
         return $this->orderShipmentEntityRepository->getExportWarehouseIdByShipmentOrderID($shipmentID);
+    }
+
+    public function getExportCountryIdByShipmentOrderID($shipmentID)
+    {
+        return $this->orderShipmentEntityRepository->getExportCountryIdByShipmentOrderID($shipmentID);
     }
 
     public function getClientUserIdByShipmentOrderID($shipmentID)

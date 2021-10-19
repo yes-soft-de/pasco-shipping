@@ -584,10 +584,10 @@ class ContainerEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getSpecificationIdByContainerID($containerID)
+    public function getSpecificationIdAndExportCountryIdAndExportCityAndPortIdByContainerID($containerID)
     {
         return $this->createQueryBuilder('container')
-            ->select('container.specificationID')
+            ->select('container.specificationID', 'container.exportCountryID', 'container.exportCity', 'container.portID')
 
             ->andWhere('container.id = :id')
             ->setParameter('id', $containerID)

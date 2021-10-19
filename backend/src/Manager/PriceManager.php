@@ -99,6 +99,12 @@ class PriceManager
             $filterRequest->setExportCountryID($exportCountryIdAndCity['countryID']);
             $filterRequest->setExportCity($exportCountryIdAndCity['city']);
         }
+        else
+        {
+            $exportCountryID = $this->shipmentOrderManager->getExportCountryIdByShipmentOrderID($shipmentID);
+
+            $filterRequest->setExportCountryID($exportCountryID);
+        }
 
         if($importWarehouseID)
         {
@@ -131,6 +137,12 @@ class PriceManager
 
             $filterRequest->setExportCountryID($exportCountryIdAndCity['countryID']);
             $filterRequest->setExportCity($exportCountryIdAndCity['city']);
+        }
+        else
+        {
+            $exportCountryID = $this->shipmentOrderManager->getExportCountryIdByShipmentOrderID($shipmentID);
+
+            $filterRequest->setExportCountryID($exportCountryID);
         }
 
         if($importWarehouseID)

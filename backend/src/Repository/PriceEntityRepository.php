@@ -91,6 +91,24 @@ class PriceEntityRepository extends ServiceEntityRepository
             $query->setParameter('exportCountryID', $request->getExportCountryID());
         }
 
+        if($request->getExportCity())
+        {
+            $query->andWhere('priceEntity.exportCity = :exportCity');
+            $query->setParameter('exportCity', $request->getExportCity());
+        }
+
+        if($request->getImportCountryID())
+        {
+            $query->andWhere('priceEntity.importCountryID = :importCountryID');
+            $query->setParameter('importCountryID', $request->getImportCountryID());
+        }
+
+        if($request->getImportCity())
+        {
+            $query->andWhere('priceEntity.importCity = :importCity');
+            $query->setParameter('importCity', $request->getImportCity());
+        }
+
         return $query->getQuery()->getResult();
     }
 

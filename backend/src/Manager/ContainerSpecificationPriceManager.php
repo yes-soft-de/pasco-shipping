@@ -58,4 +58,10 @@ class ContainerSpecificationPriceManager
         return $this->containerSpecificationPriceEntityRepository->getAllContainerSpecificationPrices();
     }
 
+    public function getContainerSpecificationPriceBySpecificationIdAndExportCountryIdAndExportCityAndDestinationPortID($specificationID, $exportCountryID, $exportCity, $destinationPortID)
+    {
+        return $this->containerSpecificationPriceEntityRepository->getContainerSpecificationPriceBySpecificationIdAndExportCountryIdAndExportCityAndDestinationPortID($specificationID,
+            $exportCountryID, $exportCity, $destinationPortID);
+    }
+
 }

@@ -95,9 +95,4 @@ class ContainerSpecificationManager
         return $this->containerSpecificationEntityRepository->getContainerSpecificationById($specificationID);
     }
 
-    public function getContainerSpecificationPriceBySpecificationID($specificationID)
-    {
-        return $this->containerSpecificationEntityRepository->getContainerSpecificationPriceBySpecificationID($specificationID);
-    }
-
 }
