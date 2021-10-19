@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Constant\ShipmentLCLFinancialStatusConstant;
 use App\Entity\AdminProfileEntity;
 use App\Entity\OrderShipmentEntity;
+use App\Entity\ProxyEntity;
 use App\Entity\ShipmentLCLFinanceEntity;
 use App\Entity\SubcontractEntity;
 use App\Entity\TrackEntity;
@@ -162,9 +163,9 @@ class ShipmentLCLFinanceEntityRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('shipmentFinance')
             ->select('shipmentFinance.id', 'shipmentFinance.shipmentID', 'shipmentFinance.trackNumber', 'shipmentFinance.shipmentStatus', 'shipmentFinance.stageCost', 'shipmentFinance.stageDescription', 'shipmentFinance.currency', 'shipmentFinance.createdAt',
-                'shipmentFinance.updatedAt', 'shipmentFinance.createdBy', 'shipmentFinance.importWarehouseID', 'shipmentFinance.subcontractID', 'shipmentFinance.paymentType', 'shipmentFinance.financialFundName', 'shipmentFinance.chequeNumber', 'shipmentFinance.updatedBy',
+                'shipmentFinance.updatedAt', 'shipmentFinance.createdBy', 'shipmentFinance.importWarehouseID', 'shipmentFinance.subcontractID', 'shipmentFinance.paymentType', 'shipmentFinance.proxyID', 'shipmentFinance.chequeNumber', 'shipmentFinance.updatedBy',
                 'orderShipmentEntity.volume', 'orderShipmentEntity.weight', 'orderShipmentEntity.transportationType', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.image as updatedByUserImage',
-                'warehouseEntity.name as importWarehouseName', 'subcontractEntity.fullName as subcontractName')
+                'warehouseEntity.name as importWarehouseName', 'subcontractEntity.fullName as subcontractName', 'proxyEntity.fullName as proxyName')
 
             ->leftJoin(
                 OrderShipmentEntity::class,
@@ -206,6 +207,13 @@ class ShipmentLCLFinanceEntityRepository extends ServiceEntityRepository
                 'subcontractEntity',
                 Join::WITH,
                 'subcontractEntity.id = shipmentFinance.subcontractID'
+            )
+
+            ->leftJoin(
+                ProxyEntity::class,
+                'proxyEntity',
+                Join::WITH,
+                'proxyEntity.id = shipmentFinance.proxyID'
             )
 
             ->orderBy('shipmentFinance.id', 'DESC');
