@@ -18,10 +18,6 @@ class TravelUpdateRequest
 
     private $travelNumber;
 
-    private $shipperID;
-
-    private $carrierID;
-
     private $updatedBy;
 
     public function getId()

@@ -164,11 +164,7 @@ App\Request\TravelUpdateRequest:
       - NotBlank: ~
     launchDate:
       - NotBlank: ~
-    arrivalDate:
-      - NotBlank: ~
     travelNumber:
-      - NotBlank: ~
-    shipperID:
       - NotBlank: ~
 
 App\Request\WarehouseCreateRequest:
