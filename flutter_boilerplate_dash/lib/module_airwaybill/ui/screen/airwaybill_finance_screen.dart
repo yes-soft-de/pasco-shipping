@@ -8,6 +8,7 @@ import 'package:pasco_shipping/module_airwaybill/state_manger/airwaybill_finance
 import 'package:pasco_shipping/module_airwaybill/ui/state/airwaybill_finance_state/airwatbill_finance_state.dart';
 import 'package:pasco_shipping/module_airwaybill/ui/state/airwaybill_finance_state/airwaybill_finance_successfully.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
+import 'package:pasco_shipping/module_proxies/response/proxies_response.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
@@ -28,6 +29,7 @@ class AirwaybillFinanceScreen extends StatefulWidget {
 class _CountriesScreenState extends State<AirwaybillFinanceScreen> {
   late FinanceAirwaybillState currentState;
   late List<SubcontractModel> subs;
+  late List<ProxyModel> proxies;
   late int id;
   late String type;
 
@@ -60,6 +62,7 @@ class _CountriesScreenState extends State<AirwaybillFinanceScreen> {
   void initState() {
     super.initState();
     subs=[];
+    proxies=[];
     currentState = LoadingState();
     widget._stateManager.stateStream.listen((event) {
       currentState = event;
@@ -84,10 +87,12 @@ class _CountriesScreenState extends State<AirwaybillFinanceScreen> {
     else if (currentState is SuccessfullyFetchState) {
       SuccessfullyFetchState state = currentState as SuccessfullyFetchState;
       subs = state.subcontracts;
+      proxies = state.proxies;
       return AirwaybillFinanceSuccessfullyScreen(
      airwaybillID: id,
      type: type,
      subContracts: subs,
+     proxies: proxies,
      airwaybillFinances: state.finances,
      addFinance: (request){
        CoolAlert.show(
@@ -101,9 +106,9 @@ class _CountriesScreenState extends State<AirwaybillFinanceScreen> {
          onConfirmBtnTap: (){
            Navigator.pop(context);
            if(type=='LCL') {
-             widget._stateManager.createAirwaybillLCLFinance(request,subs);
+             widget._stateManager.createAirwaybillLCLFinance(request,subs,proxies);
            }else{
-             widget._stateManager.createAirwaybillFCLFinance(request,subs);
+             widget._stateManager.createAirwaybillFCLFinance(request,subs,proxies);
            }
          },
          text: S.of(context).addCostConfirm,

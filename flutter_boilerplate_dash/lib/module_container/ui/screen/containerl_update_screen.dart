@@ -10,6 +10,7 @@ import 'package:pasco_shipping/module_container_specification/response/container
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
+import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
 import 'package:pasco_shipping/module_shipper/response/shipper_response.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
@@ -32,6 +33,7 @@ class _AddNewCountryState extends State<UpdateContainer> {
   late List<ContainerSpecificationModel> specification;
   late List<ShipperModel> shippers;
   late List<HarborModel> harbors;
+  late List<Countries> countries;
   late ContainerModel model;
   late Entry option;
 
@@ -95,12 +97,14 @@ class _AddNewCountryState extends State<UpdateContainer> {
       subs = state.subcontracts;
       harbors = state.harbor;
       shippers = state.shippers;
+      countries = state.countries;
       return UpdateContainerInit(
         harbors: harbors,
         specifications: specification,
         subContracts: subs,
         model: model,
         shippers: shippers,
+        countriesExports: countries,
         onUpdate: (request , c){
           option = c;
         widget._stateManager.updateContainer(request);
@@ -117,7 +121,7 @@ class _AddNewCountryState extends State<UpdateContainer> {
         onUpdate: (request , c){
           option = c;
           widget._stateManager.updateContainer(request);
-        },);
+        },countriesExports: countries,);
     }
     else {
       return Center(

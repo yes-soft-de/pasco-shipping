@@ -7,6 +7,7 @@ import 'package:pasco_shipping/module_price/ui/screen/shipline-price/add_new_lin
 import 'package:pasco_shipping/module_price/ui/screen/shipline-price/price_screen.dart';
 
 import 'ui/screen/container_price/container_price_screen.dart';
+import 'ui/screen/container_price/update_container_price_screen.dart';
 import 'ui/screen/shipline-price/update_line_price_screen.dart';
 
 @injectable
@@ -16,9 +17,10 @@ class PriceModule extends YesModule {
   final UpdateLinesPrice _updateLinesPrice;
   final ContainerPriceScreen _containerPriceScreen;
   final AddNewContainerPrice _addNewContainerPrice;
+  final UpdateContainerPrice _updateContainerPrice;
 
 
-  PriceModule(this._priceScreen, this._addNewLinesPrice, this._updateLinesPrice, this._containerPriceScreen, this._addNewContainerPrice) {
+  PriceModule(this._priceScreen, this._addNewLinesPrice, this._updateLinesPrice, this._containerPriceScreen, this._addNewContainerPrice, this._updateContainerPrice) {
     YesModule.RoutesMap.addAll(getRoutes());
   }
   Map<String, WidgetBuilder> getRoutes() {
@@ -28,6 +30,7 @@ class PriceModule extends YesModule {
       PriceRoutes.Update_LINE_PRICE_SCREEN: (context) => _updateLinesPrice,
       PriceRoutes.CONTAINER_PRICE_SCREEN: (context) => _containerPriceScreen,
       PriceRoutes.ADD_CONTAINER_PRICE_SCREEN: (context) => _addNewContainerPrice,
+      PriceRoutes.UPDATE_CONTAINER_PRICE_SCREEN: (context) => _updateContainerPrice,
     };
   }
 }

@@ -1,4 +1,6 @@
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/module_proxies/response/proxies_response.dart';
+import 'package:pasco_shipping/module_proxies/service/proixes_service.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipemnt_finance_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_finance_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/service/finance_shipment_service.dart';
@@ -11,11 +13,12 @@ import 'package:rxdart/rxdart.dart';
 class AcceptedShipmentsFinanceStateManager {
   final FinanceShipmentService _service;
   final SubcontractService _subcontractService;
+  final ProxyService _proxyService;
 
   final PublishSubject<FinanceShipmentsState> _stateSubject = PublishSubject();
   Stream<FinanceShipmentsState> get stateStream => _stateSubject.stream;
 
-  AcceptedShipmentsFinanceStateManager(this._service, this._subcontractService);
+  AcceptedShipmentsFinanceStateManager(this._service, this._subcontractService, this._proxyService);
   //
   void getShipmentLCLFinance(ShipmentLCLFilterFinanceRequest request) {
     _stateSubject.add(LoadingState());
@@ -24,7 +27,11 @@ class AcceptedShipmentsFinanceStateManager {
       if (value != null) {
         _subcontractService.getSubcontracts().then((subcontracts) {
           if(subcontracts != null){
-            _stateSubject.add(SuccessfullyFetchState(value,subcontracts));
+            _proxyService.getProxies().then((proxies) {
+              if(proxies != null){
+                _stateSubject.add(SuccessfullyFetchState(value,subcontracts,proxies));
+              }
+            });
           }
         });
       } else {
@@ -33,7 +40,7 @@ class AcceptedShipmentsFinanceStateManager {
     });
   }
 
-  void addShipmentFinance(ShipmentLCLFinanceRequest financeRequest,List<SubcontractModel> subs ) {
+  void addShipmentFinance(ShipmentLCLFinanceRequest financeRequest,List<SubcontractModel> subs ,List<ProxyModel> proxies) {
     _stateSubject.add(LoadingState());
     _service.createShipmentFinance(financeRequest).then((value) {
       if (value != null) {
@@ -43,7 +50,7 @@ class AcceptedShipmentsFinanceStateManager {
               .getShipmentLCLFinance(request)
               .then((finances) {
             if (finances != null) {
-              _stateSubject.add(SuccessfullyFetchState(finances,subs));
+              _stateSubject.add(SuccessfullyFetchState(finances,subs,proxies));
             } else {
               _stateSubject.add(ErrorState('Error', false));
             }

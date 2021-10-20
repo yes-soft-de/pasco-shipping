@@ -7,10 +7,11 @@ class AirwaybillAddFinanceRequest {
   String currency;
 
   int? subcontractID;
+  int? proxyID;
   // int? clientUserID;
   String paymentType;
   String? chequeNumber;
-  String? financialFundName;
+  // String? financialFundName;
 
   int? sellingCost;
   int? buyingCost ;
@@ -22,24 +23,26 @@ class AirwaybillAddFinanceRequest {
         required this.status,
         required this.currency,
         required this.paymentType,
-        this.financialFundName,
+        // this.financialFundName,
         this.chequeNumber,
         this.subcontractID,
         this.buyingCost,
-        this.sellingCost
+        this.sellingCost,
+        this.proxyID
         // this.clientUserID
 
       });
   Map<String, dynamic> toJson() {
     if (airwaybillID == null) {
       return {
+        'proxyID':proxyID,
         'stageDescription': stageDescription,
         'stageCost': stageCost,
         'status': status,
         'currency': currency,
         'subcontractID':subcontractID,
         'chequeNumber':chequeNumber,
-        'financialFundName':financialFundName,
+        // 'financialFundName':financialFundName,
         'paymentType':paymentType,
         "sellingCost":sellingCost,
         "buyingCost":buyingCost
@@ -48,13 +51,14 @@ class AirwaybillAddFinanceRequest {
     } else {
       return {
         'airwaybillID': airwaybillID,
+        'proxyID': proxyID,
         'stageDescription': stageDescription,
         'stageCost': stageCost,
         'status': status,
         'currency': currency,
         'subcontractID':subcontractID,
         'chequeNumber':chequeNumber,
-        'financialFundName':financialFundName,
+        // 'financialFundName':financialFundName,
         'paymentType':paymentType,
         "sellingCost":sellingCost,
         "buyingCost":buyingCost

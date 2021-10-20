@@ -13,7 +13,7 @@ class ContainerPriceStateManager {
 
   ContainerPriceStateManager(this._priceService);
 
-  void getPrice(){
+  void getContainerPrice(){
     _stateSubject.add(LoadingPriceState());
     _priceService.getContainerPrice().then((model) {
       if(model != null) {
