@@ -30,6 +30,8 @@ class ContainerUpdateRequest
 
     private $exportCity;
 
+    private $exportWarehouseID;
+
     private $updatedBy;
 
     public function getId()

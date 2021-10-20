@@ -128,7 +128,8 @@ class ContainerController extends BaseController
      *          @OA\Property(type="string", property="consignee"),
      *          @OA\Property(type="string", property="location"),
      *          @OA\Property(type="integer", property="exportCountryID"),
-     *          @OA\Property(type="string", property="exportCity")
+     *          @OA\Property(type="string", property="exportCity"),
+     *          @OA\Property(type="integer", property="exportWarehouseID"),
      *      )
      * )
      *
@@ -556,6 +557,8 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="exportCountryName"),
      *                  @OA\Property(type="integer", property="exportCountryID"),
      *                  @OA\Property(type="string", property="exportCity"),
+     *                  @OA\Property(type="integer", property="exportWarehouseID"),
+     *                  @OA\Property(type="string", property="exportWarehouseName"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
      *                  )
