@@ -16,6 +16,26 @@ class ContainerSpecificationPriceCreateRequest
 
     private $createdBy;
 
+    public function getContainerSpecificationID()
+    {
+        return $this->containerSpecificationID;
+    }
+
+    public function getExportCountryID()
+    {
+        return $this->exportCountryID;
+    }
+
+    public function getExportCity()
+    {
+        return $this->exportCity;
+    }
+
+    public function getDestinationPortID()
+    {
+        return $this->destinationPortID;
+    }
+
     public function setCreatedBy($userID)
     {
         $this->createdBy = $userID;
