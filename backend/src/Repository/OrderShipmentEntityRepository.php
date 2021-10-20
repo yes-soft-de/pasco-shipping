@@ -1078,6 +1078,25 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function getExportProxyIdByShipmentOrderID($shipmentID)
+    {
+        return $this->createQueryBuilder('shipmentOrder')
+            ->select("shipmentOrder.exportWarehouseID", "exportWarehouseEntity.proxyID as exportProxyID")
+
+            ->andWhere('shipmentOrder.id = :id')
+            ->setParameter('id', $shipmentID)
+
+            ->leftJoin(
+                WarehouseEntity::class,
+                'exportWarehouseEntity',
+                Join::WITH,
+                'exportWarehouseEntity.id = shipmentOrder.exportWarehouseID'
+            )
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function getExportWarehouseIdByShipmentOrderID($shipmentID)
     {
         return $this->createQueryBuilder('shipmentOrder')

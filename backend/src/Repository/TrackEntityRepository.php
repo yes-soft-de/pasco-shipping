@@ -58,6 +58,22 @@ class TrackEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getOneTrackByHolderTypeAndHolderID($holderType, $holderID)
+    {
+        return $this->createQueryBuilder('track')
+
+            ->andWhere('track.holderID = :holderID')
+            ->setParameter('holderID', $holderID)
+
+            ->andWhere('track.holderType = :holderType')
+            ->setParameter('holderType', $holderType)
+
+            ->setMaxResults(1)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function getOneOrNullTrackByHolderTypeAndHolderID($holderType, $holderID)
     {
         return $this->createQueryBuilder('track')

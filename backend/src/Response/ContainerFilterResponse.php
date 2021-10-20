@@ -62,6 +62,10 @@ class ContainerFilterResponse
 
     public $totalReceivedShipmentsQuantity;
 
+    public $exportWarehouseID;
+
+    public $exportWarehouseName;
+
     public $shipments = [];
 
 }

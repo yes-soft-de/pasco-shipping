@@ -144,6 +144,11 @@ class AirwaybillManager
         return $this->airwaybillEntityRepository->getAirwaybillsBySpecificationID($specificationID);
     }
 
+    public function getProxyIdOfExportWarehouseByAirWaybillID($airWaybillID)
+    {
+        return $this->airwaybillEntityRepository->getProxyIdOfExportWarehouseByAirWaybillID($airWaybillID);
+    }
+
     public function deleteAirWaybillById(DeleteRequest $request, $isUsed)
     {
         $item = $this->airwaybillEntityRepository->find($request->getId());

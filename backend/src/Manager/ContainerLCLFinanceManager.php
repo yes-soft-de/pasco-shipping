@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Constant\ContainerFCLFinancialStatusConstant;
 use App\Constant\HolderTypeConstant;
+use App\Constant\PaymentTypeConstant;
 use App\Entity\ContainerLCLFinanceEntity;
 use App\Repository\ContainerLCLFinanceEntityRepository;
 use App\Request\ContainerDistributeStatusCostRequest;
@@ -21,16 +22,16 @@ class ContainerLCLFinanceManager
     private $entityManager;
     private $containerLCLFinanceEntityRepository;
     private $trackManager;
-    private $shipmentFinanceManager;
+    private $shipmentOrderManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ContainerLCLFinanceEntityRepository $containerLCLFinanceEntityRepository, TrackManager $trackManager,
-                                ShipmentLCLFinanceManager $shipmentFinanceManager)
+                                ShipmentOrderManager $shipmentOrderManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
-        $this->containerLCLFinanceEntityRepository = $containerLCLFinanceEntityRepository;
         $this->trackManager = $trackManager;
-        $this->shipmentFinanceManager = $shipmentFinanceManager;
+        $this->shipmentOrderManager = $shipmentOrderManager;
+        $this->containerLCLFinanceEntityRepository = $containerLCLFinanceEntityRepository;
     }
 
     public function create(ContainerLCLFinanceCreateRequest $request)
@@ -38,6 +39,9 @@ class ContainerLCLFinanceManager
         if(in_array($request->getStatus(), ContainerFCLFinancialStatusConstant::$FCL_CONTAINER_FINANCIAL_STATUS_ARRAY))
         {
             $containerLCLFinanceEntity = $this->autoMapping->map(ContainerLCLFinanceCreateRequest::class, ContainerLCLFinanceEntity::class, $request);
+
+            $containerLCLFinanceEntity->setPaymentType(PaymentTypeConstant::$CASH_PAYMENT_TYPE);
+            $containerLCLFinanceEntity->setProxyID($this->getProxyIdByContainerID($request->getContainerID()));
 
             $this->entityManager->persist($containerLCLFinanceEntity);
             $this->entityManager->flush();
@@ -72,6 +76,26 @@ class ContainerLCLFinanceManager
         }
 
         return $containerFinances;
+    }
+
+    public function getProxyIdByContainerID($containerID)
+    {
+        /**
+         * Get the proxy ID of the export warehouse as following:
+         * first get one shipment ID of the shipments being stored in the container
+         * then get the export warehouse ID of the shipment
+         */
+        $track = $this->trackManager->getOneTrackByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $containerID);
+
+        if($track)
+        {
+            $result = $this->shipmentOrderManager->getExportProxyIDByShipmentOrderID($track->getShipmentID());
+
+            if($result)
+            {
+                return $result['exportProxyID'];
+            }
+        }
     }
 
     public function deleteAllContainersLCLFinances()

@@ -692,6 +692,11 @@ class ShipmentOrderManager
         return $this->orderShipmentEntityRepository->getPaymentTimeAndImportAndExportProxiesIDsByShipmentOrderID($shipmentID);
     }
 
+    public function getExportProxyIDByShipmentOrderID($shipmentID)
+    {
+        return $this->orderShipmentEntityRepository->getExportProxyIdByShipmentOrderID($shipmentID);
+    }
+
     public function getExportWarehouseIdByShipmentOrderID($shipmentID)
     {
         return $this->orderShipmentEntityRepository->getExportWarehouseIdByShipmentOrderID($shipmentID);

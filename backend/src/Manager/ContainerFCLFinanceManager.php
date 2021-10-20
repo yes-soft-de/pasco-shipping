@@ -5,6 +5,8 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Constant\ContainerFCLFinancialStatusConstant;
 use App\Constant\HolderTypeConstant;
+use App\Constant\PaymentTypeConstant;
+use App\Constant\ShipmentOrderPaymentTypeConstant;
 use App\Entity\ContainerFCLFinanceEntity;
 use App\Repository\ContainerFCLFinanceEntityRepository;
 use App\Request\ContainerDistributeStatusCostRequest;
@@ -47,6 +49,8 @@ class ContainerFCLFinanceManager
             $containerFCLFinanceEntity->setTrackNumber($this->getTrackNumberByContainerID($request->getContainerID()));
             $containerFCLFinanceEntity->setImportWarehouseID($this->getImportWarehouseIdByContainerID($request->getContainerID()));
             $containerFCLFinanceEntity->setClientUserID($this->getClientUserIdByContainerID($request->getContainerID()));
+            $containerFCLFinanceEntity->setPaymentType(PaymentTypeConstant::$CASH_PAYMENT_TYPE);
+            $containerFCLFinanceEntity->setProxyID($this->getProxyIdByContainerID($request->getContainerID()));
 
             $this->entityManager->persist($containerFCLFinanceEntity);
             $this->entityManager->flush();
@@ -90,7 +94,7 @@ class ContainerFCLFinanceManager
         }
     }
 
-    public function geShipmentIdByContainerID($containerID)
+    public function getShipmentIdByContainerID($containerID)
     {
         $track = $this->trackManager->getOneOrNullTrackByHolderTypeAndHolderID(HolderTypeConstant::$CONTAINER_HOLDER_TYPE, $containerID);
 
@@ -167,6 +171,38 @@ class ContainerFCLFinanceManager
         }
 
         return $containerFinances;
+    }
+
+    public function getProxyIdByContainerID($containerID)
+    {
+        $shipmentID = $this->getShipmentIdByContainerID($containerID);
+
+        $shipmentOrder = $this->shipmentOrderManager->getPaymentTimeAndImportAndExportProxiesIDsByShipmentOrderID($shipmentID);
+
+        if($shipmentOrder)
+        {
+            if($shipmentOrder['paymentTime'] == ShipmentOrderPaymentTypeConstant::$COLLECT_PAYMENT_TYPE)
+            {
+                return $shipmentOrder['importProxyID'];
+            }
+            elseif($shipmentOrder['paymentTime'] == ShipmentOrderPaymentTypeConstant::$PREPAID_PAYMENT_TYPE)
+            {
+                if($shipmentOrder['exportProxyID'])
+                {
+                    return $shipmentOrder['exportProxyID'];
+                }
+                else
+                {
+                    // Return the agent (proxy) of the export warehouse of the Container
+                    $result = $this->containerManager->getProxyIdOfExportWarehouseByContainerID($containerID);
+
+                    if($result)
+                    {
+                        return $result['exportProxyID'];
+                    }
+                }
+            }
+        }
     }
 
     // not used anymore

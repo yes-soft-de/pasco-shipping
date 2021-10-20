@@ -73,7 +73,7 @@ class ContainerFCLFinanceService
 
     public function getShipmentIdByContainerID($containerID)
     {
-        return $this->containerFCLFinanceManager->geShipmentIdByContainerID($containerID);
+        return $this->containerFCLFinanceManager->getShipmentIdByContainerID($containerID);
     }
 
     public function filterContainerFCLFinances(ContainerFCLFinanceFilterRequest $request)

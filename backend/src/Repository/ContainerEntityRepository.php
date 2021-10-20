@@ -12,6 +12,7 @@ use App\Entity\PortsEntity;
 use App\Entity\ShipperEntity;
 use App\Entity\SubcontractEntity;
 use App\Entity\TrackEntity;
+use App\Entity\WarehouseEntity;
 use App\Request\ContainerFilterRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
@@ -201,7 +202,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.shipmentID', 'container.clientUserID', 'container.consignee',
                 'container.shipperID', 'container.carrierID', 'container.type', 'container.providedBy', 'container.portID', 'container.location', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
                 'container.shippingStatus', 'container.exportCity', 'container.exportCountryID', 'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName',
-                'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName', 'countryEntity.name as exportCountryName')
+                'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName', 'countryEntity.name as exportCountryName', 'container.exportWarehouseID', 'exportWarehouseEntity.name as exportWarehouseName')
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -278,6 +279,13 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 'countryEntity',
                 Join::WITH,
                 'countryEntity.id = container.exportCountryID'
+            )
+
+            ->leftJoin(
+                WarehouseEntity::class,
+                'exportWarehouseEntity',
+                Join::WITH,
+                'exportWarehouseEntity.id = container.exportWarehouseID'
             )
 
             ->orderBy('container.id', 'DESC')
@@ -591,6 +599,25 @@ class ContainerEntityRepository extends ServiceEntityRepository
 
             ->andWhere('container.id = :id')
             ->setParameter('id', $containerID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getProxyIdOfExportWarehouseByContainerID($containerID)
+    {
+        return $this->createQueryBuilder('container_entity')
+            ->select('container_entity.exportWarehouseID', 'exportWarehouseEntity.proxyID as exportProxyID')
+
+            ->andWhere('container_entity.id = :id')
+            ->setParameter('id', $containerID)
+
+            ->leftJoin(
+                WarehouseEntity::class,
+                'exportWarehouseEntity',
+                Join::WITH,
+                'exportWarehouseEntity.id = container_entity.exportWarehouseID'
+            )
 
             ->getQuery()
             ->getOneOrNullResult();

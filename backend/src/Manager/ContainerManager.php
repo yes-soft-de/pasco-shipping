@@ -186,6 +186,11 @@ class ContainerManager
         return false;
     }
 
+    public function getProxyIdOfExportWarehouseByContainerID($containerID)
+    {
+        return $this->containerEntityRepository->getProxyIdOfExportWarehouseByContainerID($containerID);
+    }
+
     public function deleteContainerById(DeleteRequest $request, $isUsed)
     {
         $item = $this->containerEntityRepository->find($request->getId());

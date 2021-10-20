@@ -36,6 +36,11 @@ class AirwaybillLCLFinanceCreateRequest
         $this->airwaybillID = $airwaybillID;
     }
 
+    public function getAirwaybillID()
+    {
+        return $this->airwaybillID;
+    }
+
     public function setStatus($status)
     {
         $this->status = $status;
