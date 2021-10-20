@@ -5,6 +5,8 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Constant\AirwaybillFCLFinancialStatusConstant;
 use App\Constant\HolderTypeConstant;
+use App\Constant\PaymentTypeConstant;
+use App\Constant\ShipmentOrderPaymentTypeConstant;
 use App\Entity\AirwaybillFCLFinanceEntity;
 use App\Repository\AirwaybillFCLFinanceEntityRepository;
 use App\Request\AirwaybillDistributeStatusCostRequest;
@@ -21,16 +23,18 @@ class AirwaybillFCLFinanceManager
     private $trackManager;
     private $shipmentOrderManager;
     private $shipmentFinanceManager;
+    private $airwaybillManager;
     private $airwaybillFCLFinanceEntityRepository;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, AirwaybillFCLFinanceEntityRepository $airwaybillFCLFinanceEntityRepository,
-                                TrackManager $trackManager, ShipmentLCLFinanceManager $shipmentFinanceManager, ShipmentOrderManager $shipmentOrderManager)
+                                TrackManager $trackManager, ShipmentLCLFinanceManager $shipmentFinanceManager, ShipmentOrderManager $shipmentOrderManager, AirwaybillManager $airwaybillManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->shipmentOrderManager = $shipmentOrderManager;
         $this->trackManager = $trackManager;
         $this->shipmentFinanceManager = $shipmentFinanceManager;
+        $this->airwaybillManager = $airwaybillManager;
         $this->airwaybillFCLFinanceEntityRepository = $airwaybillFCLFinanceEntityRepository;
     }
 
@@ -43,6 +47,8 @@ class AirwaybillFCLFinanceManager
             $airwaybillFinanceEntity->setTrackNumber($this->getTrackNumberByAirWaybillID($request->getAirwaybillID()));
             $airwaybillFinanceEntity->setImportWarehouseID($this->getImportWarehouseIdByAirWaybillID($request->getAirwaybillID()));
             $airwaybillFinanceEntity->setClientUserID($this->getClientUserIdByAirWaybillID($request->getAirwaybillID()));
+            $airwaybillFinanceEntity->setPaymentType(PaymentTypeConstant::$CASH_PAYMENT_TYPE);
+            $airwaybillFinanceEntity->setProxyID($this->getProxyIdByAirWaybillID($request->getAirwaybillID()));
 
             $this->entityManager->persist($airwaybillFinanceEntity);
             $this->entityManager->flush();
@@ -159,6 +165,38 @@ class AirwaybillFCLFinanceManager
         }
 
         return $airwaybillFinances;
+    }
+
+    public function getProxyIdByAirWaybillID($airWaybillID)
+    {
+        $shipmentID = $this->getShipmentIdByAirWaybillID($airWaybillID);
+
+        $shipmentOrder = $this->shipmentOrderManager->getPaymentTimeAndImportAndExportProxiesIDsByShipmentOrderID($shipmentID);
+
+        if($shipmentOrder)
+        {
+            if($shipmentOrder['paymentTime'] == ShipmentOrderPaymentTypeConstant::$COLLECT_PAYMENT_TYPE)
+            {
+                return $shipmentOrder['importProxyID'];
+            }
+            elseif($shipmentOrder['paymentTime'] == ShipmentOrderPaymentTypeConstant::$PREPAID_PAYMENT_TYPE)
+            {
+                if($shipmentOrder['exportProxyID'])
+                {
+                    return $shipmentOrder['exportProxyID'];
+                }
+                else
+                {
+                    // Return the agent (proxy) of the export warehouse of the Air waybill
+                    $result = $this->airwaybillManager->getProxyIdOfExportWarehouseByAirWaybillID($airWaybillID);
+
+                    if($result)
+                    {
+                        return $result['exportProxyID'];
+                    }
+                }
+            }
+        }
     }
 
     // Not used any more

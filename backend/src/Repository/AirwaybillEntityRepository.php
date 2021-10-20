@@ -10,6 +10,7 @@ use App\Entity\OrderShipmentEntity;
 use App\Entity\PortsEntity;
 use App\Entity\ShipperEntity;
 use App\Entity\SubcontractEntity;
+use App\Entity\WarehouseEntity;
 use App\Request\AirwaybillFilterRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
@@ -182,11 +183,11 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
         $withoutNumber = $request->getWithoutNumber();
 
         $query = $this->createQueryBuilder('airwaybill')
-            ->select('airwaybill.id', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID', 'airwaybill.clientUserID', 'airwaybill.weight',
+            ->select('airwaybill.id', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID', 'airwaybill.clientUserID', 'airwaybill.weight', 'airwaybill.exportWarehouseID',
                 'airwaybill.shipmentID', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'airwaybill.portID', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
                 'airwaybill.consignee', 'airwaybill.shipperID', 'airwaybill.carrierID', 'adminProfile2.userName as updatedByUserImage', 'airwaybill.providedBy', 'airwaybill.type', 'airwaybill.location', 'airwaybill.shippingStatus',
                 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName', 'clientProfileEntity.userName as clientUserName',
-                'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName')
+                'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName', 'exportWarehouseEntity.name as exportWarehouseName')
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -249,6 +250,13 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
                 'clientProfileEntity',
                 Join::WITH,
                 'clientProfileEntity.userID = airwaybill.clientUserID'
+            )
+
+            ->leftJoin(
+                WarehouseEntity::class,
+                'exportWarehouseEntity',
+                Join::WITH,
+                'exportWarehouseEntity.id = airwaybill.exportWarehouseID'
             )
 
             ->orderBy('airwaybill.id', 'DESC')
@@ -529,6 +537,25 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
 
             ->getQuery()
             ->getResult();
+    }
+
+    public function getProxyIdOfExportWarehouseByAirWaybillID($airWaybillID)
+    {
+        return $this->createQueryBuilder('airwaybill_entity')
+            ->select('airwaybill_entity.exportWarehouseID', 'exportWarehouseEntity.proxyID as exportProxyID')
+
+            ->andWhere('airwaybill_entity.id = :id')
+            ->setParameter('id', $airWaybillID)
+
+            ->leftJoin(
+                WarehouseEntity::class,
+                'exportWarehouseEntity',
+                Join::WITH,
+                'exportWarehouseEntity.id = airwaybill_entity.exportWarehouseID'
+            )
+
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     public function deleteAllAirwaybills()
