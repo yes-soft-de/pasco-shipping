@@ -24,7 +24,7 @@ class AddClientInit extends StatefulWidget {
 class _AddCountryInitState extends State<AddClientInit> {
   late TextEditingController userName ;
   late  TextEditingController email;
-  late  TextEditingController password;
+  // late  TextEditingController password;
   late  TextEditingController userID;
 
   late  TextEditingController city;
@@ -182,44 +182,44 @@ class _AddCountryInitState extends State<AddClientInit> {
                 ),
               ),
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).password, style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  padding: EdgeInsets.only(
-                      top: 4,left: 16, right: 16, bottom: 4
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(15)
-                      ),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 5
-                        )
-                      ]
-                  ),
-                  child: TextField(
-                    controller: password,
-                    keyboardType: TextInputType.text,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: S.of(context).password,
-
-                    ),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Row(children: [
+              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+              //     SizedBox(width: 5,),
+              //     Text(S.of(context).password, style: AppTextStyle.mediumBlackBold,)
+              //   ],),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.all(10.0),
+              //   child: Container(
+              //     padding: EdgeInsets.only(
+              //         top: 4,left: 16, right: 16, bottom: 4
+              //     ),
+              //     decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.all(
+              //             Radius.circular(15)
+              //         ),
+              //         color: Colors.white,
+              //         boxShadow: [
+              //           BoxShadow(
+              //               color: Colors.black12,
+              //               blurRadius: 5
+              //           )
+              //         ]
+              //     ),
+              //     child: TextField(
+              //       controller: password,
+              //       keyboardType: TextInputType.text,
+              //       obscureText: true,
+              //       decoration: InputDecoration(
+              //         border: InputBorder.none,
+              //         hintText: S.of(context).password,
+              //
+              //       ),
+              //     ),
+              //   ),
+              // ),
 
 
 
@@ -341,7 +341,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                 if(userName.text.isEmpty) {
                   Fluttertoast.showToast(msg: S.of(context).fillAllField);
                 }else {
-                  CreateClientRequest re = CreateClientRequest(userName: userName.text , userID: userID.text , password: password.text, email: email.text,city: city.text,
+                  CreateClientRequest re = CreateClientRequest(userName: userName.text , userID: userID.text , email: email.text,city: city.text,
                       country: country.text,location: location.text);
                   widget.onSave(re);
                 }
@@ -358,7 +358,7 @@ class _AddCountryInitState extends State<AddClientInit> {
     super.initState();
     userName =TextEditingController();
     email = TextEditingController();
-    password = TextEditingController();
+    // password = TextEditingController();
     userID = TextEditingController();
 
     country = TextEditingController();

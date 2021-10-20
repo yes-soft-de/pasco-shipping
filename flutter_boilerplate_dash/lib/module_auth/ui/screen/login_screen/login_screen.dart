@@ -6,6 +6,8 @@ import 'package:pasco_shipping/module_auth/ui/states/login_states/login_state.da
 import 'package:pasco_shipping/module_auth/ui/states/login_states/login_state_init.dart';
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/module_auth/ui/states/login_states/login_state_success.dart';
+import 'package:pasco_shipping/module_employees/enums/employee_role.dart';
+import 'package:pasco_shipping/module_employees/service/employees_service.dart';
 import 'package:pasco_shipping/module_home/home_routes.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
@@ -13,8 +15,9 @@ import 'package:pasco_shipping/utils/styles/text_style.dart';
 @injectable
 class LoginScreen extends StatefulWidget {
   final LoginStateManager _stateManager;
+  final EmployeeService _employeeService;
 
-  LoginScreen(this._stateManager);
+  LoginScreen(this._stateManager, this._employeeService);
 
   @override
   LoginScreenState createState() => LoginScreenState();
@@ -109,7 +112,13 @@ class LoginScreenState extends State<LoginScreen> {
   }
 
   void moveToNext() {
-      Navigator.of(context).pushNamedAndRemoveUntil(HomeRoutes.controller, (route) => false);
+    widget._employeeService.getEmployeeProfile().then((employModel) {
+      if(employModel != null) {
+        ConstVar.Roles = employModel.roles!;
+        Navigator.of(context).pushNamedAndRemoveUntil(HomeRoutes.controller, (route) => false);
+      }
+
+    });
     // CustomFlushBarHelper.createSuccess(title:S.current.warnning, message: S.current.loginSuccess).show(context);
   }
 }

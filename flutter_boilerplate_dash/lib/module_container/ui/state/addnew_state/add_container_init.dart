@@ -439,7 +439,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
         children = [];
         for (Warehouse warehouseItem in item.warehouses!) {
           print(warehouseItem.countryName);
-          Entry warehouse = Entry(warehouseItem.city!, warehouseItem.id!, []);
+          Entry warehouse = Entry(warehouseItem.city!, country.id, []);
           children.add(warehouse);
         }
         country.children = children;

@@ -216,9 +216,9 @@ class _AddCountryInitState extends State<UpdateContainerPriceInit> {
     initSpecification();
 
 
-    optionItemSelectedHarbor = Entry('choose', 0, []);
-    optionItemSelectedSpecification= Entry('choose', 0, []);
-    optionItemSelectedFrom = Entry('choose', 0, []);
+    optionItemSelectedHarbor = Entry(widget.model.destinationPortName ??'', widget.model.destinationPortID ??0, []);
+    optionItemSelectedSpecification= Entry(widget.model.containerSpecificationName??'', widget.model.containerSpecificationID ??0, []);
+    optionItemSelectedFrom = Entry(widget.model.exportCity??'', widget.model.exportCountryID??0, []);
 
   }
 

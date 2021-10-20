@@ -49,12 +49,13 @@ class AcceptedShipmentSuccessfully extends StatelessWidget {
               primary: Colors.blue[800],
             ),
             onPressed: () async {
+
               await Printing.layoutPdf(
                 // [onLayout] will be called multiple times
                 // when the user changes the printer or printer settings
                 onLayout: (PdfPageFormat format) {
                   // Any valid Pdf document can be returned here as a list of int
-                  return PdfParagraphApi.generateShipmentReport(items.data!);
+                  return PdfParagraphApi.generateShipmentReport(items.data! ,items.totalVolume??0 , items.totalWeight??0,items.totalGunny??0,items.totalReceivedQuantity??0);
                 },
               );
             },

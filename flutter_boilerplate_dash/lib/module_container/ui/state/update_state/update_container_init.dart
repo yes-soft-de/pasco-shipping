@@ -9,6 +9,7 @@ import 'package:pasco_shipping/module_container/response/container_response.dart
 import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
 import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
+import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_shipper/response/shipper_response.dart';
 import 'package:pasco_shipping/module_shipper/shipper_module.dart';
@@ -23,9 +24,10 @@ class UpdateContainerInit extends StatefulWidget {
   final List<ContainerSpecificationModel> specifications;
   final List<ShipperModel> shippers;
   final List<HarborModel> harbors;
+  final List<Countries> countriesExports;
   final ContainerModel model;
   final Function onUpdate;
-  const UpdateContainerInit({ required this.onUpdate , required this.subContracts,required this.specifications,required this.model,required this.shippers,required this.harbors});
+  const UpdateContainerInit({ required this.onUpdate , required this.subContracts,required this.specifications,required this.model,required this.shippers,required this.harbors,required this.countriesExports});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
@@ -36,7 +38,7 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
   late TextEditingController consigneeController ;
   DropListModel dropListModelLocation = DropListModel(location);
   late Entry optionItemSelectedLocation;
-
+  late DropListModel dropListModelFromCountries;
   late DropListModel dropListModelProvidedBy;
   late Entry optionItemSelectedProvidedBy;
 
@@ -72,7 +74,8 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
   late int specificationID;
 
   late int carrierID;
-
+  late List<Entry> entryFrom;
+  late Entry optionItemSelectedFrom;
   // TimeOfDay selectedTimeStart = TimeOfDay.now();
   // TimeOfDay selectedTimeEnd = TimeOfDay.now();
   //
@@ -306,6 +309,30 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
                   setState(() {});
                 },
               ),
+
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).from, style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              SelectDropListl(
+                this.optionItemSelectedFrom,
+                this.dropListModelFromCountries,
+                    (optionItem) {
+                  optionItemSelectedFrom = optionItem;
+                  print(optionItem.title);
+                  print(optionItem.id);
+                  // widget.shipmentRequest.exportWarehouseID =optionItem.id;
+                  // widget.shipmentRequest.exportWarehouseName =optionItem.title;
+                  setState(() {});
+                },
+              ),
+
+
             widget.model.type=='FCL'?  Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Container(
@@ -421,6 +448,7 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
     super.initState();
 
     entryProvidedBy = <Entry>[];
+    entryFrom = <Entry>[];
     entryShipper= <Entry>[];
     entryConsignee= <Entry>[];
     entryCarrier= <Entry>[];
@@ -451,6 +479,7 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
     optionItemSelectedSpecification =  Entry('choose', 0, []);
     optionItemSelectedCarrier =  Entry('choose', 0, []);
     optionItemSelectedHarbor =  Entry('choose', 0, []);
+    optionItemSelectedFrom =  Entry(widget.model.exportCity??'', widget.model.exportCountryID??0, []);
     optionItemSelectedLocation = Entry(widget.model.location??'', 0, []);
     initList();
 
@@ -508,6 +537,7 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
       entryHarbor.add(v);
     }
     dropListModelHarbor = DropListModel(entryHarbor);
+    initShippingFrom();
   }
 
   void _setSelectedRadioGender(int val) {
@@ -533,5 +563,22 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
       }
     }
       return 'Container number consists of 4 letters at the beginning, followed by 7 digits';
+  }
+  void initShippingFrom() {
+    List<Entry> children = <Entry>[];
+    for (Countries item in widget.countriesExports) {
+      if (item.warehouses!.isNotEmpty && item.type=='export') {
+        Entry country = Entry(item.name!, item.id!, children);
+        print(country.id);
+        children = [];
+        for (Warehouse warehouseItem in item.warehouses!) {
+          Entry warehouse = Entry(warehouseItem.city!, country.id, []);
+          children.add(warehouse);
+        }
+        country.children = children;
+        entryFrom.add(country);
+      }
+    }
+    dropListModelFromCountries = DropListModel(entryFrom);
   }
 }

@@ -5,6 +5,7 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_airwaybill/request/airwaybill_add_finance_request.dart';
 import 'package:pasco_shipping/module_airwaybill/response/airwaybill_finance_response.dart';
 import 'package:pasco_shipping/module_airwaybill/widget/airwaybill_finance_card.dart';
+import 'package:pasco_shipping/module_proxies/response/proxies_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
@@ -20,7 +21,8 @@ class AirwaybillFinanceSuccessfullyScreen extends StatefulWidget {
   final int airwaybillID;
   final String type;
   final List<SubcontractModel> subContracts;
-  AirwaybillFinanceSuccessfullyScreen({required this.addFinance ,required this.airwaybillFinances,required this.airwaybillID,required this.type,required this.subContracts });
+  final List<ProxyModel> proxies;
+  AirwaybillFinanceSuccessfullyScreen({required this.addFinance ,required this.airwaybillFinances,required this.airwaybillID,required this.type,required this.subContracts,required this.proxies });
 
   @override
   _MarkSuccessfullyScreenState createState() => _MarkSuccessfullyScreenState();
@@ -30,7 +32,7 @@ class _MarkSuccessfullyScreenState extends State<AirwaybillFinanceSuccessfullySc
   DropListModel dropListModelPayment = DropListModel(paymentType);
   DropListModel dropListModelContainerFCLStatus = DropListModel(airwaybillFclFinance);
   DropListModel dropListModelContainerLCLStatus = DropListModel(containerLclFinance);
-  DropListModel dropListModelFund = DropListModel(fundName);
+  late DropListModel dropListModelProxy;
 
   TextEditingController cost = TextEditingController();
   TextEditingController selling = TextEditingController();
@@ -41,11 +43,12 @@ class _MarkSuccessfullyScreenState extends State<AirwaybillFinanceSuccessfullySc
 
   late bool visAddCard;
   late List<Entry> entrySub;
+  late List<Entry> entryProxy;
   late DropListModel dropListModelSubContract;
   late Entry optionItemSelectedSubContract;
   late Entry optionItemSelectedPayment;
   late Entry optionItemSelectedStatus;
-  late Entry optionItemSelectedFund;
+  late Entry optionItemSelectedProxy;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -359,18 +362,17 @@ class _MarkSuccessfullyScreenState extends State<AirwaybillFinanceSuccessfullySc
                           child: Row(children: [
                             Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                             SizedBox(width: 5,),
-                            Text('Fund Name' , style: AppTextStyle.mediumBlackBold,)
+                            Text('Proxy Name' , style: AppTextStyle.mediumBlackBold,)
                           ],),
                         ),
                         SelectDropList(
-                          this.optionItemSelectedFund,
-                          this.dropListModelFund,
+                          this.optionItemSelectedProxy,
+                          this.dropListModelProxy,
                               (optionItem) {
-                            optionItemSelectedFund = optionItem;
+                            optionItemSelectedProxy = optionItem;
                             setState(() {});
                           },
                         ),
-
                       ],) :Container(),
                       RoundedButton(lable: S.of(context).add, icon: '', color: blue, style: AppTextStyle.mediumWhiteBold, go: (){
                           AirwaybillAddFinanceRequest mark = AirwaybillAddFinanceRequest(
@@ -383,7 +385,7 @@ class _MarkSuccessfullyScreenState extends State<AirwaybillFinanceSuccessfullySc
                             stageDescription: description.text,
                             paymentType: optionItemSelectedPayment.title,
                             subcontractID: optionItemSelectedSubContract.id,
-                            financialFundName: optionItemSelectedFund.title =='choose'?'' :optionItemSelectedFund.title,
+                            proxyID: optionItemSelectedProxy.id,
                           );
                           widget.addFinance(mark);
                       }, radius: 12)
@@ -434,7 +436,7 @@ class _MarkSuccessfullyScreenState extends State<AirwaybillFinanceSuccessfullySc
     optionItemSelectedSubContract =  Entry('choose', 0, []);
     optionItemSelectedPayment =  Entry('choose', 0, []);
     optionItemSelectedStatus =  Entry('choose', 0, []);
-    optionItemSelectedFund =  Entry('choose', 0, []);
+    optionItemSelectedProxy =  Entry('choose', 0, []);
 
 
     cost..text='0';
@@ -449,5 +451,13 @@ class _MarkSuccessfullyScreenState extends State<AirwaybillFinanceSuccessfullySc
       entrySub.add(v);
     }
     dropListModelSubContract = DropListModel(entrySub);
+
+
+    for(ProxyModel item in widget.proxies){
+      Entry v = Entry(item.fullName! ,item.id! ,[]);
+      entryProxy.add(v);
+    }
+    dropListModelProxy = DropListModel(entryProxy);
   }
+
 }

@@ -7,9 +7,10 @@ class ShipmentLCLFinanceRequest {
   String currency;
 
   int? subcontractID;
+  int? proxyID;
   String paymentType;
   String? chequeNumber;
-  String? financialFundName;
+  // String? financialFundName;
 
 
   ShipmentLCLFinanceRequest(
@@ -21,8 +22,9 @@ class ShipmentLCLFinanceRequest {
       required this.currency,
         this.subcontractID,
         this.chequeNumber ,
-        this.financialFundName,
-       required this.paymentType
+        // this.financialFundName,
+       required this.paymentType,
+        this.proxyID
 
       });
   Map<String, dynamic> toJson() {
@@ -35,8 +37,9 @@ class ShipmentLCLFinanceRequest {
         'currency': 'US Dollar',
         'subcontractID':subcontractID,
         'chequeNumber':chequeNumber,
-        'financialFundName':financialFundName,
+        // 'financialFundName':financialFundName,
         'paymentType':paymentType,
+        'proxyID':proxyID
       };
     } else {
       return {
@@ -48,7 +51,7 @@ class ShipmentLCLFinanceRequest {
         'currency': 'US Dollar',
         'subcontractID':subcontractID,
         'chequeNumber':chequeNumber,
-        'financialFundName':financialFundName,
+        'proxyID':proxyID,
         'paymentType':paymentType,
       };
     }

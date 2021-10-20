@@ -9,10 +9,11 @@ class ContainerAddFinanceRequest {
   // int? clientUserID;
   String paymentType;
   String? chequeNumber;
-  String? financialFundName;
+  // String? financialFundName;
 
   int? sellingCost;
   int? buyingCost ;
+  int? proxyID ;
 
   ContainerAddFinanceRequest(
       {required this.containerID,
@@ -21,11 +22,12 @@ class ContainerAddFinanceRequest {
         required this.status,
         required this.currency,
        required this.paymentType,
-        this.financialFundName,
+        // this.financialFundName,
         this.chequeNumber,
         this.subcontractID,
         this.buyingCost,
-        this.sellingCost
+        this.sellingCost,
+        this.proxyID
         // this.clientUserID
 
       });
@@ -38,11 +40,11 @@ class ContainerAddFinanceRequest {
         'currency': currency,
         'subcontractID':subcontractID,
         'chequeNumber':chequeNumber,
-        'financialFundName':financialFundName,
+        // 'financialFundName':financialFundName,
         'paymentType':paymentType,
         "sellingCost":sellingCost,
-        "buyingCost":buyingCost
-        // 'clientUserID':clientUserID
+        "buyingCost":buyingCost,
+        'proxyID':proxyID
       };
     } else {
       return {
@@ -53,10 +55,10 @@ class ContainerAddFinanceRequest {
         'currency': currency,
         'subcontractID':subcontractID,
         'chequeNumber':chequeNumber,
-        'financialFundName':financialFundName,
         'paymentType':paymentType,
         "sellingCost":sellingCost,
-        "buyingCost":buyingCost
+        "buyingCost":buyingCost,
+        'proxyID':proxyID
         // 'clientUserID':clientUserID
       };
     }

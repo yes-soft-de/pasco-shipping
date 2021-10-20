@@ -30,11 +30,17 @@ class ContainerPriceModel {
     this.price,
     this.exportCountryName,
     this.containerSpecificationName,
-    this.destinationPortName
+    this.destinationPortName,
+    this.exportCountryID,
+    this.destinationPortID,
+    this.containerSpecificationID
 
   });
 
   int? id;
+  int? containerSpecificationID;
+  int? exportCountryID;
+  int? destinationPortID;
   String? containerSpecificationName;
   String? exportCountryName;
   String? exportCity;
@@ -46,6 +52,9 @@ class ContainerPriceModel {
   ContainerPriceModel.fromJson(Map<String, dynamic> json) {
     try{
       id =json['id'];
+      exportCountryID =json['exportCountryID'];
+      destinationPortID =json['destinationPortID'];
+      containerSpecificationID =json['containerSpecificationID'];
       exportCountryName = json['exportCountryName'];
       exportCity = json['exportCity'];
       containerSpecificationName= json['containerSpecificationName'];

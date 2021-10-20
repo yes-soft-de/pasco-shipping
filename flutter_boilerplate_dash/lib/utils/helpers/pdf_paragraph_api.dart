@@ -22,7 +22,7 @@ import 'package:pdf/widgets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class PdfParagraphApi {
-   static Future<Uint8List> generateShipmentReport(List<AcceptedShipmentModel> model) async {
+   static Future<Uint8List> generateShipmentReport(List<AcceptedShipmentModel> model,int volum,int weight ,int gunny,int quntity) async {
     final pdf = Document();
     String trasType = '';
     // pdf.setMargins(0 , 0 , 0 , 0);
@@ -42,7 +42,7 @@ class PdfParagraphApi {
       'ID',
       'Q',
       'G',
-      'Volume'
+      'Volume',
       'Product type',
       'Client',
       'Payment',
@@ -55,8 +55,8 @@ class PdfParagraphApi {
       'ID',
       'Q',
       'G',
-      'weight'
-          'Product type',
+      'weight',
+      'Product type',
       'Client',
       'Payment',
       'way'
@@ -165,6 +165,30 @@ class PdfParagraphApi {
           SizedBox(height: 0.5 * PdfPageFormat.cm),
           Text(
             'Total: ' + model.length.toString(),
+            style: TextStyle( fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: PdfColors.blue,),
+          ),
+          Text(
+            'Total Gunny: ' + gunny.toString(),
+            style: TextStyle( fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: PdfColors.blue,),
+          ),
+          Text(
+            'Total Volume: ' + volum.toString(),
+            style: TextStyle( fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: PdfColors.blue,),
+          ),
+          Text(
+            'Total Weight: ' + weight.toString(),
+            style: TextStyle( fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: PdfColors.blue,),
+          ),
+          Text(
+            'Total received quantity: ' + quntity.toString(),
             style: TextStyle( fontSize: 18,
               fontWeight: FontWeight.bold,
               color: PdfColors.blue,),

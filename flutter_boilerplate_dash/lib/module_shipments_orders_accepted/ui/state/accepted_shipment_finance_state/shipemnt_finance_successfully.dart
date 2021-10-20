@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/enums/container_status.dart';
+import 'package:pasco_shipping/module_proxies/response/proxies_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
@@ -22,7 +23,8 @@ class ShipmentFinanceSuccessfullyScreen extends StatefulWidget {
   final String paymentWay;
   final String trackNumber;
   final List<SubcontractModel> subContracts;
-  ShipmentFinanceSuccessfullyScreen({required this.addFinance ,required this.shipmentFinance,required this.shipmentID,required this.trackNumber,required this.subContracts,required this.paymentWay });
+  final List<ProxyModel> proxies;
+  ShipmentFinanceSuccessfullyScreen({required this.addFinance ,required this.shipmentFinance,required this.shipmentID,required this.trackNumber,required this.subContracts,required this.paymentWay,required this.proxies });
 
   @override
   _MarkSuccessfullyScreenState createState() => _MarkSuccessfullyScreenState();
@@ -31,7 +33,7 @@ class ShipmentFinanceSuccessfullyScreen extends StatefulWidget {
 class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScreen> {
   DropListModel dropListModelPayment = DropListModel(paymentType);
   DropListModel dropListModelShipmentStatus = DropListModel(shipmentLclFinance);
-  DropListModel dropListModelFund = DropListModel(fundName);
+  late DropListModel dropListModelProxy;
 
   TextEditingController cost = TextEditingController();
   TextEditingController description = TextEditingController();
@@ -40,11 +42,12 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
 
   late bool visAddCard;
   late List<Entry> entrySub;
+  late List<Entry> entryProxy;
   late DropListModel dropListModelSubContract;
   late Entry optionItemSelectedSubContract;
   late Entry optionItemSelectedPayment;
   late Entry optionItemSelectedStatus;
-  late Entry optionItemSelectedFund;
+  late Entry optionItemSelectedProxy;
 
   @override
   Widget build(BuildContext context) {
@@ -276,14 +279,14 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                             child: Row(children: [
                               Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                               SizedBox(width: 5,),
-                              Text('Fund Name' , style: AppTextStyle.mediumBlackBold,)
+                              Text('Proxy Name' , style: AppTextStyle.mediumBlackBold,)
                             ],),
                           ),
                           SelectDropList(
-                            this.optionItemSelectedFund,
-                            this.dropListModelFund,
+                            this.optionItemSelectedProxy,
+                            this.dropListModelProxy,
                                 (optionItem) {
-                              optionItemSelectedFund = optionItem;
+                              optionItemSelectedProxy = optionItem;
                               setState(() {});
                             },
                           ),
@@ -307,7 +310,7 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                               stageDescription: description.text ,
                               paymentType: optionItemSelectedPayment.title,
                               chequeNumber: checkNumber.text,
-                              financialFundName: optionItemSelectedFund.title =='choose'?'' :optionItemSelectedFund.title,
+                              proxyID: optionItemSelectedProxy.id,
                               subcontractID: optionItemSelectedSubContract.id
                           );
                           widget.addFinance(mark);
@@ -355,11 +358,12 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
   void initState() {
     super.initState();
     entrySub= <Entry>[];
+    entryProxy= <Entry>[];
     visAddCard = false;
     optionItemSelectedSubContract =  Entry('choose', 0, []);
     optionItemSelectedPayment =  Entry('choose', 0, []);
     optionItemSelectedStatus =  Entry('choose', 0, []);
-    optionItemSelectedFund =  Entry('choose', 0, []);
+    optionItemSelectedProxy =  Entry('choose', 0, []);
 
     initSubs();
   }
@@ -369,5 +373,12 @@ void initSubs(){
       entrySub.add(v);
     }
     dropListModelSubContract = DropListModel(entrySub);
+
+
+    for(ProxyModel item in widget.proxies){
+      Entry v = Entry(item.fullName! ,item.id! ,[]);
+      entryProxy.add(v);
+    }
+    dropListModelProxy = DropListModel(entryProxy);
 }
 }

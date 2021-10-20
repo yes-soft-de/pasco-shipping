@@ -27,11 +27,19 @@ class AcceptedShipmentResponse {
 class Data{
   Data({this.data ,this.statistics, this.totalCount});
   int? totalCount;
+  int? totalVolume;
+  int? totalWeight;
+  int? totalGunny;
+  int? totalReceivedQuantity;
   Statistics? statistics;
   List<AcceptedShipmentModel>? data;
 
   Data.fromJson(Map<String, dynamic> json) {
     totalCount = json['totalCount'];
+    totalVolume = json['totalVolume'];
+    totalWeight = json['totalWeight'];
+    totalGunny = json['totalGunny'];
+    totalReceivedQuantity = json['totalReceivedQuantity'];
     statistics = Statistics.fromJson(json['statistics']);
     if (json['shipments'] != null) {
       data = <AcceptedShipmentModel>[];

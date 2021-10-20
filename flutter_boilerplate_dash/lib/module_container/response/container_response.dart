@@ -51,6 +51,7 @@ class ContainerModel {
     this.updatedAt,
     this.updatedByUser,
     this.createdByUser,
+    this.exportCity,this.exportCountryName,this.exportCountryID,
    required this.used
   });
 
@@ -67,7 +68,11 @@ class ContainerModel {
   String? portName;
   String? location;
 
+  String? exportCity;
+  String? exportCountryName;
+
   int? shipmentID;
+  int? exportCountryID;
 
 
 
@@ -95,6 +100,9 @@ class ContainerModel {
     used: json['used'],
     location: json['location'],
     portName: json['portName'],
+    exportCity: json['exportCity'],
+    exportCountryID: json['exportCountryID'] ??0,
+    exportCountryName: json['exportCountryName'],
 
 
 

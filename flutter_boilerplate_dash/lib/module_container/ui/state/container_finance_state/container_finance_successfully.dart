@@ -5,6 +5,7 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/request/container_add_finance_request.dart';
 import 'package:pasco_shipping/module_container/response/container_finance_response.dart';
 import 'package:pasco_shipping/module_container/widget/container_finance_card.dart';
+import 'package:pasco_shipping/module_proxies/response/proxies_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/enums/accepted_shipment_status.dart';
@@ -20,7 +21,8 @@ class ContainerFinanceSuccessfullyScreen extends StatefulWidget {
   final int containerID;
   final String type;
   final List<SubcontractModel> subContracts;
-  ContainerFinanceSuccessfullyScreen({required this.addFinance ,required this.containerFinances,required this.containerID,required this.type,required this.subContracts });
+  final List<ProxyModel> proxies;
+  ContainerFinanceSuccessfullyScreen({required this.addFinance ,required this.containerFinances,required this.containerID,required this.type,required this.subContracts,required this.proxies });
 
   @override
   _MarkSuccessfullyScreenState createState() => _MarkSuccessfullyScreenState();
@@ -30,7 +32,7 @@ class _MarkSuccessfullyScreenState extends State<ContainerFinanceSuccessfullyScr
   DropListModel dropListModelPayment = DropListModel(paymentType);
   DropListModel dropListModelContainerFCLStatus = DropListModel(containerFclFinance);
   DropListModel dropListModelContainerLCLStatus = DropListModel(containerLclFinance);
-  DropListModel dropListModelFund = DropListModel(fundName);
+  late DropListModel dropListModelProxy;
 
   TextEditingController cost = TextEditingController();
   TextEditingController selling = TextEditingController();
@@ -41,11 +43,12 @@ class _MarkSuccessfullyScreenState extends State<ContainerFinanceSuccessfullyScr
 
   late bool visAddCard;
   late List<Entry> entrySub;
+  late List<Entry> entryProxy;
   late DropListModel dropListModelSubContract;
   late Entry optionItemSelectedSubContract;
   late Entry optionItemSelectedPayment;
   late Entry optionItemSelectedStatus;
-  late Entry optionItemSelectedFund;
+  late Entry optionItemSelectedProxy;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -359,14 +362,14 @@ class _MarkSuccessfullyScreenState extends State<ContainerFinanceSuccessfullyScr
                           child: Row(children: [
                             Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                             SizedBox(width: 5,),
-                            Text('Fund Name' , style: AppTextStyle.mediumBlackBold,)
+                            Text('Proxy Name' , style: AppTextStyle.mediumBlackBold,)
                           ],),
                         ),
                         SelectDropList(
-                          this.optionItemSelectedFund,
-                          this.dropListModelFund,
+                          this.optionItemSelectedProxy,
+                          this.dropListModelProxy,
                               (optionItem) {
-                            optionItemSelectedFund = optionItem;
+                            optionItemSelectedProxy = optionItem;
                             setState(() {});
                           },
                         ),
@@ -383,7 +386,8 @@ class _MarkSuccessfullyScreenState extends State<ContainerFinanceSuccessfullyScr
                             chequeNumber: checkNumber.text,
                             buyingCost:int.parse(buying.text),
                             sellingCost:int.parse(selling.text),
-                            financialFundName: optionItemSelectedFund.title =='choose'?'' :optionItemSelectedFund.title,
+                            proxyID: optionItemSelectedProxy.id,
+                            // financialFundName: optionItemSelectedFund.title =='choose'?'' :optionItemSelectedFund.title,
 
                           );
                           widget.addFinance(mark);
@@ -430,10 +434,11 @@ class _MarkSuccessfullyScreenState extends State<ContainerFinanceSuccessfullyScr
     super.initState();
     visAddCard = false;
     entrySub= <Entry>[];
+    entryProxy= <Entry>[];
     optionItemSelectedSubContract =  Entry('choose', 0, []);
     optionItemSelectedPayment =  Entry('choose', 0, []);
     optionItemSelectedStatus =  Entry('choose', 0, []);
-    optionItemSelectedFund =  Entry('choose', 0, []);
+    optionItemSelectedProxy =  Entry('choose', 0, []);
     cost..text='0';
     buying..text='0';
     print(widget.containerFinances.price);
@@ -447,5 +452,12 @@ class _MarkSuccessfullyScreenState extends State<ContainerFinanceSuccessfullyScr
       entrySub.add(v);
     }
     dropListModelSubContract = DropListModel(entrySub);
+
+
+    for(ProxyModel item in widget.proxies){
+      Entry v = Entry(item.fullName! ,item.id! ,[]);
+      entryProxy.add(v);
+    }
+    dropListModelProxy = DropListModel(entryProxy);
   }
 }
