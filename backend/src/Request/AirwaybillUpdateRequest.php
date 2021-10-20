@@ -28,6 +28,8 @@ class AirwaybillUpdateRequest
 
     private $weight;
 
+    private $exportWarehouseID;
+
     private $updatedBy;
 
     public function getId()

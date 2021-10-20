@@ -147,6 +147,7 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="updatedByUserImage"),
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="subcontractName"),
+     *                  @OA\Property(type="integer", property="exportWarehouseID"),
      *          )
      *      )
      * )
@@ -526,6 +527,8 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="shippingStatus"),
      *                  @OA\Property(type="integer", property="totalGunnyQuantity"),
      *                  @OA\Property(type="integer", property="totalReceivedShipmentsQuantity"),
+     *                  @OA\Property(type="integer", property="exportWarehouseID"),
+     *                  @OA\Property(type="string", property="exportWarehouseName"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
      *                  )

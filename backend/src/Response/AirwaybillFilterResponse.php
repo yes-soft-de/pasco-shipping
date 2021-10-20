@@ -58,6 +58,10 @@ class AirwaybillFilterResponse
 
     public $totalReceivedShipmentsQuantity;
 
+    public $exportWarehouseID;
+
+    public $exportWarehouseName;
+
     public $shipments = [];
 
 }
