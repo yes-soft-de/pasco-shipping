@@ -512,6 +512,12 @@ class TrackManager
         return $this->trackEntityRepository->getOneOrNullTrackByHolderTypeAndHolderID($holderType, $holderID);
     }
 
+    // For create container / air waybill LCL finance
+    public function getOneTrackByHolderTypeAndHolderID($holderType, $holderID)
+    {
+        return $this->trackEntityRepository->getOneTrackByHolderTypeAndHolderID($holderType, $holderID);
+    }
+
     public function checkHolderAvailability(CheckHolderRequest $request)
     {
         // Fist check the holder type then the status of the holder if it is full or not yes

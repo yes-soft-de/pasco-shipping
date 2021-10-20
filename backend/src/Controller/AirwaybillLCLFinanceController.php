@@ -46,9 +46,6 @@ class AirwaybillLCLFinanceController extends BaseController
      *          @OA\Property(type="number", property="stageCost"),
      *          @OA\Property(type="string", property="status"),
      *          @OA\Property(type="integer", property="subcontractID"),
-     *          @OA\Property(type="string", property="paymentType"),
-     *          @OA\Property(type="string", property="chequeNumber"),
-     *          @OA\Property(type="integer", property="proxyID"),
      *          @OA\Property(type="string", property="currency")
      *      )
      * )
