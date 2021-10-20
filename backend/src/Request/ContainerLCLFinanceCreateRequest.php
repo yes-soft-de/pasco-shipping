@@ -36,6 +36,11 @@ class ContainerLCLFinanceCreateRequest
         $this->containerID = $containerID;
     }
 
+    public function getContainerID()
+    {
+        return $this->containerID;
+    }
+
     public function setStatus($status)
     {
         $this->status = $status;
