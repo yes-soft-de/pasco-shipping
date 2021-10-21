@@ -28,6 +28,10 @@ class AirwaybillCreateRequest
 
     private $portID;
 
+    private $exportCountryID;
+
+    private $exportCity;
+
     private $location;
 
     public function setType($type)
