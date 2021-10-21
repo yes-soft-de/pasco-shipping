@@ -383,14 +383,31 @@ class TrackManager
                     // Get container info and added them to the holder record
                     $container = $this->containerManager->getContainerById($holders[$key]['holderID']);
 
+                    // Get the shipments stored in the container
+                    $holders[$key]['shipments'] = $this->trackEntityRepository->getByHolderTypeAndHolderID($holders[$key]['holderType'], $holders[$key]['holderID']);
+
                     if($container)
                     {
                         if($container['type'] == ShippingTypeConstant::$FCL_SHIPPING_TYPE)
                         {
+                            if($holders[$key]['shipments'])
+                            {
+                                $result = $this->shipmentOrderManager->getProductCategoryAndSubProductCategoryByShipmentOrderID($holders[$key]['shipments'][0]->getShipmentID());
+
+                                if($result)
+                                {
+                                    $holders[$key]['productCategory'] = $result['categoriesNames'];
+                                }
+                            }
+
                             if($container['consigneeID'] == null)
                             {
                                 $container['consigneeName'] = $container['consignee'];
                             }
+                        }
+                        elseif($container['type'] == ShippingTypeConstant::$LCL_SHIPPING_TYPE)
+                        {
+                            $holders[$key]['productCategory'] = "Mix";
                         }
 
                         foreach ($container as $index=>$value)
@@ -398,9 +415,6 @@ class TrackManager
                             $holders[$key][$index] = $value;
                         }
                     }
-
-                    // Get the shipments stored in the container
-                    $holders[$key]['shipments'] = $this->trackEntityRepository->getByHolderTypeAndHolderID($holders[$key]['holderType'], $holders[$key]['holderID']);
 
                     // Get total gunny used for all shipments of the container
                     $holders[$key]['totalGunny'] = $this->getTotalGunnyOfShipmentsByContainerID($holders[$key]['holderID']);
@@ -414,14 +428,31 @@ class TrackManager
                     // Get air waybill info and added them to the holder record
                     $airwaybill = $this->airwaybillManager->getAirwaybillById($holders[$key]['holderID']);
 
+                    // Get the shipments stored in the air waybill
+                    $holders[$key]['shipments'] = $this->trackEntityRepository->getByHolderTypeAndHolderID($holders[$key]['holderType'], $holders[$key]['holderID']);
+
                     if($airwaybill)
                     {
                         if($airwaybill['type'] == ShippingTypeConstant::$FCL_SHIPPING_TYPE)
                         {
+                            if($holders[$key]['shipments'])
+                            {
+                                $result = $this->shipmentOrderManager->getProductCategoryAndSubProductCategoryByShipmentOrderID($holders[$key]['shipments'][0]->getShipmentID());
+
+                                if($result)
+                                {
+                                    $holders[$key]['productCategory'] = $result['categoriesNames'];
+                                }
+                            }
+
                             if($airwaybill['consigneeID'] == null)
                             {
                                 $airwaybill['consigneeName'] = $airwaybill['consignee'];
                             }
+                        }
+                        elseif($airwaybill['type'] == ShippingTypeConstant::$LCL_SHIPPING_TYPE)
+                        {
+                            $holders[$key]['productCategory'] = "Mix";
                         }
 
                         foreach ($airwaybill as $index=>$value)
@@ -429,9 +460,6 @@ class TrackManager
                             $holders[$key][$index] = $value;
                         }
                     }
-
-                    // Get the shipments stored in the air waybill
-                    $holders[$key]['shipments'] = $this->trackEntityRepository->getByHolderTypeAndHolderID($holders[$key]['holderType'], $holders[$key]['holderID']);
 
                     // Get total gunny used for all shipments of the air waybill
                     $holders[$key]['totalGunny'] = $this->getTotalGunnyOfShipmentsByAirWaybillID($holders[$key]['holderID']);
