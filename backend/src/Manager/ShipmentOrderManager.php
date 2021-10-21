@@ -427,6 +427,8 @@ class ShipmentOrderManager
                         }
                     }
 
+                    $shipments[$key]['receivedQuantity'] = $this->receivedShipmentManager->getReceivedShipmentQuantityByShipmentID($val['id']);
+
                     $response['totalVolume'] += $val['volume'];
 
                     $response['totalWeight'] += $val['weight'];
