@@ -424,5 +424,9 @@
   "oneKiloPrice": "One kilo price",
   "oneCBMPrice": "One CBM price",
 
-  "paymentWay": "Payment way"
+  "paymentWay": "Payment way",
+  "exportCity": "Export city",
+  "exportCityConfirm": "please select export city",
+  "changeClientPass": " change password"
+
 }

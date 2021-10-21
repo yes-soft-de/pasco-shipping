@@ -89,7 +89,7 @@ class AddContainerStateManager {
         });
   }
 
-  void getSubContractAndSpecificationAndHarborAndShipper() {
+  void getSubContractAndSpecificationAndHarborAndShipperAndCountries() {
     _addStateSubject.add(LoadingAddState());
         _subcontractService.getSubcontracts().then((subs) {
           if (subs != null) {
@@ -102,8 +102,13 @@ class AddContainerStateManager {
                       if(harbor != null){
                         _shipperService.getShippers().then((shippers) {
                           if(shippers != null){
-                            _addStateSubject
-                                .add(InitAddState(subcontracts: subs , specifications: value ,clients: clients,harbor: harbor,shippers: shippers,countries: []));
+                            _firstOptionService.getCountriesImport('export').then((contries) {
+                              if(contries != null){
+                                _addStateSubject
+                                    .add(InitAddState(subcontracts: subs , specifications: value ,clients: clients,harbor: harbor,shippers: shippers,countries: contries));
+                              }
+                            });
+
                           }
                         });
                       }

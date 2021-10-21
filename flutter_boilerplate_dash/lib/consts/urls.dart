@@ -1,9 +1,10 @@
 class Urls {
-  // static const String DOMAIN = 'http://159.89.13.229/';
-  // static const String BASE_API = 'http://159.89.13.229/';
+  static const String DOMAIN = 'http://159.89.13.229/';
+  static const String BASE_API = 'http://159.89.13.229/';
 
-  static const String DOMAIN = 'http://165.22.68.54/';
-  static const String BASE_API = 'http://165.22.68.54/';
+//new
+//   static const String DOMAIN = 'http://165.22.68.54/';
+//   static const String BASE_API = 'http://165.22.68.54/';
 
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
 
@@ -111,6 +112,7 @@ class Urls {
   static const GET_CLIENTS = BASE_API + 'clientprofileall';
   static const CLIENT = BASE_API + 'client';
   static const DELETE_CLIENT = BASE_API + 'clientprofilebydashboard';
+  static const CLIENT_PASSWORD = BASE_API + 'clientpassword';
 
 
 

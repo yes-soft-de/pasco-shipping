@@ -27,11 +27,7 @@ class AirwaybillFinanceStateManager {
       if (value != null) {
         _subcontractService.getSubcontracts().then((subs) {
           if(subs != null){
-            _proxyService.getProxies().then((proxies) {
-              if(proxies != null){
-                _stateSubject.add(SuccessfullyFetchState(value,subs,proxies));
-              }
-            });
+            _stateSubject.add(SuccessfullyFetchState(value,subs,[]));
           }
         });
       } else {
@@ -46,11 +42,7 @@ class AirwaybillFinanceStateManager {
       if (value != null) {
         _subcontractService.getSubcontracts().then((subs) {
           if(subs != null){
-            _proxyService.getProxies().then((proiex) {
-              if(proiex != null){
-                _stateSubject.add(SuccessfullyFetchState(value,subs,proiex));
-              }
-            });
+            _stateSubject.add(SuccessfullyFetchState(value,subs,[]));
           }
         });
       } else {
@@ -69,7 +61,7 @@ class AirwaybillFinanceStateManager {
               .getAirwaybillFCLFinance(request)
               .then((finances) {
             if (finances != null) {
-              _stateSubject.add(SuccessfullyFetchState(finances,subs,proxies));
+              _stateSubject.add(SuccessfullyFetchState(finances,subs,[]));
             } else {
               _stateSubject.add(ErrorState('Error', false));
             }
@@ -90,7 +82,7 @@ class AirwaybillFinanceStateManager {
               .getAirwaybillLCLFinance(request)
               .then((finances) {
             if (finances != null) {
-              _stateSubject.add(SuccessfullyFetchState(finances,subs,proxies));
+              _stateSubject.add(SuccessfullyFetchState(finances,subs,[]));
             } else {
               _stateSubject.add(ErrorState('Error', false));
             }

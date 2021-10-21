@@ -9,6 +9,7 @@ import 'package:pasco_shipping/module_airwaybill_specification/response/airwaybi
 import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
+import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
@@ -20,8 +21,9 @@ class RequestAirwaybillInit extends StatefulWidget {
   final List<SubcontractModel> subContracts;
   final List<ClientModel> clients;
   final List<HarborModel> harbors;
+  final List<Countries> countriesExports;
   final Function onSave;
-  const RequestAirwaybillInit({ required this.onSave , required this.subContracts,required this.clients,required this.harbors});
+  const RequestAirwaybillInit({ required this.onSave , required this.subContracts,required this.clients,required this.harbors,required this.countriesExports});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
@@ -31,7 +33,7 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
  // late TextEditingController location ;
   DropListModel dropListModelLocation = DropListModel(location);
   late Entry optionItemSelectedLocation;
-
+  late DropListModel dropListModelFromCountries;
  late DropListModel dropListModelProvidedBy;
  late Entry optionItemSelectedProvidedBy;
 
@@ -63,7 +65,8 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
  late String status;
  late String type;
  late int selectedRadioType;
-
+  late List<Entry> entryFrom;
+  late Entry optionItemSelectedFrom;
  // late int shipperID;
  // late int consigneeID;
  // late int providedByID;
@@ -166,7 +169,26 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                   ),
                 ],
               ),
-
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).exportCity, style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              SelectDropListl(
+                this.optionItemSelectedFrom,
+                this.dropListModelFromCountries,
+                    (optionItem) {
+                  optionItemSelectedFrom = optionItem;
+                  print(optionItem.title);
+                  print(optionItem.id);
+                  // widget.shipmentRequest.exportWarehouseID =optionItem.id;
+                  // widget.shipmentRequest.exportWarehouseName =optionItem.title;
+                  setState(() {});
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
@@ -295,18 +317,25 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 // DateTime arrivalDate = DateTime(endDate.year , endDate.month ,endDate.day ,selectedTimeEnd.hour ,selectedTimeEnd.minute);
                 // DateTime launchDate = DateTime(startDate.year , startDate.month ,startDate.day ,selectedTimeStart.hour ,selectedTimeStart.minute);
-
-                AirwaybillRequest re = AirwaybillRequest(status: status ,type: type,
-                    consigneeID: optionItemSelectedConsignee.id ,
+                if(optionItemSelectedFrom.id ==0){
+                  Fluttertoast.showToast(msg: S.of(context).exportCityConfirm);
+                }else {
+                  AirwaybillRequest re = AirwaybillRequest(status: status,
+                    type: type,
+                    consigneeID: optionItemSelectedConsignee.id,
                     shipperID: optionItemSelectedShipper.id,
 
                     carrierID: optionItemSelectedCarrier.id
-                    ,location: optionItemSelectedLocation.title,
-                  providedBy: optionItemSelectedProvidedBy.id,
+                    ,
+                    location: optionItemSelectedLocation.title,
+                    providedBy: optionItemSelectedProvidedBy.id,
                     portID: optionItemSelectedHarbor.id,
+                    exportCity: optionItemSelectedFrom.title,
+                    exportCountryID: optionItemSelectedFrom.id,
 
-                );
+                  );
                   widget.onSave(re);
+                }
 
               }, radius: 15)
             ],),
@@ -344,8 +373,10 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
     optionItemSelectedClient =  Entry('choose', 0, []);
     optionItemSelectedHarbor =  Entry('choose', 0, []);
     optionItemSelectedLocation =  Entry('choose', 0, []);
+    optionItemSelectedFrom=Entry('choose', 0, []);
+    entryFrom =[];
     initList();
-
+    initShippingFrom();
   }
 
   void initList(){
@@ -389,5 +420,24 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
      print(val);
    });
  }
+
+  void initShippingFrom() {
+    List<Entry> children = <Entry>[];
+    for (Countries item in widget.countriesExports) {
+      if (item.warehouses!.isNotEmpty && item.type=='export') {
+        Entry country = Entry(item.name!, item.id!, children);
+        print(country.id);
+        children = [];
+        for (Warehouse warehouseItem in item.warehouses!) {
+          print(warehouseItem.countryName);
+          Entry warehouse = Entry(warehouseItem.city!, country.id, []);
+          children.add(warehouse);
+        }
+        country.children = children;
+        entryFrom.add(country);
+      }
+    }
+    dropListModelFromCountries = DropListModel(entryFrom);
+  }
 
 }

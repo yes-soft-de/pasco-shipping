@@ -41,7 +41,16 @@ class _CountriesScreenState extends State<ContainerFinanceScreen> {
         showFilter: false,
         goBack: ()  {
         },
-        child: Screen(),
+        child:  Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child:  Screen()),
+          ),
+        ),
         title: S.of(context).containerFinance
     );
   }
@@ -89,7 +98,7 @@ class _CountriesScreenState extends State<ContainerFinanceScreen> {
     else if (currentState is SuccessfullyFetchState) {
       SuccessfullyFetchState state = currentState as SuccessfullyFetchState;
       subs = state.subcontracts;
-      proxies = state.proxies;
+      // proxies = state.proxies;
       return ContainerFinanceSuccessfullyScreen(
      containerID: id,
      containerFinances: state.finances,
@@ -105,16 +114,16 @@ class _CountriesScreenState extends State<ContainerFinanceScreen> {
          onConfirmBtnTap: (){
            Navigator.pop(context);
            if(type=='LCL') {
-             widget._stateManager.createContainerLCLFinance(request,subs,proxies);
+             widget._stateManager.createContainerLCLFinance(request,subs,[]);
            }else{
-             widget._stateManager.createContainerFCLFinance(request,subs,proxies);
+             widget._stateManager.createContainerFCLFinance(request,subs,[]);
            }
          },
          text: S.of(context).addCostConfirm,
        );
 
      }, subContracts: subs,
-        type: type, proxies:proxies,
+        type: type, proxies:[],
       );
     }
     // else if(currentState is SuccessfullyModifyState){

@@ -7,10 +7,10 @@ class AirwaybillAddFinanceRequest {
   String currency;
 
   int? subcontractID;
-  int? proxyID;
+  // int? proxyID;
   // int? clientUserID;
-  String paymentType;
-  String? chequeNumber;
+  // String paymentType;
+  // String? chequeNumber;
   // String? financialFundName;
 
   int? sellingCost;
@@ -22,28 +22,28 @@ class AirwaybillAddFinanceRequest {
         required this.stageCost,
         required this.status,
         required this.currency,
-        required this.paymentType,
+        // required this.paymentType,
         // this.financialFundName,
-        this.chequeNumber,
+        // this.chequeNumber,
         this.subcontractID,
         this.buyingCost,
         this.sellingCost,
-        this.proxyID
+        // this.proxyID
         // this.clientUserID
 
       });
   Map<String, dynamic> toJson() {
     if (airwaybillID == null) {
       return {
-        'proxyID':proxyID,
+        // 'proxyID':proxyID,
         'stageDescription': stageDescription,
         'stageCost': stageCost,
         'status': status,
         'currency': currency,
         'subcontractID':subcontractID,
-        'chequeNumber':chequeNumber,
+        // 'chequeNumber':chequeNumber,
         // 'financialFundName':financialFundName,
-        'paymentType':paymentType,
+        // 'paymentType':paymentType,
         "sellingCost":sellingCost,
         "buyingCost":buyingCost
         // 'clientUserID':clientUserID
@@ -51,15 +51,15 @@ class AirwaybillAddFinanceRequest {
     } else {
       return {
         'airwaybillID': airwaybillID,
-        'proxyID': proxyID,
+        // 'proxyID': proxyID,
         'stageDescription': stageDescription,
         'stageCost': stageCost,
         'status': status,
         'currency': currency,
         'subcontractID':subcontractID,
-        'chequeNumber':chequeNumber,
+        // 'chequeNumber':chequeNumber,
         // 'financialFundName':financialFundName,
-        'paymentType':paymentType,
+        // 'paymentType':paymentType,
         "sellingCost":sellingCost,
         "buyingCost":buyingCost
         // 'clientUserID':clientUserID

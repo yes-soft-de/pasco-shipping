@@ -82,7 +82,7 @@ this.categoriesNames,
     this.receiverID,
   required  this.clientUserID,
     this.productCategoryID,
-    this.markID
+    this.markID,this.receivedQuantity
 
     // this.subShipmentModelList
   });
@@ -97,6 +97,7 @@ this.categoriesNames,
   String? importWarehouseName;
   int? quantity;
   int? guniQuantity;
+  int? receivedQuantity;
   DateTime? updatedAt;
   String? productCategoryName;
   String? subProductCategoryName;
@@ -161,6 +162,7 @@ this.categoriesNames,
         productCategoryID = json['subProductCategoryID'];
         clientUserID = json['clientUserID'];
         guniQuantity = json['guniQuantity'] ??0 ;
+        receivedQuantity = json['receivedQuantity'] ??0 ;
         volume = json['volume'].toString() =='null' ? '0' : json['volume'].toString();
         weight =json['weight'].toString() =='null' ? '0' : json['weight'].toString();
   }

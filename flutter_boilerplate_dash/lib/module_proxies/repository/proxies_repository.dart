@@ -22,8 +22,12 @@ class ProxyRepository{
     try {
       var response = await _apiClient.get(Urls.PROXIES,
           headers: {'Authorization': 'Bearer $token'});
-      List<ProxyModel>? marks =
-          ProxyResponse.fromJson(response!).data;
+      ProxyResponse markResponse =  ProxyResponse.fromJson(response!);
+      List<ProxyModel>? marks = [];
+      if(markResponse.data != null) {
+        marks =
+            ProxyResponse.fromJson(response).data;
+      }
       return marks;
     } catch (e) {
       print('catch error');

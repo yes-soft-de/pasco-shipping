@@ -3459,6 +3459,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Export city`
+  String get exportCity {
+    return Intl.message(
+      'Export city',
+      name: 'exportCity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `please select export city`
+  String get exportCityConfirm {
+    return Intl.message(
+      'please select export city',
+      name: 'exportCityConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` change password`
+  String get changeClientPass {
+    return Intl.message(
+      ' change password',
+      name: 'changeClientPass',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

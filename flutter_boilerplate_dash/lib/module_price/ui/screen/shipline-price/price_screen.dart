@@ -40,7 +40,16 @@ class _ProfileScreenState extends State<PriceScreen> {
       },
       // controller: controller,
       // isHome: false,
-      child: Screen(),
+      child:  Container(
+        width: double.maxFinite,
+        child: Center(
+          child: Container(
+              constraints: BoxConstraints(
+                  maxWidth: 600
+              ),
+              child:  Screen()),
+        ),
+      ),
       title: S.of(context).prices,
       // currentIndex: -1,
       // isResultScreen: false,

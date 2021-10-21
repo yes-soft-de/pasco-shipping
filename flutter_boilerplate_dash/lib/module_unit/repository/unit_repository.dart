@@ -22,8 +22,12 @@ class UnitRepository{
     try {
       var response = await _apiClient.get(Urls.UNITS,
           headers: {'Authorization': 'Bearer $token'});
-      List<UnitModel>? marks =
-          UnitResponse.fromJson(response!).data;
+     UnitResponse markResponse =   UnitResponse.fromJson(response!);
+      List<UnitModel>? marks = [];
+      if(markResponse.data != null) {
+        marks =
+            UnitResponse.fromJson(response).data;
+      }
       return marks;
     } catch (_) {
       return null;

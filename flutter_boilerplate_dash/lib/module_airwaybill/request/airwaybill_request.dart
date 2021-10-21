@@ -15,6 +15,9 @@ class AirwaybillRequest {
   int? carrierID;
   int? clientID;
   int portID;
+  int? exportCountryID;
+  int? exportWarehouseID;
+  String? exportCity;
 
   AirwaybillRequest(
       {
@@ -31,8 +34,11 @@ class AirwaybillRequest {
       required this.shipperID,
         this.clientID,
        required this.portID,
-        this.weight,this.consignee
+        this.weight,this.consignee,
+      this.exportWarehouseID,
 
+        this.exportCountryID,
+        this.exportCity
       });
 
   Map<String, dynamic> toJson() {
@@ -49,7 +55,10 @@ class AirwaybillRequest {
         'portID':portID,
         'location':location,
         'weight':weight,
-        'consignee':consignee
+        'consignee':consignee,
+        'exportCountryID':exportCountryID,
+        'exportCity':exportCity,
+        'exportWarehouseID':exportWarehouseID,
       };
     } else {
       return {
@@ -65,7 +74,10 @@ class AirwaybillRequest {
         'portID':portID,
         'location':location,
         'weight':weight,
-        'consignee':consignee
+        'consignee':consignee,
+        'exportCountryID':exportCountryID,
+        'exportCity':exportCity,
+        'exportWarehouseID':exportWarehouseID,
       };
     }
   }

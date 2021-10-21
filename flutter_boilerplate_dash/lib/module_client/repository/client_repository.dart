@@ -22,9 +22,13 @@ class ClientRepository{
     try {
       var response = await _apiClient.get(Urls.GET_CLIENTS,
           headers: {'Authorization': 'Bearer $token'});
-      List<ClientModel>? marks =
-          ClientResponse.fromJson(response!).data;
-      return marks;
+      ClientResponse responses =  ClientResponse.fromJson(response!);
+      List<ClientModel>? travels = [];
+      if(responses.data != null) {
+        travels =
+            ClientResponse.fromJson(response).data;
+      }
+      return travels;
     } catch (_) {
       return null;
     }
@@ -64,6 +68,20 @@ class ClientRepository{
     var token = await _authService.getToken();
 
     var response = await _apiClient.put(Urls.DELETE_CLIENT, request.toJson(),
+        headers: {'Authorization': 'Bearer $token'});
+    String? statusCode = ClientResponse.fromJson(response!).statusCode;
+    String? msg = ClientResponse.fromJson(response).msg;
+    if(statusCode =='204'){
+      return ConfirmResponse(true, msg!);
+    }else {
+      return ConfirmResponse(false, msg!);
+    }
+  }
+  Future<ConfirmResponse?> updateClientPass(UpdateClientPassRequest request) async {
+    // await _authService.refreshToken();
+    var token = await _authService.getToken();
+
+    var response = await _apiClient.put(Urls.CLIENT_PASSWORD, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = ClientResponse.fromJson(response!).statusCode;
     String? msg = ClientResponse.fromJson(response).msg;

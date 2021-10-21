@@ -80,6 +80,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "careful": MessageLookupByLibrary.simpleMessage("رجاءا كن حذر"),
         "carrier": MessageLookupByLibrary.simpleMessage("الناقل"),
         "category": MessageLookupByLibrary.simpleMessage("فئة رئيسية "),
+        "changeClientPass":
+            MessageLookupByLibrary.simpleMessage("تغير كلمة السر"),
         "changeStatusConfirm": MessageLookupByLibrary.simpleMessage(
             "هل تريد حقا الإنتقال الى الحالة التالية ؟"),
         "choose": MessageLookupByLibrary.simpleMessage("اختر"),
@@ -161,6 +163,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("أدخل رقم الشحنة"),
         "errorHappened": MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
         "export": MessageLookupByLibrary.simpleMessage("تصدير"),
+        "exportCity": MessageLookupByLibrary.simpleMessage("دولة التصدير"),
+        "exportCityConfirm":
+            MessageLookupByLibrary.simpleMessage("الرجاء تحديد دولة التصدير"),
         "exportWarehouse":
             MessageLookupByLibrary.simpleMessage("مستودع التصدير: "),
         "extensionalInfo":

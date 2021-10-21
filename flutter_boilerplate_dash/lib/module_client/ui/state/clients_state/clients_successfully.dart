@@ -6,7 +6,8 @@ class ClientsSuccessfully extends StatelessWidget {
   final List<ClientModel> items;
   final Function onDelete;
   final Function onEdit;
-  const ClientsSuccessfully({required  this.items,required this.onDelete,required this.onEdit});
+  final Function onEditPass;
+  const ClientsSuccessfully({required  this.items,required this.onDelete,required this.onEdit,required this.onEditPass});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +15,8 @@ class ClientsSuccessfully extends StatelessWidget {
       return ClientCard(model: items[index],
         onEdit: (model){
           onEdit(model);
+        },onEditPass: (model){
+            onEditPass(model);
         },
         onDelete: (id){
           onDelete(id);

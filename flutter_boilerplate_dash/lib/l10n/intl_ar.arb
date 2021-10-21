@@ -404,5 +404,8 @@
   "oneKiloPrice": "سعر الكليو الواحد",
   "oneCBMPrice": "سعر CBM واحد",
 
-  "paymentWay": "طريقة الدفع"
+  "paymentWay": "طريقة الدفع",
+  "exportCity": "دولة التصدير",
+  "exportCityConfirm": "الرجاء تحديد دولة التصدير",
+  "changeClientPass": "تغير كلمة السر"
 }

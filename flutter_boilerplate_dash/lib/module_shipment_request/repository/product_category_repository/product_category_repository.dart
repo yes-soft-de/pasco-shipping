@@ -22,8 +22,12 @@ class FirstOptionRepository {
     try {
       var response = await _apiClient.get(Urls.PRODUCT_CATEGORIES,
           headers: {'Authorization': 'Bearer $token'});
-      List<ProductModel>? marks =
-          ProductResponse.fromJson(response!).data;
+      ProductResponse markResponse =  ProductResponse.fromJson(response!);
+      List<ProductModel>? marks = [];
+      if(markResponse.data != null) {
+        marks =
+            ProductResponse.fromJson(response).data;
+      }
       return marks;
     } catch (_) {
       return null;
@@ -36,8 +40,13 @@ class FirstOptionRepository {
     try {
       var response = await _apiClient
           .get(Urls.COUNTRIES, headers: {'Authorization': 'Bearer $token'});
-      List<Countries>? warehouses = WarehouseResponse.fromJson(response!).data;
-      return warehouses;
+      ProductResponse markResponse =  ProductResponse.fromJson(response!);
+      List<Countries>? marks = [];
+      if(markResponse.data != null) {
+        marks =
+            WarehouseResponse.fromJson(response).data;
+      }
+      return marks;
     } catch (_) {
       return null;
     }
@@ -48,8 +57,13 @@ class FirstOptionRepository {
     try {
       var response = await _apiClient
           .get(Urls.COUNTRIES+'/'+type, headers: {'Authorization': 'Bearer $token'});
-      List<Countries>? warehouses = WarehouseResponse.fromJson(response!).data;
-      return warehouses;
+      WarehouseResponse markResponse =  WarehouseResponse.fromJson(response!);
+      List<Countries>? marks = [];
+      if(markResponse.data != null) {
+        marks =
+            WarehouseResponse.fromJson(response).data;
+      }
+      return marks;
     } catch (_) {
       return null;
     }

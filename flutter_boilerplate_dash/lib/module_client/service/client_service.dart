@@ -16,6 +16,9 @@ class ClientService {
   Future<ConfirmResponse?> updateClient(CreateClientRequest request) {
     return _manager.updateClient(request);
   }
+  Future<ConfirmResponse?> updateClientPass(UpdateClientPassRequest request) {
+    return _manager.updateClientPass(request);
+  }
   Future<ConfirmResponse?> deleteClient(String id) {
     return _manager.deleteClient(id);
   }

@@ -22,8 +22,12 @@ class ProductRepository{
     try {
       var response = await _apiClient.get(Urls.PRODUCT_CATEGORIES,
           headers: {'Authorization': 'Bearer $token'});
-      List<ProductModel>? marks =
-          ProductResponse.fromJson(response!).data;
+      ProductResponse markResponse =  ProductResponse.fromJson(response!);
+      List<ProductModel>? marks = [];
+      if(markResponse.data != null) {
+        marks =
+            ProductResponse.fromJson(response).data;
+      }
       return marks;
     } catch (_) {
       return null;

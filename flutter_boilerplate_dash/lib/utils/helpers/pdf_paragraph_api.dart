@@ -14,6 +14,7 @@ import 'package:pasco_shipping/module_shipment_invoices/response/invoice_respons
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_response.dart';
+import 'package:pasco_shipping/module_shipments_orders_accepted/response/gunny_shipment_response.dart';
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:path_provider/path_provider.dart';
@@ -64,7 +65,7 @@ class PdfParagraphApi {
     ];
     final dataSea = model.map((user) => [
       user.updatedAt.toString().split(' ').first, user.shipmentId,
-      user.quantity,  user.guniQuantity,user.volume   ,user.categoriesNames,
+      user.receivedQuantity,  user.guniQuantity,user.volume   ,user.categoriesNames,
       user.clientUsername,
       user.paymentTime , user.transportationType
 
@@ -616,7 +617,7 @@ class PdfParagraphApi {
                TableRow(
                   children: [
                     Padding( padding: const EdgeInsets.all(8.0), child: Row(children: [
-                      Text('ID: ' ,style:TextStyle( fontSize: 18,
+                      Text('ShipmentID: ' ,style:TextStyle( fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: PdfColors.black,) ),
                       Text(ID,style:TextStyle( fontSize: 16,
@@ -788,6 +789,25 @@ class PdfParagraphApi {
                         fontWeight: FontWeight.bold,
                         color: PdfColors.black,) ),
                       Text(model.type ??'',style:TextStyle( fontSize: 16,
+                        color: PdfColors.blue,))
+                    ]),),
+
+                  ]),
+
+              TableRow(
+                  children: [
+                    Padding( padding: const EdgeInsets.all(8.0), child:   Row(children: [
+                      Text(S.current.shipper ,style:TextStyle( fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: PdfColors.black,) ),
+                      Text(model.shipperName ??'',style:TextStyle( fontSize: 16,
+                        color: PdfColors.blue,))
+                    ]),),
+                    Padding( padding: const EdgeInsets.all(8.0), child:    Row(children: [
+                      Text(S.current.consignee+': ' ,style:TextStyle( fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: PdfColors.black,) ),
+                      Text(model.consigneeName ??'',style:TextStyle( fontSize: 16,
                         color: PdfColors.blue,))
                     ]),),
 
@@ -1256,6 +1276,101 @@ class PdfParagraphApi {
              height: 300,
              barcode: Barcode.qrCode(),
            ), )
+
+
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+           // Paragraph(text: LoremText().paragraph(60)),
+         ],
+         footer: (context) {
+           final text = 'Page ${context.pageNumber} of ${context.pagesCount}';
+
+           return Container(
+             alignment: Alignment.centerRight,
+             margin: EdgeInsets.only(top: 1 * PdfPageFormat.cm),
+             child: Text(
+               text,
+               style: TextStyle(color: PdfColors.black),
+             ),
+           );
+         },
+       ),
+     );
+     return await pdf.save();
+   }
+   static  Future<Uint8List> generateGunny(GunnyShipmentModel model) async {
+     final pdf = Document();
+     // final customFont =
+     // Font.ttf(await rootBundle.load('assets/OpenSans-Regular.ttf'));
+
+     final ByteData bytes =
+     await rootBundle.load(StaticImage.logo);
+     final Uint8List byteList = bytes.buffer.asUint8List();
+
+     pdf.addPage(
+       MultiPage(
+         orientation: PageOrientation.portrait,
+         theme: ThemeData.withFont(
+           base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+         ),
+         build: (context) => <Widget>[
+           Container(
+             padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
+             decoration: BoxDecoration(
+               border: Border(bottom: BorderSide(width: 2, color: PdfColors.blue)),
+             ),
+             child: Row(
+               children: [
+                 Image(
+                     MemoryImage(
+                       byteList,
+                     ),
+                     height: 150,
+                     width: 150,
+                     fit: BoxFit.contain),
+                 SizedBox(width: 5 * PdfPageFormat.cm),
+                 Column(
+                     children: [
+                       Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                       Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
+                     ]
+                 )
+               ],
+             ),
+           ),
+           Container(
+             padding: EdgeInsets.only(bottom: 3 * PdfPageFormat.mm),
+             child: Padding(
+               padding: const EdgeInsets.all(8.0),
+                   child: Padding(
+                     padding: const EdgeInsets.all(10.0),
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           children: [
+                             Row(
+                               children: [
+                                 Text('Gunny Number'+': '),
+                                 Text(model.gunnyIdentificationNumber ??''),
+                               ],
+                             ),
+                             Row(
+                               children: [
+                                 Text('Unit Quantity: '),
+                                 Text(model.quantity.toString()),
+                               ],
+                             ),
+                           ],),
+                       ],
+                     ),
+                   )),
+             ),
+           SizedBox(height: 0.5 * PdfPageFormat.cm),
 
 
            // Paragraph(text: LoremText().paragraph(60)),

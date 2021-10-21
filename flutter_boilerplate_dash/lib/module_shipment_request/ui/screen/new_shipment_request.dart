@@ -64,214 +64,225 @@ class _NewShipmentState extends State<NewShipment> {
         Navigator.pop(context);
       },
       // controller: _controller,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            // mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              NumberStepper(
-                activeStep: activeStep,
-                lineColor: AppThemeDataService.AccentColor,
-                activeStepColor: AppThemeDataService.AccentColor,
-                activeStepBorderColor: greyWhite,
-                activeStepBorderWidth: 3,
-                enableNextPreviousButtons: false,
-                lineDotRadius: 2,
-                enableStepTapping: false,
-                stepColor: Colors.grey,
-                lineLength: 75,
-                onStepReached: (step) {
-                  setState(() {
-                    activeStep = step;
-                  });
-                },
-                numbers: [
-                  1,
-                  2,
-                  3,
-                ],
+      child: Container(
+        width: double.maxFinite,
+        child: Center(
+          child: Container(
+              constraints: BoxConstraints(
+                  maxWidth: 600
               ),
-              StreamBuilder<int>(
-                initialData: 0,
-                stream: _optionsStreamController,
-                builder: (context, snapshot) {
-                  if (snapshot.data == 0) {
-                    return FirstOptions(
-                        widget._stateManger, _shipmentRequestModel, () {
-                      print("requetsModel" + _shipmentRequestModel.toString());
-                      setState(() {
-                        activeStep = activeStep + 1;
-                        _optionsStreamController.add(activeStep);
-                        SchedulerBinding.instance!.addPostFrameCallback((_) {
-                          if (_controller.hasClients) {
-                            _controller.animateTo(
-                              0.0,
-                              curve: Curves.easeOut,
-                              duration: const Duration(milliseconds: 0),
+              child:   Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      NumberStepper(
+                        activeStep: activeStep,
+                        lineColor: AppThemeDataService.AccentColor,
+                        activeStepColor: AppThemeDataService.AccentColor,
+                        activeStepBorderColor: greyWhite,
+                        activeStepBorderWidth: 3,
+                        enableNextPreviousButtons: false,
+                        lineDotRadius: 2,
+                        enableStepTapping: false,
+                        stepColor: Colors.grey,
+                        lineLength: 75,
+                        onStepReached: (step) {
+                          setState(() {
+                            activeStep = step;
+                          });
+                        },
+                        numbers: [
+                          1,
+                          2,
+                          3,
+                        ],
+                      ),
+                      StreamBuilder<int>(
+                        initialData: 0,
+                        stream: _optionsStreamController,
+                        builder: (context, snapshot) {
+                          if (snapshot.data == 0) {
+                            return FirstOptions(
+                                widget._stateManger, _shipmentRequestModel, () {
+                              print("requetsModel" + _shipmentRequestModel.toString());
+                              setState(() {
+                                activeStep = activeStep + 1;
+                                _optionsStreamController.add(activeStep);
+                                SchedulerBinding.instance!.addPostFrameCallback((_) {
+                                  if (_controller.hasClients) {
+                                    _controller.animateTo(
+                                      0.0,
+                                      curve: Curves.easeOut,
+                                      duration: const Duration(milliseconds: 0),
+                                    );
+                                  }
+                                });
+                              });
+                            });
+                          } else if (snapshot.data == 1) {
+                            return SecondOption(stateManger:
+                            widget._stateManger,shipmentRequest:  _shipmentRequestModel,goBackStep:  () {
+                              setState(() {
+                                activeStep = activeStep - 1;
+                                _optionsStreamController.add(activeStep);
+                                SchedulerBinding.instance!.addPostFrameCallback((_) {
+                                  if (_controller.hasClients) {
+                                    _controller.animateTo(
+                                      0.0,
+                                      curve: Curves.easeOut,
+                                      duration: const Duration(milliseconds: 0),
+                                    );
+                                  }
+                                });
+                              });
+                            },goNextStep:() {
+                              setState(() {
+                                activeStep = activeStep + 1;
+                                _optionsStreamController.add(activeStep);
+                                SchedulerBinding.instance!.addPostFrameCallback((_) {
+                                  if (_controller.hasClients) {
+                                    _controller.animateTo(
+                                      0.0,
+                                      curve: Curves.easeOut,
+                                      duration: const Duration(milliseconds: 0),
+                                    );
+                                  }
+                                });
+                              });
+                            },goToAddClient: (req){
+                              Navigator.pushNamed(context, ClientRoutes.ADD_NEW).then((value) {
+                                setState(() {
+                                  activeStep = 0;
+                                  _optionsStreamController.add(activeStep);
+                                });
+                              });
+                            },
                             );
                           }
-                        });
-                      });
-                    });
-                  } else if (snapshot.data == 1) {
-                    return SecondOption(stateManger:
-                        widget._stateManger,shipmentRequest:  _shipmentRequestModel,goBackStep:  () {
-                      setState(() {
-                        activeStep = activeStep - 1;
-                        _optionsStreamController.add(activeStep);
-                        SchedulerBinding.instance!.addPostFrameCallback((_) {
-                          if (_controller.hasClients) {
-                            _controller.animateTo(
-                              0.0,
-                              curve: Curves.easeOut,
-                              duration: const Duration(milliseconds: 0),
-                            );
-                          }
-                        });
-                      });
-                    },goNextStep:() {
-                      setState(() {
-                        activeStep = activeStep + 1;
-                        _optionsStreamController.add(activeStep);
-                        SchedulerBinding.instance!.addPostFrameCallback((_) {
-                          if (_controller.hasClients) {
-                            _controller.animateTo(
-                              0.0,
-                              curve: Curves.easeOut,
-                              duration: const Duration(milliseconds: 0),
-                            );
-                          }
-                        });
-                      });
-                    },goToAddClient: (req){
-                      Navigator.pushNamed(context, ClientRoutes.ADD_NEW).then((value) {
-                        setState(() {
-                          activeStep = 0;
-                          _optionsStreamController.add(activeStep);
-                        });
-                      });
-                    },
-                    );
-                  }
-                  else {
-                    return ThirdOptions(stateManger: widget._stateManger,shipmentRequest:_shipmentRequestModel,
-                        goBackStep:(){
-                      setState(() {
-                        activeStep = activeStep - 1;
-                        _optionsStreamController.add(activeStep);
+                          else {
+                            return ThirdOptions(stateManger: widget._stateManger,shipmentRequest:_shipmentRequestModel,
+                              goBackStep:(){
+                                setState(() {
+                                  activeStep = activeStep - 1;
+                                  _optionsStreamController.add(activeStep);
 
-                        SchedulerBinding.instance!.addPostFrameCallback((_) {
-                          if (_controller.hasClients) {
-                            _controller.animateTo(
-                              0.0,
-                              curve: Curves.easeOut,
-                              duration: const Duration(milliseconds: 0),
-                            );
+                                  SchedulerBinding.instance!.addPostFrameCallback((_) {
+                                    if (_controller.hasClients) {
+                                      _controller.animateTo(
+                                        0.0,
+                                        curve: Curves.easeOut,
+                                        duration: const Duration(milliseconds: 0),
+                                      );
+                                    }
+                                  });
+                                });
+                              } , goToMark: (){
+                                Navigator.pushNamed(context, MarkRoutes.mark , arguments: {'userID' : _shipmentRequestModel.userID ,'userName':_shipmentRequestModel.userName}).then((value) {
+                                  setState(() {
+                                    activeStep = 0;
+                                    _optionsStreamController.add(activeStep);
+                                  });
+                                });
+                              }, goToReceiver: (){
+                                Navigator.pushNamed(context, ReceiverRoutes.receiver , arguments: {'userID' : _shipmentRequestModel.userID ,'userName':_shipmentRequestModel.userName}).then((value) {
+                                  setState(() {
+                                    activeStep = 0;
+                                    _optionsStreamController.add(activeStep);
+                                  });
+                                });
+                              },);
                           }
-                        });
-                      });
-                    } , goToMark: (){
-                        Navigator.pushNamed(context, MarkRoutes.mark , arguments: {'userID' : _shipmentRequestModel.userID ,'userName':_shipmentRequestModel.userName}).then((value) {
-                          setState(() {
-                            activeStep = 0;
-                            _optionsStreamController.add(activeStep);
-                          });
-                        });
-                      }, goToReceiver: (){
-                        Navigator.pushNamed(context, ReceiverRoutes.receiver , arguments: {'userID' : _shipmentRequestModel.userID ,'userName':_shipmentRequestModel.userName}).then((value) {
-                          setState(() {
-                            activeStep = 0;
-                            _optionsStreamController.add(activeStep);
-                          });
-                        });
-                      },);
-                  }
-                },
-              ),
-              // Align(
-              //   alignment: AlignmentDirectional.bottomEnd,
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(8.0),
-              //     child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //       children: [
-              //         activeStep == 0
-              //             ? Container()
-              //             : Align(
-              //             alignment: AlignmentDirectional.bottomStart,
-              //             child: FloatingActionButton.extended(
-              //               onPressed: () {
-              //                 print("requetsModel" +_shipmentRequestModel.toString());
-              //                 setState(() {
-              //                   activeStep = activeStep - 1;
-              //                   _optionsStreamController
-              //                       .add(activeStep);
-              //
-              //                   SchedulerBinding.instance!.addPostFrameCallback((_) {
-              //                     if (_controller.hasClients) {
-              //                       _controller.animateTo(
-              //                         0.0,
-              //                         curve: Curves.easeOut,
-              //                         duration: const Duration(milliseconds: 0),
-              //                       );
-              //                     }
-              //                   });
-              //
-              //                   // WidgetsBinding.instance!
-              //                   //     .addPostFrameCallback((_) {
-              //                   //   _controller
-              //                   //       .animateTo(
-              //                   //       0.0,
-              //                   //       duration: Duration(microseconds: 1),
-              //                   //       curve: Curves.easeOut);
-              //                   // });
-              //                 }
-              //                 );
-              //               },
-              //               label: Text('Back'),
-              //               icon: Icon(
-              //                 Icons.arrow_back,
-              //               ),
-              //             )),
-              //         activeStep == 2
-              //             ? Container()
-              //             : Align(
-              //             alignment: AlignmentDirectional.bottomEnd,
-              //             child: FloatingActionButton.extended(
-              //               onPressed: () {
-              //                 print("requetsModel" +_shipmentRequestModel.toString());
-              //                 setState(() {
-              //                   activeStep = activeStep + 1;
-              //                   _optionsStreamController
-              //                       .add(activeStep);
-              //                   SchedulerBinding.instance!.addPostFrameCallback((_) {
-              //                     if (_controller.hasClients) {
-              //                       _controller.animateTo(
-              //                        0.0,
-              //                         curve: Curves.easeOut,
-              //                         duration: const Duration(milliseconds: 0),
-              //                       );
-              //                     }
-              //                   });
-              //                 });
-              //               },
-              //               icon: Icon(
-              //                 Icons.arrow_forward_outlined,
-              //                 // color: bal,
-              //               ),
-              //               label: Text('Continue'),
-              //             )),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-            ],
-          ),
+                        },
+                      ),
+                      // Align(
+                      //   alignment: AlignmentDirectional.bottomEnd,
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.all(8.0),
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //       children: [
+                      //         activeStep == 0
+                      //             ? Container()
+                      //             : Align(
+                      //             alignment: AlignmentDirectional.bottomStart,
+                      //             child: FloatingActionButton.extended(
+                      //               onPressed: () {
+                      //                 print("requetsModel" +_shipmentRequestModel.toString());
+                      //                 setState(() {
+                      //                   activeStep = activeStep - 1;
+                      //                   _optionsStreamController
+                      //                       .add(activeStep);
+                      //
+                      //                   SchedulerBinding.instance!.addPostFrameCallback((_) {
+                      //                     if (_controller.hasClients) {
+                      //                       _controller.animateTo(
+                      //                         0.0,
+                      //                         curve: Curves.easeOut,
+                      //                         duration: const Duration(milliseconds: 0),
+                      //                       );
+                      //                     }
+                      //                   });
+                      //
+                      //                   // WidgetsBinding.instance!
+                      //                   //     .addPostFrameCallback((_) {
+                      //                   //   _controller
+                      //                   //       .animateTo(
+                      //                   //       0.0,
+                      //                   //       duration: Duration(microseconds: 1),
+                      //                   //       curve: Curves.easeOut);
+                      //                   // });
+                      //                 }
+                      //                 );
+                      //               },
+                      //               label: Text('Back'),
+                      //               icon: Icon(
+                      //                 Icons.arrow_back,
+                      //               ),
+                      //             )),
+                      //         activeStep == 2
+                      //             ? Container()
+                      //             : Align(
+                      //             alignment: AlignmentDirectional.bottomEnd,
+                      //             child: FloatingActionButton.extended(
+                      //               onPressed: () {
+                      //                 print("requetsModel" +_shipmentRequestModel.toString());
+                      //                 setState(() {
+                      //                   activeStep = activeStep + 1;
+                      //                   _optionsStreamController
+                      //                       .add(activeStep);
+                      //                   SchedulerBinding.instance!.addPostFrameCallback((_) {
+                      //                     if (_controller.hasClients) {
+                      //                       _controller.animateTo(
+                      //                        0.0,
+                      //                         curve: Curves.easeOut,
+                      //                         duration: const Duration(milliseconds: 0),
+                      //                       );
+                      //                     }
+                      //                   });
+                      //                 });
+                      //               },
+                      //               icon: Icon(
+                      //                 Icons.arrow_forward_outlined,
+                      //                 // color: bal,
+                      //               ),
+                      //               label: Text('Continue'),
+                      //             )),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                ),
+              )),
         ),
       ),
+
+
       title: S.of(context).requestShipment,
 
     );

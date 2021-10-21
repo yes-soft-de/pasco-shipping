@@ -32,6 +32,7 @@ class ClientResponse {
 class ClientModel {
   ClientModel({
     this.id,
+    this.profileID,
     this.userID,
     this.userName,
     this.image,
@@ -48,6 +49,7 @@ this.marks,
   });
 
   int? id;
+  int? profileID;
   String? userID;
   String? userName;
   String? image;
@@ -65,6 +67,7 @@ this.marks,
 
    ClientModel.fromJson(Map<String, dynamic> json) {
         id = json['id'];
+        profileID = json['profileID'];
         userName= json['userName'];
         userID= json['userID'];
         location= json['location'];

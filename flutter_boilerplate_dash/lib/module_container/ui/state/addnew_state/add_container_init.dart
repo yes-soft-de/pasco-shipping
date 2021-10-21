@@ -177,7 +177,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).from, style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).exportCity, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               SelectDropListl(
@@ -323,7 +323,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 // DateTime launchDate = DateTime(startDate.year , startDate.month ,startDate.day ,selectedTimeStart.hour ,selectedTimeStart.minute);
 
                 if(optionItemSelectedFrom.id ==0){
-                  Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                  Fluttertoast.showToast(msg: S.of(context).exportCityConfirm);
                 }else {
                   ContainerRequest re = ContainerRequest(status: status,
                     type: type

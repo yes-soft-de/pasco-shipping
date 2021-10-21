@@ -6,6 +6,7 @@ import 'package:pasco_shipping/module_airwaybill_specification/service/airwaybil
 import 'package:pasco_shipping/module_client/service/client_service.dart';
 import 'package:pasco_shipping/module_harbor/request/harbor_filter_request.dart';
 import 'package:pasco_shipping/module_harbor/service/harbor_service.dart';
+import 'package:pasco_shipping/module_shipment_request/service/shipment_request_service/first_option_service.dart';
 import 'package:pasco_shipping/module_shipper/service/shipper_service.dart';
 import 'package:pasco_shipping/module_sub_contract/service/subcontract_service.dart';
 import 'package:pasco_shipping/module_subcontract_services/service/sub_contract_service.dart';
@@ -19,12 +20,12 @@ class AddAirwaybillStateManager {
   final ClientService _clientService;
   final HarborService _harborService;
   final ShipperService _shipperService;
-
+  final FirstOptionService _firstOptionService;
   final PublishSubject<AddAirwaybillState> _addStateSubject = PublishSubject();
   Stream<AddAirwaybillState> get stateStream => _addStateSubject.stream;
 
   AddAirwaybillStateManager(
-      this._service,this._subcontractService , this._clientService, this._harborService,this._shipperService);
+      this._service,this._subcontractService , this._clientService, this._harborService,this._shipperService, this._firstOptionService);
 
   void requestAirwaybill(AirwaybillRequest request) {
     _addStateSubject.add(LoadingAddState());
@@ -41,7 +42,7 @@ class AddAirwaybillStateManager {
     });
   }
 
-  void getSubContractAndSpecificationAndHarbor() {
+  void getSubContractAndSpecificationAndHarborAndCountries() {
     _addStateSubject.add(LoadingAddState());
         _subcontractService.getSubcontracts().then((subs) {
           if (subs != null) {
@@ -50,8 +51,12 @@ class AddAirwaybillStateManager {
                 HarborFilterRequest request =HarborFilterRequest(type: 'airport');
                 _harborService.getHarbor(request).then((harbors) {
                   if(harbors != null){
-                    _addStateSubject
-                        .add(InitAddState(subcontracts: subs ,clients: clients,harbors: harbors,shippers: []));
+                    _firstOptionService.getCountriesImport('export').then((countries) {
+                      if(countries != null) {
+                        _addStateSubject
+                          .add(InitAddState(subcontracts: subs ,clients: clients,harbors: harbors,shippers: [],countries: countries));
+                      }
+                    });
                   }
                 });
               }else {
@@ -63,7 +68,7 @@ class AddAirwaybillStateManager {
           }
         });
   }
-  void getSubContractAndSpecificationAndHarborAndShipper() {
+  void getSubContractAndSpecificationAndHarborAndShipperAndCountries() {
     _addStateSubject.add(LoadingAddState());
         _subcontractService.getSubcontracts().then((subs) {
           if (subs != null) {
@@ -74,8 +79,12 @@ class AddAirwaybillStateManager {
                   if(harbors != null){
                     _shipperService.getShippers().then((shippers) {
                       if(shippers != null){
-                        _addStateSubject
-                            .add(InitAddState(subcontracts: subs ,clients: clients,harbors: harbors,shippers: shippers));
+                        _firstOptionService.getCountriesImport('export').then((countries) {
+                          if(countries != null){
+                            _addStateSubject
+                                .add(InitAddState(subcontracts: subs ,clients: clients,harbors: harbors,shippers: shippers,countries: countries));
+                          }
+                        });
                       }
                     });
                   }

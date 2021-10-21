@@ -22,9 +22,13 @@ class DistributorRepository{
     try {
       var response = await _apiClient.get(Urls.DISTRIBUTORS,
           headers: {'Authorization': 'Bearer $token'});
-      List<DistributorModel>? marks =
-          DistributorResponse.fromJson(response!).data;
-      return marks;
+      DistributorResponse responses =  DistributorResponse.fromJson(response!);
+      List<DistributorModel>? travels = [];
+      if(responses.data != null) {
+        travels =
+            DistributorResponse.fromJson(response).data;
+      }
+      return travels;
     } catch (_) {
       return null;
     }

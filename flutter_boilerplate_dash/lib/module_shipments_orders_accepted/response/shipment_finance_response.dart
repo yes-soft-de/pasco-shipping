@@ -70,8 +70,8 @@ class ShipmentFinanceModel {
     this.status,
 
     this.paymentType,
-    this.financialFundName,
-    this.chequeNumber,
+    this.proxyName,
+    // this.chequeNumber,
     this.subcontractName,
 
     this.createdAt,
@@ -89,8 +89,8 @@ class ShipmentFinanceModel {
   String? currency;
 
   String? paymentType;
-  String? financialFundName;
-  String? chequeNumber;
+  String? proxyName;
+  // String? chequeNumber;
   String? subcontractName;
 
 
@@ -109,10 +109,9 @@ class ShipmentFinanceModel {
     status: json['shipmentStatus'],
 
     paymentType: json['paymentType'],
-    chequeNumber: json['chequeNumber'],
+    // chequeNumber: json['chequeNumber'],
     subcontractName: json['subcontractName'],
-    financialFundName: json['financialFundName'],
-
+    proxyName: json['proxyName'],
 
     createdAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),

@@ -22,8 +22,12 @@ class SupplierRepository{
     try {
       var response = await _apiClient.get(Urls.SUPPLIERS,
           headers: {'Authorization': 'Bearer $token'});
-      List<SupplierModel>? marks =
-          SupplierResponse.fromJson(response!).data;
+      SupplierResponse markResponse =   SupplierResponse.fromJson(response!);
+      List< SupplierModel>? marks = [];
+      if(markResponse.data != null) {
+        marks =
+            SupplierResponse.fromJson(response).data;
+      }
       return marks;
     } catch (_) {
       return null;

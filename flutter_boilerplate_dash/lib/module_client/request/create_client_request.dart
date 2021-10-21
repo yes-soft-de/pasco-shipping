@@ -33,3 +33,24 @@ class CreateClientRequest{
     };
   }
 }
+
+
+class UpdateClientPassRequest{
+  int? id;
+  String? password;
+
+
+  UpdateClientPassRequest({
+    this.id,
+    this.password
+
+
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id':id,
+      'password':password,
+    };
+  }
+}

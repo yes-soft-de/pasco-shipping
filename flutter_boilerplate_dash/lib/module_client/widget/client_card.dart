@@ -8,8 +8,9 @@ class ClientCard extends StatelessWidget {
   final ClientModel model;
   final Function onDelete;
   final Function onEdit;
+  final Function onEditPass;
 
-   ClientCard({required this.model,required this.onEdit , required this.onDelete});
+   ClientCard({required this.model,required this.onEdit , required this.onDelete,required this.onEditPass});
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +52,21 @@ class ClientCard extends StatelessWidget {
                         ),
                         Expanded(child: Text(
                           model.userName ?? '',
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                        )],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          S.of(context).phone+': ',
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Expanded(child: Text(
+                          model.phone ?? '',
                           style: AppTextStyle.mediumBlueBold,
                         ),
                         )],
@@ -223,6 +239,34 @@ class ClientCard extends StatelessWidget {
                         ),
                       ),
                     ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blue,
+                      ),
+                      onPressed: () {
+                        onEditPass(model);
+                      },
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.edit,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              S.of(context).changeClientPass,
+                              style: AppTextStyle.mediumWhite,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+
 
                   ],
                 ),

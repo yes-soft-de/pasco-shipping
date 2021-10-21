@@ -22,9 +22,13 @@ class EmployeeRepository{
     try {
       var response = await _apiClient.get(Urls.EMPLOYEES,
           headers: {'Authorization': 'Bearer $token'});
-      List<EmployeeModel>? marks =
-          EmployeeResponse.fromJson(response!).data;
-      return marks;
+      EmployeeResponse responses =  EmployeeResponse.fromJson(response!);
+      List<EmployeeModel>? travels = [];
+      if(responses.data != null) {
+        travels =
+            EmployeeResponse.fromJson(response).data;
+      }
+      return travels;
     } catch (_) {
       return null;
     }
