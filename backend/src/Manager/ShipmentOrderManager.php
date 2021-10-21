@@ -740,6 +740,11 @@ class ShipmentOrderManager
             }
         }
     }
+
+    public function getProductCategoryAndSubProductCategoryByShipmentOrderID($shipmentID)
+    {
+        return $this->orderShipmentEntityRepository->getProductCategoryAndSubProductCategoryByShipmentOrderID($shipmentID);
+    }
     
     public function deleteAllOrders()
     {

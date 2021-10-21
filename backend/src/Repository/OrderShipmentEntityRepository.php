@@ -1133,6 +1133,32 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    public function getProductCategoryAndSubProductCategoryByShipmentOrderID($shipmentID)
+    {
+        return $this->createQueryBuilder('shipmentOrder')
+            ->select("shipmentOrder.subProductCategoryID", "CONCAT(productCategory.name, ' / ', subProductCategoryEntity.name) as categoriesNames")
+
+            ->leftJoin(
+                SubProductCategoryEntity::class,
+                'subProductCategoryEntity',
+                Join::WITH,
+                'subProductCategoryEntity.id = shipmentOrder.subProductCategoryID'
+            )
+
+            ->leftJoin(
+                ProductCategoryEntity::class,
+                'productCategory',
+                Join::WITH,
+                'productCategory.id = subProductCategoryEntity.productCategoryID'
+            )
+
+            ->andWhere('shipmentOrder.id = :id')
+            ->setParameter('id', $shipmentID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     /**
      * @param QueryBuilder $queryBuilder
      * @return QueryBuilder
