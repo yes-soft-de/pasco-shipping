@@ -24,13 +24,21 @@ class ContainerSpecificationPriceManager
 
     public function create(ContainerSpecificationPriceCreateRequest $request)
     {
-        $containerSpecificationPriceEntity = $this->autoMapping->map(ContainerSpecificationPriceCreateRequest::class, ContainerSpecificationPriceEntity::class, $request);
+        if($this->getContainerSpecificationPriceBySpecificationIdAndExportCountryIdAndExportCityAndDestinationPortID($request->getContainerSpecificationID(),
+         $request->getExportCountryID(), $request->getExportCity(), $request->getDestinationPortID()))
+        {
+            return "Already the shipping line is exist!";
+        }
+        else
+        {
+            $containerSpecificationPriceEntity = $this->autoMapping->map(ContainerSpecificationPriceCreateRequest::class, ContainerSpecificationPriceEntity::class, $request);
 
-        $this->entityManager->persist($containerSpecificationPriceEntity);
-        $this->entityManager->flush();
-        $this->entityManager->clear();
+            $this->entityManager->persist($containerSpecificationPriceEntity);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
 
-        return $containerSpecificationPriceEntity;
+            return $containerSpecificationPriceEntity;
+        }
     }
 
     public function update(ContainerSpecificationPriceUpdateRequest $request)

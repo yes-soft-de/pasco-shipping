@@ -29,7 +29,12 @@ class ContainerSpecificationPriceService
     {
         $containerSpecificationResult = $this->containerSpecificationPriceManager->create($request);
 
-        return $this->autoMapping->map(ContainerSpecificationPriceEntity::class, ContainerSpecificationPriceCreateResponse::class, $containerSpecificationResult);
+        if($containerSpecificationResult instanceof ContainerSpecificationPriceEntity)
+        {
+            return $this->autoMapping->map(ContainerSpecificationPriceEntity::class, ContainerSpecificationPriceCreateResponse::class, $containerSpecificationResult);
+        }
+
+        return $containerSpecificationResult;
     }
 
     public function update(ContainerSpecificationPriceUpdateRequest $request)
