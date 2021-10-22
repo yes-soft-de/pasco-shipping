@@ -28,6 +28,10 @@ class AirwaybillUpdateRequest
 
     private $weight;
 
+    private $exportCountryID;
+
+    private $exportCity;
+
     private $exportWarehouseID;
 
     private $updatedBy;

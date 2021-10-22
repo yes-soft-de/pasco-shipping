@@ -55,7 +55,9 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="integer", property="shipmentID"),
      *          @OA\Property(type="integer", property="clientUserID"),
      *          @OA\Property(type="integer", property="portID"),
-     *          @OA\Property(type="string", property="location")
+     *          @OA\Property(type="string", property="location"),
+     *          @OA\Property(type="integer", property="exportCountryID"),
+     *          @OA\Property(type="string", property="exportCity")
      *      )
      * )
      *
@@ -124,7 +126,9 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="integer", property="portID"),
      *          @OA\Property(type="string", property="location"),
      *          @OA\Property(type="string", property="consignee"),
-     *          @OA\Property(type="number", property="weight")
+     *          @OA\Property(type="number", property="weight"),
+     *          @OA\Property(type="string", property="exportCity"),
+     *          @OA\Property(type="integer", property="exportWarehouseID"),
      *      )
      * )
      *
@@ -411,6 +415,8 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="shippingStatus"),
      *                  @OA\Property(type="integer", property="totalGunnyQuantity"),
      *                  @OA\Property(type="integer", property="totalReceivedShipmentsQuantity"),
+     *                  @OA\Property(type="string", property="exportCountryName"),
+     *                  @OA\Property(type="string", property="exportCity"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items(
      *                          @OA\Property(type="integer", property="id"),
@@ -527,6 +533,9 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="shippingStatus"),
      *                  @OA\Property(type="integer", property="totalGunnyQuantity"),
      *                  @OA\Property(type="integer", property="totalReceivedShipmentsQuantity"),
+     *                  @OA\Property(type="string", property="exportCountryName"),
+     *                  @OA\Property(type="integer", property="exportCountryID"),
+     *                  @OA\Property(type="string", property="exportCity"),
      *                  @OA\Property(type="integer", property="exportWarehouseID"),
      *                  @OA\Property(type="string", property="exportWarehouseName"),
      *                  @OA\Property(type="array", property="shipments",
@@ -610,6 +619,8 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="consignee"),
      *                  @OA\Property(type="integer", property="weight"),
      *                  @OA\Property(type="string", property="shippingStatus"),
+     *                  @OA\Property(type="string", property="exportCountryName"),
+     *                  @OA\Property(type="string", property="exportCity"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
      *                  )
