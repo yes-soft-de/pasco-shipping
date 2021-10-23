@@ -56,6 +56,11 @@ class AirwaybillLCLFinanceManager
         return $this->airwaybillLCLFinanceEntityRepository->getCurrentTotalCostByFilterOptions($airWaybillID, $status);
     }
 
+    public function getAirWaybillLCLFinancesByAirWaybillID($airWaybillID)
+    {
+        return $this->airwaybillLCLFinanceEntityRepository->getAirWaybillLCLFinancesByAirWaybillID($airWaybillID);
+    }
+
     public function filterAirWaybillsLCLFinances(AirwaybillLCLFinanceFilterRequest $request)
     {
         $airWaybillFinances['airWaybillFinances'] = $this->airwaybillLCLFinanceEntityRepository->filterAirWaybillLCLFinances($request->getAirwaybillID(), $request->getStatus());

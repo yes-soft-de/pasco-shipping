@@ -60,6 +60,11 @@ class ContainerLCLFinanceManager
         return $this->containerLCLFinanceEntityRepository->getCurrentTotalCostByFilterOptions($containerID, $status);
     }
 
+    public function getContainerLCLFinancesByContainerID($containerID)
+    {
+        return $this->containerLCLFinanceEntityRepository->getContainerLCLFinancesByContainerID($containerID);
+    }
+
     public function filterContainerLCLFinances(ContainerLCLFinanceFilterRequest $request)
     {
         $containerFinances['containerFinances'] = $this->containerLCLFinanceEntityRepository->filterContainerLCLFinances($request->getContainerID(), $request->getStatus());
