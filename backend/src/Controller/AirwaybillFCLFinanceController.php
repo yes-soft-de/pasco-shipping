@@ -100,7 +100,8 @@ class AirwaybillFCLFinanceController extends BaseController
      *      description="Post a request with filtering option",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="airwaybillID"),
-     *          @OA\Property(type="string", property="status")
+     *          @OA\Property(type="string", property="status"),
+     *          @OA\Property(type="boolean", property="purchaseBill")
      *      )
      * )
      *
