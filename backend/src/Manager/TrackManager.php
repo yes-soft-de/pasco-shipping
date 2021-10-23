@@ -298,6 +298,11 @@ class TrackManager
         return $this->trackEntityRepository->getByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
     }
 
+    public function getByShipmentID($shipmentID)
+    {
+        return $this->trackEntityRepository->getByShipmentID($shipmentID);
+    }
+
     public function checkIfExternalWarehouseAndFCLHolder($shipmentID, $holderType, $holderID)
     {
         $holder = [];

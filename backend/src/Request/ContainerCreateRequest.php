@@ -79,4 +79,9 @@ class ContainerCreateRequest
         return $this->containerNumber;
     }
 
+    public function setExportCountryID($exportCountryID)
+    {
+        $this->exportCountryID = $exportCountryID;
+    }
+
 }

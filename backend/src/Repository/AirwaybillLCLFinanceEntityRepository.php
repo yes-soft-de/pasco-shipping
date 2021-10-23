@@ -44,6 +44,51 @@ class AirwaybillLCLFinanceEntityRepository extends ServiceEntityRepository
         return $query->getQuery()->getOneOrNullResult();
     }
 
+    public function getAirWaybillLCLFinancesByAirWaybillID($airWaybillID)
+    {
+        return $this->createQueryBuilder('airWaybillLCLFinanceEntity')
+            ->select('airWaybillLCLFinanceEntity.airwaybillID', 'airWaybillLCLFinanceEntity.stageCost as buyingCost', 'airWaybillLCLFinanceEntity.stageDescription', 'airWaybillLCLFinanceEntity.status', 'airWaybillLCLFinanceEntity.proxyID',
+             'airWaybillLCLFinanceEntity.createdAt', 'airWaybillLCLFinanceEntity.updatedAt', 'airWaybillLCLFinanceEntity.createdBy', 'airWaybillLCLFinanceEntity.updatedBy', 'airWaybillLCLFinanceEntity.currency',
+             'airWaybillLCLFinanceEntity.currency', 'airWaybillLCLFinanceEntity.subcontractID', 'airWaybillLCLFinanceEntity.paymentType', 'subcontractEntity.fullName as subcontractName', 'proxyEntity.fullName as proxyName',
+                'adminProfileEntityOne.userName as createdByUser', 'adminProfileEntityOne.image as createdByUserImage', 'adminProfileEntityTwo.userName as updatedByUser', 'adminProfileEntityTwo.image as updatedByUserImage')
+
+            ->andWhere('airWaybillLCLFinanceEntity.airwaybillID = :airwaybillID')
+            ->setParameter('airwaybillID', $airWaybillID)
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = airWaybillLCLFinanceEntity.subcontractID'
+            )
+
+            ->leftJoin(
+                ProxyEntity::class,
+                'proxyEntity',
+                Join::WITH,
+                'proxyEntity.id = airWaybillLCLFinanceEntity.proxyID'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfileEntityOne',
+                Join::WITH,
+                'adminProfileEntityOne.userID = airWaybillLCLFinanceEntity.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfileEntityTwo',
+                Join::WITH,
+                'adminProfileEntityTwo.userID = airWaybillLCLFinanceEntity.updatedBy'
+            )
+
+            ->orderBy('airWaybillLCLFinanceEntity.id', 'DESC')
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function filterAirWaybillLCLFinances($airWaybillID, $status)
     {
         $query = $this->createQueryBuilder('airWaybillLCLFinanceEntity')

@@ -44,6 +44,51 @@ class ContainerLCLFinanceEntityRepository extends ServiceEntityRepository
         return $query->getQuery()->getOneOrNullResult();
     }
 
+    public function getContainerLCLFinancesByContainerID($containerID)
+    {
+        return $this->createQueryBuilder('containerLCLFinanceEntity')
+            ->select('containerLCLFinanceEntity.containerID', 'containerLCLFinanceEntity.stageCost as buyingCost', 'containerLCLFinanceEntity.stageDescription', 'containerLCLFinanceEntity.status', 'containerLCLFinanceEntity.paymentType',
+                'containerLCLFinanceEntity.createdAt', 'containerLCLFinanceEntity.updatedAt', 'containerLCLFinanceEntity.createdBy', 'containerLCLFinanceEntity.updatedBy', 'containerLCLFinanceEntity.currency', 'containerLCLFinanceEntity.proxyID',
+             'containerLCLFinanceEntity.subcontractID', 'subcontractEntity.fullName as subcontractName', 'proxyEntity.fullName as proxyName', 'adminProfileEntityOne.userName as createdByUser', 'adminProfileEntityOne.image as createdByUserImage',
+                'adminProfileEntityTwo.userName as updatedByUser', 'adminProfileEntityTwo.image as updatedByUserImage')
+
+            ->andWhere('containerLCLFinanceEntity.containerID = :containerID')
+            ->setParameter('containerID', $containerID)
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = containerLCLFinanceEntity.subcontractID'
+            )
+
+            ->leftJoin(
+                ProxyEntity::class,
+                'proxyEntity',
+                Join::WITH,
+                'proxyEntity.id = containerLCLFinanceEntity.proxyID'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfileEntityOne',
+                Join::WITH,
+                'adminProfileEntityOne.userID = containerLCLFinanceEntity.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfileEntityTwo',
+                Join::WITH,
+                'adminProfileEntityTwo.userID = containerLCLFinanceEntity.updatedBy'
+            )
+
+            ->orderBy('containerLCLFinanceEntity.id', 'DESC')
+
+            ->getQuery()
+            ->getResult();
+    }
+
     public function filterContainerLCLFinances($containerID, $status)
     {
         $query = $this->createQueryBuilder('containerFinance')

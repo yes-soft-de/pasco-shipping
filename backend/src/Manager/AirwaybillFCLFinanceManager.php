@@ -117,6 +117,11 @@ class AirwaybillFCLFinanceManager
         return $this->airwaybillFCLFinanceEntityRepository->getAirWaybillFCLBuyingDetailsByShipmentID($shipmentID);
     }
 
+    public function getAirWaybillFCLBuyingStagesByShipmentID($shipmentID)
+    {
+        return $this->airwaybillFCLFinanceEntityRepository->getAirWaybillFCLBuyingStagesByShipmentID($shipmentID);
+    }
+
     public function getShipmentIdByAirWaybillID($airwaybillID)
     {
         $track = $this->trackManager->getOneOrNullTrackByHolderTypeAndHolderID(HolderTypeConstant::$AIRWAYBILL_HOLDER_TYPE, $airwaybillID);
@@ -129,7 +134,7 @@ class AirwaybillFCLFinanceManager
 
     public function filterAirWaybillFCLFinances(AirwaybillFCLFinanceFilterRequest $request)
     {
-        $airwaybillFinances['airwaybillFinances'] = $this->airwaybillFCLFinanceEntityRepository->filterAirWaybillFCLFinances($request->getAirwaybillID(), $request->getStatus());
+        $airwaybillFinances['airwaybillFinances'] = $this->airwaybillFCLFinanceEntityRepository->filterAirWaybillFCLFinances($request->getAirwaybillID(), $request->getStatus(), $request->getPurchaseBill());
 
         // Get stored shipment info (ID + trackNumber) in the air waybill
         if($airwaybillFinances['airwaybillFinances'])

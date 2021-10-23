@@ -121,13 +121,67 @@ class AirwaybillFCLFinanceEntityRepository extends ServiceEntityRepository
             ->andWhere('shipmentStatusEntity.shipmentID = :shipmentID')
             ->setParameter('shipmentID', $shipmentID)
 
-            ->andWhere("airwaybillFCLFinanceEntity.sellingCost IS NULL")
+            ->andWhere("airwaybillFCLFinanceEntity.sellingCost IS NULL OR airwaybillFCLFinanceEntity.sellingCost = :sellingCost")
+            ->setParameter('sellingCost', 0)
 
             ->getQuery()
             ->getResult();
     }
 
-    public function filterAirWaybillFCLFinances($airwaybillID, $status)
+    public function getAirWaybillFCLBuyingStagesByShipmentID($shipmentID)
+    {
+        return $this->createQueryBuilder('airwaybillFCLFinanceEntity')
+            ->select('airwaybillFCLFinanceEntity.airwaybillID', 'airwaybillFCLFinanceEntity.status', 'airwaybillFCLFinanceEntity.buyingCost', 'airwaybillFCLFinanceEntity.stageDescription',
+             'airwaybillFCLFinanceEntity.createdAt', 'airwaybillFCLFinanceEntity.updatedAt', 'airwaybillFCLFinanceEntity.createdBy', 'airwaybillFCLFinanceEntity.updatedBy', 'airwaybillFCLFinanceEntity.currency',
+             'airwaybillFCLFinanceEntity.subcontractID', 'airwaybillFCLFinanceEntity.proxyID', 'airwaybillFCLFinanceEntity.paymentType', 'subcontractEntity.fullName as subcontractName', 'proxyEntity.fullName as proxyName',
+             'adminProfileEntityOne.userName as createdByUser', 'adminProfileEntityOne.image as createdByUserImage', 'adminProfileEntityTwo.userName as updatedByUser', 'adminProfileEntityTwo.image as updatedByUserImage')
+
+            ->leftJoin(
+                ShipmentStatusEntity::class,
+                'shipmentStatusEntity',
+                Join::WITH,
+                'shipmentStatusEntity.trackNumber = airwaybillFCLFinanceEntity.trackNumber'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = airwaybillFCLFinanceEntity.subcontractID'
+            )
+
+            ->leftJoin(
+                ProxyEntity::class,
+                'proxyEntity',
+                Join::WITH,
+                'proxyEntity.id = airwaybillFCLFinanceEntity.proxyID'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfileEntityOne',
+                Join::WITH,
+                'adminProfileEntityOne.userID = airwaybillFCLFinanceEntity.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfileEntityTwo',
+                Join::WITH,
+                'adminProfileEntityTwo.userID = airwaybillFCLFinanceEntity.updatedBy'
+            )
+
+            ->andWhere('shipmentStatusEntity.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->andWhere("airwaybillFCLFinanceEntity.sellingCost IS NULL OR airwaybillFCLFinanceEntity.sellingCost = :sellingCost")
+            ->setParameter('sellingCost', 0)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function filterAirWaybillFCLFinances($airwaybillID, $status, $purchaseBill)
     {
         $query = $this->createQueryBuilder('airwaybillFinance')
             ->select('airwaybillFinance.id', 'airwaybillFinance.airwaybillID', 'airwaybillFinance.status', 'airwaybillFinance.stageCost', 'airwaybillFinance.stageDescription', 'airwaybillFinance.clientUserID', 'airwaybillFinance.chequeNumber',
@@ -190,6 +244,12 @@ class AirwaybillFCLFinanceEntityRepository extends ServiceEntityRepository
         {
             $query->andWhere('airwaybillFinance.status = :status');
             $query->setParameter('status', $status);
+        }
+
+        if($purchaseBill == true)
+        {
+            $query->andWhere('airwaybillFinance.buyingCost != :buyingCost AND airwaybillFinance.buyingCost IS NOT NULL');
+            $query->setParameter('buyingCost', 0);
         }
 
         return $query->getQuery()->getResult();
