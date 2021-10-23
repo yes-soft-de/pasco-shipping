@@ -129,9 +129,14 @@ class ContainerFCLFinanceManager
         return $this->containerFinanceEntityRepository->getContainerFCLBuyingDetailsByShipmentID($shipmentID);
     }
 
+    public function getContainerFCLBuyingStagesByShipmentID($shipmentID)
+    {
+        return $this->containerFinanceEntityRepository->getContainerFCLBuyingStagesByShipmentID($shipmentID);
+    }
+
     public function filterContainerFCLFinances(ContainerFCLFinanceFilterRequest $request)
     {
-        $containerFinances['containerFinances'] = $this->containerFinanceEntityRepository->filterContainerFCLFinances($request->getContainerID(), $request->getStatus());
+        $containerFinances['containerFinances'] = $this->containerFinanceEntityRepository->filterContainerFCLFinances($request->getContainerID(), $request->getStatus(), $request->getPurchaseBill());
 
         // Get stored shipment info (ID + trackNumber) in the container
         if($containerFinances['containerFinances'])

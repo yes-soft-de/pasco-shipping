@@ -8,6 +8,8 @@ class ContainerFCLFinanceFilterRequest
 
     private $status;
 
+    private $purchaseBill;
+
     public function getContainerID()
     {
         return $this->containerID;
@@ -16,6 +18,11 @@ class ContainerFCLFinanceFilterRequest
     public function getStatus()
     {
         return $this->status;
+    }
+
+    public function getPurchaseBill()
+    {
+        return $this->purchaseBill;
     }
 
 }

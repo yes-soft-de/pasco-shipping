@@ -127,7 +127,59 @@ class ContainerFCLFinanceEntityRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function filterContainerFCLFinances($containerID, $status)
+    public function getContainerFCLBuyingStagesByShipmentID($shipmentID)
+    {
+        return $this->createQueryBuilder('containerFinance')
+            ->select('containerFinance.containerID', 'containerFinance.status', 'containerFinance.buyingCost', 'containerFinance.stageDescription', 'containerFinance.proxyID', 'containerFinance.paymentType',
+             'containerFinance.createdAt', 'containerFinance.updatedAt', 'containerFinance.createdBy', 'containerFinance.updatedBy', 'containerFinance.currency', 'containerFinance.subcontractID', 'subcontractEntity.fullName as subcontractName',
+                'proxyEntity.fullName as proxyName', 'adminProfileEntityOne.userName as createdByUser', 'adminProfileEntityOne.image as createdByUserImage', 'adminProfileEntityTwo.userName as updatedByUser', 'adminProfileEntityTwo.image as updatedByUserImage')
+
+            ->leftJoin(
+                ShipmentStatusEntity::class,
+                'shipmentStatusEntity',
+                Join::WITH,
+                'shipmentStatusEntity.trackNumber = containerFinance.trackNumber'
+            )
+
+            ->leftJoin(
+                SubcontractEntity::class,
+                'subcontractEntity',
+                Join::WITH,
+                'subcontractEntity.id = containerFinance.subcontractID'
+            )
+
+            ->leftJoin(
+                ProxyEntity::class,
+                'proxyEntity',
+                Join::WITH,
+                'proxyEntity.id = containerFinance.proxyID'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfileEntityOne',
+                Join::WITH,
+                'adminProfileEntityOne.userID = containerFinance.createdBy'
+            )
+
+            ->leftJoin(
+                AdminProfileEntity::class,
+                'adminProfileEntityTwo',
+                Join::WITH,
+                'adminProfileEntityTwo.userID = containerFinance.updatedBy'
+            )
+
+            ->andWhere('shipmentStatusEntity.shipmentID = :shipmentID')
+            ->setParameter('shipmentID', $shipmentID)
+
+            ->andWhere("containerFinance.sellingCost IS NULL OR containerFinance.sellingCost = :sellingCost")
+            ->setParameter('sellingCost', 0)
+
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function filterContainerFCLFinances($containerID, $status, $purchaseBill)
     {
         $query = $this->createQueryBuilder('containerFinance')
             ->select('containerFinance.id', 'containerFinance.containerID', 'containerFinance.status', 'containerFinance.stageCost', 'containerFinance.stageDescription', 'containerFinance.currency', 'containerFinance.createdAt',
@@ -190,6 +242,12 @@ class ContainerFCLFinanceEntityRepository extends ServiceEntityRepository
         {
             $query->andWhere('containerFinance.status = :status');
             $query->setParameter('status', $status);
+        }
+
+        if($purchaseBill == true)
+        {
+            $query->andWhere('containerFinance.buyingCost != :buyingCost AND containerFinance.buyingCost IS NOT NULL');
+            $query->setParameter('buyingCost', 0);
         }
         
         return $query->getQuery()->getResult();

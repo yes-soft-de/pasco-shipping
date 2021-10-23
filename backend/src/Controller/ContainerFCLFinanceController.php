@@ -100,7 +100,8 @@ class ContainerFCLFinanceController extends BaseController
      *      description="Post a request with filtering option",
      *      @OA\JsonContent(
      *          @OA\Property(type="integer", property="containerID"),
-     *          @OA\Property(type="string", property="status")
+     *          @OA\Property(type="string", property="status"),
+     *          @OA\Property(type="boolean", property="purchaseBill")
      *      )
      * )
      *
