@@ -16,6 +16,8 @@ class PendingHolderCreateRequest
 
     private $notes;
 
+    private $exportCountryID;
+
     public function setShipmentID($shipmentID)
     {
         $this->shipmentID = $shipmentID;
@@ -44,6 +46,21 @@ class PendingHolderCreateRequest
     public function setLocation($location)
     {
         $this->location = $location;
+    }
+
+    public function getExportCountryID()
+    {
+        return $this->exportCountryID;
+    }
+
+    public function setExportCountryID($exportCountryID)
+    {
+        $this->exportCountryID = $exportCountryID;
+    }
+
+    public function setExportCity($exportCity)
+    {
+        $this->exportCity = $exportCity;
     }
 
 }
