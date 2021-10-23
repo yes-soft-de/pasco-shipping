@@ -1,38 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 
 class TextEdit extends StatelessWidget {
+  final String hint;
   final String title;
-  final double height;
   final Function onChange;
-  const TextEdit(this.title, this.height , this.onChange);
-
+  TextEdit({required this.hint ,required this.title,required this.onChange});
+  TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    controller..text=title;
     return Container(
-      height: height,
+      // height: height,
       margin: const EdgeInsets.all(15.0),
       // padding: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
-          border: Border.all(color: white ,),
+         border: Border.all(color: AppThemeDataService.AccentColor ,),
         borderRadius: BorderRadius.circular(5),
       ),
-      child: Padding(
-        padding: const EdgeInsetsDirectional.only(start: 20),
-        child: TextField(
-          onChanged: (value){
-            onChange(value);
-          },
-          decoration: InputDecoration(
-          hintText: title,
-          hintStyle: white18text,
-          focusedBorder: InputBorder.none,
-          enabledBorder: InputBorder.none,
-          errorBorder: InputBorder.none,
-          disabledBorder: InputBorder.none,
+      child: Theme(
+        data: ThemeData(
+          textSelectionTheme: TextSelectionThemeData(selectionColor: AppThemeDataService.AccentColor),
         ),
-          style: white16text,),
+        child: Padding(
+          padding: const EdgeInsetsDirectional.only(start: 20),
+          child: TextField(
+            onChanged: (value){
+              onChange(value);
+            },
+            cursorColor: Colors.black,
+            maxLines: null,
+            controller: controller,
+            decoration: InputDecoration(
+              hintText: hint,
+              // labelText: title,
+              hintStyle:basic14text,
+              focusedBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+
+            ),
+            style: basic14text,),
+        ),
       ),
     );
   }

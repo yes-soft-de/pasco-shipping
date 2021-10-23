@@ -1389,6 +1389,66 @@ class S {
       args: [],
     );
   }
+
+  /// `type`
+  String get type {
+    return Intl.message(
+      'type',
+      name: 'type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `harbor`
+  String get harbors {
+    return Intl.message(
+      'harbor',
+      name: 'harbors',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `carrier`
+  String get carrier {
+    return Intl.message(
+      'carrier',
+      name: 'carrier',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Our warehouse`
+  String get ourWarehouse {
+    return Intl.message(
+      'Our warehouse',
+      name: 'ourWarehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `name`
+  String get name {
+    return Intl.message(
+      'name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `holder`
+  String get holder {
+    return Intl.message(
+      'holder',
+      name: 'holder',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

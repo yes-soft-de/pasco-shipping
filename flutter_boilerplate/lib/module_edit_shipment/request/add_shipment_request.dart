@@ -1,5 +1,9 @@
 import 'dart:io';
+
+import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 class AddShipmentRequest {
+   int? exportCountryID;
+   String? exportCountryName;
    String transportationType;
 
    int exportWarehouseID;
@@ -31,14 +35,16 @@ class AddShipmentRequest {
    bool isExternalWarehouse;
    String? externalWarehouseInfo;
    List<String>? imageFilePath;
-
+   late List<RequestedHolders>? holders;
 
   Map<String, dynamic> toJson() => {
+    'exportCountryID':exportCountryID,
+    'exportCountryName':exportCountryName,
     "transportationType": transportationType,
     "target": target,
     "supplierName": supplierName,
     "quantity": quantity,
-    "productCategoryID": productCategoryID,
+    "subProductCategoryID": productCategoryID,
 
     "unit": unit,
     "receiverID":receiverID,
@@ -55,6 +61,7 @@ class AddShipmentRequest {
     'externalWarehouseInfo':externalWarehouseInfo,
 
     'images': imageFilePath,
+    'requestedHolders' : holders,
   };
 
    AddShipmentRequest({
@@ -76,6 +83,7 @@ class AddShipmentRequest {
      required this.holderCount,
     required this.isExternalWarehouse,
      this.externalWarehouseInfo,
+     this.holders,this.exportCountryName,this.exportCountryID,
 
       this.imageFilePath});
 }

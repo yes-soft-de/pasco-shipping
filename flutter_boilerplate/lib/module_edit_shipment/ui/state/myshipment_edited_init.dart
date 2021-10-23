@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:io';
 
+import 'package:badges/badges.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ import 'package:pasco_shipping/module_intro/widget/roundedButton.dart';
 import 'package:pasco_shipping/module_shipment_request/presistance/shipment_prefs_helper.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_shipment_request/request_routes.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/holder_request_card.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
@@ -226,20 +228,28 @@ class ReviewShipmentEditedScreen extends StatelessWidget {
                     style: basic14text,
                   )),
             ),
-            Expanded(
-              child: ListTile(
-                  title: Text(
-                    S.of(context).holderCount,
-                    style: white18text,
-                  ),
-                  subtitle: Text(
-                    shipment.holderCount.toString(),
-                    style: basic14text,
-                  )),
-            ),
+
 
           ],
         ),
+        Padding(
+          padding: const EdgeInsetsDirectional.only(start: 15),
+          child: Text(
+            S.of(context).holder,
+            style: white18text,
+          ),
+        ),
+
+        shipment.holders.isNotEmpty ?
+          ListView.builder(itemBuilder: (context , index){
+            return Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: RequestHolderCard(requestHolder:  shipment.holders[index],),
+            );
+          },itemCount: shipment.holders.length,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+          ) :Container(),
         ListTile(
             title: Text(
               S.of(context).extraSpecification,
@@ -318,6 +328,9 @@ class ReviewShipmentEditedScreen extends StatelessWidget {
                     vehicleIdentificationNumber: shipment.vehicleIdentificationNumber,
                     extraSpecification: shipment.extraSpecification,
                     holderType: shipment.holderType,
+                    exportCountryID: shipment.exportCountryID,
+                    exportCountryName: shipment.exportCountryName,
+                    holders: shipment.holders,
                     holderCount: 1,
                     receiverID: 1,
                     externalWarehouseInfo: shipment.externalWarehouseInfo

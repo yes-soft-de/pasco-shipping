@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
@@ -7,6 +8,7 @@ import 'package:pasco_shipping/module_receiver/response/receiver_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/presistance/shipment_prefs_helper.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/NumberInputWithIncrementDecrement.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/holder_request_card.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_list.dart';
 import 'package:pasco_shipping/utils/widget/text_edit.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
@@ -26,7 +28,6 @@ class ThirdOptionsSuccessfully extends StatefulWidget {
 
 class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
   DropListModel dropListModelTime = DropListModel(dataTime);
-  DropListModel dropListModelHolderType = DropListModel(holderType);
   late DropListModel dropListModelReceiver ;
   late String vehicle;
   late String extra;
@@ -34,16 +35,11 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
   late Entry optionItemSelectedType = Entry('choose', 0, []);
   late Entry optionItemSelectedReceiver = Entry('choose', 0, []);
   late List<Entry> receiverEntry;
-  late String initQuantity;
   @override
   void initState() {
     super.initState();
     receiverEntry = <Entry>[];
-    if(widget.shipmentRequest.holderCount == 0){
-      initQuantity = '1';
-    }else {
-      initQuantity = widget.shipmentRequest.holderCount.toString();
-    }
+
     if (widget.shipmentRequest.vehicleIdentificationNumber.isNotEmpty) {
       vehicle = widget.shipmentRequest.vehicleIdentificationNumber;
     } else {
@@ -56,11 +52,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
       extra = 'Text...';
     }
 
-    if(widget.shipmentRequest.paymentTime.isNotEmpty){
-      optionItemSelectedTim = Entry(widget.shipmentRequest.paymentTime, 0, []);
-    }else {
-      optionItemSelectedTim = Entry('choose', 0, []);
-    }
+
 
     if(widget.shipmentRequest.holderType.isNotEmpty){
       optionItemSelectedType = Entry(widget.shipmentRequest.holderType, 0, []);
@@ -91,48 +83,18 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-           S.of(context).paymentTime,
+            S.of(context).paymentTime,
             style: white18text,
           ),
           SelectDropList(
             this.optionItemSelectedTim,
             this.dropListModelTime,
-            (optionItem) {
+                (optionItem) {
               optionItemSelectedTim = optionItem;
               widget.shipmentRequest.paymentTime = optionItem.title;
               setState(() {});
             },
           ),
-          SizedBox(
-            height: 15,
-          ),
-          Text(
-           S.of(context).shippingType,
-            style: white18text,
-          ),
-          SelectDropList(
-            this.optionItemSelectedType,
-            this.dropListModelHolderType,
-                (optionItem) {
-              optionItemSelectedType = optionItem;
-              widget.shipmentRequest.holderType = optionItem.title;
-              setState(() {});
-            },
-          ),
-
-          (optionItemSelectedType.title=='FCL' && widget.shipmentRequest.isExternalWarehouse)?
-          Row(
-            children: [
-              Text(
-                S.of(context).holderCount,
-                style: white18text,
-              ),
-              NumberInputWithIncrementDecrement(initQuantity , (quantity ){
-                widget.shipmentRequest.holderCount = quantity;
-              }),
-            ],
-          ):Container(),
-
           SizedBox(
             height: 15,
           ),
@@ -193,7 +155,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
                   S.of(context).vehicleNumber,
                   style: white18text,
                 ),
-                TextEdit(vehicle, 50, (number) {
+                TextEdit(hint:S.of(context).vehicleNumber , title:widget.shipmentRequest.vehicleIdentificationNumber , onChange:(number) {
                   widget.shipmentRequest.vehicleIdentificationNumber = number ?? "";
                 }),
               ],
@@ -207,7 +169,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
             S.of(context).extraSpecification,
             style: white18text,
           ),
-          TextEdit(extra, 200, (extra) {
+          TextEdit(hint: extra, title: widget.shipmentRequest.extraSpecification,onChange: (extra) {
             widget.shipmentRequest.extraSpecification = extra;
           }),
           Padding(
@@ -266,4 +228,54 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
       text: 'Your request added successfully!',
     );
   }
+  // void showSingleChoiceDialog(BuildContext context, Function go) =>
+  //     showDialog(
+  //         context: context,
+  //         builder: (context) {
+  //           // var _singleNotifier = Provider.of<SingleNotifier>(context);
+  //           return StatefulBuilder(
+  //               builder: (context, setState) {
+  //                 return AlertDialog(
+  //                     title: Text("Select one and then add note"),
+  //                     content: SingleChildScrollView(
+  //                       child: Container(
+  //                         width: double.maxFinite,
+  //                         // height: double.maxFinite,
+  //                         child: Column(
+  //                           children: [
+  //                             Column(
+  //                               mainAxisSize: MainAxisSize.min,
+  //                               children: widget.specifications
+  //                                   .map((e) =>
+  //                                   RadioListTile(
+  //                                     title: Text(e.name),
+  //                                     value: e,
+  //                                     groupValue: setSelectSpec,
+  //                                     selected: e.name == setSelectSpec.name,
+  //                                     onChanged: (value) {
+  //                                       if (value != setSelectSpec) {
+  //                                         setState(() {
+  //                                           setSelectSpec =
+  //                                           value as RequestedHolders;
+  //                                         });
+  //                                       }
+  //                                     },
+  //                                   ))
+  //                                   .toList(),
+  //                             ),
+  //                             TextEdit(S.of(context).importantNote , 50,(notes){
+  //                               setSelectSpec.notes = notes;
+  //                             }),
+  //                             RoundedButton(lable: S.of(context).save, icon: '',
+  //                                 color: blue, style: AppTextStyle.mediumWhite,
+  //                                 go: (){
+  //                                   widget.shipmentRequest.holders.add(setSelectSpec);
+  //                                   go();
+  //                                 }, radius: 12)
+  //                           ],
+  //                         ),
+  //                       ),
+  //                     ));
+  //               });
+  //         });
 }

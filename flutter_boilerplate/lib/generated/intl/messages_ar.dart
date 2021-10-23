@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("السابق"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+        "carrier": MessageLookupByLibrary.simpleMessage("ناقل"),
         "category": MessageLookupByLibrary.simpleMessage("فئة رئيسية: "),
         "city": MessageLookupByLibrary.simpleMessage("المدينة"),
         "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
@@ -71,7 +72,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("إملئ جميع الحقول"),
         "fullName": MessageLookupByLibrary.simpleMessage("الاسم: "),
         "getStarted": MessageLookupByLibrary.simpleMessage("البدء"),
+        "harbors": MessageLookupByLibrary.simpleMessage("موانئ"),
         "history": MessageLookupByLibrary.simpleMessage("السابقة"),
+        "holder": MessageLookupByLibrary.simpleMessage("الحاملات"),
         "holderCount": MessageLookupByLibrary.simpleMessage("عدد الحاملات"),
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "iHaveAnAccount": MessageLookupByLibrary.simpleMessage("لدي حساب"),
@@ -100,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "mark": MessageLookupByLibrary.simpleMessage("العلامات"),
         "myPrevious": MessageLookupByLibrary.simpleMessage("علاماتي السابقة"),
         "myShipment": MessageLookupByLibrary.simpleMessage("شحناتي"),
+        "name": MessageLookupByLibrary.simpleMessage("الاسم"),
         "nameHere": MessageLookupByLibrary.simpleMessage("لأسم هنا"),
         "networkError": MessageLookupByLibrary.simpleMessage(
             "هناك مشكلة بالاتصال بالشبكة الرجاء إعادة المحاولة لاحقا"),
@@ -124,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("الإشعارت"),
         "ok": MessageLookupByLibrary.simpleMessage("تم"),
         "oneSecondPlease": MessageLookupByLibrary.simpleMessage("لحظة من فضلك"),
+        "ourWarehouse": MessageLookupByLibrary.simpleMessage("مستودعاتنا"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
         "passwordIsTooShort":
             MessageLookupByLibrary.simpleMessage("كلمة المرور قصيرة جدا"),
@@ -185,6 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "termOfService": MessageLookupByLibrary.simpleMessage("شروط الخدمة"),
         "trackNumber": MessageLookupByLibrary.simpleMessage("رقم التتبع"),
         "trackShipment": MessageLookupByLibrary.simpleMessage("تعقب شحنة"),
+        "type": MessageLookupByLibrary.simpleMessage("النوع"),
         "unit": MessageLookupByLibrary.simpleMessage("الوحدة: "),
         "vehicleNumber":
             MessageLookupByLibrary.simpleMessage("رقم  تعريف السيارة"),

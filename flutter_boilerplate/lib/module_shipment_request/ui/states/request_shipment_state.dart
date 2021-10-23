@@ -1,7 +1,9 @@
+import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/module_receiver/response/receiver_response.dart';
 import 'package:pasco_shipping/module_shipment_request/response/product_categories/product_categories_response.dart';
 import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
+import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_unit/response/unit_response.dart';
 
 class RequestShipmentState{}
@@ -20,7 +22,12 @@ class FirstOptionFetchingDataState extends RequestShipmentState{
 class SecondOptionFetchingDataState extends RequestShipmentState{
   List<Mark> marks;
   List<UnitModel> units;
-  SecondOptionFetchingDataState(this.marks , this.units);
+
+  List<HarborModel> harbors;
+  List<SubcontractModel> subContracts;
+  List<dynamic> specifications;
+
+  SecondOptionFetchingDataState({required this.marks ,required this.units ,required this.specifications ,required this.harbors ,required this.subContracts});
 }
 class ThirdOptionFetchingDataState extends RequestShipmentState{
   List<ReceiverModel> receivers;

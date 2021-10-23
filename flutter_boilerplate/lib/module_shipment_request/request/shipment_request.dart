@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'dart:convert';
 class ShipmentTempRequest {
+  late int _exportCountryID;
+  late String _exportCountryName;
   late String _transportationType;
 
   late int _exportWarehouseID;
@@ -34,18 +36,20 @@ class ShipmentTempRequest {
 
   late bool _isExternalWarehouse;
   late String? externalWarehouseInfo;
-  // late String? imageFilePath;
+  late List<RequestedHolders> holders;
 
 
   Map<String, dynamic> toJson() => {
+        'exportCountryID':exportCountryID,
+        'exportCountryName':exportCountryName,
         "transportationType": transportationType,
         "target": target,
         "supplierName": supplierName,
         "quantity": quantity,
-        "productCategoryID": productCategoryID,
+        "subProductCategoryID": productCategoryID,
         'productCategoryName': productCategoryName,
         "unit": unit,
-    'receiverID':receiverID,
+        'receiverID':receiverID,
         "receiverName": receiverName,
         "receiverPhoneNumber": receiverPhoneNumber,
         "paymentTime": paymentTime,
@@ -59,17 +63,20 @@ class ShipmentTempRequest {
     'holderType':holderType,
     'holderCount':holderCount,
     'isExternalWarehouse':isExternalWarehouse,
-    'externalWarehouseInfo':externalWarehouseInfo ?? ''
+    'externalWarehouseInfo':externalWarehouseInfo ?? '',
+  'requestedHolders' : holders,
 
       };
   factory ShipmentTempRequest.fromJson(Map<String, dynamic> json) =>
       ShipmentTempRequest(
+          json['exportCountryID']??0,
+          json['exportCountryName']??'',
           json['transportationType']??'',
           json['exportWarehouseID']??0,
           json['exportWarehouseName']??'',
           json['target']??'',
 
-          json['productCategoryID']??0,
+          json['subProductCategoryID']??0,
           json['productCategoryName']??'',
           json['quantity']??0,
 
@@ -92,8 +99,11 @@ class ShipmentTempRequest {
           List<String>.from(json['images'].map((x) =>(x))),
           json['isExternalWarehouse']??false,
           json['externalWarehouseInfo']??'',
+          List<RequestedHolders>.from(json['requestedHolders'].map((x) =>(RequestedHolders.fromJson(x)))),
          );
   ShipmentTempRequest(
+      this._exportCountryID,
+      this._exportCountryName,
       this._transportationType,
 
       this._exportWarehouseID,
@@ -123,6 +133,7 @@ class ShipmentTempRequest {
       this.imageFilePath,
       this._isExternalWarehouse,
       this.externalWarehouseInfo,
+      this.holders
      );
 
   String get extraSpecification => _extraSpecification;
@@ -130,7 +141,11 @@ class ShipmentTempRequest {
   set extraSpecification(String value) {
     _extraSpecification = value;
   }
+String get exportCountryName => _exportCountryName;
 
+set exportCountryName(String value) {
+  _exportCountryName = value;
+}
   String get vehicleIdentificationNumber => _vehicleIdentificationNumber;
 
   set vehicleIdentificationNumber(String value) {
@@ -141,6 +156,11 @@ class ShipmentTempRequest {
 
   set markId(int value) {
     _markId = value;
+  }
+  int get exportCountryID => _exportCountryID;
+
+  set exportCountryID(int value) {
+    _exportCountryID = value;
   }
 
   int get exportWarehouseID => _exportWarehouseID;
@@ -243,7 +263,7 @@ class ShipmentTempRequest {
 
   @override
   String toString() {
-    return 'ShipmentRequest{_transportationType: $_transportationType, _exportWarehouseID: $_exportWarehouseID, _exportWarehouseName: $_exportWarehouseName, _target: $_target, _productCategoryID: $_productCategoryID, _productCategoryName: $_productCategoryName, _quantity: $_quantity, _supplierName: $_supplierName, _receiverName: $_receiverName, _receiverPhoneNumber: $_receiverPhoneNumber, _unit: $_unit, _markId: $_markId, _markName: $_markName, _paymentTime: $_paymentTime, _vehicleIdentificationNumber: $_vehicleIdentificationNumber, _extraSpecification: $_extraSpecification, imageFile: $imageFilePath}';
+    return 'ShipmentRequest{_transportationType: $_transportationType, _exportWarehouseID: $_exportWarehouseID, _exportWarehouseName: $_exportWarehouseName, _target: $_target, _productCategoryID: $_productCategoryID, _productCategoryName: $_productCategoryName, _quantity: $_quantity, _supplierName: $_supplierName, _receiverName: $_receiverName, _receiverPhoneNumber: $_receiverPhoneNumber, _unit: $_unit, _markId: $_markId, _markName: $_markName, _paymentTime: $_paymentTime, _vehicleIdentificationNumber: $_vehicleIdentificationNumber, _extraSpecification: $_extraSpecification, imageFile: $imageFilePath ,holder :$holders}';
   }
 
   int get holderCount => _holderCount;
@@ -251,4 +271,43 @@ class ShipmentTempRequest {
   set holderCount(int value) {
     _holderCount = value;
   }
+}
+class RequestedHolders{
+  int? specificationID;
+  int? carrierID;
+  int? portID;
+  String? notes;
+  String? name;
+  String? portName;
+  String? carrierName;
+
+  RequestedHolders({
+    this.specificationID,
+    this.name,
+    this.portID,
+    this.carrierID,
+    this.notes,
+    this.portName,
+    this.carrierName
+  });
+
+  Map<String, dynamic> toJson() => {
+    'specificationID': specificationID ??0,
+    'notes': notes??'',
+    'carrierID':carrierID??0,
+    'portID':portID??0,
+    'specificationName':name??'',
+    'portName':portName??'',
+    'carrierName':carrierName??''
+  };
+  factory RequestedHolders.fromJson(Map<String, dynamic> json) =>
+      RequestedHolders(
+        notes: json['notes']??'',
+        name: json['name'] ??'',
+          carrierName: json['carrierName']??'',
+          portName: json['portName']??'',
+        specificationID: json['specificationID']??0,
+        portID: json['portID']??0,
+        carrierID: json['carrierID']??0
+      );
 }

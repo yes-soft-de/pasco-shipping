@@ -46,8 +46,8 @@ class _NewShipmentState extends State<NewShipment> {
     super.didChangeDependencies();
     if(ModalRoute.of(context)!.settings.arguments == null){
       _shipmentRequestModel =
-          ShipmentTempRequest(
-              '', 0,'', '', 0, '',0, '',0, '', '', '', 0, '', '', '','','',0,[],false,'');
+          ShipmentTempRequest(0,'',
+              '', 0,'', '', 0, '',0, '',0, '', '', '', 0, '', '', '','','',0,[],false,'',[]);
     }else{
       final arguments = ModalRoute.of(context)!.settings.arguments as Map;
       _shipmentRequestModel = arguments['shipment'];
