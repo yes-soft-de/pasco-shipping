@@ -209,6 +209,8 @@ class ShipmentOrderService
 
         foreach ($shipmentsOrders as $shipmentsOrder)
         {
+            $shipmentsOrder['pendingHolders'] = $this->shipmentOrderManager->getPendingHoldersByShipmentIdAndShippingType($shipmentsOrder['id'], $shipmentsOrder['transportationType']);
+
             $shipmentsOrder['images'] = $this->shipmentOrderManager->getImagesByShipmentID($shipmentsOrder['id']);
 
             if($shipmentsOrder['images'])

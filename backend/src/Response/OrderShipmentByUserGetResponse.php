@@ -78,4 +78,6 @@ class OrderShipmentByUserGetResponse
 
     public $holderCount;
 
+    public $pendingHolders = [];
+
 }
