@@ -5,6 +5,7 @@ namespace App\Manager;
 use App\AutoMapping;
 use App\Constant\HolderTypeConstant;
 use App\Constant\ShipmentStatusConstant;
+use App\Constant\ShippingWayConstant;
 use App\Entity\ShipmentStatusEntity;
 use App\Repository\ShipmentStatusEntityRepository;
 use App\Request\ShipmentLogCreateRequest;
@@ -22,9 +23,12 @@ class ShipmentStatusManager
     private $airwaybillManager;
     private $imageManager;
     private $shipmentStatusEntityRepository;
+    private $containerSpecificationManager;
+    private $pendingHolderManager;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ShipmentStatusEntityRepository $shipmentStatusEntityRepository,
-     ShipmentLogManager $shipmentLogManager, ContainerManager $containerManager, AirwaybillManager $airwaybillManager, ImageManager $imageManager)
+     ShipmentLogManager $shipmentLogManager, ContainerManager $containerManager, AirwaybillManager $airwaybillManager, ImageManager $imageManager, ContainerSpecificationManager $containerSpecificationManager,
+     PendingHolderManager $pendingHolderManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
@@ -33,6 +37,8 @@ class ShipmentStatusManager
         $this->containerManager = $containerManager;
         $this->airwaybillManager = $airwaybillManager;
         $this->imageManager = $imageManager;
+        $this->containerSpecificationManager = $containerSpecificationManager;
+        $this->pendingHolderManager = $pendingHolderManager;
     }
 
     // Create newly accepted shipment raw in ShipmentStatusEntity
@@ -268,6 +274,42 @@ class ShipmentStatusManager
     public function getImagesByShipmentID($shipmentID)
     {
         return $this->imageManager->getImagesByShipmentID($shipmentID);
+    }
+
+    public function getPendingHoldersByShipmentIdAndShippingType($shipmentID, $shippingWay)
+    {
+        $pendingHolders = $this->pendingHolderManager->getPendingHoldersByShipmentID($shipmentID);
+
+        if($pendingHolders)
+        {
+            // If the pending holder is container, then get the name of the specification
+            if($shippingWay == ShippingWayConstant::$SEA_SHIPPING_WAY)
+            {
+                foreach ($pendingHolders as $key => $val)
+                {
+                    $specification = $this->containerSpecificationManager->getContainerSpecificationById($val['specificationID']);
+
+                    if($specification)
+                    {
+                        $pendingHolders[$key]['specificationName'] = $specification['name'];
+                    }
+                    else
+                    {
+                        $pendingHolders[$key]['specificationName'] = "";
+                    }
+                }
+            }
+            // There is no specification for air waybill, but we have to return the tag specificationName
+            elseif($shippingWay == ShippingWayConstant::$AIR_SHIPPING_WAY)
+            {
+                foreach ($pendingHolders as $key => $val)
+                {
+                    $pendingHolders[$key]['specificationName'] = "";
+                }
+            }
+        }
+
+        return $pendingHolders;
     }
 
     // For Track Number

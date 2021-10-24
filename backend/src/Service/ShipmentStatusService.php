@@ -106,6 +106,8 @@ class ShipmentStatusService
 
         foreach ($shipments as $shipment)
         {
+            $shipment['pendingHolders'] = $this->shipmentStatusManager->getPendingHoldersByShipmentIdAndShippingType($shipment['id'], $shipment['transportationType']);
+
             $shipment['images'] = $this->shipmentStatusManager->getImagesByShipmentID($shipment['id']);
 
             if($shipment['images'])
