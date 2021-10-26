@@ -494,6 +494,21 @@ App\Request\ShipmentLCLFinanceCreateRequest:
     createdBy:
       - NotBlank: ~
 
+App\Request\ShipmentFCLFinanceCreateRequest:
+  properties:
+    shipmentID:
+      - NotBlank: ~
+    trackNumber:
+      - NotBlank: ~
+    stageCost:
+      - NotBlank: ~
+    currency:
+      - NotBlank: ~
+    shipmentStatus:
+      - NotBlank: ~
+    createdBy:
+      - NotBlank: ~
+
 App\Request\AirwaybillFCLFinanceCreateRequest:
   properties:
     airwaybillID:
