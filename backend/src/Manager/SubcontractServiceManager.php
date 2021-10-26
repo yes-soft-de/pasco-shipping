@@ -28,13 +28,20 @@ class SubcontractServiceManager
 
     public function create(SubcontractServiceCreateRequest $request)
     {
-        $subcontractServiceEntity = $this->autoMapping->map(SubcontractServiceCreateRequest::class, SubcontractServiceEntity::class, $request);
+        if($this->getSubcontractServiceByName($request->getName()))
+        {
+            return "A service with the same name already exists!";
+        }
+        else
+        {
+            $subcontractServiceEntity = $this->autoMapping->map(SubcontractServiceCreateRequest::class, SubcontractServiceEntity::class, $request);
 
-        $this->entityManager->persist($subcontractServiceEntity);
-        $this->entityManager->flush();
-        $this->entityManager->clear();
+            $this->entityManager->persist($subcontractServiceEntity);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
 
-        return $subcontractServiceEntity;
+            return $subcontractServiceEntity;
+        }
     }
 
     public function update(SubcontractServiceUpdateRequest $request)
@@ -64,6 +71,11 @@ class SubcontractServiceManager
     public function getAllSubcontractServices()
     {
         return $this->subcontractServiceEntityRepository->getAllSubcontractServices();
+    }
+
+    public function getSubcontractServiceByName($name)
+    {
+        return $this->subcontractServiceEntityRepository->getSubcontractServiceByName($name);
     }
 
     public function delete(DeleteRequest $request)

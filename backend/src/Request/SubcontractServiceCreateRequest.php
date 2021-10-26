@@ -10,6 +10,11 @@ class SubcontractServiceCreateRequest
 
     private $createdBy;
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
