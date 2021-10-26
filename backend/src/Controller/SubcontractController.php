@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\AutoMapping;
 use App\Request\SubcontractCreateRequest;
+use App\Request\SubcontractFilterRequest;
 use App\Request\SubcontractUpdateRequest;
 use App\Service\SubcontractService;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -215,6 +216,56 @@ class SubcontractController extends BaseController
     public function getSubcontractsByServiceID($serviceID)
     {
         $result = $this->subcontractService->getSubcontractsByServiceID($serviceID);
+
+        return $this->response($result, self::FETCH);
+    }
+
+    /**
+     * @Route("filtersubcontracts", name="filterSubcontracts", methods={"POST"})
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Subcontract")
+     *
+     * @OA\RequestBody(
+     *      description="Post a request with filtering option",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="fullName"),
+     *          @OA\Property(type="integer", property="serviceID"),
+     *          @OA\Property(type="string", property="serviceName")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the subcontracts which meet the filtering options",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="array", property="Data",
+     *              @OA\Items(
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="fullName"),
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="string", property="serviceName"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage")
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function filterSubcontracts(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, SubcontractFilterRequest::class, (object)$data);
+
+        $result = $this->subcontractService->filterSubcontracts($request);
 
         return $this->response($result, self::FETCH);
     }
