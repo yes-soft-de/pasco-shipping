@@ -57,12 +57,7 @@ class _AddNewCountryState extends State<AddNewTravel> {
       print("newEvent"+event.toString());
       currentState = event;
       if (this.mounted) {
-        if(currentState is SuccessfullyAddState){
-            Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
-          Navigator.pop(context);
-        }else {
-          setState(() {});
-        }
+        setState(() {});
       }
     });
     // widget._stateManager.getCountriesAndSubContract();
@@ -100,13 +95,13 @@ class _AddNewCountryState extends State<AddNewTravel> {
 
       },);
     }
-    // else if (currentState is SuccessfullyAddState){
-    //   Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
-    //   return AddTravelInit(
-    //     onSave: (request){
-    //     widget._stateManager.createTravel(request);
-    //   },);
-    // }
+    else if (currentState is SuccessfullyAddState){
+      Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
+      return AddTravelInit(
+        onSave: (request){
+        widget._stateManager.createTravel(request);
+      },);
+    }
     else {
       return Center(
         child: Column(

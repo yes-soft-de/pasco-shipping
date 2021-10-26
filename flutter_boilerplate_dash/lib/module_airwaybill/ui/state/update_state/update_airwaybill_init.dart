@@ -490,7 +490,7 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
 
     status= widget.model.status!;
     type= widget.model.type!;
-    exportCity = widget.model.exportCity ??'';
+    exportCity = widget.model.exportCity;
 
     optionItemSelectedProvidedBy =  Entry('choose', 0, []);
     optionItemSelectedShipper =  Entry('choose', 0, []);

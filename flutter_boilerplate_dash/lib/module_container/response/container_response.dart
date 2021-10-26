@@ -104,7 +104,7 @@ class ContainerModel {
     used: json['used'],
     location: json['location'],
     portName: json['portName'],
-    exportCity: json['exportCity'],
+    exportCity: json['exportCity']??'',
     exportCountryID: json['exportCountryID'] ??0,
     exportCountryName: json['exportCountryName']??'',
     exportWarehouseID: json['exportWarehouseID'] ??0,

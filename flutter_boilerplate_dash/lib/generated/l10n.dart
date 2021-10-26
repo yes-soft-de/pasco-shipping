@@ -3489,6 +3489,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Do you really want to log out ?`
+  String get logoutConfirm {
+    return Intl.message(
+      'Do you really want to log out ?',
+      name: 'logoutConfirm',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

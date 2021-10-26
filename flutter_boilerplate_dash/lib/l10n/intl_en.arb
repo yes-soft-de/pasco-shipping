@@ -427,6 +427,7 @@
   "paymentWay": "Payment way",
   "exportCity": "Export city",
   "exportCityConfirm": "please select export city",
-  "changeClientPass": " change password"
+  "changeClientPass": " change password",
+  "logoutConfirm": "Do you really want to log out ?"
 
 }

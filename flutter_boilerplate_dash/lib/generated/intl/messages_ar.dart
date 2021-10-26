@@ -230,6 +230,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loggedIn":
             MessageLookupByLibrary.simpleMessage("تم تسجيل الدخول بنجاح"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
+        "logoutConfirm":
+            MessageLookupByLibrary.simpleMessage("هل تريد حقا تسجيل الخروج ؟"),
         "mark": MessageLookupByLibrary.simpleMessage("العلامة: "),
         "marks": MessageLookupByLibrary.simpleMessage("العلامات"),
         "measured": MessageLookupByLibrary.simpleMessage("القياس"),

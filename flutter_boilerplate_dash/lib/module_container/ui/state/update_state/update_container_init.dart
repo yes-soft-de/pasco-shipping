@@ -468,7 +468,7 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
 
     status= widget.model.status!;
     type= widget.model.type!;
-    exportCity = widget.model.exportCity ??'';
+    exportCity = widget.model.exportCity;
 
     // if(widget.model.type =='LCL'){
     //   selectedRadioType = 1;

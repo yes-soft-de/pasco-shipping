@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_auth/authorization_routes.dart';
 import 'package:pasco_shipping/module_notifications/service/fire_notification_service/fire_notification_service.dart';
@@ -85,17 +86,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           }),
                     ),
                     ListTile(
-                      leading: Icon(Icons.person_rounded),
+                      leading: Icon(Icons.logout),
                       title: Text(S.of(context).logout),
                       trailing: Padding(
                         padding: const EdgeInsets.only(right: 10.0, left: 10.0),
                         child: Icon(Icons.logout_rounded),
                       ),
                       onTap: () {
-                        widget._authService.logout().then((value) {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              AuthorizationRoutes.LOGIN_SCREEN, (route) => false);
-                        });
+                        showConfirm();
                       },
                     ),
                     SizedBox(
@@ -110,5 +108,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title: S.of(context).setting
     );
 
+  }
+ void showConfirm(){
+    CoolAlert.show(
+      context: context,
+      width: 150,
+      type: CoolAlertType.warning,
+      title:  S.of(context).careful,
+      confirmBtnText: S.of(context).ok,
+      backgroundColor:AppThemeDataService.PrimaryColor,
+      confirmBtnColor:AppThemeDataService.AccentColor,
+      onConfirmBtnTap: (){
+        Navigator.pop(context);
+        widget._authService.logout().then((value) {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              AuthorizationRoutes.LOGIN_SCREEN, (route) => false);
+        });
+      },
+      text: S.of(context).logoutConfirm,
+    );
   }
 }

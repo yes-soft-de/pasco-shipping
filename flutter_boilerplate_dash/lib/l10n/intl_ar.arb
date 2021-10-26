@@ -407,5 +407,6 @@
   "paymentWay": "طريقة الدفع",
   "exportCity": "دولة التصدير",
   "exportCityConfirm": "الرجاء تحديد دولة التصدير",
-  "changeClientPass": "تغير كلمة السر"
+  "changeClientPass": "تغير كلمة السر",
+  "logoutConfirm": "هل تريد حقا تسجيل الخروج ؟"
 }

@@ -424,7 +424,7 @@ class AppMenu extends ConsumerWidget {
           ),
 
           //holder
-          (ListEquality().equals ( role , EmployeeRoleName['Receiving Employee']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin']) ||ListEquality().equals ( role , EmployeeRoleName['Admin SubContract']) || ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee'])) ?
+          // (ListEquality().equals ( role , EmployeeRoleName['Receiving Employee']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin']) ||ListEquality().equals ( role , EmployeeRoleName['Admin SubContract']) || ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee'])) ?
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -486,7 +486,8 @@ class AppMenu extends ConsumerWidget {
                 ],
               ),
             ],
-          ) :Container(),
+          ) ,
+              // :Container(),
 
 
 
@@ -595,7 +596,7 @@ class AppMenu extends ConsumerWidget {
           ),
 
           //reports
-          (ListEquality().equals ( role , EmployeeRoleName['Admin Report']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
+          // (ListEquality().equals ( role , EmployeeRoleName['Admin Report']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -652,10 +653,11 @@ class AppMenu extends ConsumerWidget {
                 color: Colors.grey,
               ),
             ],
-          ) :Container(),
+          ) ,
+              // :Container(),
 
           //invoices
-          (ListEquality().equals ( role , EmployeeRoleName['Admin Report']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
+          // (ListEquality().equals ( role , EmployeeRoleName['Admin Report']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -687,9 +689,10 @@ class AppMenu extends ConsumerWidget {
                 color: Colors.grey,
               ),
             ],
-          ) :Container(),
+          ),
+              // :Container(),
           // /BasicInfo
-          (ListEquality().equals ( role , EmployeeRoleName['Admin Data Entry']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
+          // (ListEquality().equals ( role , EmployeeRoleName['Admin Data Entry']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -1125,7 +1128,8 @@ class AppMenu extends ConsumerWidget {
               Divider(
                 color: Colors.grey,
               ),
-            ],) : Container(),
+            ],) ,
+              // : Container(),
 
 
           //User
