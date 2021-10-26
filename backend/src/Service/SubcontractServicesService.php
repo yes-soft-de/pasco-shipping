@@ -27,9 +27,14 @@ class SubcontractServicesService
 
     public function create(SubcontractServiceCreateRequest $request)
     {
-        $subcontractServiceEntity = $this->subcontractServiceManager->create($request);
+        $subcontractServiceResult = $this->subcontractServiceManager->create($request);
 
-        return $this->autoMapping->map(SubcontractServiceEntity::class, SubcontractServiceCreateResponse::class, $subcontractServiceEntity);
+        if($subcontractServiceResult instanceof SubcontractServiceEntity)
+        {
+            return $this->autoMapping->map(SubcontractServiceEntity::class, SubcontractServiceCreateResponse::class, $subcontractServiceResult);
+        }
+
+        return $subcontractServiceResult;
     }
 
     public function update(SubcontractServiceUpdateRequest $request)
