@@ -69,4 +69,8 @@ class ShipmentInvoiceFilterResponse
 
     public $buyingDetails;
 
+    public $shipmentBillDetails;
+
+    public $holderBillDetails;
+
 }

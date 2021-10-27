@@ -99,6 +99,18 @@ class ShipmentInvoiceService
 
         foreach($shipmentInvoices as $invoice)
         {
+            foreach($invoice['billDetails'] as $billDetail)
+            {
+                if(key_exists('shipmentStatus', $billDetail))
+                {
+
+                    $invoice['shipmentBillDetails'][] = $billDetail;
+                }
+                else
+                {
+                    $invoice['holderBillDetails'][] = $billDetail;
+                }
+            }
 
             if($invoice['clientImage'])
             {
