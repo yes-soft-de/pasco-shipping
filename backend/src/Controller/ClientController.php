@@ -122,6 +122,7 @@ class ClientController extends BaseController
         $request->setCreatedBy($this->getUserId());
 
         $violations = $this->validator->validate($request);
+
         if (\count($violations) > 0)
         {
             $violationsString = (string) $violations;
@@ -130,6 +131,14 @@ class ClientController extends BaseController
         }
 
         $response = $this->clientService->clientRegisterByDashboard($request);
+
+        if(key_exists("found", $response))
+        {
+            if($response['found'] == "yes")
+            {
+                return $this->response($response, self::USER_FOUND);
+            }
+        }
 
         return $this->response($response, self::CREATE);
     }
