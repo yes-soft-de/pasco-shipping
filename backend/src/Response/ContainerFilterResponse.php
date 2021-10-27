@@ -68,4 +68,6 @@ class ContainerFilterResponse
 
     public $shipments = [];
 
+    public $exportLocationName;
+
 }

@@ -34,6 +34,8 @@ class AirwaybillUpdateRequest
 
     private $exportWarehouseID;
 
+    private $exportLocation;
+
     private $updatedBy;
 
     public function getId()

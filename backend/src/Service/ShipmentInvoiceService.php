@@ -40,6 +40,21 @@ class ShipmentInvoiceService
         return $shipmentInvoiceEntity;
     }
 
+    public function getShipmentFinanceTotalCostByShipmentID($shipmentID)
+    {
+        return $this->shipmentInvoiceManager->getShipmentFinanceTotalCostByShipmentID($shipmentID);
+    }
+
+    public function getShipmentBillDetailsByShipmentID($shipmentID)
+    {
+        return $this->shipmentInvoiceManager->getShipmentBillDetailsByShipmentID($shipmentID);
+    }
+
+    public function getShipmentBuyingDetailsByShipmentID($shipmentID)
+    {
+        return $this->shipmentInvoiceManager->getShipmentBuyingDetailsByShipmentID($shipmentID);
+    }
+
     public function update(ShipmentInvoiceUpdateRequest $request)
     {
         $shipmentInvoiceEntity = $this->shipmentInvoiceManager->update($request);
@@ -84,6 +99,18 @@ class ShipmentInvoiceService
 
         foreach($shipmentInvoices as $invoice)
         {
+            foreach($invoice['billDetails'] as $billDetail)
+            {
+                if(key_exists('shipmentStatus', $billDetail))
+                {
+
+                    $invoice['shipmentBillDetails'][] = $billDetail;
+                }
+                else
+                {
+                    $invoice['holderBillDetails'][] = $billDetail;
+                }
+            }
 
             if($invoice['clientImage'])
             {

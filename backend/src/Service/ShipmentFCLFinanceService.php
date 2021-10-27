@@ -58,35 +58,12 @@ class ShipmentFCLFinanceService
         $invoiceUpdateRequest = new ShipmentInvoiceTotalCostAndBillDetailsUpdateRequest();
 
         $invoiceUpdateRequest->setId($invoiceID);
-        $invoiceUpdateRequest->setTotalCost($this->shipmentFCLFinanceManager->getShipmentFCLTotalCostByShipmentID($shipmentID));
-        $invoiceUpdateRequest->setBillDetails($this->shipmentFCLFinanceManager->getShipmentFCLBillDetailsByShipmentID($shipmentID));
+        $invoiceUpdateRequest->setTotalCost($this->shipmentInvoiceService->getShipmentFinanceTotalCostByShipmentID($shipmentID));
+        $invoiceUpdateRequest->setBillDetails($this->shipmentInvoiceService->getShipmentBillDetailsByShipmentID($shipmentID));
+        $invoiceUpdateRequest->setBuyingDetails($this->shipmentInvoiceService->getShipmentBuyingDetailsByShipmentID($shipmentID));
 
         $this->shipmentInvoiceService->updateTotalCostAndBillDetailsAndBuyingDetails($invoiceUpdateRequest);
     }
-
-//    public function getAllCostsByShipmentIdAndTrackNumber($shipmentID, $trackNumber)
-//    {
-//        $shipmentFinanceResponse = [];
-//
-//        $shipmentFinances = $this->shipmentLCLFinanceManager->getAllCostsByShipmentIdAndTrackNumber($shipmentID, $trackNumber);
-//
-//        foreach($shipmentFinances as $shipmentFinance)
-//        {
-//            if($shipmentFinance['createdByUserImage'])
-//            {
-//                $shipmentFinance['createdByUserImage'] = $this->params . $shipmentFinance['createdByUserImage'];
-//            }
-//
-//            if($shipmentFinance['updatedByUserImage'])
-//            {
-//                $shipmentFinance['updatedByUserImage'] = $this->params . $shipmentFinance['updatedByUserImage'];
-//            }
-//
-//            $shipmentFinanceResponse[] = $this->autoMapping->map('array', ShipmentLCLFinanceGetResponse::class, $shipmentFinance);
-//        }
-//
-//        return $shipmentFinanceResponse;
-//    }
 
     public function filterShipmentFCLFinances(ShipmentFCLFinanceFilterRequest $request)
     {

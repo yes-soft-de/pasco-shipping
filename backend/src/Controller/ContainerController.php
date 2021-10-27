@@ -57,6 +57,7 @@ class ContainerController extends BaseController
      *          @OA\Property(type="integer", property="portID"),
      *          @OA\Property(type="string", property="location"),
      *          @OA\Property(type="integer", property="exportCountryID"),
+     *          @OA\Property(type="integer", property="exportLocation"),
      *          @OA\Property(type="string", property="exportCity")
      *      )
      * )
@@ -130,6 +131,7 @@ class ContainerController extends BaseController
      *          @OA\Property(type="integer", property="exportCountryID"),
      *          @OA\Property(type="string", property="exportCity"),
      *          @OA\Property(type="integer", property="exportWarehouseID"),
+     *          @OA\Property(type="integer", property="exportLocation")
      *      )
      * )
      *
@@ -437,6 +439,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="integer", property="totalGunnyQuantity"),
      *                  @OA\Property(type="integer", property="totalReceivedShipmentsQuantity"),
      *                  @OA\Property(type="string", property="exportCountryName"),
+     *                  @OA\Property(type="string", property="exportLocationName"),
      *                  @OA\Property(type="string", property="exportCity"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items(
@@ -561,7 +564,8 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="exportWarehouseName"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
-     *                  )
+     *                  ),
+     *                  @OA\Property(type="string", property="exportLocationName")
      *              )
      *          )
      *      )
@@ -616,7 +620,8 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="exportCity"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
-     *                  )
+     *                  ),
+     *                  @OA\Property(type="string", property="exportLocationName")
      *          )
      *      )
      * )

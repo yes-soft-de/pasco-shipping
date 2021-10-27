@@ -21,18 +21,20 @@ class ShipmentInvoiceManager
     private $entityManager;
     private $shipmentOrderManager;
     private $shipmentLCLFinanceManager;
+    private $shipmentFCLFinanceManager;
     private $containerFCLFinanceManager;
     private $airWaybillFCLFinanceManager;
     private $shipmentInvoiceEntityRepository;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, ShipmentInvoiceEntityRepository $shipmentInvoiceEntityRepository,
                                 ShipmentOrderManager $shipmentOrderManager, ShipmentLCLFinanceManager $shipmentLCLFinanceManager, ContainerFCLFinanceManager $containerFCLFinanceManager,
-     AirwaybillFCLFinanceManager $airWaybillFCLFinanceManager)
+     AirwaybillFCLFinanceManager $airWaybillFCLFinanceManager, ShipmentFCLFinanceManager $shipmentFCLFinanceManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
         $this->shipmentOrderManager = $shipmentOrderManager;
         $this->shipmentLCLFinanceManager = $shipmentLCLFinanceManager;
+        $this->shipmentFCLFinanceManager = $shipmentFCLFinanceManager;
         $this->containerFCLFinanceManager = $containerFCLFinanceManager;
         $this->airWaybillFCLFinanceManager = $airWaybillFCLFinanceManager;
         $this->shipmentInvoiceEntityRepository = $shipmentInvoiceEntityRepository;
@@ -90,14 +92,16 @@ class ShipmentInvoiceManager
         }
         elseif($shipmentOrder['holderType'] == ShippingTypeConstant::$FCL_SHIPPING_TYPE)
         {
-            // Use container / air waybill fcl finances to calculate the total cost
+            // Use container / air waybill fcl finances to calculate the total cost + the total cost of the Shipment FCL finances
             if($shipmentOrder['transportationType'] == ShippingWayConstant::$SEA_SHIPPING_WAY)
             {
-                return $this->containerFCLFinanceManager->getContainerFCLTotalSellingCostByShipmentID($shipmentID);
+                return $this->containerFCLFinanceManager->getContainerFCLTotalSellingCostByShipmentID($shipmentID) +
+                    $this->shipmentFCLFinanceManager->getShipmentFCLTotalCostByShipmentID($shipmentID);
             }
             elseif($shipmentOrder['transportationType'] == ShippingWayConstant::$AIR_SHIPPING_WAY)
             {
-                return $this->airWaybillFCLFinanceManager->getAirWaybillFCLTotalSellingCostByShipmentID($shipmentID);
+                return $this->airWaybillFCLFinanceManager->getAirWaybillFCLTotalSellingCostByShipmentID($shipmentID) +
+                    $this->shipmentFCLFinanceManager->getShipmentFCLTotalCostByShipmentID($shipmentID);
             }
         }
     }
@@ -126,14 +130,26 @@ class ShipmentInvoiceManager
         }
         elseif($shipmentOrder['holderType'] == ShippingTypeConstant::$FCL_SHIPPING_TYPE)
         {
-            // then we have to get the bill details from the corresponding holder
+            // We have to get the bill details from the corresponding holder
             if($shipmentOrder['transportationType'] == ShippingWayConstant::$SEA_SHIPPING_WAY)
             {
+                // Get bill details from the FCL container that the shipment is stored in
                 $containerStatusResults = $this->containerFCLFinanceManager->getContainerFCLBillDetailsByShipmentID($shipmentID);
 
                 if($containerStatusResults)
                 {
                     foreach($containerStatusResults as $result)
+                    {
+                        $billDetailsResponse[] = $result;
+                    }
+                }
+
+                // And get the bill details from the Shipment FCL table
+                $shipmentStatusResults = $this->shipmentFCLFinanceManager->getShipmentFCLBillDetailsByShipmentID($shipmentID);
+
+                if($shipmentStatusResults)
+                {
+                    foreach($shipmentStatusResults as $result)
                     {
                         $billDetailsResponse[] = $result;
                     }
@@ -143,11 +159,23 @@ class ShipmentInvoiceManager
             }
             elseif($shipmentOrder['transportationType'] == ShippingWayConstant::$AIR_SHIPPING_WAY)
             {
+                // We have to get the bill details from the corresponding holder,
                 $airWaybillStatusResults = $this->airWaybillFCLFinanceManager->getAirWaybillFCLBillDetailsByShipmentID($shipmentID);
 
                 if($airWaybillStatusResults)
                 {
                     foreach($airWaybillStatusResults as $result)
+                    {
+                        $billDetailsResponse[] = $result;
+                    }
+                }
+
+                // And get the bill details from the Shipment FCL table
+                $shipmentStatusResults = $this->shipmentFCLFinanceManager->getShipmentFCLBillDetailsByShipmentID($shipmentID);
+
+                if($shipmentStatusResults)
+                {
+                    foreach($shipmentStatusResults as $result)
                     {
                         $billDetailsResponse[] = $result;
                     }

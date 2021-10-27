@@ -34,6 +34,8 @@ class AirwaybillCreateRequest
 
     private $location;
 
+    private $exportLocation;
+
     public function setType($type)
     {
         $this->type = $type;
@@ -77,6 +79,11 @@ class AirwaybillCreateRequest
     public function setExportCountryID($exportCountryID)
     {
         $this->exportCountryID = $exportCountryID;
+    }
+
+    public function setExportLocation($exportLocation)
+    {
+        $this->exportLocation = $exportLocation;
     }
 
 }

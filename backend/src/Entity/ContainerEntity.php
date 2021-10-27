@@ -125,6 +125,11 @@ class ContainerEntity
      */
     private $exportWarehouseID;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $exportLocation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -378,6 +383,18 @@ class ContainerEntity
     public function setExportWarehouseID(?int $exportWarehouseID): self
     {
         $this->exportWarehouseID = $exportWarehouseID;
+
+        return $this;
+    }
+
+    public function getExportLocation(): ?int
+    {
+        return $this->exportLocation;
+    }
+
+    public function setExportLocation(?int $exportLocation): self
+    {
+        $this->exportLocation = $exportLocation;
 
         return $this;
     }
