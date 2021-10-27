@@ -60,4 +60,6 @@ class ContainerGetResponse
 
     public $shipments = [];
 
+    public $exportLocationName;
+
 }
