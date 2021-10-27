@@ -81,4 +81,9 @@ class AirwaybillCreateRequest
         $this->exportCountryID = $exportCountryID;
     }
 
+    public function setExportLocation($exportLocation)
+    {
+        $this->exportLocation = $exportLocation;
+    }
+
 }

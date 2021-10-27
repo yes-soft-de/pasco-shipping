@@ -86,4 +86,9 @@ class ContainerCreateRequest
         $this->exportCountryID = $exportCountryID;
     }
 
+    public function setExportLocation($exportLocation)
+    {
+        $this->exportLocation = $exportLocation;
+    }
+
 }
