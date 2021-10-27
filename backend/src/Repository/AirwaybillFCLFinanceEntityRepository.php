@@ -100,7 +100,8 @@ class AirwaybillFCLFinanceEntityRepository extends ServiceEntityRepository
             ->andWhere('shipmentStatusEntity.shipmentID = :shipmentID')
             ->setParameter('shipmentID', $shipmentID)
 
-            ->andWhere("airwaybillFCLFinanceEntity.buyingCost IS NULL")
+            ->andWhere("airwaybillFCLFinanceEntity.buyingCost IS NULL OR airwaybillFCLFinanceEntity.buyingCost = :value")
+            ->setParameter('value', 0)
 
             ->getQuery()
             ->getResult();

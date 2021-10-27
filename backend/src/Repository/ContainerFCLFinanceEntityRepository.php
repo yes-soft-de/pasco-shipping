@@ -100,7 +100,8 @@ class ContainerFCLFinanceEntityRepository extends ServiceEntityRepository
             ->andWhere('shipmentStatusEntity.shipmentID = :shipmentID')
             ->setParameter('shipmentID', $shipmentID)
 
-            ->andWhere("containerFinance.buyingCost IS NULL")
+            ->andWhere("containerFinance.buyingCost IS NULL OR containerFinance.buyingCost = :value")
+            ->setParameter('value', 0)
 
             ->getQuery()
             ->getResult();
