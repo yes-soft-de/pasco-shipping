@@ -130,6 +130,11 @@ class AirwaybillEntity
      */
     private $exportCountryID;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $exportLocation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -395,6 +400,18 @@ class AirwaybillEntity
     public function setExportCountryID(?int $exportCountryID): self
     {
         $this->exportCountryID = $exportCountryID;
+
+        return $this;
+    }
+
+    public function getExportLocation(): ?int
+    {
+        return $this->exportLocation;
+    }
+
+    public function setExportLocation(?int $exportLocation): self
+    {
+        $this->exportLocation = $exportLocation;
 
         return $this;
     }

@@ -57,6 +57,7 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="integer", property="portID"),
      *          @OA\Property(type="string", property="location"),
      *          @OA\Property(type="integer", property="exportCountryID"),
+     *          @OA\Property(type="integer", property="exportLocation"),
      *          @OA\Property(type="string", property="exportCity")
      *      )
      * )
@@ -129,6 +130,7 @@ class AirwaybillController extends BaseController
      *          @OA\Property(type="number", property="weight"),
      *          @OA\Property(type="string", property="exportCity"),
      *          @OA\Property(type="integer", property="exportWarehouseID"),
+     *          @OA\Property(type="integer", property="exportLocation")
      *      )
      * )
      *
@@ -416,6 +418,7 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="integer", property="totalGunnyQuantity"),
      *                  @OA\Property(type="integer", property="totalReceivedShipmentsQuantity"),
      *                  @OA\Property(type="string", property="exportCountryName"),
+     *                  @OA\Property(type="string", property="exportLocationName"),
      *                  @OA\Property(type="string", property="exportCity"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items(
@@ -540,7 +543,8 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="exportWarehouseName"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
-     *                  )
+     *                  ),
+     *                  @OA\Property(type="string", property="exportLocationName")
      *              )
      *          )
      *      )
@@ -623,7 +627,8 @@ class AirwaybillController extends BaseController
      *                  @OA\Property(type="string", property="exportCity"),
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
-     *                  )
+     *                  ),
+     *                  @OA\Property(type="string", property="exportLocationName")
      *          )
      *      )
      * )

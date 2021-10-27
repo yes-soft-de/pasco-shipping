@@ -34,6 +34,8 @@ class AirwaybillCreateRequest
 
     private $location;
 
+    private $exportLocation;
+
     public function setType($type)
     {
         $this->type = $type;

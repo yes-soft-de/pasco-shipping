@@ -62,4 +62,6 @@ class AirwaybillGetResponse
 
     public $shipments = [];
 
+    public $exportLocationName;
+
 }
