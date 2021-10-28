@@ -77,6 +77,12 @@ class PortsEntityRepository extends ServiceEntityRepository
             $query->setParameter('countryID', $request->getCountryID());
         }
 
+        if($request->getCountryType())
+        {
+            $query->andWhere('countryEntity.type = :type');
+            $query->setParameter('type', $request->getCountryType());
+        }
+
         return $query->getQuery()->getResult();
     }
 
