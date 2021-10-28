@@ -26,7 +26,7 @@ class PendingHolderEntityRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('pendingHolderEntity')
             ->select('pendingHolderEntity.id', 'pendingHolderEntity.shipmentID', 'pendingHolderEntity.specificationID', 'pendingHolderEntity.notes', 'pendingHolderEntity.createdAt', 'pendingHolderEntity.carrierID',
-             'pendingHolderEntity.portID', 'pendingHolderEntity.location', 'pendingHolderEntity.carrierID', 'portsEntity.name as portName', 'subcontractEntity.fullName as carrierName')
+             'pendingHolderEntity.portID', 'pendingHolderEntity.exportPortID', 'pendingHolderEntity.location', 'pendingHolderEntity.carrierID', 'portsEntity.name as portName', 'exportPortsEntity.name as exportPortName', 'subcontractEntity.fullName as carrierName')
 
             ->andWhere('pendingHolderEntity.shipmentID = :shipmentID')
             ->setParameter('shipmentID', $shipmentID)
@@ -36,6 +36,13 @@ class PendingHolderEntityRepository extends ServiceEntityRepository
                 'portsEntity',
                 Join::WITH,
                 'portsEntity.id = pendingHolderEntity.portID'
+            )
+
+            ->leftJoin(
+                PortsEntity::class,
+                'exportPortsEntity',
+                Join::WITH,
+                'exportPortsEntity.id = pendingHolderEntity.exportPortID'
             )
 
             ->leftJoin(

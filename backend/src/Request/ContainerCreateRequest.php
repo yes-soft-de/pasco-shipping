@@ -93,4 +93,9 @@ class ContainerCreateRequest
         $this->exportLocation = $exportLocation;
     }
 
+    public function setExportPortID($exportPortID)
+    {
+        $this->exportPortID = $exportPortID;
+    }
+
 }

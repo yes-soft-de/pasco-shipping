@@ -12,6 +12,8 @@ class PendingHolderCreateRequest
 
     private $portID;
 
+    private $exportPortID;
+
     private $location;
 
     private $notes;
@@ -41,6 +43,11 @@ class PendingHolderCreateRequest
     public function setPortID($portID)
     {
         $this->portID = $portID;
+    }
+
+    public function setExportPortID($exportPortID)
+    {
+        $this->exportPortID = $exportPortID;
     }
 
     public function setLocation($location)
