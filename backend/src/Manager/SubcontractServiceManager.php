@@ -105,4 +105,9 @@ class SubcontractServiceManager
         return $subcontractServiceEntity;
     }
 
+    public function deleteAllSubcontractsService()
+    {
+        return $this->subcontractServiceEntityRepository->deleteAllSubcontractsService();
+    }
+
 }
