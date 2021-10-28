@@ -586,7 +586,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
     public function getProxyIdOfExportWarehouseByAirWaybillID($airWaybillID)
     {
         return $this->createQueryBuilder('airwaybill_entity')
-            ->select('airwaybill_entity.exportWarehouseID', 'exportWarehouseEntity.proxyID as exportProxyID')
+            ->select('airwaybill_entity.exportLocation', 'exportWarehouseEntity.proxyID as exportProxyID')
 
             ->andWhere('airwaybill_entity.id = :id')
             ->setParameter('id', $airWaybillID)
@@ -595,7 +595,7 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
                 WarehouseEntity::class,
                 'exportWarehouseEntity',
                 Join::WITH,
-                'exportWarehouseEntity.id = airwaybill_entity.exportWarehouseID'
+                'exportWarehouseEntity.id = airwaybill_entity.exportLocation'
             )
 
             ->getQuery()
