@@ -67,4 +67,9 @@ class SubcontractManager
         return $this->subcontractEntityRepository->filterSubcontracts($request);
     }
 
+    public function deleteAllSubcontracts()
+    {
+        return $this->subcontractEntityRepository->deleteAllSubcontracts();
+    }
+
 }
