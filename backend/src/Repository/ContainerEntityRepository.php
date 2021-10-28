@@ -624,10 +624,17 @@ class ContainerEntityRepository extends ServiceEntityRepository
     public function getSpecificationIdAndExportCountryIdAndExportCityAndPortIdByContainerID($containerID)
     {
         return $this->createQueryBuilder('container')
-            ->select('container.specificationID', 'container.exportCountryID', 'container.exportCity', 'container.portID')
+            ->select('container.specificationID', 'exportPortsEntity.countryID', 'exportPortsEntity.city', 'container.portID')
 
             ->andWhere('container.id = :id')
             ->setParameter('id', $containerID)
+
+            ->leftJoin(
+                PortsEntity::class,
+                'exportPortsEntity',
+                Join::WITH,
+                'exportPortsEntity.id = container.exportPortID'
+            )
 
             ->getQuery()
             ->getOneOrNullResult();

@@ -320,7 +320,7 @@ class ContainerFCLFinanceManager
         if($containerResult)
         {
             $priceResult = $this->containerSpecificationPriceManager->getContainerSpecificationPriceBySpecificationIdAndExportCountryIdAndExportCityAndDestinationPortID($containerResult['specificationID'],
-                $containerResult['exportCountryID'], $containerResult['exportCity'], $containerResult['portID']);
+                $containerResult['countryID'], $containerResult['city'], $containerResult['portID']);
 
             if($priceResult)
             {
