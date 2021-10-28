@@ -103,9 +103,9 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('airwaybill')
             ->select('airwaybill.id', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.type', 'airwaybill.consigneeID', 'airwaybill.portID', 'airwaybill.location', 'airwaybill.exportCountryID', 'airwaybill.exportCity',
             'airwaybill.shipperID', 'airwaybill.providedBy', 'airwaybill.carrierID', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'airwaybill.shipmentID', 'airwaybill.clientUserID', 'airwaybill.consignee', 'airwaybill.weight', 'airwaybill.shippingStatus', 'airwaybill.exportLocation',
-                'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage', 'subcontractEntity.fullName as subcontractName',
+            'airwaybill.exportPortID', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage', 'subcontractEntity.fullName as subcontractName',
             'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName', 'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName',
-             'countryEntity.name as exportCountryName', 'exportWarehouseEntity.name as exportLocationName')
+            'exportPortsEntity.name as exportPortName', 'countryEntity.name as exportCountryName', 'exportWarehouseEntity.name as exportLocationName')
 
             ->andWhere('airwaybill.id = :id')
             ->setParameter('id', $id)
@@ -160,6 +160,13 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
+                PortsEntity::class,
+                'exportPortsEntity',
+                Join::WITH,
+                'exportPortsEntity.id = airwaybill.exportPortID'
+            )
+
+            ->leftJoin(
                 OrderShipmentEntity::class,
                 'orderShipmentEntity',
                 Join::WITH,
@@ -201,9 +208,9 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('airwaybill')
             ->select('airwaybill.id', 'airwaybill.airwaybillNumber', 'airwaybill.status', 'airwaybill.createdAt', 'airwaybill.updatedAt', 'airwaybill.consigneeID', 'airwaybill.clientUserID', 'airwaybill.weight', 'airwaybill.exportWarehouseID', 'airwaybill.exportLocation',
                 'airwaybill.shipmentID', 'airwaybill.createdBy', 'airwaybill.updatedBy', 'airwaybill.portID', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'airwaybill.exportCountryID',
-                'airwaybill.consignee', 'airwaybill.shipperID', 'airwaybill.carrierID', 'adminProfile2.userName as updatedByUserImage', 'airwaybill.providedBy', 'airwaybill.type', 'airwaybill.location', 'airwaybill.shippingStatus', 'airwaybill.exportCity',
+                'airwaybill.exportPortID', 'airwaybill.consignee', 'airwaybill.shipperID', 'airwaybill.carrierID', 'adminProfile2.userName as updatedByUserImage', 'airwaybill.providedBy', 'airwaybill.type', 'airwaybill.location', 'airwaybill.shippingStatus', 'airwaybill.exportCity',
                 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName', 'clientProfileEntity.userName as clientUserName',
-                'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName', 'exportWarehouseEntity.name as exportWarehouseName', 'countryEntity.name as exportCountryName', 'exportWarehouseEntityTwo.name as exportLocationName')
+                'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName', 'exportPortsEntity.name as exportPortName', 'exportWarehouseEntity.name as exportWarehouseName', 'countryEntity.name as exportCountryName', 'exportWarehouseEntityTwo.name as exportLocationName')
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -252,6 +259,13 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
                 'portsEntity',
                 Join::WITH,
                 'portsEntity.id = airwaybill.portID'
+            )
+
+            ->leftJoin(
+                PortsEntity::class,
+                'exportPortsEntity',
+                Join::WITH,
+                'exportPortsEntity.id = airwaybill.exportPortID'
             )
 
             ->leftJoin(

@@ -38,6 +38,8 @@ class AirwaybillFilterResponse
 
     public $portName;
 
+    public $exportPortName;
+
     public $location;
 
     public $freeWeight;
