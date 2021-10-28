@@ -36,6 +36,8 @@ class ContainerGetResponse
 
     public $portName;
 
+    public $exportPortName;
+
     public $location;
 
     public $specificationName;

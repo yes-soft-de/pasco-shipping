@@ -28,6 +28,8 @@ class ContainerCreateRequest
 
     private $portID;
 
+    private $exportPortID;
+
     private $exportCountryID;
 
     private $exportCity;
