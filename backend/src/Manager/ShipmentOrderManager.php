@@ -557,8 +557,7 @@ class ShipmentOrderManager
                     foreach($pendingHolders as $pendingHolder)
                     {
                         $this->createFCLAirWaybill($orderShipmentEntity->getId(), $pendingHolder['specificationID'], $pendingHolder['portID'],
-                            $pendingHolder['carrierID'], $pendingHolder['location'], $orderShipmentEntity->getClientUserID(), $orderShipmentEntity->getExportCountryID(),
-                            $orderShipmentEntity->getExportWarehouseID());
+                            $pendingHolder['carrierID'], $pendingHolder['location'], $orderShipmentEntity->getClientUserID(), $orderShipmentEntity->getExportWarehouseID());
                     }
                 }
             }
@@ -572,15 +571,14 @@ class ShipmentOrderManager
                     foreach($pendingHolders as $pendingHolder)
                     {
                         $this->createFCLContainer($orderShipmentEntity->getId(), $pendingHolder['specificationID'], $pendingHolder['portID'],
-                            $pendingHolder['carrierID'], $pendingHolder['location'], $orderShipmentEntity->getClientUserID(), $orderShipmentEntity->getExportCountryID(),
-                            $orderShipmentEntity->getExportWarehouseID());
+                            $pendingHolder['carrierID'], $pendingHolder['location'], $orderShipmentEntity->getClientUserID(), $orderShipmentEntity->getExportWarehouseID());
                     }
                 }
             }
         }
     }
 
-    public function createFCLContainer($shipmentID, $specificationID, $portID, $carrierID, $location, $clientUserID, $exportCountryID, $exportWarehouseID)
+    public function createFCLContainer($shipmentID, $specificationID, $portID, $carrierID, $location, $clientUserID, $exportWarehouseID)
     {
         $containerCreateRequest = new ContainerCreateRequest();
 
@@ -590,13 +588,12 @@ class ShipmentOrderManager
         $containerCreateRequest->setCarrierID($carrierID);
         $containerCreateRequest->setLocation($location);
         $containerCreateRequest->setClientUserID($clientUserID);
-        $containerCreateRequest->setExportCountryID($exportCountryID);
         $containerCreateRequest->setExportLocation($exportWarehouseID);
 
         $this->containerManager->createFCLContainer($containerCreateRequest);
     }
 
-    public function createFCLAirWaybill($shipmentID, $specificationID, $portID, $carrierID, $location, $clientUserID, $exportCountryID, $exportWarehouseID)
+    public function createFCLAirWaybill($shipmentID, $specificationID, $portID, $carrierID, $location, $clientUserID, $exportWarehouseID)
     {
         $airWaybillCreateRequest = new AirwaybillCreateRequest();
 
@@ -606,7 +603,6 @@ class ShipmentOrderManager
         $airWaybillCreateRequest->setCarrierID($carrierID);
         $airWaybillCreateRequest->setLocation($location);
         $airWaybillCreateRequest->setClientUserID($clientUserID);
-        $airWaybillCreateRequest->setExportCountryID($exportCountryID);
         $airWaybillCreateRequest->setExportLocation($exportWarehouseID);
 
         $this->airWaybillManager->createFCLAirWaybill($airWaybillCreateRequest);
