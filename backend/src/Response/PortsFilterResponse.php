@@ -10,6 +10,8 @@ class PortsFilterResponse
 
     public $countryID;
 
+    public $countryType;
+
     public $countryName;
 
     public $location;

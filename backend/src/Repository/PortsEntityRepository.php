@@ -28,7 +28,7 @@ class PortsEntityRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('ports_entity')
             ->select('ports_entity.id', 'ports_entity.name', 'ports_entity.countryID', 'countryEntity.name as countryName', 'ports_entity.city', 'ports_entity.location', 'ports_entity.type', 'ports_entity.createdAt',
              'ports_entity.updatedAt', 'ports_entity.createdBy', 'ports_entity.updatedBy', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
-                'adminProfile2.image as updatedByUserImage')
+                'adminProfile2.image as updatedByUserImage', 'countryEntity.type as countryType')
 
             ->leftJoin(
                 CountryEntity::class,

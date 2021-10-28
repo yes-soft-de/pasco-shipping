@@ -178,6 +178,7 @@ class PortsController extends BaseController
      *              @OA\Property(type="integer", property="id"),
      *              @OA\Property(type="string", property="name"),
      *              @OA\Property(type="integer", property="countryID"),
+     *              @OA\Property(type="string", property="countryType", example="export"),
      *              @OA\Property(type="string", property="countryName"),
      *              @OA\Property(type="string", property="location"),
      *              @OA\Property(type="string", property="city"),
