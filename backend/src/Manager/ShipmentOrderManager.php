@@ -714,6 +714,11 @@ class ShipmentOrderManager
         return $this->orderShipmentEntityRepository->getExportCountryIdByShipmentOrderID($shipmentID);
     }
 
+    public function getHolderTypeAndWeightAndVolumeByShipmentOrderID($shipmentID)
+    {
+        return $this->orderShipmentEntityRepository->getHolderTypeAndWeightAndVolumeByShipmentOrderID($shipmentID);
+    }
+
     public function getClientUserIdByShipmentOrderID($shipmentID)
     {
         return $this->orderShipmentEntityRepository->getClientUserIdByShipmentOrderID($shipmentID);

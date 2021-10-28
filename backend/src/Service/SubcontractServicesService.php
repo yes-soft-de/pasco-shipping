@@ -7,6 +7,7 @@ use App\Entity\SubcontractServiceEntity;
 use App\Manager\SubcontractServiceManager;
 use App\Request\SubcontractServiceCreateRequest;
 use App\Request\SubcontractServiceUpdateRequest;
+use App\Response\DeleteAllGetResponse;
 use App\Response\SubcontractServiceCreateResponse;
 use App\Response\SubcontractServicesGetResponse;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -83,6 +84,15 @@ class SubcontractServicesService
         }
 
         return $subcontractServiceEntity;
+    }
+
+    public function deleteAllSubcontractsService()
+    {
+        $result = [];
+
+        $result['numbersOfItemDeleted'] = $this->subcontractServiceManager->deleteAllSubcontractsService();
+
+        return $this->autoMapping->map('array', DeleteAllGetResponse::class, $result);
     }
 
 }

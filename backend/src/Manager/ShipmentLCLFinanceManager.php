@@ -141,6 +141,15 @@ class ShipmentLCLFinanceManager
                     $value['volume'], $value['weight']), 2);
             }
         }
+        else
+        {
+            if($request->getShipmentID())
+            {
+                $shipmentFinances['price'] = $this->getOneKiloOrCBMPriceByShipmentID($request->getShipmentID());
+
+                $shipmentFinances['shippingCost'] = round($this->getShippingCostByShipmentID($request->getShipmentID()), 2);
+            }
+        }
 
         // Get total Cost of the stages
         $currentTotalCost = $this->getCurrentTotalCostByFilterOptions($request->getShipmentID(), $request->getTrackNumber(), $request->getShipmentStatus(),
@@ -202,6 +211,23 @@ class ShipmentLCLFinanceManager
         elseif($transportationType == ShippingWayConstant::$SEA_SHIPPING_WAY)
         {
             return $this->getOneKiloOrCBMPriceByShipmentID($shipmentID) * $volume;
+        }
+    }
+
+    public function getShippingCostByShipmentID($shipmentID)
+    {
+        $result = $this->shipmentOrderManager->getHolderTypeAndWeightAndVolumeByShipmentOrderID($shipmentID);
+
+        if($result)
+        {
+            if($result['transportationType'] == ShippingWayConstant::$AIR_SHIPPING_WAY)
+            {
+                return $this->getOneKiloOrCBMPriceByShipmentID($shipmentID) * $result['weight'];
+            }
+            elseif($result['transportationType'] == ShippingWayConstant::$SEA_SHIPPING_WAY)
+            {
+                return $this->getOneKiloOrCBMPriceByShipmentID($shipmentID) * $result['volume'];
+            }
         }
     }
     

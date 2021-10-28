@@ -1040,6 +1040,18 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function getHolderTypeAndWeightAndVolumeByShipmentOrderID($shipmentID)
+    {
+        return $this->createQueryBuilder('shipmentOrder')
+            ->select("shipmentOrder.transportationType", "shipmentOrder.weight", "shipmentOrder.volume")
+
+            ->andWhere('shipmentOrder.id = :id')
+            ->setParameter('id', $shipmentID)
+
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function getImportWarehouseIdByShipmentOrderID($shipmentID)
     {
         return $this->createQueryBuilder('shipmentOrder')

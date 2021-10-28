@@ -643,7 +643,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
     public function getProxyIdOfExportWarehouseByContainerID($containerID)
     {
         return $this->createQueryBuilder('container_entity')
-            ->select('container_entity.exportWarehouseID', 'exportWarehouseEntity.proxyID as exportProxyID')
+            ->select('container_entity.exportLocation', 'exportWarehouseEntity.proxyID as exportProxyID')
 
             ->andWhere('container_entity.id = :id')
             ->setParameter('id', $containerID)
@@ -652,7 +652,7 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 WarehouseEntity::class,
                 'exportWarehouseEntity',
                 Join::WITH,
-                'exportWarehouseEntity.id = container_entity.exportWarehouseID'
+                'exportWarehouseEntity.id = container_entity.exportLocation'
             )
 
             ->getQuery()

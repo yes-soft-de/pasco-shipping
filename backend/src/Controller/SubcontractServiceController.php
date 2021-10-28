@@ -279,4 +279,33 @@ class SubcontractServiceController extends BaseController
         return $this->response($result, self::DELETE);
     }
 
+    /**
+     * @Route("deleteallsubcontractservices", name="deleteAllSubcontractsServices", methods={"DELETE"})
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Subcontract Service")
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the number of the subcontract services being deleted",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                 @OA\Property(type="number", property="numbersOfItemDeleted")
+     *                      )
+     *                     )
+     *          )
+     *
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function deleteAllSubcontractsService()
+    {
+        $result = $this->subcontractServicesService->deleteAllSubcontractsService();
+
+        return $this->response($result, self::DELETE);
+    }
+
 }
