@@ -22,6 +22,8 @@ class AirwaybillUpdateRequest
 
     private $portID;
 
+    private $exportPortID;
+
     private $location;
 
     private $consignee;

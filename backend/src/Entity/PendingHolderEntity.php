@@ -54,6 +54,11 @@ class PendingHolderEntity
      */
     private $carrierID;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $exportPortID;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -139,6 +144,18 @@ class PendingHolderEntity
     public function setCarrierID(?int $carrierID): self
     {
         $this->carrierID = $carrierID;
+
+        return $this;
+    }
+
+    public function getExportPortID(): ?int
+    {
+        return $this->exportPortID;
+    }
+
+    public function setExportPortID(?int $exportPortID): self
+    {
+        $this->exportPortID = $exportPortID;
 
         return $this;
     }

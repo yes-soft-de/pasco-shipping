@@ -199,8 +199,6 @@ App\Request\ContainerCreateRequest:
       - NotBlank: ~
     portID:
       - NotBlank: ~
-    location:
-      - NotBlank: ~
     createdBy:
       - NotBlank: ~
 
@@ -296,8 +294,6 @@ App\Request\AirwaybillCreateRequest:
     type:
       - NotBlank: ~
     portID:
-      - NotBlank: ~
-    location:
       - NotBlank: ~
     createdBy:
       - NotBlank: ~

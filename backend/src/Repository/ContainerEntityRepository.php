@@ -101,10 +101,10 @@ class ContainerEntityRepository extends ServiceEntityRepository
     public function getContainerById($id)
     {
         return $this->createQueryBuilder('container')
-            ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.createdBy', 'container.carrierID',
+            ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.createdBy', 'container.carrierID', 'container.exportPortID',
                 'container.exportLocation', 'container.shipperID', 'container.type', 'container.providedBy', 'container.shipmentID', 'container.portID', 'container.location', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser',
                 'container.consignee', 'container.exportCity', 'container.exportCountryID', 'adminProfile2.userName as updatedByUserImage', 'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName',
-                'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName', 'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'container.clientUserID', 'portsEntity.name as portName', 'container.shippingStatus',
+                'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName', 'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'container.clientUserID', 'portsEntity.name as portName', 'exportPortsEntity.name as exportPortName', 'container.shippingStatus',
                 'countryEntity.name as exportCountryName', 'exportWarehouseEntity.name as exportLocationName')
 
             ->andWhere('container.id = :id')
@@ -167,6 +167,13 @@ class ContainerEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
+                PortsEntity::class,
+                'exportPortsEntity',
+                Join::WITH,
+                'exportPortsEntity.id = container.exportPortID'
+            )
+
+            ->leftJoin(
                 OrderShipmentEntity::class,
                 'orderShipmentEntity',
                 Join::WITH,
@@ -207,9 +214,10 @@ class ContainerEntityRepository extends ServiceEntityRepository
 
         $query = $this->createQueryBuilder('container')
             ->select('container.id', 'container.specificationID', 'container.containerNumber', 'container.status', 'container.createdAt', 'container.updatedAt', 'container.createdBy', 'container.updatedBy', 'container.consigneeID', 'container.shipmentID', 'container.clientUserID', 'container.consignee', 'container.exportLocation',
-                'container.shipperID', 'container.carrierID', 'container.type', 'container.providedBy', 'container.portID', 'container.location', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
+                'container.exportPortID', 'container.shipperID', 'container.carrierID', 'container.type', 'container.providedBy', 'container.portID', 'container.location', 'adminProfile1.userName as createdByUser', 'adminProfile1.image as createdByUserImage', 'adminProfile2.userName as updatedByUser', 'adminProfile2.userName as updatedByUserImage',
                 'container.shippingStatus', 'container.exportCity', 'container.exportCountryID', 'containerSpecification.name as specificationName', 'subcontractEntity.fullName as subcontractName', 'subcontractEntity2.fullName as consigneeName', 'shipperEntity.name as shipperName', 'subcontractEntity4.fullName as carrierName',
-                'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName', 'countryEntity.name as exportCountryName', 'container.exportWarehouseID', 'exportWarehouseEntity.name as exportWarehouseName', 'exportWarehouseEntityTwo.name as exportLocationName')
+                'clientProfileEntity.userName as clientUserName', 'clientProfileEntity.image as clientUserImage', 'portsEntity.name as portName', 'countryEntity.name as exportCountryName', 'container.exportWarehouseID', 'exportWarehouseEntity.name as exportWarehouseName', 'exportWarehouseEntityTwo.name as exportLocationName',
+                'exportPortsEntity.name as exportPortName')
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -265,6 +273,13 @@ class ContainerEntityRepository extends ServiceEntityRepository
                 'portsEntity',
                 Join::WITH,
                 'portsEntity.id = container.portID'
+            )
+
+            ->leftJoin(
+                PortsEntity::class,
+                'exportPortsEntity',
+                Join::WITH,
+                'exportPortsEntity.id = container.exportPortID'
             )
 
             ->leftJoin(
@@ -609,10 +624,17 @@ class ContainerEntityRepository extends ServiceEntityRepository
     public function getSpecificationIdAndExportCountryIdAndExportCityAndPortIdByContainerID($containerID)
     {
         return $this->createQueryBuilder('container')
-            ->select('container.specificationID', 'container.exportCountryID', 'container.exportCity', 'container.portID')
+            ->select('container.specificationID', 'exportPortsEntity.countryID', 'exportPortsEntity.city', 'container.portID')
 
             ->andWhere('container.id = :id')
             ->setParameter('id', $containerID)
+
+            ->leftJoin(
+                PortsEntity::class,
+                'exportPortsEntity',
+                Join::WITH,
+                'exportPortsEntity.id = container.exportPortID'
+            )
 
             ->getQuery()
             ->getOneOrNullResult();

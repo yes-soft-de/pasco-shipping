@@ -149,4 +149,13 @@ class SubcontractEntityRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function deleteAllSubcontracts()
+    {
+        return $this->createQueryBuilder('subcontract_entity')
+            ->delete()
+
+            ->getQuery()
+            ->getResult();
+    }
+
 }

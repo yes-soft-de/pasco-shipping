@@ -28,6 +28,8 @@ class AirwaybillCreateRequest
 
     private $portID;
 
+    private $exportPortID;
+
     private $exportCountryID;
 
     private $exportCity;
@@ -69,6 +71,11 @@ class AirwaybillCreateRequest
     public function setPortID($portID): void
     {
         $this->portID = $portID;
+    }
+
+    public function setExportPortID($exportPortID)
+    {
+        $this->exportPortID = $exportPortID;
     }
 
     public function setLocation($location): void

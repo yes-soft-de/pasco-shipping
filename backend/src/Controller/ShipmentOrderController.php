@@ -181,6 +181,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="integer", property="specificationID"),
      *                  @OA\Property(type="integer", property="carrierID"),
      *                  @OA\Property(type="integer", property="portID"),
+     *                  @OA\Property(type="integer", property="exportPortID"),
      *                  @OA\Property(type="string", property="notes")
      *              )
      *          )
@@ -809,6 +810,7 @@ class ShipmentOrderController extends BaseController
      *                          @OA\Property(type="integer", property="specificationID"),
      *                          @OA\Property(type="string", property="notes"),
      *                          @OA\Property(type="string", property="portName"),
+     *                          @OA\Property(type="string", property="exportPortName"),
      *                          @OA\Property(type="string", property="carrierName"),
      *                          @OA\Property(type="string", property="location"),
      *                          @OA\Property(type="object", property="createdAt"),
@@ -954,6 +956,7 @@ class ShipmentOrderController extends BaseController
      *                          @OA\Property(type="integer", property="specificationID"),
      *                          @OA\Property(type="string", property="notes"),
      *                          @OA\Property(type="string", property="portName"),
+     *                          @OA\Property(type="string", property="exportPortName"),
      *                          @OA\Property(type="string", property="carrierName"),
      *                          @OA\Property(type="string", property="location"),
      *                          @OA\Property(type="object", property="createdAt"),
@@ -1129,6 +1132,7 @@ class ShipmentOrderController extends BaseController
      *                                  @OA\Property(type="integer", property="specificationID"),
      *                                  @OA\Property(type="string", property="notes"),
      *                                  @OA\Property(type="string", property="portName"),
+     *                                  @OA\Property(type="string", property="exportPortName"),
      *                                  @OA\Property(type="string", property="carrierName"),
      *                                  @OA\Property(type="string", property="location"),
      *                                  @OA\Property(type="object", property="createdAt"),

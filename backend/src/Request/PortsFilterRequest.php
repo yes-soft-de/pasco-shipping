@@ -8,6 +8,8 @@ class PortsFilterRequest
 
     private $countryID;
 
+    private $countryType;
+
     private $city;
 
     private $type;
@@ -20,6 +22,11 @@ class PortsFilterRequest
     public function getCountryID()
     {
         return $this->countryID;
+    }
+
+    public function getCountryType()
+    {
+        return $this->countryType;
     }
 
     public function getCity()

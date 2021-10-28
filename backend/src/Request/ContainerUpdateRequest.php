@@ -22,6 +22,8 @@ class ContainerUpdateRequest
 
     private $portID;
 
+    private $exportPortID;
+
     private $location;
 
     private $consignee;

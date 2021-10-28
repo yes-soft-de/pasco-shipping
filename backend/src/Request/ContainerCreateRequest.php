@@ -28,6 +28,8 @@ class ContainerCreateRequest
 
     private $portID;
 
+    private $exportPortID;
+
     private $exportCountryID;
 
     private $exportCity;
@@ -89,6 +91,11 @@ class ContainerCreateRequest
     public function setExportLocation($exportLocation)
     {
         $this->exportLocation = $exportLocation;
+    }
+
+    public function setExportPortID($exportPortID)
+    {
+        $this->exportPortID = $exportPortID;
     }
 
 }

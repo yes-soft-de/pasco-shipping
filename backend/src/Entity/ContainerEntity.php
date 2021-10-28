@@ -130,6 +130,11 @@ class ContainerEntity
      */
     private $exportLocation;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $exportPortID;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -395,6 +400,18 @@ class ContainerEntity
     public function setExportLocation(?int $exportLocation): self
     {
         $this->exportLocation = $exportLocation;
+
+        return $this;
+    }
+
+    public function getExportPortID(): ?int
+    {
+        return $this->exportPortID;
+    }
+
+    public function setExportPortID(?int $exportPortID): self
+    {
+        $this->exportPortID = $exportPortID;
 
         return $this;
     }
