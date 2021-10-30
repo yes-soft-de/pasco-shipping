@@ -34,7 +34,11 @@ class ContainerFilterResponse
 
     public $carrierName;
 
+    public $portID;
+
     public $portName;
+
+    public $exportPortID;
 
     public $exportPortName;
 
@@ -69,6 +73,8 @@ class ContainerFilterResponse
     public $exportWarehouseName;
 
     public $shipments = [];
+
+    public $exportLocation;
 
     public $exportLocationName;
 

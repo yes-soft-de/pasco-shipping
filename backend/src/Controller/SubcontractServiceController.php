@@ -87,6 +87,11 @@ class SubcontractServiceController extends BaseController
 
         $response = $this->subcontractServicesService->create($request);
 
+        if(is_string($response))
+        {
+            return $this->response($response, self::DUPLICATED_ITEM);
+        }
+
         return $this->response($response, self::CREATE);
     }
 

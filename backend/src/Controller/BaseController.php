@@ -21,14 +21,15 @@ class BaseController extends AbstractController
     {
         $this->serializer = $serializer;
     }
+
     const STATE_OK = 200;
     const CREATE = ["created ","201"];
     const UPDATE=["updated","204"];
     const DELETE=["deleted","401"];
     const FETCH=["fetched","200"];
     const USER_FOUND=["User was found", "9001"];
+    const DUPLICATED_ITEM=["Same item was found", "9051"];
     //const NOTFOUND=["Not found", "404"];
-
 
     public function getUserId()
     {
