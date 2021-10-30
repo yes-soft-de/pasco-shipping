@@ -41,6 +41,9 @@ class Urls {
   static const NOTIFICATIONNEWCHAT_API = BASE_API + '/notificationnewchat';
   static const NOTIFICATIONTOADMIN_API = BASE_API + '/notificationtoadmin';
 
+  static const GET_HARBOR = BASE_API + 'filterharbors';
+  static const SUB_CONTRACTS = BASE_API + 'subcontracts';
+  static const CONTAINER_SPECIFICATIONS = BASE_API + 'containerspecifications';
 
   // static const token ='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjU2ODczMDcsImV4cCI6MTYyNTY5MDkwNywicm9sZXMiOlsidXNlciJdLCJ1c2VybmFtZSI6InNhbWkifQ.zhHkbE_gjebpglDU5dKZthtV2cb8TKYh60-s2l7rEUyDxcOgmpKW_gGbk9OWntRmKoYVsShEqM6tKfpwJ4_GBDUi6DY5NA2S6hcYto4gSzfTMazj5vSEefyg9sSx1yZU9QldrImhfApJ3tnIeNbAnzMew0JcLbwmlvSxR1TgnO8FdbNZudAgIIZ7O4MyqiihnR3G0ebsCtoHXBbXC0yKAsYUa0mH_OzFxBi299IpmkArxpqaofxjIbqo_E26DkRN60a1gfcg8EMDujXLUcalu_gc2RaDPC1d2MhQPxefjnVhxg3WB8we1wipEkREz9ukUVrgYiJirJLqAKaquKpptw';
 }

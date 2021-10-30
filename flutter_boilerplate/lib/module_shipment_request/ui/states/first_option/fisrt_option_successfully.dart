@@ -39,12 +39,14 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
   late int selectedRadioWarehouse;
 
   late DropListModel dropListModelFrom;
+  late DropListModel dropListModelFromExportCountries;
 
   late DropListModel dropListModelTo;
   late DropListModel dropListModelCat;
   late DropListModel dropListModelSubCat;
 
   late Entry optionItemSelectedF;
+  late Entry optionItemSelectedFromExternal;
 
   late Entry optionItemSelectedT ;
   late Entry optionItemSelectedCategory ;
@@ -53,12 +55,13 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
   final ImagePicker _imagePicker = ImagePicker();
 
   late List<Entry> shippingFrom;
+  late List<Entry> shippingFromExternal;
   late List<Entry> shippingTo;
   late List<Entry>  categories;
   late List<Entry>  subCategories;
   late TextEditingController controller;
   // File? imageFile;
-  late String initQuantity;
+
 
   List<File> imageArray=[];
   var image;
@@ -85,11 +88,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
     }else {selectedRadioWarehouse = 2;
     widget.shipmentRequest.isExternalWarehouse = false;
     }
-    if(widget.shipmentRequest.quantity == 0){
-      initQuantity = '0';
-    }else {
-      initQuantity = widget.shipmentRequest.quantity.toString();
-    }
+
     if(widget.shipmentRequest.imageFilePath != null && widget.shipmentRequest.imageFilePath!.isNotEmpty){
       for(var i in widget.shipmentRequest.imageFilePath!){
         imageArray.add(File(i));
@@ -133,6 +132,11 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
     //   // sub.isSelected = false;
     //
     //
+    if(widget.shipmentRequest.exportCountryID !=0){
+      optionItemSelectedFromExternal=Entry(widget.shipmentRequest.exportCountryName, widget.shipmentRequest.exportCountryID, []);
+    } else {
+      optionItemSelectedFromExternal = Entry('choose', 0, []);
+    }
     // }
     optionItemSelectedCategory = Entry('choose', 0, []);
     optionItemSelectedSubCategory= Entry('choose', 0, []);
@@ -140,6 +144,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
     shippingTo = <Entry>[];
     categories = <Entry>[];
     subCategories = <Entry>[];
+    shippingFromExternal = <Entry>[];
     initShippingFrom();
     initShippingTo();
     category();
@@ -150,6 +155,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
     for (Countries item in widget.countries) {
       if (item.warehouses!.isNotEmpty && item.type=='export') {
         Entry country = Entry(item.name!, item.id!, children);
+        shippingFromExternal.add(country);
         print(country.id);
         children = [];
         for (Warehouse warehouseItem in item.warehouses!) {
@@ -163,6 +169,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
         shippingFrom.add(country);
       }
     }
+    dropListModelFromExportCountries =  DropListModel(shippingFromExternal);
     dropListModelFrom = DropListModel(shippingFrom);
   }
 
@@ -302,40 +309,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
             SizedBox(
               height: 10,
             ),
-            Text(
-              S.of(context).shippingFrom,
-              style: white18text,
-            ),
-            SelectDropListl(
-              this.optionItemSelectedF,
-              this.dropListModelFrom,
-                  (optionItem) {
-                optionItemSelectedF = optionItem;
-                widget.shipmentRequest.exportWarehouseID =optionItem.id;
-                widget.shipmentRequest.exportWarehouseName =optionItem.title;
-                print("nameWear"  +  optionItem.title);
-                setState(() {});
-              },
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              S.of(context).shippingTo,
-              style: white18text,
-            ),
-            SelectDropListl(
-              this.optionItemSelectedT,
-              this.dropListModelTo,
-                  (optionItem) {
-                optionItemSelectedT = optionItem;
-                widget.shipmentRequest.target = optionItem.title;
-                setState(() {});
-              },
-            ),
-            SizedBox(
-              height: 10,
-            ),
+
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -353,7 +327,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                       value: 2,
                       groupValue: selectedRadioWarehouse,
                     ),
-                    Text( S.of(context).inLocalWarehouse,
+                    Text( S.of(context).ourWarehouse,
                         style: TextStyle(
                           color: Colors.white,
                         ))
@@ -379,6 +353,58 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
 
               ],
             ),
+            SizedBox(
+              height: 10,
+            ),
+            Visibility(
+              visible: !widget.shipmentRequest.isExternalWarehouse ,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    S.of(context).shippingFrom,
+                    style: white18text,
+                  ),
+                  SelectDropListl(
+                    this.optionItemSelectedF,
+                    this.dropListModelFrom,
+                        (optionItem) {
+                      optionItemSelectedF = optionItem;
+                      widget.shipmentRequest.exportWarehouseID =optionItem.id;
+                      widget.shipmentRequest.exportWarehouseName =optionItem.title;
+                      print("nameWear"  +  optionItem.title);
+                      setState(() {});
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Visibility(
+              visible: widget.shipmentRequest.isExternalWarehouse ,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    S.of(context).shippingFrom,
+                    style: white18text,
+                  ),
+                  SelectDropList(
+                    this.optionItemSelectedFromExternal,
+                    this.dropListModelFromExportCountries,
+                        (optionItem) {
+                          optionItemSelectedFromExternal = optionItem;
+                      widget.shipmentRequest.exportCountryID =optionItem.id;
+                      widget.shipmentRequest.exportCountryName =optionItem.title;
+                      setState(() {});
+                    },
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(
+              height: 15,
+            ),
             Visibility(
               visible: widget.shipmentRequest.isExternalWarehouse ,
               child: Column(
@@ -388,11 +414,33 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                     S.of(context).externalWarehouseInfo,
                     style: white18text,
                   ),
-                  TextEdit('info', 50, (info) {
+                  TextEdit(onChange:  (info) {
                     widget.shipmentRequest.externalWarehouseInfo = info;
-                  }),
+                  }, title:  widget.shipmentRequest.externalWarehouseInfo ??'', hint:'info',),
                 ],),
             ),
+
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              S.of(context).shippingTo,
+              style: white18text,
+            ),
+            SelectDropListl(
+              this.optionItemSelectedT,
+              this.dropListModelTo,
+                  (optionItem) {
+                optionItemSelectedT = optionItem;
+                widget.shipmentRequest.target = optionItem.title;
+                setState(() {});
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+
+
             SizedBox(
               height: 10,
             ),
@@ -469,20 +517,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                Text(
-                  S.of(context).quantity,
-                  style: white18text,
-                ),
-                NumberInputWithIncrementDecrement(initQuantity , (quantity ){
-                  widget.shipmentRequest.quantity = quantity;
-                }),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -575,6 +610,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
             GridView.count(
                 shrinkWrap: true,
                 crossAxisCount: 5,
+                physics: NeverScrollableScrollPhysics(),
                 children: List.generate(imageArray.length, (index){
                   return Padding(
                     padding: const EdgeInsets.only(top: 10,right: 5 ,left: 5),
@@ -599,7 +635,8 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                       ),
                     ),
                   );
-                })
+                }
+                )
             ),
             Align(
                 alignment: AlignmentDirectional.bottomEnd,

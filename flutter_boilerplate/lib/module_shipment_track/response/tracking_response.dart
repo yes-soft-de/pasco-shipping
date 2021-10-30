@@ -53,9 +53,9 @@ class TrackModel {
   DateTime? orderUpdatingDate;
   String? productCategoryName;
   String? packetingBy;
-  double? weight;
+  String? weight;
   String? qrCode;
-  int? guniQuantity;
+  String? guniQuantity;
   List<Track>? tracks;
   List<Log>? log;
 
@@ -73,9 +73,9 @@ class TrackModel {
             OrderDate.fromJson(json["orderUpdatingDate"]).timestamp! * 1000),
         productCategoryName: json["productCategoryName"],
         packetingBy: json["packetingBy"],
-        weight: json["weight"],
+        weight: json["weight"].toString(),
         qrCode: json["qrCode"],
-        guniQuantity: json["guniQuantity"],
+        guniQuantity: json["guniQuantity"].toString(),
         tracks: List<Track>.from(json['tracks'].map((x) => Track.fromJson(x))),
     log: List<Log>.from(json["log"].map((x) => Log.fromJson(x))),
       );

@@ -40,7 +40,7 @@ class _SecondOptionState extends State<SecondOption> {
         setState(() {});
       }
     });
-    widget.stateManger.getSecondOption();
+    widget.stateManger.getSecondOption(widget._shipmentRequest.transportationType ,widget._shipmentRequest.isExternalWarehouse);
   }
 
   @override
@@ -57,14 +57,15 @@ class _SecondOptionState extends State<SecondOption> {
     } else if (currentState is SecondOptionFetchingDataState) {
       SecondOptionFetchingDataState? state =
           currentState as SecondOptionFetchingDataState?;
-      return SecondOptionSuccessfully(marks: state!.marks, units: state.units,shipmentRequest: widget._shipmentRequest,
-          goBackStep: () {
-        widget.goBackStep();
-      },goNextPage: () {
-        widget.goNextStep();
-      }, goMarkPage: (){
-        widget.goMarkPage();
-        },);
+      List<RequestedHolders> specificatios = state!.specifications.map((s) => RequestedHolders(name: s.name, specificationID: s.id,notes: '',carrierID: 0,portID: 0)).toList();
+      return SecondOptionSuccessfully(marks: state.marks,shipmentRequest: widget._shipmentRequest,
+        goBackStep: () {
+          widget.goBackStep();
+        },goNextPage: () {
+          widget.goNextStep();
+        }, units: state.units, specifications:specificatios, carriers: state.subContracts,harbors: state.harbors, goMarkPage: (){
+            widget.goMarkPage();
+          });
     } else {
       return Column(
         children: [

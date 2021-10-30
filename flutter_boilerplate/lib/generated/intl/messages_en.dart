@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "cancel": MessageLookupByLibrary.simpleMessage("cancel"),
+        "carrier": MessageLookupByLibrary.simpleMessage("carrier"),
         "category": MessageLookupByLibrary.simpleMessage("Category: "),
         "city": MessageLookupByLibrary.simpleMessage("city"),
         "confirm": MessageLookupByLibrary.simpleMessage("confirm"),
@@ -71,7 +72,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "fillAllField": MessageLookupByLibrary.simpleMessage("fill all filed"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full name: "),
         "getStarted": MessageLookupByLibrary.simpleMessage("GET STARTED"),
+        "harbors": MessageLookupByLibrary.simpleMessage("harbor"),
         "history": MessageLookupByLibrary.simpleMessage("History"),
+        "holder": MessageLookupByLibrary.simpleMessage("holder"),
         "holderCount": MessageLookupByLibrary.simpleMessage("holder count"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "iHaveAnAccount":
@@ -103,6 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "mark": MessageLookupByLibrary.simpleMessage("Marks"),
         "myPrevious": MessageLookupByLibrary.simpleMessage("My Previous"),
         "myShipment": MessageLookupByLibrary.simpleMessage("My\n Shipments"),
+        "name": MessageLookupByLibrary.simpleMessage("name"),
         "nameHere": MessageLookupByLibrary.simpleMessage("Name here"),
         "networkError": MessageLookupByLibrary.simpleMessage(
             "There is problem with your connection , please try again"),
@@ -127,6 +131,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "oneSecondPlease":
             MessageLookupByLibrary.simpleMessage("One Second Please"),
+        "ourWarehouse": MessageLookupByLibrary.simpleMessage("Our warehouse"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordIsTooShort":
             MessageLookupByLibrary.simpleMessage("Password is too short"),
@@ -192,6 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "trackNumber": MessageLookupByLibrary.simpleMessage("Track number"),
         "trackShipment":
             MessageLookupByLibrary.simpleMessage("Tracking the shipment"),
+        "type": MessageLookupByLibrary.simpleMessage("type"),
         "unit": MessageLookupByLibrary.simpleMessage("Unit: "),
         "vehicleNumber": MessageLookupByLibrary.simpleMessage(
             "Vehicle identification number (if vehicle)"),

@@ -81,7 +81,10 @@ class ReviewShipmentScreen extends StatelessWidget {
                 Expanded(child: ListTile(title: Text(S.of(context).extraSpecification , style: white18text,), subtitle: Text(shipment.extraSpecification??'' ,style: basic14text,))),
               ],
             ),
-
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(S.of(context).holder ,style: white18text),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(S.of(context).attached ,style: white18text),
