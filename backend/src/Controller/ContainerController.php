@@ -552,7 +552,9 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="string", property="consigneeName"),
      *                  @OA\Property(type="string", property="shipperName"),
      *                  @OA\Property(type="string", property="carrierName"),
+     *                  @OA\Property(type="integer", property="portID"),
      *                  @OA\Property(type="string", property="portName"),
+     *                  @OA\Property(type="integer", property="exportPortID"),
      *                  @OA\Property(type="string", property="exportPortName"),
      *                  @OA\Property(type="string", property="location"),
      *                  @OA\Property(type="string", property="consignee"),
@@ -569,6 +571,7 @@ class ContainerController extends BaseController
      *                  @OA\Property(type="array", property="shipments",
      *                      @OA\Items()
      *                  ),
+     *                  @OA\Property(type="integer", property="exportlocation"),
      *                  @OA\Property(type="string", property="exportLocationName")
      *              )
      *          )
