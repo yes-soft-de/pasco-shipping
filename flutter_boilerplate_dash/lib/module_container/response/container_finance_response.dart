@@ -67,8 +67,8 @@ class ContainerFinanceModel {
     this.currency,
     this.status,
     this.paymentType,
-    this.financialFundName,
-    this.chequeNumber,
+    // this.financialFundName,
+    this.proxyName,
     this.subcontractName,
 this.buyingCost,this.sellingCost,
     this.createdAt,
@@ -86,8 +86,8 @@ this.buyingCost,this.sellingCost,
 
   String? currency;
   String? paymentType;
-  String? financialFundName;
-  String? chequeNumber;
+  String? proxyName;
+  // String? chequeNumber;
   String? subcontractName;
 
   DateTime? createdAt;
@@ -106,9 +106,9 @@ buyingCost: json['buyingCost']??0,
     currency: json['currency'],
     status : StatusCodeHelper.addStageNameFinance( json['status']),
     paymentType: json['paymentType'],
-    chequeNumber: json['chequeNumber'],
+    // chequeNumber: json['chequeNumber'],
     subcontractName: json['subcontractName'],
-    financialFundName: json['financialFundName'],
+    proxyName: json['proxyName'],
 
     createdAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),

@@ -74,11 +74,12 @@ class AirwaybillFinanceModel {
     this.status,
 
     this.paymentType,
-    this.financialFundName,
-    this.chequeNumber,
+    // this.financialFundName,
+    // this.chequeNumber,
     this.subcontractName,
     this.sellingCost,
     this.buyingCost,
+    this.proxyName,
 
     this.createdAt,
     this.updatedAt,
@@ -96,8 +97,9 @@ class AirwaybillFinanceModel {
   String? currency;
 
   String? paymentType;
-  String? financialFundName;
-  String? chequeNumber;
+  String? proxyName;
+  // String? financialFundName;
+  // String? chequeNumber;
   String? subcontractName;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -116,9 +118,9 @@ class AirwaybillFinanceModel {
     sellingCost: json['sellingCost']??0,
 
     paymentType: json['paymentType'],
-    chequeNumber: json['chequeNumber'],
+    proxyName: json['proxyName'],
     subcontractName: json['subcontractName'],
-    financialFundName: json['financialFundName'],
+    // financialFundName: json['financialFundName'],
 
     createdAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),

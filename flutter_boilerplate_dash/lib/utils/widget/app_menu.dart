@@ -118,15 +118,15 @@ class AppMenu extends ConsumerWidget {
               color: Colors.grey.withOpacity(0.9),
             ),
             arrowColor: AppThemeDataService.AccentColor,
-            accountName: Text('Sami'),
-            accountEmail: Text('0955461489'),
-            currentAccountPicture: CircleAvatar(
-              backgroundColor: white,
-              child: Image.asset(
-                StaticImage.userIcon2,
-                height: 58,
-              ),
-            ),
+            accountName: Text(''),
+            accountEmail: Text(''),
+            // currentAccountPicture: CircleAvatar(
+            //   backgroundColor: white,
+            //   child: Image.asset(
+            //     StaticImage.userIcon2,
+            //     height: 58,
+            //   ),
+            // ),
           ),
 
           //shipment
@@ -134,7 +134,7 @@ class AppMenu extends ConsumerWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(S.of(context).shipment ,style: AppTextStyle.mediumDeepGrayBold,),
           ),
-          (  ListEquality().equals ( role , EmployeeRoleName['Receiving Employee']) ||  ListEquality().equals ( role , EmployeeRoleName['Super Admin']) || ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
+          // (  ListEquality().equals ( role , EmployeeRoleName['Receiving Employee']) ||  ListEquality().equals ( role , EmployeeRoleName['Super Admin']) || ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
           ExpansionTile(
             title: new Text(S.of(context).waitingShipment),
             leading: Icon(Icons.local_shipping_rounded),
@@ -208,9 +208,10 @@ class AppMenu extends ConsumerWidget {
                 ),
               ),
             ],
-          ) :Container(),
+          ) ,
+              // :Container(),
 
-          ( ListEquality().equals ( role , EmployeeRoleName['Receiving Employee']) ||  ListEquality().equals ( role , EmployeeRoleName['Super Admin']) || ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
+          // ( ListEquality().equals ( role , EmployeeRoleName['Receiving Employee']) ||  ListEquality().equals ( role , EmployeeRoleName['Super Admin']) || ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
           ExpansionTile(
             title: new Text(S.of(context).acceptedShipment),
             leading: Icon(Icons.local_shipping_rounded),
@@ -284,9 +285,10 @@ class AppMenu extends ConsumerWidget {
                 ),
               ),
             ],
-          ):Container(),
+          ),
+              // :Container(),
 
-          ( ListEquality().equals ( role , EmployeeRoleName['Arriving Employee']) ||  ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
+          // ( ListEquality().equals ( role , EmployeeRoleName['Arriving Employee']) ||  ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
           ExpansionTile(
             title: new Text(S.of(context).arrivedShipment),
             leading: Icon(Icons.local_shipping_rounded),
@@ -360,11 +362,12 @@ class AppMenu extends ConsumerWidget {
                 ),
               ),
             ],
-          ) : Container(),
+          ) ,
+              // : Container(),
 
 
 
-          (ListEquality().equals ( role , EmployeeRoleName['Receiving Employee']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee'])) ?
+          // (ListEquality().equals ( role , EmployeeRoleName['Receiving Employee']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee'])) ?
           ExpansionTile(
             title: new Text(S.of(context).requestShipment),
             leading: Icon(Icons.add),
@@ -383,7 +386,8 @@ class AppMenu extends ConsumerWidget {
                 ),
               ),
             ],
-          ) :Container(),
+          ) ,
+              // :Container(),
 
           ExpansionTile(
             title: new Text(S.of(context).shipmentShifting),
@@ -420,7 +424,7 @@ class AppMenu extends ConsumerWidget {
           ),
 
           //holder
-          (ListEquality().equals ( role , EmployeeRoleName['Receiving Employee']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin']) ||ListEquality().equals ( role , EmployeeRoleName['Admin SubContract']) || ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee'])) ?
+          // (ListEquality().equals ( role , EmployeeRoleName['Receiving Employee']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin']) ||ListEquality().equals ( role , EmployeeRoleName['Admin SubContract']) || ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee'])) ?
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -482,7 +486,8 @@ class AppMenu extends ConsumerWidget {
                 ],
               ),
             ],
-          ) :Container(),
+          ) ,
+              // :Container(),
 
 
 
@@ -591,7 +596,7 @@ class AppMenu extends ConsumerWidget {
           ),
 
           //reports
-          (ListEquality().equals ( role , EmployeeRoleName['Admin Report']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
+          // (ListEquality().equals ( role , EmployeeRoleName['Admin Report']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -648,10 +653,11 @@ class AppMenu extends ConsumerWidget {
                 color: Colors.grey,
               ),
             ],
-          ) :Container(),
+          ) ,
+              // :Container(),
 
           //invoices
-          (ListEquality().equals ( role , EmployeeRoleName['Admin Report']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
+          // (ListEquality().equals ( role , EmployeeRoleName['Admin Report']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -683,9 +689,10 @@ class AppMenu extends ConsumerWidget {
                 color: Colors.grey,
               ),
             ],
-          ) :Container(),
+          ),
+              // :Container(),
           // /BasicInfo
-          (ListEquality().equals ( role , EmployeeRoleName['Admin Data Entry']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
+          // (ListEquality().equals ( role , EmployeeRoleName['Admin Data Entry']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -1121,7 +1128,8 @@ class AppMenu extends ConsumerWidget {
               Divider(
                 color: Colors.grey,
               ),
-            ],) : Container(),
+            ],) ,
+              // : Container(),
 
 
           //User
@@ -1228,30 +1236,30 @@ class AppMenu extends ConsumerWidget {
           Divider(
             color: Colors.grey,
           ),
-          ListTile(
-            onTap: () {
-              selectPage(context, ref, ChatRoutes.chatRoute);
-            },
-            title: Text(S.of(context).directSupport),
-            leading: Icon(Icons.phone_in_talk),
-          ),
-          ListTile(
-            onTap: () {
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
-            },
-            title: Text(S.of(context).contactInfo),
-            leading: Icon(Icons.phone_android_outlined),
-          ),
-          ListTile(
-            onTap: () {
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
-            },
-            title: Text(S.of(context).aboutUs),
-            leading: Icon(Icons.info_outlined),
-          ),
-          Divider(
-            color: Colors.grey,
-          ),
+          // ListTile(
+          //   onTap: () {
+          //     selectPage(context, ref, ChatRoutes.chatRoute);
+          //   },
+          //   title: Text(S.of(context).directSupport),
+          //   leading: Icon(Icons.phone_in_talk),
+          // ),
+          // ListTile(
+          //   onTap: () {
+          //     // Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
+          //   },
+          //   title: Text(S.of(context).contactInfo),
+          //   leading: Icon(Icons.phone_android_outlined),
+          // ),
+          // ListTile(
+          //   onTap: () {
+          //     // Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
+          //   },
+          //   title: Text(S.of(context).aboutUs),
+          //   leading: Icon(Icons.info_outlined),
+          // ),
+          // Divider(
+          //   color: Colors.grey,
+          // ),
           ListTile(
             onTap: () {
               selectPage(context, ref, SettingRoutes.ROUTE_SETTINGS);

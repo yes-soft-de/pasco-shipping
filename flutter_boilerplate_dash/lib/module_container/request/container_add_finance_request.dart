@@ -7,13 +7,13 @@ class ContainerAddFinanceRequest {
 
   int? subcontractID;
   // int? clientUserID;
-  String paymentType;
-  String? chequeNumber;
+  // String paymentType;
+  // String? chequeNumber;
   // String? financialFundName;
 
   int? sellingCost;
   int? buyingCost ;
-  int? proxyID ;
+  // int? proxyID ;
 
   ContainerAddFinanceRequest(
       {required this.containerID,
@@ -21,13 +21,13 @@ class ContainerAddFinanceRequest {
         required this.stageCost,
         required this.status,
         required this.currency,
-       required this.paymentType,
+       // required this.paymentType,
         // this.financialFundName,
-        this.chequeNumber,
+        // this.chequeNumber,
         this.subcontractID,
         this.buyingCost,
         this.sellingCost,
-        this.proxyID
+        // this.proxyID
         // this.clientUserID
 
       });
@@ -39,12 +39,12 @@ class ContainerAddFinanceRequest {
         'status': status,
         'currency': currency,
         'subcontractID':subcontractID,
-        'chequeNumber':chequeNumber,
+        // 'chequeNumber':chequeNumber,
         // 'financialFundName':financialFundName,
-        'paymentType':paymentType,
+        // 'paymentType':paymentType,
         "sellingCost":sellingCost,
         "buyingCost":buyingCost,
-        'proxyID':proxyID
+        // 'proxyID':proxyID
       };
     } else {
       return {
@@ -54,11 +54,11 @@ class ContainerAddFinanceRequest {
         'status': status,
         'currency': currency,
         'subcontractID':subcontractID,
-        'chequeNumber':chequeNumber,
-        'paymentType':paymentType,
+        // 'chequeNumber':chequeNumber,
+        // 'paymentType':paymentType,
         "sellingCost":sellingCost,
         "buyingCost":buyingCost,
-        'proxyID':proxyID
+        // 'proxyID':proxyID
         // 'clientUserID':clientUserID
       };
     }

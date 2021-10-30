@@ -13,6 +13,7 @@ class ClientManager{
   Future<ConfirmResponse?> deleteClient(String id) => _repository.deleteClient(id);
   Future<List<ClientModel>?> getClient() => _repository.getClients();
   Future<ConfirmResponse?> updateClient(CreateClientRequest request) => _repository.updateClient(request);
+  Future<ConfirmResponse?> updateClientPass(UpdateClientPassRequest request) => _repository.updateClientPass(request);
 
 
 }

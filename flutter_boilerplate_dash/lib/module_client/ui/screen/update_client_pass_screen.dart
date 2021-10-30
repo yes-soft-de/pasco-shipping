@@ -1,29 +1,28 @@
-import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_client/response/client_response.dart';
+import 'package:pasco_shipping/module_client/state_manager/new_client_state_manger.dart';
+import 'package:pasco_shipping/module_client/ui/state/add_new_client/add_new_client_state.dart';
+import 'package:pasco_shipping/module_client/ui/state/update_client/update_client.dart';
+import 'package:pasco_shipping/module_client/ui/state/update_client_pass/update_client_pass.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
-import 'package:pasco_shipping/module_shifting_shipment/state_manager/new_shifting_state_manager.dart';
-import 'package:pasco_shipping/module_shifting_shipment/ui/state/new_shifting_state/new_shifing_state.dart';
-import 'package:pasco_shipping/module_shifting_shipment/ui/state/new_shifting_state/new_shift_init.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
 @injectable
-class AddNewShift extends StatefulWidget {
-  final NewShiftingStateManager _stateManager;
+class UpdateClientPassScreen extends StatefulWidget {
+  final AddClientStateManager _stateManager;
 
-  const AddNewShift(this._stateManager);
+  const UpdateClientPassScreen(this._stateManager);
 
   @override
   _AddNewCountryState createState() => _AddNewCountryState();
 }
 
-class _AddNewCountryState extends State<AddNewShift> {
-  late NewShiftingState currentState;
-  late int shipmentID;
-  late String trackNumber;
+class _AddNewCountryState extends State<UpdateClientPassScreen> {
+  late AddClientState currentState;
+  late ClientModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +37,10 @@ class _AddNewCountryState extends State<AddNewShift> {
                 constraints: BoxConstraints(
                     maxWidth: 600
                 ),
-                child:  Screen()),
+                child: Screen()),
           ),
         ),
-        title: S.of(context).add
+        title: 'Update Client Password'
     );
   }
 
@@ -50,14 +49,13 @@ class _AddNewCountryState extends State<AddNewShift> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
-    shipmentID =arguments['id'];
-    trackNumber =arguments['trackNumber'].toString();
+    model =arguments['model'];
   }
 
   @override
   void initState() {
     super.initState();
-    currentState = LoadingState();
+    currentState = InitAddState();
     widget._stateManager.stateStream.listen((event) {
       print("newEvent"+event.toString());
       currentState = event;
@@ -69,11 +67,11 @@ class _AddNewCountryState extends State<AddNewShift> {
         }
       }
     });
-    widget._stateManager.getWarehouse();
+    // widget._stateManager.getCountries();
   }
 
   Widget Screen(){
-    if(currentState is LoadingState){
+    if(currentState is LoadingAddState){
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -84,29 +82,14 @@ class _AddNewCountryState extends State<AddNewShift> {
         ),
       );
     }
-    else if (currentState is SuccessfullyInitState){
-      SuccessfullyInitState? state = currentState as SuccessfullyInitState?;
-      return NewShiftInit(
-        trackNumber: trackNumber,
-        shipmentID: shipmentID,
-        warehouses: state!.wearhouses,
-        onRequest: (request){
-          CoolAlert.show(
-            width: 150,
-            context: context,
-            type: CoolAlertType.info,
-            title:  S.of(context).careful,
-            confirmBtnText: S.of(context).ok,
-            backgroundColor:AppThemeDataService.PrimaryColor,
-            confirmBtnColor:AppThemeDataService.AccentColor,
-            onConfirmBtnTap: (){
-              Navigator.pop(context);
-              widget._stateManager.createShift(request);
-            },
-            text: 'Do you really want to shift the shipment',
-          );
-
-        },);
+    else if (currentState is InitAddState){
+      InitAddState? state = currentState as InitAddState?;
+      return UpdateClientPassInit(
+        onUpdate: (req){
+          widget._stateManager.updateClientPass(req);
+        },
+        model:model ,
+      );
     }
     else {
       return Center(

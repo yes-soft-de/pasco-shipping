@@ -22,9 +22,13 @@ class ContainerSpecificationRepository{
     try {
       var response = await _apiClient.get(Urls.CONTAINER_SPECIFICATIONS,
           headers: {'Authorization': 'Bearer $token'});
-      List<ContainerSpecificationModel>? marks =
-          ContainerSpecificationResponse.fromJson(response!).data;
-      return marks;
+      ContainerSpecificationResponse responses =  ContainerSpecificationResponse.fromJson(response!);
+      List<ContainerSpecificationModel>? travels = [];
+      if(responses.data != null) {
+        travels =
+            ContainerSpecificationResponse.fromJson(response).data;
+      }
+      return travels;
     } catch (_) {
       return null;
     }

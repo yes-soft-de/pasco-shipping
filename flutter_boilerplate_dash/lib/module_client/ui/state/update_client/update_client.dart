@@ -297,7 +297,7 @@ class _AddCountryInitState extends State<UpdateClientInit> {
               ),
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                   CreateClientRequest re = CreateClientRequest(
-                    id: widget.model.id,
+                    id: widget.model.profileID,
                       userName: userName.text ,  city: city.text,
                       country: country.text,location: location.text);
                   widget.onUpdate(re);

@@ -44,4 +44,19 @@ class AddClientStateManager{
       }
     });
   }
+  void updateClientPass(UpdateClientPassRequest request){
+    _addStateSubject.add(LoadingAddState());
+    _service.updateClientPass(request).then((value) {
+      if(value != null){
+        if(value.isConfirmed){
+          _addStateSubject.add(SuccessfullyAddState(value));
+        }
+        else{
+          _addStateSubject.add(ErrorAddState('error'));
+        }
+      }else {
+        _addStateSubject.add(ErrorAddState('error'));
+      }
+    });
+  }
 }

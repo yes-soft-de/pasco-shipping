@@ -66,6 +66,7 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
 
   late String status;
   late String type;
+  late String exportCity;
   late int selectedRadioType;
 
   late int shipperID;
@@ -319,18 +320,21 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
                   Text(S.of(context).from, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
-              SelectDropListl(
+              Text(widget.model.exportCountryName +' / '+ '${exportCity}'),
+              // Text(exportCity),
+           widget.model.type=='FCL'?   SelectDropList(
                 this.optionItemSelectedFrom,
                 this.dropListModelFromCountries,
                     (optionItem) {
                   optionItemSelectedFrom = optionItem;
                   print(optionItem.title);
                   print(optionItem.id);
+                  print(optionItem.children[0].id);
                   // widget.shipmentRequest.exportWarehouseID =optionItem.id;
                   // widget.shipmentRequest.exportWarehouseName =optionItem.title;
                   setState(() {});
                 },
-              ),
+              ) :Container(),
 
 
             widget.model.type=='FCL'?  Padding(
@@ -422,8 +426,10 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
                 }else {
                   Entry c = Entry(containerNumber.text, widget.model.id!, []);
                   ContainerRequest re = ContainerRequest(status: status,
-                      type: type
-                      ,
+                      type: type,
+                      exportCity: widget.model.exportCity,
+                      exportCountryID: widget.model.exportCountryID,
+                      exportWarehouseID: optionItemSelectedFrom.id,
                       consignee: consigneeController.text,
                       specificationID: optionItemSelectedSpecification.id,
                       consigneeID: optionItemSelectedConsignee.id,
@@ -462,7 +468,7 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
 
     status= widget.model.status!;
     type= widget.model.type!;
-
+    exportCity = widget.model.exportCity;
 
     // if(widget.model.type =='LCL'){
     //   selectedRadioType = 1;
@@ -479,7 +485,7 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
     optionItemSelectedSpecification =  Entry('choose', 0, []);
     optionItemSelectedCarrier =  Entry('choose', 0, []);
     optionItemSelectedHarbor =  Entry('choose', 0, []);
-    optionItemSelectedFrom =  Entry(widget.model.exportCity??'', widget.model.exportCountryID??0, []);
+    optionItemSelectedFrom =  Entry('', widget.model.exportCountryID??0, []);
     optionItemSelectedLocation = Entry(widget.model.location??'', 0, []);
     initList();
 
@@ -572,11 +578,12 @@ class _AddCountryInitState extends State<UpdateContainerInit> {
         print(country.id);
         children = [];
         for (Warehouse warehouseItem in item.warehouses!) {
-          Entry warehouse = Entry(warehouseItem.city!, country.id, []);
-          children.add(warehouse);
+          if (widget.model.exportCity == warehouseItem.city) {
+            Entry warehouse = Entry(
+                warehouseItem.name!, warehouseItem.id ?? 0, []);
+            entryFrom.add(warehouse);
+          }
         }
-        country.children = children;
-        entryFrom.add(country);
       }
     }
     dropListModelFromCountries = DropListModel(entryFrom);

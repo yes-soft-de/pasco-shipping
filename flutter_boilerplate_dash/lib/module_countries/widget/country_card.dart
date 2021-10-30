@@ -50,196 +50,205 @@ class _CountryCardState extends State<CountryCard> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  widget.isEdtiable ?
-                  Container(
-                      width: MediaQuery.of(context).size.width - 200,
-                      child: TextField(controller: name,))
-                      : Text(
-                    widget.model.name ?? '',
-                    style: AppTextStyle.largeBlack,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        S.of(context).countryType,
-                        style: AppTextStyle.mediumBlack,
-                      ),
-                      widget.isEdtiable ? Container(
-                          width: 75,
-                          child: TextField(controller: type,)) :  Text(
-                        widget.model.type ?? '',
-                        style: AppTextStyle.mediumBlueBold,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        S.of(context).callingCode,
-                        style: AppTextStyle.mediumBlack,
-                      ),
-                      widget.isEdtiable ? Container(
-                          width: 100,
-                          child: TextField(controller: code,)) : Text(
-                        widget.model.callingCode ?? '',
-                        style: AppTextStyle.mediumBlueBold,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                       S.of(context).createdBy,
-                        style: AppTextStyle.mediumBlack,
-                      ),
-                      Text(
-                        widget.model.createdByUser ?? '',
-                        style: AppTextStyle.mediumBlueBold,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        S.of(context).createdAt,
-                        style: AppTextStyle.mediumBlack,
-                      ),
-                      Text(
-                        widget.model.createdAt.toString().split(' ').first,
-                        style: AppTextStyle.mediumBlueBold,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        S.of(context).updatedBy,
-                        style: AppTextStyle.mediumBlack,
-                      ),
-                      Text(
-                        widget.model.updatedByUser ?? '',
-                        style: AppTextStyle.mediumBlueBold,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        S.of(context).updatedAt,
-                        style: AppTextStyle.mediumBlack,
-                      ),
-                      Text(
-                        widget.model.updatedAt.toString().split(' ').first,
-                        style: AppTextStyle.mediumBlueBold,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.red,
+              Flexible(
+                flex: 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    widget.isEdtiable ?
+                    Container(
+                        width: MediaQuery.of(context).size.width - 200,
+                        child: TextField(controller: name,))
+                        : Text(
+                      widget.model.name ?? '',
+                      style: AppTextStyle.largeBlack,
                     ),
-                    onPressed: () {
-                      widget.onDelete(widget.model.id);
-                    },
-                    child: Row(
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
                       children: [
-                        Icon(
-                          Icons.delete,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
                         Text(
-                          S.of(context).delete,
-                          style: AppTextStyle.mediumWhite,
+                          S.of(context).countryType,
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        widget.isEdtiable ? Container(
+                            width: 75,
+                            child: TextField(controller: type,)) :  Text(
+                          widget.model.type ?? '',
+                          style: AppTextStyle.mediumBlueBold,
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    width: 100,
-                    child:
-
-                    widget.isEdtiable ? ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green,
-                      ),
-                      onPressed: () {
-                        CountryRequest re = CountryRequest(id: widget.model.id ,code: code.text,countryName: name.text,type: type.text);
-                        widget.onEdit(re);
-                      },
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.save,
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            S.of(context).save,
-                            style: AppTextStyle.mediumWhite,
-                          ),
-                        ],
-                      ),
-                    ) : ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          widget.isEdtiable= true;
-                        });
-                      },
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                           S.of(context).edit,
-                            style: AppTextStyle.mediumWhite,
-                          ),
-                        ],
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          S.of(context).callingCode,
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        widget.isEdtiable ? Container(
+                            width: 100,
+                            child: TextField(controller: code,)) : Text(
+                          widget.model.callingCode ?? '',
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                         S.of(context).createdBy,
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Text(
+                          widget.model.createdByUser ?? '',
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          S.of(context).createdAt,
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Text(
+                          widget.model.createdAt.toString().split(' ').first,
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          S.of(context).updatedBy,
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Text(
+                          widget.model.updatedByUser ?? '',
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          S.of(context).updatedAt,
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Text(
+                          widget.model.updatedAt.toString().split(' ').first,
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                flex: 1,
+                child: Column(
+                  children: [
+                    Container(
+                      width: 100,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.red,
+                        ),
+                        onPressed: () {
+                          widget.onDelete(widget.model.id);
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              S.of(context).delete,
+                              style: AppTextStyle.mediumWhite,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      width: 100,
+                      child:
+
+                      widget.isEdtiable ? ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green,
+                        ),
+                        onPressed: () {
+                          CountryRequest re = CountryRequest(id: widget.model.id ,code: code.text,countryName: name.text,type: type.text);
+                          widget.onEdit(re);
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.save,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              S.of(context).save,
+                              style: AppTextStyle.mediumWhite,
+                            ),
+                          ],
+                        ),
+                      ) : ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            widget.isEdtiable= true;
+                          });
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.edit,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                             S.of(context).edit,
+                              style: AppTextStyle.mediumWhite,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               )
             ],
           ),

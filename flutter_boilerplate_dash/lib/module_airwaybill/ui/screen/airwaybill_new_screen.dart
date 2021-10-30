@@ -9,6 +9,7 @@ import 'package:pasco_shipping/module_airwaybill_specification/response/airwaybi
 import 'package:pasco_shipping/module_client/response/client_response.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
+import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
@@ -30,6 +31,7 @@ class _AddNewCountryState extends State<AddNewAirwaybill> {
   late List<AirwaybillSpecificationModel> specification;
   late List<ClientModel> clients;
   late List<HarborModel> harbors;
+  late List<Countries> countries;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,16 @@ class _AddNewCountryState extends State<AddNewAirwaybill> {
       showFilter: false,
         goBack: (){
         },
-        child: Screen(),
+        child:  Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child:  Screen()),
+          ),
+        ),
         title: S.of(context).add
     );
   }
@@ -58,7 +69,7 @@ class _AddNewCountryState extends State<AddNewAirwaybill> {
         }
       }
     });
-    widget._stateManager.getSubContractAndSpecificationAndHarbor();
+    widget._stateManager.getSubContractAndSpecificationAndHarborAndShipperAndCountries();
   }
 
   Widget Screen(){
@@ -78,13 +89,14 @@ class _AddNewCountryState extends State<AddNewAirwaybill> {
       subs = state!.subcontracts;
       clients = state.clients;
       harbors=state.harbors;
+      countries=state.countries;
       return RequestAirwaybillInit(
 
         subContracts: subs,
         clients: clients,
         onSave: (request){
         widget._stateManager.requestAirwaybill(request);
-      }, harbors: harbors,);
+      }, harbors: harbors, countriesExports:countries,);
     }
     // else if (currentState is SuccessfullyAddState){
     //   Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);

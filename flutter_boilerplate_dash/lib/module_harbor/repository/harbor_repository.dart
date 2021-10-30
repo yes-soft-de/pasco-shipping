@@ -20,8 +20,12 @@ class HarborRepository{
     try {
       var response = await _apiClient.post(Urls.GET_HARBOR,request.toJson(),
           headers: {'Authorization': 'Bearer $token'});
-      List<HarborModel>? marks =[];
-      marks=  HarborResponse.fromJson(response!).data;
+      HarborResponse markResponse =  HarborResponse.fromJson(response!);
+      List<HarborModel>? marks = [];
+      if(markResponse.data != null) {
+        marks =
+            HarborResponse.fromJson(response).data;
+      }
       return marks;
     } catch (_) {
       return null;

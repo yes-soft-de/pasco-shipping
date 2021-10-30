@@ -16,6 +16,7 @@ class ContainerRequest {
   int? clientID;
   int portID;
   int? exportCountryID;
+  int? exportWarehouseID;
   String? exportCity;
 
   ContainerRequest(
@@ -33,6 +34,7 @@ class ContainerRequest {
        required this.portID,
       required  this.location,
         this.consignee,
+        this.exportWarehouseID,
 
         this.exportCountryID,
         this.exportCity
@@ -54,7 +56,8 @@ class ContainerRequest {
         'location':location,
         'portID':portID,
         'exportCountryID':exportCountryID,
-        'exportCity':exportCity
+        'exportCity':exportCity,
+        'exportWarehouseID':exportWarehouseID,
       };
     } else {
       return {
@@ -73,7 +76,8 @@ class ContainerRequest {
         'portID':portID,
         'consignee':consignee,
         'exportCountryID':exportCountryID,
-        'exportCity':exportCity
+        'exportCity':exportCity,
+        'exportWarehouseID':exportWarehouseID
       };
     }
   }

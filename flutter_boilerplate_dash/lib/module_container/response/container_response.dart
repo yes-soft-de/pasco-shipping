@@ -45,13 +45,15 @@ class ContainerModel {
     this.shipmentID,
     this.portName,
     this.location,
+    this.exportWarehouseID,
+    this.exportWarehouseName,
 
 
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
     this.createdByUser,
-    this.exportCity,this.exportCountryName,this.exportCountryID,
+   required this.exportCity,required this.exportCountryName,this.exportCountryID,
    required this.used
   });
 
@@ -68,11 +70,13 @@ class ContainerModel {
   String? portName;
   String? location;
 
-  String? exportCity;
-  String? exportCountryName;
+  String exportCity;
+  String exportCountryName;
 
   int? shipmentID;
   int? exportCountryID;
+  int? exportWarehouseID;
+  String? exportWarehouseName;
 
 
 
@@ -100,9 +104,11 @@ class ContainerModel {
     used: json['used'],
     location: json['location'],
     portName: json['portName'],
-    exportCity: json['exportCity'],
+    exportCity: json['exportCity']??'',
     exportCountryID: json['exportCountryID'] ??0,
-    exportCountryName: json['exportCountryName'],
+    exportCountryName: json['exportCountryName']??'',
+    exportWarehouseID: json['exportWarehouseID'] ??0,
+    exportWarehouseName: json['exportWarehouseName'] ??'',
 
 
 

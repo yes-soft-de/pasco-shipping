@@ -20,9 +20,13 @@ class ContainerPriceRepository{
     try {
       var response = await _apiClient.get(Urls.CONTAINER_PRICES,
           headers: {'Authorization': 'Bearer $token'});
-      List<ContainerPriceModel>? profileModel =
-          ContainerPriceResponse.fromJson(response!).data;
-      return profileModel;
+      ContainerPriceResponse markResponse =  ContainerPriceResponse.fromJson(response!);
+      List<ContainerPriceModel>? marks = [];
+      if(markResponse.data != null) {
+        marks =
+            ContainerPriceResponse.fromJson(response).data;
+      }
+      return marks;
     } catch (_) {
       return null;
     }

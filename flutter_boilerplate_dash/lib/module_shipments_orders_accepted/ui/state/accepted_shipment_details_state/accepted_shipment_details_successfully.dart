@@ -844,7 +844,19 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
            ),
            actions: [
              Row(children: [
-               FlatButton(onPressed: (){}, child: Row(children: [
+               FlatButton(onPressed: () async{
+                 await Printing.layoutPdf(
+                   // [onLayout] will be called multiple times
+                   // when the user changes the printer or printer settings
+                   onLayout: (PdfPageFormat format) {
+                     // Any valid Pdf document can be returned here as a list of int
+                     return PdfParagraphApi.generateGunny(model);
+                   },
+                 );
+
+
+
+               }, child: Row(children: [
                  Icon(Icons.print, color: blue,size: 30,),
                ],)),
              ],

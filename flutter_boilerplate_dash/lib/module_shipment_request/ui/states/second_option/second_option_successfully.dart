@@ -78,7 +78,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   late RequestedHolders setSelectSpec;
 
   late bool isFromMarks;
-  late SpecificationsModel currentValue;
+  // late SpecificationsModel currentValue;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();

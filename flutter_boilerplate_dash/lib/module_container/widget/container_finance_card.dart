@@ -84,26 +84,11 @@ class ContainerFinanceCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      'Check Number: ',
+                     S.of(context).proxy,
                       style: AppTextStyle.mediumBlack,
                     ),
                     Text(
-                      model.chequeNumber ?? '',
-                      style: AppTextStyle.mediumBlueBold,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Text(
-                      'Fund Name: ',
-                      style: AppTextStyle.mediumBlack,
-                    ),
-                    Text(
-                      model.financialFundName ?? '',
+                      model.proxyName ?? '',
                       style: AppTextStyle.mediumBlueBold,
                     ),
                   ],

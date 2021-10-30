@@ -234,7 +234,7 @@ class _CountryCardState extends State<ContainerSpecificationCard> {
                         primary: Colors.green,
                       ),
                       onPressed: () {
-                        ContainerSpecificationRequest re = ContainerSpecificationRequest(id: widget.model.id ,widthInMeter: width.text,hightInMeter: height.text,lengthInMeter: length.text ,name: name.text,capacityCPM: capacity.text,price: price.text);
+                        ContainerSpecificationRequest re = ContainerSpecificationRequest(id: widget.model.id ,widthInMeter: width.text,hightInMeter: height.text,lengthInMeter: length.text ,name: name.text,capacityCPM: capacity.text);
                         widget.onEdit(re);
                       },
                       child: Text(

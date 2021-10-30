@@ -95,7 +95,9 @@ class _CountriesScreenState extends State<ClientsScreen> {
          Navigator.pushNamed(context, ClientRoutes.UPDATE,arguments: {'model':model}).then((value) {
            widget._stateManager.getClients();
          });
-        },
+        }, onEditPass: (model){
+            Navigator.pushNamed(context, ClientRoutes.UPDATE_PASS,arguments: {'model':model});
+          }
       );
     }
     // else if(currentState is SuccessfullyModifyMarkState){

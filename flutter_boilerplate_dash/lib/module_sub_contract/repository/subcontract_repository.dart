@@ -22,8 +22,12 @@ class SubcontractRepository{
     try {
       var response = await _apiClient.get(Urls.SUB_CONTRACTS,
           headers: {'Authorization': 'Bearer $token'});
-      List<SubcontractModel>? marks =
-          SubcontractResponse.fromJson(response!).data;
+      SubcontractResponse markResponse =  SubcontractResponse.fromJson(response!);
+      List<SubcontractModel>? marks = [];
+      if(markResponse.data != null) {
+        marks =
+            SubcontractResponse.fromJson(response).data;
+      }
       return marks;
     } catch (_) {
       return null;

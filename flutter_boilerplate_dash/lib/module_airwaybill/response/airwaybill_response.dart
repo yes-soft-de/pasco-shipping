@@ -53,7 +53,7 @@ class AirwaybillModel {
     this.updatedAt,
     this.updatedByUser,
     this.createdByUser,
-  required  this.used
+  required  this.used,this.exportCountryID,required this.exportCity,this.exportWarehouseName,this.exportWarehouseID,required this.exportCountryName
   });
 
   int? id;
@@ -70,8 +70,13 @@ class AirwaybillModel {
   String? portName;
   String? location;
   String? weight;
-  int? shipmentID;
+  String exportCity;
+  String exportCountryName;
 
+  int? shipmentID;
+  int? exportCountryID;
+  int? exportWarehouseID;
+  String? exportWarehouseName;
 
 
 
@@ -101,7 +106,11 @@ class AirwaybillModel {
     portName: json['portName'],
     weight: json['weight'].toString(),
 
-
+    exportCity: json['exportCity']??'',
+    exportCountryID: json['exportCountryID'] ??0,
+    exportCountryName: json['exportCountryName']??'',
+    exportWarehouseID: json['exportWarehouseID'] ??0,
+    exportWarehouseName: json['exportWarehouseName'] ??'',
 
 
     createdAt: DateTime.fromMillisecondsSinceEpoch(

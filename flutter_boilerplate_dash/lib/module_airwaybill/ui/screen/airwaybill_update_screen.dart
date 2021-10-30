@@ -38,7 +38,16 @@ class _AddNewCountryState extends State<UpdateAirwaybill> {
       showFilter: false,
         goBack: (){
         },
-        child: Screen(),
+        child:  Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Container(
+                constraints: BoxConstraints(
+                    maxWidth: 600
+                ),
+                child:  Screen()),
+          ),
+        ),
         title: S.of(context).updateAirwaybill
     );
   }
@@ -59,7 +68,7 @@ class _AddNewCountryState extends State<UpdateAirwaybill> {
         }
       }
     });
-    widget._stateManager.getSubContractAndSpecificationAndHarborAndShipper();
+    widget._stateManager.getSubContractAndSpecificationAndHarborAndShipperAndCountries();
   }
   @override
   void didChangeDependencies() {
@@ -86,6 +95,7 @@ class _AddNewCountryState extends State<UpdateAirwaybill> {
         subContracts: subs,
         model: model,
         harbors: state.harbors,
+        countriesExports: state.countries,
         onUpdate: (request,c){
           option = c;
         widget._stateManager.updateAirwaybill(request);

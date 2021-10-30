@@ -32,23 +32,23 @@ class _MarkSuccessfullyScreenState extends State<AirwaybillFinanceSuccessfullySc
   DropListModel dropListModelPayment = DropListModel(paymentType);
   DropListModel dropListModelContainerFCLStatus = DropListModel(airwaybillFclFinance);
   DropListModel dropListModelContainerLCLStatus = DropListModel(containerLclFinance);
-  late DropListModel dropListModelProxy;
+  // late DropListModel dropListModelProxy;
 
   TextEditingController cost = TextEditingController();
   TextEditingController selling = TextEditingController();
   TextEditingController buying = TextEditingController();
   TextEditingController description = TextEditingController();
 
-  TextEditingController checkNumber = TextEditingController();
+  // TextEditingController checkNumber = TextEditingController();
 
   late bool visAddCard;
   late List<Entry> entrySub;
-  late List<Entry> entryProxy;
+  // late List<Entry> entryProxy;
   late DropListModel dropListModelSubContract;
   late Entry optionItemSelectedSubContract;
-  late Entry optionItemSelectedPayment;
+  // late Entry optionItemSelectedPayment;
   late Entry optionItemSelectedStatus;
-  late Entry optionItemSelectedProxy;
+  // late Entry optionItemSelectedProxy;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -311,81 +311,81 @@ class _MarkSuccessfullyScreenState extends State<AirwaybillFinanceSuccessfullySc
                       ),
 
 
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(children: [
-                          Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                          SizedBox(width: 5,),
-                          Text(S.of(context).paymentWay , style: AppTextStyle.mediumBlackBold,)
-                        ],),
-                      ),
-                      SelectDropList(
-                        this.optionItemSelectedPayment,
-                        this.dropListModelPayment,
-                            (optionItem) {
-                          optionItemSelectedPayment = optionItem;
-                          setState(() {});
-                        },
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: Row(children: [
+                      //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                      //     SizedBox(width: 5,),
+                      //     Text(S.of(context).paymentWay , style: AppTextStyle.mediumBlackBold,)
+                      //   ],),
+                      // ),
+                      // SelectDropList(
+                      //   this.optionItemSelectedPayment,
+                      //   this.dropListModelPayment,
+                      //       (optionItem) {
+                      //     optionItemSelectedPayment = optionItem;
+                      //     setState(() {});
+                      //   },
+                      // ),
+                      //
+                      // optionItemSelectedPayment.title=='Check' ?  Padding(
+                      //   padding: const EdgeInsets.all(10.0),
+                      //   child: Container(
+                      //     padding: EdgeInsets.only(
+                      //         top: 4,left: 16, right: 16, bottom: 4
+                      //     ),
+                      //     decoration: BoxDecoration(
+                      //         borderRadius: BorderRadius.all(
+                      //             Radius.circular(15)
+                      //         ),
+                      //         color: Colors.white,
+                      //         boxShadow: [
+                      //           BoxShadow(
+                      //               color: Colors.black12,
+                      //               blurRadius: 5
+                      //           )
+                      //         ]
+                      //     ),
+                      //     child: TextField(
+                      //       keyboardType: TextInputType.number,
+                      //       decoration: InputDecoration(
+                      //         border: InputBorder.none,
+                      //         hintText: 'Check Number',
+                      //       ),
+                      //       controller: checkNumber,
+                      //     ),
+                      //   ),
+                      // ) : optionItemSelectedPayment.title=='Cash' ?Column(children: [
 
-                      optionItemSelectedPayment.title=='Check' ?  Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          padding: EdgeInsets.only(
-                              top: 4,left: 16, right: 16, bottom: 4
-                          ),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(15)
-                              ),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black12,
-                                    blurRadius: 5
-                                )
-                              ]
-                          ),
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Check Number',
-                            ),
-                            controller: checkNumber,
-                          ),
-                        ),
-                      ) : optionItemSelectedPayment.title=='Cash' ?Column(children: [
-
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(children: [
-                            Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                            SizedBox(width: 5,),
-                            Text('Proxy Name' , style: AppTextStyle.mediumBlackBold,)
-                          ],),
-                        ),
-                        SelectDropList(
-                          this.optionItemSelectedProxy,
-                          this.dropListModelProxy,
-                              (optionItem) {
-                            optionItemSelectedProxy = optionItem;
-                            setState(() {});
-                          },
-                        ),
-                      ],) :Container(),
+                      //   Padding(
+                      //     padding: const EdgeInsets.all(8.0),
+                      //     child: Row(children: [
+                      //       Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                      //       SizedBox(width: 5,),
+                      //       Text('Proxy Name' , style: AppTextStyle.mediumBlackBold,)
+                      //     ],),
+                      //   ),
+                      //   SelectDropList(
+                      //     this.optionItemSelectedProxy,
+                      //     this.dropListModelProxy,
+                      //         (optionItem) {
+                      //       optionItemSelectedProxy = optionItem;
+                      //       setState(() {});
+                      //     },
+                      //   ),
+                      // ],) :Container(),
                       RoundedButton(lable: S.of(context).add, icon: '', color: blue, style: AppTextStyle.mediumWhiteBold, go: (){
                           AirwaybillAddFinanceRequest mark = AirwaybillAddFinanceRequest(
                             status:optionItemSelectedStatus.children[0].title ,currency:' ',
                             airwaybillID: widget.airwaybillID,
                             stageCost: int.parse(cost.text) ,
-                            chequeNumber: checkNumber.text,
+                            // chequeNumber: checkNumber.text,
                             buyingCost:  int.parse(buying.text),
                             sellingCost:  int.parse(selling.text),
                             stageDescription: description.text,
-                            paymentType: optionItemSelectedPayment.title,
+                            // paymentType: optionItemSelectedPayment.title,
                             subcontractID: optionItemSelectedSubContract.id,
-                            proxyID: optionItemSelectedProxy.id,
+                            // proxyID: optionItemSelectedProxy.id,
                           );
                           widget.addFinance(mark);
                       }, radius: 12)
@@ -434,9 +434,9 @@ class _MarkSuccessfullyScreenState extends State<AirwaybillFinanceSuccessfullySc
     visAddCard= false;
     entrySub= <Entry>[];
     optionItemSelectedSubContract =  Entry('choose', 0, []);
-    optionItemSelectedPayment =  Entry('choose', 0, []);
+    // optionItemSelectedPayment =  Entry('choose', 0, []);
     optionItemSelectedStatus =  Entry('choose', 0, []);
-    optionItemSelectedProxy =  Entry('choose', 0, []);
+    // optionItemSelectedProxy =  Entry('choose', 0, []);
 
 
     cost..text='0';
@@ -453,11 +453,11 @@ class _MarkSuccessfullyScreenState extends State<AirwaybillFinanceSuccessfullySc
     dropListModelSubContract = DropListModel(entrySub);
 
 
-    for(ProxyModel item in widget.proxies){
-      Entry v = Entry(item.fullName! ,item.id! ,[]);
-      entryProxy.add(v);
-    }
-    dropListModelProxy = DropListModel(entryProxy);
+    // for(ProxyModel item in widget.proxies){
+    //   Entry v = Entry(item.fullName! ,item.id! ,[]);
+    //   entryProxy.add(v);
+    // }
+    // dropListModelProxy = DropListModel(entryProxy);
   }
 
 }

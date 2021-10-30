@@ -26,8 +26,12 @@ class WarehousesRepository{
     try {
       var response = await _apiClient.post(Urls.GET_FILTER_WAREHOUSES,request.toJson()
           ,headers: {'Authorization': 'Bearer $token'});
-      List<WarehousesModel>? marks =
-          WarehouseResponse.fromJson(response!).data;
+      WarehouseResponse markResponse =   WarehouseResponse.fromJson(response!);
+      List<WarehousesModel>? marks = [];
+      if(markResponse.data != null) {
+        marks =
+            WarehouseResponse.fromJson(response).data;
+      }
       return marks;
     } catch (_) {
       return null;

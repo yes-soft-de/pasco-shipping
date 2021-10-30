@@ -79,6 +79,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "careful": MessageLookupByLibrary.simpleMessage("Please be careful"),
         "carrier": MessageLookupByLibrary.simpleMessage("Carrier"),
         "category": MessageLookupByLibrary.simpleMessage("Category"),
+        "changeClientPass":
+            MessageLookupByLibrary.simpleMessage(" change password"),
         "changeStatusConfirm": MessageLookupByLibrary.simpleMessage(
             "Do you really want to move to the next state ?"),
         "choose": MessageLookupByLibrary.simpleMessage("choose"),
@@ -164,6 +166,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter the shipment number"),
         "errorHappened": MessageLookupByLibrary.simpleMessage("Error Happened"),
         "export": MessageLookupByLibrary.simpleMessage("Export"),
+        "exportCity": MessageLookupByLibrary.simpleMessage("Export city"),
+        "exportCityConfirm":
+            MessageLookupByLibrary.simpleMessage("please select export city"),
         "exportWarehouse":
             MessageLookupByLibrary.simpleMessage("Export Warehouse : "),
         "extensionalInfo":
@@ -231,6 +236,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loggedIn": MessageLookupByLibrary.simpleMessage(
             "You are logged in successfully"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "logoutConfirm": MessageLookupByLibrary.simpleMessage(
+            "Do you really want to log out ?"),
         "mark": MessageLookupByLibrary.simpleMessage("Mark: "),
         "marks": MessageLookupByLibrary.simpleMessage("Marks"),
         "measured": MessageLookupByLibrary.simpleMessage("Measured"),

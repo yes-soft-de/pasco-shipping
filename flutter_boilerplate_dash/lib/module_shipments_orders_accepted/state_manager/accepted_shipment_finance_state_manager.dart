@@ -27,11 +27,7 @@ class AcceptedShipmentsFinanceStateManager {
       if (value != null) {
         _subcontractService.getSubcontracts().then((subcontracts) {
           if(subcontracts != null){
-            _proxyService.getProxies().then((proxies) {
-              if(proxies != null){
-                _stateSubject.add(SuccessfullyFetchState(value,subcontracts,proxies));
-              }
-            });
+            _stateSubject.add(SuccessfullyFetchState(value,subcontracts,[]));
           }
         });
       } else {
