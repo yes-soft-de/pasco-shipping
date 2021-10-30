@@ -36,7 +36,11 @@ class AirwaybillFilterResponse
 
     public $carrierName;
 
+    public $portID;
+
     public $portName;
+
+    public $exportPortID;
 
     public $exportPortName;
 
@@ -71,6 +75,8 @@ class AirwaybillFilterResponse
     public $exportCountryID;
 
     public $shipments = [];
+
+    public $exportLocation;
 
     public $exportLocationName;
 
