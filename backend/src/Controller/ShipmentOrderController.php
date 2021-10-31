@@ -80,6 +80,7 @@ class ShipmentOrderController extends BaseController
      *              @OA\Items(
      *                  @OA\Property(type="integer", property="specificationID"),
      *                  @OA\Property(type="integer", property="carrierID"),
+     *                  @OA\Property(type="integer", property="exportPortID"),
      *                  @OA\Property(type="integer", property="portID"),
      *                  @OA\Property(type="string", property="notes")
      *              )
@@ -926,14 +927,18 @@ class ShipmentOrderController extends BaseController
      *                          @OA\Property(type="array", property="holders",
      *                              @OA\Items(
      *                                  @OA\Property(type="integer", property="id"),
-     *                                  @OA\Property(type="integer", property="shippingStatus"),
-     *                                  @OA\Property(type="integer", property="specificationID"),
-     *                                  @OA\Property(type="string", property="notes"),
-     *                                  @OA\Property(type="string", property="portName"),
-     *                                  @OA\Property(type="string", property="carrierName"),
-     *                                  @OA\Property(type="string", property="location"),
-     *                                  @OA\Property(type="object", property="createdAt"),
-     *                                  @OA\Property(type="string", property="specificationName")
+     *                                  @OA\Property(type="integer", property="shipmentID"),
+     *                                  @OA\Property(type="string", property="trackNumber"),
+     *                                  @OA\Property(type="integer", property="travelID"),
+     *                                  @OA\Property(type="string", property="holderType"),
+     *                                  @OA\Property(type="integer", property="holderID"),
+     *                                  @OA\Property(type="array", property="holderInfo",
+     *                                      @OA\Items(
+     *                                          @OA\Property(type="string", property="IdentificationNumber"),
+     *                                          @OA\Property(type="string", property="status"),
+     *                                          @OA\Property(type="string", property="shippingStatus")
+     *                                      )
+     *                                  )
      *                              )
      *                          ),
      *                      )
