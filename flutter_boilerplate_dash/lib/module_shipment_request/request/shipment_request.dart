@@ -266,9 +266,11 @@ class RequestedHolders{
   int? specificationID;
   int? carrierID;
   int? portID;
+  int? exportPortID;
   String? notes;
   String? name;
   String? portName;
+  String? exportPortName;
   String? carrierName;
 
   RequestedHolders({
@@ -286,8 +288,10 @@ class RequestedHolders{
     'notes': notes,
     'carrierID':carrierID,
     'portID':portID,
+    'exportPortID':exportPortID,
     'specificationName':name??'',
     'portName':portName,
+    'exportPortName':exportPortName,
   'carrierName':carrierName
   };
 }

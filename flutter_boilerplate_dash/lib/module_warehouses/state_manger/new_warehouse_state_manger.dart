@@ -1,8 +1,10 @@
 
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/consts/subcontarct_service.dart';
 import 'package:pasco_shipping/module_countries/service/country_service.dart';
 import 'package:pasco_shipping/module_proxies/service/proixes_service.dart';
 import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
+import 'package:pasco_shipping/module_sub_contract/request/subcontract_fliter_request.dart';
 import 'package:pasco_shipping/module_sub_contract/service/subcontract_service.dart';
 import 'package:pasco_shipping/module_subcontract_services/service/sub_contract_service.dart';
 import 'package:pasco_shipping/module_warehouses/request/warehouse_request.dart';
@@ -53,7 +55,8 @@ class AddWarehouseStateManager{
     });
   }
   void getSubContractAndProxyAndCountry(){
-    _subcontractService.getSubcontracts().then((subcontracts){
+    FilterSubcontractRequest request = FilterSubcontractRequest(serviceName: Service.Logistic);
+    _subcontractService.getSubcontracts(request).then((subcontracts){
       if(subcontracts != null){
         _proxyService.getProxies().then((proxies){
           if(proxies != null){

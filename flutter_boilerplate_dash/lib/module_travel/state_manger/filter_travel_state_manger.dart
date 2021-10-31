@@ -25,14 +25,8 @@ class FilterTravelStateManager {
     _addStateSubject.add(LoadingFilterState());
     _countryService.getCountries().then((countries) {
       if (countries != null) {
-        _subcontractService.getSubcontracts().then((subs) {
-          if (subs != null) {
-            _addStateSubject
-                .add(InitFilterState(countries: countries, subcontracts: subs));
-          } else {
-            _addStateSubject.add(ErrorFilterState('error'));
-          }
-        });
+        _addStateSubject
+            .add(InitFilterState(countries: countries, subcontracts: []));
       } else {
         _addStateSubject.add(ErrorFilterState('error'));
       }

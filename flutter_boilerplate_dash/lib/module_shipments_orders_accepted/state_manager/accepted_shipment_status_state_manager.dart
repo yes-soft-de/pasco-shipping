@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/consts/subcontarct_service.dart';
 import 'package:pasco_shipping/module_airwaybill/request/airwaybill_change_state_request.dart';
 import 'package:pasco_shipping/module_airwaybill/request/airwaybill_filter_request.dart';
 import 'package:pasco_shipping/module_airwaybill/response/airwaybill_response.dart';
@@ -20,6 +21,7 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepte
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/gunny_shipment_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/service/accepted_shipment_service.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_status_state/accepted_shipment_status_state.dart';
+import 'package:pasco_shipping/module_sub_contract/request/subcontract_fliter_request.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_sub_contract/service/subcontract_service.dart';
 import 'package:pasco_shipping/module_subcontract_services/service/sub_contract_service.dart';
@@ -86,7 +88,8 @@ class AcceptedShipmentsStatusStateManager {
         if(value.isConfirmed){
           _service.getAcceptedShipmentStatus(request.shipmentId.toString(),request.trackNumber).then((model) {
             if (model != null) {
-                _subcontractService.getSubcontracts().then((subcontracts) {
+              FilterSubcontractRequest requestsub =FilterSubcontractRequest(serviceName: Service.Pocketing);
+                _subcontractService.getSubcontracts(requestsub).then((subcontracts) {
                   if (subcontracts != null) {
                     // WarehouseFilterRequest request = WarehouseFilterRequest(cityName: cityName);
                     _gunnyService.getGunnies().then((gunnies) {
@@ -265,7 +268,8 @@ class AcceptedShipmentsStatusStateManager {
   void getReceivedStatus(String shipmentID ,String cityName ,String trackNumber,  int remainedQuantity){
     _service.getAcceptedShipmentStatus(shipmentID,trackNumber).then((model) {
       if (model != null) {
-        _subcontractService.getSubcontracts().then((subcontracts) {
+        FilterSubcontractRequest request =FilterSubcontractRequest(serviceName: Service.Pocketing);
+        _subcontractService.getSubcontracts(request).then((subcontracts) {
           if(subcontracts != null){
             _gunnyService.getGunnies().then((gunnies) {
               if(gunnies != null){

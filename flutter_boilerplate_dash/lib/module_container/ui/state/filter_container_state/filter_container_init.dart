@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:pasco_shipping/consts/subcontarct_service.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_container/request/container_filter_request.dart';
 import 'package:pasco_shipping/module_container_specification/response/container_specification_response.dart';
@@ -42,7 +43,7 @@ class _AddCountryInitState extends State<FilterContainerInit> {
 
   late DropListModel dropListModelShipper;
   late Entry optionItemSelectedShipper;
-  late List<Entry> entryShipper;
+  // late List<Entry> entryShipper;
 
   late DropListModel dropListModelConsign;
   late Entry optionItemSelectedConsign;
@@ -178,21 +179,21 @@ class _AddCountryInitState extends State<FilterContainerInit> {
               },
             ),
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(S.of(context).shipper , style: AppTextStyle.mediumBlackBold,),
-              ),
-              SelectDropList(
-                this.optionItemSelectedShipper,
-                this.dropListModelShipper,
-                    (optionItem) {
-                  FocusScope.of(context).unfocus();
-                  optionItemSelectedShipper = optionItem;
-                  // launchCountry = optionItem.title;
-                  containerFilterRequest.shipperID = optionItem.id;
-                  setState(() {});
-                },
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Text(S.of(context).shipper , style: AppTextStyle.mediumBlackBold,),
+              // ),
+              // SelectDropList(
+              //   this.optionItemSelectedShipper,
+              //   this.dropListModelShipper,
+              //       (optionItem) {
+              //     FocusScope.of(context).unfocus();
+              //     optionItemSelectedShipper = optionItem;
+              //     // launchCountry = optionItem.title;
+              //     containerFilterRequest.shipperID = optionItem.id;
+              //     setState(() {});
+              //   },
+              // ),
 
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -242,7 +243,7 @@ class _AddCountryInitState extends State<FilterContainerInit> {
     containerFilterRequest = ContainerFilterRequest();
     entrySub= <Entry>[];
     entrySpecification= <Entry>[];
-    entryShipper = <Entry>[];
+    // entryShipper = <Entry>[];
     entryConsign =<Entry>[];
 
     // travelNumber =TextEditingController();
@@ -252,7 +253,7 @@ class _AddCountryInitState extends State<FilterContainerInit> {
     // type = TravelTypeName[TravelType.SEA]!;
 
     optionItemSelectedSubContract =  Entry('choose', 0, []);
-    optionItemSelectedShipper =  Entry('choose', 0, []);
+    // optionItemSelectedShipper =  Entry('choose', 0, []);
     optionItemSelectedConsign =  Entry('choose', 0, []);
     optionItemSelectedSpecification =  Entry('choose', 0, []);
     containerFilterRequest.status='full';
@@ -268,13 +269,18 @@ class _AddCountryInitState extends State<FilterContainerInit> {
   void initList(){
     for(SubcontractModel item in widget.subContracts){
       Entry v = Entry(item.fullName! ,item.id! ,[]);
-      entrySub.add(v);
-      entryConsign.add(v);
-      entryShipper.add(v);
+      if(item.serviceName ==Service.containerProvider) {
+        entrySub.add(v);
+      }
+
+      if(item.serviceName ==Service.Consignee) {
+        entryConsign.add(v);
+      }
+      // entryShipper.add(v);
     }
     dropListModelSubContract = DropListModel(entrySub);
     dropListModelConsign  =DropListModel(entryConsign);
-    dropListModelShipper  =DropListModel(entryShipper);
+    // dropListModelShipper  =DropListModel(entryShipper);
 
 
 

@@ -33,6 +33,7 @@ class _CountriesScreenState extends State<AcceptedShipmentScreen> {
   late AcceptedShipmentFilterRequest filterRequest;
   late bool withFilter;
   late String title;
+  late String external;
   @override
   Widget build(BuildContext context) {
     return Background(
@@ -64,10 +65,19 @@ class _CountriesScreenState extends State<AcceptedShipmentScreen> {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     filterRequest =arguments['filterRequest'];
     withFilter =arguments['withFilter'];
+    external =arguments['external']??'';
     if(filterRequest.status == AcceptedShipmentStatusName[AcceptedShipmentStatus.ARRIVED]){
       title =S.of(context).arrivedShipment;
     }else{
-      title =S.of(context).acceptedShipment;
+      if(external.isNotEmpty){
+      if(external=='external') {
+        title =S.of(context).acceptedShipment +' '+S.of(context).external;
+      }else{
+        title =S.of(context).acceptedShipment +' '+S.of(context).local;
+      }
+      }else{
+        title =S.of(context).acceptedShipment;
+      }
     }
 
     widget._stateManager.getAcceptedShipment(filterRequest);

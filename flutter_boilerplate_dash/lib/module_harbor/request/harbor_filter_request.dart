@@ -4,6 +4,7 @@ class HarborFilterRequest {
   String? location;
   String? city;
   String? type;
+  String? countryType;
 
   HarborFilterRequest(
       {
@@ -11,7 +12,8 @@ class HarborFilterRequest {
          this.city,
          this.countryID,
         this.location,
-        this.type
+        this.type,
+        this.countryType
       });
 
   Map<String, dynamic> toJson() {
@@ -20,7 +22,8 @@ class HarborFilterRequest {
         'countryID': countryID,
         'city': city,
         'location':location,
-        'type':type
+        'type':type,
+        'countryType':countryType,
       };
     }
   }

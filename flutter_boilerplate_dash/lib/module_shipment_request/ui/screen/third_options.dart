@@ -1,6 +1,7 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
+import 'package:pasco_shipping/module_receiver/response/reciver_response.dart';
 import 'package:pasco_shipping/module_shipment_request/state_manager/request_shipment_state_manager/request_shipment_state_manager.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/states/request_shipment_state.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/states/third_option/third_option_successfully.dart';
@@ -16,7 +17,8 @@ class ThirdOptions extends StatefulWidget {
   final Function goBackStep;
   final Function goToMark;
   final Function goToReceiver;
-  const ThirdOptions({required this.stateManger,required this.shipmentRequest,required this.goBackStep,required this.goToMark,required this.goToReceiver});
+  final Function goToDistributor;
+  const ThirdOptions({required this.stateManger,required this.shipmentRequest,required this.goBackStep,required this.goToMark,required this.goToReceiver,required this.goToDistributor});
 
   @override
   _SecondOptionState createState() => _SecondOptionState();
@@ -74,6 +76,8 @@ class _SecondOptionState extends State<ThirdOptions> {
       }, receiver: state.receivers,
       goToReceiver: (){
             widget.goToReceiver();
+      }, goToDistributor: (){
+        widget.goToDistributor();
       },
       );
     } else {

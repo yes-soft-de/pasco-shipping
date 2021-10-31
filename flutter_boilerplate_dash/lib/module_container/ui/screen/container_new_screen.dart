@@ -11,6 +11,7 @@ import 'package:pasco_shipping/module_container_specification/response/container
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
+import 'package:pasco_shipping/module_sub_contract/subcontract_routes.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
@@ -109,7 +110,11 @@ class _AddNewCountryState extends State<AddNewContainer> {
             text: 'Do you really want to request the shipment',
           );
 
-      }, countriesExports: state.countries, );
+      }, countriesExports: state.countries, goToSubcontract: (){
+          Navigator.pushNamed(context, SubcontractRoutes.ADD_NEW).then((value) {
+            widget._stateManager.getSubContractAndSpecificationAndHarborAndCountries();
+          });
+      }, );
     }
 
     else {

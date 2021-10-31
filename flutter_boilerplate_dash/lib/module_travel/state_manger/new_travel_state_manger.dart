@@ -38,14 +38,8 @@ class AddTravelStateManager {
     _addStateSubject.add(LoadingAddState());
     _countryService.getCountries().then((countries) {
       if (countries != null) {
-        _subcontractService.getSubcontracts().then((subs) {
-          if (subs != null) {
-            _addStateSubject
-                .add(InitAddState(countries: countries, subcontracts: subs));
-          } else {
-            _addStateSubject.add(ErrorAddState('error'));
-          }
-        });
+        _addStateSubject
+            .add(InitAddState(countries: countries, subcontracts: []));
       } else {
         _addStateSubject.add(ErrorAddState('error'));
       }

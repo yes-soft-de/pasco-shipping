@@ -122,7 +122,7 @@
   "trackNumber": "رقم التعقب: ",
   "weight": "الوزن: ",
   "productCategory": "نوع البضائع: ",
-  "targetWarehouse": "المستودع الهدف: ",
+  "targetWarehouse": "المدينة الهدف: ",
   "exportWarehouse": "مستودع التصدير: ",
 
   "airwaybillStatus": "حالة بوليصة الشحن الجوي",
@@ -146,7 +146,7 @@
 
   "shipmentReview": "مراجعة الشحنة",
   "supplierInfo": "معلومات المورد: ",
-  "receiverInfo": "معلومات المستقبل: ",
+  "receiverInfo": "معلومات المستلم: ",
   "name": "الاسم: ",
   "unit": "وحدة التغليف: ",
   "mark": "العلامة: ",
@@ -375,7 +375,7 @@
   "ourWarehouse": "مستودعاتنا",
   "yes": "نعم",
   "no": "كلا",
-  "harbors": "المرافئ",
+  "harbors": "الموانئ",
   "totalShipment": "عدد الكراتين",
   "seaport": "ميناء بحري",
   "airport": "ميناء جوي",
@@ -408,5 +408,19 @@
   "exportCity": "دولة التصدير",
   "exportCityConfirm": "الرجاء تحديد دولة التصدير",
   "changeClientPass": "تغير كلمة السر",
-  "logoutConfirm": "هل تريد حقا تسجيل الخروج ؟"
+  "logoutConfirm": "هل تريد حقا تسجيل الخروج ؟",
+
+  "clientAdd": "تم إضافة العميل بنجاح",
+  "clientAlreadyExists": "العميل موجود بالفعل",
+
+  "importHarbor": "ميناء الإستراد",
+  "exportHarbor": "ميناء التصدير",
+  "addContainerConfirm": "يجب اختيار الموائن والموقع",
+  "exportWarehouseExternal": "مستودع التصدير الخارجي",
+
+  "serviceExists": "هذه الخدمة موجودة بالفعل",
+  "serviceAdd": "تم الإضافة بنجاح",
+
+  "external": "خارجي"
+
 }

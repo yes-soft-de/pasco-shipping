@@ -3,21 +3,17 @@ class ContainerRequest {
 
   int specificationID;
   String? containerNumber;
-  String status;
   String type;
-  String location;
   String? consignee;
-
-
   int? shipperID;
   int? consigneeID;
   int providedBy;
   int? carrierID;
   int? clientID;
-  int portID;
-  int? exportCountryID;
-  int? exportWarehouseID;
-  String? exportCity;
+
+  int? portID;
+  int? exportPortID;
+  int? exportLocation;
 
   ContainerRequest(
       {
@@ -25,20 +21,19 @@ class ContainerRequest {
       required this.type,
       required this.specificationID,
        this.containerNumber,
-        required this.status,
+        // required this.status,
        this.consigneeID,
        required this.providedBy,
          this.carrierID,
-      required this.shipperID,
+       this.shipperID,
         this.clientID,
-       required this.portID,
-      required  this.location,
+
+
         this.consignee,
-        this.exportWarehouseID,
 
-        this.exportCountryID,
-        this.exportCity
-
+        this.exportPortID,
+         this.portID,
+        this.exportLocation,
       });
 
   Map<String, dynamic> toJson() {
@@ -52,12 +47,10 @@ class ContainerRequest {
         'shipperID': shipperID,
         'carrierID': carrierID,
         'clientUserID': clientID,
-        'status': status,
-        'location':location,
+
+        'exportLocation':exportLocation,
         'portID':portID,
-        'exportCountryID':exportCountryID,
-        'exportCity':exportCity,
-        'exportWarehouseID':exportWarehouseID,
+        'exportPortID':exportPortID,
       };
     } else {
       return {
@@ -68,16 +61,14 @@ class ContainerRequest {
         'providedBy': providedBy,
         'consigneeID': consigneeID,
         'shipperID': shipperID,
-        'status': status,
         'carrierID': carrierID,
         'clientUserID': clientID,
-        'status': status,
-        'location':location,
-        'portID':portID,
         'consignee':consignee,
-        'exportCountryID':exportCountryID,
-        'exportCity':exportCity,
-        'exportWarehouseID':exportWarehouseID
+
+
+        'exportLocation':exportLocation,
+        'portID':portID,
+        'exportPortID':exportPortID,
       };
     }
   }

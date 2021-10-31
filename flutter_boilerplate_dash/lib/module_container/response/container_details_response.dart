@@ -44,6 +44,8 @@ class ContainerDetailsModel {
     this.portName,
     this.location,
     this.shippingStatus,
+    this.exportPortName,
+    this.exportLocationName,
 
 
     this.createdAt,
@@ -69,7 +71,8 @@ class ContainerDetailsModel {
   String? shippingStatus;
 
   int? shipmentID;
-
+  String? exportLocationName;
+  String? exportPortName;
 
 
   DateTime? createdAt;
@@ -93,6 +96,8 @@ class ContainerDetailsModel {
     shipmentID: json['shipmentID'],
     portName: json['portName'],
     location: json['location'],
+    exportLocationName: json['exportLocationName'],
+    exportPortName: json['exportPortName'],
     shippingStatus: json['shippingStatus'],
 
 

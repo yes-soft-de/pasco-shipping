@@ -30,8 +30,13 @@ class RequestHolderCard extends StatelessWidget {
         ],),
         SizedBox(height: 15,),
         Row(children: [
-          Text(S.of(context).harbors+': ',style: AppTextStyle.mediumBlackBold),
+          Text(S.of(context).importHarbor+': ',style: AppTextStyle.mediumBlackBold),
           Expanded(child: Text(requestHolder.portName ??'' , style: AppTextStyle.mediumWhiteBold,))
+        ],),
+        SizedBox(height: 15,),
+        Row(children: [
+          Text(S.of(context).exportHarbor+': ',style: AppTextStyle.mediumBlackBold),
+          Expanded(child: Text(requestHolder.exportPortName ??'' , style: AppTextStyle.mediumWhiteBold,))
         ],),
         SizedBox(height: 15,),
         Row(children: [

@@ -44,7 +44,9 @@ class _CountriesScreenState extends State<WaitingShipmentScreen> {
                 child: Screen()),
           ),
         ),
-        title: S.of(context).waitingShipment
+        title:waitingShipmentFilterRequest.isExternalWarehouse?
+        S.of(context).waitingShipment +' '+S.of(context).external :
+        S.of(context).waitingShipment +' '+S.of(context).local
     );
   }
 

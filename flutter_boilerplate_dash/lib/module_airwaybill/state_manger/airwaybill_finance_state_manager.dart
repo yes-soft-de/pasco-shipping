@@ -5,6 +5,7 @@ import 'package:pasco_shipping/module_airwaybill/service/finance_airwaybill_serv
 import 'package:pasco_shipping/module_airwaybill/ui/state/airwaybill_finance_state/airwatbill_finance_state.dart';
 import 'package:pasco_shipping/module_proxies/response/proxies_response.dart';
 import 'package:pasco_shipping/module_proxies/service/proixes_service.dart';
+import 'package:pasco_shipping/module_sub_contract/request/subcontract_fliter_request.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_sub_contract/service/subcontract_service.dart';
 import 'package:rxdart/rxdart.dart';
@@ -25,7 +26,8 @@ class AirwaybillFinanceStateManager {
     _service.getAirwaybillLCLFinance(request).then((value) {
       print(value);
       if (value != null) {
-        _subcontractService.getSubcontracts().then((subs) {
+        FilterSubcontractRequest request =FilterSubcontractRequest();
+        _subcontractService.getSubcontracts(request).then((subs) {
           if(subs != null){
             _stateSubject.add(SuccessfullyFetchState(value,subs,[]));
           }
@@ -40,7 +42,8 @@ class AirwaybillFinanceStateManager {
     _service.getAirwaybillFCLFinance(request).then((value) {
       print(value);
       if (value != null) {
-        _subcontractService.getSubcontracts().then((subs) {
+        FilterSubcontractRequest request =FilterSubcontractRequest();
+        _subcontractService.getSubcontracts(request).then((subs) {
           if(subs != null){
             _stateSubject.add(SuccessfullyFetchState(value,subs,[]));
           }

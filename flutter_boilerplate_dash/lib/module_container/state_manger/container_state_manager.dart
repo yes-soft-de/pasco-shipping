@@ -28,10 +28,8 @@ class ContainerStateManager {
   void getContainersWithFilter(ContainerFilterRequest request) {
     _stateSubject.add(LoadingState());
     _service.getContainersWithFilter(request).then((value) {
-      if (value != null && value.isNotEmpty) {
+      if (value != null) {
         _stateSubject.add(SuccessfullyFetchState(value));
-      } else if(value!.isEmpty) {
-        _stateSubject.add(ErrorState('No Data' , true));
       }else if(value == null){
         _stateSubject.add(ErrorState('Error' , false));
       }

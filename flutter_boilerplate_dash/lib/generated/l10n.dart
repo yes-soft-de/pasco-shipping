@@ -3499,6 +3499,96 @@ class S {
       args: [],
     );
   }
+
+  /// `Client added successfully`
+  String get clientAdd {
+    return Intl.message(
+      'Client added successfully',
+      name: 'clientAdd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `client already exists`
+  String get clientAlreadyExists {
+    return Intl.message(
+      'client already exists',
+      name: 'clientAlreadyExists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Import harbor`
+  String get importHarbor {
+    return Intl.message(
+      'Import harbor',
+      name: 'importHarbor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export harbor`
+  String get exportHarbor {
+    return Intl.message(
+      'Export harbor',
+      name: 'exportHarbor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `you should select ports and location`
+  String get addContainerConfirm {
+    return Intl.message(
+      'you should select ports and location',
+      name: 'addContainerConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export warehouse external`
+  String get exportWarehouseExternal {
+    return Intl.message(
+      'Export warehouse external',
+      name: 'exportWarehouseExternal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This service already exists`
+  String get serviceExists {
+    return Intl.message(
+      'This service already exists',
+      name: 'serviceExists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service add successfully`
+  String get serviceAdd {
+    return Intl.message(
+      'Service add successfully',
+      name: 'serviceAdd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `external`
+  String get external {
+    return Intl.message(
+      'external',
+      name: 'external',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

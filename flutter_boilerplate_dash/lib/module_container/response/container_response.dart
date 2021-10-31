@@ -44,16 +44,16 @@ class ContainerModel {
     this.carrierName,
     this.shipmentID,
     this.portName,
+    this.exportLocationName,
     this.location,
-    this.exportWarehouseID,
-    this.exportWarehouseName,
 
+    this.exportPortName,
+    this.exportPortID,this.exportLocationID,this.portID,
 
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
     this.createdByUser,
-   required this.exportCity,required this.exportCountryName,this.exportCountryID,
    required this.used
   });
 
@@ -68,15 +68,17 @@ class ContainerModel {
   String? specificationName;
   String? carrierName;
   String? portName;
+  int? portID;
+  String? exportLocationName;
+  int? exportLocationID;
   String? location;
+  String? exportPortName;
+  int? exportPortID;
 
-  String exportCity;
-  String exportCountryName;
 
   int? shipmentID;
-  int? exportCountryID;
-  int? exportWarehouseID;
-  String? exportWarehouseName;
+
+
 
 
 
@@ -102,14 +104,13 @@ class ContainerModel {
     specificationName: json['specificationName']??'',
     shipmentID: json['shipmentID'],
     used: json['used'],
-    location: json['location'],
+    exportLocationName: json['exportLocationName']??'',
+    location: json['location']??'',
     portName: json['portName'],
-    exportCity: json['exportCity']??'',
-    exportCountryID: json['exportCountryID'] ??0,
-    exportCountryName: json['exportCountryName']??'',
-    exportWarehouseID: json['exportWarehouseID'] ??0,
-    exportWarehouseName: json['exportWarehouseName'] ??'',
-
+    exportPortName: json['exportPortName'] ??'',
+    portID: json['portID'] ?? 0,
+    exportLocationID: json['exportLocationID'] ??0,
+    exportPortID: json['exportPortID']??0,
 
 
 

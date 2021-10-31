@@ -99,8 +99,8 @@ class _CountriesScreenState extends State<AcceptedShipmentDetailsScreen> {
           Navigator.pushNamed(context,AcceptedShipmentRoutes.STATUS , arguments: {'id' : id ,'trackNumber': trackNumber ,'cityName':cityName , 'holderType':holderType,'status':status , 'transportation':transportationType,'isExternalWarehouse':isExternalWarehouse,'clientUserID':clientUserID , 'quantity':detailsModel.quantity,'remainedQuantity':remainedQuantity} ).then((value){
             widget._stateManager.getDetailsShipment(id.toString());
           });
-      }, onShowFinance: (id , trackNumber,paymentTime){
-        Navigator.pushNamed(context,AcceptedShipmentRoutes.FINANCE , arguments: {'id' : id ,'trackNumber': trackNumber,'paymentWay':paymentTime} ).then((value){
+      }, onShowFinance: (id , trackNumber,holderType){
+        Navigator.pushNamed(context,AcceptedShipmentRoutes.FINANCE , arguments: {'id' : id ,'trackNumber': trackNumber,'holderType':holderType} ).then((value){
           widget._stateManager.getDetailsShipment(id.toString());
         });
       },onRequestShift: (id , trackNumber){

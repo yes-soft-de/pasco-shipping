@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/consts/subcontarct_service.dart';
 import 'package:pasco_shipping/module_airwaybill_specification/service/airwaybill_specification_service.dart';
 import 'package:pasco_shipping/module_client/service/client_service.dart';
 import 'package:pasco_shipping/module_container_specification/service/container_specification_service.dart';
@@ -10,6 +11,7 @@ import 'package:pasco_shipping/module_receiver/request/receiver_filter_request.d
 import 'package:pasco_shipping/module_receiver/service/receiver_service.dart';
 import 'package:pasco_shipping/module_shipment_request/service/shipment_request_service/first_option_service.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/states/request_shipment_state.dart';
+import 'package:pasco_shipping/module_sub_contract/request/subcontract_fliter_request.dart';
 import 'package:pasco_shipping/module_sub_contract/service/subcontract_service.dart';
 import 'package:pasco_shipping/module_unit/service/unit_service.dart';
 import 'package:rxdart/rxdart.dart';
@@ -70,7 +72,8 @@ class RequestShipmentStateManger {
         _unitService.getUnits().then((units) {
           if(units != null){
             if(isExternal){
-              _subcontractService.getSubcontracts().then((subcontracts) {
+              FilterSubcontractRequest request =FilterSubcontractRequest(serviceName: Service.Carrier);
+              _subcontractService.getSubcontracts(request).then((subcontracts) {
                 if(subcontracts != null){
                   if(shippingWay == 'sea'){
                     _containerSpecificationService.getContainerSpecification().then((specifications) {

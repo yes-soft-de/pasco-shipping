@@ -55,6 +55,7 @@ class Urls {
 
   //subContract
   static const SUB_CONTRACTS = BASE_API + 'subcontracts';
+  static const FILTER_SUB_CONTRACTS = BASE_API + 'filtersubcontracts';
   static const SUB_CONTRACT = BASE_API + 'subcontract';
 
   //unit
@@ -176,6 +177,10 @@ class Urls {
   //shipmentfinance
   static const GET_SHIPMENT_LCL_FINANCE = BASE_API + 'filtershipmentlclfinance';
   static const ADD_SHIPMENT_FINANCE = BASE_API + 'shipmentlclfinance';
+
+
+  static const GET_SHIPMENT_FCL_FINANCE = BASE_API + 'filtershipmentfclfinance';
+  static const ADD_SHIPMENT_FCL_FINANCE = BASE_API + 'shipmentfclfinance';
 
 //travel finance
   static const GET_Travel_FINANCE = BASE_API + 'filtertravelfinance';

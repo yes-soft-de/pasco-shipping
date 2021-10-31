@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_airwaybill/ui/state/filter_container_state/filter_state.dart';
+import 'package:pasco_shipping/module_sub_contract/request/subcontract_fliter_request.dart';
 import 'package:pasco_shipping/module_sub_contract/service/subcontract_service.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -16,7 +17,8 @@ class FilterAirwaybillStateManager {
 
   void getSubContract() {
     _addStateSubject.add(LoadingFilterState());
-        _subcontractService.getSubcontracts().then((subs) {
+    FilterSubcontractRequest request =FilterSubcontractRequest();
+    _subcontractService.getSubcontracts(request).then((subs) {
           if (subs != null) {
             _addStateSubject
                 .add(InitFilterState(subcontracts: subs));

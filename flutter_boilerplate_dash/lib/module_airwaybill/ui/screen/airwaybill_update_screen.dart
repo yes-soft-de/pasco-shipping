@@ -10,7 +10,9 @@ import 'package:pasco_shipping/module_airwaybill/ui/state/update_state/update_ai
 import 'package:pasco_shipping/module_airwaybill_specification/response/airwaybill_specification_response.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
+import 'package:pasco_shipping/module_shipper/shipper_routes.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
+import 'package:pasco_shipping/module_sub_contract/subcontract_routes.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
@@ -68,7 +70,7 @@ class _AddNewCountryState extends State<UpdateAirwaybill> {
         }
       }
     });
-    widget._stateManager.getSubContractAndSpecificationAndHarborAndShipperAndCountries();
+    widget._stateManager.getSubContractAndShipper();
   }
   @override
   void didChangeDependencies() {
@@ -92,10 +94,19 @@ class _AddNewCountryState extends State<UpdateAirwaybill> {
       InitAddState? state = currentState as InitAddState?;
       subs = state!.subcontracts;
       return UpdateAirwaybillInit(
+        goToShipper: (){
+          Navigator.pushNamed(context, ShipperRoutes.ADD_NEW).then((value) {
+            widget._stateManager.getSubContractAndShipper();
+
+          });
+        },
+        goToSubcontract: (){
+          Navigator.pushNamed(context, SubcontractRoutes.ADD_NEW).then((value) {
+            widget._stateManager.getSubContractAndShipper();
+          });
+        },
         subContracts: subs,
         model: model,
-        harbors: state.harbors,
-        countriesExports: state.countries,
         onUpdate: (request,c){
           option = c;
         widget._stateManager.updateAirwaybill(request);

@@ -233,14 +233,14 @@ class AppMenu extends ConsumerWidget {
                                   onTap: () {
                                     AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea' ,isExternalWarehouse: true,acceptedUntilCleared: true);
                                     Navigator.pushNamed(
-                                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':false});
+                                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':false,'external':'external'});
                                   }),
                               ListTile(
                                   title: new Text(S.of(context).inLocalWarehouse),
                                   onTap: () {
                                     AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false,acceptedUntilCleared: true );
                                     Navigator.pushNamed(
-                                        context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':false});
+                                        context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':false,'external':'local'});
                                   }),
                             ],
                           ),
@@ -995,34 +995,34 @@ class AppMenu extends ConsumerWidget {
                   ),
                 ],
               ),
-              ExpansionTile(
-                title: new Text(S.of(context).suppliers),
-                leading: Icon(Icons.present_to_all),
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      children: [
-                        ListTile(
-                            title: new Text(S.of(context).view),
-                            onTap: () =>
-                              selectPage(context, ref, SupplierRoutes.VIEW_ALL),
-                              // Navigator.pushNamed(context, SupplierRoutes.VIEW_ALL);
-                            ),
-                        ListTile(
-                            title: new Text(
-                              S.of(context).add,
-                            ),
-                            onTap: () {
-                              print('adddddddd');
-                              selectPage(context, ref, SupplierRoutes.ADD_NEW);
-                              // Navigator.pushNamed(context, SupplierRoutes.ADD_NEW);
-                            }),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              // ExpansionTile(
+              //   title: new Text(S.of(context).suppliers),
+              //   leading: Icon(Icons.present_to_all),
+              //   children: <Widget>[
+              //     Padding(
+              //       padding: const EdgeInsets.all(10.0),
+              //       child: Column(
+              //         children: [
+              //           ListTile(
+              //               title: new Text(S.of(context).view),
+              //               onTap: () =>
+              //                 selectPage(context, ref, SupplierRoutes.VIEW_ALL),
+              //                 // Navigator.pushNamed(context, SupplierRoutes.VIEW_ALL);
+              //               ),
+              //           ListTile(
+              //               title: new Text(
+              //                 S.of(context).add,
+              //               ),
+              //               onTap: () {
+              //                 print('adddddddd');
+              //                 selectPage(context, ref, SupplierRoutes.ADD_NEW);
+              //                 // Navigator.pushNamed(context, SupplierRoutes.ADD_NEW);
+              //               }),
+              //         ],
+              //       ),
+              //     ),
+              //   ],
+              // ),
               ExpansionTile(
                 title: new Text(S.of(context).shipper),
                 leading: Icon(Icons.filter_tilt_shift_rounded),

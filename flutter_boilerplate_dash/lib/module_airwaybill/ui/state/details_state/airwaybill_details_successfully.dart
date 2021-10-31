@@ -86,6 +86,49 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Text(S.of(context).importHarbor),
+                      Text(widget.model.portName ?? ''),
+                    ],
+                  ),
+                ),
+                Divider(color: Colors.grey[300],thickness: 2,),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).exportHarbor),
+                      Text(widget.model.exportPortName ?? ''),
+                    ],
+                  ),
+                ),
+                Divider(color: Colors.grey[300],thickness: 2,),
+                widget.model.location == null ?
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).exportWarehouse),
+                      Text(widget.model.exportLocationName ?? ''),
+                    ],
+                  ),
+                ):
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).exportWarehouseExternal),
+                      Text(widget.model.location ?? ''),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
                       Text(S.of(context).shipper),
                       Text(widget.model.shipperName ?? ''),
                     ],

@@ -5,6 +5,7 @@ import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipemnt
 import 'package:pasco_shipping/module_shipments_orders_accepted/request/shipment_filter_finance_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/service/finance_shipment_service.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/state/accepted_shipment_finance_state/shipment_finance_state.dart';
+import 'package:pasco_shipping/module_sub_contract/request/subcontract_fliter_request.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_sub_contract/service/subcontract_service.dart';
 import 'package:rxdart/rxdart.dart';
@@ -25,7 +26,8 @@ class AcceptedShipmentsFinanceStateManager {
     _service.getShipmentLCLFinance(request).then((value) {
       print(value);
       if (value != null) {
-        _subcontractService.getSubcontracts().then((subcontracts) {
+        FilterSubcontractRequest request = FilterSubcontractRequest();
+        _subcontractService.getSubcontracts(request).then((subcontracts) {
           if(subcontracts != null){
             _stateSubject.add(SuccessfullyFetchState(value,subcontracts,[]));
           }
@@ -39,6 +41,47 @@ class AcceptedShipmentsFinanceStateManager {
   void addShipmentFinance(ShipmentLCLFinanceRequest financeRequest,List<SubcontractModel> subs ,List<ProxyModel> proxies) {
     _stateSubject.add(LoadingState());
     _service.createShipmentFinance(financeRequest).then((value) {
+      if (value != null) {
+        if (value.isConfirmed) {
+          ShipmentLCLFilterFinanceRequest request = ShipmentLCLFilterFinanceRequest(shipmentID: financeRequest.shipmentID ,trackNumber:  financeRequest.trackNumber);
+          _service
+              .getShipmentLCLFinance(request)
+              .then((finances) {
+            if (finances != null) {
+              _stateSubject.add(SuccessfullyFetchState(finances,subs,proxies));
+            } else {
+              _stateSubject.add(ErrorState('Error', false));
+            }
+          });
+        } else {
+          _stateSubject.add(ErrorState('Error', false));
+        }
+      }
+    });
+  }
+
+
+
+  void getShipmentFCLFinance(ShipmentLCLFilterFinanceRequest request) {
+    _stateSubject.add(LoadingState());
+    _service.getShipmentFCLFinance(request).then((value) {
+      print(value);
+      if (value != null) {
+        FilterSubcontractRequest request = FilterSubcontractRequest();
+        _subcontractService.getSubcontracts(request).then((subcontracts) {
+          if(subcontracts != null){
+            _stateSubject.add(SuccessfullyFetchState(value,subcontracts,[]));
+          }
+        });
+      } else {
+        _stateSubject.add(ErrorState('Error', false));
+      }
+    });
+  }
+
+  void addShipmentFCLFinance(ShipmentLCLFinanceRequest financeRequest,List<SubcontractModel> subs ,List<ProxyModel> proxies) {
+    _stateSubject.add(LoadingState());
+    _service.createShipmentFCLFinance(financeRequest).then((value) {
       if (value != null) {
         if (value.isConfirmed) {
           ShipmentLCLFilterFinanceRequest request = ShipmentLCLFilterFinanceRequest(shipmentID: financeRequest.shipmentID ,trackNumber:  financeRequest.trackNumber);

@@ -14,6 +14,7 @@ import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_lis
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
@@ -24,7 +25,8 @@ class RequestContainerInit extends StatefulWidget {
   final List<HarborModel> harbors;
   final List<Countries> countriesExports;
   final Function onSave;
-  const RequestContainerInit({ required this.onSave , required this.subContracts,required this.specifications,required this.clients,required this.harbors,required this.countriesExports});
+  final Function goToSubcontract;
+  const RequestContainerInit({ required this.onSave , required this.subContracts,required this.specifications,required this.clients,required this.harbors,required this.countriesExports,required this.goToSubcontract});
 
   @override
   _AddCountryInitState createState() => _AddCountryInitState();
@@ -32,17 +34,17 @@ class RequestContainerInit extends StatefulWidget {
 
 class _AddCountryInitState extends State<RequestContainerInit> {
  // late TextEditingController location ;
-  DropListModel dropListModelLocation = DropListModel(location);
-  late Entry optionItemSelectedLocation;
+ //  DropListModel dropListModelLocation = DropListModel(location);
+ //  late Entry optionItemSelectedLocation;
   late DropListModel dropListModelFromCountries;
- late DropListModel dropListModelProvidedBy;
- late Entry optionItemSelectedProvidedBy;
-
- late DropListModel dropListModelConsignee;
- late Entry optionItemSelectedConsignee;
-
- late DropListModel dropListModelShipper;
- late Entry optionItemSelectedShipper;
+ // late DropListModel dropListModelProvidedBy;
+ // late Entry optionItemSelectedProvidedBy;
+ //
+ // late DropListModel dropListModelConsignee;
+ // late Entry optionItemSelectedConsignee;
+ //
+ // late DropListModel dropListModelShipper;
+ // late Entry optionItemSelectedShipper;
 
  late DropListModel dropListModelSpecification;
  late Entry optionItemSelectedSpecification;
@@ -53,16 +55,19 @@ class _AddCountryInitState extends State<RequestContainerInit> {
  late DropListModel dropListModelClient;
  late Entry optionItemSelectedClient;
 
- late DropListModel dropListModelHarbor;
- late Entry optionItemSelectedHarbor;
+ late DropListModel dropListModelHarborImport;
+ late Entry optionItemSelectedHarborImport;
 
- late List<Entry> entryProvidedBy;
- late List<Entry> entryConsignee;
- late List<Entry> entryShipper;
+  late DropListModel dropListModelHarborExport;
+  late Entry optionItemSelectedHarborExport;
+ // late List<Entry> entryProvidedBy;
+ // late List<Entry> entryConsignee;
+ // late List<Entry> entryShipper;
  late List<Entry> entryCarrier;
  late List<Entry> entrySpecification;
  late List<Entry> entryClient;
- late List<Entry> entryHarbor;
+ late List<Entry> entryHarborImport;
+ late List<Entry> entryHarborExport;
 
  late String status;
  late String type;
@@ -77,19 +82,6 @@ class _AddCountryInitState extends State<RequestContainerInit> {
  late int clientID;
  late List<Entry> entryFrom;
  late Entry optionItemSelectedFrom;
- // TimeOfDay selectedTimeStart = TimeOfDay.now();
- // TimeOfDay selectedTimeEnd = TimeOfDay.now();
- //
- // DateTime now = DateTime.now();
- //
- // DateTime startDate = DateTime.now();
- // DateTime endDate = DateTime.now();
- // var formatter = new DateFormat('dd-MM-yyyy');
- // late String formattedDateStart;
- // late String formattedDateEnd;
- //
- // late String formattedTimeStart;
- // late String formattedTimeEnd;
   @override
   Widget build(BuildContext context) {
 
@@ -177,7 +169,7 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).exportCity, style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).location, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               SelectDropListl(
@@ -185,10 +177,25 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 this.dropListModelFromCountries,
                     (optionItem) {
                   optionItemSelectedFrom = optionItem;
-                  print(optionItem.title);
-                  print(optionItem.id);
-                  // widget.shipmentRequest.exportWarehouseID =optionItem.id;
-                  // widget.shipmentRequest.exportWarehouseName =optionItem.title;
+                  setState(() {});
+                },
+              ),
+
+              //
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).exportHarbor , style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              SelectDropList(
+                this.optionItemSelectedHarborExport,
+                this.dropListModelHarborExport,
+                    (optionItem) {
+                      FocusScope.of(context).unfocus();
+                  optionItemSelectedHarborExport = optionItem;
                   setState(() {});
                 },
               ),
@@ -198,73 +205,19 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).location , style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).importHarbor , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               SelectDropList(
-                this.optionItemSelectedLocation,
-                this.dropListModelLocation,
+                this.optionItemSelectedHarborImport,
+                this.dropListModelHarborImport,
                     (optionItem) {
                   FocusScope.of(context).unfocus();
-                  optionItemSelectedLocation = optionItem;
+                  optionItemSelectedHarborImport = optionItem;
                   setState(() {});
                 },
               ),
-              //
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).harbors , style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              SelectDropList(
-                this.optionItemSelectedHarbor,
-                this.dropListModelHarbor,
-                    (optionItem) {
-                      FocusScope.of(context).unfocus();
-                  optionItemSelectedHarbor = optionItem;
-                  setState(() {});
-                },
-              ),
-              //
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Row(children: [
-              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-              //     SizedBox(width: 5,),
-              //     Text(S.of(context).consignee , style: AppTextStyle.mediumBlackBold,)
-              //   ],),
-              // ),
-              // SelectDropList(
-              //   this.optionItemSelectedConsignee,
-              //   this.dropListModelConsignee,
-              //       (optionItem) {
-              //         optionItemSelectedConsignee = optionItem;
-              //     consigneeID = optionItem.id;
-              //     setState(() {});
-              //   },
-              // ),
-              //
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Row(children: [
-              //     Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-              //     SizedBox(width: 5,),
-              //     Text(S.of(context).shipper , style: AppTextStyle.mediumBlackBold,)
-              //   ],),
-              // ),
-              // SelectDropList(
-              //   this.optionItemSelectedShipper,
-              //   this.dropListModelShipper,
-              //       (optionItem) {
-              //     optionItemSelectedShipper = optionItem;
-              //     shipperID = optionItem.id;
-              //     setState(() {});
-              //   },
-              // ),
-              //
+
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(children: [
@@ -273,14 +226,25 @@ class _AddCountryInitState extends State<RequestContainerInit> {
                   Text(S.of(context).carrier , style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
-              SelectDropList(
-                this.optionItemSelectedCarrier,
-                this.dropListModelCarrier,
-                    (optionItem) {
-                  optionItemSelectedCarrier= optionItem;
-                  carrierID = optionItem.id;
-                  setState(() {});
-                },
+              Row(
+                children: [
+                  Expanded(
+                    child: SelectDropList(
+                      this.optionItemSelectedCarrier,
+                      this.dropListModelCarrier,
+                          (optionItem) {
+                        optionItemSelectedCarrier= optionItem;
+                        carrierID = optionItem.id;
+                        setState(() {});
+                      },
+                    ),
+                  ),
+                  InkWell(
+                      onTap: (){
+                        widget.goToSubcontract();
+                      },
+                      child: Icon(Icons.add_circle , color: blue , size: 40,)),
+                ],
               ),
 
               selectedRadioType==2 ? Padding(
@@ -319,26 +283,18 @@ class _AddCountryInitState extends State<RequestContainerInit> {
               ),
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
-                // DateTime arrivalDate = DateTime(endDate.year , endDate.month ,endDate.day ,selectedTimeEnd.hour ,selectedTimeEnd.minute);
-                // DateTime launchDate = DateTime(startDate.year , startDate.month ,startDate.day ,selectedTimeStart.hour ,selectedTimeStart.minute);
-
-                if(optionItemSelectedFrom.id ==0){
-                  Fluttertoast.showToast(msg: S.of(context).exportCityConfirm);
+                if(optionItemSelectedFrom.id ==0 || optionItemSelectedHarborImport.id ==0 || optionItemSelectedHarborExport.id ==0 ){
+                  Fluttertoast.showToast(msg: S.of(context).addContainerConfirm);
                 }else {
-                  ContainerRequest re = ContainerRequest(status: status,
-                    type: type
-                    ,
+                  ContainerRequest re = ContainerRequest(
+                    type: type,
                     specificationID: optionItemSelectedSpecification.id,
-                    consigneeID: optionItemSelectedConsignee.id,
-                    shipperID: optionItemSelectedShipper.id,
-                    carrierID: optionItemSelectedCarrier.id
-                    ,
-                    location: optionItemSelectedLocation.title,
-                    portID: optionItemSelectedHarbor.id,
-                    providedBy: optionItemSelectedProvidedBy.id,
+                    carrierID: optionItemSelectedCarrier.id,
                     clientID: optionItemSelectedClient.id,
-                    exportCity: optionItemSelectedFrom.title,
-                    exportCountryID: optionItemSelectedFrom.id,
+                    exportPortID: optionItemSelectedHarborExport.id,
+                    exportLocation: optionItemSelectedFrom.id,
+                    portID: optionItemSelectedHarborImport.id,
+                    providedBy: 0,
                   );
                   widget.onSave(re);
                 }
@@ -354,12 +310,10 @@ class _AddCountryInitState extends State<RequestContainerInit> {
   void initState() {
     super.initState();
 
-    entryProvidedBy = <Entry>[];
-    entryShipper= <Entry>[];
-    entryConsignee= <Entry>[];
     entryCarrier= <Entry>[];
     entryClient= <Entry>[];
-    entryHarbor= <Entry>[];
+    entryHarborImport= <Entry>[];
+    entryHarborExport= <Entry>[];
 
     entrySpecification = <Entry>[];
 
@@ -370,14 +324,12 @@ class _AddCountryInitState extends State<RequestContainerInit> {
     selectedRadioType = 1;
     type = ContainerTypeName[ContainerType.PUBLIC]!;
 
-    optionItemSelectedProvidedBy =  Entry('choose', 0, []);
-    optionItemSelectedShipper =  Entry('choose', 0, []);
-    optionItemSelectedConsignee =  Entry('choose', 0, []);
     optionItemSelectedSpecification =  Entry('choose', 0, []);
     optionItemSelectedCarrier =  Entry('choose', 0, []);
     optionItemSelectedClient =  Entry('choose', 0, []);
-    optionItemSelectedHarbor =  Entry('choose', 0, []);
-    optionItemSelectedLocation =  Entry('choose', 0, []);
+    optionItemSelectedHarborImport =  Entry('choose', 0, []);
+    optionItemSelectedHarborExport =  Entry('choose', 0, []);
+    // optionItemSelectedLocation =  Entry('choose', 0, []);
     optionItemSelectedFrom=Entry('choose', 0, []);
     entryFrom =[];
     initList();
@@ -387,14 +339,14 @@ class _AddCountryInitState extends State<RequestContainerInit> {
   void initList(){
     for(SubcontractModel item in widget.subContracts){
       Entry v = Entry(item.fullName! ,item.id! ,[]);
-      entryProvidedBy.add(v);
-      entryShipper.add(v);
-      entryConsignee.add(v);
+      // entryProvidedBy.add(v);
+      // entryShipper.add(v);
+      // entryConsignee.add(v);
       entryCarrier.add(v);
     }
-    dropListModelProvidedBy = DropListModel(entryProvidedBy);
-    dropListModelShipper = DropListModel(entryShipper);
-    dropListModelConsignee= DropListModel(entryConsignee);
+    // dropListModelProvidedBy = DropListModel(entryProvidedBy);
+    // dropListModelShipper = DropListModel(entryShipper);
+    // dropListModelConsignee= DropListModel(entryConsignee);
     dropListModelCarrier= DropListModel(entryCarrier);
 
 
@@ -414,9 +366,14 @@ class _AddCountryInitState extends State<RequestContainerInit> {
 
     for(HarborModel  item in widget.harbors){
       Entry v = Entry(item.name! ,item.id! ,[]);
-      entryHarbor.add(v);
+      if(item.countryType=='import') {
+        entryHarborImport.add(v);
+      }else{
+        entryHarborExport.add(v);
+      }
     }
-    dropListModelHarbor = DropListModel(entryHarbor);
+    dropListModelHarborImport = DropListModel(entryHarborImport);
+    dropListModelHarborExport = DropListModel(entryHarborExport);
   }
 
  void _setSelectedRadioGender(int val) {
@@ -439,7 +396,9 @@ class _AddCountryInitState extends State<RequestContainerInit> {
         children = [];
         for (Warehouse warehouseItem in item.warehouses!) {
           print(warehouseItem.countryName);
-          Entry warehouse = Entry(warehouseItem.city!, country.id, []);
+          Entry warehouse = Entry(
+              warehouseItem.city! + "/" + warehouseItem.name!,
+              warehouseItem.id!, []);
           children.add(warehouse);
         }
         country.children = children;

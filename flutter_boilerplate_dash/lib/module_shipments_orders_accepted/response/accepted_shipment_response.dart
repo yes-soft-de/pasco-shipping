@@ -82,7 +82,9 @@ this.categoriesNames,
     this.receiverID,
   required  this.clientUserID,
     this.productCategoryID,
-    this.markID,this.receivedQuantity
+    this.markID,this.receivedQuantity,
+    required this.isExternalWarehouse,
+    this.externalWarehouseInfo
 
     // this.subShipmentModelList
   });
@@ -126,6 +128,9 @@ this.categoriesNames,
   int? markID;
   int? clientUserID;
   int? productCategoryID;
+
+  bool isExternalWarehouse=false;
+  String? externalWarehouseInfo;
   // List<SubShipmentModel> ? subShipmentModelList;
 
   AcceptedShipmentModel.fromJson(Map<String, dynamic> json) {
@@ -135,7 +140,9 @@ this.categoriesNames,
         supplierName= json["supplierName"];
         distributorName= json["distributorName"];
         exportWarehouseName=json["exportWarehouseName"] ?? json["externalWarehouseInfo"] ;
-        importWarehouseName= json["importWarehouseName"];
+        importWarehouseName= json["importWarehouseName"] ??'...';
+        isExternalWarehouse=json['isExternalWarehouse'];
+        externalWarehouseInfo = json['externalWarehouseInfo'];
         quantity= json["quantity"];
         updatedAt= DateTime.fromMillisecondsSinceEpoch(
             CreatedAt.fromJson(json["updatedAt"]).timestamp! * 1000);

@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
@@ -76,7 +77,8 @@ class _AddNewCountryState extends State<AddNewSubContractService> {
       },);
     }
     else if (currentState is SuccessfullyAddState){
-      Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
+      SuccessfullyAddState? state = currentState as SuccessfullyAddState?;
+      Future.delayed(Duration.zero, () => _showAlert(context,state!.response.isConfirmed));
       return AddSubContractServiceInit(onSave: (request){
         widget._stateManager.createSubContractService(request);
       },);
@@ -92,5 +94,16 @@ class _AddNewCountryState extends State<AddNewSubContractService> {
         ),
       );
     }
+  }
+  _showAlert(BuildContext context , bool success){
+    return CoolAlert.show(
+        context: context,
+        width: 150,
+        type:success ?CoolAlertType.success :CoolAlertType.error,
+        title:success?S.of(context).success : S.of(context).errorHappened,
+        confirmBtnText:S.of(context).ok,
+        backgroundColor:AppThemeDataService.PrimaryColor,
+        text: success?S.of(context).serviceAdd :S.of(context).serviceExists
+    );
   }
 }

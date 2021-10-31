@@ -38,6 +38,7 @@ class HarborModel {
     this.type,
     this.location,
     this.city,
+    this.countryType,
 
     this.createdAt,
     this.updatedAt,
@@ -52,6 +53,7 @@ class HarborModel {
   String? location;
   String? city;
   String? type;
+  String? countryType;
 
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -67,6 +69,7 @@ class HarborModel {
     type: json['type'],
     countryID: json['countryID'],
     countryName:  json['countryName'],
+    countryType: json['countryType'],
 
     createdAt: DateTime.fromMillisecondsSinceEpoch(
         CreatedAt.fromJson(json['createdAt']).timestamp! * 1000),

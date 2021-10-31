@@ -62,7 +62,16 @@ class AcceptedShipmentCard extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Row(children: [
                           Text(S.of(context).exportWarehouse , style: AppTextStyle.mediumBlack,),
+                       shipmentModel.isExternalWarehouse?
+                       Expanded(child: Text(shipmentModel.externalWarehouseInfo ?? '' , style: AppTextStyle.mediumBlueBold,)):
                           Expanded(child: Text(shipmentModel.exportWarehouseName ?? '' , style: AppTextStyle.mediumBlueBold,)),
+                        ],),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(children: [
+                          Text(S.of(context).importWarehouse+': ' , style: AppTextStyle.mediumBlack,),
+                          Expanded(child: Text(shipmentModel.importWarehouseName ?? '' , style: AppTextStyle.mediumBlueBold,)),
                         ],),
                       ),
                       Padding(

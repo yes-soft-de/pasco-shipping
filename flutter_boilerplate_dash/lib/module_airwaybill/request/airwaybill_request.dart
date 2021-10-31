@@ -2,9 +2,7 @@ class AirwaybillRequest {
   int? id;
 
   String? airwaybillNumber;
-  String status;
   String type;
-  String location;
   String? consignee;
   int? weight;
 
@@ -14,10 +12,11 @@ class AirwaybillRequest {
   int? providedBy;
   int? carrierID;
   int? clientID;
-  int portID;
-  int? exportCountryID;
-  int? exportWarehouseID;
-  String? exportCity;
+
+  int? portID;
+  int? exportPortID;
+  int? exportLocation;
+
 
   AirwaybillRequest(
       {
@@ -25,20 +24,17 @@ class AirwaybillRequest {
       required this.type,
 
        this.airwaybillNumber,
-        required this.status,
-      required  this.location,
 
-      required this.consigneeID,
-      required this.providedBy,
-        required this.carrierID,
-      required this.shipperID,
+
+       this.consigneeID,
+    required   this.providedBy,
+         this.carrierID,
+       this.shipperID,
         this.clientID,
-       required this.portID,
         this.weight,this.consignee,
-      this.exportWarehouseID,
-
-        this.exportCountryID,
-        this.exportCity
+        this.exportPortID,
+        this.portID,
+        this.exportLocation,
       });
 
   Map<String, dynamic> toJson() {
@@ -46,19 +42,12 @@ class AirwaybillRequest {
       return {
         'type': type,
         'airwaybillNumber':airwaybillNumber,
-        'providedBy': providedBy,
-        'consigneeID': consigneeID,
-        'shipperID': shipperID,
         'carrierID': carrierID,
         'clientUserID': clientID,
-        'status': status,
         'portID':portID,
-        'location':location,
         'weight':weight,
-        'consignee':consignee,
-        'exportCountryID':exportCountryID,
-        'exportCity':exportCity,
-        'exportWarehouseID':exportWarehouseID,
+        'exportPortID':exportPortID,
+        'exportLocation':exportLocation,
       };
     } else {
       return {
@@ -70,14 +59,12 @@ class AirwaybillRequest {
         'shipperID': shipperID,
         'carrierID': carrierID,
         'clientUserID': clientID,
-        'status': status,
-        'portID':portID,
-        'location':location,
         'weight':weight,
         'consignee':consignee,
-        'exportCountryID':exportCountryID,
-        'exportCity':exportCity,
-        'exportWarehouseID':exportWarehouseID,
+
+        'portID':portID,
+        'exportPortID':exportPortID,
+        'exportLocation':exportLocation,
       };
     }
   }
