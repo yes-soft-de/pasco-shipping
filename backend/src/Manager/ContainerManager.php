@@ -37,6 +37,7 @@ class ContainerManager
 
             $containerEntity->setStatus(ContainerStatusConstant::$NOTFULL_CONTAINER_STATUS);
             $containerEntity->setShippingStatus(HolderShippingStatus::$NOT_UPLOADED_HOLDER_SHIPPING_STATUS);
+            $containerEntity->setShipmentID(0);
 
             $this->entityManager->persist($containerEntity);
             $this->entityManager->flush();

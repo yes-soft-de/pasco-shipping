@@ -34,6 +34,7 @@ class AirwaybillManager
 
         $airwaybillEntity->setStatus(AirwaybillStatusConstant::$NOTFULL_AIRWAYBILL_STATUS);
         $airwaybillEntity->setShippingStatus(HolderShippingStatus::$NOT_UPLOADED_HOLDER_SHIPPING_STATUS);
+        $airwaybillEntity->setShipmentID(0);
 
         $this->entityManager->persist($airwaybillEntity);
         $this->entityManager->flush();
