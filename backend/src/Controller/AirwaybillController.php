@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\AutoMapping;
 use App\Request\AirwaybillCreateRequest;
 use App\Request\AirwaybillFilterRequest;
+use App\Request\AirwaybillShipmentIdUpdateRequest;
 use App\Request\AirwaybillShippingStatusUpdateRequest;
 use App\Request\AirwaybillStatusUpdateRequest;
 use App\Request\AirwaybillUpdateRequest;
@@ -323,6 +324,64 @@ class AirwaybillController extends BaseController
     }
 
     /**
+     * @Route("airwaybillshipmentid", name="updateShipmentIdOfAirwaybill", methods={"PUT"})
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @OA\Tag(name="Airwaybill")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Update the shipmentID of a specific airwaybill",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="integer", property="shipmentID")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the info of the airwaybill",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="specificationID"),
+     *                  @OA\Property(type="string", property="airwaybillNumber"),
+     *                  @OA\Property(type="string", property="status"),
+     *                  @OA\Property(type="object", property="createdAt"),
+     *                  @OA\Property(type="object", property="updatedAt"),
+     *                  @OA\Property(type="string", property="createdByUser"),
+     *                  @OA\Property(type="string", property="createdByUserImage"),
+     *                  @OA\Property(type="string", property="updatedByUser"),
+     *                  @OA\Property(type="string", property="updatedByUserImage"),
+     *                  @OA\Property(type="string", property="consigneeName"),
+     *                  @OA\Property(type="string", property="subcontractName"),
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function updateShipmentID(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, AirwaybillShipmentIdUpdateRequest::class, (object)$data);
+
+        $result = $this->airwaybillService->updateShipmentID($request);
+
+        return $this->response($result, self::UPDATE);
+    }
+
+    /**
      * @Route("airwaybills/{status}", name="getAirwaybillsByStatus", methods={"GET"})
      * @return JsonResponse
      *
@@ -371,6 +430,8 @@ class AirwaybillController extends BaseController
      */
     public function getAirwaybillsByStatus($status)
     {
+        // Just for updating shipmentID of the air waybill, and are not required for the real-time use
+
         $result = $this->airwaybillService->getAirwaybillsByStatus($status);
 
         return $this->response($result, self::FETCH);

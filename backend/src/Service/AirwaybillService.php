@@ -9,6 +9,7 @@ use App\Constant\ShippingWayConstant;
 use App\Entity\AirwaybillEntity;
 use App\Manager\AirwaybillManager;
 use App\Request\AirwaybillCreateRequest;
+use App\Request\AirwaybillShipmentIdUpdateRequest;
 use App\Request\AirwaybillShippingStatusUpdateRequest;
 use App\Request\AirwaybillStatusUpdateRequest;
 use App\Request\AirwaybillUpdateRequest;
@@ -59,6 +60,14 @@ class AirwaybillService
     public function updateShippingStatus(AirwaybillShippingStatusUpdateRequest $request)
     {
         $airwaybillResult = $this->airwaybillManager->updateShippingStatus($request);
+
+        return $this->autoMapping->map(AirwaybillEntity::class, AirwaybillGetResponse::class, $airwaybillResult);
+    }
+
+    // Just for updating shipmentID of the air waybill, and are not required for the real-time use
+    public function updateShipmentID(AirwaybillShipmentIdUpdateRequest $request)
+    {
+        $airwaybillResult = $this->airwaybillManager->updateShipmentID($request);
 
         return $this->autoMapping->map(AirwaybillEntity::class, AirwaybillGetResponse::class, $airwaybillResult);
     }
