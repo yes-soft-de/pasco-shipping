@@ -372,6 +372,8 @@ class AirwaybillController extends BaseController
      */
     public function updateShipmentID(Request $request)
     {
+        // Just for updating shipmentID of the container, and are not required for the real-time use
+
         $data = json_decode($request->getContent(), true);
 
         $request = $this->autoMapping->map(stdClass::class, AirwaybillShipmentIdUpdateRequest::class, (object)$data);
@@ -430,8 +432,6 @@ class AirwaybillController extends BaseController
      */
     public function getAirwaybillsByStatus($status)
     {
-        // Just for updating shipmentID of the air waybill, and are not required for the real-time use
-
         $result = $this->airwaybillService->getAirwaybillsByStatus($status);
 
         return $this->response($result, self::FETCH);
