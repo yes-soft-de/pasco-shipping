@@ -365,7 +365,8 @@ class AirwaybillEntityRepository extends ServiceEntityRepository
         }
         elseif (isset($isExternalWarehouse) AND $isExternalWarehouse == false)
         {
-            $query->andWhere("airwaybill.shipmentID IS NULL");
+            $query->andWhere("airwaybill.shipmentID = :shipmentID");
+            $query->setParameter('shipmentID', 0);
         }
 
         if($request->getShipmentID())
