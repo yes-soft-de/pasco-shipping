@@ -122,14 +122,24 @@ class ShipmentOrderManager
         return $orderShipmentEntity;
     }
 
-    public function getWaitingShipmentsOrders()
+    public function getRefusedShipmentsOrders($request)
     {
-        return $this->orderShipmentEntityRepository->getShipmentsOrdersByStatus(ShipmentOrderStatusConstant::$WAITING_SHIPMENT_STATUS);
+        $shipments = $this->orderShipmentEntityRepository->filterRefusedShipmentsOrders($request);
+
+        if($shipments)
+        {
+            foreach ($shipments as $key=>$val)
+            {
+                $shipments[$key]['images'] = $this->imageManager->getImagesByShipmentID($val['id']);
+            }
+        }
+
+        return $shipments;
     }
 
     public function getAcceptedShipmentsOrders()
     {
-        return $this->orderShipmentEntityRepository->getShipmentsOrdersByStatus(ShipmentOrderStatusConstant::$ACCEPTED_SHIPMENT_STATUS);
+        return $this->orderShipmentEntityRepository->filterRefusedShipmentsOrders(ShipmentOrderStatusConstant::$ACCEPTED_SHIPMENT_STATUS);
     }
 
     public function updateShipmentOrderStatus(ShipmentOrderStatusUpdateRequest $request)
