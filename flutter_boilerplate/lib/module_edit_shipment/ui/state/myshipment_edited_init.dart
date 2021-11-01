@@ -29,7 +29,8 @@ class ReviewShipmentEditedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScrollController controller = ScrollController();
-
+print(shipment.extraSpecification);
+print('TIZ');
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

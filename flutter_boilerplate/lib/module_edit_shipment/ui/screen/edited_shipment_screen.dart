@@ -72,6 +72,7 @@ class _MarkScreenState extends State<EditedShipmentScreen> {
     super.didChangeDependencies();
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     shipmentTempRequest =arguments['myWaitingShipment'];
+    print(shipmentTempRequest.extraSpecification);
   }
 
   Widget Screen(){

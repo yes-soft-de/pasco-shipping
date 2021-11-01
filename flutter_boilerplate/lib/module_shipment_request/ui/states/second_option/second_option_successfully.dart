@@ -291,8 +291,9 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
               S.of(context).quantity,
               style: white18text,
             ),
-            NumberInputWithIncrementDecrement(initQuantity , (quantity ){
-              widget.shipmentRequest.quantity = quantity;
+            NumberInputWithIncrementDecrement(initQuantity , (quantity){
+              print(initQuantity);
+              widget.shipmentRequest.quantity = int.parse(quantity);
             }),
           ],
         ),

@@ -1,3 +1,4 @@
+import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/utils/logger/logger.dart';
 
 class MyHistoryShipmentResponse {
@@ -54,7 +55,10 @@ class MyHistoryShipment {
       this.externalWarehouseInfo,
       this.isExternalWarehouse,
         this.holderCount,
-      this.imagePath});
+      this.imagePath,
+      required  this.holders,
+
+      });
 
   int? shipmentId;
   String? trackNumber;
@@ -88,6 +92,7 @@ class MyHistoryShipment {
   String? externalWarehouseInfo;
   bool? isExternalWarehouse;
   List<ImagePa>? imagePath;
+  List<RequestedHolders> holders;
 
   factory MyHistoryShipment.fromJson(Map<String, dynamic> json) =>
       MyHistoryShipment(
@@ -100,7 +105,7 @@ class MyHistoryShipment {
         target: json["target"],
         supplierName: json["supplierName"],
         distributorName: json["distributorName"],
-        exportWarehouseName: json["exportWarehouseName"],
+        exportWarehouseName: json["exportWarehouseName"] ?? json['externalWarehouseInfo'],
         importWarehouseName: json["importWarehouseName"],
         quantity: json["quantity"],
         updatedAt: DateTime.fromMillisecondsSinceEpoch(
@@ -119,6 +124,7 @@ class MyHistoryShipment {
         isExternalWarehouse: json['isExternalWarehouse'],
         externalWarehouseInfo: json['externalWarehouseInfo'],
         imagePath: List<ImagePa>.from(json['images'].map((x) => ImagePa.fromJson(x))),
+        holders:json['pendingHolders'] != null ? List<RequestedHolders>.from(json['pendingHolders'].map((x) => RequestedHolders.fromJson(x))) :[],
       );
 }
 

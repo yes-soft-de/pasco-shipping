@@ -44,6 +44,8 @@ class _MyShipmentWaitingState extends State<MyShipmentWaiting> {
       else {
         setState(() {
           shipmentRequest = value;
+          print('Whyyyyyyyyyyyyyyyy');
+          print(shipmentRequest.extraSpecification);
           isEmptyData = false;
         });
       }

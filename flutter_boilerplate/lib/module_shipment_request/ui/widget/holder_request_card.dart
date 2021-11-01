@@ -12,7 +12,7 @@ class RequestHolderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppThemeDataService.AccentColor,
+      color: Colors.yellow.shade900,
       shape:RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15), // <-- Radius
       ),

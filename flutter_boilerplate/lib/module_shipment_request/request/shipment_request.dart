@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'dart:convert';
 class ShipmentTempRequest {
   late int _exportCountryID;
   late String _exportCountryName;

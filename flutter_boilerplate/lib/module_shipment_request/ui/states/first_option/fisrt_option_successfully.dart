@@ -50,7 +50,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
 
   late Entry optionItemSelectedT ;
   late Entry optionItemSelectedCategory ;
-  late Entry optionItemSelectedSubCategory ;
+  // late Entry optionItemSelectedSubCategory ;
 
   final ImagePicker _imagePicker = ImagePicker();
 
@@ -138,8 +138,12 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
       optionItemSelectedFromExternal = Entry('choose', 0, []);
     }
     // }
-    optionItemSelectedCategory = Entry('choose', 0, []);
-    optionItemSelectedSubCategory= Entry('choose', 0, []);
+    if(widget.shipmentRequest.productCategoryID !=0){
+      optionItemSelectedCategory=Entry(widget.shipmentRequest.productCategoryName, widget.shipmentRequest.productCategoryID, []);
+    } else {
+      optionItemSelectedCategory = Entry('choose', 0, []);
+    }
+    // optionItemSelectedSubCategory= Entry('choose', 0, []);
     shippingFrom = <Entry>[];
     shippingTo = <Entry>[];
     categories = <Entry>[];

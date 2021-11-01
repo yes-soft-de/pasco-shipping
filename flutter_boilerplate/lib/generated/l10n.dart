@@ -1449,6 +1449,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Shipment ID`
+  String get shipmentID {
+    return Intl.message(
+      'Shipment ID',
+      name: 'shipmentID',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

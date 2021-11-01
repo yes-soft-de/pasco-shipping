@@ -31,8 +31,8 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
   late DropListModel dropListModelReceiver ;
   late String vehicle;
   late String extra;
-  late Entry optionItemSelectedTim = Entry('choose', 0, []);
-  late Entry optionItemSelectedType = Entry('choose', 0, []);
+  late Entry optionItemSelectedTim;
+  // late Entry optionItemSelectedType = Entry('choose', 0, []);
   late Entry optionItemSelectedReceiver = Entry('choose', 0, []);
   late List<Entry> receiverEntry;
   @override
@@ -51,14 +51,18 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
     } else {
       extra = 'Text...';
     }
-
-
-
-    if(widget.shipmentRequest.holderType.isNotEmpty){
-      optionItemSelectedType = Entry(widget.shipmentRequest.holderType, 0, []);
+    if(widget.shipmentRequest.paymentTime.isNotEmpty){
+      optionItemSelectedTim = Entry(widget.shipmentRequest.paymentTime, 1, []);
     }else {
-      optionItemSelectedType = Entry('choose', 0, []);
+      optionItemSelectedTim = Entry('choose', 0, []);
     }
+
+
+    // if(widget.shipmentRequest.holderType.isNotEmpty){
+    //   optionItemSelectedType = Entry(widget.shipmentRequest.holderType, 0, []);
+    // }else {
+    //   optionItemSelectedType = Entry('choose', 0, []);
+    // }
   }
 
 
@@ -220,6 +224,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
       backgroundColor: AppThemeDataService.PrimaryColor,
       confirmBtnColor: AppThemeDataService.AccentColor,
       onConfirmBtnTap: () async{
+        print(widget.shipmentRequest.extraSpecification);
         print("hereRahaf"+widget.shipmentRequest.toString());
         await setShipment(widget.shipmentRequest);
         Navigator.pop(context);

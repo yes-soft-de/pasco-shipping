@@ -171,6 +171,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "shipment": MessageLookupByLibrary.simpleMessage("Shipments"),
         "shipmentAddSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Your Shipment Added Successfully"),
+        "shipmentID": MessageLookupByLibrary.simpleMessage("Shipment ID"),
         "shipmentInfo": MessageLookupByLibrary.simpleMessage("Shipment Info"),
         "shippingFrom": MessageLookupByLibrary.simpleMessage("Shipping from:"),
         "shippingTo": MessageLookupByLibrary.simpleMessage("Shipping to:"),
