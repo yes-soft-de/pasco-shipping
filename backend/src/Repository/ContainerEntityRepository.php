@@ -379,9 +379,10 @@ class ContainerEntityRepository extends ServiceEntityRepository
             $query->andWhere("orderShipmentEntity.isExternalWarehouse = :isExternalWarehouse");
             $query->setParameter('isExternalWarehouse', 1);
         }
-        elseif (isset($isExternalWarehouse) AND $isExternalWarehouse == false)
+        elseif(isset($isExternalWarehouse) AND $isExternalWarehouse == false)
         {
-            $query->andWhere("container.shipmentID IS NULL");
+            $query->andWhere("container.shipmentID = :shipmentID");
+            $query->setParameter('shipmentID', 0);
         }
 
         if($request->getClientUserID())

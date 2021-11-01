@@ -9,6 +9,7 @@ use App\Constant\ShippingTypeConstant;
 use App\Entity\AirwaybillEntity;
 use App\Repository\AirwaybillEntityRepository;
 use App\Request\AirwaybillCreateRequest;
+use App\Request\AirwaybillShipmentIdUpdateRequest;
 use App\Request\AirwaybillShippingStatusUpdateRequest;
 use App\Request\AirwaybillStatusUpdateRequest;
 use App\Request\AirwaybillUpdateRequest;
@@ -34,6 +35,7 @@ class AirwaybillManager
 
         $airwaybillEntity->setStatus(AirwaybillStatusConstant::$NOTFULL_AIRWAYBILL_STATUS);
         $airwaybillEntity->setShippingStatus(HolderShippingStatus::$NOT_UPLOADED_HOLDER_SHIPPING_STATUS);
+        $airwaybillEntity->setShipmentID(0);
 
         $this->entityManager->persist($airwaybillEntity);
         $this->entityManager->flush();
@@ -106,6 +108,26 @@ class AirwaybillManager
         else
         {
             $airwaybillEntity = $this->autoMapping->mapToObject(AirwaybillShippingStatusUpdateRequest::class, AirwaybillEntity::class, $request, $airwaybillEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $airwaybillEntity;
+        }
+    }
+
+    // Just for updating shipmentID of the air waybill, and are not required for the real-time use
+    public function updateShipmentID(AirwaybillShipmentIdUpdateRequest $request)
+    {
+        $airwaybillEntity = $this->airwaybillEntityRepository->find($request->getId());
+
+        if(!$airwaybillEntity)
+        {
+            return $airwaybillEntity;
+        }
+        else
+        {
+            $airwaybillEntity = $this->autoMapping->mapToObject(AirwaybillShipmentIdUpdateRequest::class, AirwaybillEntity::class, $request, $airwaybillEntity);
 
             $this->entityManager->flush();
             $this->entityManager->clear();

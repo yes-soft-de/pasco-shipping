@@ -17,6 +17,7 @@ use App\Request\ShipmentWaitingFilterRequest;
 use App\Response\OrderShipmentByUserGetResponse;
 use App\Response\OrderShipmentCreateResponse;
 use App\Response\OrderShipmentGetResponse;
+use App\Response\RefusedOrderShipmentGetResponse;
 use App\Response\ShipmentFilterResponse;
 use App\Response\ShipmentsGetResponse;
 use App\Response\WaitingShipmentFilterResponse;
@@ -83,30 +84,40 @@ class ShipmentOrderService
         return $this->autoMapping->map(OrderShipmentEntity::class, OrderShipmentCreateResponse::class, $orderShipmentResult);
     }
 
-    public function getWaitingShipmentsOrders()
+    public function getRefusedShipmentsOrders($request)
     {
         $ordersResponse = [];
 
-        $orders = $this->shipmentOrderManager->getWaitingShipmentsOrders();
-        
-        foreach ($orders as $order)
+        $orders = $this->shipmentOrderManager->getRefusedShipmentsOrders($request);
+
+        if($orders)
         {
-            if($order['image'])
-            {
-                $order['image'] = $this->params . $order['image'];
-            }
+            $ordersResponse['totalCount'] = count($orders);
 
-            if($order['clientUserImage'])
+            foreach ($orders as $order)
             {
-                $order['clientUserImage'] = $this->params . $order['clientUserImage'];
-            }
+                $order['pendingHolders'] = $this->shipmentOrderManager->getPendingHoldersByShipmentIdAndShippingType($order['id'], $order['transportationType']);
 
-            if($order['orderUpdatedByUserImage'])
-            {
-                $order['orderUpdatedByUserImage'] = $this->params . $order['orderUpdatedByUserImage'];
-            }
+                if($order['images'])
+                {
+                    foreach ($order['images'] as $key=>$val)
+                    {
+                        $order['images'][$key]['image'] = $this->params . $val['image'];
+                    }
+                }
 
-            $ordersResponse[] = $this->autoMapping->map('array', OrderShipmentGetResponse::class, $order);
+                if($order['clientUserImage'])
+                {
+                    $order['clientUserImage'] = $this->params . $order['clientUserImage'];
+                }
+
+                if($order['orderUpdatedByUserImage'])
+                {
+                    $order['orderUpdatedByUserImage'] = $this->params . $order['orderUpdatedByUserImage'];
+                }
+
+                $ordersResponse['shipments'][] = $this->autoMapping->map('array', RefusedOrderShipmentGetResponse::class, $order);
+            }
         }
 
         return $ordersResponse;

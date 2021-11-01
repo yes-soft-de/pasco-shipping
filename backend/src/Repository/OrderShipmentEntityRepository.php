@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Constant\HolderTypeConstant;
+use App\Constant\ShipmentOrderStatusConstant;
 use App\Constant\ShipmentStatusConstant;
 use App\Entity\AdminProfileEntity;
 use App\Entity\CountryEntity;
@@ -21,6 +22,7 @@ use App\Entity\SubProductCategoryEntity;
 use App\Entity\TrackEntity;
 use App\Entity\WarehouseEntity;
 use App\Request\ShipmentFilterRequest;
+use App\Request\ShipmentRefusedFilterRequest;
 use DateInterval;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -41,24 +43,18 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, OrderShipmentEntity::class);
     }
 
-    public function getShipmentsOrdersByStatus($status)
+    public function filterRefusedShipmentsOrders(ShipmentRefusedFilterRequest $request)
     {
-        return $this->createQueryBuilder('shipmentOrder')
-            ->select("shipmentOrder.id", "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.supplierName", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.receiverID",
-            "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.productCategoryID", "shipmentOrder.unit", "receiverEntity.fullName as receiverName", "receiverEntity.phone as receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.externalWarehouseInfo",
-            "shipmentOrder.isExternalWarehouse", "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "clientProfile.userName as clientUsername", "clientProfile.image as clientUserImage",
-            "adminProfile.userName as orderUpdatedByUser", "adminProfile.image as orderUpdatedByUserImage", "productCategory.name as productCategoryName", "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "subProductCategoryEntity.name as subProductCategoryName",
-                "clientProfile.identificationNumber as clientIdentificationNumber")
+        $isExternalWarehouse = $request->getIsExternalWarehouse();
+
+        $query = $this->createQueryBuilder('shipmentOrder')
+            ->select("shipmentOrder.id", "shipmentOrder.clientUserID", "shipmentOrder.transportationType", "shipmentOrder.target", "shipmentOrder.supplierID", "shipmentOrder.supplierName", "shipmentOrder.distributorID", "shipmentOrder.exportWarehouseID", "shipmentOrder.importWarehouseID", "shipmentOrder.quantity", "shipmentOrder.receiverID", "shipmentOrder.holderCount",
+                "shipmentOrder.image", "shipmentOrder.createdAt", "shipmentOrder.updatedAt", "shipmentOrder.subProductCategoryID", "shipmentOrder.unit", "receiverEntity.fullName as receiverName", "receiverEntity.phone as receiverPhoneNumber", "shipmentOrder.markID", "shipmentOrder.packetingBy", "shipmentOrder.paymentTime", "shipmentOrder.volume", "shipmentOrder.holderType",
+                "shipmentOrder.weight", "shipmentOrder.qrCode", "shipmentOrder.guniQuantity", "shipmentOrder.isExternalWarehouse", "shipmentOrder.externalWarehouseInfo", "shipmentOrder.updatedBy", "shipmentOrder.vehicleIdentificationNumber", "shipmentOrder.extraSpecification", "shipmentOrder.status", "adminProfile.userName as orderUpdatedByUser",
+                "adminProfile.image as orderUpdatedByUserImage", "productCategory.name as productCategoryName", "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "markEntity.markNumber", "subProductCategoryEntity.name as subProductCategoryName")
 
             ->andWhere('shipmentOrder.status = :state')
-            ->setParameter('state', $status)
-
-            ->leftJoin(
-                ClientProfileEntity::class,
-                'clientProfile',
-                Join::WITH,
-                'clientProfile.userID = shipmentOrder.clientUserID'
-            )
+            ->setParameter('state', ShipmentOrderStatusConstant::$REFUSED_SHIPMENT_STATUS)
 
             ->leftJoin(
                 AdminProfileEntity::class,
@@ -78,7 +74,7 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
                 SubProductCategoryEntity::class,
                 'subProductCategoryEntity',
                 Join::WITH,
-                'subProductCategoryEntity.id = shipmentOrder.productCategoryID'
+                'subProductCategoryEntity.id = shipmentOrder.subProductCategoryID'
             )
 
             ->leftJoin(
@@ -103,16 +99,62 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
             )
 
             ->leftJoin(
+                CountryEntity::class,
+                'countryEntity1',
+                Join::WITH,
+                'countryEntity1.id = exportWarehouse.countryID'
+            )
+
+            ->leftJoin(
+                CountryEntity::class,
+                'countryEntity2',
+                Join::WITH,
+                'countryEntity2.id = importWarehouse.countryID'
+            )
+
+            ->leftJoin(
+                MarkEntity::class,
+                'markEntity',
+                Join::WITH,
+                'markEntity.id = shipmentOrder.markID'
+            )
+
+            ->leftJoin(
                 ReceiverEntity::class,
                 'receiverEntity',
                 Join::WITH,
                 'receiverEntity.id = shipmentOrder.receiverID'
             )
 
-            ->orderBy('shipmentOrder.id', 'DESC')
+            ->orderBy('shipmentOrder.id', 'DESC');
+
+        $this->addClientEntityJoinAndSelect($query);
+
+        if($request->getTransportationType())
+        {
+            $query->andWhere('shipmentOrder.transportationType = :transportationType');
+            $query->setParameter('transportationType', $request->getTransportationType());
+        }
+
+        if(isset($isExternalWarehouse))
+        {
+            $query->andWhere('shipmentOrder.isExternalWarehouse = :isExternalWarehouse');
+            $query->setParameter('isExternalWarehouse', $isExternalWarehouse);
+        }
+
+        if($request->getExportWarehouseID())
+        {
+            $query->andWhere('exportWarehouse.id = :exportWarehouseID');
+            $query->setParameter('exportWarehouseID', $request->getExportWarehouseID());
+        }
+
+        if($request->getPaymentTime())
+        {
+            $query->andWhere('shipmentOrder.paymentTime = :paymentTime');
+            $query->setParameter('paymentTime', $request->getPaymentTime());
+        }
             
-            ->getQuery()
-            ->getResult();
+        return $query->getQuery()->getResult();
     }
 
     public function getShipmentsOrdersByTransportationTypeAndStatus($transportationType, $status)

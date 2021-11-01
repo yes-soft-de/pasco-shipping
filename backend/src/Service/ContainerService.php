@@ -8,6 +8,7 @@ use App\Constant\ShippingTypeConstant;
 use App\Entity\ContainerEntity;
 use App\Manager\ContainerManager;
 use App\Request\ContainerCreateRequest;
+use App\Request\ContainerShipmentIdUpdateRequest;
 use App\Request\ContainerShippingStatusUpdateRequest;
 use App\Request\ContainerStatusUpdateRequest;
 use App\Request\ContainerUpdateRequest;
@@ -68,6 +69,14 @@ class ContainerService
     public function updateShippingStatus(ContainerShippingStatusUpdateRequest $request)
     {
         $containerResult = $this->containerManager->updateShippingStatus($request);
+
+        return $this->autoMapping->map(ContainerEntity::class, ContainerGetResponse::class, $containerResult);
+    }
+
+    // Just for updating shipmentID of the container, and are not required for the real-time use
+    public function updateShipmentID(ContainerShipmentIdUpdateRequest $request)
+    {
+        $containerResult = $this->containerManager->updateShipmentID($request);
 
         return $this->autoMapping->map(ContainerEntity::class, ContainerGetResponse::class, $containerResult);
     }
