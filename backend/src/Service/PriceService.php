@@ -47,12 +47,12 @@ class PriceService
         {
             if($result['createdByUserImage'])
             {
-                $results['createdByUserImage'] = $this->params . $results['createdByUserImage'];
+                $result['createdByUserImage'] = $this->params . $result['createdByUserImage'];
             }
 
             if($result['updatedByUserImage'])
             {
-                $results['updatedByUserImage'] = $this->params . $results['updatedByUserImage'];
+                $result['updatedByUserImage'] = $this->params . $result['updatedByUserImage'];
             }
         }
 
