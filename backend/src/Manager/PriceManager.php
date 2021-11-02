@@ -17,17 +17,15 @@ class PriceManager
 {
     private $autoMapping;
     private $entityManager;
-    private $containerSpecificationManager;
     private $shipmentOrderManager;
     private $warehouseManager;
     private $priceEntityRepository;
 
     public function __construct(AutoMapping $autoMapping, EntityManagerInterface $entityManager, PriceEntityRepository $priceEntityRepository,
-     ContainerSpecificationManager $containerSpecificationManager, ShipmentOrderManager $shipmentOrderManager, WarehouseManager $warehouseManager)
+     ShipmentOrderManager $shipmentOrderManager, WarehouseManager $warehouseManager)
     {
         $this->autoMapping = $autoMapping;
         $this->entityManager = $entityManager;
-        $this->containerSpecificationManager = $containerSpecificationManager;
         $this->shipmentOrderManager = $shipmentOrderManager;
         $this->warehouseManager = $warehouseManager;
         $this->priceEntityRepository = $priceEntityRepository;
@@ -69,7 +67,7 @@ class PriceManager
 
         $result['prices'] = $this->priceEntityRepository->getAllPrices();
 
-        $result['containerSpecifications'] = $this->containerSpecificationManager->getAllContainerSpecifications();
+        $result['containerSpecifications'] = [];
 
         return $result;
     }
@@ -88,15 +86,6 @@ class PriceManager
             $filterRequest->setExportCountryID($exportCountryIdAndCity['countryID']);
             $filterRequest->setExportCity($exportCountryIdAndCity['city']);
         }
-
-        // exportCountryID will not be used because exportWarehouseID is will be set either for local or external warehouses
-
-//        else
-//        {
-//            $exportCountryID = $this->shipmentOrderManager->getExportCountryIdByShipmentOrderID($shipmentID);
-//
-//            $filterRequest->setExportCountryID($exportCountryID);
-//        }
 
         if($importWarehouseID)
         {
@@ -130,15 +119,6 @@ class PriceManager
             $filterRequest->setExportCountryID($exportCountryIdAndCity['countryID']);
             $filterRequest->setExportCity($exportCountryIdAndCity['city']);
         }
-
-        // exportCountryID will not be used because exportWarehouseID is will be set either for local or external warehouses
-
-//        else
-//        {
-//            $exportCountryID = $this->shipmentOrderManager->getExportCountryIdByShipmentOrderID($shipmentID);
-//
-//            $filterRequest->setExportCountryID($exportCountryID);
-//        }
 
         if($importWarehouseID)
         {
