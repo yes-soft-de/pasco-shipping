@@ -32,7 +32,6 @@ class SearchCard extends StatelessWidget {
               Expanded(
                 child: TextField(
                   controller: trackNumberController,
-                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     hintText: S.of(context).enterShipmentNumber,
                     hintStyle: white18text,

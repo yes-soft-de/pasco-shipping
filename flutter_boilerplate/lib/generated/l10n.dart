@@ -1459,6 +1459,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Import harbor`
+  String get importHarbor {
+    return Intl.message(
+      'Import harbor',
+      name: 'importHarbor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export harbor`
+  String get exportHarbor {
+    return Intl.message(
+      'Export harbor',
+      name: 'exportHarbor',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -229,7 +229,17 @@ print('TIZ');
                     style: basic14text,
                   )),
             ),
-
+            Expanded(
+              child: ListTile(
+                  title: Text(
+                    S.of(context).extraSpecification,
+                    style: white18text,
+                  ),
+                  subtitle: Text(
+                    shipment.extraSpecification,
+                    style: basic14text,
+                  )),
+            ),
 
           ],
         ),
@@ -251,15 +261,7 @@ print('TIZ');
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
           ) :Container(),
-        ListTile(
-            title: Text(
-              S.of(context).extraSpecification,
-              style: white18text,
-            ),
-            subtitle: Text(
-              shipment.extraSpecification,
-              style: basic14text,
-            )),
+
 
 
         Padding(

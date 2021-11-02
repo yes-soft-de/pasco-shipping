@@ -46,7 +46,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
   late DropListModel dropListModelSubCat;
 
   late Entry optionItemSelectedF;
-  late Entry optionItemSelectedFromExternal;
+  // late Entry optionItemSelectedFromExternal;
 
   late Entry optionItemSelectedT ;
   late Entry optionItemSelectedCategory ;
@@ -55,7 +55,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
   final ImagePicker _imagePicker = ImagePicker();
 
   late List<Entry> shippingFrom;
-  late List<Entry> shippingFromExternal;
+  // late List<Entry> shippingFromExternal;
   late List<Entry> shippingTo;
   late List<Entry>  categories;
   late List<Entry>  subCategories;
@@ -132,11 +132,11 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
     //   // sub.isSelected = false;
     //
     //
-    if(widget.shipmentRequest.exportCountryID !=0){
-      optionItemSelectedFromExternal=Entry(widget.shipmentRequest.exportCountryName, widget.shipmentRequest.exportCountryID, []);
-    } else {
-      optionItemSelectedFromExternal = Entry('choose', 0, []);
-    }
+    // if(widget.shipmentRequest.exportCountryID !=0){
+    //   optionItemSelectedFromExternal=Entry(widget.shipmentRequest.exportCountryName, widget.shipmentRequest.exportCountryID, []);
+    // } else {
+    //   optionItemSelectedFromExternal = Entry('choose', 0, []);
+    // }
     // }
     if(widget.shipmentRequest.productCategoryID !=0){
       optionItemSelectedCategory=Entry(widget.shipmentRequest.productCategoryName, widget.shipmentRequest.productCategoryID, []);
@@ -148,7 +148,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
     shippingTo = <Entry>[];
     categories = <Entry>[];
     subCategories = <Entry>[];
-    shippingFromExternal = <Entry>[];
+    // shippingFromExternal = <Entry>[];
     initShippingFrom();
     initShippingTo();
     category();
@@ -159,7 +159,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
     for (Countries item in widget.countries) {
       if (item.warehouses!.isNotEmpty && item.type=='export') {
         Entry country = Entry(item.name!, item.id!, children);
-        shippingFromExternal.add(country);
+        // shippingFromExternal.add(country);
         print(country.id);
         children = [];
         for (Warehouse warehouseItem in item.warehouses!) {
@@ -173,7 +173,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
         shippingFrom.add(country);
       }
     }
-    dropListModelFromExportCountries =  DropListModel(shippingFromExternal);
+    // dropListModelFromExportCountries =  DropListModel(shippingFromExternal);
     dropListModelFrom = DropListModel(shippingFrom);
   }
 
@@ -360,52 +360,26 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
             SizedBox(
               height: 10,
             ),
-            Visibility(
-              visible: !widget.shipmentRequest.isExternalWarehouse ,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    S.of(context).shippingFrom,
-                    style: white18text,
-                  ),
-                  SelectDropListl(
-                    this.optionItemSelectedF,
-                    this.dropListModelFrom,
-                        (optionItem) {
-                      optionItemSelectedF = optionItem;
-                      widget.shipmentRequest.exportWarehouseID =optionItem.id;
-                      widget.shipmentRequest.exportWarehouseName =optionItem.title;
-                      print("nameWear"  +  optionItem.title);
-                      setState(() {});
-                    },
-                  ),
-                ],
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  S.of(context).shippingFrom,
+                  style: white18text,
+                ),
+                SelectDropListl(
+                  this.optionItemSelectedF,
+                  this.dropListModelFrom,
+                      (optionItem) {
+                    optionItemSelectedF = optionItem;
+                    widget.shipmentRequest.exportWarehouseID =optionItem.id;
+                    widget.shipmentRequest.exportWarehouseName =optionItem.title;
+                    print("nameWear"  +  optionItem.title);
+                    setState(() {});
+                  },
+                ),
+              ],
             ),
-            Visibility(
-              visible: widget.shipmentRequest.isExternalWarehouse ,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    S.of(context).shippingFrom,
-                    style: white18text,
-                  ),
-                  SelectDropList(
-                    this.optionItemSelectedFromExternal,
-                    this.dropListModelFromExportCountries,
-                        (optionItem) {
-                          optionItemSelectedFromExternal = optionItem;
-                      widget.shipmentRequest.exportCountryID =optionItem.id;
-                      widget.shipmentRequest.exportCountryName =optionItem.title;
-                      setState(() {});
-                    },
-                  ),
-                ],
-              ),
-            ),
-
             SizedBox(
               height: 15,
             ),

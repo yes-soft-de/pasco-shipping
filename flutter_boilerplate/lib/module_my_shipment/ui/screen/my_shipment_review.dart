@@ -63,7 +63,7 @@ class ReviewShipmentScreen extends StatelessWidget {
             Row(
               children: [
                 Expanded(child: ListTile(title: Text(S.of(context).quantity , style: white18text,), subtitle: Text(shipment.quantity.toString() ,style: basic14text,))),
-                Expanded(child: ListTile(title: Text(S.of(context).holderCount , style: white18text,), subtitle: Text( shipment.holderCount.toString(),style: basic14text,))),
+                Expanded(child: ListTile(title: Text(S.of(context).trackNumber , style: white18text,), subtitle: Text( shipment.trackNumber.toString(),style: basic14text,))),
               ],
             ),
             Row(

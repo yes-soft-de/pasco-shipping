@@ -181,6 +181,8 @@
   "ourWarehouse": "Our warehouse",
   "name": "name",
   "holder": "holder",
-  "shipmentID": "Shipment ID"
+  "shipmentID": "Shipment ID",
+  "importHarbor": "Import harbor",
+  "exportHarbor": "Export harbor"
 
 }

@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterShipmentNumber":
             MessageLookupByLibrary.simpleMessage("Enter the shipment number"),
         "errorHappened": MessageLookupByLibrary.simpleMessage("Error Happened"),
+        "exportHarbor": MessageLookupByLibrary.simpleMessage("Export harbor"),
         "externalWarehouseInfo":
             MessageLookupByLibrary.simpleMessage("External Warehouse Info: "),
         "extraSpecification":
@@ -80,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "iHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("I have an account"),
         "image": MessageLookupByLibrary.simpleMessage("Image:"),
+        "importHarbor": MessageLookupByLibrary.simpleMessage("Import harbor"),
         "importWarehouseCity":
             MessageLookupByLibrary.simpleMessage("Import warehouse city: "),
         "importantNote": MessageLookupByLibrary.simpleMessage("Important note"),

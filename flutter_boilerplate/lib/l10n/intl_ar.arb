@@ -175,5 +175,8 @@
   "ourWarehouse": "مستودعاتنا",
   "name": "الاسم",
   "holder": "الحاملات",
-  "shipmentID": "رقم الشحنة"
+  "shipmentID": "رقم الشحنة",
+
+  "importHarbor": "ميناء الاستراد",
+  "exportHarbor": "ميناء التصدير"
 }

@@ -25,7 +25,7 @@ class HolderInfoCard extends StatelessWidget {
           subtitle: Column(
           children: [
             Row(children: [
-              Text('identificationNumber: ' ,style: black14text,),
+              Text('holder number: ' ,style: black14text,),
               Text(info.identificationNumber??'empty')
             ],),
             Row(children: [

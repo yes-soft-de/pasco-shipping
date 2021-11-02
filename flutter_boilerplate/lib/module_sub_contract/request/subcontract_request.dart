@@ -1,24 +1,29 @@
 class SubcontractRequest {
   int? id;
-  String fullName;
-  String phone;
-  int serviceID;
+  String? fullName;
+  String? phone;
+  String serviceName;
+  int? serviceID;
 
   SubcontractRequest(
       {this.id,
-      required this.fullName,
-      required this.phone,
-      required this.serviceID});
+       this.fullName,
+       this.phone,
+       required this.serviceName,
+       this.serviceID});
 
   Map<String, dynamic> toJson() {
     if (id == null) {
-      return {'fullName': fullName, 'phone': phone, 'serviceID': serviceID};
+      return {
+        'serviceName': serviceName,
+        'fullName': fullName, 'phone': phone, 'serviceID': serviceID};
     } else {
       return {
         'id': id,
         'fullName': fullName,
         'phone': phone,
-        'serviceID': serviceID
+        'serviceID': serviceID,
+        'serviceName': serviceName
       };
     }
   }

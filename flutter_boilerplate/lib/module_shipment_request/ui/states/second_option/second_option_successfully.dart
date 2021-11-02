@@ -54,11 +54,14 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   late String supplierName;
   // late String receiverName;
   // late String receiverPhone;
- late Entry optionItemSelectedHarbor = Entry('choose', 0, []);
+ late Entry optionItemSelectedHarborImport = Entry('choose', 0, []);
+ late Entry optionItemSelectedHarborExport = Entry('choose', 0, []);
  late Entry optionItemSelectedCarrier = Entry('choose', 0, []);
- late DropListModel dropListModelHarbor;
+ late DropListModel dropListModelHarborImport;
+ late DropListModel dropListModelHarborExport;
  late DropListModel dropListModelCarrier;
- late List<Entry> harborEntry;
+ late List<Entry> harborImportEntry;
+ late List<Entry> harborExportEntry;
  late List<Entry> carrierEntry;
 
   late bool isFromMarks;
@@ -76,7 +79,8 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
       initHolderQuantity = widget.shipmentRequest.holderCount.toString();
     }
     if(widget.shipmentRequest.holders.isNotEmpty){
-      optionItemSelectedHarbor = Entry(widget.shipmentRequest.holders[0].portName??'', widget.shipmentRequest.holders[0].portID??0, []);;
+      optionItemSelectedHarborImport = Entry(widget.shipmentRequest.holders[0].portName??'', widget.shipmentRequest.holders[0].portID??0, []);
+      optionItemSelectedHarborExport = Entry(widget.shipmentRequest.holders[0].exportPortName??'', widget.shipmentRequest.holders[0].exportPortID??0, []);
     }
     if(widget.shipmentRequest.markId !=0){
       for(Mark item in widget.marks){
@@ -140,7 +144,8 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
     isFromMarks = false;
     marksEntry = <Entry>[];
     unitsEntry = <Entry>[];
-    harborEntry = <Entry>[];
+    harborImportEntry = <Entry>[];
+    harborExportEntry = <Entry>[];
     carrierEntry = <Entry>[];
     marksBackEntry = <Entry>[];
     for(Mark item in widget.marks){
@@ -159,9 +164,14 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
  void initLists(){
    for(HarborModel item in widget.harbors){
      Entry v = Entry(item.name! ,item.id! ,[]);
-     harborEntry.add(v);
+     if(item.countryType =='import') {
+       harborImportEntry.add(v);
+     }else{
+       harborExportEntry.add(v);
+     }
    }
-   dropListModelHarbor = DropListModel(harborEntry);
+   dropListModelHarborImport = DropListModel(harborImportEntry);
+   dropListModelHarborExport = DropListModel(harborExportEntry);
 
 
    for(SubcontractModel item in widget.carriers){
@@ -192,17 +202,28 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
-
             Text(
-              S.of(context).harbors,
+              S.of(context).importHarbor,
               style: white18text,
             ),
             SelectDropList(
-              this.optionItemSelectedHarbor,
-              this.dropListModelHarbor,
+              this.optionItemSelectedHarborImport,
+              this.dropListModelHarborImport,
                   (optionItem) {
-                optionItemSelectedHarbor = optionItem;
+                optionItemSelectedHarborImport = optionItem;
+                setState(() {});
+              },
+            ),
+
+            Text(
+              S.of(context).exportHarbor,
+              style: white18text,
+            ),
+            SelectDropList(
+              this.optionItemSelectedHarborExport,
+              this.dropListModelHarborExport,
+                  (optionItem) {
+                optionItemSelectedHarborExport = optionItem;
                 setState(() {});
               },
             ),
@@ -231,8 +252,8 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
             ( optionItemSelectedType.title=='FCL' && widget.shipmentRequest.isExternalWarehouse)?
             InkWell(
                 onTap: (){
-                  if(optionItemSelectedHarbor.id==0){
-                    Fluttertoast.showToast(msg: 'Select the harbor first');
+                  if(optionItemSelectedHarborImport.id==0 || optionItemSelectedHarborExport.id==0){
+                    Fluttertoast.showToast(msg: 'Select the harbors first');
                   }else{
                     showSingleChoiceDialog(context , (se){
                       widget.shipmentRequest.holders.add(se);
@@ -463,7 +484,9 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                                style: white16text,
                                go: () {
                                  setSelectSpec.portID =
-                                     optionItemSelectedHarbor.id;
+                                     optionItemSelectedHarborImport.id;
+                                 setSelectSpec.exportPortID =
+                                     optionItemSelectedHarborExport.id;
                                  setSelectSpec.carrierID =
                                      optionItemSelectedCarrier.id;
                                  setSelectSpec.carrierName =
@@ -471,7 +494,10 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                                      ? ''
                                      : optionItemSelectedCarrier.title;
                                  setSelectSpec.portName =
-                                     optionItemSelectedHarbor.title;
+                                     optionItemSelectedHarborImport.title;
+
+                                 setSelectSpec.exportPortName =
+                                     optionItemSelectedHarborExport.title;
                                  go(setSelectSpec);
                                },
                                radius: 12)

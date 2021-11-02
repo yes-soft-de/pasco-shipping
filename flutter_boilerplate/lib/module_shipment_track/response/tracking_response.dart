@@ -109,7 +109,7 @@ class HolderInfo {
 
   factory HolderInfo.fromJson(Map<String, dynamic> json) => HolderInfo(
         status: json['status'],
-        identificationNumber: json['identificationNumber'],
+        identificationNumber: json['IdentificationNumber'],
       );
 }
 
