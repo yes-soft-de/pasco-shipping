@@ -1240,6 +1240,7 @@ class ShipmentOrderController extends BaseController
      *      description="Post a request with filtering option",
      *      @OA\JsonContent(
      *          @OA\Property(type="string", property="status"),
+     *          @OA\Property(type="string", property="orderStatus"),
      *          @OA\Property(type="string", property="trackNumber"),
      *          @OA\Property(type="string", property="transportationType"),
      *          @OA\Property(type="string", property="paymentTime"),

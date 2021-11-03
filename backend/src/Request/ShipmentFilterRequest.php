@@ -40,6 +40,8 @@ class ShipmentFilterRequest
 
     private $acceptedUntilArrived;
 
+    private $orderStatus; // accepted | refused
+
     public function getStatus()
     {
         return $this->status;
@@ -128,6 +130,11 @@ class ShipmentFilterRequest
     public function getAcceptedUntilArrived()
     {
         return $this->acceptedUntilArrived;
+    }
+
+    public function getOrderStatus()
+    {
+        return $this->orderStatus;
     }
 
 }
