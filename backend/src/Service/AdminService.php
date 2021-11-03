@@ -9,6 +9,7 @@ use App\Manager\AdminManager;
 use App\Request\AdminCreateRequest;
 use App\Request\AdminProfileUpdateRequest;
 use App\Request\EmployeeProfileUpdateRequest;
+use App\Request\EmployeeRoleUpdateRequest;
 use App\Response\AdminCreateResponse;
 use App\Response\AdminGetResponse;
 use App\Response\EmployeeGetResponse;
@@ -59,6 +60,18 @@ class AdminService implements AdminServiceInterface
         $employeeProfileEntity = $this->adminManager->employeeProfileUpdateByDashboard($request);
 
         return $this->autoMapping->map(AdminProfileEntity::class, EmployeeGetResponse::class, $employeeProfileEntity);
+    }
+
+    public function employeeRoleUpdateByDashboard(EmployeeRoleUpdateRequest $request)
+    {
+        $employeeUserResult = $this->adminManager->employeeRoleUpdateByDashboard($request);
+
+        if($employeeUserResult instanceof UserEntity)
+        {
+            return $this->autoMapping->map(UserEntity::class, EmployeeGetResponse::class, $employeeUserResult);
+        }
+
+        return $employeeUserResult;
     }
 
     public function getAllEmployees()
