@@ -6,6 +6,7 @@ use App\AutoMapping;
 use App\Request\AdminCreateRequest;
 use App\Request\AdminProfileUpdateRequest;
 use App\Request\DeleteRequest;
+use App\Request\EmployeeProfileUpdateRequest;
 use App\Service\AdminService;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
@@ -193,6 +194,60 @@ class AdminController extends BaseController
         $request->setUserID($this->getUserId());
 
         $response = $this->adminService->adminProfileUpdate($request);
+
+        return $this->response($response, self::UPDATE);
+    }
+
+    /**
+     * @Route("employeeprofilebydashboard", name="updateEmployeeProfileByDashboard", methods={"PUT"})
+     *
+     * @OA\Tag(name="Admin")
+     *
+     * @OA\Parameter(
+     *      name="token",
+     *      in="header",
+     *      description="token to be passed as a header",
+     *      required=true
+     * )
+     *
+     * @OA\RequestBody(
+     *      description="Update request of the employee profile by the dashboard",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="integer", property="id"),
+     *          @OA\Property(type="string", property="userID"),
+     *          @OA\Property(type="string", property="userName"),
+     *          @OA\Property(type="string", property="image"),
+     *          @OA\Property(type="string", property="phone")
+     *      )
+     * )
+     *
+     * @OA\Response(
+     *      response=200,
+     *      description="Returns the updated profile of the employee",
+     *      @OA\JsonContent(
+     *          @OA\Property(type="string", property="status_code"),
+     *          @OA\Property(type="string", property="msg"),
+     *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="string", property="userID"),
+     *                  @OA\Property(type="string", property="userName"),
+     *                  @OA\Property(type="string", property="image"),
+     *                  @OA\Property(type="string", property="phone"),
+     *                  @OA\Property(type="array", property="roles",
+     *                      @OA\Items(example="user"))
+     *          )
+     *      )
+     * )
+     *
+     * @Security(name="Bearer")
+     */
+    public function employeeProfileUpdateByDashboard(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $request = $this->autoMapping->map(stdClass::class, EmployeeProfileUpdateRequest::class, (object)$data);
+
+        $response = $this->adminService->employeeProfileUpdateByDashboard($request);
 
         return $this->response($response, self::UPDATE);
     }
