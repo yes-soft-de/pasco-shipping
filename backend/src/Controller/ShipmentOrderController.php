@@ -96,6 +96,8 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="clientUserID"),
      *                  @OA\Property(type="string", property="transportationType"),
      *                  @OA\Property(type="string", property="target"),
      *                  @OA\Property(type="integer", property="supplierName"),
@@ -110,6 +112,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="paymentTime"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
+     *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="string", property="holderType", description="public or private container")
      *          )
      *      )
@@ -197,6 +200,8 @@ class ShipmentOrderController extends BaseController
      *          @OA\Property(type="string", property="status_code"),
      *          @OA\Property(type="string", property="msg"),
      *          @OA\Property(type="object", property="Data",
+     *                  @OA\Property(type="integer", property="id"),
+     *                  @OA\Property(type="integer", property="clientUserID"),
      *                  @OA\Property(type="string", property="transportationType"),
      *                  @OA\Property(type="string", property="target"),
      *                  @OA\Property(type="integer", property="supplierName"),
@@ -211,6 +216,7 @@ class ShipmentOrderController extends BaseController
      *                  @OA\Property(type="string", property="paymentTime"),
      *                  @OA\Property(type="string", property="vehicleIdentificationNumber"),
      *                  @OA\Property(type="string", property="extraSpecification"),
+     *                  @OA\Property(type="string", property="status"),
      *                  @OA\Property(type="string", property="holderType", description="public or private container")
      *          )
      *      )
