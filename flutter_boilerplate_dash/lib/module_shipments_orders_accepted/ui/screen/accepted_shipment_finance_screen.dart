@@ -33,7 +33,7 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
   late List<ProxyModel> proxies;
 
   late String trackNumber;
-  late String paymentWay;
+  late String holderType;
   late int id;
 
   @override
@@ -62,9 +62,13 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
      id =arguments['id'];
      trackNumber =arguments['trackNumber'].toString();
-    paymentWay =arguments['paymentWay'];
+    holderType =arguments['holderType'];
     ShipmentLCLFilterFinanceRequest request = ShipmentLCLFilterFinanceRequest(shipmentID: id,trackNumber: trackNumber);
-    widget._stateManager.getShipmentLCLFinance(request);
+   if(holderType =='LCL') {
+     widget._stateManager.getShipmentLCLFinance(request);
+   }else{
+     widget._stateManager.getShipmentFCLFinance(request);
+   }
   }
 
   @override
@@ -100,7 +104,7 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
       return ShipmentFinanceSuccessfullyScreen(
         trackNumber:trackNumber ,
      shipmentID: id,
-     paymentWay: paymentWay,
+        holderType: holderType,
      shipmentFinance: state.finances,
      subContracts: subcontracts,
      proxies: proxies,
@@ -115,7 +119,11 @@ class _CountriesScreenState extends State<AcceptedShipmentFinanceScreen> {
          confirmBtnColor:AppThemeDataService.AccentColor,
          onConfirmBtnTap: (){
            Navigator.pop(context);
-           widget._stateManager.addShipmentFinance(request,subcontracts ,proxies);
+           if(holderType =='LCL') {
+             widget._stateManager.addShipmentFinance(request,subcontracts ,proxies);
+           }else{
+             widget._stateManager.addShipmentFCLFinance(request,subcontracts ,proxies);
+           }
          },
          text: S.of(context).addCostConfirm,
        );

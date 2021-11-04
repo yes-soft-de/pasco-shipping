@@ -177,11 +177,12 @@ class PendingHolders {
   String specificationName='';
   String carrierName='';
   String portName='';
+  String exportPortName='';
   String location='';
   String? notes;
 
   PendingHolders({required this.id,required this.shipmentID,required this.specificationID,
-     required this.specificationName, this.notes});
+     required this.specificationName,required this.exportPortName, this.notes});
 
   PendingHolders.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -190,6 +191,7 @@ class PendingHolders {
     specificationName = json['specificationName']??'';
     location = json['location']??'';
     portName = json['portName']??'';
+    exportPortName = json['exportPortName']??'';
     carrierName = json['carrierName']??'';
     notes = json['notes'];
   }

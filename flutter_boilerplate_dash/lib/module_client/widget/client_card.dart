@@ -24,18 +24,23 @@ class ClientCard extends StatelessWidget {
           child: Row(
             children: [
               (model.image ==null || model.image!.isEmpty ) ? Image.asset(StaticImage.profile , width: 100,height: 100,): Image.network(model.image!,width: 100,height: 100,),
-              SizedBox(width: 20,),
+              SizedBox(width: 5,),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Text(
-                          S.of(context).emailOrPhone+': ',
-                          style: AppTextStyle.mediumBlack,
+                        Flexible(
+                          flex: 1,
+                          child: Text(
+                            S.of(context).emailOrPhone+': ',
+                            style: AppTextStyle.mediumBlack,
+                          ),
                         ),
-                        Expanded(child: Text(
+                        Flexible(
+                          flex: 1,
+                          child: Text(
                           model.userID ?? '',
                           style: AppTextStyle.mediumBlueBold,
                         ),

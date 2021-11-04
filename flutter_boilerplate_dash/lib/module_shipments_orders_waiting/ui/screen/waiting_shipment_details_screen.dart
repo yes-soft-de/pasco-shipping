@@ -64,12 +64,7 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
       print("newEvent"+event.toString());
       currentState = event;
       if (this.mounted) {
-        if(currentState is SuccessfullyModifyState){
-          Fluttertoast.showToast(msg: S.of(context).operationCompletedSuccessfully);
-          Navigator.pop(context);
-        }else {
           setState(() {});
-        }
       }
     });
   }
@@ -122,24 +117,86 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
         },
       );
     }
-    // else if(currentState is SuccessfullyModifyState){
-    //   SuccessfullyModifyState state = currentState as SuccessfullyModifyState;
-    //   if(state.response.isConfirmed){
-    //     Fluttertoast.showToast(msg: 'The operation was completed successfully');
-    //     Navigator.pop(context);
-    //     return Container();
-    //   }else{
-    //     Fluttertoast.showToast(msg: 'some thing wrong');
-    //     return WaitingShipmentDetailsInit(shipment: shipmentModel,
-    //       onAccepted: (request) {
-    //         widget._stateManager.acceptedOrRejectedShipment(request);
-    //       },
-    //       onRejected: (request) {
-    //         widget._stateManager.acceptedOrRejectedShipment(request);
-    //       },
-    //     );
-    //   }
-    // }
+    else if(currentState is SuccessfullyModifyState){
+      SuccessfullyModifyState state = currentState as SuccessfullyModifyState;
+      if(state.response.isConfirmed){
+        Future.delayed(Duration.zero, () => _showAlert(context,true,shipmentModel.shipmentId.toString(),(){
+          Navigator.pop(context);
+        }));
+        return WaitingShipmentDetailsInit(shipment: shipmentModel,
+          onAccepted: (request) {
+            CoolAlert.show(
+              width: 150,
+              context: context,
+              type: CoolAlertType.info,
+              title:  S.of(context).careful,
+              backgroundColor:AppThemeDataService.PrimaryColor,
+              confirmBtnColor:AppThemeDataService.AccentColor,
+              confirmBtnText: S.of(context).ok,
+              onConfirmBtnTap: (){
+                Navigator.pop(context);
+                widget._stateManager.acceptedOrRejectedShipment(request);
+              },
+              text: S.of(context).acceptedConfirm,
+            );
+          },
+          onRejected: (request) {
+            CoolAlert.show(
+              context: context,
+              width: 150,
+              type: CoolAlertType.info,
+              title:  S.of(context).careful,
+              backgroundColor:AppThemeDataService.PrimaryColor,
+              confirmBtnColor:AppThemeDataService.AccentColor,
+              confirmBtnText: S.of(context).ok,
+              onConfirmBtnTap: (){
+                Navigator.pop(context);
+                widget._stateManager.acceptedOrRejectedShipment(request);
+              },
+              text: S.of(context).rejectConfirm,
+            );
+          },
+        );
+      }else{
+        Future.delayed(Duration.zero, () => _showAlert(context,false,shipmentModel.shipmentId.toString(),(){
+
+        }));
+        return WaitingShipmentDetailsInit(shipment: shipmentModel,
+          onAccepted: (request) {
+            CoolAlert.show(
+              width: 150,
+              context: context,
+              type: CoolAlertType.info,
+              title:  S.of(context).careful,
+              backgroundColor:AppThemeDataService.PrimaryColor,
+              confirmBtnColor:AppThemeDataService.AccentColor,
+              confirmBtnText: S.of(context).ok,
+              onConfirmBtnTap: (){
+                Navigator.pop(context);
+                widget._stateManager.acceptedOrRejectedShipment(request);
+              },
+              text: S.of(context).acceptedConfirm,
+            );
+          },
+          onRejected: (request) {
+            CoolAlert.show(
+              context: context,
+              width: 150,
+              type: CoolAlertType.info,
+              title:  S.of(context).careful,
+              backgroundColor:AppThemeDataService.PrimaryColor,
+              confirmBtnColor:AppThemeDataService.AccentColor,
+              confirmBtnText: S.of(context).ok,
+              onConfirmBtnTap: (){
+                Navigator.pop(context);
+                widget._stateManager.acceptedOrRejectedShipment(request);
+              },
+              text: S.of(context).rejectConfirm,
+            );
+          },
+        );
+      }
+    }
     else if(currentState is ErrorState) {
       ErrorState? state = currentState as ErrorState?;
       return Center(
@@ -163,5 +220,22 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
         ),
       );
     }
+  }
+  _showAlert(BuildContext context , bool success,String id,Function pop){
+    return CoolAlert.show(
+        context: context,
+        width: 150,
+        type:success ?CoolAlertType.success :CoolAlertType.error,
+        title:success?S.of(context).success : S.of(context).errorHappened,
+        confirmBtnText:S.of(context).ok,
+        backgroundColor:AppThemeDataService.PrimaryColor,
+        onConfirmBtnTap: (){
+          Navigator.pop(context);
+          pop();
+        },
+        text: success?S.of(context).shipmentAddSuccessfully+'\n'
+            +'ShipmentID: ' + id
+            :S.of(context).networkError
+    );
   }
 }

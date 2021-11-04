@@ -63,6 +63,7 @@ class AcceptedShipmentDetailsModel {
    required this.pendingHolders,
     this.gunnyModel,
     this.shipmentInvoiceID,
+    this.externalWarehouseInfo,
    required this.info
   });
 
@@ -100,6 +101,7 @@ class AcceptedShipmentDetailsModel {
 
   DateTime? createdAt;
   String? updatedByUser;
+  String? externalWarehouseInfo;
   List<SubShipmentModel> ? subShipmentModelList;
   List<PendingHolders> pendingHolders =[];
   List<GunnyShipmentModel>? gunnyModel;
@@ -114,6 +116,7 @@ class AcceptedShipmentDetailsModel {
     supplierName= json["supplierName"];
     distributorName= json["distributorName"];
     exportWarehouseName=json["exportWarehouseName"]?? json['externalWarehouseInfo'];
+    externalWarehouseInfo =json['externalWarehouseInfo'];
     importWarehouseName= json["importWarehouseName"];
     quantity= json["quantity"];
     holderCount= json["holderCount"];

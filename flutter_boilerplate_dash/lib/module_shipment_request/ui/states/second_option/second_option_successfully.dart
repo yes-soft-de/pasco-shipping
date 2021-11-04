@@ -49,9 +49,11 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   late Entry optionItemSelectedTim = Entry('choose', 0, []);
   late Entry optionItemSelectedType = Entry('choose', 0, []);
 
-  late Entry optionItemSelectedHarbor = Entry('choose', 0, []);
+  late Entry optionItemSelectedHarborImport = Entry('choose', 0, []);
+  late Entry optionItemSelectedHarborExport = Entry('choose', 0, []);
   late Entry optionItemSelectedCarrier = Entry('choose', 0, []);
-  late DropListModel dropListModelHarbor;
+  late DropListModel dropListModelHarborImport;
+  late DropListModel dropListModelHarborExport;
   late DropListModel dropListModelCarrier;
 
   late DropListModel dropListModelMark;
@@ -61,7 +63,8 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   late List<Entry> unitsEntry;
   late List<Entry> marksBackEntry;
 
-  late List<Entry> harborEntry;
+  late List<Entry> harborImportEntry;
+  late List<Entry> harborExportEntry;
   late List<Entry> carrierEntry;
 
   late Entry optionItemSelectedU;
@@ -117,9 +120,11 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
       receiverPhone=S.of(context).phone;
     }
     if(widget.shipmentRequest.holders.isNotEmpty){
-      optionItemSelectedHarbor = Entry(widget.shipmentRequest.holders[0].portName??'', widget.shipmentRequest.holders[0].portID??0, []);;
+      optionItemSelectedHarborImport = Entry(widget.shipmentRequest.holders[0].portName??'', widget.shipmentRequest.holders[0].portID??0, []);;
     }
-
+    if(widget.shipmentRequest.holders.isNotEmpty){
+      optionItemSelectedHarborExport = Entry(widget.shipmentRequest.holders[0].exportPortName??'', widget.shipmentRequest.holders[0].exportPortID??0, []);;
+    }
     if(widget.shipmentRequest.unit.isNotEmpty){
       optionItemSelectedU = Entry(widget.shipmentRequest.unit, 1, []);
     }else{
@@ -158,7 +163,8 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
     unitsEntry = <Entry>[];
     marksBackEntry = <Entry>[];
 
-    harborEntry = <Entry>[];
+    harborImportEntry = <Entry>[];
+    harborExportEntry = <Entry>[];
     carrierEntry = <Entry>[];
 
     for(ClientModel item in widget.marks){
@@ -177,9 +183,14 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
   void initLists(){
     for(HarborModel item in widget.harbors){
       Entry v = Entry(item.name! ,item.id! ,[]);
-      harborEntry.add(v);
+      if(item.countryType=='import') {
+        harborImportEntry.add(v);
+      }else{
+        harborExportEntry.add(v);
+      }
     }
-    dropListModelHarbor = DropListModel(harborEntry);
+    dropListModelHarborImport = DropListModel(harborImportEntry);
+    dropListModelHarborExport = DropListModel(harborExportEntry);
 
 
     for(SubcontractModel item in widget.carriers){
@@ -225,20 +236,32 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-
               Text(
-                S.of(context).harbors,
+                S.of(context).importHarbor,
                 style: AppTextStyle.mediumBlackBold,
               ),
               SelectDropList(
-                this.optionItemSelectedHarbor,
-                this.dropListModelHarbor,
+                this.optionItemSelectedHarborImport,
+                this.dropListModelHarborImport,
                     (optionItem) {
-                  optionItemSelectedHarbor = optionItem;
+                  optionItemSelectedHarborImport = optionItem;
                   setState(() {});
                 },
               ),
+
+
+                Text(
+                  S.of(context).exportHarbor,
+                  style: AppTextStyle.mediumBlackBold,
+                ),
+                SelectDropList(
+                  this.optionItemSelectedHarborExport,
+                  this.dropListModelHarborExport,
+                      (optionItem) {
+                    optionItemSelectedHarborExport = optionItem;
+                    setState(() {});
+                  },
+                ),
             ],):Container(),
         SizedBox(
           height: 15,
@@ -264,7 +287,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
             ( optionItemSelectedType.title=='FCL' && widget.shipmentRequest.isExternalWarehouse)?
             InkWell(
                 onTap: (){
-                  if(optionItemSelectedHarbor.id==0){
+                  if(optionItemSelectedHarborExport.id==0 || optionItemSelectedHarborImport.id ==0){
                     Fluttertoast.showToast(msg: 'Select the harbor first');
                   }else{
                     showSingleChoiceDialog(context , (se){
@@ -399,7 +422,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                     || widget.shipmentRequest.unit.isEmpty
                     ||widget.shipmentRequest.quantity==0
                     || widget.shipmentRequest.userName.isEmpty
-                    ||(widget.shipmentRequest.isExternalWarehouse && optionItemSelectedHarbor.id==0)
+                    ||(widget.shipmentRequest.isExternalWarehouse && ( optionItemSelectedHarborImport.id==0 || optionItemSelectedHarborExport.id==0 ))
                     ||(widget.shipmentRequest.isExternalWarehouse && widget.shipmentRequest.holders.isEmpty)
                     ){
                       Fluttertoast.showToast(msg: S.of(context).fillAllField);
@@ -476,7 +499,9 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                                style: AppTextStyle.mediumWhite,
                                go: () {
                                  setSelectSpec.portID =
-                                     optionItemSelectedHarbor.id;
+                                     optionItemSelectedHarborImport.id;
+                                 setSelectSpec.exportPortID =
+                                     optionItemSelectedHarborExport.id;
                                  setSelectSpec.carrierID =
                                      optionItemSelectedCarrier.id;
                                  setSelectSpec.carrierName =
@@ -484,7 +509,9 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                                      ? ''
                                      : optionItemSelectedCarrier.title;
                                  setSelectSpec.portName =
-                                     optionItemSelectedHarbor.title;
+                                     optionItemSelectedHarborImport.title;
+                                 setSelectSpec.exportPortName =
+                                     optionItemSelectedHarborExport.title;
                                  go(setSelectSpec);
                                },
                                radius: 12)

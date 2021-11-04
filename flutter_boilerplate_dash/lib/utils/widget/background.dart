@@ -97,6 +97,16 @@ class Background extends StatelessWidget {
             hasDrawer ? () => ancestorScaffold!.openDrawer() : null,
           )
               : null,
+          actions: [
+            InkWell(
+                onTap: (){
+                  Navigator.pushNamedAndRemoveUntil(context, HomeRoutes.controller, (route) => false);
+                },
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(end: 10,start: 10),
+                  child: Icon(Icons.home),
+                ))
+          ],
           title: Text(title),
           // actions: actions,
         ),

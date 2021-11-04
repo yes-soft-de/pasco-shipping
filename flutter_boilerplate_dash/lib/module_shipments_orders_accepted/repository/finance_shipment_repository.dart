@@ -57,4 +57,34 @@ class FinanceShipmentRepository{
     }
   }
 
+
+
+  Future<DataFinance?> getShipmentFCLFinance(ShipmentLCLFilterFinanceRequest request) async {
+    // await _authService.refreshToken();
+    var token =  await _authService.getToken();
+    try {
+      var response = await _apiClient.post(Urls.GET_SHIPMENT_FCL_FINANCE,request.toJson()
+          ,  headers: {'Authorization': 'Bearer $token'});
+      DataFinance? model = ShipmentFinanceResponse
+          .fromJson(response!).c;
+      return model;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Future<ConfirmResponse?> createShipmentFCLFinance(ShipmentLCLFinanceRequest request) async {
+    // await _authService.refreshToken();
+    var token = await _authService.getToken();
+
+    var response = await _apiClient.post(Urls.ADD_SHIPMENT_FCL_FINANCE, request.toJson(),
+        headers: {'Authorization': 'Bearer $token'});
+    String? statusCode = ShipmentFinanceResponse.fromJson(response!).statusCode;
+    String? msg = ShipmentFinanceResponse.fromJson(response).msg;
+    if(statusCode =='201'){
+      return ConfirmResponse(true, msg!);
+    }else {
+      return ConfirmResponse(false, msg!);
+    }
+  }
 }

@@ -16,7 +16,7 @@ class ClientResponse {
   ClientResponse.fromJson(Map<String, dynamic> json) {
     statusCode = json['status_code'];
     msg = json['msg'];
-    if (json['Data'] != null) {
+    if (json['Data'] != null && statusCode =='200') {
       data = <ClientModel>[];
       try {
         data = List<ClientModel>.from(json['Data'].map((x) => ClientModel.fromJson(x)));

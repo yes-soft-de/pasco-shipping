@@ -13,4 +13,8 @@ class FinanceShipmentManager{
   Future<ConfirmResponse?> createShipmentFinance(ShipmentLCLFinanceRequest request) => _repository.createShipmentFinance(request);
   Future<DataFinance?> getShipmentFinance(ShipmentLCLFilterFinanceRequest request) => _repository.getShipmentLCLFinance(request);
 
+
+  Future<ConfirmResponse?> createShipmentFCLFinance(ShipmentLCLFinanceRequest request) => _repository.createShipmentFCLFinance(request);
+  Future<DataFinance?> getShipmentFCLFinance(ShipmentLCLFilterFinanceRequest request) => _repository.getShipmentFCLFinance(request);
+
 }

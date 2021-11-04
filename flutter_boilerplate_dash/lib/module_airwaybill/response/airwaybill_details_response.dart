@@ -45,7 +45,8 @@ class AirwaybillDetailsModel {
     this.location,
     this.shippingStatus,
     this.weight,
-
+    this.exportPortName,
+    this.exportLocationName,
 
     this.createdAt,
     this.updatedAt,
@@ -71,7 +72,8 @@ class AirwaybillDetailsModel {
   String? shippingStatus;
   String? weight;
 
-
+  String? exportLocationName;
+  String? exportPortName;
 
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -94,6 +96,8 @@ class AirwaybillDetailsModel {
     shipmentID: json['shipmentID'],
     portName: json['portName'],
     location: json['location'],
+    exportLocationName: json['exportLocationName'],
+    exportPortName: json['exportPortName'],
     shippingStatus: json['shippingStatus'],
     weight: json['weight'].toString(),
 

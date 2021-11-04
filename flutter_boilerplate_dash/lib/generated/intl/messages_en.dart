@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "acceptedShipment":
             MessageLookupByLibrary.simpleMessage("Accepted Shipment"),
         "add": MessageLookupByLibrary.simpleMessage("Add new"),
+        "addContainerConfirm": MessageLookupByLibrary.simpleMessage(
+            "you should select ports and location"),
         "addCostConfirm": MessageLookupByLibrary.simpleMessage(
             "Do you want to add these costs?"),
         "addedSuccessfully":
@@ -94,6 +96,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "clearance": MessageLookupByLibrary.simpleMessage("Clearance"),
         "cleared": MessageLookupByLibrary.simpleMessage("Cleared"),
         "client": MessageLookupByLibrary.simpleMessage("Client: "),
+        "clientAdd":
+            MessageLookupByLibrary.simpleMessage("Client added successfully"),
+        "clientAlreadyExists":
+            MessageLookupByLibrary.simpleMessage("client already exists"),
         "clients": MessageLookupByLibrary.simpleMessage("Clients"),
         "companyOrPersonalName":
             MessageLookupByLibrary.simpleMessage("Company / Personal Name"),
@@ -169,10 +175,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "exportCity": MessageLookupByLibrary.simpleMessage("Export city"),
         "exportCityConfirm":
             MessageLookupByLibrary.simpleMessage("please select export city"),
+        "exportHarbor": MessageLookupByLibrary.simpleMessage("Export harbor"),
         "exportWarehouse":
             MessageLookupByLibrary.simpleMessage("Export Warehouse : "),
+        "exportWarehouseExternal":
+            MessageLookupByLibrary.simpleMessage("Export warehouse external"),
         "extensionalInfo":
             MessageLookupByLibrary.simpleMessage("Extensional Info"),
+        "external": MessageLookupByLibrary.simpleMessage("external"),
         "externalShipmentReport":
             MessageLookupByLibrary.simpleMessage("External Shipment Report"),
         "externalWarehouse":
@@ -208,6 +218,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("I have an account"),
         "image": MessageLookupByLibrary.simpleMessage("Image:"),
         "import": MessageLookupByLibrary.simpleMessage("Import"),
+        "importHarbor": MessageLookupByLibrary.simpleMessage("Import harbor"),
         "importWarehouse":
             MessageLookupByLibrary.simpleMessage("Import Warehouse"),
         "importWarehouseCity":
@@ -347,6 +358,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "sellingCost": MessageLookupByLibrary.simpleMessage("Selling cost"),
         "serialNumber": MessageLookupByLibrary.simpleMessage("Serial Number: "),
         "service": MessageLookupByLibrary.simpleMessage("Service"),
+        "serviceAdd":
+            MessageLookupByLibrary.simpleMessage("Service add successfully"),
+        "serviceExists":
+            MessageLookupByLibrary.simpleMessage("This service already exists"),
         "serviceName": MessageLookupByLibrary.simpleMessage("Service Name: "),
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "shiftingFrom": MessageLookupByLibrary.simpleMessage("Shifting From"),

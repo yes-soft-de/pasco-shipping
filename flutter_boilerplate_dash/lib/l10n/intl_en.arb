@@ -428,6 +428,19 @@
   "exportCity": "Export city",
   "exportCityConfirm": "please select export city",
   "changeClientPass": " change password",
-  "logoutConfirm": "Do you really want to log out ?"
+  "logoutConfirm": "Do you really want to log out ?",
+  "clientAdd": "Client added successfully",
+  "clientAlreadyExists": "client already exists",
+
+  "importHarbor": "Import harbor",
+  "exportHarbor": "Export harbor",
+
+  "addContainerConfirm": "you should select ports and location",
+  "exportWarehouseExternal": "Export warehouse external",
+
+  "serviceExists": "This service already exists",
+  "serviceAdd": "Service add successfully",
+
+  "external": "external"
 
 }

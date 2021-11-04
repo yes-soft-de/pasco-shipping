@@ -108,41 +108,7 @@ class _AddCountryInitState extends State<AddClientInit> {
                   )
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                  SizedBox(width: 5,),
-                  Text(S.of(context).emailOrPhone , style: AppTextStyle.mediumBlackBold,)
-                ],),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  padding: EdgeInsets.only(
-                      top: 4,left: 16, right: 16, bottom: 4
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(15)
-                      ),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 5
-                        )
-                      ]
-                  ),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: S.of(context).emailOrPhone,
-                    ),
-                    controller: userID,
-                  ),
-                ),
-              ),
+
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -181,6 +147,44 @@ class _AddCountryInitState extends State<AddClientInit> {
                   ),
                 ),
               ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(children: [
+                  Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                  SizedBox(width: 5,),
+                  Text(S.of(context).emailOrPhone , style: AppTextStyle.mediumBlackBold,)
+                ],),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: 4,left: 16, right: 16, bottom: 4
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(15)
+                      ),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 5
+                        )
+                      ]
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: S.of(context).emailOrPhone,
+                    ),
+                    controller: userID,
+                  ),
+                ),
+              ),
+
+
 
               // Padding(
               //   padding: const EdgeInsets.all(8.0),

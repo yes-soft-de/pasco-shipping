@@ -16,4 +16,11 @@ class FinanceShipmentService{
   Future<DataFinance?> getShipmentLCLFinance(ShipmentLCLFilterFinanceRequest request) {
     return _manager.getShipmentFinance(request);
   }
+
+  Future<ConfirmResponse?> createShipmentFCLFinance(ShipmentLCLFinanceRequest request) {
+    return _manager.createShipmentFCLFinance(request);
+  }
+  Future<DataFinance?> getShipmentFCLFinance(ShipmentLCLFilterFinanceRequest request) {
+    return _manager.getShipmentFCLFinance(request);
+  }
 }

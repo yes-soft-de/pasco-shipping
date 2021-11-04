@@ -11,6 +11,7 @@ import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.
 import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
+import 'package:pasco_shipping/module_sub_contract/subcontract_routes.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
@@ -69,7 +70,7 @@ class _AddNewCountryState extends State<AddNewAirwaybill> {
         }
       }
     });
-    widget._stateManager.getSubContractAndSpecificationAndHarborAndShipperAndCountries();
+    widget._stateManager.getSubContractAndHarborAndCountries();
   }
 
   Widget Screen(){
@@ -96,7 +97,11 @@ class _AddNewCountryState extends State<AddNewAirwaybill> {
         clients: clients,
         onSave: (request){
         widget._stateManager.requestAirwaybill(request);
-      }, harbors: harbors, countriesExports:countries,);
+      }, harbors: harbors, countriesExports:countries,goToSubcontract: (){
+        Navigator.pushNamed(context, SubcontractRoutes.ADD_NEW).then((value) {
+          widget._stateManager.getSubContractAndHarborAndCountries();
+        });
+      });
     }
     // else if (currentState is SuccessfullyAddState){
     //   Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);

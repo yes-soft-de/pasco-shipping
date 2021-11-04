@@ -12,6 +12,7 @@ import 'package:pasco_shipping/module_container/response/container_details_respo
 import 'package:pasco_shipping/module_container/response/container_response.dart';
 import 'package:pasco_shipping/module_shipment_invoices/response/invoice_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
+import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_details_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/accepted_shipment_response.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/response/gunny_shipment_response.dart';
@@ -47,7 +48,9 @@ class PdfParagraphApi {
       'Product type',
       'Client',
       'Payment',
-       'way'
+       'way',
+      'Export warehouse',
+      'Import warehouse'
 
     ];
     final headersAir =
@@ -60,21 +63,23 @@ class PdfParagraphApi {
       'Product type',
       'Client',
       'Payment',
-      'way'
+      'way',
+      'Export warehouse',
+      'Import warehouse'
 
     ];
     final dataSea = model.map((user) => [
       user.updatedAt.toString().split(' ').first, user.shipmentId,
       user.receivedQuantity,  user.guniQuantity,user.volume   ,user.categoriesNames,
       user.clientUsername,
-      user.paymentTime , user.transportationType
+      user.paymentTime , user.transportationType,user.exportWarehouseName ,user.importWarehouseName
 
     ]).toList();
     final dataAir = model.map((user) => [
       user.updatedAt.toString().split(' ').first, user.shipmentId,
       user.quantity,  user.guniQuantity,user.weight   ,user.categoriesNames,
       user.clientUsername,
-      user.paymentTime , user.transportationType
+      user.paymentTime , user.transportationType,user.exportWarehouseName ,user.importWarehouseName
 
     ]).toList();
     pdf.addPage(
@@ -104,7 +109,7 @@ class PdfParagraphApi {
           SizedBox(width: 5 * PdfPageFormat.cm),
          Column(
            children: [
-             Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+             Text('Date' ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
              Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
            ]
          )
@@ -133,18 +138,18 @@ class PdfParagraphApi {
               columnWidths: {
                 0: FixedColumnWidth(35),
                 1: FixedColumnWidth(15),
-                2: FixedColumnWidth(35),
+                2: FixedColumnWidth(15),
 
                 3: FixedColumnWidth(15),
-                4: FixedColumnWidth(30),
+                4: FixedColumnWidth(20),
 
                 5: FixedColumnWidth(30),
 
                 6: FixedColumnWidth(25),
-                7: FixedColumnWidth(60),
+                7: FixedColumnWidth(35),
                 8: FixedColumnWidth(15),
-                // 9: FixedColumnWidth(15),
-                // 10: FixedColumnWidth(30),
+                9: FixedColumnWidth(30),
+                10: FixedColumnWidth(30),
                 // 11: FixedColumnWidth(35),
               },
             cellAlignments: {
@@ -159,7 +164,7 @@ class PdfParagraphApi {
               8: Alignment.center,
               9: Alignment.center,
               10: Alignment.center,
-              11: Alignment.center,
+              // 11: Alignment.center,
             },
               // headerPadding: Padding(padding: 12)
           ),
@@ -227,14 +232,14 @@ class PdfParagraphApi {
     await rootBundle.load(StaticImage.logo);
     final Uint8List byteList = bytes.buffer.asUint8List();
     final headers =
-    ['ID',S.current.containerNumber,S.current.shippingType,
-      S.current.type
-      ,S.current.RequestedBy ,
+    ['ID','Container number','shipping type',
+      'type','location','carrier','import harbor','export harbor'
+      ,'requested by',
     ];
 
     final data = model.map((user) =>
     [user.id,user.containerNumber, user.type,user.specificationName,
-      user.createdByUser ,
+      user.exportLocationName,user.carrierName ,user.portName,user.exportPortName, user.createdByUser,
     ]).toList();
     pdf.addPage(
       MultiPage(
@@ -260,7 +265,7 @@ class PdfParagraphApi {
                 SizedBox(width: 5 * PdfPageFormat.cm),
                 Column(
                     children: [
-                      Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                      Text('Date' ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
                       Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
                     ]
                 )
@@ -283,18 +288,25 @@ class PdfParagraphApi {
             cellHeight: 30,
 
             columnWidths: {
-              0: FixedColumnWidth(30),
-              1: FixedColumnWidth(30),
+              0: FixedColumnWidth(15),
+              1: FixedColumnWidth(35),
               2: FixedColumnWidth(30),
               3: FixedColumnWidth(30),
               4: FixedColumnWidth(30),
+              5: FixedColumnWidth(30),
+              6: FixedColumnWidth(20),
+              7: FixedColumnWidth(20),
+              8: FixedColumnWidth(30),
             },
             cellAlignments: {
               0: Alignment.center,
               1: Alignment.center,
               2: Alignment.center,
               3: Alignment.center,
-              4: Alignment.center,
+              5: Alignment.center,
+              6: Alignment.center,
+              7: Alignment.center,
+              8: Alignment.center,
             },
             // headerPadding: Padding(padding: 12)
           ),
@@ -336,14 +348,11 @@ class PdfParagraphApi {
     await rootBundle.load(StaticImage.logo);
     final Uint8List byteList = bytes.buffer.asUint8List();
     final headers =
-    ['ID',S.current.airwaybillNumber,S.current.shippingType,
-      S.current.type
-      ,S.current.RequestedBy ,
-    ];
+    ['ID','Airwaybill number','Shipping type','weight','Location','Carrier','Import harbor','Export harbor','Requested by'];
 
     final data = model.map((user) =>
-    [user.id,user.airwaybillNumber, user.type,user.specificationName,
-      user.createdByUser ,
+    [user.id,user.airwaybillNumber, user.type,user.weight,
+     user.exportLocationName,user.carrierName ,user.portName,user.exportPortName,user.createdByUser,
     ]).toList();
     pdf.addPage(
       MultiPage(
@@ -369,7 +378,7 @@ class PdfParagraphApi {
                 SizedBox(width: 5 * PdfPageFormat.cm),
                 Column(
                     children: [
-                      Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                      Text('Date' ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
                       Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
                     ]
                 )
@@ -392,11 +401,15 @@ class PdfParagraphApi {
             cellHeight: 30,
 
             columnWidths: {
-              0: FixedColumnWidth(30),
-              1: FixedColumnWidth(30),
+              0: FixedColumnWidth(15),
+              1: FixedColumnWidth(35),
               2: FixedColumnWidth(30),
               3: FixedColumnWidth(30),
               4: FixedColumnWidth(30),
+              5: FixedColumnWidth(30),
+              6: FixedColumnWidth(20),
+              7: FixedColumnWidth(20),
+              8: FixedColumnWidth(30),
             },
             cellAlignments: {
               0: Alignment.center,
@@ -404,6 +417,10 @@ class PdfParagraphApi {
               2: Alignment.center,
               3: Alignment.center,
               4: Alignment.center,
+              5: Alignment.center,
+              6: Alignment.center,
+              7: Alignment.center,
+              8: Alignment.center,
             },
             // headerPadding: Padding(padding: 12)
           ),
@@ -443,10 +460,10 @@ class PdfParagraphApi {
     await rootBundle.load(StaticImage.logo);
     final Uint8List byteList = bytes.buffer.asUint8List();
     final headers =
-    ['ID',S.current.travelNumber,S.current.type,
-      S.current.launchCountry,S.current.startDate,
-    S.current.destinationCountry,S.current.arrivalDate
-      ,S.current.createdBy ,
+    ['ID','Travel number','type',
+     'Lunch country','Start date',
+   'Destination country','arrivale date'
+      ,'Created By' ,
     ];
 
     final data = model.map((user) =>
@@ -482,7 +499,7 @@ class PdfParagraphApi {
                 SizedBox(width: 5 * PdfPageFormat.cm),
                 Column(
                     children: [
-                      Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                      Text('Date' ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
                       Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
                     ]
                 )
@@ -595,7 +612,7 @@ class PdfParagraphApi {
                 SizedBox(width: 5 * PdfPageFormat.cm),
                 Column(
                     children: [
-                      Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                      Text('Date',  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
                       Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
                     ]
                 )
@@ -703,8 +720,8 @@ class PdfParagraphApi {
     await rootBundle.load(StaticImage.logo);
     final Uint8List byteList = bytes.buffer.asUint8List();
     final headers =
-    ['ShipmentID',S.current.paymentTime,S.current.guniQuantity,
-      S.current.quantity,S.current.trackNumber,S.current.targetWarehouse,S.current.productType
+    ['ShipmentID','Payment time','G.Q',
+      'Q','T.N','Target City','Product type'
     ];
     final data = model.shipments.map((user) =>
     [user.id,user.paymentTime, user.guniQuantity,
@@ -739,7 +756,7 @@ class PdfParagraphApi {
                 SizedBox(width: 5 * PdfPageFormat.cm),
                 Column(
                     children: [
-                      Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                      Text('Date' ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
                       Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
                     ]
                 )
@@ -882,7 +899,7 @@ class PdfParagraphApi {
     await rootBundle.load(StaticImage.logo);
     final Uint8List byteList = bytes.buffer.asUint8List();
     final headers =
-    ['Stage Name',S.current.stageCost,S.current.description,
+    ['Stage Name','Stage cost','Description',
     ];
     final data = model.billingDetails.map((user) =>
     [user.shipmentStatus,user.stageCost, user.stageDescription,
@@ -913,7 +930,7 @@ class PdfParagraphApi {
                 SizedBox(width: 5 * PdfPageFormat.cm),
                 Column(
                     children: [
-                      Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                      Text('Date' ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
                       Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
                     ]
                 )
@@ -1159,7 +1176,7 @@ class PdfParagraphApi {
                      SizedBox(width: 5 * PdfPageFormat.cm),
                      Column(
                          children: [
-                           Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                           Text('Date',  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
                            Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
                          ]
                      )
@@ -1261,7 +1278,7 @@ class PdfParagraphApi {
                  SizedBox(width: 5 * PdfPageFormat.cm),
                  Column(
                      children: [
-                       Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                       Text('Date' ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
                        Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
                      ]
                  )
@@ -1333,7 +1350,7 @@ class PdfParagraphApi {
                  SizedBox(width: 5 * PdfPageFormat.cm),
                  Column(
                      children: [
-                       Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                       Text('Date' ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
                        Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
                      ]
                  )
@@ -1428,7 +1445,7 @@ class PdfParagraphApi {
                  SizedBox(width: 5 * PdfPageFormat.cm),
                  Column(
                      children: [
-                       Text(S.current.date ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                       Text('Date' ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
                        Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
                      ]
                  )
@@ -1477,6 +1494,138 @@ class PdfParagraphApi {
          },
        ),
      );
+     return await pdf.save();
+   }
+   static Future<Uint8List> generateShipmentDetailsReport(ShipmentRequest model) async {
+     final pdf = Document();
+     String trasType = '';
+     // pdf.setMargins(0 , 0 , 0 , 0);
+
+     // final customFont =
+     // Font.ttf(await rootBundle.load('assets/OpenSans-Regular.ttf'));
+
+     final ByteData bytes =
+     await rootBundle.load(StaticImage.logo);
+     final Uint8List byteList = bytes.buffer.asUint8List();
+     pdf.addPage(
+       MultiPage(
+         theme: ThemeData.withFont(
+           base: Font.ttf(await rootBundle.load('assets/arial.ttf')),
+         ),
+         margin: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 8),
+         pageFormat: PdfPageFormat.a4,
+         orientation: PageOrientation.landscape,
+         build: (context) => <Widget>[
+           Container(
+             padding: EdgeInsets.all( 5 * PdfPageFormat.mm),
+
+             decoration: BoxDecoration(
+               border: Border(bottom: BorderSide(width: 2, color: PdfColors.blue)),
+             ),
+             child: Row(
+               children: [
+                 Image(
+                     MemoryImage(
+                       byteList,
+                     ),
+                     height: 150,
+                     width: 150,
+                     fit: BoxFit.contain),
+                 SizedBox(width: 5 * PdfPageFormat.cm),
+                 Column(
+                     children: [
+                       Text('Date' ,  style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),),
+                       Text(DateTime.now().toString().split('.').first, style: TextStyle(color: PdfColors.black ,fontWeight: FontWeight.bold),)
+                     ]
+                 )
+               ],
+             ),
+           ),
+           SizedBox(height: 0.5 * PdfPageFormat.cm),
+           Text(
+             'Shipment Report',
+             style: TextStyle( fontSize: 24,
+               fontWeight: FontWeight.bold,
+               color: PdfColors.blue,),
+           ),
+           SizedBox(height: 0.5 * PdfPageFormat.cm),
+           Table(
+             tableWidth: TableWidth.max,
+             border: TableBorder.all(),
+             children: [
+               TableRow(
+                   children: [
+                     Padding( padding: const EdgeInsets.all(8.0), child: Row(children: [
+                       Text('Shipping way: ' ,style:TextStyle( fontSize: 18,
+                         fontWeight: FontWeight.bold,
+                         color: PdfColors.black,) ),
+                       Text(model.transportationType.toString(),style:TextStyle( fontSize: 16,
+                         color: PdfColors.blue,))
+                     ])),
+                     Padding( padding: const EdgeInsets.all(8.0), child: Row(children: [
+                       Text('Client'+': ' ,style:TextStyle( fontSize: 18,
+                         fontWeight: FontWeight.bold,
+                         color: PdfColors.black,) ),
+                       Text(model.userName ,style:TextStyle( fontSize: 16,
+                         color: PdfColors.blue,))
+                     ]),),
+                   ]),
+               TableRow(
+                   children: [
+                     Padding( padding: const EdgeInsets.all(8.0), child:   Row(children: [
+                       Text('Shipping from' ,style:TextStyle( fontSize: 18,
+                         fontWeight: FontWeight.bold,
+                         color: PdfColors.black,) ),
+                       Text(model.exportWarehouseName ,style:TextStyle( fontSize: 16,
+                         color: PdfColors.blue,))
+                     ]),),
+                     Padding( padding: const EdgeInsets.all(8.0), child:    Row(children: [
+                       Text('Shipping to'+': ' ,style:TextStyle( fontSize: 18,
+                         fontWeight: FontWeight.bold,
+                         color: PdfColors.black,) ),
+                       Text(model.target ,style:TextStyle( fontSize: 16,
+                         color: PdfColors.blue,))
+                     ]),),
+
+                   ]),
+
+               TableRow(
+                   children: [
+                     Padding( padding: const EdgeInsets.all(8.0), child:   Row(children: [
+                       Text('Shipping type' ,style:TextStyle( fontSize: 18,
+                         fontWeight: FontWeight.bold,
+                         color: PdfColors.black,) ),
+                       Text(model.holderType ,style:TextStyle( fontSize: 16,
+                         color: PdfColors.blue,))
+                     ]),),
+                     Padding( padding: const EdgeInsets.all(8.0), child:    Row(children: [
+                       Text('Quantity'+': ' ,style:TextStyle( fontSize: 18,
+                         fontWeight: FontWeight.bold,
+                         color: PdfColors.black,) ),
+                       Text(model.quantity.toString() ,style:TextStyle( fontSize: 16,
+                         color: PdfColors.blue,))
+                     ]),),
+
+                   ]),
+             ],
+           ),
+
+         ],
+         footer: (context) {
+           final text = 'Page ${context.pageNumber} of ${context.pagesCount}';
+
+           return Container(
+             alignment: Alignment.centerRight,
+             margin: EdgeInsets.only(top: 1 * PdfPageFormat.cm),
+             child: Text(
+               text,
+               style: TextStyle(color: PdfColors.black),
+             ),
+           );
+         },
+       ),
+     );
+
      return await pdf.save();
    }
 

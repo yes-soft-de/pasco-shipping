@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_sub_contract/manager/subcontract_manager.dart';
+import 'package:pasco_shipping/module_sub_contract/request/subcontract_fliter_request.dart';
 import 'package:pasco_shipping/module_sub_contract/request/subcontract_request.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 
@@ -19,7 +20,7 @@ import 'package:pasco_shipping/module_sub_contract/response/subcontract_response
   Future<ConfirmResponse?> deleteSubcontract(String id) {
     return _manager.deleteSubcontract(id);
   }
-  Future<List<SubcontractModel>?> getSubcontracts() {
-    return _manager.getSubcontracts();
+  Future<List<SubcontractModel>?> getSubcontracts(FilterSubcontractRequest request) {
+    return _manager.getSubcontracts(request);
   }
 }

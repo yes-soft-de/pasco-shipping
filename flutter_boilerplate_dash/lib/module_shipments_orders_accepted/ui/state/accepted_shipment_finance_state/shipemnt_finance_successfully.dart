@@ -20,11 +20,11 @@ class ShipmentFinanceSuccessfullyScreen extends StatefulWidget {
   final DataFinance shipmentFinance;
   final Function addFinance;
   final int shipmentID;
-  final String paymentWay;
+  final String holderType;
   final String trackNumber;
   final List<SubcontractModel> subContracts;
   final List<ProxyModel> proxies;
-  ShipmentFinanceSuccessfullyScreen({required this.addFinance ,required this.shipmentFinance,required this.shipmentID,required this.trackNumber,required this.subContracts,required this.paymentWay,required this.proxies });
+  ShipmentFinanceSuccessfullyScreen({required this.addFinance ,required this.shipmentFinance,required this.shipmentID,required this.trackNumber,required this.subContracts,required this.holderType,required this.proxies });
 
   @override
   _MarkSuccessfullyScreenState createState() => _MarkSuccessfullyScreenState();
@@ -33,6 +33,7 @@ class ShipmentFinanceSuccessfullyScreen extends StatefulWidget {
 class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScreen> {
   // DropListModel dropListModelPayment = DropListModel(paymentType);
   DropListModel dropListModelShipmentStatus = DropListModel(shipmentLclFinance);
+  DropListModel dropListModelShipmentFCLStatus = DropListModel(shipmentFclFinance);
   // late DropListModel dropListModelProxy;
 
   TextEditingController cost = TextEditingController();
@@ -119,7 +120,7 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
                       ),
                       SelectDropList(
                         this.optionItemSelectedStatus,
-                        this.dropListModelShipmentStatus,
+                     widget.holderType=='LCL'? this.dropListModelShipmentStatus :this.dropListModelShipmentFCLStatus,
                             (optionItem) {
                           optionItemSelectedStatus = optionItem;
                           setState(() {});

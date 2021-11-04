@@ -6,8 +6,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_client/client_routes.dart';
+import 'package:pasco_shipping/module_distributors/distributors_routes.dart';
 import 'package:pasco_shipping/module_mark/mark_routes.dart';
 import 'package:pasco_shipping/module_receiver/receiver_routes.dart';
+import 'package:pasco_shipping/module_receiver/response/reciver_response.dart';
 import 'package:pasco_shipping/module_shipment_request/presistance/notifiyer.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_shipment_request/state_manager/request_shipment_state_manager/request_shipment_state_manager.dart';
@@ -36,10 +38,11 @@ class _NewShipmentState extends State<NewShipment> {
   late ScrollController _controller;
   late PublishSubject<int> _optionsStreamController;
   late ShipmentRequest _shipmentRequestModel;
-
+  late List<ReceiverModel> receivers;
   @override
   void initState() {
     super.initState();
+    receivers = [];
     _optionsStreamController = PublishSubject<int>();
     _controller = ScrollController();
   }
@@ -102,7 +105,7 @@ class _NewShipmentState extends State<NewShipment> {
                         ],
                       ),
                       StreamBuilder<int>(
-                        initialData: 0,
+                        initialData: activeStep,
                         stream: _optionsStreamController,
                         builder: (context, snapshot) {
                           if (snapshot.data == 0) {
@@ -155,10 +158,7 @@ class _NewShipmentState extends State<NewShipment> {
                               });
                             },goToAddClient: (req){
                               Navigator.pushNamed(context, ClientRoutes.ADD_NEW).then((value) {
-                                setState(() {
-                                  activeStep = 0;
-                                  _optionsStreamController.add(activeStep);
-                                });
+                              widget._stateManger.getSecondOption(_shipmentRequestModel.transportationType, _shipmentRequestModel.isExternalWarehouse);
                               });
                             },
                             );
@@ -182,18 +182,16 @@ class _NewShipmentState extends State<NewShipment> {
                                 });
                               } , goToMark: (){
                                 Navigator.pushNamed(context, MarkRoutes.mark , arguments: {'userID' : _shipmentRequestModel.userID ,'userName':_shipmentRequestModel.userName}).then((value) {
-                                  setState(() {
-                                    activeStep = 0;
-                                    _optionsStreamController.add(activeStep);
-                                  });
+                                  widget._stateManger.getThirdOption(_shipmentRequestModel.userID.toString());
                                 });
                               }, goToReceiver: (){
                                 Navigator.pushNamed(context, ReceiverRoutes.receiver , arguments: {'userID' : _shipmentRequestModel.userID ,'userName':_shipmentRequestModel.userName}).then((value) {
-                                  setState(() {
-                                    activeStep = 0;
-                                    _optionsStreamController.add(activeStep);
-                                  });
+                                  widget._stateManger.getThirdOption(_shipmentRequestModel.userID.toString());
                                 });
+                              }, goToDistributor: (){
+                              Navigator.pushNamed(context, DistributorRoutes.ADD_NEW).then((value){
+                                widget._stateManger.getThirdOption(_shipmentRequestModel.userID.toString());
+                              });
                               },);
                           }
                         },

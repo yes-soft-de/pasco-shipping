@@ -6,6 +6,7 @@ import 'package:pasco_shipping/consts/urls.dart';
 import 'package:pasco_shipping/module_auth/service/auth_service/auth_service.dart';
 import 'package:pasco_shipping/module_general/response/confirm_response.dart';
 import 'package:pasco_shipping/module_network/http_client/http_client.dart';
+import 'package:pasco_shipping/module_sub_contract/request/subcontract_fliter_request.dart';
 import 'package:pasco_shipping/module_sub_contract/request/subcontract_request.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 
@@ -16,11 +17,11 @@ class SubcontractRepository{
 
   SubcontractRepository(this._apiClient, this._authService);
 
-  Future<List<SubcontractModel>?> getSubContracts() async {
+  Future<List<SubcontractModel>?> getSubContracts(FilterSubcontractRequest request) async {
     // await _authService.refreshToken();
     var token =  await _authService.getToken();
     try {
-      var response = await _apiClient.get(Urls.SUB_CONTRACTS,
+      var response = await _apiClient.post(Urls.FILTER_SUB_CONTRACTS,request.toJson(),
           headers: {'Authorization': 'Bearer $token'});
       SubcontractResponse markResponse =  SubcontractResponse.fromJson(response!);
       List<SubcontractModel>? marks = [];

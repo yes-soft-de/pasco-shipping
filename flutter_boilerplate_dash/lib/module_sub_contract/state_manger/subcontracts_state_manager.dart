@@ -1,5 +1,6 @@
 
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/module_sub_contract/request/subcontract_fliter_request.dart';
 import 'package:pasco_shipping/module_sub_contract/request/subcontract_request.dart';
 import 'package:pasco_shipping/module_sub_contract/service/subcontract_service.dart';
 import 'package:pasco_shipping/module_sub_contract/ui/state/subcontract_state/subcontract_state.dart';
@@ -16,7 +17,8 @@ class SubcontractStateManager{
 
   void getSubcontracts(){
     _stateSubject.add(LoadingState());
-    _service.getSubcontracts().then((marks) {
+    FilterSubcontractRequest request = FilterSubcontractRequest();
+    _service.getSubcontracts(request).then((marks) {
       print(marks);
       if(marks != null) {
         _stateSubject.add(SuccessfullyFetchState(marks));
@@ -32,7 +34,8 @@ class SubcontractStateManager{
     _service.deleteSubcontract(id).then((value) {
       if(value != null){
         if(value.isConfirmed){
-          _service.getSubcontracts().then((marks) {
+          FilterSubcontractRequest request = FilterSubcontractRequest();
+          _service.getSubcontracts(request).then((marks) {
             if(marks != null) {
               _stateSubject.add(SuccessfullyFetchState(marks));
             }else {

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_shipment_request/response/product_categories/product_categories_response.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/choice_card.dart';
 import 'package:pasco_shipping/module_subcontract_services/request/sub_contract_service_request.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
@@ -19,6 +21,7 @@ class AddSubContractServiceInit extends StatefulWidget {
 class _AddCountryInitState extends State<AddSubContractServiceInit> {
  late TextEditingController name ;
  late  TextEditingController description;
+ late List<Category> services;
 
 
   @override
@@ -40,6 +43,27 @@ class _AddCountryInitState extends State<AddSubContractServiceInit> {
                   SizedBox(width: 5,),
                   Text(S.of(context).service , style: AppTextStyle.mediumBlackBold,)
                 ],),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Wrap(
+                  spacing:30,
+                  runSpacing: 10.0,
+                  children: services.map((item) {
+                    var index = services.indexOf(item);
+                    return InkWell(
+                        onTap: () {
+                          setState(() {
+                            services.forEach((element) {
+                              element.isSelected = false;
+                            });
+                          });
+                          services[index].isSelected = true;
+                          name.text= services[index].name;
+                        },
+                        child: ChoiceCard(item));
+                  }).toList(),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -126,6 +150,22 @@ class _AddCountryInitState extends State<AddSubContractServiceInit> {
     super.initState();
     name =TextEditingController();
     description = TextEditingController();
+    services= [
+      Category(id: 0, name: 'تخليص جمركي-Customs Clearance' , description: '', isSelected: false),
+      Category(id: 0, name: 'LOGISTIC SERVICES & STORING MANAGEMENT' , description: '', isSelected: false),
+      Category(id: 0, name: 'IMPORT AND EXPORT' , description: '', isSelected: false),
+      Category(id: 0, name: 'CASH ON PURCHASE' , description: '', isSelected: false),
+      Category(id: 0, name: 'UNLOADING CHARGES' , description: '', isSelected: false),
+      Category(id: 0, name: 'LOADING CHARGES' , description: '', isSelected: false),
+      Category(id: 0, name: 'Air freight' , description: '', isSelected: false),
+      Category(id: 0, name: 'LCL Sea freight -شحن بحري مشترك' , description: '', isSelected: false),
+      Category(id: 0, name: 'شحن حاوية كاملة-FCL Sea freight' , description: '', isSelected: false),
+      Category(id: 0, name: 'Consignee' , description: '', isSelected: false),
+      Category(id: 0, name: 'Container providing' , description: '', isSelected: false),
+      Category(id: 0, name: 'Air waybill providing' , description: '', isSelected: false),
+      Category(id: 0, name: 'Travels providing' , description: '', isSelected: false),
+      Category(id: 0, name: 'Carrier' , description: '', isSelected: false),
+    ];
   }
 
 }

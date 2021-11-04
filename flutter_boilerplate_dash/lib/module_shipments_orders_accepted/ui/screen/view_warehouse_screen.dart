@@ -34,6 +34,7 @@ class _CountriesScreenState extends State<ViewWarehouseScreen> {
   late AcceptedShipmentFilterRequest filterRequest;
   late bool withFilter;
   late String typeOfCountry;
+  late String external;
 
   late int selectedRadioGender;
   late String type;
@@ -65,6 +66,7 @@ class _CountriesScreenState extends State<ViewWarehouseScreen> {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     filterRequest =arguments['filterRequest'];
     withFilter = arguments['withFilter'];
+    external = arguments['external'];
     if(filterRequest.status=='arrived'){
       typeOfCountry = 'import';
       type = 'import';
@@ -173,12 +175,14 @@ class _CountriesScreenState extends State<ViewWarehouseScreen> {
                 goToAcceptedShipment: (id){
                   if(typeOfCountry =='import'){
                     filterRequest.importWarehouseID = id;
+                    filterRequest.exportWarehouseID=null;
                     Navigator.pushNamed(
-                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : filterRequest,'withFilter':withFilter});
+                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : filterRequest,'withFilter':withFilter,'external':external});
                   }else{
                     filterRequest.exportWarehouseID = id;
+                    filterRequest.importWarehouseID = null;
                     Navigator.pushNamed(
-                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : filterRequest,'withFilter':withFilter});
+                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : filterRequest,'withFilter':withFilter,'external':external});
                   }
                 },
               ),

@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/consts/subcontarct_service.dart';
 import 'package:pasco_shipping/module_airwaybill/request/airwaybill_request.dart';
 import 'package:pasco_shipping/module_airwaybill/service/airwaybill_service.dart';
 import 'package:pasco_shipping/module_airwaybill/ui/state/addnew_state/add_state.dart';
@@ -8,6 +9,7 @@ import 'package:pasco_shipping/module_harbor/request/harbor_filter_request.dart'
 import 'package:pasco_shipping/module_harbor/service/harbor_service.dart';
 import 'package:pasco_shipping/module_shipment_request/service/shipment_request_service/first_option_service.dart';
 import 'package:pasco_shipping/module_shipper/service/shipper_service.dart';
+import 'package:pasco_shipping/module_sub_contract/request/subcontract_fliter_request.dart';
 import 'package:pasco_shipping/module_sub_contract/service/subcontract_service.dart';
 import 'package:pasco_shipping/module_subcontract_services/service/sub_contract_service.dart';
 import 'package:rxdart/rxdart.dart';
@@ -42,16 +44,17 @@ class AddAirwaybillStateManager {
     });
   }
 
-  void getSubContractAndSpecificationAndHarborAndCountries() {
+  void getSubContractAndHarborAndCountries() {
     _addStateSubject.add(LoadingAddState());
-        _subcontractService.getSubcontracts().then((subs) {
+    FilterSubcontractRequest requestSub =FilterSubcontractRequest(serviceName: Service.Carrier);
+    _subcontractService.getSubcontracts(requestSub).then((subs) {
           if (subs != null) {
             _clientService.getClients().then((clients) {
               if(clients != null){
                 HarborFilterRequest request =HarborFilterRequest(type: 'airport');
                 _harborService.getHarbor(request).then((harbors) {
                   if(harbors != null){
-                    _firstOptionService.getCountriesImport('export').then((countries) {
+                    _firstOptionService.getWarehouse().then((countries) {
                       if(countries != null) {
                         _addStateSubject
                           .add(InitAddState(subcontracts: subs ,clients: clients,harbors: harbors,shippers: [],countries: countries));
@@ -68,25 +71,17 @@ class AddAirwaybillStateManager {
           }
         });
   }
-  void getSubContractAndSpecificationAndHarborAndShipperAndCountries() {
+  void getSubContractAndShipper() {
     _addStateSubject.add(LoadingAddState());
-        _subcontractService.getSubcontracts().then((subs) {
+    FilterSubcontractRequest request =FilterSubcontractRequest();
+    _subcontractService.getSubcontracts(request).then((subs) {
           if (subs != null) {
             _clientService.getClients().then((clients) {
               if(clients != null){
-                HarborFilterRequest request =HarborFilterRequest(type: 'airport');
-                _harborService.getHarbor(request).then((harbors) {
-                  if(harbors != null){
-                    _shipperService.getShippers().then((shippers) {
-                      if(shippers != null){
-                        _firstOptionService.getCountriesImport('export').then((countries) {
-                          if(countries != null){
-                            _addStateSubject
-                                .add(InitAddState(subcontracts: subs ,clients: clients,harbors: harbors,shippers: shippers,countries: countries));
-                          }
-                        });
-                      }
-                    });
+                _shipperService.getShippers().then((shippers) {
+                  if(shippers != null){
+                    _addStateSubject
+                        .add(InitAddState(subcontracts: subs ,clients: clients,harbors: [],shippers: shippers,countries: []));
                   }
                 });
               }else {

@@ -18,12 +18,7 @@ class AddSubContractServiceStateManager{
     _addStateSubject.add(LoadingAddState());
     _service.createSubContractService(request).then((value) {
       if(value != null){
-        if(value.isConfirmed){
-          _addStateSubject.add(SuccessfullyAddState(value));
-        }
-        else{
-          _addStateSubject.add(ErrorAddState('error'));
-        }
+        _addStateSubject.add(SuccessfullyAddState(value));
       }else {
         _addStateSubject.add(ErrorAddState('error'));
       }

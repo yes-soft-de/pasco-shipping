@@ -7,10 +7,13 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
 import 'package:pasco_shipping/module_shipment_request/ui/widget/holder_request_card.dart';
 import 'package:pasco_shipping/module_shipments_orders_accepted/ui/screen/image_full_screen.dart';
+import 'package:pasco_shipping/utils/helpers/pdf_paragraph_api.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 
 class RequestShipmentReviewInit extends StatefulWidget {
   final ShipmentRequest shipment;
@@ -180,6 +183,7 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
           ),
           Divider(color: Colors.grey[300],thickness: 2,),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                   child: ListTile(
@@ -191,6 +195,23 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
                         widget.shipment.holderType ,
                         style: AppTextStyle.smallBlueBold,
                       ))),
+              Expanded(
+                child: FlatButton(onPressed: () async{
+                  await Printing.layoutPdf(
+                    // [onLayout] will be called multiple times
+                    // when the user changes the printer or printer settings
+                    onLayout: (PdfPageFormat format) {
+                      // Any valid Pdf document can be returned here as a list of int
+                      return PdfParagraphApi.generateShipmentDetailsReport(widget.shipment);
+                    },
+                  );
+
+
+
+                }, child: Row(children: [
+                  Icon(Icons.print, color: black,size: 50,),
+                ],)),
+              ),
             ],
           ),
           Divider(color: Colors.grey[300],thickness: 2,),

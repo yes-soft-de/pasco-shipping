@@ -668,9 +668,9 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                   subShipmentModel.shipmentStatus =='arrived'?   RoundedButton(lable: 'Shift Shipment', icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
                     widget.onRequestShift(widget.shipment.shipmentId , subShipmentModel.trackNumber);
                   }, radius: 12) :Container(),
-                 widget.shipment.holderType =='LCL'?  RoundedButton(lable: S.of(context).shipmentCost, icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
-                    widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.paymentTime);
-                  }, radius: 12) :Container(),
+                 RoundedButton(lable: S.of(context).shipmentCost, icon: '', color: blue, style: AppTextStyle.smallWhite, go: (){
+                    widget.onShowFinance(widget.shipment.shipmentId , subShipmentModel.trackNumber,widget.shipment.holderType);
+                  }, radius: 12) ,
 
                 ],
               )
@@ -748,7 +748,14 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
                         S.of(context).shippingFrom,
                         style: AppTextStyle.mediumBlack,
                       ),
-                      Expanded(
+                     widget.shipment.isExternalWarehouse?
+                     Expanded(
+                       child: Text(
+                         widget.shipment.externalWarehouseInfo.toString(),
+                         style: AppTextStyle.smallBlueBold,
+                       ),
+                     ):
+                     Expanded(
                         child: Text(
                           widget.shipment.exportWarehouseName.toString(),
                           style: AppTextStyle.smallBlueBold,

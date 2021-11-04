@@ -12,7 +12,9 @@ import 'package:pasco_shipping/module_harbor/response/harbor_response.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
 import 'package:pasco_shipping/module_shipper/response/shipper_response.dart';
+import 'package:pasco_shipping/module_shipper/shipper_routes.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
+import 'package:pasco_shipping/module_sub_contract/subcontract_routes.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
@@ -71,7 +73,7 @@ class _AddNewCountryState extends State<UpdateContainer> {
         }
       }
     });
-    widget._stateManager.getSubContractAndSpecificationAndHarborAndShipperAndCountries();
+    widget._stateManager.getSubContractAndSpecificationAndShipper();
   }
   @override
   void didChangeDependencies() {
@@ -99,12 +101,21 @@ class _AddNewCountryState extends State<UpdateContainer> {
       shippers = state.shippers;
       countries = state.countries;
       return UpdateContainerInit(
-        harbors: harbors,
+        goToShipper: (){
+          Navigator.pushNamed(context, ShipperRoutes.ADD_NEW).then((value) {
+            widget._stateManager.getSubContractAndSpecificationAndShipper();
+
+          });
+        },
+        goToSubcontract: (){
+          Navigator.pushNamed(context, SubcontractRoutes.ADD_NEW).then((value) {
+            widget._stateManager.getSubContractAndSpecificationAndShipper();
+          });
+        },
         specifications: specification,
         subContracts: subs,
         model: model,
         shippers: shippers,
-        countriesExports: countries,
         onUpdate: (request , c){
           option = c;
         widget._stateManager.updateContainer(request);
@@ -113,7 +124,17 @@ class _AddNewCountryState extends State<UpdateContainer> {
       ErrorAddState? state = currentState as ErrorAddState?;
       Fluttertoast.showToast(msg: state!.error);
       return UpdateContainerInit(
-        harbors: harbors,
+          goToShipper: (){
+            Navigator.pushNamed(context, ShipperRoutes.ADD_NEW).then((value) {
+              widget._stateManager.getSubContractAndSpecificationAndShipper();
+
+            });
+          },
+          goToSubcontract: (){
+            Navigator.pushNamed(context, SubcontractRoutes.ADD_NEW).then((value) {
+              widget._stateManager.getSubContractAndSpecificationAndShipper();
+            });
+          },
         specifications: specification,
         subContracts: subs,
         model: model,
@@ -121,7 +142,7 @@ class _AddNewCountryState extends State<UpdateContainer> {
         onUpdate: (request , c){
           option = c;
           widget._stateManager.updateContainer(request);
-        },countriesExports: countries,);
+        },);
     }
     else {
       return Center(

@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "acceptedShipment":
             MessageLookupByLibrary.simpleMessage("الشحنات المقبولة"),
         "add": MessageLookupByLibrary.simpleMessage("إضافة جديد"),
+        "addContainerConfirm":
+            MessageLookupByLibrary.simpleMessage("يجب اختيار الموائن والموقع"),
         "addCostConfirm":
             MessageLookupByLibrary.simpleMessage("هل تريد اضافة هذه المصاريف؟"),
         "addedSuccessfully":
@@ -94,6 +96,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "clearance": MessageLookupByLibrary.simpleMessage("Clearance"),
         "cleared": MessageLookupByLibrary.simpleMessage("جمركة"),
         "client": MessageLookupByLibrary.simpleMessage("العميل: "),
+        "clientAdd":
+            MessageLookupByLibrary.simpleMessage("تم إضافة العميل بنجاح"),
+        "clientAlreadyExists":
+            MessageLookupByLibrary.simpleMessage("العميل موجود بالفعل"),
         "clients": MessageLookupByLibrary.simpleMessage("العملاء"),
         "companyOrPersonalName":
             MessageLookupByLibrary.simpleMessage("اسم الفرد/شركة"),
@@ -166,10 +172,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "exportCity": MessageLookupByLibrary.simpleMessage("دولة التصدير"),
         "exportCityConfirm":
             MessageLookupByLibrary.simpleMessage("الرجاء تحديد دولة التصدير"),
+        "exportHarbor": MessageLookupByLibrary.simpleMessage("ميناء التصدير"),
         "exportWarehouse":
             MessageLookupByLibrary.simpleMessage("مستودع التصدير: "),
+        "exportWarehouseExternal":
+            MessageLookupByLibrary.simpleMessage("مستودع التصدير الخارجي"),
         "extensionalInfo":
             MessageLookupByLibrary.simpleMessage("معلومات موسعة"),
+        "external": MessageLookupByLibrary.simpleMessage("خارجي"),
         "externalShipmentReport":
             MessageLookupByLibrary.simpleMessage("تقارير الشحنات خارجي"),
         "externalWarehouse":
@@ -190,7 +200,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "guniQuantity": MessageLookupByLibrary.simpleMessage("عدد الجوني"),
         "gunnyFull": MessageLookupByLibrary.simpleMessage("امتلئ الجوني"),
         "gunnyNumber": MessageLookupByLibrary.simpleMessage("رقم الجوني"),
-        "harbors": MessageLookupByLibrary.simpleMessage("المرافئ"),
+        "harbors": MessageLookupByLibrary.simpleMessage("الموانئ"),
         "haveSpace":
             MessageLookupByLibrary.simpleMessage("مازلت تمتلك بعض المساحة"),
         "heightInMeter":
@@ -204,6 +214,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "iHaveAnAccount": MessageLookupByLibrary.simpleMessage("لدي حساب"),
         "image": MessageLookupByLibrary.simpleMessage("صورة:"),
         "import": MessageLookupByLibrary.simpleMessage("استراد"),
+        "importHarbor": MessageLookupByLibrary.simpleMessage("ميناء الإستراد"),
         "importWarehouse":
             MessageLookupByLibrary.simpleMessage("مستودع التسلم"),
         "importWarehouseCity":
@@ -301,7 +312,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "received": MessageLookupByLibrary.simpleMessage("الإستلام"),
         "receiver": MessageLookupByLibrary.simpleMessage("المستلمون"),
         "receiverInfo":
-            MessageLookupByLibrary.simpleMessage("معلومات المستقبل: "),
+            MessageLookupByLibrary.simpleMessage("معلومات المستلم: "),
         "registerSuccess":
             MessageLookupByLibrary.simpleMessage("تم تسجيل حسابك بنجاح"),
         "reject": MessageLookupByLibrary.simpleMessage("رفض"),
@@ -337,6 +348,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "sellingCost": MessageLookupByLibrary.simpleMessage("سعر المبيع"),
         "serialNumber": MessageLookupByLibrary.simpleMessage("الرقم السري: "),
         "service": MessageLookupByLibrary.simpleMessage("الخدمة"),
+        "serviceAdd": MessageLookupByLibrary.simpleMessage("تم الإضافة بنجاح"),
+        "serviceExists":
+            MessageLookupByLibrary.simpleMessage("هذه الخدمة موجودة بالفعل"),
         "serviceName": MessageLookupByLibrary.simpleMessage("نوع الخدمة"),
         "setting": MessageLookupByLibrary.simpleMessage("الإعدادات"),
         "shiftingFrom": MessageLookupByLibrary.simpleMessage("تحولت من"),
@@ -418,7 +432,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("معلومات المورد: "),
         "suppliers": MessageLookupByLibrary.simpleMessage("الموردين"),
         "targetWarehouse":
-            MessageLookupByLibrary.simpleMessage("المستودع الهدف: "),
+            MessageLookupByLibrary.simpleMessage("المدينة الهدف: "),
         "termOfService": MessageLookupByLibrary.simpleMessage("شروط الخدمة"),
         "to": MessageLookupByLibrary.simpleMessage("الى"),
         "total": MessageLookupByLibrary.simpleMessage(" الكلي "),

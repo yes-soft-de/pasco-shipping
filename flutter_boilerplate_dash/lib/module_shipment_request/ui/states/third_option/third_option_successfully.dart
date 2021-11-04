@@ -27,8 +27,9 @@ class ThirdOptionsSuccessfully extends StatefulWidget {
   final Function goBackStep;
   final Function goToMark;
   final Function goToReceiver;
+  final Function goToDistributor;
   final Function onRequest;
-  const ThirdOptionsSuccessfully({required this.shipmentRequest,required this.goBackStep,required this.distributors, required this.marks,required this.onRequest,required this.goToMark,required this.receiver,required this.goToReceiver});
+  const ThirdOptionsSuccessfully({required this.shipmentRequest,required this.goBackStep,required this.distributors, required this.marks,required this.onRequest,required this.goToMark,required this.receiver,required this.goToReceiver,required this.goToDistributor});
 
   @override
   _ThirdOptionsState createState() => _ThirdOptionsState();
@@ -185,15 +186,26 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
             S.of(context).distributor,
             style: AppTextStyle.mediumBlackBold,
           ),
-          SelectDropList(
-            this.optionItemSelectedDist,
-            this.dropListModelDist,
-                (optionItem) {
-              optionItemSelectedDist = optionItem;
-              widget.shipmentRequest.distributorName = optionItem.title;
-              widget.shipmentRequest.distributorID = optionItem.id;
-              setState(() {});
-            },
+          Row(
+            children: [
+              Expanded(
+                child: SelectDropList(
+                  this.optionItemSelectedDist,
+                  this.dropListModelDist,
+                      (optionItem) {
+                    optionItemSelectedDist = optionItem;
+                    widget.shipmentRequest.distributorName = optionItem.title;
+                    widget.shipmentRequest.distributorID = optionItem.id;
+                    setState(() {});
+                  },
+                ),
+              ),
+              InkWell(
+                  onTap: (){
+                    widget.goToDistributor();
+                  },
+                  child: Icon(Icons.add_circle , color: blue , size: 40,)),
+            ],
           ),
           SizedBox(
             height: 15,

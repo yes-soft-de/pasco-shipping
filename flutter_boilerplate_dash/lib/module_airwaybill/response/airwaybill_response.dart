@@ -44,16 +44,24 @@ class AirwaybillModel {
     this.carrierName,
     this.specificationName,
     this.shipmentID,
-    this.portName,
+
     this.location,
     this.weight,
+
+    this.exportLocationName,
+    this.exportPortName,
+    this.portName,
+
+    this.exportPortID,
+    this.portID,
+    this.exportLocationID,
 
 
     this.createdAt,
     this.updatedAt,
     this.updatedByUser,
     this.createdByUser,
-  required  this.used,this.exportCountryID,required this.exportCity,this.exportWarehouseName,this.exportWarehouseID,required this.exportCountryName
+  required  this.used,
   });
 
   int? id;
@@ -68,15 +76,16 @@ class AirwaybillModel {
   String? carrierName;
   String? specificationName;
   String? portName;
+  int? portID;
   String? location;
   String? weight;
-  String exportCity;
-  String exportCountryName;
+  String? exportPortName;
+  int? exportPortID;
+  String? exportLocationName;
+  int? exportLocationID;
 
   int? shipmentID;
-  int? exportCountryID;
-  int? exportWarehouseID;
-  String? exportWarehouseName;
+
 
 
 
@@ -92,7 +101,7 @@ class AirwaybillModel {
     id: json['id'],
     type: json['type'],
     status: json['status'],
-    airwaybillNumber:json['airwaybillNumber'] ,
+    airwaybillNumber:json['airwaybillNumber']??'' ,
     clientUserName: json['clientUserName'],
 
     subcontractName: json['subcontractName'],
@@ -102,15 +111,16 @@ class AirwaybillModel {
     specificationName: json['specificationName']??'',
     shipmentID: json['shipmentID'],
     used: json['used'],
-    location: json['location'],
+    exportLocationName: json['exportLocationName']??'',
+    location: json['location']??'',
     portName: json['portName'],
-    weight: json['weight'].toString(),
+    exportPortName: json['exportPortName'] ??'',
+    weight: json['weight'].toString() =='null' ? '0' : json['weight'].toString(),
 
-    exportCity: json['exportCity']??'',
-    exportCountryID: json['exportCountryID'] ??0,
-    exportCountryName: json['exportCountryName']??'',
-    exportWarehouseID: json['exportWarehouseID'] ??0,
-    exportWarehouseName: json['exportWarehouseName'] ??'',
+    portID: json['portID'] ?? 0,
+    exportLocationID: json['exportLocationID'] ??0,
+    exportPortID: json['exportPortID']??0,
+
 
 
     createdAt: DateTime.fromMillisecondsSinceEpoch(

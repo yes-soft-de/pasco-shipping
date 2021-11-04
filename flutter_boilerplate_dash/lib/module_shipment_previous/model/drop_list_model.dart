@@ -58,17 +58,17 @@ final List<Entry> holderTypeEx = <Entry>[
   ),
 ];
 
-final List<Entry> location = <Entry>[
-  Entry(
-      'Premera Local', 1,[]
-  ),
-  Entry(
-      'Jebel Ali', 1,[]
-  ),
-  Entry(
-      'Premeral Local & Jebel Ali', 1,[]
-  ),
-];
+// final List<Entry> location = <Entry>[
+//   Entry(
+//       'Premera Local', 1,[]
+//   ),
+//   Entry(
+//       'Jebel Ali', 1,[]
+//   ),
+//   Entry(
+//       'Premeral Local & Jebel Ali', 1,[]
+//   ),
+// ];
 final List<Entry> paymentType = <Entry>[
   Entry(
       'Cash', 0,[]
@@ -86,6 +86,23 @@ final List<Entry> shipmentLclFinance = <Entry>[
   ),
   Entry(
       'Uploading', 0,[Entry('uploading', 0, [])]
+  ),
+  Entry(
+      'Fork', 0,[Entry('fork', 0, [])]
+  ),
+  Entry(
+      'Pocketing', 0,[Entry('pocketing', 0, [])]
+  ),
+  Entry(
+      'Other', 0,[Entry('other', 0, [])]
+  ),
+];
+final List<Entry> shipmentFclFinance = <Entry>[
+  Entry(
+      'Delayed', 0,[Entry('delayed', 0, [])]
+  ),
+  Entry(
+      'Transporting', 0,[Entry('transporting', 0, [])]
   ),
   Entry(
       'Fork', 0,[Entry('fork', 0, [])]
@@ -184,5 +201,49 @@ final List<Entry> airwaybillFclFinance = <Entry>[
   ),
   Entry(
       'Other', 0,[Entry('other', 0, [])]
+  ),
+];
+final List<Entry> service = <Entry>[
+  Entry(
+      'تخليص جمركي-Customs Clearance', 0,[]
+  ),
+  Entry(
+      'LOGISTIC SERVICES & STORING MANAGEMENT', 0,[]
+  ),
+  Entry(
+      'IMPORT AND EXPORT', 0,[]
+  ),
+  Entry(
+      'CASH ON PURCHASE', 0,[]
+  ),
+  Entry(
+      'UNLOADING CHARGES', 0,[]
+  ),
+  Entry(
+      'LOADING CHARGES', 0,[]
+  ),
+  Entry(
+      'Air freight', 0,[]
+  ),
+  Entry(
+      'LCL Sea freight -شحن بحري مشترك', 0,[]
+  ),
+  Entry(
+     'شحن حاوية كاملة-FCL Sea freight', 0,[]
+  ),
+  Entry(
+     'Consignee', 0,[]
+  ),
+  Entry(
+     'Container providing', 0,[]
+  ),
+  Entry(
+     'Air waybill providing', 0,[]
+  ),
+  Entry(
+     'Travels providing', 0,[]
+  ),
+  Entry(
+     'Carrier', 0,[]
   ),
 ];

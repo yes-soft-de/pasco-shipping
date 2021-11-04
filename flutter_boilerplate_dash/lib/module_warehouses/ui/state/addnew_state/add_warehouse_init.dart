@@ -181,54 +181,48 @@ class _AddCountryInitState extends State<AddWarehouseInit> {
               ),
 
 
-              Visibility(
-                visible: selectedRadioType==2,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(children: [
-                        Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
-                        SizedBox(width: 5,),
-                        Text(S.of(context).subcontract , style: AppTextStyle.mediumBlackBold,)
-                      ],),
-                    ),
-                    SelectDropList(
-                      this.optionItemSelectedSub,
-                      this.dropListModelSubContract,
-                          (optionItem) {
-                        optionItemSelectedSub = optionItem;
-                        subID = optionItem.id;
-                        setState(() {});
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              Visibility(
-                visible: selectedRadioType==1,
-                child: Column(
+              Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(children: [
                       Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                       SizedBox(width: 5,),
-                      Text(S.of(context).proxies , style: AppTextStyle.mediumBlackBold,)
+                      Text(S.of(context).subcontract , style: AppTextStyle.mediumBlackBold,)
                     ],),
                   ),
                   SelectDropList(
-                    this.optionItemSelectedProxy,
-                    this.dropListModelProxy,
+                    this.optionItemSelectedSub,
+                    this.dropListModelSubContract,
                         (optionItem) {
-                      optionItemSelectedProxy = optionItem;
-                      proxyID = optionItem.id;
+                      optionItemSelectedSub = optionItem;
+                      subID = optionItem.id;
                       setState(() {});
                     },
                   ),
                 ],
-            ),
-              ) ,
+              ),
+              Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
+                    SizedBox(width: 5,),
+                    Text(S.of(context).proxies , style: AppTextStyle.mediumBlackBold,)
+                  ],),
+                ),
+                SelectDropList(
+                  this.optionItemSelectedProxy,
+                  this.dropListModelProxy,
+                      (optionItem) {
+                    optionItemSelectedProxy = optionItem;
+                    proxyID = optionItem.id;
+                    setState(() {});
+                  },
+                ),
+              ],
+            ) ,
 
 
               Padding(
