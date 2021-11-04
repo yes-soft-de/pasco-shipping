@@ -10,6 +10,8 @@ use App\Repository\UserEntityRepository;
 use App\Request\AdminCreateRequest;
 use App\Request\AdminProfileUpdateRequest;
 use App\Request\DeleteRequest;
+use App\Request\EmployeeProfileUpdateRequest;
+use App\Request\EmployeeRoleUpdateRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -106,6 +108,40 @@ class AdminManager
             $this->entityManager->clear();
 
             return $adminProfileEntity;
+        }
+    }
+
+    public function employeeProfileUpdateByDashboard(EmployeeProfileUpdateRequest $request)
+    {
+        $employeeProfileEntity = $this->adminProfileEntityRepository->getAdminProfileByUserID($request->getUserID());
+
+        if($employeeProfileEntity)
+        {
+            $employeeProfileEntity = $this->autoMapping->mapToObject(EmployeeProfileUpdateRequest::class, AdminProfileEntity::class, $request, $employeeProfileEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $employeeProfileEntity;
+        }
+    }
+
+    public function employeeRoleUpdateByDashboard(EmployeeRoleUpdateRequest $request)
+    {
+        $employeeUserEntity = $this->userRepository->find($request->getId());
+
+        if($employeeUserEntity)
+        {
+            $employeeUserEntity = $this->autoMapping->mapToObject(EmployeeRoleUpdateRequest::class, UserEntity::class, $request, $employeeUserEntity);
+
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+
+            return $employeeUserEntity;
+        }
+        else
+        {
+            return "No user record was found!";
         }
     }
 

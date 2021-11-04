@@ -44,6 +44,7 @@ class UserEntityRepository extends ServiceEntityRepository implements PasswordUp
         return $this->createQueryBuilder('user')
 
             ->select('user.id', 'user.userID')
+
             ->andWhere('user.userID=:userID')
             ->setParameter('userID', $userID)
 

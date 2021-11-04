@@ -410,7 +410,8 @@ class OrderShipmentEntityRepository extends ServiceEntityRepository
                 "adminProfile.image as orderUpdatedByUserImage", "productCategory.name as productCategoryName", "distributor.fullName as distributorName", "exportWarehouse.name as exportWarehouseName", "importWarehouse.name as importWarehouseName", "markEntity.markNumber", "subProductCategoryEntity.name as subProductCategoryName",
                 "CONCAT(productCategory.name, ' / ', subProductCategoryEntity.name) as categoriesNames")
 
-            ->andWhere("shipmentOrder.status = 'accepted'")
+            ->andWhere("shipmentOrder.status = :status")
+            ->setParameter('status', $request->getOrderStatus())
             
             ->leftJoin(
                 ShipmentStatusEntity::class,

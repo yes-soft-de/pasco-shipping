@@ -4,6 +4,8 @@ namespace App\Response;
 
 class OrderShipmentCreateResponse
 {
+    public $id;
+
     public $clientUserID;
 
     public $transportationType;

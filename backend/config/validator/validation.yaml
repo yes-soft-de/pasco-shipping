@@ -706,4 +706,11 @@ App\Request\ContainerSpecificationPriceCreateRequest:
       - NotBlank: ~
     createdBy:
       - NotBlank: ~
+
+App\Request\EmployeeRoleUpdateRequest:
+  properties:
+    id:
+      - NotBlank: ~
+    roles:
+      - NotBlank: ~
       
