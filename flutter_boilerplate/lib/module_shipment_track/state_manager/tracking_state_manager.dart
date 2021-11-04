@@ -15,6 +15,7 @@ class TrackingStateManager {
     _stateSubject.add(LoadingTrackingState());
     _trackingService.getTrackDetails(number).then((model) {
       if(model != null) {
+        print(model);
         _stateSubject.add(FetchedTrackingSuccessfullyState(model));
       }else {
         _stateSubject.add(ErrorTrackState('You entered the wrong number'));

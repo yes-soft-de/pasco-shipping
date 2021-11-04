@@ -36,6 +36,7 @@ class MyShipment {
     this.trackNumber,
     this.shipmentStatus,
     this.productCategoryName,
+    this.shipmentId
   });
 
   int? id;
@@ -45,6 +46,7 @@ class MyShipment {
   String? productCategoryName;
   factory MyShipment.fromJson(Map<String, dynamic> json) => MyShipment(
     id: json['id'],
+    shipmentId: json['shipmentID'],
     trackNumber: json['trackNumber'],
     shipmentStatus: json['shipmentStatus'] ?? json['status'],
     productCategoryName: json['productCategoryName'],

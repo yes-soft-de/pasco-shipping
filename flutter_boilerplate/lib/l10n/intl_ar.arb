@@ -174,5 +174,9 @@
   "carrier": "ناقل",
   "ourWarehouse": "مستودعاتنا",
   "name": "الاسم",
-  "holder": "الحاملات"
+  "holder": "الحاملات",
+  "shipmentID": "رقم الشحنة",
+
+  "importHarbor": "ميناء الاستراد",
+  "exportHarbor": "ميناء التصدير"
 }

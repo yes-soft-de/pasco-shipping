@@ -20,7 +20,8 @@ class SubcontractRepository {
     // await _authService.refreshToken();
     var token = await _authService.getToken();
     try {
-      var response = await _apiClient.get(Urls.SUB_CONTRACTS,
+      SubcontractRequest  request =SubcontractRequest(serviceName: 'Carrier');
+      var response = await _apiClient.post(Urls.SUB_CONTRACTS,request.toJson(),
           headers: {'Authorization': 'Bearer $token'});
       SubcontractResponse markResponse = SubcontractResponse.fromJson(
           response!);

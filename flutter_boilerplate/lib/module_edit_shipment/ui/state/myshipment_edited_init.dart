@@ -29,7 +29,8 @@ class ReviewShipmentEditedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScrollController controller = ScrollController();
-
+print(shipment.extraSpecification);
+print('TIZ');
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -228,7 +229,17 @@ class ReviewShipmentEditedScreen extends StatelessWidget {
                     style: basic14text,
                   )),
             ),
-
+            Expanded(
+              child: ListTile(
+                  title: Text(
+                    S.of(context).extraSpecification,
+                    style: white18text,
+                  ),
+                  subtitle: Text(
+                    shipment.extraSpecification,
+                    style: basic14text,
+                  )),
+            ),
 
           ],
         ),
@@ -250,15 +261,7 @@ class ReviewShipmentEditedScreen extends StatelessWidget {
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
           ) :Container(),
-        ListTile(
-            title: Text(
-              S.of(context).extraSpecification,
-              style: white18text,
-            ),
-            subtitle: Text(
-              shipment.extraSpecification,
-              style: basic14text,
-            )),
+
 
 
         Padding(

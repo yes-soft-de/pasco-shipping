@@ -350,7 +350,7 @@ class _TrackingSuccessfullyScreenState extends State<TrackingSuccessfullyScreen>
         ShipmentStatus(1, S.of(context).arrived, '20 min ago', false, true),
         ShipmentStatus(1,S.of(context).delivered, '20 min ago', false, true),
       ];
-    }else if(widget.model.shipmentStatus=='stored') {
+    }else if(widget.model.shipmentStatus=='received') {
       items = [
         ShipmentStatus(1, S.of(context).requested, widget.model.log![0].createdAt.toString(), true, false),
         ShipmentStatus(1, S.of(context).accepted, widget.model.log![1].createdAt.toString(), true, false),

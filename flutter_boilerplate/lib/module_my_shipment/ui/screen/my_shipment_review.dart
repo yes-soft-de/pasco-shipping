@@ -6,6 +6,7 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_edit_shipment/ui/screen/image_full_screen.dart';
 import 'package:pasco_shipping/module_my_shipment/response/my_history_shipment_response.dart';
 import 'package:pasco_shipping/module_shipment_request/request_routes.dart';
+import 'package:pasco_shipping/module_shipment_request/ui/widget/holder_request_card.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
@@ -36,6 +37,9 @@ class ReviewShipmentScreen extends StatelessWidget {
                 Expanded(child:
                   ListTile(title: Text(S.of(context).shippingWay , style: white18text,),
                     subtitle: Text(shipment.transportationType?? '' ,style: basic14text,))),
+                Expanded(child:
+                ListTile(title: Text(S.of(context).shipmentID , style: white18text,),
+                    subtitle: Text(shipment.shipmentId.toString() ,style: basic14text,))),
               ],
             ),
             Row(
@@ -59,7 +63,7 @@ class ReviewShipmentScreen extends StatelessWidget {
             Row(
               children: [
                 Expanded(child: ListTile(title: Text(S.of(context).quantity , style: white18text,), subtitle: Text(shipment.quantity.toString() ,style: basic14text,))),
-                Expanded(child: ListTile(title: Text(S.of(context).holderCount , style: white18text,), subtitle: Text( shipment.holderCount.toString(),style: basic14text,))),
+                Expanded(child: ListTile(title: Text(S.of(context).trackNumber , style: white18text,), subtitle: Text( shipment.trackNumber.toString(),style: basic14text,))),
               ],
             ),
             Row(
@@ -82,9 +86,19 @@ class ReviewShipmentScreen extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(15.0),
               child: Text(S.of(context).holder ,style: white18text),
             ),
+            shipment.holders.isEmpty?Container() :
+                ListView.builder(itemBuilder: (context ,index){
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RequestHolderCard(requestHolder: shipment.holders[index],),
+                  );
+                },
+                  shrinkWrap: true,
+                  itemCount: shipment.holders.length,
+                ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(S.of(context).attached ,style: white18text),

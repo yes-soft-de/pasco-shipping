@@ -95,6 +95,15 @@ class ShipmentActiveCard extends StatelessWidget {
                         ),
                       ],
                     ),
+                    Row(
+                      children: [
+                        Text(S.of(context).shipmentID+': ' , style: white16text,),
+                        Text(
+                          myShipment.shipmentId.toString(),
+                          style: basic14text,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

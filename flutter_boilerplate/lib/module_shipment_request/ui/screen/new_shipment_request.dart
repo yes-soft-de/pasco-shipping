@@ -145,10 +145,7 @@ class _NewShipmentState extends State<NewShipment> {
                     });
                   }, (){
                         Navigator.pushNamed(context, MarkRoutes.mark).then((value) => {
-                        setState(() {
-                        activeStep = 0;
-                        _optionsStreamController.add(activeStep);
-                        })
+                          widget._stateManger.getSecondOption(_shipmentRequestModel.transportationType, _shipmentRequestModel.isExternalWarehouse)
                         });
                   });
                 } else {
@@ -156,10 +153,7 @@ class _NewShipmentState extends State<NewShipment> {
                       _shipmentRequestModel,
                       goReceiverPage: (){
                         Navigator.pushNamed(context, ReceiverRoutes.Receiver).then((value) => {
-                          setState(() {
-                            activeStep = 0;
-                            _optionsStreamController.add(activeStep);
-                          })
+                          widget._stateManger.getThirdOption()
                         });
                       },
                       stateManger: widget._stateManger,

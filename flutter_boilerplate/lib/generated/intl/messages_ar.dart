@@ -64,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterShipmentNumber":
             MessageLookupByLibrary.simpleMessage("أدخل رقم الشحنة"),
         "errorHappened": MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
+        "exportHarbor": MessageLookupByLibrary.simpleMessage("ميناء التصدير"),
         "externalWarehouseInfo":
             MessageLookupByLibrary.simpleMessage("معلومات المستودع الخارجي: "),
         "extraSpecification":
@@ -79,6 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "iHaveAnAccount": MessageLookupByLibrary.simpleMessage("لدي حساب"),
         "image": MessageLookupByLibrary.simpleMessage("صورة:"),
+        "importHarbor": MessageLookupByLibrary.simpleMessage("ميناء الاستراد"),
         "importWarehouseCity":
             MessageLookupByLibrary.simpleMessage("مدينة الإستلام: "),
         "importantNote": MessageLookupByLibrary.simpleMessage("ملاحظة مهمة"),
@@ -165,6 +167,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "shipment": MessageLookupByLibrary.simpleMessage("الشحنات"),
         "shipmentAddSuccessfully":
             MessageLookupByLibrary.simpleMessage("تمت إضافة شحنتك بنجاح"),
+        "shipmentID": MessageLookupByLibrary.simpleMessage("رقم الشحنة"),
         "shipmentInfo": MessageLookupByLibrary.simpleMessage("معلومات الشحنة"),
         "shippingFrom": MessageLookupByLibrary.simpleMessage("شحن من:"),
         "shippingTo": MessageLookupByLibrary.simpleMessage("شحن إلى:"),

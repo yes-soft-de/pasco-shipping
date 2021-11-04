@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'dart:convert';
 class ShipmentTempRequest {
   late int _exportCountryID;
   late String _exportCountryName;
@@ -54,9 +51,9 @@ class ShipmentTempRequest {
         "receiverPhoneNumber": receiverPhoneNumber,
         "paymentTime": paymentTime,
         "exportWarehouseID": exportWarehouseID,
-        "markID": markId,
-        "vehicleIdentificationNumber": vehicleIdentificationNumber,
-        "extraSpecification": extraSpecification,
+        'markID': markId,
+        'vehicleIdentificationNumber': vehicleIdentificationNumber,
+        'extraSpecification': extraSpecification,
         'images':imageFilePath == null ?[]: imageFilePath!,
     'exportWarehouseName':exportWarehouseName,
     'markName':markName,
@@ -93,7 +90,7 @@ class ShipmentTempRequest {
 
 
           json['vehicleIdentificationNumber']??'',
-          json['extraSpecification']??'',
+          json['extraSpecification'],
           json['holderType']??'',
           json['holderCount']??1,
           List<String>.from(json['images'].map((x) =>(x))),
@@ -276,9 +273,11 @@ class RequestedHolders{
   int? specificationID;
   int? carrierID;
   int? portID;
+  int? exportPortID;
   String? notes;
   String? name;
   String? portName;
+  String? exportPortName;
   String? carrierName;
 
   RequestedHolders({
@@ -288,7 +287,9 @@ class RequestedHolders{
     this.carrierID,
     this.notes,
     this.portName,
-    this.carrierName
+    this.carrierName,
+    this.exportPortID,
+    this.exportPortName
   });
 
   Map<String, dynamic> toJson() => {
@@ -296,8 +297,10 @@ class RequestedHolders{
     'notes': notes??'',
     'carrierID':carrierID??0,
     'portID':portID??0,
+    'exportPortID':exportPortID??0,
     'specificationName':name??'',
     'portName':portName??'',
+    'exportPortName':exportPortName??'',
     'carrierName':carrierName??''
   };
   factory RequestedHolders.fromJson(Map<String, dynamic> json) =>
@@ -308,6 +311,8 @@ class RequestedHolders{
           portName: json['portName']??'',
         specificationID: json['specificationID']??0,
         portID: json['portID']??0,
-        carrierID: json['carrierID']??0
+        carrierID: json['carrierID']??0,
+        exportPortID:json['exportPortID']??0,
+        exportPortName: json['exportPortName']??''
       );
 }
