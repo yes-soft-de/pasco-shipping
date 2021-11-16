@@ -39,7 +39,7 @@ class _AddNewCountryState extends State<AddNewDistributor> {
                 child: Screen()),
           ),
         ),
-        title: S.of(context).add
+        title: S.of(context).addNewDistributors
     );
   }
 

@@ -90,8 +90,21 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
             ),
           ),
           Divider(color: Colors.grey[300],thickness: 2,),
-
-
+          Row(
+            children: [
+              Expanded(
+                  child: ListTile(
+                      title: Text(
+                        S.of(context).shipmentID,
+                        style: AppTextStyle.mediumBlack,
+                      ),
+                      subtitle: Text(
+                        widget.shipment.shipmentId.toString(),
+                        style: AppTextStyle.smallBlueBold,
+                      ))),
+            ],
+          ),
+          Divider(color: Colors.grey[300],thickness: 2,),
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Row(

@@ -384,8 +384,11 @@
   "remainedQuantity": "Remained Quantity",
   "more": "More",
 
-  "localShipmentReport": "Local Shipment Report",
-  "externalShipmentReport": "External Shipment Report",
+  "localAcceptedShipmentReport": "Local accepted shipment report",
+  "externalAcceptedShipmentReport": "External accepted shipment report",
+
+  "localRefusedShipmentReport": "Local refused shipment report",
+  "externalRefusedShipmentReport": "External refused shipment report",
 
   "operationCompletedSuccessfully": "Operation completed successfully",
 
@@ -441,6 +444,32 @@
   "serviceExists": "This service already exists",
   "serviceAdd": "Service add successfully",
 
-  "external": "external"
+  "external": "external",
+  "shipmentID": "shipmentID",
+
+  "addNewContainer": "Add new container",
+  "addNewAirwaybill": "Add new air waybill",
+  "addNewTravel": "Add new travel",
+  "addNewContainerType": "add new container type",
+  "addNewCountries": "Add new countries",
+  "addNewUnit": "Add new unit",
+  "addNewCategory": "Add new category",
+  "addNewSubCategory": "Add new sub category",
+  "addNewAgent": "Add new agent",
+  "addNewWarehouse": "Add new warehouse",
+  "addNewHarbour": "Add new harbour",
+  "addNewSubContract": "Add new subContract",
+  "addNewService": "Add new service",
+  "addNewDistributors": "Add new distributors",
+  "addNewShipper": "Add new shipper",
+  "addNewLinePrice": "Add new line Price",
+  "addNewContainerPrice": "Add new container price",
+  "addNewClient": "Add new client",
+
+  "refusedShipment": "Refuse Shipment",
+  "refusedShipmentSuccessfully": "Refused shipment successfully"
+
+
+
 
 }

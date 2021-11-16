@@ -38,6 +38,34 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("يجب اختيار الموائن والموقع"),
         "addCostConfirm":
             MessageLookupByLibrary.simpleMessage("هل تريد اضافة هذه المصاريف؟"),
+        "addNewAgent": MessageLookupByLibrary.simpleMessage("إضافة وكيل"),
+        "addNewAirwaybill":
+            MessageLookupByLibrary.simpleMessage("إضافة بوليصة شحن"),
+        "addNewCategory":
+            MessageLookupByLibrary.simpleMessage("إضافة فئة رئيسية"),
+        "addNewClient": MessageLookupByLibrary.simpleMessage("إضافة عميل"),
+        "addNewContainer":
+            MessageLookupByLibrary.simpleMessage("اضافة حالمة جديدة"),
+        "addNewContainerPrice":
+            MessageLookupByLibrary.simpleMessage("إضافة سعر حالمة"),
+        "addNewContainerType":
+            MessageLookupByLibrary.simpleMessage("اضافة نوع حاملة"),
+        "addNewCountries": MessageLookupByLibrary.simpleMessage("إضافة دولة"),
+        "addNewDistributors":
+            MessageLookupByLibrary.simpleMessage("إضافة موزع جديد"),
+        "addNewHarbour": MessageLookupByLibrary.simpleMessage("إضافة ميناء"),
+        "addNewLinePrice":
+            MessageLookupByLibrary.simpleMessage("إضافة سعر خط شحن"),
+        "addNewService":
+            MessageLookupByLibrary.simpleMessage("إضافة خدمة جديدة"),
+        "addNewShipper": MessageLookupByLibrary.simpleMessage("إضافة شاحن"),
+        "addNewSubCategory":
+            MessageLookupByLibrary.simpleMessage("إضافة فئة فرعيه"),
+        "addNewSubContract":
+            MessageLookupByLibrary.simpleMessage("إضافة سبكونتراكت"),
+        "addNewTravel": MessageLookupByLibrary.simpleMessage("إضافة رجلة"),
+        "addNewUnit": MessageLookupByLibrary.simpleMessage("إضافة وحدة"),
+        "addNewWarehouse": MessageLookupByLibrary.simpleMessage("إضافة مستودع"),
         "addedSuccessfully":
             MessageLookupByLibrary.simpleMessage("تم إضافة العنصر بنجاح"),
         "address": MessageLookupByLibrary.simpleMessage("العنوان"),
@@ -180,8 +208,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "extensionalInfo":
             MessageLookupByLibrary.simpleMessage("معلومات موسعة"),
         "external": MessageLookupByLibrary.simpleMessage("خارجي"),
-        "externalShipmentReport":
-            MessageLookupByLibrary.simpleMessage("تقارير الشحنات خارجي"),
+        "externalAcceptedShipmentReport": MessageLookupByLibrary.simpleMessage(
+            "تقارير الشحنات المقبولة خارجي"),
+        "externalRefusedShipmentReport": MessageLookupByLibrary.simpleMessage(
+            "تقارير الشحنات المرفوضة خارجي"),
         "externalWarehouse":
             MessageLookupByLibrary.simpleMessage("مستودع خارجي: "),
         "extraSpecification":
@@ -235,8 +265,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "lengthInMeter": MessageLookupByLibrary.simpleMessage("الطول بالمتر: "),
         "loading": MessageLookupByLibrary.simpleMessage("جار التحميل"),
         "local": MessageLookupByLibrary.simpleMessage("محلي"),
-        "localShipmentReport":
-            MessageLookupByLibrary.simpleMessage("تقارير الشحنات داخي"),
+        "localAcceptedShipmentReport": MessageLookupByLibrary.simpleMessage(
+            "تقاريرالشحنات المقبولة داخلي"),
+        "localRefusedShipmentReport": MessageLookupByLibrary.simpleMessage(
+            "تقارير الشحنات المرفوضة داخلي"),
         "location": MessageLookupByLibrary.simpleMessage("الموقع"),
         "loggedIn":
             MessageLookupByLibrary.simpleMessage("تم تسجيل الدخول بنجاح"),
@@ -313,6 +345,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "receiver": MessageLookupByLibrary.simpleMessage("المستلمون"),
         "receiverInfo":
             MessageLookupByLibrary.simpleMessage("معلومات المستلم: "),
+        "refusedShipment":
+            MessageLookupByLibrary.simpleMessage("الشحنات المرفوضة"),
+        "refusedShipmentSuccessfully":
+            MessageLookupByLibrary.simpleMessage("تم رفض الشحنة بنجاح"),
         "registerSuccess":
             MessageLookupByLibrary.simpleMessage("تم تسجيل حسابك بنجاح"),
         "reject": MessageLookupByLibrary.simpleMessage("رفض"),
@@ -366,6 +402,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "shipmentDelivered":
             MessageLookupByLibrary.simpleMessage("الشحنات المُسلمة الى الزبون"),
         "shipmentFinance": MessageLookupByLibrary.simpleMessage("مصاريف شحنة"),
+        "shipmentID": MessageLookupByLibrary.simpleMessage("رقم الشحنة"),
         "shipmentInfo": MessageLookupByLibrary.simpleMessage("معلومات الشحنة"),
         "shipmentInformation":
             MessageLookupByLibrary.simpleMessage("معلومات الشحنات"),

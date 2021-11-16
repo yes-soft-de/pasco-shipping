@@ -267,14 +267,14 @@ class AppMenu extends ConsumerWidget {
                                   onTap: () {
                                     AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: true,acceptedUntilCleared: true);
                                     Navigator.pushNamed(
-                                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':false});
+                                        context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':false,'external':'external'});
                                   }),
                               ListTile(
                                   title: new Text(S.of(context).inLocalWarehouse),
                                   onTap: () {
                                     AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false,acceptedUntilCleared: true);
                                     Navigator.pushNamed(
-                                        context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':false});
+                                        context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':false,'external':'local'});
                                   }),
                             ],
                           ),
@@ -605,7 +605,7 @@ class AppMenu extends ConsumerWidget {
                 child: Text(S.of(context).reports ,style: AppTextStyle.mediumDeepGrayBold,),
               ),
               ExpansionTile(
-                title: new Text(S.of(context).localShipmentReport),
+                title: new Text(S.of(context).localAcceptedShipmentReport),
                 leading: Icon(Icons.task_alt),
                 children: <Widget>[
                   ListTile(
@@ -613,7 +613,7 @@ class AppMenu extends ConsumerWidget {
                       onTap: () {
                         AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false,acceptedUntilCleared: true);
                         Navigator.pushNamed(
-                            context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':true});
+                            context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':true,'external':'local'});
                       }),
                   ListTile(
                       title:Text(
@@ -622,13 +622,13 @@ class AppMenu extends ConsumerWidget {
                       onTap: () {
                         AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false,acceptedUntilCleared: true);
                         Navigator.pushNamed(
-                            context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':true});
+                            context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':true,'external':'local'});
                       }),
                 ],
               ),
 
               ExpansionTile(
-                title: new Text(S.of(context).externalShipmentReport),
+                title: new Text(S.of(context).externalAcceptedShipmentReport),
                 leading: Icon(Icons.task_sharp),
                 children: <Widget>[
                   ListTile(
@@ -636,7 +636,7 @@ class AppMenu extends ConsumerWidget {
                       onTap: () {
                         AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: true,acceptedUntilCleared: false);
                         Navigator.pushNamed(
-                            context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':true});
+                            context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':true,'external':'external'});
                       }),
                   ListTile(
                       title:Text(
@@ -645,17 +645,65 @@ class AppMenu extends ConsumerWidget {
                       onTap: () {
                         AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: true,acceptedUntilCleared: false);
                         Navigator.pushNamed(
-                            context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':true});
+                            context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':true,'external':'external'});
                       }),
                 ],
               ),
               Divider(
                 color: Colors.grey,
               ),
+
+              ExpansionTile(
+                title: new Text(S.of(context).localRefusedShipmentReport),
+                leading: Icon(Icons.task_alt),
+                children: <Widget>[
+                  ListTile(
+                      title:Text(S.of(context).seaShipment),
+                      onTap: () {
+                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false,acceptedUntilCleared: true,orderStatus: 'refused');
+                        Navigator.pushNamed(
+                            context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':true,'external':'local'});
+                      }),
+                  ListTile(
+                      title:Text(
+                          S.of(context).airShipment
+                      ),
+                      onTap: () {
+                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false,acceptedUntilCleared: true,orderStatus: 'refused');
+                        Navigator.pushNamed(
+                            context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':true,'external':'local'});
+                      }),
+                ],
+              ),
+
+              ExpansionTile(
+                title: new Text(S.of(context).externalRefusedShipmentReport),
+                leading: Icon(Icons.task_sharp),
+                children: <Widget>[
+                  ListTile(
+                      title:Text(S.of(context).seaShipment),
+                      onTap: () {
+                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: true,acceptedUntilCleared: false,orderStatus: 'refused');
+                        Navigator.pushNamed(
+                            context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':true,'external':'external'});
+                      }),
+                  ListTile(
+                      title:Text(
+                          S.of(context).airShipment
+                      ),
+                      onTap: () {
+                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: true,acceptedUntilCleared: false,orderStatus: 'refused');
+                        Navigator.pushNamed(
+                            context, AcceptedShipmentRoutes.VIEW_ALL  ,arguments: {'filterRequest' : re,'withFilter':true,'external':'external'});
+                      }),
+                ],
+              ),
             ],
           ) ,
               // :Container(),
-
+          Divider(
+            color: Colors.grey,
+          ),
           //invoices
           // (ListEquality().equals ( role , EmployeeRoleName['Admin Report']) || ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']))?
           Column(

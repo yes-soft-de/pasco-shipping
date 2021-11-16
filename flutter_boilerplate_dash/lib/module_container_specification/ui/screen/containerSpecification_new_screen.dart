@@ -37,7 +37,7 @@ class _AddNewCountryState extends State<AddNewContainerSpecification> {
                         maxWidth: 600
                     ),
                     child:  Screen(   )))),
-        title: S.of(context).add
+        title: S.of(context).addNewContainerType
     );
   }
 

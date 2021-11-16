@@ -44,7 +44,7 @@ class _AddNewCountryState extends State<AddNewTravel> {
                 child: Screen()),
           ),
         ),
-        title: S.of(context).add
+        title: S.of(context).addNewTravel
     );
   }
 

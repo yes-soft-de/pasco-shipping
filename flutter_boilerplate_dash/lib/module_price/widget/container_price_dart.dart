@@ -183,7 +183,7 @@ class ContainerPriceCard extends StatelessWidget {
                         ),
                         Expanded(
                           child: Text(
-                            model.price ??'',
+                            model.price.toString() +' USD',
                             style: AppTextStyle.mediumBlueBold,
                           ),
                         )],

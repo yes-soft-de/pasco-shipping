@@ -42,7 +42,7 @@ class _AddNewCountryState extends State<AddNewLinesPrice> {
                 child: Screen()),
           ),
         ),
-        title: S.of(context).add
+        title: S.of(context).addNewLinePrice
     );
   }
 

@@ -38,7 +38,7 @@ class _AddNewCountryState extends State<AddNewProxy> {
                 child: Screen()),
           ),
         ),
-        title: S.of(context).add
+        title: S.of(context).addNewAgent
     );
   }
 
