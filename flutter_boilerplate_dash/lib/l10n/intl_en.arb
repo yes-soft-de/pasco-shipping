@@ -465,6 +465,8 @@
   "addNewLinePrice": "Add new line Price",
   "addNewContainerPrice": "Add new container price",
   "addNewClient": "Add new client",
+  "addNewEmployee": "Add new employee",
+
 
   "refusedShipment": "Refuse Shipment",
   "refusedShipmentSuccessfully": "Refused shipment successfully"

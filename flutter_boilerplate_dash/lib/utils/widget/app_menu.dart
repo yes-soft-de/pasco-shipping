@@ -660,7 +660,7 @@ class AppMenu extends ConsumerWidget {
                   ListTile(
                       title:Text(S.of(context).seaShipment),
                       onTap: () {
-                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false,acceptedUntilCleared: true,orderStatus: 'refused');
+                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'sea',isExternalWarehouse: false,acceptedUntilCleared: false,orderStatus: 'refused');
                         Navigator.pushNamed(
                             context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':true,'external':'local'});
                       }),
@@ -669,7 +669,7 @@ class AppMenu extends ConsumerWidget {
                           S.of(context).airShipment
                       ),
                       onTap: () {
-                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false,acceptedUntilCleared: true,orderStatus: 'refused');
+                        AcceptedShipmentFilterRequest re = AcceptedShipmentFilterRequest(transportationType: 'air',isExternalWarehouse: false,acceptedUntilCleared: false,orderStatus: 'refused');
                         Navigator.pushNamed(
                             context, AcceptedShipmentRoutes.SELECT_WAREHOUSE  ,arguments: {'filterRequest' : re,'withFilter':true,'external':'local'});
                       }),

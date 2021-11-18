@@ -47,12 +47,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "addNewContainer":
             MessageLookupByLibrary.simpleMessage("اضافة حالمة جديدة"),
         "addNewContainerPrice":
-            MessageLookupByLibrary.simpleMessage("إضافة سعر حالمة"),
+            MessageLookupByLibrary.simpleMessage("إضافة سعر حاملة"),
         "addNewContainerType":
             MessageLookupByLibrary.simpleMessage("اضافة نوع حاملة"),
         "addNewCountries": MessageLookupByLibrary.simpleMessage("إضافة دولة"),
         "addNewDistributors":
             MessageLookupByLibrary.simpleMessage("إضافة موزع جديد"),
+        "addNewEmployee":
+            MessageLookupByLibrary.simpleMessage("إضافة موظف جديد"),
         "addNewHarbour": MessageLookupByLibrary.simpleMessage("إضافة ميناء"),
         "addNewLinePrice":
             MessageLookupByLibrary.simpleMessage("إضافة سعر خط شحن"),
@@ -62,8 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "addNewSubCategory":
             MessageLookupByLibrary.simpleMessage("إضافة فئة فرعيه"),
         "addNewSubContract":
-            MessageLookupByLibrary.simpleMessage("إضافة سبكونتراكت"),
-        "addNewTravel": MessageLookupByLibrary.simpleMessage("إضافة رجلة"),
+            MessageLookupByLibrary.simpleMessage("إضافة مقاول فرعي"),
+        "addNewTravel": MessageLookupByLibrary.simpleMessage("إضافة رحلة"),
         "addNewUnit": MessageLookupByLibrary.simpleMessage("إضافة وحدة"),
         "addNewWarehouse": MessageLookupByLibrary.simpleMessage("إضافة مستودع"),
         "addedSuccessfully":

@@ -41,7 +41,7 @@ class _AddNewCountryState extends State<AddNewSubProduct> {
                 child: Screen()),
           ),
         ),
-        title: S.of(context).add
+        title: S.of(context).addNewSubCategory
     );
   }
 

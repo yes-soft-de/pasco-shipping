@@ -3800,6 +3800,16 @@ class S {
     );
   }
 
+  /// `Add new employee`
+  String get addNewEmployee {
+    return Intl.message(
+      'Add new employee',
+      name: 'addNewEmployee',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Refuse Shipment`
   String get refusedShipment {
     return Intl.message(

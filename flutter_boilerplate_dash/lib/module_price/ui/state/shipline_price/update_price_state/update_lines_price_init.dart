@@ -158,6 +158,7 @@ class _AddCountryInitState extends State<UpdateShippingLinePriceInit> {
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: S.of(context).number,
+                      suffix: Text('USD',style: TextStyle(color: Colors.blue),),
                     ),
                     controller: oneKiloPrice,
                   ),
@@ -196,6 +197,7 @@ class _AddCountryInitState extends State<UpdateShippingLinePriceInit> {
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: S.of(context).number,
+                      suffix: Text('USD',style: TextStyle(color: Colors.blue),),
                     ),
                     controller: oneCPMPrice,
                   ),

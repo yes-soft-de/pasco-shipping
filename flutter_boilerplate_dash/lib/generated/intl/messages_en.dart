@@ -54,6 +54,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Add new countries"),
         "addNewDistributors":
             MessageLookupByLibrary.simpleMessage("Add new distributors"),
+        "addNewEmployee":
+            MessageLookupByLibrary.simpleMessage("Add new employee"),
         "addNewHarbour":
             MessageLookupByLibrary.simpleMessage("Add new harbour"),
         "addNewLinePrice":

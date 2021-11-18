@@ -1,10 +1,10 @@
 class Urls {
-  static const String DOMAIN = 'http://159.89.13.229/';
-  static const String BASE_API = 'http://159.89.13.229/';
+  // static const String DOMAIN = 'http://159.89.13.229/';
+  // static const String BASE_API = 'http://159.89.13.229/';
 
 //new
-//   static const String DOMAIN = 'http://165.22.68.54/';
-//   static const String BASE_API = 'http://165.22.68.54/';
+  static const String DOMAIN = 'http://165.22.68.54/';
+  static const String BASE_API = 'http://165.22.68.54/';
 
   static const String IMAGES_ROOT = DOMAIN + '/upload/';
 
