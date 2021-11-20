@@ -87,7 +87,7 @@ class AdminService implements AdminServiceInterface
                 $employee['image'] = $this->params . $employee['image'];
             }
 
-            $employeesResponse[] = $this->autoMapping->map('array', AdminGetResponse::class, $employee);
+            $employeesResponse[] = $this->autoMapping->map('array', EmployeeGetResponse::class, $employee);
         }
 
         return $employeesResponse;
