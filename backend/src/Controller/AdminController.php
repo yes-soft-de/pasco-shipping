@@ -319,7 +319,6 @@ class AdminController extends BaseController
     /**
      * @Route("adminprofile", name="getAdminProfileByUserID", methods={"GET"})
      *
-     *
      * @OA\Tag(name="Admin")
      *
      * @OA\Parameter(
