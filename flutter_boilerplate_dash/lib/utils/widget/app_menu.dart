@@ -1221,12 +1221,13 @@ class AppMenu extends ConsumerWidget {
                         onTap: () {
                           selectPage(context, ref, EmployeeRoutes.VIEW_ALL);
                         }),
-                    (ListEquality().equals ( role , EmployeeRoleName['HR employee']) ||ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']) )?
+//                    (ListEquality().equals ( role , EmployeeRoleName['HR employee']) ||ListEquality().equals ( role , EmployeeRoleName['Super Admin'])|| ListEquality().equals ( role , EmployeeRoleName['Admin']) || ListEquality().equals ( role , EmployeeRoleName['Super employee']) )?
                     ListTile(
                         title: new Text(S.of(context).add),
                         onTap: () {
                           selectPage(context, ref, EmployeeRoutes.ADD_NEW);
-                        }) :Container(),
+                        })
+//                        :Container(),
                   ],
                 ),
               ),
