@@ -10,6 +10,7 @@ import 'package:pasco_shipping/module_mark/response/mark_response.dart';
 import 'package:pasco_shipping/module_receiver/response/reciver_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 import 'package:pasco_shipping/module_shipment_previous/model/drop_list_model.dart';
 import 'package:pasco_shipping/module_shipment_request/presistance/shipment_prefs_helper.dart';
@@ -29,24 +30,29 @@ class ThirdOptionsSuccessfully extends StatefulWidget {
   final Function goToReceiver;
   final Function goToDistributor;
   final Function onRequest;
-  const ThirdOptionsSuccessfully({required this.shipmentRequest,required this.goBackStep,required this.distributors, required this.marks,required this.onRequest,required this.goToMark,required this.receiver,required this.goToReceiver,required this.goToDistributor});
+  const ThirdOptionsSuccessfully(
+      {required this.shipmentRequest,
+      required this.goBackStep,
+      required this.distributors,
+      required this.marks,
+      required this.onRequest,
+      required this.goToMark,
+      required this.receiver,
+      required this.goToReceiver,
+      required this.goToDistributor});
 
   @override
   _ThirdOptionsState createState() => _ThirdOptionsState();
 }
 
 class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
-
-
   late DropListModel dropListModelDist;
 
   late DropListModel dropListModelMarks;
   late DropListModel dropListModelReceiver;
 
-
   late String vehicle;
   late String extra;
-
 
   late Entry optionItemSelectedDist;
   late Entry optionItemSelectedMarks;
@@ -55,15 +61,19 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
   late List<Entry> marksEntry;
   late List<Entry> distrbutorEntry;
   late List<Entry> receiverEntry;
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController vehicleController= TextEditingController();
+
   @override
   void initState() {
     super.initState();
-    marksEntry= <Entry>[];
+    marksEntry = <Entry>[];
     distrbutorEntry = <Entry>[];
     receiverEntry = <Entry>[];
 
     if (widget.shipmentRequest.vehicleIdentificationNumber.isNotEmpty) {
       vehicle = widget.shipmentRequest.vehicleIdentificationNumber;
+      vehicleController..text = vehicle;
     } else {
       vehicle = '123...';
     }
@@ -73,44 +83,47 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
     } else {
       extra = 'Text...';
     }
-    if (widget.shipmentRequest.markId !=0) {
-      optionItemSelectedMarks = Entry(widget.shipmentRequest.markName, widget.shipmentRequest.markId, []);
+    if (widget.shipmentRequest.markId != 0) {
+      optionItemSelectedMarks = Entry(
+          widget.shipmentRequest.markName, widget.shipmentRequest.markId, []);
     } else {
       optionItemSelectedMarks = Entry('choose', 0, []);
     }
 
-    if (widget.shipmentRequest.receiverID !=0) {
-      optionItemSelectedReceiver = Entry(widget.shipmentRequest.receiverName, widget.shipmentRequest.receiverID, []);
+    if (widget.shipmentRequest.receiverID != 0) {
+      optionItemSelectedReceiver = Entry(widget.shipmentRequest.receiverName,
+          widget.shipmentRequest.receiverID, []);
     } else {
       optionItemSelectedReceiver = Entry('choose', 0, []);
     }
 
-    if (widget.shipmentRequest.distributorID !=0) {
-      optionItemSelectedDist = Entry(widget.shipmentRequest.distributorName, widget.shipmentRequest.distributorID, []);
+    if (widget.shipmentRequest.distributorID != 0) {
+      optionItemSelectedDist = Entry(widget.shipmentRequest.distributorName,
+          widget.shipmentRequest.distributorID, []);
     } else {
       optionItemSelectedDist = Entry('choose', 0, []);
     }
   }
 
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    for(Mark item in widget.marks){
-      Entry v = Entry(item.markNumber! ,item.id??0 ,[]);
+    for (Mark item in widget.marks) {
+      Entry v = Entry(item.markNumber!, item.id ?? 0, []);
       marksEntry.add(v);
     }
     dropListModelMarks = DropListModel(marksEntry);
 
-    for(DistributorModel item in widget.distributors){
-      Entry v = Entry(item.fullName! ,item.id??0 ,[]);
+    for (DistributorModel item in widget.distributors) {
+      Entry v = Entry(item.fullName!, item.id ?? 0, []);
       distrbutorEntry.add(v);
     }
     dropListModelDist = DropListModel(distrbutorEntry);
 
-    for(ReceiverModel item in widget.receiver){
-      Entry v = Entry(item.fullName! ,item.id??0 ,[Entry(item.phone! ,item.id??0,[])]);
+    for (ReceiverModel item in widget.receiver) {
+      Entry v = Entry(
+          item.fullName!, item.id ?? 0, [Entry(item.phone!, item.id ?? 0, [])]);
       receiverEntry.add(v);
     }
     dropListModelReceiver = DropListModel(receiverEntry);
@@ -132,27 +145,30 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
                 child: SelectDropList(
                   this.optionItemSelectedReceiver,
                   this.dropListModelReceiver,
-                      (optionItem) {
+                  (optionItem) {
                     optionItemSelectedReceiver = optionItem;
                     widget.shipmentRequest.receiverName = optionItem.title;
                     widget.shipmentRequest.receiverID = optionItem.id;
-                    widget.shipmentRequest.receiverPhoneNumber = optionItem.children[0].title;
+                    widget.shipmentRequest.receiverPhoneNumber =
+                        optionItem.children[0].title;
                     setState(() {});
                   },
                 ),
               ),
               InkWell(
-                  onTap: (){
+                  onTap: () {
                     widget.goToReceiver();
                   },
-                  child: Icon(Icons.add_circle , color: blue , size: 40,)),
+                  child: Icon(
+                    Icons.add_circle,
+                    color: blue,
+                    size: 40,
+                  )),
             ],
           ),
           SizedBox(
             height: 15,
           ),
-
-
           Text(
             S.of(context).mark,
             style: AppTextStyle.mediumBlackBold,
@@ -163,7 +179,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
                 child: SelectDropList(
                   this.optionItemSelectedMarks,
                   this.dropListModelMarks,
-                      (optionItem) {
+                  (optionItem) {
                     optionItemSelectedMarks = optionItem;
                     widget.shipmentRequest.markName = optionItem.title;
                     widget.shipmentRequest.markId = optionItem.id;
@@ -172,16 +188,19 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
                 ),
               ),
               InkWell(
-                  onTap: (){
+                  onTap: () {
                     widget.goToMark();
                   },
-                  child: Icon(Icons.add_circle , color: blue , size: 40,)),
+                  child: Icon(
+                    Icons.add_circle,
+                    color: blue,
+                    size: 40,
+                  )),
             ],
           ),
           SizedBox(
             height: 15,
           ),
-
           Text(
             S.of(context).distributor,
             style: AppTextStyle.mediumBlackBold,
@@ -192,7 +211,7 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
                 child: SelectDropList(
                   this.optionItemSelectedDist,
                   this.dropListModelDist,
-                      (optionItem) {
+                  (optionItem) {
                     optionItemSelectedDist = optionItem;
                     widget.shipmentRequest.distributorName = optionItem.title;
                     widget.shipmentRequest.distributorID = optionItem.id;
@@ -201,22 +220,26 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
                 ),
               ),
               InkWell(
-                  onTap: (){
+                  onTap: () {
                     widget.goToDistributor();
                   },
-                  child: Icon(Icons.add_circle , color: blue , size: 40,)),
+                  child: Icon(
+                    Icons.add_circle,
+                    color: blue,
+                    size: 40,
+                  )),
             ],
           ),
           SizedBox(
             height: 15,
           ),
-
-
           SizedBox(
             height: 20,
           ),
           Visibility(
-            visible: widget.shipmentRequest.productCategoryName=='Car' ? true :false,
+            visible: widget.shipmentRequest.productCategoryName == 'Car'
+                ? true
+                : false,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -224,13 +247,55 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
                   S.of(context).vehicleNumber,
                   style: AppTextStyle.mediumBlackBold,
                 ),
-                TextEdit(hint:S.of(context).vehicleNumber , title:widget.shipmentRequest.vehicleIdentificationNumber , onChange:(number) {
-                  widget.shipmentRequest.vehicleIdentificationNumber = number ?? "";
-                }),
+                Container(
+                  // height: height,
+                  margin: const EdgeInsets.all(15.0),
+                  // padding: const EdgeInsets.all(5.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Theme(
+                    data: ThemeData(
+                      textSelectionTheme: TextSelectionThemeData(
+                          selectionColor: Colors.blue[200]),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.only(start: 20),
+                      child: Form(
+                        key: _formKey,
+                        child: TextFormField(
+                          controller: vehicleController,
+                          onChanged: (number) {
+                            widget.shipmentRequest.vehicleIdentificationNumber =
+                                number;
+                          },
+                          cursorColor: Colors.blue,
+                          maxLength: 17,
+                          decoration: InputDecoration(
+                        hintText: S.of(context).vehicleNumber,
+                            hintStyle: AppTextStyle.mediumDeepGray,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                          ),
+                          style: AppTextStyle.mediumBlack,
+                          validator: (text) {
+                            if (text == null || text.isEmpty || text.length != 17) {
+                              return "Number should contain 17 characters";
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-
           SizedBox(
             height: 20,
           ),
@@ -238,9 +303,12 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
             S.of(context).extraSpecification,
             style: AppTextStyle.mediumBlackBold,
           ),
-          TextEdit(hint: extra, title: widget.shipmentRequest.extraSpecification,onChange: (extra) {
-            widget.shipmentRequest.extraSpecification = extra;
-          }),
+          TextEdit(
+              hint: extra,
+              title: widget.shipmentRequest.extraSpecification,
+              onChange: (extra) {
+                widget.shipmentRequest.extraSpecification = extra;
+              }),
           Padding(
             padding: const EdgeInsetsDirectional.only(start: 25, end: 25),
             child: RoundedButton(
@@ -249,11 +317,16 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
               icon: '',
               color: Theme.of(context).accentColor,
               go: () {
-                if(optionItemSelectedMarks.id == 0){
-                  Fluttertoast.showToast(msg: S.of(context).selectMark);
-                }else{
-                widget.onRequest(widget.shipmentRequest);
-              }},
+                if (optionItemSelectedMarks.id == 0) {
+                  AlertWidget.showAlert(context,false,S.of(context).selectMark);
+                }
+                else if(!_formKey.currentState!.validate()){
+                  return null;
+                }
+                else {
+                  widget.onRequest(widget.shipmentRequest);
+                }
+              },
               style: AppTextStyle.mediumWhite,
             ),
           ),
@@ -284,21 +357,10 @@ class _ThirdOptionsState extends State<ThirdOptionsSuccessfully> {
     );
   }
 
-  void _showDialog(BuildContext context) {
-    // flutter defined function
-    CoolAlert.show(
-      context: context,
-      type: CoolAlertType.success,
-      width: 150,
-      backgroundColor: AppThemeDataService.PrimaryColor,
-      confirmBtnColor: AppThemeDataService.AccentColor,
-      onConfirmBtnTap: () async{
-        print("hereRahaf"+widget.shipmentRequest.toString());
-        // await setShipment(widget._shipmentRequest);
-        // Navigator.pop(context);
-        // await Navigator.pushNamedAndRemoveUntil(context, HomeRoutes.Home, (route) => false);
-      },
-      text: 'Your request added successfully!',
-    );
+  String? validatePassword(String value) {
+    if (!(value.length != 17) && value.isNotEmpty) {
+      return "Number should contain 17 characters";
+    }
+    return null;
   }
 }

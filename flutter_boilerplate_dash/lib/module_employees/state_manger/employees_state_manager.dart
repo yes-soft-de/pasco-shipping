@@ -1,5 +1,6 @@
 
 import 'package:injectable/injectable.dart';
+import 'package:pasco_shipping/module_employees/request/employees_request.dart';
 import 'package:pasco_shipping/module_employees/service/employees_service.dart';
 import 'package:pasco_shipping/module_employees/ui/state/suppliers_state/employees_state.dart';
 import 'package:rxdart/rxdart.dart';
@@ -45,22 +46,22 @@ class EmployeeStateManager{
     });
   }
   //
-  // void updateSupplier(SupplierRequest request){
-  //   _stateSubject.add(LoadingState());
-  //   _service.updateSupplier(request).then((value) {
-  //     if(value != null){
-  //       if(value.isConfirmed){
-  //         _service.getSuppliers().then((marks) {
-  //           if(marks != null) {
-  //             _stateSubject.add(SuccessfullyFetchState(marks));
-  //           }else {
-  //             _stateSubject.add(ErrorState('error'));
-  //           }
-  //         });
-  //       }
-  //     }else {
-  //       _stateSubject.add(ErrorState('error'));
-  //     }
-  //   });
-  // }
+   void updateEmployee(EmployeeRequest request){
+     _stateSubject.add(LoadingState());
+     _service.updateEmployee(request).then((value) {
+       if(value != null){
+         if(value.isConfirmed){
+           _service.getEmployees().then((marks) {
+             if(marks != null) {
+               _stateSubject.add(SuccessfullyFetchState(marks));
+             }else {
+               _stateSubject.add(ErrorState('error'));
+             }
+           });
+         }
+       }else {
+         _stateSubject.add(ErrorState('error'));
+       }
+     });
+   }
 }

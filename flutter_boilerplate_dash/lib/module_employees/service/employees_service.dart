@@ -16,9 +16,12 @@ import 'package:pasco_shipping/module_general/response/confirm_response.dart';
     Future<EmployeeModel?> getEmployeeProfile() {
       return _manager.getEmployeeProfile();
     }
-  // Future<ConfirmResponse?> updateSupplier(SupplierRequest request) {
-  //   return _manager.updateSupplier(request);
-  // }
+   Future<ConfirmResponse?> updateEmployee(EmployeeRequest request) {
+     return _manager.updateEmployee(request);
+   }
+  Future<ConfirmResponse?> updateEmployeeRole(EmployeeRequestRole request) {
+    return _manager.updateEmployeeRole(request);
+  }
   Future<ConfirmResponse?> deleteEmployee(String id) {
     return _manager.deleteEmployee(id);
   }

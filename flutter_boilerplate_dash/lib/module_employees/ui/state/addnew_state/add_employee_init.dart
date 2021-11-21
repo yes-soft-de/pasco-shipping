@@ -10,6 +10,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class AddEmployeeInit extends StatefulWidget {
@@ -22,7 +23,7 @@ class AddEmployeeInit extends StatefulWidget {
 
 class _AddCountryInitState extends State<AddEmployeeInit> {
   late TextEditingController userName ;
-  late  TextEditingController email;
+//  late  TextEditingController email;
   late  TextEditingController password;
   late  TextEditingController userID;
   late  TextEditingController phone;
@@ -225,14 +226,13 @@ class _AddCountryInitState extends State<AddEmployeeInit> {
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(userName.text.isEmpty || userID.text.isEmpty || password.text.isEmpty) {
-                  Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                  AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                 }else {
                   EmployeeRequest re =
                   EmployeeRequest(
                     userName: userName.text ,
                     UserID: userID.text ,
                     password: password.text,
-                    email: email.text,
                     roles: roles, phone: phone.text
                      );
                   widget.onSave(re);
@@ -249,7 +249,7 @@ class _AddCountryInitState extends State<AddEmployeeInit> {
   void initState() {
     super.initState();
     userName =TextEditingController();
-    email = TextEditingController();
+//    email = TextEditingController();
     password = TextEditingController();
     userID = TextEditingController();
     phone = TextEditingController();

@@ -8,7 +8,7 @@ class LoginStateCodeSent extends LoginState {
   bool retryEnabled = false;
   bool loading = false;
 
-  LoginStateCodeSent(LoginScreenState screen) : super(screen) {
+  LoginStateCodeSent(LoginScreenState screen,BuildContext context) : super(screen) {
     Future.delayed(Duration(seconds: 30), () {
       retryEnabled = true;
       screen.refresh();

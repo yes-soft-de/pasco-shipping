@@ -7,6 +7,7 @@ import 'package:pasco_shipping/module_product_category/response/product_category
 import 'package:pasco_shipping/module_subcontract_services/request/sub_contract_service_request.dart';
 import 'package:pasco_shipping/module_subcontract_services/response/sub_contract_service_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 
 class ProductCard extends StatefulWidget {
   final ProductModel model;
@@ -229,7 +230,7 @@ class _CountryCardState extends State<ProductCard> {
                       ),
                       onPressed: () {
                         if(name.text.isEmpty || description.text.isEmpty){
-                          Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                          AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                         }else {
                           ProductRequest re = ProductRequest(id: widget.model.id ,name: name.text,description: description.text, hscode: hsCode.text);
                           widget.onEdit(re);

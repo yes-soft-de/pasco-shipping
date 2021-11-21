@@ -10,6 +10,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class AirwaybillDetailsSuccessfully extends StatefulWidget {
@@ -443,7 +444,7 @@ class _ContainerDetailsSuccessfullyState extends State<AirwaybillDetailsSuccessf
           ],),
          isFull ? Container() :  RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
           if (widget.model.shipments!.isEmpty){
-              Fluttertoast.showToast(msg: S.of(context).noChangeStatus);
+              AlertWidget.showAlert(context, false, S.of(context).noChangeStatus);
             }else {
             AirwaybillChangeStateRequest re1 = AirwaybillChangeStateRequest(id: widget.model.id!.toInt() ,status: AirwaybillStatusName[AirwaybillStatus.FULL]!);
               widget.onChangeStatus(re1);

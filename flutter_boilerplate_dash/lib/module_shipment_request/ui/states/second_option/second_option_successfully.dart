@@ -19,6 +19,7 @@ import 'package:pasco_shipping/module_sub_contract/response/subcontract_response
 import 'package:pasco_shipping/module_unit/response/unit_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 import 'package:pasco_shipping/utils/widget/text_edit.dart';
 import 'package:pasco_shipping/module_shipment_request/request/shipment_request.dart';
@@ -288,7 +289,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
             InkWell(
                 onTap: (){
                   if(optionItemSelectedHarborExport.id==0 || optionItemSelectedHarborImport.id ==0){
-                    Fluttertoast.showToast(msg: 'Select the harbor first');
+                    AlertWidget.showAlert(context,false,'Select the harbor first');
                   }else{
                     showSingleChoiceDialog(context , (se){
                       widget.shipmentRequest.holders.add(se);
@@ -425,7 +426,7 @@ class _SecondOptionSuccessfullyState extends State<SecondOptionSuccessfully> {
                     ||(widget.shipmentRequest.isExternalWarehouse && ( optionItemSelectedHarborImport.id==0 || optionItemSelectedHarborExport.id==0 ))
                     ||(widget.shipmentRequest.isExternalWarehouse && widget.shipmentRequest.holders.isEmpty)
                     ){
-                      Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                      AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                     }
                     else {widget.goNextPage();}
                   },

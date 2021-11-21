@@ -15,6 +15,7 @@ import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class ReceiverSuccessfullyScreen extends StatefulWidget {
@@ -210,7 +211,7 @@ late  TextEditingController fullName;
             ),
             RoundedButton(lable: S.of(context).save, icon: '', color: blue, style: AppTextStyle.largeWhiteBold, go: (){
               if(phone.text.isEmpty ||fullName.text.isEmpty) {
-                Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                AlertWidget.showAlert(context, false, S.of(context).fillAllField);
               }
               else {
                 ReceiverRequest mark = ReceiverRequest(email: email.text,phone: phone.text ,

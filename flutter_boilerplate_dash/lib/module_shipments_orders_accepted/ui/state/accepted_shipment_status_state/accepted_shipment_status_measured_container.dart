@@ -22,6 +22,7 @@ import 'package:pasco_shipping/module_travel/response/travel_response.dart';
 import 'package:pasco_shipping/module_warehouses/response/warhouse_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class AcceptedShipmentStatusMeasuredContainer extends StatefulWidget {
@@ -137,6 +138,32 @@ class _AcceptedShipmentDetailsSuccessfullyState
     return SingleChildScrollView(
       child: Column(
         children: [
+          Card(
+            color: Colors.grey[200],
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(S.of(context).shipmentID+': '),
+                      Text(shipmentID.toString(),  style: AppTextStyle.smallBlueBold,),
+                    ],),
+                  SizedBox(width: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(S.of(context).trackNumber),
+                      Text(trackNumber.toString(),  style: AppTextStyle.smallBlueBold,),
+                    ],),
+                ],
+              ),
+            ),
+          ),
           widget.statusModel[1].statusDetails!.isNotEmpty ?Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
@@ -262,7 +289,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
               child: RoundedButton(lable: S.of(context).edit, icon: '',
                   color: Colors.green, style: AppTextStyle.smallWhite, go: (){
                 if(optionItemSelectedContainer.id ==0){
-                  Fluttertoast.showToast(msg: S.of(context).chooseContainer);
+                  AlertWidget.showAlert(context,false,S.of(context).chooseContainer);
                 }else{
                 ContainerModel m  = widget.containers.firstWhere((element) => element.id == optionItemSelectedContainer.id);
                   widget.onUpdateContainerInfo(m);

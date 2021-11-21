@@ -8,6 +8,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class AddDistributorInit extends StatefulWidget {
@@ -148,7 +149,7 @@ class _AddCountryInitState extends State<AddDistributorInit> {
               ),
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(name.text.isEmpty || phone.text.isEmpty || address.text.isEmpty) {
-                  Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                  AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                 }else {
                   DistributorRequest re = DistributorRequest(address: address.text ,fullName: name.text ,phone: phone.text);
                   widget.onSave(re);

@@ -18,6 +18,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class UpdateAirwaybillInit extends StatefulWidget {
@@ -370,7 +371,7 @@ class _AddCountryInitState extends State<UpdateAirwaybillInit> {
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(optionItemSelectedProvidedBy.id==0){
-                  Fluttertoast.showToast(msg: S.of(context).selectProvider);
+                  AlertWidget.showAlert(context,false,S.of(context).selectProvider);
                 }else {
                   Entry c = Entry(containerNumber.text, widget.model.id!, []);
 

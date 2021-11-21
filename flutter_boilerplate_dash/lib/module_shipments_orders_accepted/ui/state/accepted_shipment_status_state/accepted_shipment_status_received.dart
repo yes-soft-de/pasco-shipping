@@ -28,6 +28,7 @@ import 'package:pasco_shipping/module_warehouses/response/warhouse_response.dart
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class AcceptedShipmentStatusReceived extends StatefulWidget {
@@ -156,6 +157,32 @@ class _AcceptedShipmentDetailsSuccessfullyState
     return SingleChildScrollView(
       child: Column(
         children: [
+          Card(
+            color: Colors.grey[200],
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(S.of(context).shipmentID+': '),
+                      Text(shipmentID.toString(),  style: AppTextStyle.smallBlueBold,),
+                    ],),
+                  SizedBox(width: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(S.of(context).trackNumber),
+                      Text(trackNumber.toString(),  style: AppTextStyle.smallBlueBold,),
+                    ],),
+                ],
+              ),
+            ),
+          ),
           widget.statusModel[1].statusDetails!.isNotEmpty ?Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
@@ -326,7 +353,7 @@ class _AcceptedShipmentDetailsSuccessfullyState
             RoundedButton(lable: S.of(context).save, icon: '',
                 color: blue, style: AppTextStyle.smallWhite, go: (){
                   if(optionItemSelectedGunny.id ==0){
-                    Fluttertoast.showToast(msg: S.of(context).chooseGunny);
+                    AlertWidget.showAlert(context,false,S.of(context).chooseGunny);
                   }else{
                     AddShipmentToGunnyRequest m  = AddShipmentToGunnyRequest(shipmentID: shipmentID ,trackNumber: trackNumber ,gunnyID: optionItemSelectedGunny.id,quantity: int.parse(quantityController.text), gunnyStatus:gunnyFull?'full':'notfull',gunnyNumber:optionItemSelectedGunny.title);
                     widget.onStoredInGunny(m);

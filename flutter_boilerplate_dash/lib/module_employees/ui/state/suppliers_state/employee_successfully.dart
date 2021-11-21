@@ -6,7 +6,8 @@ class EmployeesSuccessfully extends StatelessWidget {
   final List<EmployeeModel> items;
   final Function onDelete;
   final Function onEdit;
-  const EmployeesSuccessfully({required  this.items,required this.onDelete,required this.onEdit});
+  final Function onEditRole;
+  const EmployeesSuccessfully({required  this.items,required this.onDelete,required this.onEdit,required this.onEditRole});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,9 @@ class EmployeesSuccessfully extends StatelessWidget {
       },
         onDelete: (id){
         onDelete(id);
-        }, isEdtiable: false,
+        }, isEdtiable: false, onEditRole: (model){
+        onEditRole(model);
+        },
       );
     },itemCount: items.length,
       shrinkWrap: true,

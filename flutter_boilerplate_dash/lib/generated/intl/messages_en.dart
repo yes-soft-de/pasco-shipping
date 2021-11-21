@@ -520,6 +520,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Update Air waybill"),
         "updateContainer":
             MessageLookupByLibrary.simpleMessage("Update Container"),
+        "updateEmployeeJop":
+            MessageLookupByLibrary.simpleMessage("Update employee jop"),
         "updateHarbor": MessageLookupByLibrary.simpleMessage("Update harbor"),
         "updateTravel": MessageLookupByLibrary.simpleMessage("Update Travel"),
         "updateWarehouse":
@@ -540,6 +542,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "waitingShipment":
             MessageLookupByLibrary.simpleMessage("Waiting Shipment"),
         "waitingTrip": MessageLookupByLibrary.simpleMessage("the Trip waiting"),
+        "warehouse": MessageLookupByLibrary.simpleMessage("Warehouse"),
         "warehouseFinance":
             MessageLookupByLibrary.simpleMessage("Warehouse Finance"),
         "warehouseInfo":

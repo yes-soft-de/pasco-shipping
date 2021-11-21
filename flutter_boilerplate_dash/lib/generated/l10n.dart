@@ -3829,6 +3829,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Warehouse`
+  String get warehouse {
+    return Intl.message(
+      'Warehouse',
+      name: 'warehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update employee jop`
+  String get updateEmployeeJop {
+    return Intl.message(
+      'Update employee jop',
+      name: 'updateEmployeeJop',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

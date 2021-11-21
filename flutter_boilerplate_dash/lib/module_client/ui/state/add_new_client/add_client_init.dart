@@ -11,6 +11,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class AddClientInit extends StatefulWidget {
@@ -343,7 +344,7 @@ class _AddCountryInitState extends State<AddClientInit> {
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(userName.text.isEmpty) {
-                  Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                  AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                 }else {
                   CreateClientRequest re = CreateClientRequest(userName: userName.text , userID: userID.text , email: email.text,city: city.text,
                       country: country.text,location: location.text);

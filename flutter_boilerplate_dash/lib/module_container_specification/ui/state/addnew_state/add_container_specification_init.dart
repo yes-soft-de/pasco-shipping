@@ -6,6 +6,7 @@ import 'package:pasco_shipping/module_container_specification/request/container_
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class AddContainerSpecificationInit extends StatefulWidget {
@@ -223,7 +224,7 @@ class _AddCountryInitState extends State<AddContainerSpecificationInit> {
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(name.text.isEmpty || widthInMeter.text.isEmpty || hightInMeter.text.isEmpty  || lengthInMeter.text.isEmpty) {
-                  Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                  AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                 }else {
                   ContainerSpecificationRequest re = ContainerSpecificationRequest(widthInMeter: widthInMeter.text ,name: name.text ,lengthInMeter: lengthInMeter.text,hightInMeter: hightInMeter.text, capacityCPM: capacityCPM.text);
                   widget.onSave(re);

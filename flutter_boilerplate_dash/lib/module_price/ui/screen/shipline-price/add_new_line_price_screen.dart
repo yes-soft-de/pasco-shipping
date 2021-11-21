@@ -8,6 +8,7 @@ import 'package:pasco_shipping/module_price/ui/state/shipline_price/addNew_state
 import 'package:pasco_shipping/module_price/ui/state/shipline_price/addNew_state/add_lines_price_init.dart';
 import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
@@ -84,7 +85,7 @@ class _AddNewCountryState extends State<AddNewLinesPrice> {
       },);
     }
     else if (currentState is SuccessfullyAddState){
-      Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
+      Future.delayed(Duration.zero, () =>  AlertWidget.showAlert(context, true, S.of(context).addedSuccessfully));
       return AddShippingLinePriceInit(
         countriesExports: countriesExport,
         countriesImports: countriesImport,

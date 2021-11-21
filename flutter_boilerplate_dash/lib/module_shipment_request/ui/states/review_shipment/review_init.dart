@@ -285,6 +285,22 @@ class _ContainerShipmentReviewState extends State<RequestShipmentReviewInit> {
               ),
             ],
           ),
+          Divider(color: Colors.grey[300],thickness: 2,),
+          Row(
+            children: [
+              Expanded(
+                child: ListTile(
+                    title: Text(
+                      S.of(context).vehicleNumber,
+                      style: AppTextStyle.mediumBlack,
+                    ),
+                    subtitle: Text(
+                      widget.shipment.vehicleIdentificationNumber ,
+                      style: AppTextStyle.smallBlueBold,
+                    )),
+              ),
+            ],
+          ),
           Padding(
             padding: const EdgeInsetsDirectional.only(start: 15),
             child: Text(

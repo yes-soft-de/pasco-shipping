@@ -1,6 +1,6 @@
 class Urls {
-  // static const String DOMAIN = 'http://159.89.13.229/';
-  // static const String BASE_API = 'http://159.89.13.229/';
+//   static const String DOMAIN = 'http://159.89.13.229/';
+//   static const String BASE_API = 'http://159.89.13.229/';
 
 //new
   static const String DOMAIN = 'http://165.22.68.54/';
@@ -47,6 +47,9 @@ class Urls {
   static const EMPLOYEE = BASE_API + 'employee';
   static const ADMIN = BASE_API + 'admin';
   static const EMPLOYEE_PROFILE = BASE_API + 'adminprofile';
+
+  static const UPDATE_EMPLOYEE_PROFILE = BASE_API + 'employeeprofilebydashboard';
+  static const UPDATE_EMPLOYEE_ROLE = BASE_API + 'employeerolebydashboard';
 
 
   //service

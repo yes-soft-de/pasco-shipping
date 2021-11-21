@@ -8,6 +8,7 @@ import 'package:pasco_shipping/module_travel/response/travel_finance_response.da
 import 'package:pasco_shipping/module_travel/widget/travel_finance.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class TravelFinanceSuccessfullyScreen extends StatefulWidget {
@@ -169,7 +170,7 @@ class _MarkSuccessfullyScreenState extends State<TravelFinanceSuccessfullyScreen
 
                     RoundedButton(lable: S.of(context).add, icon: '', color: blue, style: AppTextStyle.mediumWhiteBold, go: (){
                       if(cost.text.isEmpty) {
-                        Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                        AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                       }
                       else {
                         TravelAddFinanceRequest mark = TravelAddFinanceRequest(travelStatus:type ,currency:' ',travelID: widget.travelID,stageCost: int.parse(cost.text) , stageDescription: description.text);

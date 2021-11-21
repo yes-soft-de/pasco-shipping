@@ -104,7 +104,7 @@ class _AddNewCountryState extends State<AddNewAirwaybill> {
       });
     }
     // else if (currentState is SuccessfullyAddState){
-    //   Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
+    //   Future.delayed(Duration.zero, () =>  AlertWidget.showAlert(context, true, S.of(context).addedSuccessfully));
     //   return RequestAirwaybillInit(
     //     subContracts: subs,
     //     specifications: specification,

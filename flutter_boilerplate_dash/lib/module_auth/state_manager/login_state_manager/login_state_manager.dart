@@ -29,7 +29,7 @@ class LoginStateManager {
       }
     }).onError((err) {
       // _loadingStateSubject.add(AsyncSnapshot.nothing());
-      _loginStateSubject.add(LoginStateInit(_screenState, error: err));
+      _loginStateSubject.add(LoginStateInit(_screenState,error: err));
     });
   }
 

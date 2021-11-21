@@ -71,7 +71,7 @@
   "countries": "البلدان",
   "distributors": "الموزعين",
   "proxies": "الوكلاء",
-  "warehouse": "المستودعات",
+  "warehouse": "مستودع",
   "subcontract": "مزودي الخدمة",
   "subcontractService": "الخدمات",
   "service": "الخدمة",
@@ -448,5 +448,6 @@
   "refusedShipment": "الشحنات المرفوضة",
 
   "refusedShipmentSuccessfully": "تم رفض الشحنة بنجاح",
-  "addNewEmployee": "إضافة موظف جديد"
+  "addNewEmployee": "إضافة موظف جديد",
+  "updateEmployeeJop": "تعديل عمل الموظف"
 }

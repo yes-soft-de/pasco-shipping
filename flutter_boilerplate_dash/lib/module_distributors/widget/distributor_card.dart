@@ -5,6 +5,7 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_distributors/request/distributors_request.dart';
 import 'package:pasco_shipping/module_distributors/response/distributors_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 
 class DistributorCard extends StatefulWidget {
   final DistributorModel model;
@@ -189,7 +190,7 @@ class _CountryCardState extends State<DistributorCard> {
                       ),
                       onPressed: () {
                         if(fullName.text.isEmpty || address.text.isEmpty || phone.text.isEmpty){
-                          Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                          AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                         }else {
                           DistributorRequest re = DistributorRequest(id: widget.model.id ,fullName: fullName.text,phone: phone.text,address: address.text);
                           widget.onEdit(re);

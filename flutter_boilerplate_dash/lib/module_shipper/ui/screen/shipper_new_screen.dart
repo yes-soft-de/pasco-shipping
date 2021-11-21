@@ -7,6 +7,7 @@ import 'package:pasco_shipping/module_shipper/state_manger/new_shipper_state_man
 import 'package:pasco_shipping/module_shipper/ui/state/addnew_state/add_shipper_init.dart';
 import 'package:pasco_shipping/module_shipper/ui/state/addnew_state/add_state.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
@@ -76,7 +77,7 @@ class _AddNewCountryState extends State<AddNewShipper> {
       },);
     }
     else if (currentState is SuccessfullyAddState){
-      Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
+      Future.delayed(Duration.zero, () =>  AlertWidget.showAlert(context, true, S.of(context).addedSuccessfully));
       return AddShipperInit(onSave: (request){
         widget._stateManager.createShipper(request);
       },);

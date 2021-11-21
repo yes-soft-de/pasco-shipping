@@ -17,6 +17,7 @@ class EmployeeManager{
   Future<ConfirmResponse?> deleteEmployee(String id) => _repository.deleteEmployees(id);
   Future<List<EmployeeModel>?> getEmployees() => _repository.getEmployees();
   Future<ConfirmResponse?> updateEmployee(EmployeeRequest request) => _repository.updateEmployees(request);
+  Future<ConfirmResponse?> updateEmployeeRole(EmployeeRequestRole request) => _repository.updateEmployeesRole(request);
 
 
 }

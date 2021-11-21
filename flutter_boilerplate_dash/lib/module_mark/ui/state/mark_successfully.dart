@@ -12,6 +12,7 @@ import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 
 class MarkSuccessfullyScreen extends StatefulWidget {
  final List<Mark> items;
@@ -111,7 +112,7 @@ class _MarkSuccessfullyScreenState extends State<MarkSuccessfullyScreen> {
                     InkWell(
                         onTap: (){
                           if(widget.markNumberController.text.isEmpty) {
-                            Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                            AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                           }
                         else {
                           MarkRequest mark = MarkRequest(widget.markNumberController.text,widget.optionItem.id);

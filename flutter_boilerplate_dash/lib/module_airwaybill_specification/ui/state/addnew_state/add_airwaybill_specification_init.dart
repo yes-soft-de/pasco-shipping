@@ -6,6 +6,7 @@ import 'package:pasco_shipping/module_airwaybill_specification/request/airwaybil
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class AddAirwaybillSpecificationInit extends StatefulWidget {
@@ -109,7 +110,7 @@ class _AddCountryInitState extends State<AddAirwaybillSpecificationInit> {
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(name.text.isEmpty || width.text.isEmpty ) {
-                  Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                  AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                 }else {
                   AirwaybillSpecificationRequest re = AirwaybillSpecificationRequest(width: width.text ,name: name.text);
                   widget.onSave(re);

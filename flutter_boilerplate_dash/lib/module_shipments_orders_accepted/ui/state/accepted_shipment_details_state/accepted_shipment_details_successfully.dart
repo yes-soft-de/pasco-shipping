@@ -304,11 +304,11 @@ class _AcceptedShipmentDetailsSuccessfullyState extends State<AcceptedShipmentDe
               Expanded(
                 child: ListTile(
                     title: Text(
-                      S.of(context).inExternalWarehouse,
+                      S.of(context).warehouse,
                       style: AppTextStyle.mediumBlack,
                     ),
                     subtitle: Text(
-                      widget.shipment.isExternalWarehouse ? S.of(context).yes:S.of(context).no,
+                      widget.shipment.isExternalWarehouse ? S.of(context).external:S.of(context).local,
                       style: AppTextStyle.smallBlueBold,
                     )),
               ),

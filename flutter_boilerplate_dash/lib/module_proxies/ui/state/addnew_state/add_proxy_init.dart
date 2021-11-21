@@ -6,6 +6,7 @@ import 'package:pasco_shipping/module_proxies/request/proxies_request.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class AddProxyInit extends StatefulWidget {
@@ -185,7 +186,7 @@ class _AddCountryInitState extends State<AddProxyInit> {
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(name.text.isEmpty || phone.text.isEmpty || address.text.isEmpty ||email.text.isEmpty) {
-                  Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                  AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                 }else {
                   ProxyRequest re = ProxyRequest(address: address.text ,fullName: name.text ,phone: phone.text,email: email.text);
                   widget.onSave(re);

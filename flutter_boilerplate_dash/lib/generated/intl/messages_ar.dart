@@ -499,6 +499,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تعديل بوصيلة الشحن"),
         "updateContainer":
             MessageLookupByLibrary.simpleMessage("تعديل الحاوية"),
+        "updateEmployeeJop":
+            MessageLookupByLibrary.simpleMessage("تعديل عمل الموظف"),
         "updateHarbor": MessageLookupByLibrary.simpleMessage("تعديل الميناء"),
         "updateTravel": MessageLookupByLibrary.simpleMessage("تعديل رحلة"),
         "updateWarehouse": MessageLookupByLibrary.simpleMessage("تعديل مستودع"),
@@ -518,6 +520,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "waitingShipment":
             MessageLookupByLibrary.simpleMessage("الشحنات المُنتظرة"),
         "waitingTrip": MessageLookupByLibrary.simpleMessage("الرحلة تنتظر"),
+        "warehouse": MessageLookupByLibrary.simpleMessage("مستودع"),
         "warehouseFinance":
             MessageLookupByLibrary.simpleMessage("مصاريف مستودع"),
         "warehouseInfo":

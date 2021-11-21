@@ -5,6 +5,7 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_shipper/request/shipper_request.dart';
 import 'package:pasco_shipping/module_shipper/response/shipper_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 
 class ShipperCard extends StatefulWidget {
   final ShipperModel model;
@@ -210,7 +211,7 @@ class _CountryCardState extends State<ShipperCard> {
                       ),
                       onPressed: () {
                         if(fullName.text.isEmpty || address.text.isEmpty || phone.text.isEmpty){
-                          Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                          AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                         }else {
                           ShipperRequest re = ShipperRequest(id: widget.model.id ,fullName: fullName.text,phone: phone.text,address: address.text,email: email.text);
                           widget.onEdit(re);

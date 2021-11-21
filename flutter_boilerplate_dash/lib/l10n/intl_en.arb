@@ -469,9 +469,11 @@
 
 
   "refusedShipment": "Refuse Shipment",
-  "refusedShipmentSuccessfully": "Refused shipment successfully"
+  "refusedShipmentSuccessfully": "Refused shipment successfully",
+  "warehouse": "Warehouse",
 
 
+  "updateEmployeeJop": "Update employee jop"
 
 
 }

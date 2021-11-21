@@ -5,6 +5,7 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_suppliers/request/suppliers_request.dart';
 import 'package:pasco_shipping/module_suppliers/response/suppliers_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 
 class SupplierCard extends StatefulWidget {
   final SupplierModel model;
@@ -189,7 +190,7 @@ class _CountryCardState extends State<SupplierCard> {
                       ),
                       onPressed: () {
                         if(fullName.text.isEmpty || address.text.isEmpty || phone.text.isEmpty){
-                          Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                          AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                         }else {
                           SupplierRequest re = SupplierRequest(id: widget.model.id ,fullName: fullName.text,phone: phone.text,address: address.text);
                           widget.onEdit(re);

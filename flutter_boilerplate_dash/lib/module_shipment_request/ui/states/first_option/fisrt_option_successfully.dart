@@ -22,6 +22,7 @@ import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/text_style.dart';
 import 'dart:io';
 import 'package:image/image.dart' as ImageProcess;
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/text_edit.dart';
 
 class FirstOptionSuccessfully extends StatefulWidget {
@@ -615,7 +616,7 @@ class _FirstOptionSuccessfullyState extends State<FirstOptionSuccessfully> {
                 child: FloatingActionButton.extended(
                   onPressed: () {
                     if(widget.shipmentRequest.productCategoryName.isEmpty ||widget.shipmentRequest.target.isEmpty){
-                      Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                      AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                     }else{
                     widget.shipmentRequest.imageFilePath =[];
                     for(File i in imageArray ){

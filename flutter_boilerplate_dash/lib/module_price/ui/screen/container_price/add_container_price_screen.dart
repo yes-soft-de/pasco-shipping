@@ -10,6 +10,7 @@ import 'package:pasco_shipping/module_price/ui/state/container_price/add_contain
 import 'package:pasco_shipping/module_price/ui/state/container_price/add_container_price_state/add_container_price_state.dart';
 import 'package:pasco_shipping/module_shipment_request/response/warehouses/wearhouse_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
@@ -95,7 +96,7 @@ class _AddNewCountryState extends State<AddNewContainerPrice> {
       },);
     }
     else if (currentState is SuccessfullyAddState){
-      Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
+      Future.delayed(Duration.zero, () =>  AlertWidget.showAlert(context, true, S.of(context).addedSuccessfully));
       return AddContainerPriceInit(
         countriesExports: countriesExport,
         harbors: harbors,

@@ -71,7 +71,7 @@ class _CountriesScreenState extends State<AcceptedShipmentStatusScreen> {
                 child:  Screen()),
           ),
         ),
-        title: S.of(context).shipmentStatus
+        title: (S.of(context).shipmentStatus)
     );
   }
 

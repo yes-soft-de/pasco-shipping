@@ -83,7 +83,21 @@ class EmployeeRepository{
     // await _authService.refreshToken();
     var token = await _authService.getToken();
 
-    var response = await _apiClient.put(Urls.EMPLOYEE, request.toJson(),
+    var response = await _apiClient.put(Urls.UPDATE_EMPLOYEE_PROFILE, request.toJson(),
+        headers: {'Authorization': 'Bearer $token'});
+    String? statusCode = EmployeeResponse.fromJson(response!).statusCode;
+    String? msg = EmployeeResponse.fromJson(response).msg;
+    if(statusCode =='204'){
+      return ConfirmResponse(true, msg!);
+    }else {
+      return ConfirmResponse(false, msg!);
+    }
+  }
+  Future<ConfirmResponse?> updateEmployeesRole(EmployeeRequestRole request) async {
+    // await _authService.refreshToken();
+    var token = await _authService.getToken();
+
+    var response = await _apiClient.put(Urls.UPDATE_EMPLOYEE_ROLE, request.toJson(),
         headers: {'Authorization': 'Bearer $token'});
     String? statusCode = EmployeeResponse.fromJson(response!).statusCode;
     String? msg = EmployeeResponse.fromJson(response).msg;

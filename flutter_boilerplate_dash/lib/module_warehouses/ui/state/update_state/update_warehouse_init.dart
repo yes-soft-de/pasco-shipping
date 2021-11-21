@@ -13,6 +13,7 @@ import 'package:pasco_shipping/module_warehouses/request/warehouse_request.dart'
 import 'package:pasco_shipping/module_warehouses/response/warhouse_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class UpdateWarehouseInit extends StatefulWidget {
@@ -304,7 +305,7 @@ class _AddCountryInitState extends State<UpdateWarehouseInit> {
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(name.text.isEmpty || city.text.isEmpty || location.text.isEmpty ||type.isEmpty) {
-                  Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                  AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                 }else {
                   WarehouseRequest re = WarehouseRequest(city: city.text ,name: name.text,location: location.text,proxyID: optionItemSelectedProxy.id,subContractID: optionItemSelectedSub.id,type: type,countryID: optionItemSelectedCountry.id,rentingFee: 0 ,id: widget.model.id);
                   widget.onUpdate(re);

@@ -11,6 +11,7 @@ import 'package:pasco_shipping/module_shipment_request/ui/widget/select_drop_lis
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class UpdateSubProductInit extends StatefulWidget {
@@ -173,7 +174,7 @@ class _AddCountryInitState extends State<UpdateSubProductInit> {
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(name.text.isEmpty || description.text.isEmpty || hscode.text.isEmpty) {
-                  Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                  AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                 }else {
                  SubProductRequest re = SubProductRequest(description: description.text ,name: name.text, hscode: hscode.text, productCategoryID: optionItemSelectedProducts.id ,id: widget.subProductModel.id);
                   widget.onUpdate(re);

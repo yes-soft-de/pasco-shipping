@@ -8,6 +8,7 @@ import 'package:pasco_shipping/module_product_sub_category/state_manger/new_sub_
 import 'package:pasco_shipping/module_product_sub_category/ui/state/addnew_state/add_state.dart';
 import 'package:pasco_shipping/module_product_sub_category/ui/state/addnew_state/add_sub_product_init.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
@@ -81,7 +82,7 @@ class _AddNewCountryState extends State<AddNewSubProduct> {
       }, products:products,);
     }
     else if (currentState is SuccessfullyAddState){
-      Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
+      Future.delayed(Duration.zero, () =>  AlertWidget.showAlert(context, true, S.of(context).addedSuccessfully));
       return AddSubProductInit(onSave: (request){
         widget._stateManager.createSubProduct(request);
       }, products: products,);

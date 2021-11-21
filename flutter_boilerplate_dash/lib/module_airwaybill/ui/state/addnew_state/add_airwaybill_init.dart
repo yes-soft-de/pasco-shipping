@@ -15,6 +15,7 @@ import 'package:pasco_shipping/module_sub_contract/response/subcontract_response
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class RequestAirwaybillInit extends StatefulWidget {
@@ -321,7 +322,7 @@ class _AddCountryInitState extends State<RequestAirwaybillInit> {
                 // DateTime arrivalDate = DateTime(endDate.year , endDate.month ,endDate.day ,selectedTimeEnd.hour ,selectedTimeEnd.minute);
                 // DateTime launchDate = DateTime(startDate.year , startDate.month ,startDate.day ,selectedTimeStart.hour ,selectedTimeStart.minute);
                 if(optionItemSelectedFrom.id ==0 || optionItemSelectedHarborImport.id ==0 || optionItemSelectedHarborExport.id ==0 ){
-                  Fluttertoast.showToast(msg: S.of(context).addContainerConfirm);
+                  AlertWidget.showAlert(context,false,S.of(context).addContainerConfirm);
                 }else {
                   AirwaybillRequest re = AirwaybillRequest(
                     type: type,
