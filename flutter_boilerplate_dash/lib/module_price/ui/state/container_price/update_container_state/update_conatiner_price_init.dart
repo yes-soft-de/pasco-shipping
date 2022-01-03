@@ -179,6 +179,7 @@ class _AddCountryInitState extends State<UpdateContainerPriceInit> {
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: S.of(context).number,
+                      suffix: Text('USD',style: TextStyle(color: Colors.blue),),
                     ),
                     controller: price,
                   ),
@@ -186,7 +187,7 @@ class _AddCountryInitState extends State<UpdateContainerPriceInit> {
               ),
 
 
-              RoundedButton(lable: S.of(context).edit, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
+              RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 ContainerPriceRequest re = ContainerPriceRequest(
                     id:widget.model.id,
                     price: int.parse(price.text),

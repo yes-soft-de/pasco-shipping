@@ -6,6 +6,7 @@ import 'package:pasco_shipping/module_auth/ui/widget/email_password_login/email_
 import 'package:pasco_shipping/module_auth/ui/widget/phone_login/phone_login.dart';
 import 'package:pasco_shipping/module_auth/ui/widget/user_type_selector/user_type_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 
 import '../../../authorization_routes.dart';
 
@@ -13,7 +14,7 @@ class LoginStateInit extends LoginState {
 
   LoginStateInit(LoginScreenState screen, {String? error}) : super(screen){
     if (error != null) {
-      Fluttertoast.showToast(msg: error);
+      AlertWidget.showAlert(screen.context, false, error);
     }
   }
 

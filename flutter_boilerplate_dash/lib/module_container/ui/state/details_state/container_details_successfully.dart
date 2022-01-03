@@ -17,6 +17,7 @@ import 'package:pasco_shipping/utils/helpers/pdf_paragraph_api.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 import 'package:collection/collection.dart';
 import 'package:pdf/pdf.dart';
@@ -463,8 +464,8 @@ class _ContainerDetailsSuccessfullyState extends State<ContainerDetailsSuccessfu
           ],),
          isFull ? Container() :  RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
           if (widget.model.shipments.isEmpty){
-              Fluttertoast.showToast(msg: S.of(context).noChangeStatus);
-            }else {
+              AlertWidget.showAlert(context,false,S.of(context).noChangeStatus);
+          }else {
               ContainerChangeStateRequest re1 = ContainerChangeStateRequest(id: widget.model.id!.toInt() ,status: ContainerStatusName[ContainerStatus.FULL]!);
               widget.onChangeStatus(re1);
             }

@@ -9,6 +9,7 @@ import 'package:pasco_shipping/module_subcontract_services/response/sub_contract
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class AddSubcontractInit extends StatefulWidget {
@@ -137,7 +138,7 @@ class _AddCountryInitState extends State<AddSubcontractInit> {
 
               RoundedButton(lable: S.of(context).save, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.largeWhiteBold, go: (){
                 if(name.text.isEmpty || phone.text.isEmpty) {
-                  Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                  AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                 }else {
                   SubcontractRequest re = SubcontractRequest(fullName: name.text ,phone: phone.text, serviceID: serviceID);
                   widget.onSave(re);

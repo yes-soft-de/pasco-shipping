@@ -39,10 +39,10 @@ const Map<String, List<String>> EmployeeRoleName = {
     'ROLE_ALL_FINANCE_CREATE',
         'ROLE_ALL_FINANCE_READ',
   ],
-  'Super employee': ['ROLE_EMPLOYEE'],
+  'Employee': ['ROLE_EMPLOYEE'],
   'HR employee':['ROLE_EMPLOYEE_CREATE',
     'ROLE_EMPLOYEE_READ'
   ],
   'Admin': ['ROLE_ADMIN'],
-  'Super Admin': ['ROLE_SUPER_ADMIN'],
+//  'Super Admin': ['ROLE_SUPER_ADMIN'],
 };

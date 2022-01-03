@@ -5,6 +5,7 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_unit/request/unit_request.dart';
 import 'package:pasco_shipping/module_unit/response/unit_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 
 class UnitCard extends StatefulWidget {
   final UnitModel model;
@@ -170,7 +171,7 @@ class _CountryCardState extends State<UnitCard> {
                       ),
                       onPressed: () {
                         if(name.text.isEmpty || description.text.isEmpty){
-                          Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                          AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                         }else {
                           UnitRequest re = UnitRequest(id: widget.model.id ,name: name.text,description: description.text);
                           widget.onEdit(re);

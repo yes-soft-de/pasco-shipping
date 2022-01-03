@@ -60,6 +60,7 @@ class _CountriesScreenState extends State<AcceptedShipmentFilterScreen> {
     super.didChangeDependencies();
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
     filterRequest =arguments['filterRequest'];
+
     // widget._stateManager.getAcceptedShipment(filterRequest);
   }
 
@@ -100,7 +101,7 @@ class _CountriesScreenState extends State<AcceptedShipmentFilterScreen> {
         }, filterRequest: filterRequest,);
     }
     // else if (currentState is SuccessfullyAddState){
-    //   Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
+    //   Future.delayed(Duration.zero, () =>  AlertWidget.showAlert(context, true, S.of(context).addedSuccessfully));
     //   return AddTravelInit(
     //     subContracts: [],
     //     countries: [],

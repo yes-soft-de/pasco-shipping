@@ -38,6 +38,40 @@ class MessageLookup extends MessageLookupByLibrary {
             "you should select ports and location"),
         "addCostConfirm": MessageLookupByLibrary.simpleMessage(
             "Do you want to add these costs?"),
+        "addNewAgent": MessageLookupByLibrary.simpleMessage("Add new agent"),
+        "addNewAirwaybill":
+            MessageLookupByLibrary.simpleMessage("Add new air waybill"),
+        "addNewCategory":
+            MessageLookupByLibrary.simpleMessage("Add new category"),
+        "addNewClient": MessageLookupByLibrary.simpleMessage("Add new client"),
+        "addNewContainer":
+            MessageLookupByLibrary.simpleMessage("Add new container"),
+        "addNewContainerPrice":
+            MessageLookupByLibrary.simpleMessage("Add new container price"),
+        "addNewContainerType":
+            MessageLookupByLibrary.simpleMessage("add new container type"),
+        "addNewCountries":
+            MessageLookupByLibrary.simpleMessage("Add new countries"),
+        "addNewDistributors":
+            MessageLookupByLibrary.simpleMessage("Add new distributors"),
+        "addNewEmployee":
+            MessageLookupByLibrary.simpleMessage("Add new employee"),
+        "addNewHarbour":
+            MessageLookupByLibrary.simpleMessage("Add new harbour"),
+        "addNewLinePrice":
+            MessageLookupByLibrary.simpleMessage("Add new line Price"),
+        "addNewService":
+            MessageLookupByLibrary.simpleMessage("Add new service"),
+        "addNewShipper":
+            MessageLookupByLibrary.simpleMessage("Add new shipper"),
+        "addNewSubCategory":
+            MessageLookupByLibrary.simpleMessage("Add new sub category"),
+        "addNewSubContract":
+            MessageLookupByLibrary.simpleMessage("Add new subContract"),
+        "addNewTravel": MessageLookupByLibrary.simpleMessage("Add new travel"),
+        "addNewUnit": MessageLookupByLibrary.simpleMessage("Add new unit"),
+        "addNewWarehouse":
+            MessageLookupByLibrary.simpleMessage("Add new warehouse"),
         "addedSuccessfully":
             MessageLookupByLibrary.simpleMessage("Item added successfully"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
@@ -183,8 +217,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "extensionalInfo":
             MessageLookupByLibrary.simpleMessage("Extensional Info"),
         "external": MessageLookupByLibrary.simpleMessage("external"),
-        "externalShipmentReport":
-            MessageLookupByLibrary.simpleMessage("External Shipment Report"),
+        "externalAcceptedShipmentReport": MessageLookupByLibrary.simpleMessage(
+            "External accepted shipment report"),
+        "externalRefusedShipmentReport": MessageLookupByLibrary.simpleMessage(
+            "External refused shipment report"),
         "externalWarehouse":
             MessageLookupByLibrary.simpleMessage("External Warehouse: "),
         "extraSpecification":
@@ -241,8 +277,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Length In Meter: "),
         "loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "local": MessageLookupByLibrary.simpleMessage("Local"),
-        "localShipmentReport":
-            MessageLookupByLibrary.simpleMessage("Local Shipment Report"),
+        "localAcceptedShipmentReport": MessageLookupByLibrary.simpleMessage(
+            "Local accepted shipment report"),
+        "localRefusedShipmentReport": MessageLookupByLibrary.simpleMessage(
+            "Local refused shipment report"),
         "location": MessageLookupByLibrary.simpleMessage("Location"),
         "loggedIn": MessageLookupByLibrary.simpleMessage(
             "You are logged in successfully"),
@@ -317,6 +355,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "received": MessageLookupByLibrary.simpleMessage("Received"),
         "receiver": MessageLookupByLibrary.simpleMessage("Receivers"),
         "receiverInfo": MessageLookupByLibrary.simpleMessage("Receiver Info: "),
+        "refusedShipment":
+            MessageLookupByLibrary.simpleMessage("Refuse Shipment"),
+        "refusedShipmentSuccessfully": MessageLookupByLibrary.simpleMessage(
+            "Refused shipment successfully"),
         "registerSuccess": MessageLookupByLibrary.simpleMessage(
             "Your account has been registered successfully"),
         "reject": MessageLookupByLibrary.simpleMessage("Reject"),
@@ -378,6 +420,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Shipments delivered to client"),
         "shipmentFinance":
             MessageLookupByLibrary.simpleMessage("Shipment Finance"),
+        "shipmentID": MessageLookupByLibrary.simpleMessage("shipmentID"),
         "shipmentInfo": MessageLookupByLibrary.simpleMessage("Shipment Info"),
         "shipmentInformation":
             MessageLookupByLibrary.simpleMessage("Shipment Information"),
@@ -477,6 +520,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Update Air waybill"),
         "updateContainer":
             MessageLookupByLibrary.simpleMessage("Update Container"),
+        "updateEmployeeJop":
+            MessageLookupByLibrary.simpleMessage("Update employee jop"),
         "updateHarbor": MessageLookupByLibrary.simpleMessage("Update harbor"),
         "updateTravel": MessageLookupByLibrary.simpleMessage("Update Travel"),
         "updateWarehouse":
@@ -497,6 +542,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "waitingShipment":
             MessageLookupByLibrary.simpleMessage("Waiting Shipment"),
         "waitingTrip": MessageLookupByLibrary.simpleMessage("the Trip waiting"),
+        "warehouse": MessageLookupByLibrary.simpleMessage("Warehouse"),
         "warehouseFinance":
             MessageLookupByLibrary.simpleMessage("Warehouse Finance"),
         "warehouseInfo":

@@ -5,6 +5,7 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_proxies/request/proxies_request.dart';
 import 'package:pasco_shipping/module_proxies/response/proxies_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 
 class ProxyCard extends StatefulWidget {
   final ProxyModel model;
@@ -212,7 +213,7 @@ class _CountryCardState extends State<ProxyCard> {
                       ),
                       onPressed: () {
                         if(fullName.text.isEmpty || address.text.isEmpty || phone.text.isEmpty){
-                          Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                          AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                         }else {
                           ProxyRequest re = ProxyRequest(id: widget.model.id ,fullName: fullName.text,phone: phone.text,address: address.text, email: email.text);
                           widget.onEdit(re);

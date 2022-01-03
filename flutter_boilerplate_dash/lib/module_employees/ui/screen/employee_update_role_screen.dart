@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
+import 'package:pasco_shipping/module_employees/response/employees_response.dart';
+import 'package:pasco_shipping/module_employees/state_manger/new_employees_state_manger.dart';
+import 'package:pasco_shipping/module_employees/ui/state/addnew_state/add_state.dart';
+import 'package:pasco_shipping/module_employees/ui/state/update_role_state/update_employee_role_init.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
-import 'package:pasco_shipping/module_unit/state_manger/new_unit_state_manger.dart';
-import 'package:pasco_shipping/module_unit/ui/state/addnew_state/add_state.dart';
-import 'package:pasco_shipping/module_unit/ui/state/addnew_state/add_unit_init.dart';
-import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
 @injectable
-class AddNewUnit extends StatefulWidget {
-  final AddUnitStateManager _stateManager;
+class UpdateEmployeeRole extends StatefulWidget {
+  final AddEmployeeStateManager _stateManager;
 
-  const AddNewUnit(this._stateManager);
+  const UpdateEmployeeRole(this._stateManager);
 
   @override
   _AddNewCountryState createState() => _AddNewCountryState();
 }
 
-class _AddNewCountryState extends State<AddNewUnit> {
-  late AddUnitState currentState;
+class _AddNewCountryState extends State<UpdateEmployeeRole> {
+  late AddEmployState currentState;
+  late EmployeeModel model;
 
   @override
   Widget build(BuildContext context) {
     return Background(
-      showFilter: false,
+        showFilter: false,
         goBack: (){
         },
         child: Container(
@@ -40,10 +40,17 @@ class _AddNewCountryState extends State<AddNewUnit> {
                 child: Screen()),
           ),
         ),
-        title: S.of(context).addNewUnit
+        title:S.of(context).updateEmployeeJop
     );
   }
 
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    model =arguments['model'];
+  }
 
   @override
   void initState() {
@@ -53,10 +60,14 @@ class _AddNewCountryState extends State<AddNewUnit> {
       print("newEvent"+event.toString());
       currentState = event;
       if (this.mounted) {
-        setState(() {});
+        if(currentState is SuccessfullyAddState){
+          Navigator.pop(context);
+        }else {
+          setState(() {});
+        }
       }
     });
-    // widget._stateManager.getCountries();
+//    widget._stateManager.getCountriesAndSubContract();
   }
 
   Widget Screen(){
@@ -72,15 +83,13 @@ class _AddNewCountryState extends State<AddNewUnit> {
       );
     }
     else if (currentState is InitAddState){
-      return AddUnitInit(onSave: (request){
-        widget._stateManager.createUnit(request);
-      },);
-    }
-    else if (currentState is SuccessfullyAddState){
-      Future.delayed(Duration.zero, () =>  AlertWidget.showAlert(context, true, S.of(context).addedSuccessfully));
-      return AddUnitInit(onSave: (request){
-        widget._stateManager.createUnit(request);
-      },);
+      InitAddState? state = currentState as InitAddState?;
+      return UpdateEmployeeRoleInit(
+      model: model,
+        onSave: (re){
+        widget._stateManager.updateEmployeeRole(re);
+        },
+      );
     }
     else {
       return Center(

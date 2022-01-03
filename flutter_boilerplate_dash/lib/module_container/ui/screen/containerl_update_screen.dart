@@ -16,6 +16,7 @@ import 'package:pasco_shipping/module_shipper/shipper_routes.dart';
 import 'package:pasco_shipping/module_sub_contract/response/subcontract_response.dart';
 import 'package:pasco_shipping/module_sub_contract/subcontract_routes.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
@@ -122,7 +123,7 @@ class _AddNewCountryState extends State<UpdateContainer> {
       },);
     }else if (currentState is ErrorAddState){
       ErrorAddState? state = currentState as ErrorAddState?;
-      Fluttertoast.showToast(msg: state!.error);
+      Future.delayed(Duration.zero, () => AlertWidget.showAlert(context,false, state!.error));
       return UpdateContainerInit(
           goToShipper: (){
             Navigator.pushNamed(context, ShipperRoutes.ADD_NEW).then((value) {

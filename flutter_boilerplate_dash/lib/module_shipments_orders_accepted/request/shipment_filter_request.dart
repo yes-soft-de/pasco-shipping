@@ -8,6 +8,7 @@ class AcceptedShipmentFilterRequest{
   int? clientUserID;
 
   String? paymentTime;
+  String? orderStatus;
   // String? launchCountry;
   String? targetCountry;
 
@@ -20,7 +21,10 @@ class AcceptedShipmentFilterRequest{
 
   bool acceptedUntilCleared;
 
-  AcceptedShipmentFilterRequest({required this.acceptedUntilCleared,  this.transportationType, this.trackNumber , this.status , this.isExternalWarehouse , this.exportWarehouseID , this.importWarehouseID , this.airWaybillNumber , this.dateTow , this.dateOne , this.paymentTime , this.targetCountry , this.containerNumber , this.clientUserID});
+  AcceptedShipmentFilterRequest({required this.acceptedUntilCleared,
+    this.transportationType, this.trackNumber , this.status ,
+    this.orderStatus,
+    this.isExternalWarehouse , this.exportWarehouseID , this.importWarehouseID , this.airWaybillNumber , this.dateTow , this.dateOne , this.paymentTime , this.targetCountry , this.containerNumber , this.clientUserID});
 
   Map<String, dynamic> toJson() => {
     'trackNumber':trackNumber ==''?null:trackNumber,
@@ -29,7 +33,7 @@ class AcceptedShipmentFilterRequest{
     'isExternalWarehouse':isExternalWarehouse,
     'exportWarehouseID':exportWarehouseID,
     'importWarehouseID':importWarehouseID,
-
+    'orderStatus':orderStatus ?? 'accepted',
 
     'targetCountry':targetCountry ==''? null:targetCountry,
     // 'launchCountry':launchCountry,

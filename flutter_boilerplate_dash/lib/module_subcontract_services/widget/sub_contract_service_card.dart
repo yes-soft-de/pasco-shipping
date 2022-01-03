@@ -5,6 +5,7 @@ import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_subcontract_services/request/sub_contract_service_request.dart';
 import 'package:pasco_shipping/module_subcontract_services/response/sub_contract_service_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 
 class SubContractServiceCard extends StatefulWidget {
   final SubContractServiceModel model;
@@ -171,7 +172,7 @@ class _CountryCardState extends State<SubContractServiceCard> {
                       ),
                       onPressed: () {
                         if(name.text.isEmpty || description.text.isEmpty){
-                          Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                          AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                         }else {
                           SubContractServiceRequest re = SubContractServiceRequest(id: widget.model.id ,name: name.text,description: description.text);
                           widget.onEdit(re);

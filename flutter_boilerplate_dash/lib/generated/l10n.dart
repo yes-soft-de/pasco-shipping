@@ -3090,21 +3090,41 @@ class S {
     );
   }
 
-  /// `Local Shipment Report`
-  String get localShipmentReport {
+  /// `Local accepted shipment report`
+  String get localAcceptedShipmentReport {
     return Intl.message(
-      'Local Shipment Report',
-      name: 'localShipmentReport',
+      'Local accepted shipment report',
+      name: 'localAcceptedShipmentReport',
       desc: '',
       args: [],
     );
   }
 
-  /// `External Shipment Report`
-  String get externalShipmentReport {
+  /// `External accepted shipment report`
+  String get externalAcceptedShipmentReport {
     return Intl.message(
-      'External Shipment Report',
-      name: 'externalShipmentReport',
+      'External accepted shipment report',
+      name: 'externalAcceptedShipmentReport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Local refused shipment report`
+  String get localRefusedShipmentReport {
+    return Intl.message(
+      'Local refused shipment report',
+      name: 'localRefusedShipmentReport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `External refused shipment report`
+  String get externalRefusedShipmentReport {
+    return Intl.message(
+      'External refused shipment report',
+      name: 'externalRefusedShipmentReport',
       desc: '',
       args: [],
     );
@@ -3585,6 +3605,246 @@ class S {
     return Intl.message(
       'external',
       name: 'external',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `shipmentID`
+  String get shipmentID {
+    return Intl.message(
+      'shipmentID',
+      name: 'shipmentID',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new container`
+  String get addNewContainer {
+    return Intl.message(
+      'Add new container',
+      name: 'addNewContainer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new air waybill`
+  String get addNewAirwaybill {
+    return Intl.message(
+      'Add new air waybill',
+      name: 'addNewAirwaybill',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new travel`
+  String get addNewTravel {
+    return Intl.message(
+      'Add new travel',
+      name: 'addNewTravel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `add new container type`
+  String get addNewContainerType {
+    return Intl.message(
+      'add new container type',
+      name: 'addNewContainerType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new countries`
+  String get addNewCountries {
+    return Intl.message(
+      'Add new countries',
+      name: 'addNewCountries',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new unit`
+  String get addNewUnit {
+    return Intl.message(
+      'Add new unit',
+      name: 'addNewUnit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new category`
+  String get addNewCategory {
+    return Intl.message(
+      'Add new category',
+      name: 'addNewCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new sub category`
+  String get addNewSubCategory {
+    return Intl.message(
+      'Add new sub category',
+      name: 'addNewSubCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new agent`
+  String get addNewAgent {
+    return Intl.message(
+      'Add new agent',
+      name: 'addNewAgent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new warehouse`
+  String get addNewWarehouse {
+    return Intl.message(
+      'Add new warehouse',
+      name: 'addNewWarehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new harbour`
+  String get addNewHarbour {
+    return Intl.message(
+      'Add new harbour',
+      name: 'addNewHarbour',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new subContract`
+  String get addNewSubContract {
+    return Intl.message(
+      'Add new subContract',
+      name: 'addNewSubContract',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new service`
+  String get addNewService {
+    return Intl.message(
+      'Add new service',
+      name: 'addNewService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new distributors`
+  String get addNewDistributors {
+    return Intl.message(
+      'Add new distributors',
+      name: 'addNewDistributors',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new shipper`
+  String get addNewShipper {
+    return Intl.message(
+      'Add new shipper',
+      name: 'addNewShipper',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new line Price`
+  String get addNewLinePrice {
+    return Intl.message(
+      'Add new line Price',
+      name: 'addNewLinePrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new container price`
+  String get addNewContainerPrice {
+    return Intl.message(
+      'Add new container price',
+      name: 'addNewContainerPrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new client`
+  String get addNewClient {
+    return Intl.message(
+      'Add new client',
+      name: 'addNewClient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add new employee`
+  String get addNewEmployee {
+    return Intl.message(
+      'Add new employee',
+      name: 'addNewEmployee',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refuse Shipment`
+  String get refusedShipment {
+    return Intl.message(
+      'Refuse Shipment',
+      name: 'refusedShipment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refused shipment successfully`
+  String get refusedShipmentSuccessfully {
+    return Intl.message(
+      'Refused shipment successfully',
+      name: 'refusedShipmentSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Warehouse`
+  String get warehouse {
+    return Intl.message(
+      'Warehouse',
+      name: 'warehouse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update employee jop`
+  String get updateEmployeeJop {
+    return Intl.message(
+      'Update employee jop',
+      name: 'updateEmployeeJop',
       desc: '',
       args: [],
     );

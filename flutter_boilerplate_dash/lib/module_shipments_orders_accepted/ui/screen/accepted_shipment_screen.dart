@@ -71,9 +71,17 @@ class _CountriesScreenState extends State<AcceptedShipmentScreen> {
     }else{
       if(external.isNotEmpty){
       if(external=='external') {
-        title =S.of(context).acceptedShipment +' '+S.of(context).external;
+        if(filterRequest.orderStatus != null) {
+          title =S.of(context).refusedShipment +' '+S.of(context).external;
+        }else{
+          title =S.of(context).acceptedShipment +' '+S.of(context).external;
+        }
       }else{
-        title =S.of(context).acceptedShipment +' '+S.of(context).local;
+        if(filterRequest.orderStatus != null) {
+          title =S.of(context).refusedShipment +' '+S.of(context).local;
+        }else{
+          title =S.of(context).acceptedShipment +' '+S.of(context).local;
+        }
       }
       }else{
         title =S.of(context).acceptedShipment;

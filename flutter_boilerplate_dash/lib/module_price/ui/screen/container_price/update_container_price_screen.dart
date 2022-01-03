@@ -48,7 +48,7 @@ class _AddNewCountryState extends State<UpdateContainerPrice> {
                 child: Screen()),
           ),
         ),
-        title: S.of(context).add
+        title: S.of(context).edit
     );
   }
 

@@ -27,6 +27,7 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
 
   late WaitingShipmentModel shipmentModel;
   late String transportationType;
+  late bool isAccepted;
   @override
   Widget build(BuildContext context) {
     return Background(
@@ -93,6 +94,7 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
             confirmBtnColor:AppThemeDataService.AccentColor,
             confirmBtnText: S.of(context).ok,
             onConfirmBtnTap: (){
+              isAccepted=true;
               Navigator.pop(context);
               widget._stateManager.acceptedOrRejectedShipment(request);
             },
@@ -109,6 +111,7 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
             confirmBtnColor:AppThemeDataService.AccentColor,
             confirmBtnText: S.of(context).ok,
             onConfirmBtnTap: (){
+              isAccepted=false;
               Navigator.pop(context);
               widget._stateManager.acceptedOrRejectedShipment(request);
             },
@@ -120,9 +123,15 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
     else if(currentState is SuccessfullyModifyState){
       SuccessfullyModifyState state = currentState as SuccessfullyModifyState;
       if(state.response.isConfirmed){
-        Future.delayed(Duration.zero, () => _showAlert(context,true,shipmentModel.shipmentId.toString(),(){
+        if(isAccepted) {
+          Future.delayed(Duration.zero, () => _showAlert(context,true,shipmentModel.shipmentId.toString(),(){
           Navigator.pop(context);
         }));
+        }else{
+          Future.delayed(Duration.zero, () => _showAlert(context,false,shipmentModel.shipmentId.toString(),(){
+            Navigator.pop(context);
+          }));
+        }
         return WaitingShipmentDetailsInit(shipment: shipmentModel,
           onAccepted: (request) {
             CoolAlert.show(
@@ -226,7 +235,7 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
         context: context,
         width: 150,
         type:success ?CoolAlertType.success :CoolAlertType.error,
-        title:success?S.of(context).success : S.of(context).errorHappened,
+        title:S.of(context).success,
         confirmBtnText:S.of(context).ok,
         backgroundColor:AppThemeDataService.PrimaryColor,
         onConfirmBtnTap: (){
@@ -235,7 +244,7 @@ class _CountriesScreenState extends State<WantingShipmentDetailsScreen> {
         },
         text: success?S.of(context).shipmentAddSuccessfully+'\n'
             +'ShipmentID: ' + id
-            :S.of(context).networkError
+            :S.of(context).refusedShipmentSuccessfully
     );
   }
 }

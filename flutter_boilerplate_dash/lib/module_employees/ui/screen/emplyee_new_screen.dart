@@ -7,6 +7,7 @@ import 'package:pasco_shipping/module_employees/ui/state/addnew_state/add_employ
 import 'package:pasco_shipping/module_employees/ui/state/addnew_state/add_state.dart';
 import 'package:pasco_shipping/module_general/ui/screen/connection_error_screen.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
@@ -76,7 +77,7 @@ class _AddNewCountryState extends State<AddNewEmployee> {
       },);
     }
     else if (currentState is SuccessfullyAddState){
-      Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
+      Future.delayed(Duration.zero, () =>  AlertWidget.showAlert(context, true, S.of(context).addedSuccessfully));
       return AddEmployeeInit(onSave: (request){
         widget._stateManager.createEmployee(request);
       },);

@@ -15,6 +15,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_travel/request/travel_filter_request.dart';
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
@@ -125,7 +126,7 @@ class _CountriesScreenState extends State<ContainerDetailsScreen> {
     }
     else if (currentState is SuccessfullyUploadedContainerState){
       SuccessfullyUploadedContainerState? state = currentState as SuccessfullyUploadedContainerState?;
-      Fluttertoast.showToast(msg: 'Holder has been loaded onto Trip successfully');
+      Future.delayed(Duration.zero, () => AlertWidget.showAlert(context,false,'Holder has been loaded onto Trip successfully'));
       return ContainerTravelDetailsSuccessfully(model:state!.containerDetailsModel ,
         onShipmentReview: (model){
           Navigator.pushNamed(context, ContainerRoutes.CONTAINER_SHIPMENT_REVIEW , arguments:  model);

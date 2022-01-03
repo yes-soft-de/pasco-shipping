@@ -33,6 +33,7 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
   // late AcceptedShipmentFilterRequest acceptedShipmentFilterRequest;
 
  late List<Category> stats;
+ late List<Category> statsRefused;
 
  late DropListModel dropListModelFromCountries;
  late DropListModel dropListModelToCountries;
@@ -279,7 +280,12 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
   void initState() {
     super.initState();
     initList();
-    stats = [
+    if(widget.filterRequest.orderStatus=='refused') {
+      stats = [
+        Category(id: 1, name: 'Refused', description: AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]!, isSelected: true),
+      ];
+    }else {
+      stats = [
       Category(id: 1, name: 'Accepted', description: AcceptedShipmentStatusName[AcceptedShipmentStatus.ACCEPTED]!, isSelected: false),
       Category(id: 1, name: 'Received in warehouse', description: AcceptedShipmentStatusName[AcceptedShipmentStatus.RECEIVED]!, isSelected: false),
       Category(id: 1, name: 'Measured', description: AcceptedShipmentStatusName[AcceptedShipmentStatus.MEASURED]!, isSelected: false),
@@ -292,6 +298,8 @@ class _AddCountryInitState extends State<FilterAcceptedShipmentInit> {
       Category(id: 1, name: 'Delivered to Client', description:AcceptedShipmentStatusName[AcceptedShipmentStatus.DELIVERED]!, isSelected: false),
       Category(id: 1, name: 'All',description: '', isSelected: false),
     ];
+    }
+
   }
  void initList(){
    formattedDateStart = ''; //formatter.format(startDate);

@@ -11,6 +11,8 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
+import '../../employee_routes.dart';
+
 @injectable
 class EmployeesScreen extends StatefulWidget {
   final EmployeeStateManager _stateManager;
@@ -91,7 +93,11 @@ class _CountriesScreenState extends State<EmployeesScreen> {
           });
       },
         onEdit: (request){
-          // widget._stateManager.updateSupplier(request);
+           widget._stateManager.updateEmployee(request);
+        }, onEditRole: (model){
+        Navigator.pushNamed(context, EmployeeRoutes.UPDATE,arguments: {'model':model} ).then((value) {
+          widget._stateManager.getEmployees();
+        });
         },
       );
     }

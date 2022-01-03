@@ -132,7 +132,7 @@ class _AddCountryInitState extends State<AddContainerPriceInit> {
                 child: Row(children: [
                   Icon(Icons.circle ,color: AppThemeDataService.AccentColor,),
                   SizedBox(width: 5,),
-                  Text(S.of(context).harbors, style: AppTextStyle.mediumBlackBold,)
+                  Text(S.of(context).importHarbor, style: AppTextStyle.mediumBlackBold,)
                 ],),
               ),
               SelectDropList(
@@ -177,8 +177,10 @@ class _AddCountryInitState extends State<AddContainerPriceInit> {
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: S.of(context).number,
+                      suffix: Text('USD',style: TextStyle(color: Colors.blue),),
                     ),
                     controller: price,
+
                   ),
                 ),
               ),

@@ -90,7 +90,7 @@ class _AddNewCountryState extends State<AirwaybillFilterScreen> {
         },);
     }
     // else if (currentState is SuccessfullyAddState){
-    //   Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
+    //   Future.delayed(Duration.zero, () =>  AlertWidget.showAlert(context, true, S.of(context).addedSuccessfully));
     //   return AddTravelInit(
     //     subContracts: [],
     //     countries: [],

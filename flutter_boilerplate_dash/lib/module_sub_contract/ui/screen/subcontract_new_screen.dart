@@ -8,6 +8,7 @@ import 'package:pasco_shipping/module_sub_contract/ui/state/addnew_state/add_sta
 import 'package:pasco_shipping/module_sub_contract/ui/state/addnew_state/add_subcontract_init.dart';
 import 'package:pasco_shipping/module_subcontract_services/response/sub_contract_service_response.dart';
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
@@ -41,7 +42,7 @@ class _AddNewCountryState extends State<AddNewSubcontract> {
                 child: Screen()),
           ),
         ),
-        title: S.of(context).add
+        title: S.of(context).addNewSubContract
     );
   }
 
@@ -83,7 +84,7 @@ class _AddNewCountryState extends State<AddNewSubcontract> {
       },);
     }
     else if (currentState is SuccessfullyAddState){
-      Fluttertoast.showToast(msg: S.of(context).addedSuccessfully);
+      Future.delayed(Duration.zero, () =>  AlertWidget.showAlert(context, true, S.of(context).addedSuccessfully));
       return AddSubcontractInit(
         services: items,
         onSave: (request){

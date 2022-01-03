@@ -12,6 +12,7 @@ import 'package:pasco_shipping/module_travel/widget/status_card.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
 import 'package:pasco_shipping/utils/styles/static_images.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class TravelDetailsSuccessfully extends StatelessWidget {
@@ -427,7 +428,7 @@ class TravelDetailsSuccessfully extends StatelessWidget {
             RoundedButton(lable: S.of(context).nextStatus, icon: '', color: AppThemeDataService.AccentColor, style: AppTextStyle.mediumWhite, go: (){
               if(isCurrent){
                 if(model.holders!.isEmpty){
-                  Fluttertoast.showToast(msg: 'No holder has been added to this trip');
+                  AlertWidget.showAlert(context,false,'No holder has been added to this trip');
                 }else {
                   TravelRequest travelRequest = TravelRequest(type: model.type??'', launchCountry: model.launchCountry??'', destinationCountry: model.destinationCountry??'', travelNumber:model.travelNumber??'', status: TravelStatusName[TravelStatus.STARTED]!);
                   TravelChangeStateRequest re = TravelChangeStateRequest(id: model.id!.toInt() ,status: TravelStatusName[TravelStatus.STARTED]!);

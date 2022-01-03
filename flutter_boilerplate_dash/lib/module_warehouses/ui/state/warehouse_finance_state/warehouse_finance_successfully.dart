@@ -7,6 +7,7 @@ import 'package:pasco_shipping/module_warehouses/response/warehouse_finance_resp
 import 'package:pasco_shipping/module_warehouses/widget/warehouse_finance_card.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class WarehouseFinanceSuccessfullyScreen extends StatefulWidget {
@@ -109,7 +110,7 @@ class _MarkSuccessfullyScreenState extends State<WarehouseFinanceSuccessfullyScr
                     ),
                     RoundedButton(lable: S.of(context).add, icon: '', color: blue, style: AppTextStyle.mediumWhiteBold, go: (){
                       if(cost.text.isEmpty) {
-                        Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                        AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                       }
                       else {
                         WarehouseAddFinanceRequest mark = WarehouseAddFinanceRequest(currency:' ',warehouseID: widget.warehouseID,stageCost: int.parse(cost.text) , stageDescription: description.text);

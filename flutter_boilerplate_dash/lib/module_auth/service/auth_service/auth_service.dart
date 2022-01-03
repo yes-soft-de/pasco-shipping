@@ -40,7 +40,7 @@ class AuthService {
     ));
     if (loginResult == null) {
       await logout();
-      _authSubject.addError(S.current.networkError);
+      _authSubject.addError(S.current.invalidCredentials);
       throw AuthorizationException(S.current.networkError);
     }
     else if (loginResult.statusCode == '401'){

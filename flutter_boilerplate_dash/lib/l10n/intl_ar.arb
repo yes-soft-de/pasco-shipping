@@ -71,7 +71,7 @@
   "countries": "البلدان",
   "distributors": "الموزعين",
   "proxies": "الوكلاء",
-  "warehouse": "المستودعات",
+  "warehouse": "مستودع",
   "subcontract": "مزودي الخدمة",
   "subcontractService": "الخدمات",
   "service": "الخدمة",
@@ -363,8 +363,12 @@
   "completedStored": "الشحنة خُزنت بالكامل ضمن الجوني",
   "remainedQuantity": "العدد المتبقي",
   "more": "المزيد",
-  "localShipmentReport": "تقارير الشحنات داخي",
-  "externalShipmentReport": "تقارير الشحنات خارجي",
+  "localAcceptedShipmentReport": "تقاريرالشحنات المقبولة داخلي",
+  "externalAcceptedShipmentReport": "تقارير الشحنات المقبولة خارجي",
+
+  "localRefusedShipmentReport": "تقارير الشحنات المرفوضة داخلي",
+  "externalRefusedShipmentReport": "تقارير الشحنات المرفوضة خارجي",
+
 
   "operationCompletedSuccessfully": "تم العملية بنجاح",
   "requestedFor": "Requested for",
@@ -421,6 +425,29 @@
   "serviceExists": "هذه الخدمة موجودة بالفعل",
   "serviceAdd": "تم الإضافة بنجاح",
 
-  "external": "خارجي"
+  "external": "خارجي",
+  "shipmentID": "رقم الشحنة",
+  "addNewContainer": "اضافة حالمة جديدة",
+  "addNewAirwaybill": "إضافة بوليصة شحن",
+  "addNewTravel": "إضافة رحلة",
+  "addNewContainerType": "اضافة نوع حاملة",
+  "addNewCountries": "إضافة دولة",
+  "addNewUnit": "إضافة وحدة",
+  "addNewCategory": "إضافة فئة رئيسية",
+  "addNewSubCategory": "إضافة فئة فرعيه",
+  "addNewAgent": "إضافة وكيل",
+  "addNewWarehouse": "إضافة مستودع",
+  "addNewHarbour": "إضافة ميناء",
+  "addNewSubContract": "إضافة مقاول فرعي",
+  "addNewService": "إضافة خدمة جديدة",
+  "addNewDistributors": "إضافة موزع جديد",
+  "addNewShipper": "إضافة شاحن",
+  "addNewLinePrice": "إضافة سعر خط شحن",
+  "addNewContainerPrice": "إضافة سعر حاملة",
+  "addNewClient": "إضافة عميل",
+  "refusedShipment": "الشحنات المرفوضة",
 
+  "refusedShipmentSuccessfully": "تم رفض الشحنة بنجاح",
+  "addNewEmployee": "إضافة موظف جديد",
+  "updateEmployeeJop": "تعديل عمل الموظف"
 }

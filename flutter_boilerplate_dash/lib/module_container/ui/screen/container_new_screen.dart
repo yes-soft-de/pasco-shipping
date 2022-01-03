@@ -49,7 +49,7 @@ class _AddNewCountryState extends State<AddNewContainer> {
                 child:  Screen()),
           ),
         ),
-        title: S.of(context).add
+        title: S.of(context).addNewContainer
     );
   }
 

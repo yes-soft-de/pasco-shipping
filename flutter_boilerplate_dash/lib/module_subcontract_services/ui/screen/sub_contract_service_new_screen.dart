@@ -40,7 +40,7 @@ class _AddNewCountryState extends State<AddNewSubContractService> {
                 child: Screen()),
           ),
         ),
-        title: S.of(context).add
+        title: S.of(context).addNewService
     );
   }
 

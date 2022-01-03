@@ -57,6 +57,32 @@ class _AcceptedShipmentDetailsSuccessfullyState
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          Card(
+            color: Colors.grey[200],
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(S.of(context).shipmentID+': '),
+                      Text(shipmentID.toString(),  style: AppTextStyle.smallBlueBold,),
+                    ],),
+                  SizedBox(width: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(S.of(context).trackNumber),
+                      Text(trackNumber.toString(),  style: AppTextStyle.smallBlueBold,),
+                    ],),
+                ],
+              ),
+            ),
+          ),
           widget.statusModel[1].statusDetails!.isNotEmpty ?Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(

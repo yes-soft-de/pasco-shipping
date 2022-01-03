@@ -14,6 +14,7 @@ import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.
 import 'package:pasco_shipping/module_travel/enums/travel_status.dart';
 import 'package:pasco_shipping/module_travel/request/travel_filter_request.dart';
 import 'package:pasco_shipping/module_travel/response/travel_response.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/background.dart';
 import 'package:pasco_shipping/utils/widget/loding_indecator.dart';
 
@@ -128,7 +129,8 @@ class _CountriesScreenState extends State<AirwaybillDetailsScreen> {
     }
     else if (currentState is SuccessfullyUploadedAirwaybillState){
       SuccessfullyUploadedAirwaybillState? state = currentState as SuccessfullyUploadedAirwaybillState?;
-      Fluttertoast.showToast(msg: 'Holder has been loaded onto Trip successfully');
+      Future.delayed(Duration.zero, () => AlertWidget.showAlert(context,false,'Holder has been loaded onto Trip successfully'));
+
       return AirWaybillTravelDetailsSuccessfully(model:state!.model ,
         onShipmentReview: (model){
           Navigator.pushNamed(context, AirwaybillRoutes.AIRWAYBILL_SHIPMENT_REVIEW , arguments:  model);

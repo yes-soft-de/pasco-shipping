@@ -14,6 +14,7 @@ import 'package:pasco_shipping/module_sub_contract/response/subcontract_response
 import 'package:pasco_shipping/module_theme/service/theme_service/theme_service.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
 import 'package:pasco_shipping/utils/styles/colors.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 import 'package:pasco_shipping/utils/widget/roundedButton.dart';
 
 class ShipmentFinanceSuccessfullyScreen extends StatefulWidget {
@@ -300,7 +301,7 @@ class _MarkSuccessfullyScreenState extends State<ShipmentFinanceSuccessfullyScre
 
                       RoundedButton(lable: S.of(context).add, icon: '', color: blue, style: AppTextStyle.mediumWhiteBold, go: (){
                         if(cost.text.isEmpty) {
-                          Fluttertoast.showToast(msg: S.of(context).fillAllField);
+                          AlertWidget.showAlert(context, false, S.of(context).fillAllField);
                         }
                         else {
                           ShipmentLCLFinanceRequest mark = ShipmentLCLFinanceRequest(

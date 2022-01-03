@@ -1,22 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pasco_shipping/generated/l10n.dart';
 import 'package:pasco_shipping/module_employees/enums/employee_role.dart';
+import 'package:pasco_shipping/module_employees/request/employees_request.dart';
 import 'package:pasco_shipping/module_employees/response/employees_response.dart';
-import 'package:pasco_shipping/module_suppliers/request/suppliers_request.dart';
-import 'package:pasco_shipping/module_suppliers/response/suppliers_response.dart';
 import 'package:pasco_shipping/utils/styles/AppTextStyle.dart';
-import 'package:pasco_shipping/utils/styles/static_images.dart';
 import 'package:collection/collection.dart';
+import 'package:pasco_shipping/utils/widget/alert_widget.dart';
 
 class EmployeeCard extends StatefulWidget {
   final EmployeeModel model;
   final Function onDelete;
   final Function onEdit;
+  final Function onEditRole;
   late bool isEdtiable;
   EmployeeCard(
-      {required this.model, required this.onDelete, required this.onEdit,required this.isEdtiable});
+      {required this.model, required this.onDelete, required this.onEdit,required this.isEdtiable,required this.onEditRole});
 
   @override
   _CountryCardState createState() => _CountryCardState();
@@ -25,6 +24,7 @@ class EmployeeCard extends StatefulWidget {
 class _CountryCardState extends State<EmployeeCard> {
  late TextEditingController fullName;
  late TextEditingController phone;
+ late TextEditingController email;
  late String? job;
  // late TextEditingController address;
 
@@ -36,14 +36,14 @@ class _CountryCardState extends State<EmployeeCard> {
    fullName..text = widget.model.userName!;
 
    phone =TextEditingController();
-   phone..text = widget.model.email!;
+   phone..text = widget.model.phone!;
+
+   email =TextEditingController();
+   email..text = widget.model.email!;
 
 
    widget.isEdtiable = false;
    job = checkRole();
-   print('job');
-   print(job);
-
   }
 
   @override
@@ -66,6 +66,21 @@ class _CountryCardState extends State<EmployeeCard> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Row(
+                      children: [
+                        Text(
+                          S.of(context).emailOrPhone,
+                          style: AppTextStyle.mediumBlack,
+                        ),
+                        Expanded(child:Text(
+                          widget.model.email ?? '',
+                          style: AppTextStyle.mediumBlueBold,
+                        ),
+                        )],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Row(
                       children: [
                         Text(
@@ -103,14 +118,28 @@ class _CountryCardState extends State<EmployeeCard> {
                           S.of(context).jobDescription+": ",
                           style: AppTextStyle.mediumBlack,
                         ),
-                        Expanded(child:   widget.isEdtiable ?
-                         TextField(controller: phone,
-                          keyboardType: TextInputType.phone,) :
+                        Expanded(child:
+
                          Text(
                           job ?? '',
                           style: AppTextStyle.mediumBlueBold,
                         ),
                         )],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                      ),
+                      onPressed: () {
+                        widget.onEditRole(widget.model);
+                      },
+                      child: Text(
+                        S.of(context).updateEmployeeJop,
+                        style: AppTextStyle.mediumWhite,
+                      ),
                     ),
                   ],
                 ),
@@ -131,67 +160,42 @@ class _CountryCardState extends State<EmployeeCard> {
                         style: AppTextStyle.mediumWhite,
                       ),
                     ),
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
-                    // Container(
-                    //   width: 100,
-                    //   child:
-                    //
-                    //   widget.isEdtiable ? ElevatedButton(
-                    //     style: ElevatedButton.styleFrom(
-                    //       primary: Colors.green,
-                    //     ),
-                    //     onPressed: () {
-                    //       if(fullName.text.isEmpty  || phone.text.isEmpty){
-                    //         Fluttertoast.showToast(msg: S.of(context).fillAllField);
-                    //       }else {
-                    //         SupplierRequest re = SupplierRequest(id: widget.model.id ,fullName: fullName.text,phone: phone.text,address: address.text);
-                    //         widget.onEdit(re);
-                    //       }
-                    //
-                    //     },
-                    //     child: Row(
-                    //       children: [
-                    //         Icon(
-                    //           Icons.save,
-                    //           color: Colors.white,
-                    //         ),
-                    //         SizedBox(
-                    //           width: 5,
-                    //         ),
-                    //         Text(
-                    //           'save',
-                    //           style: AppTextStyle.mediumWhite,
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ) : ElevatedButton(
-                    //     style: ElevatedButton.styleFrom(
-                    //       primary: Colors.green,
-                    //     ),
-                    //     onPressed: () {
-                    //       setState(() {
-                    //         widget.isEdtiable= true;
-                    //       });
-                    //     },
-                    //     child: Row(
-                    //       children: [
-                    //         Icon(
-                    //           Icons.edit,
-                    //           color: Colors.white,
-                    //         ),
-                    //         SizedBox(
-                    //           width: 5,
-                    //         ),
-                    //         Text(
-                    //           'edit',
-                    //           style: AppTextStyle.mediumWhite,
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
+                     SizedBox(
+                       height: 10,
+                     ),
+                     widget.isEdtiable ? ElevatedButton(
+                       style: ElevatedButton.styleFrom(
+                         primary: Colors.green,
+                       ),
+                       onPressed: () {
+                         if(fullName.text.isEmpty  || phone.text.isEmpty){
+                           AlertWidget.showAlert(context, false, S.of(context).fillAllField);
+                         }else {
+                           email.text= 'tanous';
+                           EmployeeRequest re =
+                           EmployeeRequest(id: widget.model.id ,userName: fullName.text,phone: phone.text,UserID:widget.model.UserID??'');
+                             widget.onEdit(re);
+                         }
+
+                       },
+                       child: Text(
+                         'save',
+                         style: AppTextStyle.mediumWhite,
+                       ),
+                     ) : ElevatedButton(
+                       style: ElevatedButton.styleFrom(
+                         primary: Colors.green,
+                       ),
+                       onPressed: () {
+                         setState(() {
+                           widget.isEdtiable= true;
+                         });
+                       },
+                       child: Text(
+                         'edit',
+                         style: AppTextStyle.mediumWhite,
+                       ),
+                     ),
                   ],
                 ),
               )
@@ -205,12 +209,9 @@ class _CountryCardState extends State<EmployeeCard> {
  String? checkRole()  {
    for(var kes in EmployeeRoleName.keys){
      print('in for');
-     print(widget.model.roles);
      print(EmployeeRoleName[kes]);
      if(ListEquality().equals (widget.model.roles , EmployeeRoleName[kes])){
        return kes;
-     }else{
-       return '';
      }
    }
  }

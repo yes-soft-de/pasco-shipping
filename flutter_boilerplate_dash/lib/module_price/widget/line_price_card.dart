@@ -48,7 +48,7 @@ class LinePriceCard extends StatelessWidget {
                           style: AppTextStyle.mediumBlack,
                         ),
                         Expanded(child:Text(
-                        model.oneCBMPrice ?? '',
+                        model.oneCBMPrice.toString()+' USD',
                           style: AppTextStyle.mediumBlueBold,
                         ),
                         )],
